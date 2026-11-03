@@ -1,0 +1,136 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "targetDefaults": {
+    "load-dm": {
+      "executor": "@genshin-optimizer/common/plugin:sync-repo",
+      "outputs": ["{projectRoot}/{options.outputPath}.hash"],
+      "cache": true
+    },
+    "gen-file": {
+      "dependsOn": ["load-dm", "^gen-file"],
+      "inputs": ["production", "^production"],
+      "cache": true
+    },
+    "e2e": {
+      "inputs": ["default", "^production"],
+      "cache": true
+    },
+    "test": {
+      "executor": "@nx/vitest:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "reportsDirectory": "{workspaceRoot}/coverage/{projectRoot}",
+        "passWithNoTests": true
+      },
+      "inputs": ["default", "^production"],
+      "cache": true
+    },
+    "publish": {
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "options": {
+        "args": ["--fix"]
+      }
+    },
+    "format": {
+      "options": {
+        "args": ["--fix"]
+      }
+    },
+    "@nx/js:tsc": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
+    },
+    "@nx/esbuild:esbuild": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
+    },
+    "e2e-ci--**/*": {
+      "dependsOn": ["^build"]
+    },
+    "@nx/vitest:test": {
+      "cache": true,
+      "inputs": ["default", "^production"]
+    }
+  },
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "production": [
+      "default",
+      "!{projectRoot}/biome.json",
+      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/tsconfig.spec.json",
+      "!{projectRoot}/vitest.config.[jt]s",
+      "!{projectRoot}/vitest.config.mts",
+      "!{projectRoot}/src/test-setup.[jt]s"
+    ],
+    "sharedGlobals": ["{workspaceRoot}/babel.config.json"]
+  },
+  "generators": {
+    "@nx/web:application": {
+      "style": "scss",
+      "linter": "biome",
+      "unitTestRunner": "vitest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nx/web:library": {
+      "style": "scss",
+      "linter": "biome",
+      "unitTestRunner": "vitest"
+    },
+    "@nx/react": {
+      "application": {
+        "babel": true,
+        "style": "@emotion/styled",
+        "linter": "biome",
+        "bundler": "webpack"
+      },
+      "component": {
+        "style": "@emotion/styled"
+      },
+      "library": {
+        "style": "@emotion/styled",
+        "linter": "biome",
+        "unitTestRunner": "none"
+      }
+    }
+  },
+  "affected": {
+    "defaultBase": "master"
+  },
+  "plugins": [
+    {
+      "plugin": "@nx/vite/plugin",
+      "options": {
+        "buildTargetName": "build",
+        "serveTargetName": "serve",
+        "previewTargetName": "preview",
+        "serveStaticTargetName": "serve-static"
+      }
+    },
+    {
+      "plugin": "@nx/cypress/plugin",
+      "options": {
+        "targetName": "cypress:e2e",
+        "openTargetName": "open-cypress",
+        "componentTestingTargetName": "component-test",
+        "ciTargetName": "e2e-ci"
+      }
+    },
+    {
+      "plugin": "@nx/vitest",
+      "options": {
+        "testTargetName": "test",
+        "exclude": ["somnia-e2e"]
+      }
+    },
+    {
+      "plugin": "@genshin-optimizer/biome"
+    }
+  ],
+  "nxCloudAccessToken_disabled": "MTMwNzFkNGItNDI5OC00MTAwLTliMzItMDYzYzhjNzRiMTVifHJlYWQtd3JpdGU=",
+  "analytics": false
+}

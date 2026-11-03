@@ -1,0 +1,16 @@
+{
+  "name": "gi-util",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/gi/util/src",
+  "projectType": "library",
+  "targets": {
+    "test": {
+      "configurations": {
+        "ci": {
+          "coverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,16 @@
+{
+  "name": "common-database",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/common/database/src",
+  "projectType": "library",
+  "targets": {
+    "test": {
+      "configurations": {
+        "ci": {
+          "coverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

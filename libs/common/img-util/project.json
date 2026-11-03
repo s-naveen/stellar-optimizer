@@ -1,0 +1,22 @@
+{
+  "name": "common-img-util",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/common/img-util/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "test": {
+      "executor": "@nx/vitest:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "reportsDirectory": "{workspaceRoot}/coverage/{projectRoot}",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "coverage": true
+        }
+      }
+    }
+  }
+}

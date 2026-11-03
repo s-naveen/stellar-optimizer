@@ -1,0 +1,124 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.3/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true,
+    "defaultBranch": "origin/master"
+  },
+  "files": {
+    "maxSize": 20971520,
+    "ignoreUnknown": false,
+    "includes": [
+      "**",
+      "!!dist",
+      "!!coverage",
+      "!!.yarn",
+      "!!libs/gi/dm/GenshinData",
+      "!!libs/gi/dm/HakushinData",
+      "!!libs/sr/dm/StarRailData",
+      "!!libs/zzz/dm/ZenlessData",
+      "!!libs/zzz/dm/HakushinData",
+      "!!.nx/cache",
+      "!!.nx/workspace-data",
+      "!**/*_gen.json",
+      "!libs/gi/stats/Data",
+      "!libs/**/*/localization/assets/locales/**/*/*.json",
+      "!libs/gi/silly-wisher-names/Translated/**/*.json"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 80,
+    "attributePosition": "auto",
+    "bracketSpacing": true,
+    "useEditorconfig": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended",
+      "a11y": {
+        "noAmbiguousAnchorText": "off",
+        "noSvgWithoutTitle": "off"
+      },
+      "complexity": {
+        "noImportantStyles": "off",
+        "useLiteralKeys": "off",
+        "noCommaOperator": "off"
+      },
+      "correctness": {
+        "useParseIntRadix": "off",
+        "useExhaustiveDependencies": {
+          "level": "on",
+          "options": {
+            "reportUnnecessaryDependencies": false
+          }
+        },
+        "noVoidTypeReturn": "info",
+        "noUnusedPrivateClassMembers": "off",
+        "noUnusedImports": {
+          "fix": "safe",
+          "level": "warn"
+        }
+      },
+      "performance": {
+        "noAccumulatingSpread": "off"
+      },
+      "style": {
+        "noInferrableTypes": "error",
+        "noUnusedTemplateLiteral": "error",
+        "useAsConstAssertion": "error",
+        "useEnumInitializers": "error",
+        "useNumberNamespace": "error",
+        "useSelfClosingElements": "error",
+        "noNonNullAssertion": "off",
+        "noRestrictedImports": {
+          "level": "error",
+          "options": {
+            "patterns": [
+              {
+                "group": ["../**/src/**"],
+                "message": "Cross-module imports are not allowed, use imports at the library level like `import {} from '@genshin-optimizer/gi/stats"
+              }
+            ]
+          }
+        }
+      },
+      "suspicious": {
+        "noExplicitAny": "info",
+        "useIterableCallbackReturn": "off",
+        "noAssignInExpressions": "off",
+        "noGlobalAssign": "off",
+        "noArrayIndexKey": "info",
+        "noImplicitAnyLet": "info",
+        "noConfusingVoidType": "off"
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "jsxQuoteStyle": "double",
+      "quoteProperties": "asNeeded",
+      "trailingCommas": "es5",
+      "semicolons": "asNeeded",
+      "arrowParentheses": "always",
+      "bracketSameLine": false,
+      "quoteStyle": "single",
+      "attributePosition": "auto",
+      "bracketSpacing": true
+    }
+  },
+  "assist": {
+    "enabled": null,
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  }
+}

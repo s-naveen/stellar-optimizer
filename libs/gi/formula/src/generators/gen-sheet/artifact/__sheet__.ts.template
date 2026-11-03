@@ -1,0 +1,10 @@
+import type { ArtifactSetKey } from '@genshin-optimizer/gi/consts'
+import { registerArt } from './util'
+
+const key: ArtifactSetKey = '<%= sheet %>'
+// TODO: Conditionals
+export default registerArt(
+  key
+  // 2pc/4pc: artCount(key) + cmpGE. See NoblesseOblige.ts.
+  // Never ship placeholder 2pc/4pc ATK buffs.
+)

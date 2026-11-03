@@ -1,0 +1,34 @@
+{
+  "name": "gi-formula",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/gi/formula/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "gen-file": {
+      "executor": "@genshin-optimizer/gi/formula:gen-desc",
+      "options": {
+        "outputPath": "libs/gi/formula/src/meta.ts"
+      }
+    },
+    "extract-dm": {
+      "executor": "@genshin-optimizer/gi/formula:extract-dm"
+    },
+    "audit-sheets": {
+      "executor": "@genshin-optimizer/gi/formula:audit-sheets"
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/publish.mjs gi-formula {args.ver} {args.tag}"
+      }
+    },
+    "test": {
+      "executor": "@nx/vitest:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "reportsDirectory": "{projectRoot}/../../../coverage/libs/test"
+      }
+    }
+  }
+}

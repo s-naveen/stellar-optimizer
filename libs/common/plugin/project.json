@@ -1,0 +1,54 @@
+{
+  "name": "common-plugin",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/common/plugin/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/common/plugin",
+        "main": "libs/common/plugin/src/index.ts",
+        "tsConfig": "libs/common/plugin/tsconfig.lib.json",
+        "assets": [
+          "libs/common/plugin/*.md",
+          {
+            "input": "./libs/common/plugin/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./libs/common/plugin/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./libs/common/plugin",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./libs/common/plugin",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/vitest:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "reportsDirectory": "{workspaceRoot}/coverage/{projectRoot}",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "coverage": true
+        }
+      }
+    }
+  }
+}

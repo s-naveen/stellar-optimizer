@@ -1,0 +1,7 @@
+{
+  "recommendations": [
+    "nrwl.angular-console",
+    "vitest.explorer",
+    "biomejs.biome"
+  ]
+}
