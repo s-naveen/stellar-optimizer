@@ -1,0 +1,55 @@
+{
+  "_comment": "English text that the beta dump does not have yet. Applied by apply_en_overrides.py after gi-dm-localization:gen-file. Set names are provisional translations of the CHS names (肇史之遗, 遥天奉翠华引), chosen by the user on 2026-11-05; piece names follow the beta's own pattern (CHS: set name + slot). Lunaris (data 7.2.50) also only has the CHS names, checked 2026-11-05. Remove an entry once the dump has the official English text. Blazing Lionfang (12438): the dump has its passive only in CHS; the English below is a translation of it (2026-11-06), and the passive name fixes the dump's typo \"Convenant\".",
+  "artifact": {
+    "LegacyOfTheFirstChronicle": {
+      "setName": "Legacy of the First Chronicle",
+      "pieces": {
+        "flower": "First Chronicle Flower",
+        "plume": "First Chronicle Plume",
+        "sands": "First Chronicle Sands",
+        "goblet": "First Chronicle Goblet",
+        "circlet": "First Chronicle Circlet"
+      }
+    },
+    "PreludeOfTheKingfisherCanopy": {
+      "setName": "Prelude of the Kingfisher Canopy",
+      "pieces": {
+        "flower": "Kingfisher Canopy Flower",
+        "plume": "Kingfisher Canopy Plume",
+        "sands": "Kingfisher Canopy Sands",
+        "goblet": "Kingfisher Canopy Goblet",
+        "circlet": "Kingfisher Canopy Circlet"
+      }
+    }
+  },
+  "weapon": {
+    "TorrentsOfSpring": {},
+    "StarsealedEdict": {},
+    "Silverdawn": {},
+    "BlazingLionfang": {
+      "passiveName": "Song of Our Covenant",
+      "passiveDescription": {
+        "lines": [
+          "After the equipping character has been off-field for a total of 5s, they gain the Reforged Blade effect.",
+          "Reforged Blade: ATK is increased by {atk}. When the equipping character switches in during combat, they deal AoE DMG equal to {dmg} of their ATK to nearby opponents. This DMG can occur once every 14s. After the equipping character has been on-field for a total of 10s, they lose the Reforged Blade effect."
+        ],
+        "values": {
+          "atk": [
+            "20%",
+            "25%",
+            "30%",
+            "35%",
+            "40%"
+          ],
+          "dmg": [
+            "280%",
+            "350%",
+            "420%",
+            "490%",
+            "560%"
+          ]
+        }
+      }
+    }
+  }
+}
