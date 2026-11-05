@@ -13,7 +13,7 @@ import {
   validateWeaponLevelAsc,
   type WeaponKey,
 } from '@genshin-optimizer/gi/consts'
-import { allStats } from '@genshin-optimizer/gi/stats'
+import { coreStats } from '@genshin-optimizer/gi/stats'
 import { z } from 'zod'
 
 const weaponBaseSchema = z
@@ -31,22 +31,22 @@ const weaponBaseSchema = z
   .passthrough()
 
 export const weaponSchema = weaponBaseSchema
-  .refine((data) => !!allStats.weapon.data[data.key], {
+  .refine((data) => !!coreStats.weapon.data[data.key], {
     message: 'Invalid weapon key',
   })
   .refine(
     (data) => {
       if (!data.location) return true
-      const weaponData = allStats.weapon.data[data.key]
+      const weaponData = coreStats.weapon.data[data.key]
       if (!weaponData) return false
-      const charData = allStats.char.data[data.location]
+      const charData = coreStats.char.data[data.location]
       if (!charData) return true
       return charData.weaponType === weaponData.weaponType
     },
     { message: 'Weapon type does not match character' }
   )
   .transform((data) => {
-    const rarity = allStats.weapon.data[data.key]?.rarity
+    const rarity = coreStats.weapon.data[data.key]?.rarity
     if (!rarity) throw new Error('Invalid weapon key')
     const { level, ascension } = validateWeaponLevelAsc(
       data.level,

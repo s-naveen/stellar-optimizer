@@ -17,7 +17,7 @@ import {
   type InfusionAuraElementKey,
 } from '@genshin-optimizer/gi/consts'
 import type { IGOOD } from '@genshin-optimizer/gi/good'
-import { getCharStat } from '@genshin-optimizer/gi/stats'
+import { getCharWeaponType } from '@genshin-optimizer/gi/stats'
 import type { InputPremodKey } from '@genshin-optimizer/gi/wr-types'
 import type { ArtCharDatabase } from '../ArtCharDatabase'
 import { DataManager } from '../DataManager'
@@ -214,7 +214,7 @@ export class TeamCharacterDataManager extends DataManager<
     if (!teamChar) return {}
     const { optConfigId, customMultiTargets, ...rest } = teamChar
     const { optimizationTarget } = this.database.optConfigs.get(optConfigId)!
-    const { weaponType } = getCharStat(teamChar.key)
+    const weaponType = getCharWeaponType(teamChar.key)
     const {
       convertEquipped,
       convertbuilds,

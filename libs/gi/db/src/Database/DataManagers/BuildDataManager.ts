@@ -10,7 +10,7 @@ import {
   type CharacterKey,
 } from '@genshin-optimizer/gi/consts'
 import type { IGOOD } from '@genshin-optimizer/gi/good'
-import { getCharStat } from '@genshin-optimizer/gi/stats'
+import { getCharWeaponType } from '@genshin-optimizer/gi/stats'
 import { z } from 'zod'
 import type { ArtCharDatabase } from '../ArtCharDatabase'
 import { DataManager } from '../DataManager'
@@ -62,7 +62,7 @@ export class BuildDataManager extends DataManager<
 
     // force the build to have a valid weapon
     if (!weaponId) {
-      const weaponTypeKey = getCharStat(characterKey).weaponType
+      const weaponTypeKey = getCharWeaponType(characterKey)
       const defWeaponKey = defaultInitialWeaponKey(weaponTypeKey)
       weaponId = this.database.weapons.keys.find((wId) => {
         const { key, location } = this.database.weapons.get(wId)!

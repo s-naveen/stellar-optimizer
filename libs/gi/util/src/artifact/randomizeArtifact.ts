@@ -19,14 +19,14 @@ import {
   artSubstatRollData,
 } from '@genshin-optimizer/gi/consts'
 import type { IArtifact, ISubstat } from '@genshin-optimizer/gi/schema'
-import { allStats } from '@genshin-optimizer/gi/stats'
+import { coreStats } from '@genshin-optimizer/gi/stats'
 import { artDisplayValue, getSubstatValuesPercent } from './artifact'
 
 // do not randomize Prayers since they don't have all slots
 const artSets = allArtifactSetKeys.filter((k) => !k.startsWith('Prayers'))
 export function randomizeArtifact(base: Partial<IArtifact> = {}): IArtifact {
   const setKey = base.setKey ?? getRandomElementFromArray(artSets)
-  const data = allStats.art.data[setKey]
+  const data = coreStats.art.data[setKey]
 
   const rarity = (base.rarity ??
     getRandomElementFromArray(
@@ -65,7 +65,7 @@ export function randomizeArtifact(base: Partial<IArtifact> = {}): IArtifact {
     if (substat.key) {
       const value = artDisplayValue(substat.value, getUnitStr(substat.key))
       substat.value = Number.parseFloat(
-        allStats.art.subRollCorrection[rarity]?.[substat.key]?.[value] ?? value
+        coreStats.art.subRollCorrection[rarity]?.[substat.key]?.[value] ?? value
       )
     }
 

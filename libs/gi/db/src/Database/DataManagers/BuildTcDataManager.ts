@@ -38,7 +38,7 @@ import {
   validateWeaponLevelAsc,
 } from '@genshin-optimizer/gi/consts'
 import type { IGOOD } from '@genshin-optimizer/gi/good'
-import { allStats, getCharStat } from '@genshin-optimizer/gi/stats'
+import { coreStats, getCharWeaponType } from '@genshin-optimizer/gi/stats'
 import { z } from 'zod'
 import type { ArtCharDatabase } from '../ArtCharDatabase'
 import { DataManager } from '../DataManager'
@@ -145,7 +145,7 @@ const buildTcWeaponSchema = z.object({
 })
 const buildTcWeaponSchemaWithTransform = buildTcWeaponSchema.transform(
   (data) => {
-    const rarity = allStats.weapon.data[data.key]?.rarity
+    const rarity = coreStats.weapon.data[data.key]?.rarity
     if (!rarity) throw new Error('Invalid weapon key')
     const { level, ascension } = validateWeaponLevelAsc(
       data.level,
@@ -232,8 +232,7 @@ export class BuildTcDataManager extends DataManager<
   ): string | undefined {
     const buildTc = initCharTC(
       characterKey,
-      weapon?.key ??
-        defaultInitialWeaponKey(getCharStat(characterKey).weaponType)
+      weapon?.key ?? defaultInitialWeaponKey(getCharWeaponType(characterKey))
     )
     toBuildTc(buildTc, weapon, arts)
     return this.new({

@@ -11,7 +11,7 @@ import {
 } from '@genshin-optimizer/gi/consts'
 import type { IGOOD, IWeapon } from '@genshin-optimizer/gi/good'
 import { parseWeapon } from '@genshin-optimizer/gi/good'
-import { allStats } from '@genshin-optimizer/gi/stats'
+import { coreStats } from '@genshin-optimizer/gi/stats'
 import type { ArtCharDatabase } from '../ArtCharDatabase'
 import type { ICachedCharacter } from './CharacterDataManager'
 
@@ -53,7 +53,7 @@ export class WeaponDataManager extends DataManager<
     const char = this.database.chars.get(charKey)
     if (char?.equippedWeapon) return undefined
     const locKey = charKeyToLocCharKey(charKey)
-    const weapon = defaultInitialWeapon(allStats.char.data[locKey].weaponType)
+    const weapon = defaultInitialWeapon(coreStats.char.data[locKey].weaponType)
     const weaponId = this.generateKey(weaponIds)
     weaponIds.add(weaponId)
     this.set(weaponId, { ...weapon, location: locKey })
@@ -99,7 +99,7 @@ export class WeaponDataManager extends DataManager<
         prevWeapon = this.get(
           this.new(
             defaultInitialWeapon(
-              allStats.char.data[charKeyToLocCharKey(prevChar.key)].weaponType
+              coreStats.char.data[charKeyToLocCharKey(prevChar.key)].weaponType
             )
           )
         )

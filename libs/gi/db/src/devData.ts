@@ -6,7 +6,7 @@ import {
   type ArtifactSlotKey,
   type WeaponKey,
 } from '@genshin-optimizer/gi/consts'
-import { allStats, getWeaponStat } from '@genshin-optimizer/gi/stats'
+import { coreStats } from '@genshin-optimizer/gi/stats'
 import { randomizeArtifact } from '@genshin-optimizer/gi/util'
 import type { IArtifact, IWeapon } from '@genshin-optimizer/gi/good'
 import type { ArtCharDatabase } from './Database'
@@ -17,11 +17,11 @@ const DEV_ART_LEVEL = artMaxLevel[DEV_ART_RARITY]
 
 const fiveStarArtSets = allArtifactSetKeys.filter((key) => {
   if (key.startsWith('Prayers')) return false
-  return allStats.art.data[key].rarities.includes(DEV_ART_RARITY)
+  return coreStats.art.data[key].rarities.includes(DEV_ART_RARITY)
 })
 
 const fiveStarWeaponKeys = allWeaponKeys.filter(
-  (key) => getWeaponStat(key).rarity === DEV_ART_RARITY
+  (key) => coreStats.weapon.data[key].rarity === DEV_ART_RARITY
 )
 
 function pickRandom<T>(items: readonly T[]): T {
@@ -31,7 +31,7 @@ function pickRandom<T>(items: readonly T[]): T {
 export function randomDevArtifact(slotKey?: ArtifactSlotKey): IArtifact {
   const sets = slotKey
     ? fiveStarArtSets.filter((key) =>
-        allStats.art.data[key].slots.includes(slotKey)
+        coreStats.art.data[key].slots.includes(slotKey)
       )
     : fiveStarArtSets
   return randomizeArtifact({
@@ -46,7 +46,7 @@ export function maxedDevWeapon(key: WeaponKey): IWeapon {
   const { level, ascension } = validateWeaponLevelAsc(
     90,
     6,
-    getWeaponStat(key).rarity
+    coreStats.weapon.data[key].rarity
   )
   return {
     key,

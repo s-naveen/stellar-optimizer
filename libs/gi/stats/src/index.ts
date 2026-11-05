@@ -19,6 +19,7 @@ export type {
 
 const allStats = allStat_gen as AllStats
 
+export * from './coreStats'
 export { allStats }
 
 export function getCharEle(ck: CharacterSheetKey | CharacterKey): ElementKey {

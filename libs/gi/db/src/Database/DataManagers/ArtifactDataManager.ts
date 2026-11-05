@@ -12,7 +12,7 @@ import {
 } from '@genshin-optimizer/gi/consts'
 import type { IArtifact, IGOOD, ISubstat } from '@genshin-optimizer/gi/good'
 import { parseArtifact, substatSchema } from '@genshin-optimizer/gi/good'
-import { allStats } from '@genshin-optimizer/gi/stats'
+import { coreStats } from '@genshin-optimizer/gi/stats'
 import {
   getMainStatDisplayValue,
   getSubstatRange,
@@ -611,8 +611,8 @@ export function validateArtifact(
   } = parsed
   let { mainStatKey } = parsed
 
-  // set/slot/rarity compatibility (needs allStats)
-  const setData = allStats.art.data[setKey]
+  // set/slot/rarity compatibility (needs coreStats)
+  const setData = coreStats.art.data[setKey]
   if (!setData) return undefined
   if (!setData.slots.includes(slotKey)) return undefined
   if (!setData.rarities.includes(rarity)) return undefined
