@@ -4,13 +4,6 @@
   "languageCard": {
     "languageFormat": "Language: {{language}}"
   },
-  "sillyCard": {
-    "desc": "We <1>stole</1> borrowed (with permission) all the character assets from <strong>Silly Wisher</strong> and gene spliced them into Genshin Optimizer.",
-    "toggle": {
-      "enabled": "Silly Optimizer Enabled",
-      "disabled": "Silly Optimizer Disabled"
-    }
-  },
   "count": {
     "chars": "Characters:",
     "arts": "Artifacts:",
@@ -53,7 +46,7 @@
       "jsonParse": "Unable to parse JSON file.",
       "unknown": "Unknown file format.",
       "monaInvalid": "Invalid Mona-Uranai file format",
-      "goInvalid": "Invalid GO backup file format."
+      "goInvalid": "Invalid backup file format."
     },
     "buttons": {
       "open": "Open",
@@ -62,11 +55,11 @@
       "delCharNotInImport": "Delete characters not in import"
     },
     "tooltip": {
-      "detectdup": "Find upgrades/duplicates in the GO inventory and merge the import into GO.",
-      "ignoreDup": "Do not detect upgrades/duplicates. The import will be added on top of existing GO inventory.",
-      "delWepArtiNotInImport": "Assume the import is your full inventory of weapons and artifacts. Weapons and artifacts in the GO Inventory that don't exist in the import will be deleted.",
+      "detectdup": "Find upgrades/duplicates in your inventory and merge the import into it.",
+      "ignoreDup": "Do not detect upgrades/duplicates. The import will be added on top of your existing inventory.",
+      "delWepArtiNotInImport": "Assume the import is your full inventory of weapons and artifacts. Weapons and artifacts in your inventory that don't exist in the import will be deleted.",
       "keepWepArtiNotInImport": "Assume the import is a partial inventory of weapons and artifacts. Nothing will be deleted.",
-      "delCharNotInImport": "Assume the import is your full inventory of characters. Characters in the GO Inventory that don't exist in the import will be deleted.",
+      "delCharNotInImport": "Assume the import is your full inventory of characters. Characters in your inventory that don't exist in the import will be deleted.",
       "keepCharNotInImport": "Assume the import is a partial inventory of characters. Nothing will be deleted."
     }
   }

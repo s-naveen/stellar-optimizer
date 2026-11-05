@@ -30,7 +30,7 @@
     "title": "Configuration de la cible d'optimisation multiple",
     "addNewTarget": "Ajouter une cible",
     "addNewMTarget": "Créer un Multi-Opt",
-    "info1": "Remarque : les cibles de multi-optimisation créées par la communauté peuvent être trouvées dans le <1>GO Discord</1> ou <3>KQM's Multi-Optimization Guide</3>, mais la validité de ces configurations ne peut pas être garantie.",
+    "info1": "Remarque : les cibles de multi-optimisation créées par la communauté peuvent être trouvées dans le <1>KQM's Multi-Optimization Guide</1>, mais la validité de ces configurations ne peut pas être garantie.",
     "info2": "Il est de la responsabilité de l'utilisateur de s'assurer que les configurations représentent bien son cas d'utilisation.",
     "description": "Description",
     "duplicate": "Duplicata",
@@ -39,7 +39,7 @@
   },
   "addStats": {
     "title": "Configuration de l'ennemi + statistiques bonus",
-    "info": "Vous pouvez utiliser ces champs pour ajouter des buffs/débuffs qui ne sont pas directement pris en charge dans GO, comme les buffs de nourriture, les cartes Abyss ou Superconduct. Veuillez vous référer au <1>Genshin Impact Wiki</1> pour les valeurs spécifiques.",
+    "info": "Vous pouvez utiliser ces champs pour ajouter des buffs/débuffs qui ne sont pas directement pris en charge dans Stellar Optimizer, comme les buffs de nourriture, les cartes Abyss ou Superconduct. Veuillez vous référer au <1>Genshin Impact Wiki</1> pour les valeurs spécifiques.",
     "label": "Nouvelle Stat Bonus"
   },
   "tabTheorycraft": {

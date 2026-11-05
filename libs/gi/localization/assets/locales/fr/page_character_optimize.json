@@ -60,7 +60,7 @@
   },
   "buildDropdownDesc": "Diminuer le nombre de builds générés permet de réduire le temps de calcul des builds pour un grand nombre de builds.",
   "threadDropdownDesc": "L'augmentation du nombre de threads accélérera le temps de construction, mais consommera plus de puissance de l'unité centrale.",
-  "noArtis": "Oups ! Il semble que vous n'ayez pas encore ajouté d'artefacts à GO ! Vous devriez aller sur la page <1>Artéfacts</1> et en ajouter !",
+  "noArtis": "Oups ! Il semble que vous n'ayez pas encore ajouté d'artefacts à Stellar Optimizer ! Vous devriez aller sur la page <1>Artéfacts</1> et en ajouter !",
   "targetSelector": {
     "selectOptTarget": "Sélectionner une cible d'optimisation",
     "selectGraphTarget": "Sélectionner une cible graphique",

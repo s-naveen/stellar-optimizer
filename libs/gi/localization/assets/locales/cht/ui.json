@@ -1,5 +1,5 @@
 {
-  "pageTitle": "原神最佳化工具",
+  "pageTitle": "Stellar Optimizer",
   "tabs": {
     "artifacts": "聖遺物",
     "characters": "角色",
@@ -18,7 +18,7 @@
   "ascending": "升序",
   "descending": "降序",
   "loading": "載入中...",
-  "rightsDisclaimer": "原神最佳化工具不屬於 Hoyoverse，也未受該公司的認可。",
+  "rightsDisclaimer": "Stellar Optimizer不屬於 Hoyoverse，也未受該公司的認可。",
   "appVersion": "$t(pageTitle) 版本：<1>{{version}}</1>",
   "error": "錯誤",
   "reset": "重設",
@@ -64,6 +64,5 @@
     "base_stat_mod": "Base Stat Modifications",
     "stamina_buffs": "Stamina Buffs",
     "misc": "Misc. Stats"
-  },
-  "sillyPageTitle": "Silly Optimizer"
+  }
 }

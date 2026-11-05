@@ -32,7 +32,7 @@
     "title": "Cấu hình tối ưu đa mục tiêu",
     "addNewTarget": "Thêm mục tiêu",
     "addNewMTarget": "Tạo mục tối ưu đa mục tiêu",
-    "info1": "Ghi chú: Bạn có thể tìm mục tiêu tối ưu đa mục tiêu được tạo bởi cộng đồng ở trong <1>Discord của GO<1/> hoặc trang <3>hướng dẫn về tối ưu đa mục tiêu của KQM</3>, tuy nhiên tính hiệu lực của những cấu hình đó sẽ không thể được đảm bảo.",
+    "info1": "Ghi chú: Bạn có thể tìm mục tiêu tối ưu đa mục tiêu được tạo bởi cộng đồng ở trang <1>hướng dẫn về tối ưu đa mục tiêu của KQM</1>, tuy nhiên tính hiệu lực của những cấu hình đó sẽ không thể được đảm bảo.",
     "info2": "Người dùng có trách nhiệm đảm bảo rằng các thiết lập đã phản ánh chính xác cách sử dụng của bản thân.",
     "description": "Mô tả",
     "duplicate": "Trùng lặp",
@@ -41,7 +41,7 @@
   },
   "addStats": {
     "title": "Thuộc tính thêm",
-    "info": "Bạn có thể dùng mục này để thêm buff/hiệu ứng xấu mà GO không hỗ trợ như buff món ăn, chúc phúc La Hoàn, Siêu Dẫn, v.v.. Xem <1>wiki Genshin Impact</1> để biết thông số cụ thể.",
+    "info": "Bạn có thể dùng mục này để thêm buff/hiệu ứng xấu mà Stellar Optimizer không hỗ trợ như buff món ăn, chúc phúc La Hoàn, Siêu Dẫn, v.v.. Xem <1>wiki Genshin Impact</1> để biết thông số cụ thể.",
     "label": "Thuộc tính thêm mới"
   },
   "tabTheorycraft": {

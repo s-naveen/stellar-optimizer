@@ -59,7 +59,7 @@
   },
   "buildDropdownDesc": "Mengurangi jumlah build yang dihasilkan akan mengurangi waktu perhitungan build untuk build dalam jumlah besar.",
   "threadDropdownDesc": "Meningkatkan jumlah thread akan mempercepat waktu build, tetapi akan menggunakan lebih banyak daya CPU.",
-  "noArtis": "Ups! Sepertinya kamu belum menambahkan artefak ke GO!  Kamu harus membuka halaman <1>Artifacts</1> dan menambahkan beberapa!",
+  "noArtis": "Ups! Sepertinya kamu belum menambahkan artefak ke Stellar Optimizer!  Kamu harus membuka halaman <1>Artifacts</1> dan menambahkan beberapa!",
   "targetSelector": {
     "selectOptTarget": "Pilih Target Optimisasi",
     "selectGraphTarget": "Pilih Target Grafik",

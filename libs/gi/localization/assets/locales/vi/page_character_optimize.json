@@ -57,7 +57,7 @@
   },
   "buildDropdownDesc": "Giảm số lượng build muốn tạo sẽ giảm thời gian tinh toán cho số lượng lớn build.",
   "threadDropdownDesc": "Tăng số luồng sử dụng sẽ giảm thời gian tính toán nhưng sẽ dùng CPU nhiều hơn.",
-  "noArtis": "Úi! Có vẻ bạn chưa thêm món Thánh Di Vật nào cho GO! Hãy đi tới mục <1>Thánh Di Vật</1> và thêm vài món đi!",
+  "noArtis": "Úi! Có vẻ bạn chưa thêm món Thánh Di Vật nào cho Stellar Optimizer! Hãy đi tới mục <1>Thánh Di Vật</1> và thêm vài món đi!",
   "targetSelector": {
     "selectOptTarget": "Chọn Mục Tiêu Tối Ưu",
     "selectGraphTarget": "Chọn Mục Tiêu Biểu Đồ",

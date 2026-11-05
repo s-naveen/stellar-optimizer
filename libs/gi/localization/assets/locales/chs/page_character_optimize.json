@@ -60,7 +60,7 @@
   },
   "buildDropdownDesc": "减少生成的配装数量可以减少生成大量配装时的计算时间。",
   "threadDropdownDesc": "增加线程数可以加快速度，但是也会耗费更多CPU算力。",
-  "noArtis": "哎呀！你似乎还没有在GO中添加圣遗物！你应该先在<1>圣遗物<1>页面中添加一些！",
+  "noArtis": "哎呀！你似乎还没有在Stellar Optimizer中添加圣遗物！你应该先在<1>圣遗物<1>页面中添加一些！",
   "targetSelector": {
     "selectOptTarget": "选择优化目标",
     "selectGraphTarget": "选择绘图目标",

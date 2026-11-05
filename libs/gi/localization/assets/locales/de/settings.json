@@ -12,7 +12,7 @@
       "jsonParse": "Kann JSON-File nicht parsen.",
       "unknown": "Unbekanntes Dateiformat.",
       "monaInvalid": "Ungültiges Mona-Uranai Dateiformat",
-      "goInvalid": "Ungültiges GO Backupdateiformat"
+      "goInvalid": "Ungültiges Stellar Optimizer Backupdateiformat"
     },
     "dbSource": "Datenquelle:",
     "goodUpload": {
@@ -47,13 +47,6 @@
       "swap": "Wechseln"
     },
     "currentDB": "Aktuelle Datenbank"
-  },
-  "sillyCard": {
-    "desc": "Wir haben ein paar Charakterportraits von <strong>Silly Wisher</strong> <1>gestohlen</1> ausgeliehen (mit Erlaubnis) und den Genshin Optimizer damit genetisch modifiziert.",
-    "toggle": {
-      "enabled": "Silly Optimizer An",
-      "disabled": "Silly Optimizer Aus"
-    }
   },
   "letsnow": "Lass es schneien!"
 }

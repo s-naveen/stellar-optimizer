@@ -1,6 +1,6 @@
 # frontend
 
-Frontend code for static Genshin Optimizer.
+Frontend code for static Stellar Optimizer.
 
 ## Dev Server
 

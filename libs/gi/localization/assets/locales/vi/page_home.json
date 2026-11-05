@@ -1,11 +1,11 @@
 {
-  "intro": "Nhân danh trang tính toán <strong>tối thượng</strong> cho <3><i>Genshin Impact</i></3>, GO sẽ note lại túi đồ thánh di vật/vũ khí/nhân vật của bạn, từ đó giúp bạn tạo ra build tối ưu nhất dựa vào cách bạn chơi chỉ với những thứ mà bạn đã có sẵn.",
+  "intro": "Nhân danh trang tính toán <strong>tối thượng</strong> cho <3><i>Genshin Impact</i></3>, Stellar Optimizer sẽ note lại túi đồ thánh di vật/vũ khí/nhân vật của bạn, từ đó giúp bạn tạo ra build tối ưu nhất dựa vào cách bạn chơi chỉ với những thứ mà bạn đã có sẵn.",
   "quickLinksCard": {
     "title": "Danh sách liên kết",
     "buttons": {
       "tyGuide": {
         "title": "Danh sách phát Youtube hướng dẫn",
-        "tooltip": "Học cách dùng Genshin Optimizer"
+        "tooltip": "Học cách dùng Stellar Optimizer"
       },
       "scanners": {
         "title": "Tự động nhập dữ liệu",
@@ -25,12 +25,12 @@
       },
       "patchNotes": {
         "title": "Chi tiết cập nhật",
-        "tooltip": "Tất cả chi tiết cập nhật của GO"
+        "tooltip": "Tất cả chi tiết cập nhật của Stellar Optimizer"
       }
     }
   },
   "inventoryCard": {
-    "title": "Túi đồ GO"
+    "title": "Túi đồ Stellar Optimizer"
   },
   "vidGuideCard": {
     "title": "Video hướng dẫn"

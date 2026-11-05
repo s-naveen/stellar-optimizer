@@ -220,8 +220,9 @@
     "polestar": {
       "inside": "Character inside a Polestar Field",
       "oppInside": "Opponent inside a Polestar Field",
-      "cond": "Elemental energy released by the Polestar field"
-    } ,
+      "cond": "Elemental energy released by the Polestar field",
+      "anastasyaA4": "Anastasya (A4): +2 stacks per release"
+    },
     "team": {
       "pyro": "After a party member triggers a <pyro>Pyro-related</pyro> Elemental Reaction",
       "lunar": "After a party member triggers a Lunar Reaction",

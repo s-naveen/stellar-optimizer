@@ -1,6 +1,6 @@
 {
-  "name": "Genshin Optimizer",
-  "short_name": "GO",
+  "name": "Stellar Optimizer",
+  "short_name": "Stellar",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -13,7 +13,7 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#1b263b",
-  "background_color": "#0C1020",
+  "theme_color": "#08080a",
+  "background_color": "#08080a",
   "display": "standalone"
 }

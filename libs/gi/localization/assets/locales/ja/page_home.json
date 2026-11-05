@@ -1,11 +1,11 @@
 {
-  "intro": "Genshin Optimizer (GO) は<strong>究極</strong>の<3><i>原神</i></3>装備最適化ツールです。あなたが所持している聖遺物/武器/キャラクターを管理し、プレイスタイルに基づいて装備を最適化するのに役立ちます。",
+  "intro": "Stellar Optimizer は<strong>究極</strong>の<3><i>原神</i></3>装備最適化ツールです。あなたが所持している聖遺物/武器/キャラクターを管理し、プレイスタイルに基づいて装備を最適化するのに役立ちます。",
   "quickLinksCard": {
     "title": "クイックリンク",
     "buttons": {
       "tyGuide": {
         "title": "YouTubeのガイド プレイリスト",
-        "tooltip": "Genshin Optimizerの使用方法を学ぶ"
+        "tooltip": "Stellar Optimizerの使用方法を学ぶ"
       },
       "scanners": {
         "title": "自動スキャナー",
@@ -25,12 +25,12 @@
       },
       "patchNotes": {
         "title": "パッチノート",
-        "tooltip": "GOパッチノート一覧"
+        "tooltip": "Stellar Optimizerパッチノート一覧"
       }
     }
   },
   "inventoryCard": {
-    "title": "GOインベントリー"
+    "title": "Stellar Optimizerインベントリー"
   },
   "vidGuideCard": {
     "title": "ガイド動画"

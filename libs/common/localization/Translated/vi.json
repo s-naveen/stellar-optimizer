@@ -71,7 +71,7 @@
     "info": {
       "title": "Hướng dẫn Chỉnh sửa/Quản lý Thánh Di Vật",
       "section1": "<0>Số lần nhảy dòng phụ</0><1><1>Số lần nhảy</1> chỉ số của một dòng phụ có thể được thấy ở bên phải dòng đó, mỗi cột là một lần nhảy. Dòng nào nhảy càng nhiều thì chữ sẽ càng sáng. Ngoài ra, nếu giá trị của lần nhảy càng cao thì màu của cột sẽ càng rực rỡ: <3></3>.</1><2>Roll Value dòng phụ</2><3>Roll Value (RV) của một dòng phụ được biểu hiện bằng phần trăm của giá trị lần nhảy hiện tại so với giá trị cao nhất có thể đạt được trên món 5<1></1>. Trong ảnh, giá trị một lần nhảy cao nhất của thuộc tính Tỷ Lệ HP là 5,8%. Quy đổi qua RV: <3>5,3/5,8 ~ 90%.</3></3><4>RV hiện tại và RV tối đa</4><5>Khi một món 5<1></1> có 9 (4 có sẵn + 5 nâng cấp) lần nhảy, giả sử cả 9 lần nhảy đều cho giá trị cao nhất thì RV của nó sẽ là 900%. Tuy nhiên đây là điều gần như không thể.<3>RV hiện tại</3> của một thánh di vật là phần trăm so với trường hợp giả sử như trên. <5>RV tối đa</5> là giá trị RV cao nhất món thánh di vật đó có thể đạt được trong trường hợp những lần nhảy còn lại đều cho ra giá trị cao nhất.</5>",
-      "section2": "<0>Trình chỉnh sửa thánh di vật</0><1>Trình chỉnh sửa có đầy đủ chức năng, có thể chấp nhận thánh di vật từ 3<1></1> tới 5<3></3>. Khi một chỉ số phụ được nhập, nó có thể tính toán chính xác giá trị của rolls và hiệu suất. Nó cũng có thể đưa ra con số chính xác về mỗi roll của thánh di vật đó, cùng với các số liệu xác thực khác.</1><2>Quét hình ảnh</2><3>Bạn lười phải nhập chỉ số bằng tay? Bạn có thể quét thánh di vật bằng hình ảnh! Ở trang Trình chỉnh sửa thánh di vật, bấm vào <1>Cách chụp hình chính xác!</1> để có thể biết thêm chi tiết.</3><4>Phát hiện thánh di vật bị trùng lặp/ đã được nâng cấp</4><5>Bạn có biết GO có thể phát hiện ra thánh di vật bị <1>trùng lặp</1> cái mà đã có trong hệ thống? Nó cũng có thể phát hiện nếu thánh di vật trong trình chỉnh sửa là phiên bản <3>nâng cấp</3> của thánh di vật có sẵn. Một khi phát hiện trùng lặp hoặc đã nâng cấp bạn có thể xem trước để so sánh hai thánh di vật này(Xem hình).</5>",
+      "section2": "<0>Trình chỉnh sửa thánh di vật</0><1>Trình chỉnh sửa có đầy đủ chức năng, có thể chấp nhận thánh di vật từ 3<1></1> tới 5<3></3>. Khi một chỉ số phụ được nhập, nó có thể tính toán chính xác giá trị của rolls và hiệu suất. Nó cũng có thể đưa ra con số chính xác về mỗi roll của thánh di vật đó, cùng với các số liệu xác thực khác.</1><2>Quét hình ảnh</2><3>Bạn lười phải nhập chỉ số bằng tay? Bạn có thể quét thánh di vật bằng hình ảnh! Ở trang Trình chỉnh sửa thánh di vật, bấm vào <1>Cách chụp hình chính xác!</1> để có thể biết thêm chi tiết.</3><4>Phát hiện thánh di vật bị trùng lặp/ đã được nâng cấp</4><5>Bạn có biết Stellar Optimizer có thể phát hiện ra thánh di vật bị <1>trùng lặp</1> cái mà đã có trong hệ thống? Nó cũng có thể phát hiện nếu thánh di vật trong trình chỉnh sửa là phiên bản <3>nâng cấp</3> của thánh di vật có sẵn. Một khi phát hiện trùng lặp hoặc đã nâng cấp bạn có thể xem trước để so sánh hai thánh di vật này(Xem hình).</5>",
       "section3": "<0>Túi thánh di vật</0><1>Tất cả những thánh di vật đã thêm vào của bạn được hiển thị ở đây. Bộ lọc ở đây cho phép bạn tìm kiếm thánh di vật dễ hơn. </1><2>Ví dụ: Tìm Thánh Di vật làm nguyên liệu cường hoá</2><3>Bằng bộ lọc bạn có thể tìm kiếm thánh di vật làm nguyên liệu cường hoá nhanh hơn.</3><4>Ở ví dụ này, bộ được thiết lập như này: </4><5><0>Thánh Di Vật không khóa trong túi.</0><1>Với chỉ số phụ: Tấn công và phòng ngự.</1><2>Xếp theo thứ tự hiệu suất tối đa tăng dần</2></5><6>Một khi thánh di vật đã được đem làm nguyên liệu cường hoá, bấm vào <1>Xóa thánh di vật</1> để xóa thánh di vật vừa được lọc.</6>"
     },
     "sortMap": {
@@ -138,7 +138,7 @@
         "jsonParse": "Không thể phân tích tập tin JSON.",
         "unknown": "Định dạng tập tin không xác định.",
         "monaInvalid": "Định dạng tập tin Mona-Uranai không hợp lệ",
-        "goInvalid": "Định dạng tập tin sao lưu GO không hợp lệ."
+        "goInvalid": "Định dạng tập tin sao lưu Stellar Optimizer không hợp lệ."
       },
       "dbSource": "Nguồn dữ liệu:",
       "goodUpload": {
@@ -150,9 +150,9 @@
         "delNotInImport": "Xóa vật phẩm không có trong bản nhập"
       },
       "tooltip": {
-        "detectdup": "Tìm những món đã tăng cấp/trùng lặp trong túi đồ GO và hợp nhất bản nhập vào GO.",
-        "ignoreDup": "Không tự phát hiện món tăng cấp/trùng lặp. Bản nhập sẽ được thêm vào túi đồ GO đang có.",
-        "delNotInImport": "Giả sử rằng bản nhập này bao gồm toàn bộ túi của bạn. Các món trong túi đồ GO mà không tồn tại trong bản nhập sẽ bị xóa.",
+        "detectdup": "Tìm những món đã tăng cấp/trùng lặp trong túi đồ Stellar Optimizer và hợp nhất bản nhập vào Stellar Optimizer.",
+        "ignoreDup": "Không tự phát hiện món tăng cấp/trùng lặp. Bản nhập sẽ được thêm vào túi đồ Stellar Optimizer đang có.",
+        "delNotInImport": "Giả sử rằng bản nhập này bao gồm toàn bộ túi của bạn. Các món trong túi đồ Stellar Optimizer mà không tồn tại trong bản nhập sẽ bị xóa.",
         "keepNotInImport": "Giả sử rằng bản nhập này chỉ là một phần túi. Sẽ không xóa gì cả."
       }
     },
@@ -185,17 +185,10 @@
       },
       "currentDB": "Cơ sở dữ liệu đã chọn"
     },
-    "sillyCard": {
-      "desc": "Chúng tôi đã <1>ăn cắp</1> mượn (đã được cho phép) tất cả hình ảnh của <strong>Silly Wisher</strong> và nhét chúng vào Genshin Optimizer.",
-      "toggle": {
-        "enabled": "Silly Optimizer đang bật",
-        "disabled": "Silly Optimizer đang tắt"
-      }
-    },
     "letsnow": "Tuyết rơi"
   },
   "ui": {
-    "pageTitle": "Genshin Optimizer",
+    "pageTitle": "Stellar Optimizer",
     "tabs": {
       "artifacts": "Thánh Di Vật",
       "characters": "Nhân Vật",
@@ -218,7 +211,7 @@
     "ascending": "Tăng dần",
     "descending": "Giảm dần",
     "loading": "Đang tải...",
-    "rightsDisclaimer": "Genshin Optimizer không được liên kết hoặc chứng thực bởi HoYoverse",
+    "rightsDisclaimer": "Stellar Optimizer không được liên kết hoặc chứng thực bởi HoYoverse",
     "appVersion": "Phiên bản của $t(pageTitle): {{version}}",
     "error": "Lỗi",
     "reset": "Đặt lại",
@@ -266,7 +259,6 @@
       "stamina_buffs": "Buff Thể Lực",
       "misc": "Thuộc tính khác"
     },
-    "sillyPageTitle": "Silly Optimizer",
     "excluded": "Loại trừ"
   },
   "char_Eula": {
@@ -579,13 +571,13 @@
     "c2BurstHeal": "Tăng trị liệu <strong>Nghi Lễ Nereid</strong>"
   },
   "page_home": {
-    "intro": "Nhân danh trang tính toán <strong>tối thượng</strong> cho <3><i>Genshin Impact</i></3>, GO sẽ note lại túi đồ thánh di vật/vũ khí/nhân vật của bạn, từ đó giúp bạn tạo ra build tối ưu nhất dựa vào cách bạn chơi chỉ với những thứ mà bạn đã có sẵn.",
+    "intro": "Nhân danh trang tính toán <strong>tối thượng</strong> cho <3><i>Genshin Impact</i></3>, Stellar Optimizer sẽ note lại túi đồ thánh di vật/vũ khí/nhân vật của bạn, từ đó giúp bạn tạo ra build tối ưu nhất dựa vào cách bạn chơi chỉ với những thứ mà bạn đã có sẵn.",
     "quickLinksCard": {
       "title": "Danh sách liên kết",
       "buttons": {
         "tyGuide": {
           "title": "Danh sách phát Youtube hướng dẫn",
-          "tooltip": "Học cách dùng Genshin Optimizer"
+          "tooltip": "Học cách dùng Stellar Optimizer"
         },
         "scanners": {
           "title": "Tự động nhập dữ liệu",
@@ -605,12 +597,12 @@
         },
         "patchNotes": {
           "title": "Chi tiết cập nhật",
-          "tooltip": "Tất cả chi tiết cập nhật của GO"
+          "tooltip": "Tất cả chi tiết cập nhật của Stellar Optimizer"
         }
       }
     },
     "inventoryCard": {
-      "title": "Túi đồ GO"
+      "title": "Túi đồ Stellar Optimizer"
     },
     "vidGuideCard": {
       "title": "Video hướng dẫn"
@@ -628,7 +620,7 @@
     }
   },
   "page_scanner": {
-    "intro": "<0>Scanner</0><1>Scanner là các công cụ Genshin mà có thể tự động scan dữ liệu game từ ảnh chụp hoặc trực tiếp từ trong game.</1><2>Dưới đây là một số scanner đã được thử nghiệm với GO.</2><3>Để tải lên tập tin lấy được từ scanner, hãy tới trang <1>Cài Đặt</1> và tải tập tin đó lên ở mục <strong>Cơ sở dữ liệu</strong>.</3>",
+    "intro": "<0>Scanner</0><1>Scanner là các công cụ Genshin mà có thể tự động scan dữ liệu game từ ảnh chụp hoặc trực tiếp từ trong game.</1><2>Dưới đây là một số scanner đã được thử nghiệm với Stellar Optimizer.</2><3>Để tải lên tập tin lấy được từ scanner, hãy tới trang <1>Cài Đặt</1> và tải tập tin đó lên ở mục <strong>Cơ sở dữ liệu</strong>.</3>",
     "ik": {
       "title": "Inventory Kamera",
       "p1": "Ứng dụng này sẽ quét tất cả các nhân vật, vũ khí, thánh di vật trong túi của bạn. Làm theo hướng dẫn trong ứng dụng để thiết lập. Ứng dụng này chỉ quét bằng ngôn ngữ tiếng Anh."
@@ -1120,7 +1112,7 @@
       "title": "Cấu hình tối ưu đa mục tiêu",
       "addNewTarget": "Thêm mục tiêu",
       "addNewMTarget": "Tạo mục tối ưu đa mục tiêu",
-      "info1": "Ghi chú: Bạn có thể tìm mục tiêu tối ưu đa mục tiêu được tạo bởi cộng đồng ở trong <1>Discord của GO<1/> hoặc trang <3>hướng dẫn về tối ưu đa mục tiêu của KQM</3>, tuy nhiên tính hiệu lực của những cấu hình đó sẽ không thể được đảm bảo.",
+      "info1": "Ghi chú: Bạn có thể tìm mục tiêu tối ưu đa mục tiêu được tạo bởi cộng đồng ở trang <1>hướng dẫn về tối ưu đa mục tiêu của KQM</1>, tuy nhiên tính hiệu lực của những cấu hình đó sẽ không thể được đảm bảo.",
       "info2": "Người dùng có trách nhiệm đảm bảo rằng các thiết lập đã phản ánh chính xác cách sử dụng của bản thân.",
       "description": "Mô tả",
       "duplicate": "Trùng lặp",
@@ -1129,7 +1121,7 @@
     },
     "addStats": {
       "title": "Thuộc tính thêm",
-      "info": "Bạn có thể dùng mục này để thêm buff/hiệu ứng xấu mà GO không hỗ trợ như buff món ăn, chúc phúc La Hoàn, Siêu Dẫn, v.v.. Xem <1>wiki Genshin Impact</1> để biết thông số cụ thể.",
+      "info": "Bạn có thể dùng mục này để thêm buff/hiệu ứng xấu mà Stellar Optimizer không hỗ trợ như buff món ăn, chúc phúc La Hoàn, Siêu Dẫn, v.v.. Xem <1>wiki Genshin Impact</1> để biết thông số cụ thể.",
       "label": "Thuộc tính thêm mới"
     },
     "tabTheorycraft": {
@@ -1306,7 +1298,7 @@
     },
     "buildDropdownDesc": "Giảm số lượng build muốn tạo sẽ giảm thời gian tinh toán cho số lượng lớn build.",
     "threadDropdownDesc": "Tăng số luồng sử dụng sẽ giảm thời gian tính toán nhưng sẽ dùng CPU nhiều hơn.",
-    "noArtis": "Úi! Có vẻ bạn chưa thêm món Thánh Di Vật nào cho GO! Hãy đi tới mục <1>Thánh Di Vật</1> và thêm vài món đi!",
+    "noArtis": "Úi! Có vẻ bạn chưa thêm món Thánh Di Vật nào cho Stellar Optimizer! Hãy đi tới mục <1>Thánh Di Vật</1> và thêm vài món đi!",
     "targetSelector": {
       "selectOptTarget": "Chọn Mục Tiêu Tối Ưu",
       "selectGraphTarget": "Chọn Mục Tiêu Biểu Đồ",
@@ -1418,18 +1410,18 @@
     }
   },
   "page_newTab": {
-    "title": "🛑 Phát hiện tab GO mới 🛑",
-    "p1": "Hệ thống đã phát hiện bạn vừa mở Genshin Optimizer trong một tab khác 💞. Trang web này không được thiết kế để sử dụng cùng lúc trên các tab khác nhau 📵! Việc này có thể sẽ gây:",
+    "title": "🛑 Phát hiện tab Stellar Optimizer mới 🛑",
+    "p1": "Hệ thống đã phát hiện bạn vừa mở Stellar Optimizer trong một tab khác 💞. Trang web này không được thiết kế để sử dụng cùng lúc trên các tab khác nhau 📵! Việc này có thể sẽ gây:",
     "symptom": {
       "1": "Dữ liệu không đồng nhất giữa các tab 🙃",
       "2": "Làm hỏng cơ sở dữ liệu 💔",
-      "3": "Đau bụng 🤰 và khiến các nhà phát triển GO cực kỳ nhức đầu 😡",
+      "3": "Đau bụng 🤰 và khiến các nhà phát triển Stellar Optimizer cực kỳ nhức đầu 😡",
       "4": "Trong trường hợp hiếm gặp, TỬ VONG ☠️"
     },
     "p2": "Chúng tôi đã ngăn chặn các hành động trên, thay vào đó bạn đã thấy tin nhắn này 📝. Giờ bạn có thể:",
     "choice": {
       "1": "Đóng tab này 🔪 và chuyển qua dùng tab mới 🆕",
-      "2": "Đóng tab mới mở ↩️ và chỉ sau khi bạn chắc chắn rằng đây là tab GO DUY NHẤT còn đang mở 🔂, ấn tải lại trang này 🔄"
+      "2": "Đóng tab mới mở ↩️ và chỉ sau khi bạn chắc chắn rằng đây là tab Stellar Optimizer DUY NHẤT còn đang mở 🔂, ấn tải lại trang này 🔄"
     },
     "refresh": "Tải lại trang"
   },
@@ -1534,7 +1526,7 @@
     "fixes": {
       "1": "Tải lại trang",
       "2": "Tắt phần mở rộng trên trình duyệt và tải lại trang lần nữa",
-      "3": "Tải CSDL của bạn ở phía dưới về. Sau đó chọn 'Xóa TẤT CẢ dữ liệu trên GO' và tải lên lại tập tin CSDL của bạn"
+      "3": "Tải CSDL của bạn ở phía dưới về. Sau đó chọn 'Xóa TẤT CẢ dữ liệu trên Stellar Optimizer' và tải lên lại tập tin CSDL của bạn"
     },
     "p2": "Nếu các việc trên đều không có tác dụng, hãy gửi báo cáo cho chúng tôi qua trang Issues của GitHub hoặc kênh Bug Reports trong máy chủ Discord",
     "report": {
@@ -1545,9 +1537,9 @@
     },
     "refresh": "Tải lại trang",
     "caption": "Trực tiếp tại hiện trường: đội ngũ kỹ sư đang điều tra vấn đề",
-    "confirmNuke": "Chắc chắn xóa TẤT CẢ dữ liệu trên GO? Hành động này không thể được hoàn tác!",
-    "finishNuke": "Đã tẩy sạch dữ liệu trên GO. Chuẩn bị tải lại trang.",
-    "nuke": "Xóa TẤT CẢ dữ liệu trên GO"
+    "confirmNuke": "Chắc chắn xóa TẤT CẢ dữ liệu trên Stellar Optimizer? Hành động này không thể được hoàn tác!",
+    "finishNuke": "Đã tẩy sạch dữ liệu trên Stellar Optimizer. Chuẩn bị tải lại trang.",
+    "nuke": "Xóa TẤT CẢ dữ liệu trên Stellar Optimizer"
   },
   "char_Dehya": {
     "inFieldAndTakeDmg": "Nhân vật đứng sân nhận sát thương trong phạm vi Thánh Địa Sôi Trào",

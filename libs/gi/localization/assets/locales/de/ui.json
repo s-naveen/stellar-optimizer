@@ -1,5 +1,5 @@
 {
-  "pageTitle": "Genshin Optimizer",
+  "pageTitle": "Stellar Optimizer",
   "tabs": {
     "artifacts": "Artefakte",
     "characters": "Figuren",
@@ -21,7 +21,7 @@
   "ascending": "Aufsteigend",
   "descending": "Absteigend",
   "loading": "Laden...",
-  "rightsDisclaimer": "Genshin Optimizer ist kein Teil von HoYoverse und wird nicht davon unterstützt.",
+  "rightsDisclaimer": "Stellar Optimizer ist kein Teil von HoYoverse und wird nicht davon unterstützt.",
   "appVersion": "$t(pageTitle) Version: <1>{{version}}</1>",
   "error": "Fehler",
   "reset": "Zurücksetzen",
@@ -54,7 +54,6 @@
   "statGroupKey": {
     "basic_stats": "Attribute"
   },
-  "sillyPageTitle": "Silly Optimizer",
   "excluded": "Ausgeschlossen",
   "included": "Einbezogen"
 }

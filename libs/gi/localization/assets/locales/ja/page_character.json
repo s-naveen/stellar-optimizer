@@ -32,7 +32,7 @@
     "title": "複合的な攻撃手段の設定",
     "addNewTarget": "攻撃手段を追加",
     "addNewMTarget": "最適化設定を作成",
-    "info1": "注：複数の攻撃手段を考慮した最適化 (原文：Multi-Optimization Targets) はコミュニティによって考案され、GOの <1>Discord</1> または KQMの <3>Multi-Optimization Guide</3> で詳細を知ることができます。 ただし、このような設定の有効性を保証するものではありません。",
+    "info1": "注：複数の攻撃手段を考慮した最適化 (原文：Multi-Optimization Targets) はコミュニティによって考案され、KQMの <1>Multi-Optimization Guide</1> で詳細を知ることができます。 ただし、このような設定の有効性を保証するものではありません。",
     "info2": "設定が実使用に即したものであるかは、自己の責任において確認してください。",
     "description": "最適化設定の説明",
     "duplicate": "最適化設定を複製",

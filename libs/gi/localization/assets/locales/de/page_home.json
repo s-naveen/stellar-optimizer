@@ -1,5 +1,5 @@
 {
-  "intro": "Der <strong>ultimative</strong> <3><i>Genshin Impact</i></3>-Rechner, GO behält den Überblick über dein Artefakt-/Waffen-/Charakterinventar und hilft dir, mit was du hast den besten Build zu erstellen, basierend auf deiner Spielweise.",
+  "intro": "Der <strong>ultimative</strong> <3><i>Genshin Impact</i></3>-Rechner, Stellar Optimizer behält den Überblick über dein Artefakt-/Waffen-/Charakterinventar und hilft dir, mit was du hast den besten Build zu erstellen, basierend auf deiner Spielweise.",
   "quickLinksCard": {
     "buttons": {
       "scanners": {
@@ -20,7 +20,7 @@
     }
   },
   "inventoryCard": {
-    "title": "GO Inventar"
+    "title": "Stellar Optimizer Inventar"
   },
   "teamCard": {
     "title": "Lern das Team Kennen",

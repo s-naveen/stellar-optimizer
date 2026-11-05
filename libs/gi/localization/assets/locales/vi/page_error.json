@@ -5,7 +5,7 @@
   "fixes": {
     "1": "Tải lại trang",
     "2": "Tắt phần mở rộng trên trình duyệt và tải lại trang lần nữa",
-    "3": "Tải CSDL của bạn ở phía dưới về. Sau đó chọn 'Xóa TẤT CẢ dữ liệu trên GO' và tải lên lại tập tin CSDL của bạn"
+    "3": "Tải CSDL của bạn ở phía dưới về. Sau đó chọn 'Xóa TẤT CẢ dữ liệu trên Stellar Optimizer' và tải lên lại tập tin CSDL của bạn"
   },
   "p2": "Nếu các việc trên đều không có tác dụng, hãy gửi báo cáo cho chúng tôi qua trang Issues của GitHub hoặc kênh Bug Reports trong máy chủ Discord",
   "report": {
@@ -16,7 +16,7 @@
   },
   "refresh": "Tải lại trang",
   "caption": "Trực tiếp tại hiện trường: đội ngũ kỹ sư đang điều tra vấn đề",
-  "confirmNuke": "Chắc chắn xóa TẤT CẢ dữ liệu trên GO? Hành động này không thể được hoàn tác!",
-  "finishNuke": "Đã tẩy sạch dữ liệu trên GO. Chuẩn bị tải lại trang.",
-  "nuke": "Xóa TẤT CẢ dữ liệu trên GO"
+  "confirmNuke": "Chắc chắn xóa TẤT CẢ dữ liệu trên Stellar Optimizer? Hành động này không thể được hoàn tác!",
+  "finishNuke": "Đã tẩy sạch dữ liệu trên Stellar Optimizer. Chuẩn bị tải lại trang.",
+  "nuke": "Xóa TẤT CẢ dữ liệu trên Stellar Optimizer"
 }

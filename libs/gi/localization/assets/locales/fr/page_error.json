@@ -1,11 +1,11 @@
 {
   "title": "🛑 Une erreur inattendue s'est produite 🛑",
-  "p1.1": "GO a rencontré une erreur inattendue. C'est probablement notre faute, alors aidez-nous à vous aider !",
+  "p1.1": "Stellar Optimizer a rencontré une erreur inattendue. C'est probablement notre faute, alors aidez-nous à vous aider !",
   "p1.2": "Voici ce que vous pouvez faire pour résoudre le problème :",
   "fixes": {
     "1": "Actualiser la page",
     "2": "Désactiver toutes les extensions du navigateur et actualiser à nouveau",
-    "3": "Téléchargez votre (vos) base(s) de données ci-dessous et conservez-la en lieu sûr. Cliquez sur le bouton 'Delete ALL GO Data' et téléchargez à nouveau votre (vos) base(s) de données."
+    "3": "Téléchargez votre (vos) base(s) de données ci-dessous et conservez-la en lieu sûr. Cliquez sur le bouton 'Delete ALL Stellar Optimizer Data' et téléchargez à nouveau votre (vos) base(s) de données."
   },
   "p2": "Si vous avez fait ce qui précède et que vous n'avez toujours pas réussi à revenir ici, veuillez soumettre un rapport sur notre page GitHub Issues, ou sur le canal Bug Reports de notre Discord.",
   "report": {
@@ -16,7 +16,7 @@
   },
   "refresh": "Actualiser la page",
   "caption": "Images en direct de nos ingénieurs enquêtant sur le problème",
-  "confirmNuke": "Êtes-vous sûr de vouloir supprimer TOUTES les données de GO ? C'est irréversible !",
-  "finishNuke": "Effacement de toutes les données GO. Actualisation de la page.",
-  "nuke": "Supprimer toutes les données GO"
+  "confirmNuke": "Êtes-vous sûr de vouloir supprimer TOUTES les données de Stellar Optimizer ? C'est irréversible !",
+  "finishNuke": "Effacement de toutes les données Stellar Optimizer. Actualisation de la page.",
+  "nuke": "Supprimer toutes les données Stellar Optimizer"
 }

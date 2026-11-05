@@ -1,5 +1,5 @@
 {
-  "pageTitle": "Genshin Optimizer",
+  "pageTitle": "Stellar Optimizer",
   "tabs": {
     "artifacts": "Thánh Di Vật",
     "characters": "Nhân Vật",
@@ -22,7 +22,7 @@
   "ascending": "Tăng dần",
   "descending": "Giảm dần",
   "loading": "Đang tải...",
-  "rightsDisclaimer": "Genshin Optimizer không được liên kết hoặc chứng thực bởi HoYoverse",
+  "rightsDisclaimer": "Stellar Optimizer không được liên kết hoặc chứng thực bởi HoYoverse",
   "appVersion": "Phiên bản của $t(pageTitle): {{version}}",
   "error": "Lỗi",
   "reset": "Đặt lại",
@@ -70,6 +70,5 @@
     "stamina_buffs": "Buff Thể Lực",
     "misc": "Thuộc tính khác"
   },
-  "sillyPageTitle": "Silly Optimizer",
   "excluded": "Loại trừ"
 }

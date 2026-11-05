@@ -12,7 +12,7 @@
       "jsonParse": "JSON ファイルを解析できません。",
       "unknown": "不明な形式のファイルです。",
       "monaInvalid": "無効な Mona-Uranai ファイル形式です。",
-      "goInvalid": "無効なGO バックアップファイル形式です。"
+      "goInvalid": "無効なStellar Optimizer バックアップファイル形式です。"
     },
     "dbSource": "データソース：",
     "goodUpload": {
@@ -24,7 +24,7 @@
       "delNotInImport": "インポートデータに存在しない項目を削除"
     },
     "tooltip": {
-      "detectdup": "GOのインベントリーに強化された/重複している項目がないかを検出し、インポートデータを統合します。",
+      "detectdup": "Stellar Optimizerのインベントリーに強化された/重複している項目がないかを検出し、インポートデータを統合します。",
       "ignoreDup": "強化された/重複している項目を検出しません。インポートデータ内の全ての項目が既存のインベントリーに追加されます。",
       "delNotInImport": "インポートデータを、ゲーム内のすべてのデータを含んでいるものとして扱います。インポートデータに存在しないインベントリー内の項目は削除されます。",
       "keepNotInImport": "インポートデータを、ゲーム内の一部のデータだけを含んでいるものとして扱います。なにも削除されません。"
@@ -58,13 +58,6 @@
       "swap": "データベースを切り替え"
     },
     "currentDB": "選択中のデータベース"
-  },
-  "sillyCard": {
-    "desc": "我々は <strong>Silly Wisher</strong> からすべてのキャラクターアセットを<1>盗み</1> (許可を得て)借用し、それらの遺伝子を Genshin Optimizer に組み換えました。",
-    "toggle": {
-      "enabled": "Silly Optimizer 有効",
-      "disabled": "Silly Optimizer 無効"
-    }
   },
   "letsnow": "雪よ降れ"
 }

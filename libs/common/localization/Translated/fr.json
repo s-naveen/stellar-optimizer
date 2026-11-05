@@ -72,8 +72,8 @@
     "info": {
       "title": "Édition d'Artéfact / Guide de Gestion",
       "section1": "<0>Rolls des substats</0><1>Le <1>nombre de rolls</1> qu'une substat a est affiché à gauche de la substat, indiqué par le nombre de barres. Au fur et à mesure que le nombre augmente, la substat devient plus brillante. En plus de ça, chaque barre devient plus colorée :<3></3>.</1><2>Efficacité des rolls</2><3>L'Efficacité des rolls (RV) est un pourcentage de la valeur actuelle par rapport au potentiel maximum de la valeur 5<1></1>. D'après l'image, la valeur maximale d'un roll PV est 5.8%. En RV : <3>5.3/5.8 = 90%.</3></3><4>Efficacité actuelle vs. Efficacité potentielle maximale</4><5>Quand un 5<1></1> a 9 (4+5) rolls au total, avec chacun des rolls ayant la valeur la plus élevée, c'est donc un artéfact efficace à 900%. Cependant, la plupart des artéfacts n'ont pas cette chance. La <3>RV actuelle</3> d'un artéfact est son pourcentage par rapport à ces 900%. La <5>RV maximale</5> est l'efficacité maximale possible qu'un artéfact peut atteindre, si les rolls d'artéfact restants ont les valeurs les plus élevées.</5>",
-      "section2": "<0>Éditeur d'Artéfact</0><1>Un éditeur d'artéfact complet, qui accepte tout Artéfact de 3<1></1> à 5<3></3> . Lorsqu'une substat est saisie, ça peut calculer la valeur exacte des rolls, et à partir de ça, son efficacité. L'éditeur s'assurera également que vous ayez le bon nombre de rolls dans l'artéfact en fonction du niveau, ainsi que d'autres métriques de validation.</1><2>Scan des captures d'écran</2><3>La saisie manuelle n'est pas votre tasse de thé ? Vous pouvez numériser vos artéfacts avec des captures d'écran ! Dans l'éditeur d'artéfact, cliquez sur le bouton <1>Montrez-moi Comment!</1> pour en savoir plus.</3><4>Scanner automatique d'artefacts</4><5>Si vous jouez à Genshin sur PC, vous pouvez télécharger un outil qui scanne automatiquement tous vos artefacts pour vous, et vous pouvez ensuite importer ces données dans <1></1> Paramètres. <3>Cliquez ici</3> pour obtenir une liste des scanners compatibles avec GO.</5><6>Détecteur d'artéfacts en double / améliorés</6><7>Saviez-vous que Genshin Optimizer peut détecter si vous ajoutez un artéfact <1>dupliqué</1> qui existe dans le système ? Il peut également détecter si l'artéfact actuel dans l'éditeur est une <3>amélioration</3> d'un artéfact existant. Une fois qu'un doublon / un amélioré est détecté, un aperçu vous permettra de comparer les deux artéfacts en question (Voir Image).</7>",
-      "section3": "<0>Inventaire d'Artéfacts</0><1>Tous les artefacts que vous avez ajoutés à Genshin Optimizer sont affichés ici. Les filtres ici vous permettent d'affiner davantage votre vision de vos artéfacts. </1><2>Exemple : Trouver des artéfacts à feed</2><3>En utilisant le filtre d'artéfact et les calculs d'efficacité des artéfacts, vous pouvez rapidement trouver des artéfacts à feed.</3><4>Dans cet exemple, les filtres sont définis ainsi : </4><5><0>Niveau limité à 0-8.</0><1>Artéfacts débloqués dans l'inventaire.</1><2>Suppression de la contribution des PV Flat, DEF Flat et Recharge d'Énergie aux calculs d'efficacité.</2><3>Trié par efficacité maximale croissante.</3></5><6>Cela filtrera l'inventaire d'artéfacts par efficacité d'artéfacts les plus bas, pour les substats souhaitées. </6>"
+      "section2": "<0>Éditeur d'Artéfact</0><1>Un éditeur d'artéfact complet, qui accepte tout Artéfact de 3<1></1> à 5<3></3> . Lorsqu'une substat est saisie, ça peut calculer la valeur exacte des rolls, et à partir de ça, son efficacité. L'éditeur s'assurera également que vous ayez le bon nombre de rolls dans l'artéfact en fonction du niveau, ainsi que d'autres métriques de validation.</1><2>Scan des captures d'écran</2><3>La saisie manuelle n'est pas votre tasse de thé ? Vous pouvez numériser vos artéfacts avec des captures d'écran ! Dans l'éditeur d'artéfact, cliquez sur le bouton <1>Montrez-moi Comment!</1> pour en savoir plus.</3><4>Scanner automatique d'artefacts</4><5>Si vous jouez à Genshin sur PC, vous pouvez télécharger un outil qui scanne automatiquement tous vos artefacts pour vous, et vous pouvez ensuite importer ces données dans <1></1> Paramètres. <3>Cliquez ici</3> pour obtenir une liste des scanners compatibles avec Stellar Optimizer.</5><6>Détecteur d'artéfacts en double / améliorés</6><7>Saviez-vous que Stellar Optimizer peut détecter si vous ajoutez un artéfact <1>dupliqué</1> qui existe dans le système ? Il peut également détecter si l'artéfact actuel dans l'éditeur est une <3>amélioration</3> d'un artéfact existant. Une fois qu'un doublon / un amélioré est détecté, un aperçu vous permettra de comparer les deux artéfacts en question (Voir Image).</7>",
+      "section3": "<0>Inventaire d'Artéfacts</0><1>Tous les artefacts que vous avez ajoutés à Stellar Optimizer sont affichés ici. Les filtres ici vous permettent d'affiner davantage votre vision de vos artéfacts. </1><2>Exemple : Trouver des artéfacts à feed</2><3>En utilisant le filtre d'artéfact et les calculs d'efficacité des artéfacts, vous pouvez rapidement trouver des artéfacts à feed.</3><4>Dans cet exemple, les filtres sont définis ainsi : </4><5><0>Niveau limité à 0-8.</0><1>Artéfacts débloqués dans l'inventaire.</1><2>Suppression de la contribution des PV Flat, DEF Flat et Recharge d'Énergie aux calculs d'efficacité.</2><3>Trié par efficacité maximale croissante.</3></5><6>Cela filtrera l'inventaire d'artéfacts par efficacité d'artéfacts les plus bas, pour les substats souhaitées. </6>"
     },
     "sortMap": {
       "level": "Niveau",
@@ -142,7 +142,7 @@
         "jsonParse": "Impossible d'analyser le fichier JSON.",
         "unknown": "Format de fichier inconnu.",
         "monaInvalid": "Format Mona-Uranai non valide",
-        "goInvalid": "Format de fichier de sauvegarde GO non valide."
+        "goInvalid": "Format de fichier de sauvegarde Stellar Optimizer non valide."
       },
       "dbSource": "Source des données :",
       "goodUpload": {
@@ -154,9 +154,9 @@
         "delNotInImport": "Supprimer les éléments qui ne sont pas dans l'importation"
       },
       "tooltip": {
-        "detectdup": "Trouver les mises à niveau et les doublons dans l'inventaire de GO et fusionner l'importation dans GO.",
-        "ignoreDup": "Ne pas détecter les mises à jour/duplicatas. L'importation sera ajoutée à l'inventaire GO existant.",
-        "delNotInImport": "Supposez que l'importation correspond à votre inventaire complet. Les articles de l'inventaire GO qui n'existent pas dans l'importation seront supprimés.",
+        "detectdup": "Trouver les mises à niveau et les doublons dans l'inventaire de Stellar Optimizer et fusionner l'importation dans Stellar Optimizer.",
+        "ignoreDup": "Ne pas détecter les mises à jour/duplicatas. L'importation sera ajoutée à l'inventaire Stellar Optimizer existant.",
+        "delNotInImport": "Supposez que l'importation correspond à votre inventaire complet. Les articles de l'inventaire Stellar Optimizer qui n'existent pas dans l'importation seront supprimés.",
         "keepNotInImport": "Supposons que l'importation soit un inventaire partiel. Rien ne sera supprimé."
       }
     },
@@ -186,17 +186,10 @@
         "swap": "Échange"
       },
       "currentDB": "Base de données actuelle"
-    },
-    "sillyCard": {
-      "desc": "Nous avons emprunté (avec permission) tous les personnages de <strong>Silly Wisher</strong> et les avons intégrés à Genshin Optimizer.",
-      "toggle": {
-        "enabled": "Silly Optimizer activé",
-        "disabled": "Silly Optimizer désactivé"
-      }
     }
   },
   "ui": {
-    "pageTitle": "Genshin Optimizer",
+    "pageTitle": "Stellar Optimizer",
     "tabs": {
       "artifacts": "Artéfacts",
       "characters": "Personnages",
@@ -218,7 +211,7 @@
     "ascending": "Croissant",
     "descending": "Décroissant",
     "loading": "Chargement...",
-    "rightsDisclaimer": "Genshin Optimizer n'est pas affilié ou approuvé par HoYoverse",
+    "rightsDisclaimer": "Stellar Optimizer n'est pas affilié ou approuvé par HoYoverse",
     "appVersion": "$t(pageTitle) Version: <1>{{version}}</1>",
     "error": "Erreur",
     "reset": "Réinitialisation",
@@ -266,7 +259,6 @@
       "stamina_buffs": "Buffs d'endurance",
       "misc": "Misc. Statistiques"
     },
-    "sillyPageTitle": "Silly Optimizer",
     "excluded": "Exclus",
     "included": "Inclus"
   },
@@ -576,13 +568,13 @@
     "c2BurstHeal": "<strong>Ascension de Nereid</strong> Bonus de guérison"
   },
   "page_home": {
-    "intro": "GO, le calculateur <strong>ultime</strong> pour <3><i>Genshin Impact</i></3>, gardera une trace de votre inventaire d'artefacts, d'armes et de personnages, et vous aidera à créer le meilleur build en fonction de votre façon de jouer et de ce que vous avez.",
+    "intro": "Stellar Optimizer, le calculateur <strong>ultime</strong> pour <3><i>Genshin Impact</i></3>, gardera une trace de votre inventaire d'artefacts, d'armes et de personnages, et vous aidera à créer le meilleur build en fonction de votre façon de jouer et de ce que vous avez.",
     "quickLinksCard": {
       "title": "Liens rapides",
       "buttons": {
         "tyGuide": {
           "title": "Youtube Guide Playlist",
-          "tooltip": "Apprendre à utiliser Genshin Optimizer"
+          "tooltip": "Apprendre à utiliser Stellar Optimizer"
         },
         "scanners": {
           "title": "Scanners automatiques",
@@ -601,13 +593,13 @@
           "tooltip": "Documentation sur le descripteur d'objet ouvert Genshin"
         },
         "patchNotes": {
-          "title": "Notes de mise à jour de Genshin Optimizer",
-          "tooltip": "Toutes les notes de patch de GO"
+          "title": "Notes de mise à jour de Stellar Optimizer",
+          "tooltip": "Toutes les notes de patch de Stellar Optimizer"
         }
       }
     },
     "inventoryCard": {
-      "title": "Inventaire GO"
+      "title": "Inventaire Stellar Optimizer"
     },
     "vidGuideCard": {
       "title": "Guides vidéo"
@@ -625,7 +617,7 @@
     }
   },
   "page_scanner": {
-    "intro": "<0>Scanners</0><1>Les scanners sont des outils pour Genshin qui peuvent automatiquement analyser les données du jeu à partir de captures d'écran ou directement dans le jeu.</1><2>Voici plusieurs scanners qui ont été testés avec GO.</2><3>Pour charger le fichier exporté, allez sur la page <1>Paramètres</1> et chargez votre fichier dans la section <strong>Chargement de la base de données</strong>.</3>",
+    "intro": "<0>Scanners</0><1>Les scanners sont des outils pour Genshin qui peuvent automatiquement analyser les données du jeu à partir de captures d'écran ou directement dans le jeu.</1><2>Voici plusieurs scanners qui ont été testés avec Stellar Optimizer.</2><3>Pour charger le fichier exporté, allez sur la page <1>Paramètres</1> et chargez votre fichier dans la section <strong>Chargement de la base de données</strong>.</3>",
     "ik": {
       "title": "Inventory Kamera",
       "p1": "Cette application légère scannera tous les personnages, armes et artefacts de votre inventaire. Suivez les instructions de l'application pour la configurer."
@@ -1115,7 +1107,7 @@
       "title": "Configuration de la cible d'optimisation multiple",
       "addNewTarget": "Ajouter une cible",
       "addNewMTarget": "Créer un Multi-Opt",
-      "info1": "Remarque : les cibles de multi-optimisation créées par la communauté peuvent être trouvées dans le <1>GO Discord</1> ou <3>KQM's Multi-Optimization Guide</3>, mais la validité de ces configurations ne peut pas être garantie.",
+      "info1": "Remarque : les cibles de multi-optimisation créées par la communauté peuvent être trouvées dans le <1>KQM's Multi-Optimization Guide</1>, mais la validité de ces configurations ne peut pas être garantie.",
       "info2": "Il est de la responsabilité de l'utilisateur de s'assurer que les configurations représentent bien son cas d'utilisation.",
       "description": "Description",
       "duplicate": "Duplicata",
@@ -1124,7 +1116,7 @@
     },
     "addStats": {
       "title": "Configuration de l'ennemi + statistiques bonus",
-      "info": "Vous pouvez utiliser ces champs pour ajouter des buffs/débuffs qui ne sont pas directement pris en charge dans GO, comme les buffs de nourriture, les cartes Abyss ou Superconduct. Veuillez vous référer au <1>Genshin Impact Wiki</1> pour les valeurs spécifiques.",
+      "info": "Vous pouvez utiliser ces champs pour ajouter des buffs/débuffs qui ne sont pas directement pris en charge dans Stellar Optimizer, comme les buffs de nourriture, les cartes Abyss ou Superconduct. Veuillez vous référer au <1>Genshin Impact Wiki</1> pour les valeurs spécifiques.",
       "label": "Nouvelle Stat Bonus"
     },
     "tabTheorycraft": {
@@ -1291,7 +1283,7 @@
     },
     "buildDropdownDesc": "Diminuer le nombre de builds générés permet de réduire le temps de calcul des builds pour un grand nombre de builds.",
     "threadDropdownDesc": "L'augmentation du nombre de threads accélérera le temps de construction, mais consommera plus de puissance de l'unité centrale.",
-    "noArtis": "Oups ! Il semble que vous n'ayez pas encore ajouté d'artefacts à GO ! Vous devriez aller sur la page <1>Artéfacts</1> et en ajouter !",
+    "noArtis": "Oups ! Il semble que vous n'ayez pas encore ajouté d'artefacts à Stellar Optimizer ! Vous devriez aller sur la page <1>Artéfacts</1> et en ajouter !",
     "targetSelector": {
       "selectOptTarget": "Sélectionner une cible d'optimisation",
       "selectGraphTarget": "Sélectionner une cible graphique",
@@ -1404,11 +1396,11 @@
   },
   "page_newTab": {
     "title": "🛑 Nouvel onglet Optimizer détecté 🛑",
-    "p1": "Il semble que vous ayez ouvert Genshin Optimizer dans un autre onglet 💞. GO n'est pas conçu pour fonctionner sur plusieurs onglets 📵 ! Cela peut entraîner :",
+    "p1": "Il semble que vous ayez ouvert Stellar Optimizer dans un autre onglet 💞. Stellar Optimizer n'est pas conçu pour fonctionner sur plusieurs onglets 📵 ! Cela peut entraîner :",
     "symptom": {
       "1": "Désynchronisation des données entre les onglets 🙃",
       "2": "Corruption de la base de données 💔",
-      "3": "Mauvais estomac 🤰 et frustration des développeurs de Genshin Optimizer 😡",
+      "3": "Mauvais estomac 🤰 et frustration des développeurs de Stellar Optimizer 😡",
       "4": "Dans de rares cas, la mort ☠️"
     },
     "p2": "Nous avons évité cela en vous montrant ce message 📝. Vous avez maintenant le choix entre :",
@@ -1514,12 +1506,12 @@
   },
   "page_error": {
     "title": "🛑 Une erreur inattendue s'est produite 🛑",
-    "p1.1": "GO a rencontré une erreur inattendue. C'est probablement notre faute, alors aidez-nous à vous aider !",
+    "p1.1": "Stellar Optimizer a rencontré une erreur inattendue. C'est probablement notre faute, alors aidez-nous à vous aider !",
     "p1.2": "Voici ce que vous pouvez faire pour résoudre le problème :",
     "fixes": {
       "1": "Actualiser la page",
       "2": "Désactiver toutes les extensions du navigateur et actualiser à nouveau",
-      "3": "Téléchargez votre (vos) base(s) de données ci-dessous et conservez-la en lieu sûr. Cliquez sur le bouton 'Delete ALL GO Data' et téléchargez à nouveau votre (vos) base(s) de données."
+      "3": "Téléchargez votre (vos) base(s) de données ci-dessous et conservez-la en lieu sûr. Cliquez sur le bouton 'Delete ALL Stellar Optimizer Data' et téléchargez à nouveau votre (vos) base(s) de données."
     },
     "p2": "Si vous avez fait ce qui précède et que vous n'avez toujours pas réussi à revenir ici, veuillez soumettre un rapport sur notre page GitHub Issues, ou sur le canal Bug Reports de notre Discord.",
     "report": {
@@ -1530,9 +1522,9 @@
     },
     "refresh": "Actualiser la page",
     "caption": "Images en direct de nos ingénieurs enquêtant sur le problème",
-    "confirmNuke": "Êtes-vous sûr de vouloir supprimer TOUTES les données de GO ? C'est irréversible !",
-    "finishNuke": "Effacement de toutes les données GO. Actualisation de la page.",
-    "nuke": "Supprimer toutes les données GO"
+    "confirmNuke": "Êtes-vous sûr de vouloir supprimer TOUTES les données de Stellar Optimizer ? C'est irréversible !",
+    "finishNuke": "Effacement de toutes les données Stellar Optimizer. Actualisation de la page.",
+    "nuke": "Supprimer toutes les données Stellar Optimizer"
   },
   "char_Dehya": {
     "inFieldAndTakeDmg": "Lorsqu'un personnage actif subit des dégâts dans le champ du Sanctuaire ardent",
@@ -1640,7 +1632,7 @@
     "passive3": {
       "name": "Itération insomniaque",
       "description": {
-        "0": "La nuit (18:00 - 6:00), accélère la vitesse de construction de Genshin Optimizer de 10%."
+        "0": "La nuit (18:00 - 6:00), accélère la vitesse de construction de Stellar Optimizer de 10%."
       }
     },
     "constellation1": {

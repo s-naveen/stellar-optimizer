@@ -1,11 +1,11 @@
 {
-  "intro": "The <strong>ultimate</strong> <3><i>Genshin Impact</i></3> calculator, GO will keep track of your artifact/weapon/character inventory, and help you create the best build based on how you play, with what you have.",
+  "intro": "The <strong>ultimate</strong> <3><i>Genshin Impact</i></3> calculator, Stellar Optimizer will keep track of your artifact/weapon/character inventory, and help you create the best build based on how you play, with what you have.",
   "quickLinksCard": {
     "title": "快速連結",
     "buttons": {
       "tyGuide": {
         "title": "Youtube Guide Playlist",
-        "tooltip": "了解如何使用原神最佳化工具"
+        "tooltip": "了解如何使用Stellar Optimizer"
       },
       "scanners": {
         "title": "自動掃描器",
@@ -24,13 +24,13 @@
         "tooltip": "Genshin Open Object Descriptor Documentation"
       },
       "patchNotes": {
-        "title": "原神最佳化工具更新日誌",
-        "tooltip": "All patch notes for GO"
+        "title": "Stellar Optimizer更新日誌",
+        "tooltip": "All patch notes for Stellar Optimizer"
       }
     }
   },
   "inventoryCard": {
-    "title": "GO 庫存"
+    "title": "Stellar Optimizer 庫存"
   },
   "vidGuideCard": {
     "title": "Video Guides"

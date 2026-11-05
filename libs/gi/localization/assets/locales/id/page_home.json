@@ -1,11 +1,11 @@
 {
-  "intro": "Kalkulator <strong>ultimate</strong> <3><i>Genshin Impact</i></3>, GO akan melacak inventaris artefak/senjata/karakter kamu, dan membantu kamu untuk membuat build terbaik berdasarkan cara kamu bermain, dengan apa yang kamu miliki.",
+  "intro": "Kalkulator <strong>ultimate</strong> <3><i>Genshin Impact</i></3>, Stellar Optimizer akan melacak inventaris artefak/senjata/karakter kamu, dan membantu kamu untuk membuat build terbaik berdasarkan cara kamu bermain, dengan apa yang kamu miliki.",
   "quickLinksCard": {
     "title": "Link Cepat",
     "buttons": {
       "tyGuide": {
         "title": "Playlist Panduan Youtube",
-        "tooltip": "Pelajari cara menggunakan Genshin Optimizer"
+        "tooltip": "Pelajari cara menggunakan Stellar Optimizer"
       },
       "scanners": {
         "title": "Scanner Otomatis",
@@ -24,13 +24,13 @@
         "tooltip": "Dokumentasi Deskriptor Objek Terbuka Genshin"
       },
       "patchNotes": {
-        "title": "Genshin Optimizer Patch Notes",
-        "tooltip": "Semua patch notes untuk GO"
+        "title": "Stellar Optimizer Patch Notes",
+        "tooltip": "Semua patch notes untuk Stellar Optimizer"
       }
     }
   },
   "inventoryCard": {
-    "title": "GO inventori"
+    "title": "Stellar Optimizer inventori"
   },
   "vidGuideCard": {
     "title": "Video Panduan"

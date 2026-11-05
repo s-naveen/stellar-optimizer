@@ -12,7 +12,7 @@
       "jsonParse": "Impossible d'analyser le fichier JSON.",
       "unknown": "Format de fichier inconnu.",
       "monaInvalid": "Format Mona-Uranai non valide",
-      "goInvalid": "Format de fichier de sauvegarde GO non valide."
+      "goInvalid": "Format de fichier de sauvegarde Stellar Optimizer non valide."
     },
     "dbSource": "Source des données :",
     "goodUpload": {
@@ -24,9 +24,9 @@
       "delNotInImport": "Supprimer les éléments qui ne sont pas dans l'importation"
     },
     "tooltip": {
-      "detectdup": "Trouver les mises à niveau et les doublons dans l'inventaire de GO et fusionner l'importation dans GO.",
-      "ignoreDup": "Ne pas détecter les mises à jour/duplicatas. L'importation sera ajoutée à l'inventaire GO existant.",
-      "delNotInImport": "Supposez que l'importation correspond à votre inventaire complet. Les articles de l'inventaire GO qui n'existent pas dans l'importation seront supprimés.",
+      "detectdup": "Trouver les mises à niveau et les doublons dans l'inventaire de Stellar Optimizer et fusionner l'importation dans Stellar Optimizer.",
+      "ignoreDup": "Ne pas détecter les mises à jour/duplicatas. L'importation sera ajoutée à l'inventaire Stellar Optimizer existant.",
+      "delNotInImport": "Supposez que l'importation correspond à votre inventaire complet. Les articles de l'inventaire Stellar Optimizer qui n'existent pas dans l'importation seront supprimés.",
       "keepNotInImport": "Supposons que l'importation soit un inventaire partiel. Rien ne sera supprimé."
     }
   },
@@ -56,12 +56,5 @@
       "swap": "Échange"
     },
     "currentDB": "Base de données actuelle"
-  },
-  "sillyCard": {
-    "desc": "Nous avons emprunté (avec permission) tous les personnages de <strong>Silly Wisher</strong> et les avons intégrés à Genshin Optimizer.",
-    "toggle": {
-      "enabled": "Silly Optimizer activé",
-      "disabled": "Silly Optimizer désactivé"
-    }
   }
 }

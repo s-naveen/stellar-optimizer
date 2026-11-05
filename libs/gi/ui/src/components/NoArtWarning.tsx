@@ -7,8 +7,8 @@ export function NoArtWarning() {
   return (
     <Alert severity="warning" variant="filled">
       <Trans t={t} i18nKey="noArtis">
-        Oops! It looks like you haven't added any artifacts to GO yet! You
-        should go to the
+        Oops! It looks like you haven't added any artifacts to Stellar Optimizer
+        yet! You should go to the
         <Link component={RouterLink} to="/artifacts">
           Artifacts
         </Link>

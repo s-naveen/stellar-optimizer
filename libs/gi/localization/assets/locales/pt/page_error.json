@@ -1,11 +1,11 @@
 {
   "title": "🛑Um Erro Inesperado Ocorreu🛑",
-  "p1.1": "O GO acabou de experienciar um erro inesperado. Isso provavelmente é nossa culpa, então permita-nos ajudá-lo!",
+  "p1.1": "O Stellar Optimizer acabou de experienciar um erro inesperado. Isso provavelmente é nossa culpa, então permita-nos ajudá-lo!",
   "p1.2": "Aqui estão alguns passos que você pode tentar para resolver o problema:",
   "fixes": {
     "1": "Recarregue a página",
     "2": "Desabilite extensões do seu navegador e recarregue a página",
-    "3": "Faça o download da(s) sua(s) Base(s) de Dados e guarde-as com segurança. Clique no botão 'Excluir TODOS os dados do GO' e em seguida faça o upload dela(s) novamente"
+    "3": "Faça o download da(s) sua(s) Base(s) de Dados e guarde-as com segurança. Clique no botão 'Excluir TODOS os dados do Stellar Optimizer' e em seguida faça o upload dela(s) novamente"
   },
   "p2": "Se você seguiu as instruções acima e ainda assim veio parar aqui, por favor reporte um bug na nossa página de Problemas no GitHub, ou no nosso canal de Bug Reports no Discord.",
   "report": {
@@ -16,7 +16,7 @@
   },
   "refresh": "Recarregar Página",
   "caption": "Visualização ao vivo dos nossos desenvolvedores investigando o problema.",
-  "confirmNuke": "Tem certeza de que de deseja excluir TODOS os seus dados do GO? Não dá para voltar atrás!",
-  "finishNuke": "Os dados do GO foram excluídos. Recarregando a página",
-  "nuke": "Excluir TODOS os dados do GO"
+  "confirmNuke": "Tem certeza de que de deseja excluir TODOS os seus dados do Stellar Optimizer? Não dá para voltar atrás!",
+  "finishNuke": "Os dados do Stellar Optimizer foram excluídos. Recarregando a página",
+  "nuke": "Excluir TODOS os dados do Stellar Optimizer"
 }

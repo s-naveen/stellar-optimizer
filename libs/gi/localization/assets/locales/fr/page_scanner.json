@@ -1,5 +1,5 @@
 {
-  "intro": "<0>Scanners</0><1>Les scanners sont des outils pour Genshin qui peuvent automatiquement analyser les données du jeu à partir de captures d'écran ou directement dans le jeu.</1><2>Voici plusieurs scanners qui ont été testés avec GO.</2><3>Pour charger le fichier exporté, allez sur la page <1>Paramètres</1> et chargez votre fichier dans la section <strong>Chargement de la base de données</strong>.</3>",
+  "intro": "<0>Scanners</0><1>Les scanners sont des outils pour Genshin qui peuvent automatiquement analyser les données du jeu à partir de captures d'écran ou directement dans le jeu.</1><2>Voici plusieurs scanners qui ont été testés avec Stellar Optimizer.</2><3>Pour charger le fichier exporté, allez sur la page <1>Paramètres</1> et chargez votre fichier dans la section <strong>Chargement de la base de données</strong>.</3>",
   "ik": {
     "title": "Inventory Kamera",
     "p1": "Cette application légère scannera tous les personnages, armes et artefacts de votre inventaire. Suivez les instructions de l'application pour la configurer."

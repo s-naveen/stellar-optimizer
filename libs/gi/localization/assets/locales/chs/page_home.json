@@ -1,11 +1,11 @@
 {
-  "intro": "GO是<3><i>原神</i></3>的<strong>终极</strong>计算工具，它会记录你的圣遗物/武器/角色背包，并根据你指定的方式生成最佳装备搭配。",
+  "intro": "Stellar Optimizer是<3><i>原神</i></3>的<strong>终极</strong>计算工具，它会记录你的圣遗物/武器/角色背包，并根据你指定的方式生成最佳装备搭配。",
   "quickLinksCard": {
     "title": "快速链接",
     "buttons": {
       "tyGuide": {
         "title": "Youtube上的使用指南",
-        "tooltip": "了解如何使用Genshin Optimizer"
+        "tooltip": "了解如何使用Stellar Optimizer"
       },
       "scanners": {
         "title": "自动扫描器",
@@ -24,13 +24,13 @@
         "tooltip": "Genshin Open Object Descriptor文档"
       },
       "patchNotes": {
-        "title": "Genshin Optimizer更新日志",
+        "title": "Stellar Optimizer更新日志",
         "tooltip": "所有更新日志"
       }
     }
   },
   "inventoryCard": {
-    "title": "GO仓库"
+    "title": "Stellar Optimizer仓库"
   },
   "vidGuideCard": {
     "title": "视频指南"

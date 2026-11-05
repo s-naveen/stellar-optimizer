@@ -10,7 +10,7 @@
     "hintPaste": "...หรือวางข้อมูลของคุณด้านล่าง",
     "error": {
       "jsonParse": "ไม่สามารถแปลงไฟล์ JSON ได้",
-      "goInvalid": "รูปแบบไฟล์สำรอง GO ไม่ถูกต้อง"
+      "goInvalid": "รูปแบบไฟล์สำรอง Stellar Optimizer ไม่ถูกต้อง"
     },
     "dbSource": "แหล่งข้อมูล:",
     "goodUpload": {
