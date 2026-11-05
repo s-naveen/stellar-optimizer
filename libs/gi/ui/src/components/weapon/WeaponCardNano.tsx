@@ -111,6 +111,7 @@ export function WeaponCardNanoObj({
           <WeaponNameTooltip weaponKey={weapon.key}>
             <Box
               component="img"
+              loading="lazy"
               src={weaponAsset(weapon.key, weapon.ascension >= 2)}
               sx={{ mx: -1, maxHeight: '100%', maxWidth: '100%' }}
             />
@@ -170,6 +171,8 @@ export function WeaponCardNanoObj({
               display: 'flex',
               justifyContent: 'flex-end',
               alignItems: 'flex-end',
+              // covers the whole icon: let the hover through to the weapon's tooltip
+              pointerEvents: 'none',
             }}
           >
             {weaponHasRefinement(weapon.key) && (
