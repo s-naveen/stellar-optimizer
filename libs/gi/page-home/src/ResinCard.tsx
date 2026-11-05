@@ -82,11 +82,15 @@ export default function ResinCard() {
     <CardThemed>
       <CardHeader
         title={
-          <Typography variant="h5">
+          <Typography
+            variant="h6"
+            component="h2"
+            sx={{ fontSize: '1.0625rem' }}
+          >
             {timeZoneKey} {time.toLocaleTimeString([], { timeZone: 'UTC' })}
           </Typography>
         }
-        avatar={<AccessTimeFilledIcon fontSize="large" />}
+        avatar={<AccessTimeFilledIcon sx={{ color: 'text.secondary' }} />}
       />
       <Divider />
       <CardContent>

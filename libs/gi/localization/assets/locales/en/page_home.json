@@ -1,11 +1,11 @@
 {
-  "intro": "The <strong>ultimate</strong> <3><i>Genshin Impact</i></3> calculator, GO will keep track of your artifact/weapon/character inventory, and help you create the best build based on how you play, with what you have.",
+  "intro": "The <strong>ultimate</strong> <3><i>Genshin Impact</i></3> calculator, Stellar Optimizer will keep track of your artifact/weapon/character inventory, and help you create the best build based on how you play, with what you have.",
   "quickLinksCard": {
     "title": "Quick Links",
     "buttons": {
       "tyGuide": {
         "title": "Youtube Guide Playlist",
-        "tooltip": "Learn how to use Genshin Optimizer"
+        "tooltip": "Learn how to use the optimizer"
       },
       "scanners": {
         "title": "Automatic Scanners",
@@ -25,12 +25,16 @@
       },
       "patchNotes": {
         "title": "Patch Notes",
-        "tooltip": "All of GO's patch notes"
+        "tooltip": "All patch notes"
       }
     }
   },
   "inventoryCard": {
-    "title": "GO Inventory"
+    "title": "Your inventory",
+    "loadouts_one": "{{count}} character loadout",
+    "loadouts_other": "{{count}} character loadouts",
+    "recentTeams": "Recent teams",
+    "allTeams": "All teams"
   },
   "vidGuideCard": {
     "title": "Video Guides"
@@ -45,5 +49,41 @@
       "translator": "Translations Manager",
       "TC": "TC Correspondent"
     }
+  },
+  "gettingStarted": {
+    "title": "Set up your first build",
+    "subtitle": "Four steps from an empty inventory to an optimized team. Everything is saved in this browser.",
+    "hide": "Hide",
+    "done": "Done",
+    "steps": {
+      "characters": {
+        "title": "Add your characters",
+        "description": "Pick the characters you play, then set their level, talents and constellation.",
+        "action": "Add characters"
+      },
+      "artifacts": {
+        "title": "Bring in artifacts and weapons",
+        "description": "Import a GOOD file from an artifact scanner, or add artifacts by hand on the Artifacts page.",
+        "action": "Import a file",
+        "scanners": "Find a scanner"
+      },
+      "team": {
+        "title": "Build a team",
+        "description": "Put up to four characters together so team buffs, resonance and reactions are counted.",
+        "action": "Create a team"
+      },
+      "optimize": {
+        "title": "Optimize a build",
+        "description": "Choose the damage number to maximize and let the optimizer search your artifacts.",
+        "action": "Open the optimizer"
+      }
+    }
+  },
+  "hero": {
+    "title": "Plan builds with what you own",
+    "addCharacters": "Add characters",
+    "createTeam": "Create a team",
+    "openTeams": "Open your teams",
+    "importData": "Import data"
   }
 }

@@ -1,3 +1,7 @@
+import {
+  useDataManagerKeys,
+  useDataManagerValues,
+} from '@genshin-optimizer/common/database-ui'
 import { AnvilIcon } from '@genshin-optimizer/common/svgicons'
 import { CardThemed, ImgIcon } from '@genshin-optimizer/common/ui'
 import { objKeyMap } from '@genshin-optimizer/common/util'
@@ -14,245 +18,135 @@ import {
   FlowerIcon,
   SlotIcon,
 } from '@genshin-optimizer/gi/svgicons'
-import {
-  BuildIcon,
-  LoadoutIcon,
-  TeamCardCompact,
-  TeamIcon,
-} from '@genshin-optimizer/gi/ui'
-import { BusinessCenter, People } from '@mui/icons-material'
-
-import {
-  CardActionArea,
-  CardContent,
-  CardHeader,
-  Chip,
-  Divider,
-  Grid,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material'
-import { useMemo } from 'react'
+import { TeamCardCompact, TeamIcon } from '@genshin-optimizer/gi/ui'
+import PeopleIcon from '@mui/icons-material/People'
+import { Box, Button, CardActionArea, Grid, Typography } from '@mui/material'
+import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 
+/** Inventory at a glance: one tile per collection (count + breakdown) and the latest teams. */
 export default function InventoryCard() {
   const { t } = useTranslation(['page_home', 'ui'])
   const navigate = useNavigate()
   const database = useDatabase()
-  const { characterTally, characterTotal } = useMemo(() => {
-    const chars = database.chars.keys
-    const tally = objKeyMap(allElementKeys, () => 0)
-    chars.forEach((ck) => {
-      const elementKey = getCharEle(ck)
-      tally[elementKey] = tally[elementKey] + 1
-    })
-    return { characterTally: tally, characterTotal: chars.length }
-  }, [database])
+  const charKeys = useDataManagerKeys(database.chars)
+  const weapons = useDataManagerValues(database.weapons)
+  const arts = useDataManagerValues(database.arts)
+  // values: re-render when a team is edited, so "recent" stays current
+  const teams = useDataManagerValues(database.teams)
+  const teamIds = useDataManagerKeys(database.teams)
+  const numLoadouts = useDataManagerKeys(database.teamChars).length
 
-  const { weaponTally, weaponTotal } = useMemo(() => {
-    const weapons = database.weapons.values
-    const tally = objKeyMap(allWeaponTypeKeys, () => 0)
-    weapons.forEach((wp) => {
-      const type = getWeaponStat(wp.key).weaponType
-      tally[type] = tally[type] + 1
-    })
-    return { weaponTally: tally, weaponTotal: weapons.length }
-  }, [database])
+  const charTally = objKeyMap(allElementKeys, () => 0)
+  charKeys.forEach((ck) => charTally[getCharEle(ck)]++)
+  const weaponTally = objKeyMap(allWeaponTypeKeys, () => 0)
+  weapons.forEach((w) => weaponTally[getWeaponStat(w.key).weaponType]++)
+  const slotTally = objKeyMap(allArtifactSlotKeys, () => 0)
+  arts.forEach((art) => slotTally[art.slotKey]++)
 
-  const { artifactTally, artifactTotal } = useMemo(() => {
-    const tally = objKeyMap(allArtifactSlotKeys, () => 0)
-    const arts = database.arts.values
-    arts.forEach((art) => {
-      const slotKey = art.slotKey
-      tally[slotKey] = tally[slotKey] + 1
-    })
-    return { artifactTally: tally, artifactTotal: arts.length }
-  }, [database])
+  const recentTeamIds =
+    teams &&
+    teamIds
+      .map((id) => [id, database.teams.get(id)?.lastEdit ?? 0] as const)
+      .sort(([, a], [, b]) => b - a)
+      .map(([id]) => id)
+      .slice(0, 6)
 
-  const numTeams = database.teams.keys.length
-  const numLoadout = database.teamChars.keys.length
-  const numBuilds = database.builds.keys.length + database.buildTcs.keys.length
-  const theme = useTheme()
-  const smaller = !useMediaQuery(theme.breakpoints.up('md'))
-  const latestBuilds = [...database.teams.entries]
-    .sort((a, b) => {
-      const [, ateam] = a
-      const [, bteam] = b
-      return bteam.lastEdit - ateam.lastEdit
-    })
-    .map(([teamId]) => teamId)
-    .slice(0, 6)
   return (
-    <CardThemed>
-      <CardHeader
-        title={<Typography variant="h5">{t('inventoryCard.title')}</Typography>}
-        avatar={<BusinessCenter fontSize="large" />}
-      />
-      <Divider />
-      <CardContent sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-        <CardThemed bgt="light">
-          <CardActionArea
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              p: 2,
-              gap: 1,
-              flexWrap: 'wrap',
-            }}
-            component={RouterLink}
+    <Box component="section" aria-labelledby="inventory-title">
+      <SectionTitle id="inventory-title">
+        {t('inventoryCard.title')}
+      </SectionTitle>
+      <Grid container spacing={1.5} columns={{ xs: 1, sm: 2, xl: 4 }}>
+        <Grid item xs={1}>
+          <StatTile
             to="/characters"
-          >
-            <Chip
-              label={
-                <strong>
-                  {t('ui:tabs.characters')} {characterTotal}
-                </strong>
-              }
-              icon={<People />}
-              sx={{
-                flexBasis: smaller ? '100%' : 'auto',
-                flexGrow: 1,
-                cursor: 'pointer',
-              }}
-              color={characterTotal ? 'primary' : 'secondary'}
-            />
-            {Object.entries(characterTally).map(([ele, num]) => (
-              <Chip
-                key={ele}
-                sx={{ flexGrow: 1, cursor: 'pointer' }}
-                color={num ? ele : 'secondary'}
-                icon={<ElementIcon ele={ele} />}
-                label={<strong>{num}</strong>}
-              />
-            ))}
-          </CardActionArea>
-        </CardThemed>
-        <CardThemed bgt="light">
-          <CardActionArea
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              p: 2,
-              gap: 1,
-              flexWrap: 'wrap',
-            }}
-            component={RouterLink}
-            to="/weapons"
-          >
-            <Chip
-              label={
-                <strong>
-                  {t('ui:tabs.weapons')} {weaponTotal}
-                </strong>
-              }
-              icon={<AnvilIcon />}
-              sx={{
-                flexBasis: smaller ? '100%' : 'auto',
-                flexGrow: 1,
-                cursor: 'pointer',
-              }}
-              color={weaponTotal ? 'primary' : 'secondary'}
-            />
-            {Object.entries(weaponTally).map(([wt, num]) => (
-              <Chip
-                key={wt}
-                sx={{ flexGrow: 1, cursor: 'pointer' }}
-                color={num ? 'success' : 'secondary'}
-                icon={<ImgIcon src={imgAssets.weaponTypes?.[wt]} size={2} />}
-                label={<strong>{num}</strong>}
-              />
-            ))}
-          </CardActionArea>
-        </CardThemed>
-        <CardThemed bgt="light">
-          <CardActionArea
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              p: 2,
-              gap: 1,
-              flexWrap: 'wrap',
-            }}
-            component={RouterLink}
-            to="/artifacts"
-          >
-            <Chip
-              label={
-                <strong>
-                  {t('ui:tabs.artifacts')} {artifactTotal}
-                </strong>
-              }
-              icon={<FlowerIcon />}
-              sx={{
-                flexBasis: smaller ? '100%' : 'auto',
-                flexGrow: 1,
-                cursor: 'pointer',
-              }}
-              color={artifactTotal ? 'primary' : 'secondary'}
-            />
-            {Object.entries(artifactTally).map(([slotKey, num]) => (
-              <Chip
-                key={slotKey}
-                sx={{ flexGrow: 1, cursor: 'pointer' }}
-                color={num ? 'success' : 'secondary'}
-                icon={<SlotIcon slotKey={slotKey} />}
-                label={<strong>{num}</strong>}
-              />
-            ))}
-          </CardActionArea>
-        </CardThemed>
-        <CardThemed bgt="light">
-          <CardActionArea
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              p: 2,
-              gap: 1,
-              flexWrap: 'wrap',
-            }}
-            component={RouterLink}
+            icon={<PeopleIcon />}
+            label={t('ui:tabs.characters')}
+            count={charKeys.length}
+            breakdown={allElementKeys.map(
+              (ele) =>
+                !!charTally[ele] && (
+                  <Breakdown key={ele} icon={<ElementIcon ele={ele} />}>
+                    {charTally[ele]}
+                  </Breakdown>
+                )
+            )}
+          />
+        </Grid>
+        <Grid item xs={1}>
+          <StatTile
             to="/teams"
+            icon={<TeamIcon />}
+            label={t('ui:tabs.teams')}
+            count={teamIds.length}
+            breakdown={
+              <Typography variant="body2" color="text.secondary">
+                {t('inventoryCard.loadouts', { count: numLoadouts })}
+              </Typography>
+            }
+          />
+        </Grid>
+        <Grid item xs={1}>
+          <StatTile
+            to="/artifacts"
+            icon={<FlowerIcon />}
+            label={t('ui:tabs.artifacts')}
+            count={arts.length}
+            breakdown={allArtifactSlotKeys.map(
+              (slot) =>
+                !!slotTally[slot] && (
+                  <Breakdown key={slot} icon={<SlotIcon slotKey={slot} />}>
+                    {slotTally[slot]}
+                  </Breakdown>
+                )
+            )}
+          />
+        </Grid>
+        <Grid item xs={1}>
+          <StatTile
+            to="/weapons"
+            icon={<AnvilIcon />}
+            label={t('ui:tabs.weapons')}
+            count={weapons.length}
+            breakdown={allWeaponTypeKeys.map(
+              (wt) =>
+                !!weaponTally[wt] && (
+                  <Breakdown
+                    key={wt}
+                    icon={<ImgIcon src={imgAssets.weaponTypes[wt]} />}
+                  >
+                    {weaponTally[wt]}
+                  </Breakdown>
+                )
+            )}
+          />
+        </Grid>
+      </Grid>
+      {recentTeamIds.length > 0 && (
+        <Box sx={{ mt: 3 }}>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'baseline',
+              justifyContent: 'space-between',
+            }}
           >
-            <Chip
-              sx={{ flexGrow: 1, cursor: 'pointer' }}
-              color={numTeams ? 'success' : 'secondary'}
-              icon={<TeamIcon />}
-              label={
-                <strong>
-                  {t('ui:tabs.teams')} {numTeams}
-                </strong>
-              }
-            />
-            <Chip
-              sx={{ flexGrow: 1, cursor: 'pointer' }}
-              color={numLoadout ? 'success' : 'secondary'}
-              icon={<LoadoutIcon />}
-              label={
-                <strong>
-                  {t('ui:tabs.loadouts')} {numLoadout}
-                </strong>
-              }
-            />
-            <Chip
-              sx={{ flexGrow: 1, cursor: 'pointer' }}
-              color={numBuilds ? 'success' : 'secondary'}
-              icon={<BuildIcon />}
-              label={
-                <strong>
-                  {t('ui:tabs.builds')} {numBuilds}
-                </strong>
-              }
-            />
-          </CardActionArea>
-          <Grid
-            container
-            columns={{ xs: 1, sm: 2 }}
-            sx={{ px: 1, pb: 1 }}
-            spacing={1}
-          >
-            {latestBuilds.map((teamId) => (
+            <SectionTitle>{t('inventoryCard.recentTeams')}</SectionTitle>
+            <Button
+              size="small"
+              variant="text"
+              color="inherit"
+              component={RouterLink}
+              to="/teams"
+              sx={{ color: 'text.secondary' }}
+            >
+              {t('inventoryCard.allTeams')}
+            </Button>
+          </Box>
+          <Grid container spacing={1.5} columns={{ xs: 1, md: 2 }}>
+            {recentTeamIds.map((teamId) => (
               <Grid item key={teamId} xs={1}>
                 <TeamCardCompact
                   teamId={teamId}
@@ -263,8 +157,110 @@ export default function InventoryCard() {
               </Grid>
             ))}
           </Grid>
-        </CardThemed>
-      </CardContent>
+        </Box>
+      )}
+    </Box>
+  )
+}
+
+export function SectionTitle({
+  children,
+  id,
+}: {
+  children: ReactNode
+  id?: string
+}) {
+  return (
+    <Typography
+      variant="h6"
+      component="h2"
+      id={id}
+      sx={{ mb: 1.25, fontSize: '1.0625rem' }}
+    >
+      {children}
+    </Typography>
+  )
+}
+
+function StatTile({
+  to,
+  icon,
+  label,
+  count,
+  breakdown,
+}: {
+  to: string
+  icon: ReactNode
+  label: string
+  count: number
+  breakdown: ReactNode
+}) {
+  return (
+    <CardThemed sx={{ height: '100%' }}>
+      <CardActionArea
+        component={RouterLink}
+        to={to}
+        sx={{
+          height: '100%',
+          p: 2,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'stretch',
+          gap: 1,
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1,
+            color: 'text.secondary',
+            '& .MuiSvgIcon-root': { fontSize: 20 },
+          }}
+        >
+          {icon}
+          <Typography sx={{ fontWeight: 600 }}>{label}</Typography>
+        </Box>
+        <Typography sx={{ fontSize: '2rem', fontWeight: 650, lineHeight: 1.1 }}>
+          {count}
+        </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: 1.25,
+            minHeight: 22,
+            color: 'text.secondary',
+          }}
+        >
+          {breakdown}
+        </Box>
+      </CardActionArea>
     </CardThemed>
+  )
+}
+
+function Breakdown({
+  icon,
+  children,
+}: {
+  icon: ReactNode
+  children: ReactNode
+}) {
+  return (
+    <Box
+      component="span"
+      sx={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 0.5,
+        fontSize: '0.875rem',
+        fontWeight: 600,
+        '& svg, & img': { width: 16, height: 16 },
+      }}
+    >
+      {icon}
+      {children}
+    </Box>
   )
 }
