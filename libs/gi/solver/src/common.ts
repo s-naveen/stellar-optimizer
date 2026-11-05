@@ -1,6 +1,5 @@
 import {
   assertUnreachable,
-  notEmpty,
   objKeyMap,
   objMap,
   range,
@@ -249,12 +248,18 @@ function reaffine(
       for (const [key, baseValue] of offsets) values[key] -= baseValue
   return result
 }
-/** Remove artifacts that cannot be in top `numTop` builds */
+/**
+ * Remove artifacts that cannot be in top `numTop` builds.
+ *
+ * Pass `numTop = Infinity` to disable (e.g. when plotting, where every build that is the best
+ * at some plot value matters, not only the overall top builds).
+ */
 function pruneOrder(
   arts: ArtifactsBySlot,
   numTop: number,
   exclusion: ArtSetExclusion
 ): ArtifactsBySlot {
+  if (!Number.isFinite(numTop)) return arts
   let progress = false
   /**
    * Note:
@@ -303,7 +308,7 @@ function pruneOrder(
   return progress ? { base: arts.base, values } : arts
 }
 /** Remove artifacts that cannot reach `minimum` in any build */
-function pruneArtRange(
+export function pruneArtRange(
   nodes: OptNode[],
   arts: ArtifactsBySlot,
   minimum: number[]
@@ -422,7 +427,9 @@ function computeArtRange(arts: ArtifactBuildData[]): DynMinMax {
       )
     arts.forEach(({ values }) => {
       for (const [key, value] of Object.entries(values)) {
-        if (!result[key]) result[key] = { min: 0, max: value }
+        // Some artifacts lack `key` (i.e., 0), so the range must include 0
+        if (!result[key])
+          result[key] = { min: Math.min(0, value), max: Math.max(0, value) }
         else {
           if (result[key].max < value) result[key].max = value
           if (result[key].min > value) result[key].min = value
@@ -561,30 +568,38 @@ export function mergeBuilds(
     .sort((a, b) => b.value - a.value)
     .slice(0, maxNum)
 }
-export function mergePlot(plots: PlotData[]): PlotData {
-  let scale = 0.01
-  const reductionScaling = 2,
-    maxCount = 1500
-  let keys = new Set(
-    plots.flatMap((x) =>
-      Object.values(x).map((v) => v && Math.round(v.plot! / scale))
-    )
-  )
-  while (keys.size > maxCount) {
-    scale *= reductionScaling
-    keys = new Set(
-      [...keys]
-        .filter(notEmpty)
-        .map((key) => Math.round(key / reductionScaling))
-    )
-  }
-  const result: PlotData = {}
+/**
+ * Keep the best build per plot bin, using at most `maxCount` bins.
+ *
+ * Bins are `[k * scale, (k + 1) * scale)` with `scale = minScale * 2^j`. Coarser bins are
+ * computed from the finest integer keys by integer division, so every bin at a coarser scale
+ * is an exact union of finer bins. This makes merging pre-binned data (one best build per
+ * fine bin, as produced by the workers) exact.
+ */
+export function mergePlot(
+  plots: PlotData[],
+  minScale = 0.01,
+  maxCount = 1500
+): PlotData {
+  const entries: { key: number; build: SolverBuild }[] = []
   for (const plot of plots)
     for (const build of Object.values(plot)) {
       if (!build) continue
-      const x = Math.round(build.plot! / scale) * scale
-      if (!result[x] || result[x]!.value < build.value) result[x] = build
+      const key = Math.floor(build.plot! / minScale)
+      if (Number.isFinite(key)) entries.push({ key, build })
     }
+  let divisor = 1,
+    keys = new Set(entries.map(({ key }) => key))
+  while (keys.size > maxCount) {
+    divisor *= 2
+    keys = new Set([...keys].map((key) => Math.floor(key / 2)))
+  }
+  const scale = minScale * divisor
+  const result: PlotData = {}
+  for (const { key, build } of entries) {
+    const x = Math.floor(key / divisor) * scale
+    if (!result[x] || result[x]!.value < build.value) result[x] = build
+  }
   return result
 }
 
