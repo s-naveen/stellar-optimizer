@@ -11,7 +11,7 @@ import type { MasonryProps } from '@mui/lab'
 import { Masonry } from '@mui/lab'
 import { Box, Button, Divider, ListItem } from '@mui/material'
 import type { FC } from 'react'
-import { useContext, useMemo } from 'react'
+import { memo, useContext, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DataContext, OptTargetContext } from '../../context'
 import { getDisplayHeader, getDisplaySections } from '../../util'
@@ -21,7 +21,11 @@ type EditorModalProps = {
   open: boolean
   onClose: () => void
 }
-export function StatDisplayComponent({
+/**
+ * Memoized: it only depends on its props and `DataContext`, and re-rendering all the
+ * stat rows is expensive (e.g. build cards re-render when their buttons toggle).
+ */
+export const StatDisplayComponent = memo(function StatDisplayComponent({
   columns = { xs: 1, sm: 2, md: 3, xl: 4 },
   BonusStatEditor,
   CustomMTargetEditor,
@@ -81,7 +85,7 @@ export function StatDisplayComponent({
       </Masonry>
     </Box>
   )
-}
+})
 
 function Section({
   displayNs,

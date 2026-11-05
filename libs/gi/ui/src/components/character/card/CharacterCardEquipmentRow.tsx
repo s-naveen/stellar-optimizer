@@ -18,7 +18,7 @@ export function CharacterCardEquipmentRow({
   const { data } = useContext(DataContext)
   return (
     <Box>
-      <Grid container columns={hideWeapon ? 5 : 6} spacing={0.5}>
+      <Grid container columns={hideWeapon ? 5 : 6} spacing={0.75}>
         {!hideWeapon && (
           <Grid item xs={1} height="100%">
             <WeaponCardPico

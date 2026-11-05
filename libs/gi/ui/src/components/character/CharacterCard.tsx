@@ -84,7 +84,7 @@ export function CharacterCard({
         <Skeleton
           variant="rectangular"
           width="100%"
-          height={hideStats ? 300 : 600}
+          height={hideStats ? 180 : 600}
         />
       }
     >
@@ -94,9 +94,12 @@ export function CharacterCard({
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
-          border: '1px solid rgba(200,200,200,0.3)',
+          transition:
+            'transform 150ms ease, box-shadow 150ms ease, outline-color 150ms ease',
           ':hover': {
-            border: '1px solid rgba(200,200,200,0.8)',
+            transform: 'translateY(-2px)',
+            boxShadow: '0 14px 32px rgba(0, 0, 0, 0.45)',
+            outlineColor: 'rgba(236, 229, 216, 0.28)',
           },
         }}
       >
@@ -105,16 +108,24 @@ export function CharacterCard({
             display: 'flex',
             position: 'absolute',
             zIndex: 2,
-            opacity: 0.7,
+            opacity: favorite ? 1 : 0.7,
+            m: 0.25,
+            // stays visible on light portraits
+            filter: 'drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6))',
           }}
         >
           <IconButton
+            size="small"
             sx={{ p: 0.5 }}
             onClick={(_) =>
               database.charMeta.set(characterKey, { favorite: !favorite })
             }
           >
-            {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+            {favorite ? (
+              <FavoriteIcon fontSize="small" sx={{ color: 'error.main' }} />
+            ) : (
+              <FavoriteBorderIcon fontSize="small" />
+            )}
           </IconButton>
         </Box>
         <ConditionalWrapper condition={!!onClick} wrapper={actionWrapperFunc}>
@@ -163,13 +174,13 @@ function ExistingCharacterCardContent({
         </CharacterCardHeader>
         <Box
           sx={(theme) => ({
-            p: 1,
+            p: 1.25,
             width: '100%',
             display: 'flex',
             flexDirection: 'column',
             gap: 1,
             flexGrow: 1,
-            padding: hideStats ? `${theme.spacing(1)}!important` : undefined,
+            padding: hideStats ? `${theme.spacing(1.25)}!important` : undefined,
           })}
         >
           <CharacterCardEquipmentRow />

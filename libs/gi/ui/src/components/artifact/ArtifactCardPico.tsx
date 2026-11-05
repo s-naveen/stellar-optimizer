@@ -31,6 +31,7 @@ export function ArtifactCardPico({
               opacity: 0.7,
             }}
             component="img"
+            loading="lazy"
             src={imgAssets.slot[key]}
           />
         </Box>
@@ -47,6 +48,7 @@ export function ArtifactCardPico({
       >
         <Box
           component="img"
+          loading="lazy"
           className={`grad-${rarity}star`}
           src={artifactAsset(art.setKey, art.slotKey)}
           maxWidth="100%"
@@ -55,8 +57,11 @@ export function ArtifactCardPico({
         <Typography
           sx={{
             position: 'absolute',
-            fontSize: '0.75rem',
+            fontSize: '0.6875rem',
             lineHeight: 1,
+            // readable on any icon
+            textShadow:
+              '0 0 3px rgba(0, 0, 0, 0.9), 0 1px 2px rgba(0, 0, 0, 0.8)',
             opacity: 0.85,
             pointerEvents: 'none',
             p: 0.25,
@@ -67,8 +72,11 @@ export function ArtifactCardPico({
         <Typography
           sx={{
             position: 'absolute',
-            fontSize: '0.75rem',
+            fontSize: '0.6875rem',
             lineHeight: 1,
+            // readable on any icon
+            textShadow:
+              '0 0 3px rgba(0, 0, 0, 0.9), 0 1px 2px rgba(0, 0, 0, 0.8)',
             pointerEvents: 'none',
             bottom: 0,
             right: 0,

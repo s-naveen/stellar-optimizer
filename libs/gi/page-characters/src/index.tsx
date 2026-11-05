@@ -6,9 +6,10 @@ import {
 import { useMediaQueryUp } from '@genshin-optimizer/common/react-util'
 import {
   CardThemed,
+  EmptyState,
+  PageHeader,
   ShowingAndSortOptionSelect,
   useInfScroll,
-  useIsMount,
 } from '@genshin-optimizer/common/ui'
 import {
   catTotal,
@@ -28,6 +29,7 @@ import {
   getCharStat,
   getWeaponStat,
 } from '@genshin-optimizer/gi/stats'
+import { giCtaSx } from '@genshin-optimizer/gi/theme'
 import type { CharacterSortKey } from '@genshin-optimizer/gi/ui'
 import {
   CharacterCard,
@@ -38,11 +40,11 @@ import {
   characterSortConfigs,
   characterSortMap,
   ElementToggle,
-  SillyContext,
   useCharSelectionCallback,
   WeaponToggle,
 } from '@genshin-optimizer/gi/ui'
 import AddIcon from '@mui/icons-material/Add'
+import PeopleIcon from '@mui/icons-material/People'
 import {
   Box,
   Button,
@@ -52,19 +54,11 @@ import {
   TextField,
 } from '@mui/material'
 import type { ChangeEvent } from 'react'
-import {
-  Suspense,
-  useContext,
-  useDeferredValue,
-  useMemo,
-  useState,
-} from 'react'
-import ReactGA from 'react-ga4'
+import { Suspense, useDeferredValue, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useMatch, useNavigate } from 'react-router-dom'
 
-const columns = { xs: 1, sm: 2, md: 3, lg: 4, xl: 4 }
-const numToShowMap = { xs: 5, sm: 8, md: 9, lg: 12, xl: 12 }
+const numToShowMap = { xs: 5, sm: 8, md: 9, lg: 15, xl: 15 }
 const sortKeys = Object.keys(characterSortMap)
 
 export default function PageCharacter() {
@@ -89,10 +83,8 @@ export default function PageCharacter() {
   const { t } = useTranslation([
     'page_character',
     // Always load these 2 so character names are loaded for searching/sorting
-    'sillyWisher_charNames',
     'charNames_gen',
   ])
-  const { silly } = useContext(SillyContext)
 
   const displayCharacter = useDataEntryBase(database.displayCharacter)
 
@@ -102,7 +94,6 @@ export default function PageCharacter() {
   const brPt = useMediaQueryUp()
 
   const [newCharacter, setnewCharacter] = useState(false)
-  if (useIsMount()) ReactGA.send({ hitType: 'pageview', page: '/characters' })
 
   // character favorite updater
   const characterMetaDirty = useDataManagerValues(database.charMeta)
@@ -120,14 +111,14 @@ export default function PageCharacter() {
         .filter(
           filterFunction(
             { element, weaponType, rarity, name: deferredSearchTerm },
-            characterFilterConfigs(database, silly)
+            characterFilterConfigs(database)
           )
         )
         .sort(
           sortFunction(
             characterSortMap[sortType] ?? [],
             ascending,
-            characterSortConfigs(database, silly),
+            characterSortConfigs(database),
             ['new', 'favorite']
           )
         )
@@ -138,7 +129,6 @@ export default function PageCharacter() {
     charKeys,
     deferredSearchTerm,
     database,
-    silly,
   ])
 
   const { weaponType, element, rarity, sortType, ascending } = displayCharacter
@@ -229,6 +219,19 @@ export default function PageCharacter() {
           onSelect={editCharacter}
         />
       </Suspense>
+      <PageHeader
+        title={t('ui:tabs.characters')}
+        count={totalCharNum}
+        actions={
+          <Button
+            sx={giCtaSx}
+            startIcon={<AddIcon />}
+            onClick={() => setnewCharacter(true)}
+          >
+            {t('header.add')}
+          </Button>
+        }
+      />
       <CardThemed>
         <CardContent sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
           <Grid container spacing={1}>
@@ -293,14 +296,21 @@ export default function PageCharacter() {
           </Box>
         </CardContent>
       </CardThemed>
-      <Button
-        fullWidth
-        onClick={() => setnewCharacter(true)}
-        color="info"
-        startIcon={<AddIcon />}
-      >
-        {t('addNew')}
-      </Button>
+      {totalCharNum === 0 && (
+        <EmptyState
+          icon={<PeopleIcon />}
+          title={t('page_character:empty.title')}
+          description={t('page_character:empty.description')}
+          actions={
+            <Button
+              onClick={() => setnewCharacter(true)}
+              startIcon={<AddIcon />}
+            >
+              {t('page_character:empty.add')}
+            </Button>
+          }
+        />
+      )}
       <Suspense
         fallback={
           <Skeleton
@@ -309,17 +319,23 @@ export default function PageCharacter() {
           />
         }
       >
-        <Grid container spacing={1} columns={columns}>
+        {/* as many ~280px cards per row as fit (5 on a 1536px window) */}
+        <Box
+          sx={{
+            display: 'grid',
+            gap: { xs: 1, md: 1.5 },
+            gridTemplateColumns: 'repeat(auto-fill, minmax(272px, 1fr))',
+          }}
+        >
           {charKeysToShow.map((charKey) => (
-            <Grid item key={charKey} xs={1}>
-              <CharacterCard
-                characterKey={charKey}
-                onClick={() => navigate(`${charKey}`)}
-                hideStats
-              />
-            </Grid>
+            <CharacterCard
+              key={charKey}
+              characterKey={charKey}
+              onClick={() => navigate(`${charKey}`)}
+              hideStats
+            />
           ))}
-        </Grid>
+        </Box>
       </Suspense>
       {filteredCharKeys.length !== charKeysToShow.length && (
         <Skeleton
