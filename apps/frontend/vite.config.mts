@@ -128,6 +128,9 @@ export default defineConfig(() => ({
   build: {
     outDir: '../../dist/apps/frontend',
     reportCompressedSize: true,
+    // The bundled npm packages' licences (they ask for their notices to travel with the
+    // code). Not linked from the UI; next to LICENSE.txt (public/) at the site root.
+    license: { fileName: 'THIRD-PARTY-LICENSES.md' },
     commonjsOptions: {
       transformMixedEsModules: true,
     },
