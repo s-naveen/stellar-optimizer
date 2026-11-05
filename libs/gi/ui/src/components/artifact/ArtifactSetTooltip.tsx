@@ -1,8 +1,8 @@
-import { BootstrapTooltip, SqBadge } from '@genshin-optimizer/common/ui'
+import { BootstrapTooltip } from '@genshin-optimizer/common/ui'
 import type { ArtifactSetKey } from '@genshin-optimizer/gi/consts'
 import { Translate } from '@genshin-optimizer/gi/i18n'
 import { getArtSheet } from '@genshin-optimizer/gi/sheets'
-import { Box, Skeleton, Stack, Typography } from '@mui/material'
+import { Box, Skeleton, Typography } from '@mui/material'
 import { Suspense } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -50,16 +50,33 @@ function SetToolTipTitle({
   const { t } = useTranslation('sheet')
   const artifactSheet = getArtSheet(setKey)
   return (
-    <Stack spacing={2} sx={{ p: 1 }}>
+    <Box
+      sx={{
+        maxWidth: 320,
+        py: 0.5,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 1.25,
+      }}
+    >
       {Object.keys(artifactSheet.setEffects).map((setNum) => (
         <Box
           key={setNum}
+          // bonuses the current pieces do not reach are dimmed
           sx={{ opacity: Number.parseInt(setNum) <= numInSet ? 1 : 0.5 }}
         >
-          <Typography>
-            <SqBadge color="success">{t(`${setNum}set`)}</SqBadge>
+          <Typography
+            sx={{
+              fontSize: '0.6875rem',
+              fontWeight: 700,
+              letterSpacing: '0.06em',
+              textTransform: 'uppercase',
+              color: 'success.main',
+            }}
+          >
+            {t(`${setNum}set`)}
           </Typography>
-          <Typography>
+          <Typography sx={{ mt: 0.25, fontSize: '0.8125rem', lineHeight: 1.5 }}>
             <Translate
               ns={`artifact_${setKey}_gen`}
               key18={`setEffects.${setNum}`}
@@ -67,6 +84,6 @@ function SetToolTipTitle({
           </Typography>
         </Box>
       ))}
-    </Stack>
+    </Box>
   )
 }

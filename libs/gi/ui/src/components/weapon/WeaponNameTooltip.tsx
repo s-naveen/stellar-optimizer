@@ -9,21 +9,46 @@ import { WeaponName } from './WeaponTrans'
 
 type Data = {
   weaponKey: WeaponKey
-  addlText?: any
-  children: ReactElement<any, any> & ReactNode
+  addlText?: ReactNode
+  children: ReactElement
 }
 export function WeaponNameTooltip({ weaponKey, addlText, children }: Data) {
   const title = (
-    <Suspense fallback={<Skeleton variant="text" width={100} />}>
-      <Box>
-        <Typography>
+    <Suspense fallback={<Skeleton variant="text" width={120} />}>
+      <Box
+        sx={{
+          maxWidth: 260,
+          py: 0.25,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 0.5,
+        }}
+      >
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
           <ImgIcon
             src={imgAssets.weaponTypes[getWeaponStat(weaponKey).weaponType]}
-            size={1.5}
+            size={1.25}
           />
-          <WeaponName weaponKey={weaponKey} />
-        </Typography>
-        {addlText}
+          <Typography
+            sx={{ fontSize: '0.875rem', fontWeight: 600, lineHeight: 1.3 }}
+          >
+            <WeaponName weaponKey={weaponKey} />
+          </Typography>
+        </Box>
+        {addlText && (
+          // e.g. the main and secondary stat: quieter than the name
+          <Box
+            sx={{
+              color: 'text.secondary',
+              '& .MuiTypography-root': {
+                fontSize: '0.8125rem',
+                fontVariantNumeric: 'tabular-nums',
+              },
+            }}
+          >
+            {addlText}
+          </Box>
+        )}
       </Box>
     </Suspense>
   )
