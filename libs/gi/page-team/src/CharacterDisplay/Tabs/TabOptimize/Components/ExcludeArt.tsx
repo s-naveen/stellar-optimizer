@@ -26,14 +26,11 @@ import {
 } from '@genshin-optimizer/gi/ui'
 import { artifactFilterConfigs } from '@genshin-optimizer/gi/util'
 import AddIcon from '@mui/icons-material/Add'
-import CheckBoxIcon from '@mui/icons-material/CheckBox'
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
 import CloseIcon from '@mui/icons-material/Close'
 import SettingsIcon from '@mui/icons-material/Settings'
 import {
   Box,
   Button,
-  ButtonGroup,
   CardContent,
   CardHeader,
   Divider,
@@ -44,6 +41,7 @@ import {
 } from '@mui/material'
 import { Suspense, useCallback, useContext, useMemo, useReducer } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
+import { SettingsCardButton, SwitchRow } from './SettingsCard'
 
 export default function ExcludeArt({
   disabled = false,
@@ -166,50 +164,33 @@ export default function ExcludeArt({
         </CardThemed>
       </ModalWrapper>
 
-      {/* Button to open modal */}
-      <ButtonGroup sx={{ display: 'flex', width: '100%' }}>
-        <Button
-          onClick={toggleArtExclusion}
-          disabled={disabled || !numExcludedArt}
-          startIcon={
-            useExcludedArts ? <CheckBoxOutlineBlankIcon /> : <CheckBoxIcon />
-          }
-          color={useExcludedArts ? 'secondary' : 'success'}
-          sx={{ flexGrow: 1 }}
-        >
-          <Box sx={{ display: 'flex', gap: 1 }}>
-            <Box>{t('excludeArt.button_txt')}</Box>
-            <SqBadge
-              sx={{ whiteSpace: 'normal' }}
-              color={
-                !numExcludedArt
-                  ? 'secondary'
-                  : useExcludedArts
-                    ? 'warning'
-                    : 'primary'
-              }
-            >
-              {useExcludedArts ? (
-                <Trans t={t} i18nKey="excludeArt.usingNum">
-                  Using {{ totalStr: excludedTotal } as any} excluded artifacts
-                </Trans>
-              ) : (
-                <Trans t={t} i18nKey="excludeArt.excNum" count={numExcludedArt}>
-                  {{ count: numExcludedArt } as any} artifacts are excluded
-                </Trans>
-              )}
-            </SqBadge>
-          </Box>
-        </Button>
-        <Button
-          color="info"
-          onClick={onOpen}
-          disabled={disabled}
-          sx={{ flexShrink: 1 }}
-        >
-          <SettingsIcon />
-        </Button>
-      </ButtonGroup>
+      {/* "on" = the exclusion list is applied (useExcludedArts is the opposite) */}
+      <SwitchRow
+        label={t('settings.useExcluded')}
+        hint={
+          useExcludedArts ? (
+            <Trans t={t} i18nKey="excludeArt.usingNum">
+              Using {{ totalStr: excludedTotal } as any} excluded artifacts
+            </Trans>
+          ) : numExcludedArt ? (
+            t('settings.excludedSkip', { count: numExcludedArt })
+          ) : (
+            t('settings.excludedNone')
+          )
+        }
+        checked={!useExcludedArts}
+        onChange={toggleArtExclusion}
+        disabled={disabled || !numExcludedArt}
+        extra={
+          <SettingsCardButton
+            startIcon={<SettingsIcon />}
+            onClick={onOpen}
+            disabled={disabled}
+          >
+            {t('settings.manage')}
+          </SettingsCardButton>
+        }
+      />
     </>
   )
 }

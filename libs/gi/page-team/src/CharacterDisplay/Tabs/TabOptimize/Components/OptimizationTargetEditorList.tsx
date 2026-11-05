@@ -3,18 +3,9 @@ import { objPathValue } from '@genshin-optimizer/common/util'
 import type { StatFilterSetting, StatFilters } from '@genshin-optimizer/gi/db'
 import { DataContext, resolveInfo } from '@genshin-optimizer/gi/ui'
 import type { CalcResult } from '@genshin-optimizer/gi/uidata'
-import {
-  CheckBox,
-  CheckBoxOutlineBlank,
-  DeleteForever,
-} from '@mui/icons-material'
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  IconButton,
-  InputAdornment,
-} from '@mui/material'
+import AddIcon from '@mui/icons-material/Add'
+import DeleteForever from '@mui/icons-material/DeleteForever'
+import { Box, IconButton, InputAdornment, Switch } from '@mui/material'
 import { useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import OptimizationTargetSelector from './OptimizationTargetSelector'
@@ -111,10 +102,16 @@ export default function OptimizationTargetEditorList({
       <OptimizationTargetSelector
         showEmptyTargets
         setTarget={(target) => setTarget(target)}
-        defaultText={t('targetSelector.selectBuildTarget')}
+        defaultText={t('settings.addConstraint')}
         disabled={disabled}
         targetSelectorModalProps={{
           excludeSections: ['custom', 'bonusStats', 'character', 'teamBuff'],
+        }}
+        buttonProps={{
+          variant: 'outlined',
+          color: 'inherit',
+          startIcon: <AddIcon />,
+          sx: { borderStyle: 'dashed', color: 'text.secondary' },
         }}
       />
     </>
@@ -147,7 +144,6 @@ function OptimizationTargetEditorItem({
     (val: number | undefined) => setValue(path, index, val ?? 0),
     [setValue, path, index]
   )
-  const buttonStyle = { p: 1, flexBasis: 30, flexGrow: 0, flexShrink: 0 }
 
   const buildConstraintNode: CalcResult = objPathValue(data.getDisplay(), path)
   const resolvedInfo =
@@ -155,55 +151,60 @@ function OptimizationTargetEditorItem({
   const isPercent = resolvedInfo?.unit === '%'
 
   return (
-    <Box sx={{ display: 'flex', gap: 1 }}>
-      <ButtonGroup
-        sx={{ '& .MuiButtonGroup-grouped': { minWidth: 24 }, width: '100%' }}
-      >
-        <Button
-          sx={buttonStyle}
-          color={setting.disabled ? 'secondary' : 'success'}
-          onClick={() => setDisabled(path, index, !setting.disabled)}
-          disabled={disabled}
-        >
-          {setting.disabled ? <CheckBoxOutlineBlank /> : <CheckBox />}
-        </Button>
-
-        <OptimizationTargetSelector
-          showEmptyTargets
-          optimizationTarget={path}
-          setTarget={(target) => setTarget(target, path, index)}
-          defaultText={t('targetSelector.selectBuildTarget')}
-          disabled={disabled}
-          targetSelectorModalProps={{
-            excludeSections: ['custom', 'bonusStats', 'character', 'teamBuff'],
-          }}
-        />
-      </ButtonGroup>
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+      <Switch
+        size="small"
+        checked={!setting.disabled}
+        onChange={() => setDisabled(path, index, !setting.disabled)}
+        disabled={disabled}
+        inputProps={{ 'aria-label': t('settings.constraintOn') }}
+      />
+      <OptimizationTargetSelector
+        showEmptyTargets
+        optimizationTarget={path}
+        setTarget={(target) => setTarget(target, path, index)}
+        defaultText={t('targetSelector.selectBuildTarget')}
+        disabled={disabled}
+        targetSelectorModalProps={{
+          excludeSections: ['custom', 'bonusStats', 'character', 'teamBuff'],
+        }}
+        buttonProps={{
+          variant: 'outlined',
+          color: 'inherit',
+          sx: {
+            flex: '1 1 auto',
+            minWidth: 0,
+            justifyContent: 'flex-start',
+            // an off constraint is kept but does not filter
+            opacity: setting.disabled ? 0.5 : 1,
+          },
+        }}
+      />
       <NumberInputLazy
         float
         value={setting.value}
-        sx={{ flexBasis: 150, flexGrow: 1, height: '100%' }}
+        sx={{ width: 112, flexShrink: 0 }}
         disabled={disabled}
         onChange={onChange}
         placeholder="Stat Value"
         size="small"
         inputProps={{ sx: { textAlign: 'right' } }}
         InputProps={{
-          sx: { flex: 1, fontSize: '0.9rem' },
-          endAdornment: (
-            <InputAdornment position="end" sx={{ ml: 0 }}>
-              {isPercent ? '%' : undefined}{' '}
-              <IconButton
-                aria-label="Delete Stat Constraint"
-                onClick={() => delTarget(path, index)}
-                edge="end"
-              >
-                <DeleteForever sx={{ fontSize: '1.25rem' }} />
-              </IconButton>
+          endAdornment: isPercent ? (
+            <InputAdornment position="end" sx={{ ml: 0.5 }}>
+              %
             </InputAdornment>
-          ),
+          ) : undefined,
         }}
       />
+      <IconButton
+        size="small"
+        aria-label={t('settings.deleteConstraint')}
+        onClick={() => delTarget(path, index)}
+        disabled={disabled}
+      >
+        <DeleteForever fontSize="small" />
+      </IconButton>
     </Box>
   )
 }

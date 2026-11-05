@@ -12,7 +12,10 @@ export default function AssumeFullLevelToggle({
   return (
     <DropdownButton
       fullWidth
-      color={mainStatAssumptionLevel ? 'success' : 'primary'}
+      size="small"
+      variant="outlined"
+      // gold while an assumption is in use, quiet otherwise
+      color={mainStatAssumptionLevel ? 'primary' : 'inherit'}
       disabled={disabled}
       title={
         mainStatAssumptionLevel

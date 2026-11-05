@@ -1,5 +1,9 @@
-import { iconInlineProps } from '@genshin-optimizer/common/svgicons'
-import { BootstrapTooltip, SqBadge } from '@genshin-optimizer/common/ui'
+import {
+  BootstrapTooltip,
+  filterToggleValue,
+  SolidToggleButtonGroup,
+  ToggleButtonCount,
+} from '@genshin-optimizer/common/ui'
 import { bulkCatTotal, handleMultiSelect } from '@genshin-optimizer/common/util'
 import {
   allElementWithPhyKeys,
@@ -19,14 +23,8 @@ import {
   StatIcon,
 } from '@genshin-optimizer/gi/svgicons'
 import { StatColoredWithUnit } from '@genshin-optimizer/gi/ui'
-import {
-  Box,
-  Button,
-  CardContent,
-  Divider,
-  Grid,
-  Typography,
-} from '@mui/material'
+import { Box, ToggleButton, Typography } from '@mui/material'
+import type { ReactNode } from 'react'
 import { useContext, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -83,40 +81,29 @@ export default function MainStatSelectionCard({
   }, [database, filteredArtIdMap])
 
   return (
-    <Box display="flex" flexDirection="column">
-      <Divider />
-      <Box display="flex">
-        <CardContent sx={{ flexGrow: 1 }}>
-          <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-            <BootstrapTooltip
-              placement="top"
-              title={<Typography>{t('slotName.flower')}</Typography>}
-            >
-              <FlowerIcon fontSize="inherit" />
-            </BootstrapTooltip>
-            <Box flexGrow={1}>
-              <SqBadge color="info">
-                <HpIcon {...iconInlineProps} /> {mainStatSlotTots.flower.hp}
-              </SqBadge>
-            </Box>
-          </Box>
-        </CardContent>
-        <Divider orientation="vertical" flexItem />
-        <CardContent sx={{ flexGrow: 1 }}>
-          <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-            <BootstrapTooltip
-              placement="top"
-              title={<Typography>{t('slotName.plume')}</Typography>}
-            >
-              <PlumeIcon fontSize="inherit" />
-            </BootstrapTooltip>
-            <Box flexGrow={1}>
-              <SqBadge color="info">
-                <AtkIcon {...iconInlineProps} /> {mainStatSlotTots.plume.atk}
-              </SqBadge>
-            </Box>
-          </Box>
-        </CardContent>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+      {/* flower and plume have a fixed main stat: just how many are in the filtered pool */}
+      <Box
+        sx={{
+          display: 'flex',
+          gap: 2,
+          color: 'text.secondary',
+          fontSize: '0.8125rem',
+          fontVariantNumeric: 'tabular-nums',
+        }}
+      >
+        <FixedMainStat
+          slotIcon={<FlowerIcon fontSize="inherit" />}
+          statIcon={<HpIcon fontSize="inherit" />}
+          label={t('slotName.flower')}
+          count={mainStatSlotTots.flower.hp}
+        />
+        <FixedMainStat
+          slotIcon={<PlumeIcon fontSize="inherit" />}
+          statIcon={<AtkIcon fontSize="inherit" />}
+          label={t('slotName.plume')}
+          count={mainStatSlotTots.plume.atk}
+        />
       </Box>
       {artifactsSlotsToSelectMainStats.map((slotKey) => {
         const selectedMainKeys = mainStatKeys[slotKey]
@@ -124,89 +111,117 @@ export default function MainStatSelectionCard({
         const mainKeysHandler = handleMultiSelect([...mainKeys])
         return (
           <Box key={slotKey}>
-            <Divider />
-            <CardContent sx={{ pt: 1, pb: 1 }}>
-              <Box
-                sx={{ display: 'flex', gap: 1, alignItems: 'center', pb: 1 }}
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 0.75,
+                mb: 0.75,
+                color: 'text.secondary',
+              }}
+            >
+              <SlotIcon slotKey={slotKey} iconProps={{ fontSize: 'small' }} />
+              <Typography variant="body2">
+                {t(`slotName.${slotKey}`)}
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{ ml: 'auto', fontVariantNumeric: 'tabular-nums' }}
               >
-                <BootstrapTooltip
-                  placement="top"
-                  title={<Typography>{t(`slotName.${slotKey}`)}</Typography>}
-                >
-                  <Box lineHeight={0}>
-                    <SlotIcon
-                      slotKey={slotKey}
-                      iconProps={{ fontSize: 'inherit' }}
-                    />
-                  </Box>
-                </BootstrapTooltip>
-                <Box flexGrow={1}>
-                  <SqBadge color="info">{slotTots[slotKey]}</SqBadge>
-                </Box>
-              </Box>
-              <Grid container spacing={1}>
-                {mainKeys.map((mainStatKey, i) => {
-                  const element = allElementWithPhyKeys.find((ele) =>
-                    mainStatKey.includes(ele)
-                  )
-                  const color = selectedMainKeys.includes(mainStatKey)
-                    ? (element ?? 'success')
-                    : 'secondary'
-                  return (
-                    <Grid
-                      item
-                      key={mainStatKey}
-                      flexGrow={1}
-                      xs={
-                        (i < 3 && slotKey !== 'goblet') || slotKey === 'goblet'
-                          ? 4
-                          : undefined
+                {slotTots[slotKey]}
+              </Typography>
+            </Box>
+            <SolidToggleButtonGroup
+              quiet
+              size="small"
+              value={filterToggleValue(selectedMainKeys, mainKeys)}
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+              }}
+            >
+              {mainKeys.map((mainStatKey) => {
+                const element = allElementWithPhyKeys.find((ele) =>
+                  mainStatKey.includes(ele)
+                )
+                return (
+                  <BootstrapTooltip
+                    key={mainStatKey}
+                    placement="top"
+                    // a disabled button gets no hover anyway (and MUI warns about it)
+                    title={
+                      disabled ? (
+                        ''
+                      ) : (
+                        <Typography>
+                          <strong>
+                            <StatColoredWithUnit statKey={mainStatKey} />
+                          </strong>
+                        </Typography>
+                      )
+                    }
+                    disableInteractive
+                  >
+                    <ToggleButton
+                      value={mainStatKey}
+                      disabled={disabled}
+                      onClick={() =>
+                        database.optConfigs.set(optConfigId, {
+                          mainStatKeys: {
+                            ...mainStatKeys,
+                            [slotKey]: mainKeysHandler(
+                              selectedMainKeys,
+                              mainStatKey
+                            ),
+                          },
+                        })
                       }
                     >
-                      <BootstrapTooltip
-                        placement="top"
-                        title={
-                          <Typography>
-                            <strong>
-                              <StatColoredWithUnit statKey={mainStatKey} />
-                            </strong>
-                          </Typography>
-                        }
-                        disableInteractive
-                      >
-                        <Button
-                          fullWidth
-                          size="small"
-                          color={color}
-                          sx={{
-                            height: '100%',
-                            pointerEvents: disabled ? 'none' : undefined,
-                            cursor: disabled ? 'none' : undefined,
-                          }}
-                          startIcon={<StatIcon statKey={mainStatKey} />}
-                          onClick={() =>
-                            database.optConfigs.set(optConfigId, {
-                              mainStatKeys: {
-                                ...mainStatKeys,
-                                [slotKey]: mainKeysHandler(
-                                  selectedMainKeys,
-                                  mainStatKey
-                                ),
-                              },
-                            })
-                          }
-                        >
-                          {mainStatSlotTots[slotKey][mainStatKey]}
-                        </Button>
-                      </BootstrapTooltip>
-                    </Grid>
-                  )
-                })}
-              </Grid>
-            </CardContent>
+                      <StatIcon
+                        statKey={mainStatKey}
+                        iconProps={{
+                          sx: {
+                            fontSize: 16,
+                            color: element ? `${element}.main` : undefined,
+                          },
+                        }}
+                      />
+                      <ToggleButtonCount>
+                        {mainStatSlotTots[slotKey][mainStatKey]}
+                      </ToggleButtonCount>
+                    </ToggleButton>
+                  </BootstrapTooltip>
+                )
+              })}
+            </SolidToggleButtonGroup>
           </Box>
         )
       })}
     </Box>
+  )
+}
+
+function FixedMainStat({
+  slotIcon,
+  statIcon,
+  label,
+  count,
+}: {
+  slotIcon: ReactNode
+  statIcon: ReactNode
+  label: ReactNode
+  count: ReactNode
+}) {
+  return (
+    <BootstrapTooltip placement="top" title={<Typography>{label}</Typography>}>
+      <Box
+        component="span"
+        sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.5 }}
+      >
+        {slotIcon}
+        {statIcon}
+        {count}
+      </Box>
+    </BootstrapTooltip>
   )
 }

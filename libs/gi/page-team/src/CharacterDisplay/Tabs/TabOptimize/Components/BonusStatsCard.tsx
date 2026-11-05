@@ -1,5 +1,4 @@
 import { useBoolState } from '@genshin-optimizer/common/react-util'
-import { CardThemed } from '@genshin-optimizer/common/ui'
 import { TeamCharacterContext } from '@genshin-optimizer/gi/db-ui'
 import {
   DataContext,
@@ -8,11 +7,10 @@ import {
 } from '@genshin-optimizer/gi/ui'
 import type { NumNode } from '@genshin-optimizer/gi/wr'
 import { uiInput as input } from '@genshin-optimizer/gi/wr'
-import BarChartIcon from '@mui/icons-material/BarChart'
-import { Button, CardHeader, Divider } from '@mui/material'
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import BonusStatsModal from '../../../BonusStatsModal'
+import { SettingsCard, SettingsCardButton } from './SettingsCard'
 export default function BonusStatsCard() {
   const { t } = useTranslation(['page_character_optimize', 'common'])
   const [show, onShow, onHide] = useBoolState()
@@ -25,24 +23,24 @@ export default function BonusStatsCard() {
     data.get(input.customBonus[k] as NumNode)
   )
   return (
-    <CardThemed bgt="light">
+    <>
       <BonusStatsModal open={show} onClose={onHide} />
-      <CardHeader
+      <SettingsCard
         title={t('bonusStats.title')}
-        titleTypographyProps={{ variant: 'subtitle1' }}
-        avatar={<BarChartIcon />}
         action={
-          <Button color="info" onClick={onShow}>
+          <SettingsCardButton onClick={onShow}>
             {t('common:edit')}
-          </Button>
+          </SettingsCardButton>
         }
-      />
-      <Divider />
-      <FieldDisplayList bgt="light">
-        {nodes.map((n) => (
-          <NodeFieldDisplay key={JSON.stringify(n.info)} calcRes={n} />
-        ))}
-      </FieldDisplayList>
-    </CardThemed>
+      >
+        {!!nodes.length && (
+          <FieldDisplayList bgt="light">
+            {nodes.map((n) => (
+              <NodeFieldDisplay key={JSON.stringify(n.info)} calcRes={n} />
+            ))}
+          </FieldDisplayList>
+        )}
+      </SettingsCard>
+    </>
   )
 }

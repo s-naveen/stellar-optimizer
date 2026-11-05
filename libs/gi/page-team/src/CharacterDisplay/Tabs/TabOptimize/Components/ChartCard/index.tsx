@@ -25,19 +25,16 @@ import {
 } from '@genshin-optimizer/gi/ui'
 import type { Info, InfoExtra, NumNode } from '@genshin-optimizer/gi/wr'
 import { input } from '@genshin-optimizer/gi/wr'
+import { Download, Replay } from '@mui/icons-material'
 import {
-  CheckBox,
-  CheckBoxOutlineBlank,
-  Download,
-  Replay,
-} from '@mui/icons-material'
-import {
+  Box,
   Button,
   CardContent,
   Collapse,
-  Divider,
-  Grid,
+  FormControlLabel,
+  IconButton,
   Slider,
+  Switch,
   Typography,
 } from '@mui/material'
 import type { TFunction } from 'i18next'
@@ -222,127 +219,152 @@ export default function ChartCard({
     ? t('page_character_optimize:targetSelector.invalidTarget')
     : t('page_character_optimize:targetSelector.selectGraphTarget')
 
+  const hasChart = !!chartData && !!chartData.data.length && !!displayData
+
   return (
     <CardThemed bgt="light">
-      <CardContent>
-        <Grid container spacing={1} alignItems="center">
-          <Grid item>
-            <Typography>{t('tcGraph.vs')}</Typography>
-          </Grid>
-          <Grid item>
-            <BootstrapTooltip
-              placement="top"
-              title={
-                showTooltip
-                  ? t('page_character_optimize:selectTargetFirst')
-                  : ''
-              }
-            >
-              <span>
-                <OptimizationTargetSelector
-                  optimizationTarget={plotBase}
-                  setTarget={(target) => setPlotBase(target)}
-                  defaultText={buttonText}
-                  disabled={disabled}
-                  targetSelectorModalProps={{
-                    excludeSections: ['character', 'bonusStats', 'teamBuff'],
-                  }}
-                />
-              </span>
-            </BootstrapTooltip>
-          </Grid>
-          <Grid item>
-            <BootstrapTooltip
-              title={!plotBase ? '' : t('ui:reset')}
-              placement="top"
-            >
-              <span>
-                <Button
-                  color="secondary"
-                  onClick={() => setPlotBase(undefined)}
-                  disabled={!plotBase || disabled}
-                >
-                  <Replay />
-                </Button>
-              </span>
-            </BootstrapTooltip>
-          </Grid>
-          <Grid item flexGrow={1}>
-            <InfoTooltip
-              placement="top"
-              title={t('page_character_optimize:tcGraph.desc')}
-            />
-          </Grid>
-          {!!downloadData && (
-            <Grid item>
-              <Button
-                size="small"
-                startIcon={showMin ? <CheckBox /> : <CheckBoxOutlineBlank />}
-                color={showMin ? 'success' : 'secondary'}
-                onClick={() => setshowMin(!showMin)}
-              >
-                {t('tcGraph.showStatThr')}
-              </Button>
-            </Grid>
-          )}
-          {!!downloadData && (
-            <Grid item>
-              <Button
-                size="small"
-                color="info"
-                startIcon={<Download />}
-                onClick={() => setshowDownload(!showDownload)}
-              >
-                {t('tcGraph.downloadData')}
-              </Button>
-            </Grid>
-          )}
-        </Grid>
-      </CardContent>
-      {chartData && !!chartData.data.length && <Divider />}
-      {chartData && !!chartData.data.length && displayData && (
-        <CardContent>
-          <Collapse in={!!downloadData && showDownload}>
-            <CardThemed sx={{ mb: 2 }}>
-              <CardContent>
-                <Typography>Min Data</Typography>
-                <ReadOnlyTextArea
-                  value={JSON.stringify(downloadData?.minimum)}
-                />
-                <Typography>All Data</Typography>
-                <ReadOnlyTextArea
-                  value={JSON.stringify(downloadData?.allData)}
-                />
-              </CardContent>
-            </CardThemed>
-          </Collapse>
-          <Chart
-            displayData={displayData}
-            plotNode={chartData.plotNode}
-            valueNode={chartData.valueNode}
-            showMin={showMin}
+      <CardContent sx={{ display: 'flex', flexDirection: 'column', gap: 1.25 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: 1,
+            minHeight: 30,
+          }}
+        >
+          <Typography sx={{ fontWeight: 600 }}>
+            {t('settings.graph')}
+          </Typography>
+          <InfoTooltip
+            placement="top"
+            title={t('page_character_optimize:tcGraph.desc')}
           />
-          {chartData.data.length > 1 && (
-            <Slider
-              marks
-              value={[sliderLow, sliderHigh]}
-              onChange={setSlider}
-              onChangeCommitted={setSlider}
-              min={sliderMin}
-              max={sliderMax}
-              step={(sliderMax - sliderMin) / 20}
-              valueLabelDisplay="auto"
-              valueLabelFormat={(n) => {
-                const info =
-                  chartData.plotNode.info &&
-                  resolveInfo(chartData.plotNode.info)
-                return valueString(info?.unit === '%' ? n / 100 : n, info?.unit)
-              }}
-              sx={{ ml: '6%', width: '93%' }}
-            />
+          <Box sx={{ flexGrow: 1 }} />
+          <Typography variant="body2" color="text.secondary">
+            {t('settings.graphVs')}
+          </Typography>
+          <BootstrapTooltip
+            placement="top"
+            title={
+              showTooltip ? t('page_character_optimize:selectTargetFirst') : ''
+            }
+          >
+            <span>
+              <OptimizationTargetSelector
+                optimizationTarget={plotBase}
+                setTarget={(target) => setPlotBase(target)}
+                defaultText={buttonText}
+                disabled={disabled}
+                buttonProps={{
+                  size: 'small',
+                  variant: 'outlined',
+                  color: invalidTarget ? 'error' : 'inherit',
+                }}
+                targetSelectorModalProps={{
+                  excludeSections: ['character', 'bonusStats', 'teamBuff'],
+                }}
+              />
+            </span>
+          </BootstrapTooltip>
+          {!!plotBase && (
+            <BootstrapTooltip title={t('ui:reset')} placement="top">
+              <span>
+                <IconButton
+                  size="small"
+                  aria-label={t('ui:reset')}
+                  onClick={() => setPlotBase(undefined)}
+                  disabled={disabled}
+                >
+                  <Replay fontSize="small" />
+                </IconButton>
+              </span>
+            </BootstrapTooltip>
           )}
-        </CardContent>
-      )}
+        </Box>
+        {hasChart && (
+          <>
+            {!!downloadData && (
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  flexWrap: 'wrap',
+                  gap: 1,
+                }}
+              >
+                <FormControlLabel
+                  sx={{ m: 0, gap: 0.5 }}
+                  control={
+                    <Switch
+                      size="small"
+                      checked={showMin}
+                      onChange={() => setshowMin(!showMin)}
+                    />
+                  }
+                  label={
+                    <Typography variant="body2">
+                      {t('settings.thresholdLine')}
+                    </Typography>
+                  }
+                />
+                <Box sx={{ flexGrow: 1 }} />
+                <Button
+                  size="small"
+                  variant="outlined"
+                  color="inherit"
+                  startIcon={<Download />}
+                  onClick={() => setshowDownload(!showDownload)}
+                >
+                  {t('tcGraph.downloadData')}
+                </Button>
+              </Box>
+            )}
+            <Collapse in={!!downloadData && showDownload}>
+              <CardThemed sx={{ mb: 2 }}>
+                <CardContent>
+                  <Typography>Min Data</Typography>
+                  <ReadOnlyTextArea
+                    value={JSON.stringify(downloadData?.minimum)}
+                  />
+                  <Typography>All Data</Typography>
+                  <ReadOnlyTextArea
+                    value={JSON.stringify(downloadData?.allData)}
+                  />
+                </CardContent>
+              </CardThemed>
+            </Collapse>
+            <Chart
+              displayData={displayData}
+              plotNode={chartData.plotNode}
+              valueNode={chartData.valueNode}
+              showMin={showMin}
+            />
+            {chartData.data.length > 1 && (
+              <Slider
+                marks
+                value={[sliderLow, sliderHigh]}
+                onChange={setSlider}
+                onChangeCommitted={setSlider}
+                min={sliderMin}
+                max={sliderMax}
+                step={(sliderMax - sliderMin) / 20}
+                valueLabelDisplay="auto"
+                valueLabelFormat={(n) => {
+                  const info =
+                    chartData.plotNode.info &&
+                    resolveInfo(chartData.plotNode.info)
+                  return valueString(
+                    info?.unit === '%' ? n / 100 : n,
+                    info?.unit
+                  )
+                }}
+                sx={{ ml: '6%', width: '93%' }}
+              />
+            )}
+          </>
+        )}
+      </CardContent>
     </CardThemed>
   )
 }

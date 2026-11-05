@@ -14,10 +14,14 @@ import type {
   IFieldDisplay,
 } from '@genshin-optimizer/gi/sheets'
 import type { CalcResult } from '@genshin-optimizer/gi/uidata'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import GroupsIcon from '@mui/icons-material/Groups'
 import HelpIcon from '@mui/icons-material/Help'
+import TrackChangesIcon from '@mui/icons-material/TrackChanges'
 import type { ListProps, PaletteColor } from '@mui/material'
 import {
+  alpha,
   Box,
   Divider,
   List,
@@ -29,6 +33,7 @@ import {
 import type React from 'react'
 import type { ReactNode } from 'react'
 import { Suspense, useCallback, useContext, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { DataContext, FormulaDataContext } from '../context'
 import { GetCalcDisplay, resolveInfo } from '../util'
 import { AmpReactionModeText } from './AmpReactionModeText'
@@ -41,7 +46,8 @@ export function FieldsDisplay({
   bgt?: CardBackgroundColor
 }) {
   return (
-    <FieldDisplayList sx={{ m: 0 }} bgt={bgt}>
+    // every field can be hidden (canShow / empty node): then show no empty well
+    <FieldDisplayList sx={{ m: 0, '&:empty': { display: 'none' } }} bgt={bgt}>
       {fields.map((field, i) => (
         <FieldDisplay key={i} field={field} />
       ))}
@@ -126,6 +132,7 @@ export function NodeFieldDisplay({
   // Show field, even if the value is zero
   showZero?: boolean
 }) {
+  const { t } = useTranslation('ui')
   const { data } = useContext(DataContext)
   const { setFormulaData } = useContext(FormulaDataContext)
   const onClick = useCallback(
@@ -145,14 +152,18 @@ export function NodeFieldDisplay({
   const { unit, fixed, variant, subVariant } = resolveInfo(
     (calcRes?.info ?? compareCalcRes?.info)!
   )
-  const calcDisplay = GetCalcDisplay((calcRes ?? compareCalcRes)!)
+  const node = (calcRes ?? compareCalcRes)!
+  // Same condition as `!!GetCalcDisplay(node).formula` (numeric formulas are
+  // always non-empty), without building the formula display, which is costly
+  // and only needed when the tooltip opens
+  const hasFormula = typeof node.value === 'number' || !!node.value
 
   const diff = calcValue - compareCalcValue
   const pctDiff =
     compareCalcRes &&
     unit !== '%' &&
     (calcValue > 100 || compareCalcValue > 100)
-      ? valueString(diff / compareCalcValue, '%', fixed)
+      ? valueString(Math.abs(diff / compareCalcValue), '%', fixed)
       : null
 
   fieldVal = (
@@ -167,27 +178,32 @@ export function NodeFieldDisplay({
             </Typography>
           }
         >
-          <ColorText
-            color={diff > 0 ? 'success' : 'error'}
+          {/* the change against the compared build: one compact, coloured figure */}
+          <Box
+            component="span"
             sx={{
-              display: 'flex',
-              gap: 0.5,
+              display: 'inline-flex',
               alignItems: 'center',
-              justifyContent: 'flex-end',
-              flexWrap: 'wrap',
+              gap: 0.5,
+              whiteSpace: 'nowrap',
+              fontSize: '0.8125rem',
+              fontWeight: 600,
+              fontVariantNumeric: 'tabular-nums',
+              color: diff > 0 ? 'success.main' : 'error.main',
             }}
           >
-            <span>
-              ({diff > 0 ? '+' : ''}
-              {valueString(diff, unit, fixed)})
-            </span>
-            {!!pctDiff && (
-              <span>
-                ({diff > 0 ? '+' : ''}
-                {pctDiff})
-              </span>
+            {diff > 0 ? (
+              <ArrowDropUpIcon sx={{ fontSize: 18, mx: -0.5 }} />
+            ) : (
+              <ArrowDropDownIcon sx={{ fontSize: 18, mx: -0.5 }} />
             )}
-          </ColorText>
+            {valueString(Math.abs(diff), unit, fixed)}
+            {!!pctDiff && (
+              <Box component="span" sx={{ fontWeight: 500, opacity: 0.8 }}>
+                · {pctDiff}
+              </Box>
+            )}
+          </Box>
         </BootstrapTooltip>
       )}
     </>
@@ -198,28 +214,51 @@ export function NodeFieldDisplay({
       width="100%"
       sx={{
         display: 'flex',
+        alignItems: 'center',
         justifyContent: 'space-between',
         gap: 1,
-        boxShadow: emphasize ? '0px 0px 0px 2px red inset' : undefined,
         py: 0.25,
         textDecoration: strikethrough ? 'line-through' : undefined,
+        // the optimization target: a gold accent bar and tint (an image layer, so the list's
+        // zebra background colour cannot cover it), not an error-red outline
+        ...(emphasize && {
+          backgroundImage: (theme) =>
+            `linear-gradient(${alpha(theme.palette.primary.main, 0.14)}, ${alpha(theme.palette.primary.main, 0.14)})`,
+          boxShadow: (theme) => `inset 3px 0 0 ${theme.palette.primary.main}`,
+        }),
       }}
       component={component}
     >
+      {emphasize && (
+        <BootstrapTooltip title={t('optimizationTarget')} placement="top">
+          <TrackChangesIcon
+            aria-label={t('optimizationTarget')}
+            sx={{
+              fontSize: 16,
+              color: 'primary.main',
+              flexShrink: 0,
+              mr: -0.5,
+            }}
+          />
+        </BootstrapTooltip>
+      )}
       <NodeFieldDisplayText node={(calcRes ?? compareCalcRes)!} />
       <Typography
         sx={{
+          ml: 'auto',
           display: 'flex',
-          gap: 0.5,
+          columnGap: 1,
+          rowGap: 0,
           alignItems: 'center',
           justifyContent: 'flex-end',
           flexWrap: 'wrap',
+          fontVariantNumeric: 'tabular-nums',
         }}
       >
         {multiDisplay}
         {fieldVal}
       </Typography>
-      {!!calcDisplay.formula && (
+      {hasFormula && (
         <BootstrapTooltip
           placement="top"
           title={
@@ -242,7 +281,7 @@ export function NodeFieldDisplay({
                     <Divider orientation="vertical" flexItem />
                   </Box>
                 )}
-                <span>{calcDisplay.formula}</span>
+                <LazyFormula node={node} />
               </Suspense>
             </Typography>
           }
@@ -256,6 +295,11 @@ export function NodeFieldDisplay({
       )}
     </Box>
   )
+}
+
+/** The formula of `node`, computed on demand (tooltips only render their title when open) */
+function LazyFormula({ node }: { node: CalcResult }) {
+  return <span>{GetCalcDisplay(node).formula}</span>
 }
 
 export function NodeFieldDisplayText({ node }: { node: CalcResult }) {
@@ -299,15 +343,19 @@ export const FieldDisplayList = styled(List)<FieldDisplayListProps>(
         : bgt === 'dark'
           ? 'contentDark'
           : 'contentNormal'
+    // a slightly recessed well (a softened darker shade of the card it sits on) with soft zebra
+    // stripes; the old alternating near-black rows were heavy
+    const shade = (theme.palette[palette] as PaletteColor)['dark']
     return {
       borderRadius: theme.shape.borderRadius,
       overflow: 'hidden',
       margin: 0,
+      backgroundColor: alpha(shade, 0.55),
       '> .MuiListItem-root:nth-of-type(even)': {
-        backgroundColor: (theme.palette[palette] as PaletteColor)['main'],
+        backgroundColor: 'transparent',
       },
       '> .MuiListItem-root:nth-of-type(odd)': {
-        backgroundColor: (theme.palette[palette] as PaletteColor)['dark'],
+        backgroundColor: alpha(theme.palette.text.primary, 0.035),
       },
     }
   }

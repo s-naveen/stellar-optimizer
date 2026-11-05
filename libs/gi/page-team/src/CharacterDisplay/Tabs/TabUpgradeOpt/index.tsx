@@ -89,12 +89,12 @@ import {
   useState,
 } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
-import { CustomMultiTargetButton } from '../../CustomMultiTarget/CustomMultiTargetButton'
 import ArtifactSetConfig from '../TabOptimize/Components/ArtifactSetConfig'
 import BonusStatsCard from '../TabOptimize/Components/BonusStatsCard'
 import MainStatSelectionCard from '../TabOptimize/Components/MainStatSelectionCard'
 import { OptCharacterCard } from '../TabOptimize/Components/OptCharacterCard'
 import OptimizationTargetSelector from '../TabOptimize/Components/OptimizationTargetSelector'
+import { MultiTargetCard } from '../TabOptimize/Components/OptSettingsCards'
 import StatFilterCard from '../TabOptimize/Components/StatFilterCard'
 import { LevelFilter } from './LevelFilter'
 import UpgradeOptChartCard from './UpgradeOptChartCard'
@@ -599,7 +599,7 @@ export default function TabUpopt() {
                   {/* character card */}
                   <OptCharacterCard characterKey={characterKey} />
                   <BonusStatsCard />
-                  <CustomMultiTargetButton />
+                  <MultiTargetCard />
                 </Grid>
 
                 {/* 2 */}

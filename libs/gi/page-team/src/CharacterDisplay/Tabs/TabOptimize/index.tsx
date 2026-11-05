@@ -1,4 +1,3 @@
-import { AdResponsive } from '@genshin-optimizer/common/ad'
 import {
   useDataManagerEntries,
   useDataManagerValues,
@@ -11,9 +10,7 @@ import {
   BootstrapTooltip,
   CardThemed,
   DropdownButton,
-  InfoTooltip,
   ModalWrapper,
-  SqBadge,
   useConstObj,
   usePrev,
 } from '@genshin-optimizer/common/ui'
@@ -42,19 +39,21 @@ import {
   useWeapon,
 } from '@genshin-optimizer/gi/db-ui'
 import type { OptProblemInput } from '@genshin-optimizer/gi/solver'
-import { GOSolver, mergeBuilds, mergePlot } from '@genshin-optimizer/gi/solver'
-import { compactArtifacts } from '@genshin-optimizer/gi/solver-tc'
 import {
-  ArtifactLevelSlider,
+  GOSolver,
+  mergeBuilds,
+  mergePlot,
+  prewarmSolver,
+} from '@genshin-optimizer/gi/solver'
+import { compactArtifacts } from '@genshin-optimizer/gi/solver-tc'
+import { giCtaSx } from '@genshin-optimizer/gi/theme'
+import {
   BuildDisplayItem,
   CharacterName,
   DataContext,
-  GOAdWrapper,
   GraphContext,
   getTeamData,
-  HitModeToggle,
   NoArtWarning,
-  ReactionToggle,
   resolveInfo,
   statFilterToNumNode,
   useGlobalError,
@@ -65,14 +64,7 @@ import type { UIData } from '@genshin-optimizer/gi/uidata'
 import { uiDataForTeam } from '@genshin-optimizer/gi/uidata'
 import type { NumNode } from '@genshin-optimizer/gi/wr'
 import { dynamicData, mergeData, optimize } from '@genshin-optimizer/gi/wr'
-import {
-  CheckBox,
-  CheckBoxOutlineBlank,
-  Close,
-  DeleteForever,
-  Science,
-  TrendingUp,
-} from '@mui/icons-material'
+import { Close, DeleteForever, Science, TrendingUp } from '@mui/icons-material'
 import CheckroomIcon from '@mui/icons-material/Checkroom'
 import CloseIcon from '@mui/icons-material/Close'
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive'
@@ -96,6 +88,7 @@ import type { FormEventHandler, ReactNode } from 'react'
 import {
   memo,
   Suspense,
+  startTransition,
   useCallback,
   useContext,
   useDeferredValue,
@@ -103,25 +96,26 @@ import {
   useMemo,
   useRef,
   useState,
+  useSyncExternalStore,
 } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import useCompareData from '../../../useCompareData'
-import CompareBtn from '../../CompareBtn'
-import { CustomMultiTargetButton } from '../../CustomMultiTarget/CustomMultiTargetButton'
 import ArtifactSetConfig from './Components/ArtifactSetConfig'
-import AssumeFullLevelToggle from './Components/AssumeFullLevelToggle'
 import BonusStatsCard from './Components/BonusStatsCard'
-import type { BuildStatus } from './Components/BuildAlert'
+import type { BuildStatus, BuildStatusStore } from './Components/BuildAlert'
 import BuildAlert from './Components/BuildAlert'
+import { BuildsHeader } from './Components/BuildsHeader'
 import ChartCard from './Components/ChartCard'
-import ExcludeArt from './Components/ExcludeArt'
-import MainStatSelectionCard from './Components/MainStatSelectionCard'
 import { OptCharacterCard } from './Components/OptCharacterCard'
 import OptimizationTargetSelector from './Components/OptimizationTargetSelector'
+import {
+  ArtifactPoolCard,
+  LevelFilterCard,
+  MainStatCard,
+  MultiTargetCard,
+} from './Components/OptSettingsCards'
 import StatFilterCard from './Components/StatFilterCard'
 import UseEquipped from './Components/UseEquipped'
-import { UseTeammateArt } from './Components/UseTeammateArt'
-import ScalesWith from './ScalesWith'
 
 function initBuildStatus(): BuildStatus {
   return {
@@ -132,6 +126,41 @@ function initBuildStatus(): BuildStatus {
     total: 0,
     testedPerSecond: 0,
     skippedPerSecond: 0,
+  }
+}
+/**
+ * Resolves once the browser has had a chance to paint. Falls back to a timer, since
+ * `requestAnimationFrame` does not fire in background tabs.
+ */
+function nextPaint(): Promise<void> {
+  return new Promise((resolve) => {
+    const timer = setTimeout(resolve, 50)
+    requestAnimationFrame(() =>
+      setTimeout(() => {
+        clearTimeout(timer)
+        resolve()
+      }, 0)
+    )
+  })
+}
+/**
+ * Build status, published outside of React state so that the Generate/Cancel
+ * button and the progress alert update instantly without re-rendering the
+ * whole tab (which is expensive: every build card recomputes its stats).
+ */
+function createBuildStatusStore(initial: BuildStatus): BuildStatusStore {
+  let current = initial
+  const listeners = new Set<() => void>()
+  return {
+    get: () => current,
+    set: (status) => {
+      current = status
+      listeners.forEach((l) => l())
+    },
+    subscribe: (listener) => {
+      listeners.add(listener)
+      return () => listeners.delete(listener)
+    },
   }
 }
 const audio = new Audio('assets/notification.mp3')
@@ -153,13 +182,39 @@ export default function TabBuild() {
   const notificationRef = useRef(notification)
   notificationRef.current = notification
 
+  /** Urgent status: drives the Generate/Cancel button and the progress alert */
+  const [statusStore] = useState(() =>
+    createBuildStatusStore(initBuildStatus())
+  )
+  /**
+   * The same status as React state, always updated in a transition: it disables
+   * the rest of the tab (settings, build list), which is expensive to re-render,
+   * so that work never delays the button feedback.
+   */
   const [buildStatus, setBuildStatus] = useState(() => initBuildStatus())
+  const publishStatus = useCallback(
+    (status: BuildStatus) => {
+      statusStore.set(status)
+      startTransition(() => setBuildStatus(status))
+    },
+    [statusStore]
+  )
+  /** Live progress of the running solver, polled by `BuildAlert` */
+  const liveStatus = useRef<Omit<BuildStatus, 'type'>>()
+  /** Id of the latest run; an older run must not touch the shared run state */
+  const latestRun = useRef(0)
   const generatingBuilds = buildStatus.type !== 'inactive'
+  // Load a solver worker while the user sets up the run, so that the first run starts at once
+  useEffect(() => prewarmSolver(), [])
 
   const [maxWorkers, nativeThreads, setMaxWorkers] = useNumWorkers()
 
   // Clear state when changing characters
   if (usePrev(characterKey) !== characterKey) setBuildStatus(initBuildStatus())
+  useEffect(
+    () => statusStore.set(initBuildStatus()),
+    [characterKey, statusStore]
+  )
 
   const noArtifact = useMemo(() => !database.arts.values.length, [database])
 
@@ -304,6 +359,7 @@ export default function TabBuild() {
 
   // Provides a function to cancel the work
   const cancelToken = useRef(() => {})
+  const cancelBuilds = useCallback(() => cancelToken.current(), [])
   //terminate worker when component unmounts
   useEffect(() => () => cancelToken.current(), [])
   const throwGlobalError = useGlobalError()
@@ -320,89 +376,105 @@ export default function TabBuild() {
     } = buildSetting
     if (!characterKey || !optimizationTarget) return
     if (notificationRef.current) Notification?.requestPermission()
+    const runId = ++latestRun.current
 
-    // Filter with the latest settings rather than the deferred `filteredArts`,
-    // so that a build started right after a settings change does not use an
-    // outdated artifact pool. (#1120)
-    const split = compactArtifacts(
-      getFilteredArts(buildSetting),
-      mainStatAssumptionLevel,
-      allowPartial
-    )
-
-    const teamData = getTeamData(
-      database,
-      teamId,
-      teamCharId,
-      mainStatAssumptionLevel,
-      []
-    )
-    if (!teamData) return
-    const workerData = uiDataForTeam(teamData.teamData, gender, activeCharKey)[
-      characterKey
-    ]?.target.data[0]
-    if (!workerData) return
-    Object.assign(workerData, mergeData([workerData, dynamicData])) // Mark art fields as dynamic
-    const unoptimizedOptimizationTargetNode = objPathValue(
-      workerData.display ?? {},
-      optimizationTarget
-    ) as NumNode | undefined
-    if (!unoptimizedOptimizationTargetNode) return
-    const targetNode = unoptimizedOptimizationTargetNode
-    const valueFilter = statFilterToNumNode(workerData, statFilters)
-
-    setChartData(undefined)
-
-    const cancelled = new Promise<void>((r) => (cancelToken.current = r))
-
-    const unoptimizedNodes = [
-      ...valueFilter.map((x) => x.value),
-      unoptimizedOptimizationTargetNode,
-    ]
-    const minimum = [
-      ...valueFilter.map((x) => x.minimum),
-      Number.NEGATIVE_INFINITY,
-    ]
-    const plotBaseNumNode: NumNode =
-      plotBase && objPathValue(workerData.display ?? {}, plotBase)
-    if (plotBaseNumNode) {
-      unoptimizedNodes.push(plotBaseNumNode)
-      minimum.push(Number.NEGATIVE_INFINITY)
-    }
-
-    const nodes = optimize(
-      unoptimizedNodes,
-      workerData,
-      ({ path: [p] }) => p !== 'dyn'
-    )
-    const plotBaseNode = plotBaseNumNode ? nodes.pop() : undefined
-    const optimizationTargetNode = nodes.pop()!
-
-    const problem: OptProblemInput = {
-      arts: split,
-      optimizationTarget: optimizationTargetNode,
-      exclusion: artSetExclusion,
-      constraints: nodes.map((value, i) => ({ value, min: minimum[i] })),
-
-      topN: maxBuildsToShow,
-      plotBase: plotBaseNode,
-    }
+    // Show the "generating" state right away and let the browser paint it before
+    // doing any heavy work, so that the click feels instant. The progress itself
+    // is read from `status` by `BuildAlert` (via `liveStatus`), without
+    // re-rendering this whole tab.
     const status: Omit<BuildStatus, 'type'> = {
       tested: 0,
       failed: 0,
       skipped: 0,
-      total: 0,
+      total: Number.NaN,
       testedPerSecond: 0,
       skippedPerSecond: 0,
       startTime: performance.now(),
     }
-    const statusUpdateTimer = setInterval(
-      () => setBuildStatus({ type: 'active', ...status }),
-      100
-    )
-
+    liveStatus.current = status
     const cancellationError = new Error()
+    let isCancelled = false
+    const cancelled = new Promise<void>((r) => {
+      cancelToken.current = () => {
+        isCancelled = true
+        r()
+      }
+    })
+    publishStatus({ type: 'active', ...status })
+    let started = false
+    let finalStatus: BuildStatus | undefined
     try {
+      await nextPaint()
+      if (isCancelled) throw cancellationError
+
+      // Filter with the latest settings rather than the deferred `filteredArts`,
+      // so that a build started right after a settings change does not use an
+      // outdated artifact pool. (#1120)
+      const split = compactArtifacts(
+        getFilteredArts(buildSetting),
+        mainStatAssumptionLevel,
+        allowPartial
+      )
+
+      const teamData = getTeamData(
+        database,
+        teamId,
+        teamCharId,
+        mainStatAssumptionLevel,
+        []
+      )
+      if (!teamData) return
+      const workerData = uiDataForTeam(
+        teamData.teamData,
+        gender,
+        activeCharKey
+      )[characterKey]?.target.data[0]
+      if (!workerData) return
+      Object.assign(workerData, mergeData([workerData, dynamicData])) // Mark art fields as dynamic
+      const unoptimizedOptimizationTargetNode = objPathValue(
+        workerData.display ?? {},
+        optimizationTarget
+      ) as NumNode | undefined
+      if (!unoptimizedOptimizationTargetNode) return
+      const targetNode = unoptimizedOptimizationTargetNode
+      const valueFilter = statFilterToNumNode(workerData, statFilters)
+
+      startTransition(() => setChartData(undefined))
+
+      const unoptimizedNodes = [
+        ...valueFilter.map((x) => x.value),
+        unoptimizedOptimizationTargetNode,
+      ]
+      const minimum = [
+        ...valueFilter.map((x) => x.minimum),
+        Number.NEGATIVE_INFINITY,
+      ]
+      const plotBaseNumNode: NumNode =
+        plotBase && objPathValue(workerData.display ?? {}, plotBase)
+      if (plotBaseNumNode) {
+        unoptimizedNodes.push(plotBaseNumNode)
+        minimum.push(Number.NEGATIVE_INFINITY)
+      }
+
+      const nodes = optimize(
+        unoptimizedNodes,
+        workerData,
+        ({ path: [p] }) => p !== 'dyn'
+      )
+      const plotBaseNode = plotBaseNumNode ? nodes.pop() : undefined
+      const optimizationTargetNode = nodes.pop()!
+
+      const problem: OptProblemInput = {
+        arts: split,
+        optimizationTarget: optimizationTargetNode,
+        exclusion: artSetExclusion,
+        constraints: nodes.map((value, i) => ({ value, min: minimum[i] })),
+
+        topN: maxBuildsToShow,
+        plotBase: plotBaseNode,
+      }
+      if (isCancelled) throw cancellationError
+      started = true
       const solver = new GOSolver(problem, status, maxWorkers)
       cancelled.then(() => solver.cancel(cancellationError))
 
@@ -410,6 +482,15 @@ export default function TabBuild() {
       solver.cancel() // Done using `solver`
 
       cancelToken.current = () => {}
+      // Show "done" before committing the builds: re-rendering the build list
+      // takes a moment, and the run is over as soon as the solver is.
+      finalStatus = {
+        type: 'inactive',
+        ...status,
+        finishTime: performance.now(),
+      }
+      publishStatus(finalStatus)
+      await nextPaint()
       const weaponId = database.teams.getLoadoutWeapon(loadoutDatum).id
       if (plotBaseNumNode) {
         const plotData = mergePlot(results.map((x) => x.plotData!))
@@ -427,7 +508,7 @@ export default function TabBuild() {
             (dataEntry) =>
               dataEntry && (dataEntry.plot = (dataEntry.plot ?? 0) * 100)
           )
-        setChartData({
+        const chartData = {
           valueNode: targetNode,
           plotNode: plotBaseNumNode,
           data: solverBuilds
@@ -442,7 +523,8 @@ export default function TabBuild() {
               value,
               plot,
             })),
-        })
+        }
+        startTransition(() => setChartData(chartData))
       }
       const builds = mergeBuilds(
         results.map((x) => x.builds),
@@ -469,7 +551,7 @@ export default function TabBuild() {
           audio.play()
           if (!tabFocused.current)
             if (Notification?.permission === 'granted')
-              new Notification('Genshin Optimizer', {
+              new Notification('Stellar Optimizer', {
                 body: t('buildCompleted'),
                 icon: './favicon.ico',
               })
@@ -484,18 +566,26 @@ export default function TabBuild() {
         if (e instanceof Error) throwGlobalError(e)
       }
 
-      cancelToken.current()
+      if (latestRun.current === runId) cancelToken.current()
       status.tested = 0
       status.failed = 0
       status.skipped = 0
       status.total = 0
+      finalStatus = undefined
     } finally {
-      clearInterval(statusUpdateTimer)
-      setBuildStatus({
-        type: 'inactive',
-        ...status,
-        finishTime: performance.now(),
-      })
+      // Once "done" is shown, a new run may start before this one has committed
+      // its builds; that run owns the shared state from then on.
+      if (latestRun.current === runId) {
+        cancelToken.current = () => {}
+        liveStatus.current = undefined
+        // A run that never started (setup bailed out or was cancelled) leaves no alert behind
+        if (!finalStatus)
+          publishStatus(
+            started
+              ? { type: 'inactive', ...status, finishTime: performance.now() }
+              : initBuildStatus()
+          )
+      }
     }
   }, [
     buildSetting,
@@ -510,6 +600,7 @@ export default function TabBuild() {
     maxWorkers,
     loadoutDatum,
     optConfigId,
+    publishStatus,
     t,
     throwGlobalError,
   ])
@@ -533,6 +624,10 @@ export default function TabBuild() {
         database.optConfigs.set(optConfigId, { optimizationTarget: target })
       }
       disabled={!!generatingBuilds}
+      // the first step of an optimization: the main action until a target is picked
+      buttonProps={{
+        sx: { flexGrow: 1, ...(optimizationTarget ? {} : giCtaSx) },
+      }}
       targetSelectorModalProps={{
         excludeSections: ['character', 'bonusStats', 'teamBuff'],
       }}
@@ -569,7 +664,7 @@ export default function TabBuild() {
         >
           <OptCharacterCard characterKey={characterKey} />
           <BonusStatsCard />
-          <CustomMultiTargetButton />
+          <MultiTargetCard />
         </Grid>
         {/* 2 */}
         <Grid
@@ -582,7 +677,7 @@ export default function TabBuild() {
           gap={1}
         >
           {/* Level Filter */}
-          <LevelFilter
+          <LevelFilterCard
             levelTotal={levelTotal['in']}
             levelLow={levelLow}
             levelHigh={levelHigh}
@@ -590,71 +685,21 @@ export default function TabBuild() {
             optConfigId={optConfigId}
           />
 
-          {/* Main Stat Filters */}
-          <CardThemed bgt="light">
-            <CardContent>
-              <Typography sx={{ fontWeight: 'bold' }}>
-                {t('mainStat.title')}
-              </Typography>
-            </CardContent>
-            <Divider />
-            <CardContent>
-              <Box display="flex" alignItems="center" gap={1}>
-                <AssumeFullLevelToggle
-                  mainStatAssumptionLevel={mainStatAssumptionLevel}
-                  setmainStatAssumptionLevel={(
-                    mainStatAssumptionLevel: number
-                  ) =>
-                    database.optConfigs.set(optConfigId, {
-                      mainStatAssumptionLevel,
-                    })
-                  }
-                  disabled={generatingBuilds}
-                />
-                <InfoTooltip
-                  title={
-                    <Box>
-                      <Typography variant="h6">
-                        {t('mainStat.levelAssTooltip.title')}
-                      </Typography>
-                      <Typography>
-                        {t('mainStat.levelAssTooltip.desc')}
-                      </Typography>
-                    </Box>
-                  }
-                />
-              </Box>
-            </CardContent>
-            {/* main stat selector */}
-            <MainStatSelectionCard
-              disabled={generatingBuilds}
-              filteredArtIdMap={filteredArtIdMap}
-            />
-          </CardThemed>
+          <MainStatCard
+            disabled={generatingBuilds}
+            filteredArtIdMap={filteredArtIdMap}
+            mainStatAssumptionLevel={mainStatAssumptionLevel}
+            optConfigId={optConfigId}
+          />
 
-          {/* use excluded */}
-          <ExcludeArt
+          <ArtifactPoolCard
             disabled={generatingBuilds}
             excludedTotal={excludedTotal['in']}
-          />
-          <UseTeammateArt
-            totalTally={teammateBuildTotal['in']}
+            teammateBuildTotal={teammateBuildTotal['in']}
             useTeammateBuild={useTeammateBuild}
-            disabled={generatingBuilds}
+            allowPartial={allowPartial}
+            optConfigId={optConfigId}
           />
-          <Button
-            fullWidth
-            startIcon={allowPartial ? <CheckBox /> : <CheckBoxOutlineBlank />}
-            color={allowPartial ? 'success' : 'secondary'}
-            onClick={() =>
-              database.optConfigs.set(optConfigId, {
-                allowPartial: !allowPartial,
-              })
-            }
-            disabled={generatingBuilds}
-          >
-            {t('allowPartial')}
-          </Button>
         </Grid>
 
         {/* 3 */}
@@ -677,111 +722,128 @@ export default function TabBuild() {
 
           {/*Minimum Final Stat Filter */}
           <StatFilterCard disabled={generatingBuilds} />
-          <AdResponsive dataAdSlot="7724855772" bgt="light" Ad={GOAdWrapper} />
         </Grid>
       </Grid>
-      {/* Footer */}
-      {isSM && targetSelector}
-      <ButtonGroup>
-        {!isSM && targetSelector}
-        <DropdownButton
-          disabled={generatingBuilds || !characterKey || !optimizationTarget}
-          title={
-            <Trans t={t} i18nKey="build" count={maxBuildsToShow}>
-              {{ count: maxBuildsToShow }} Builds
-            </Trans>
-          }
-        >
-          <MenuItem>
-            <Typography variant="caption" color="info.main">
-              {t('buildDropdownDesc')}
-            </Typography>
-          </MenuItem>
-          <Divider />
-          {maxBuildsToShowList.map((v) => (
-            <MenuItem
-              key={v}
-              onClick={() =>
-                database.optConfigs.set(optConfigId, { maxBuildsToShow: v })
-              }
-            >
-              <Trans t={t} i18nKey="build" count={v}>
-                {{ count: v }} Builds
+      {/* Footer: sticks to the bottom of the screen while the filters above are being set, so
+          choosing the target and generating never needs a scroll; settles in place above the
+          results once they are scrolled into view. */}
+      <Box
+        sx={{
+          position: 'sticky',
+          bottom: 8,
+          zIndex: 3,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 1,
+          p: 1,
+          borderRadius: 2,
+          bgcolor: 'rgba(12, 16, 32, 0.96)',
+          outline: '1px solid rgba(160, 180, 255, 0.14)',
+          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.45)',
+        }}
+      >
+        {isSM && targetSelector}
+        <ButtonGroup>
+          {!isSM && targetSelector}
+          <DropdownButton
+            disabled={generatingBuilds || !characterKey || !optimizationTarget}
+            title={
+              <Trans t={t} i18nKey="build" count={maxBuildsToShow}>
+                {{ count: maxBuildsToShow }} Builds
               </Trans>
+            }
+          >
+            <MenuItem>
+              <Typography variant="caption" color="info.main">
+                {t('buildDropdownDesc')}
+              </Typography>
             </MenuItem>
-          ))}
-        </DropdownButton>
-        <DropdownButton
-          disabled={generatingBuilds || !characterKey || !optimizationTarget}
-          sx={{ borderRadius: '4px 0px 0px 4px' }}
-          title={
-            <Trans t={t} i18nKey="thread" count={maxWorkers}>
-              {{ count: maxWorkers }} Threads
-            </Trans>
-          }
-        >
-          <MenuItem>
-            <Typography variant="caption" color="info.main">
-              {t('threadDropdownDesc')}
-            </Typography>
-          </MenuItem>
-          <Divider />
-          {range(1, nativeThreads)
-            .reverse()
-            .map((v) => (
-              <MenuItem key={v} onClick={() => setMaxWorkers(v)}>
-                <Trans t={t} i18nKey="thread" count={v}>
-                  {{ count: v }} Threads
+            <Divider />
+            {maxBuildsToShowList.map((v) => (
+              <MenuItem
+                key={v}
+                onClick={() =>
+                  database.optConfigs.set(optConfigId, { maxBuildsToShow: v })
+                }
+              >
+                <Trans t={t} i18nKey="build" count={v}>
+                  {{ count: v }} Builds
                 </Trans>
               </MenuItem>
             ))}
-        </DropdownButton>
-        <BootstrapTooltip placement="top" title={t('notifyTooltip')}>
-          <Box>
-            <Button
-              sx={{ borderRadius: 0 }}
-              color="warning"
-              onClick={async () => {
-                await Notification?.requestPermission()
-                setnotification((n) => !n)
-              }}
-              disabled={!optimizationTarget}
-            >
-              {notification ? (
-                <NotificationsActiveIcon />
-              ) : (
-                <NotificationsOffIcon />
-              )}
-            </Button>
-          </Box>
-        </BootstrapTooltip>
-        <BootstrapTooltip
-          placement="top"
-          title={!optimizationTarget ? t('selectTargetFirst') : ''}
-        >
-          <span>
-            <Button
-              disabled={
-                !characterKey || !optimizationTarget || !optimizationTargetNode
-              }
-              color={generatingBuilds ? 'error' : 'success'}
-              onClick={
-                generatingBuilds ? () => cancelToken.current() : generateBuilds
-              }
-              startIcon={generatingBuilds ? <Close /> : <TrendingUp />}
-              sx={{ borderRadius: '0px 4px 4px 0px' }}
-            >
-              {generatingBuilds
-                ? t('generateButton.cancel')
-                : t('generateButton.generateBuilds')}
-            </Button>
-          </span>
-        </BootstrapTooltip>
-      </ButtonGroup>
-      <ScalesWith />
+          </DropdownButton>
+          <DropdownButton
+            disabled={generatingBuilds || !characterKey || !optimizationTarget}
+            sx={{ borderRadius: '4px 0px 0px 4px' }}
+            title={
+              <Trans t={t} i18nKey="thread" count={maxWorkers}>
+                {{ count: maxWorkers }} Threads
+              </Trans>
+            }
+          >
+            <MenuItem>
+              <Typography variant="caption" color="info.main">
+                {t('threadDropdownDesc')}
+              </Typography>
+            </MenuItem>
+            <Divider />
+            {range(1, nativeThreads)
+              .reverse()
+              .map((v) => (
+                <MenuItem key={v} onClick={() => setMaxWorkers(v)}>
+                  <Trans t={t} i18nKey="thread" count={v}>
+                    {{ count: v }} Threads
+                  </Trans>
+                </MenuItem>
+              ))}
+          </DropdownButton>
+          <BootstrapTooltip placement="top" title={t('notifyTooltip')}>
+            <Box>
+              <Button
+                sx={{ borderRadius: 0 }}
+                color="warning"
+                onClick={async () => {
+                  await Notification?.requestPermission()
+                  setnotification((n) => !n)
+                }}
+                disabled={!optimizationTarget}
+              >
+                {notification ? (
+                  <NotificationsActiveIcon />
+                ) : (
+                  <NotificationsOffIcon />
+                )}
+              </Button>
+            </Box>
+          </BootstrapTooltip>
+          <BootstrapTooltip
+            placement="top"
+            title={!optimizationTarget ? t('selectTargetFirst') : ''}
+          >
+            <span>
+              <GenerateButton
+                store={statusStore}
+                disabled={
+                  !characterKey ||
+                  !optimizationTarget ||
+                  !optimizationTargetNode
+                }
+                cta={!!optimizationTarget && !!optimizationTargetNode}
+                onGenerate={generateBuilds}
+                onCancel={cancelBuilds}
+              />
+            </span>
+          </BootstrapTooltip>
+        </ButtonGroup>
+      </Box>
       {!!characterKey && (
         <BuildAlert
-          {...{ status: buildStatus, characterName, maxBuildsToShow }}
+          {...{
+            store: statusStore,
+            live: liveStatus,
+            characterName,
+            maxBuildsToShow,
+          }}
         />
       )}
       {optimizationTarget && (
@@ -795,65 +857,18 @@ export default function TabBuild() {
         </Box>
       )}
       {optimizationTarget && (
-        <CardThemed bgt="light">
-          <CardContent>
-            <Box display="flex" alignItems="center" gap={1} mb={1}>
-              <Typography sx={{ flexGrow: 1 }}>
-                {builds ? (
-                  <span>
-                    <Trans
-                      t={t}
-                      i18nKey="buildShowingNum"
-                      count={buildShowingCount}
-                    >
-                      Showing{' '}
-                      <strong>{{ count: buildShowingCount } as any}</strong>{' '}
-                      build generated for{' '}
-                      <CharacterName
-                        characterKey={characterKey}
-                        gender={gender}
-                      />
-                      .
-                    </Trans>{' '}
-                    {!!buildDate && (
-                      <span>
-                        {t('generatedOn')}
-                        <strong>{new Date(buildDate).toLocaleString()}</strong>
-                      </span>
-                    )}
-                  </span>
-                ) : (
-                  <span>{t('selectChar')}</span>
-                )}
-              </Typography>
-              <Button
-                disabled={!builds.length}
-                color="error"
-                onClick={() => {
-                  setGraphBuilds(undefined)
-                  database.optConfigs.newOrSetGeneratedBuildList(optConfigId, {
-                    builds: [],
-                    buildDate: 0,
-                  })
-                }}
-              >
-                {t('clearBuildsBtn')}
-              </Button>
-            </Box>
-            <Grid container display="flex" spacing={1}>
-              <Grid item>
-                <HitModeToggle size="small" />
-              </Grid>
-              <Grid item>
-                <ReactionToggle size="small" />
-              </Grid>
-              <Grid item flexGrow={1} />
-              <Grid item>
-                <CompareBtn />
-              </Grid>
-            </Grid>
-          </CardContent>
-        </CardThemed>
+        <BuildsHeader
+          count={buildShowingCount}
+          buildDate={buildDate}
+          canClear={!!builds.length}
+          onClear={() => {
+            setGraphBuilds(undefined)
+            database.optConfigs.newOrSetGeneratedBuildList(optConfigId, {
+              builds: [],
+              buildDate: 0,
+            })
+          }}
+        />
       )}
 
       {graphBuilds && (
@@ -876,49 +891,6 @@ export default function TabBuild() {
     </Box>
   )
 }
-
-const LevelFilter = memo(function LevelFilter({
-  levelTotal,
-  levelLow,
-  levelHigh,
-  disabled,
-  optConfigId,
-}: {
-  levelTotal: string
-  levelLow: number
-  levelHigh: number
-  disabled: boolean
-  optConfigId: string
-}) {
-  const database = useDatabase()
-  const { t } = useTranslation('page_character_optimize')
-  return (
-    <CardThemed bgt="light">
-      <CardContent sx={{ display: 'flex', gap: 1 }}>
-        <Typography sx={{ fontWeight: 'bold' }}>{t('levelFilter')}</Typography>
-        <SqBadge color="info">{levelTotal}</SqBadge>
-      </CardContent>
-      <Divider />
-      <ArtifactLevelSlider
-        levelLow={levelLow}
-        levelHigh={levelHigh}
-        setLow={(levelLow) =>
-          database.optConfigs.set(optConfigId, { levelLow })
-        }
-        setHigh={(levelHigh) =>
-          database.optConfigs.set(optConfigId, { levelHigh })
-        }
-        setBoth={(levelLow, levelHigh) =>
-          database.optConfigs.set(optConfigId, {
-            levelLow,
-            levelHigh,
-          })
-        }
-        disabled={disabled}
-      />
-    </CardThemed>
-  )
-})
 
 const BuildList = memo(function BuildList({
   builds,
@@ -955,24 +927,119 @@ const BuildList = memo(function BuildList({
       fallback={<Skeleton variant="rectangular" width="100%" height={600} />}
     >
       {builds?.map((build, index) => (
-        <DataContextWrapper
+        <Staggered
           key={index + Object.values(build.artifactIds).join()}
-          characterKey={characterKey}
-          build={build}
-          compareData={compareData}
-          mainStatAssumptionLevel={mainStatAssumptionLevel}
+          order={index}
         >
-          <BuildItemWrapper
-            index={index}
-            label={getLabel(index)}
+          <DataContextWrapper
+            characterKey={characterKey}
             build={build}
-            disabled={disabled}
-            deleteBuild={setBuilds ? deleteBuild : undefined}
+            compareData={compareData}
             mainStatAssumptionLevel={mainStatAssumptionLevel}
-          />
-        </DataContextWrapper>
+          >
+            <BuildItemWrapper
+              index={index}
+              label={getLabel(index)}
+              build={build}
+              disabled={disabled}
+              deleteBuild={setBuilds ? deleteBuild : undefined}
+              mainStatAssumptionLevel={mainStatAssumptionLevel}
+            />
+          </DataContextWrapper>
+        </Staggered>
       ))}
     </Suspense>
+  )
+})
+/**
+ * Mounts `children` lazily, with a same-sized placeholder meanwhile. Every build
+ * card computes the full team stats for its build when it mounts, so a new result
+ * list must not mount them all at once: the first card mounts right away, the
+ * others once they come within ~2 cards of the viewport, at most one per frame.
+ */
+function Staggered({
+  order,
+  children,
+}: {
+  order: number
+  children: ReactNode
+}) {
+  const [ready, setReady] = useState(order === 0)
+  const [near, setNear] = useState(order === 0)
+  const placeholder = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (near) return
+    const el = placeholder.current
+    if (!el || typeof IntersectionObserver === 'undefined') {
+      setNear(true)
+      return
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return
+        observer.disconnect()
+        setNear(true)
+      },
+      { rootMargin: '1200px 0px' }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [near])
+  useEffect(() => {
+    if (ready || !near) return
+    let frames = order
+    let id = 0
+    const step = () => {
+      if (--frames <= 0) startTransition(() => setReady(true))
+      else id = requestAnimationFrame(step)
+    }
+    id = requestAnimationFrame(step)
+    return () => cancelAnimationFrame(id)
+  }, [ready, near, order])
+  return ready ? (
+    children
+  ) : (
+    <Skeleton
+      ref={placeholder}
+      variant="rectangular"
+      width="100%"
+      height={600}
+    />
+  )
+}
+/** The Generate/Cancel button, subscribed to the build status directly so that it flips instantly */
+const GenerateButton = memo(function GenerateButton({
+  store,
+  disabled,
+  cta,
+  onGenerate,
+  onCancel,
+}: {
+  store: BuildStatusStore
+  disabled: boolean
+  /** once there is a target, generating is the main action */
+  cta: boolean
+  onGenerate: () => void
+  onCancel: () => void
+}) {
+  const { t } = useTranslation('page_character_optimize')
+  const generating =
+    useSyncExternalStore(store.subscribe, store.get).type !== 'inactive'
+  return (
+    <Button
+      disabled={disabled}
+      color={generating ? 'error' : 'success'}
+      onClick={generating ? onCancel : onGenerate}
+      startIcon={generating ? <Close /> : <TrendingUp />}
+      sx={{
+        borderRadius: '0px 8px 8px 0px',
+        ...(!generating && cta && giCtaSx),
+      }}
+    >
+      {generating
+        ? t('generateButton.cancel')
+        : t('generateButton.generateBuilds')}
+    </Button>
   )
 })
 const BuildItemWrapper = memo(function BuildItemWrapper({

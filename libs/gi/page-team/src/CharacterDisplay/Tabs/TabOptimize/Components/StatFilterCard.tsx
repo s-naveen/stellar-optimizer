@@ -1,14 +1,14 @@
-import { CardThemed, InfoTooltip } from '@genshin-optimizer/common/ui'
 import type { StatFilters } from '@genshin-optimizer/gi/db'
 import {
   TeamCharacterContext,
   useDatabase,
   useOptConfig,
 } from '@genshin-optimizer/gi/db-ui'
-import { Box, CardContent, Divider, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import OptimizationTargetEditorList from './OptimizationTargetEditorList'
+import { SettingsCard } from './SettingsCard'
 
 export default function StatFilterCard({
   disabled = false,
@@ -28,43 +28,17 @@ export default function StatFilterCard({
   )
 
   return (
-    <Box>
-      <CardThemed bgt="light">
-        <CardContent
-          sx={{
-            display: 'flex',
-            gap: 1,
-            justifyContent: 'space-between',
-            flexDirection: 'column',
-          }}
-        >
-          <Box display="flex" justifyContent="space-between">
-            <Typography sx={{ fontWeight: 'bold' }}>
-              {t('constraintFilter.title')}
-            </Typography>
-            <InfoTooltip
-              title={<Typography>{t('constraintFilter.tooltip')}</Typography>}
-            />
-          </Box>
-        </CardContent>
-        <Divider />
-        <Box
-          display="flex"
-          flexDirection="column"
-          gap={1}
-          sx={{
-            '.MuiButtonBase-root': {
-              fontSize: '0.7rem',
-            },
-          }}
-        >
-          <OptimizationTargetEditorList
-            statFilters={statFilters}
-            setStatFilters={setStatFilters}
-            disabled={disabled}
-          />
-        </Box>
-      </CardThemed>
-    </Box>
+    <SettingsCard
+      title={t('constraintFilter.title')}
+      info={<Typography>{t('constraintFilter.tooltip')}</Typography>}
+    >
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+        <OptimizationTargetEditorList
+          statFilters={statFilters}
+          setStatFilters={setStatFilters}
+          disabled={disabled}
+        />
+      </Box>
+    </SettingsCard>
   )
 }
