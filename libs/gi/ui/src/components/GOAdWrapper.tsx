@@ -14,7 +14,7 @@ import {
 import type { FunctionComponent, ReactNode } from 'react'
 import { useMemo } from 'react'
 /**
- * A component that aggregates all ads shown on GO
+ * A component that aggregates all ads shown on Stellar Optimizer
  */
 export function GOAdWrapper({ sx = {}, bgt = 'light', children }: AdProps) {
   const maxHeight: number | undefined =
