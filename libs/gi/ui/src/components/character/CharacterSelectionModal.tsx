@@ -28,7 +28,6 @@ import {
   getCharMaxLevel,
 } from '@genshin-optimizer/gi/consts'
 import type { LoadoutDatum } from '@genshin-optimizer/gi/db'
-import { commandSearchInputProps } from '../../util/commandPaletteSearch'
 import {
   useCharacter,
   useCharMeta,
@@ -43,6 +42,7 @@ import SearchIcon from '@mui/icons-material/Search'
 import type { TooltipProps } from '@mui/material'
 import {
   Box,
+  Button,
   CardActionArea,
   CardContent,
   Divider,
@@ -61,7 +61,6 @@ import type { ChangeEvent } from 'react'
 import {
   memo,
   useCallback,
-  useContext,
   useDeferredValue,
   useEffect,
   useMemo,
@@ -69,17 +68,18 @@ import {
   useState,
 } from 'react'
 import { useTranslation } from 'react-i18next'
-import { DataContext, SillyContext } from '../../context'
+import { DataContext } from '../../context'
+import { commandSearchInputProps } from '../../util/commandPaletteSearch'
 import { iconAsset } from '../../util/iconAsset'
 import { ElementToggle, WeaponToggle } from '../toggles'
 import { CharacterCard } from './CharacterCard'
 import type { CharacterSortKey } from './CharacterSort'
-import { useCharacterNameSearchFieldsCache } from './characterNameSearchFields'
 import {
   characterFilterConfigs,
   characterSortConfigs,
   characterSortMap,
 } from './CharacterSort'
+import { useCharacterNameSearchFieldsCache } from './characterNameSearchFields'
 import { CharacterName } from './Trans'
 
 export function CharacterSingleSelectionModal({
@@ -97,7 +97,6 @@ export function CharacterSingleSelectionModal({
   loadoutData?: (LoadoutDatum | undefined)[]
   newFirst?: boolean
 }) {
-  const { silly } = useContext(SillyContext)
   const database = useDatabase()
   const state = useDataEntryBase(database.displayCharacter)
 
@@ -116,18 +115,12 @@ export function CharacterSingleSelectionModal({
   }, [])
   const deferredState = useDeferredValue(state)
   const charMetaDirty = useDataManagerValues(database.charMeta)
-  const nameSearchFields = useCharacterNameSearchFieldsCache(
-    database.gender,
-    silly
-  )
+  const nameSearchFields = useCharacterNameSearchFieldsCache(database.gender)
   const filterConfigs = useMemo(
-    () => characterFilterConfigs(database, silly, nameSearchFields),
-    [database, silly, nameSearchFields]
+    () => characterFilterConfigs(database, nameSearchFields),
+    [database, nameSearchFields]
   )
-  const sortConfigs = useMemo(
-    () => characterSortConfigs(database, silly),
-    [database, silly]
-  )
+  const sortConfigs = useMemo(() => characterSortConfigs(database), [database])
   const teamSlotByKey = useMemo(() => {
     const map = new Map<CharacterKey, number>()
     teamCharKeys.forEach((key, index) => {
@@ -251,7 +244,6 @@ export function CharacterMultiSelectionModal({
   loadoutData: (LoadoutDatum | undefined)[]
   newFirst?: boolean
 }) {
-  const { silly } = useContext(SillyContext)
   const database = useDatabase()
   const state = useDataEntryBase(database.displayCharacter)
 
@@ -296,18 +288,12 @@ export function CharacterMultiSelectionModal({
   }, [])
   const deferredState = useDeferredValue(state)
   const charMetaDirty = useDataManagerValues(database.charMeta)
-  const nameSearchFields = useCharacterNameSearchFieldsCache(
-    database.gender,
-    silly
-  )
+  const nameSearchFields = useCharacterNameSearchFieldsCache(database.gender)
   const filterConfigs = useMemo(
-    () => characterFilterConfigs(database, silly, nameSearchFields),
-    [database, silly, nameSearchFields]
+    () => characterFilterConfigs(database, nameSearchFields),
+    [database, nameSearchFields]
   )
-  const sortConfigs = useMemo(
-    () => characterSortConfigs(database, silly),
-    [database, silly]
-  )
+  const sortConfigs = useMemo(() => characterSortConfigs(database), [database])
 
   const teamCharKeysRef = useRef(teamCharKeys)
   useEffect(() => {
@@ -443,7 +429,47 @@ export function CharacterMultiSelectionModal({
           ))}
         </Grid>
       </CardContent>
+      <MultiSelectFooter
+        count={teamCharKeys.filter((key) => key !== '').length}
+        onDone={onClose}
+      />
     </CharacterSelectionModalBase>
+  )
+}
+
+/** The selection is applied when the modal closes; this makes that step visible. */
+function MultiSelectFooter({
+  count,
+  onDone,
+}: {
+  count: number
+  onDone: () => void
+}) {
+  const { t } = useTranslation('page_character')
+  return (
+    <>
+      <Divider />
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 2,
+          px: 2,
+          py: 1.5,
+          flexWrap: 'wrap',
+        }}
+      >
+        <Box sx={{ mr: 'auto' }}>
+          <Typography sx={{ fontWeight: 600 }}>
+            {t('multiSelect.count', { count })}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {t('multiSelect.hint')}
+          </Typography>
+        </Box>
+        <Button onClick={onDone}>{t('multiSelect.done')}</Button>
+      </Box>
+    </>
   )
 }
 
@@ -475,7 +501,6 @@ function CharacterSelectionModalBase({
   const { t } = useTranslation([
     'page_character',
     // Always load these 2 so character names are loaded for searching/sorting
-    'sillyWisher_charNames',
     'charNames_gen',
   ])
   const database = useDatabase()
@@ -648,23 +673,30 @@ const SingleSelectCardWrapper = memo(function SingleSelectCardWrapper({
 }) {
   const { favorite } = useCharMeta(characterKey)
   const database = useDatabase()
+  // the preview shows the character's equipment; for one not added yet it would only repeat
+  // the card at a larger size and cover its neighbours
+  const owned = !!useCharacter(characterKey)
 
   const [open, onOpen, onClose] = useBoolState()
 
   const isInTeam = teamSlotIndex !== -1
   return (
     <CustomTooltip
-      enterDelay={300}
-      enterNextDelay={300}
+      enterDelay={600}
+      enterNextDelay={600}
       arrow
       placement="bottom"
-      open={open}
+      open={owned && open}
       onClose={onClose}
       onOpen={onOpen}
       title={
-        <Box sx={{ width: 300 }}>
-          <CharacterCard hideStats characterKey={characterKey} />
-        </Box>
+        owned ? (
+          <Box sx={{ width: 300 }}>
+            <CharacterCard hideStats characterKey={characterKey} />
+          </Box>
+        ) : (
+          ''
+        )
       }
     >
       <CardThemed
@@ -720,23 +752,30 @@ const MultiSelectCardWrapper = memo(function MultiSelectCardWrapper({
 }) {
   const { favorite } = useCharMeta(characterKey)
   const database = useDatabase()
+  // the preview shows the character's equipment; for one not added yet it would only repeat
+  // the card at a larger size and cover its neighbours
+  const owned = !!useCharacter(characterKey)
 
   const [open, onOpen, onClose] = useBoolState()
 
   const isInTeam = teamSlotIndex !== -1
   return (
     <CustomTooltip
-      enterDelay={300}
-      enterNextDelay={300}
+      enterDelay={600}
+      enterNextDelay={600}
       arrow
       placement="bottom"
-      open={open}
+      open={owned && open}
       onClose={onClose}
       onOpen={onOpen}
       title={
-        <Box sx={{ width: 300 }}>
-          <CharacterCard hideStats characterKey={characterKey} />
-        </Box>
+        owned ? (
+          <Box sx={{ width: 300 }}>
+            <CharacterCard hideStats characterKey={characterKey} />
+          </Box>
+        ) : (
+          ''
+        )
       }
     >
       <CardThemed
@@ -789,14 +828,19 @@ const SelectionCard = memo(function SelectionCard({
 }) {
   const { gender } = useDBMeta()
   const character = useCharacter(characterKey)
-  const { silly } = useContext(SillyContext)
 
   const { level = 1, ascension = 0, constellation = 0 } = character ?? {}
   const banner = characterAsset(characterKey, 'banner', gender)
   const rarity = getCharStat(characterKey).rarity
 
   return (
-    <CardActionArea onClick={() => onSelect(characterKey)}>
+    <CardActionArea
+      onClick={() => onSelect(characterKey)}
+      // The picker shows every character at once: let the browser skip rendering (and the
+      // name-card download of) cards that are scrolled out of view. Set here, inside the
+      // wrapper that draws the selection outline, so the outline is never clipped.
+      sx={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 80px' }}
+    >
       <Box
         display="flex"
         position="relative"
@@ -811,7 +855,7 @@ const SelectionCard = memo(function SelectionCard({
             width: '100%',
             height: '100%',
             opacity: 0.7,
-            backgroundImage: `url(${banner})`,
+            backgroundImage: banner ? `url(${banner})` : undefined,
             backgroundPosition: 'center',
             backgroundSize: 'cover',
           },
@@ -828,11 +872,12 @@ const SelectionCard = memo(function SelectionCard({
         >
           <Box
             component="img"
-            src={iconAsset(characterKey, gender, silly)}
+            loading="lazy"
+            src={iconAsset(characterKey, gender)}
             width="100%"
             height="auto"
             maxWidth={256}
-            sx={{ mt: 'auto' }}
+            sx={{ mt: 'auto', aspectRatio: '1' }}
           />
         </Box>
         <Box
@@ -873,7 +918,7 @@ const SelectionCard = memo(function SelectionCard({
             </Box>
           ) : (
             <Typography component="span" variant="body2">
-              <SqBadge>NEW</SqBadge>
+              <SqBadge color="secondary">New</SqBadge>
             </Typography>
           )}
           <StarsDisplay stars={rarity} colored />

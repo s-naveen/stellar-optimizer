@@ -10,9 +10,8 @@ import { charKeyToLocGenderedCharKey } from '@genshin-optimizer/gi/consts'
 import { useDatabase, useDBMeta } from '@genshin-optimizer/gi/db-ui'
 import { getCharEle } from '@genshin-optimizer/gi/stats'
 import { Chip, Skeleton } from '@mui/material'
-import { Suspense, useCallback, useContext, useMemo } from 'react'
+import { Suspense, useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { SillyContext } from '../../context'
 import { CharIconSide } from './CharIconSideElement'
 
 export function CharacterMultiAutocomplete({
@@ -26,13 +25,8 @@ export function CharacterMultiAutocomplete({
   setCharKey: (v: CharacterKey[]) => void
   acProps?: Partial<GeneralAutocompleteMultiProps<CharacterKey>>
 }) {
-  const { t } = useTranslation([
-    'page_team',
-    'sillyWisher_charNames',
-    'charNames_gen',
-  ])
+  const { t } = useTranslation(['page_team', 'charNames_gen'])
 
-  const { silly } = useContext(SillyContext)
   const database = useDatabase()
   const { gender } = useDBMeta()
 
@@ -46,12 +40,8 @@ export function CharacterMultiAutocomplete({
     []
   )
   const toLabel = useCallback(
-    (key: CharacterKey, silly: boolean): string =>
-      t(
-        `${
-          silly ? 'sillyWisher_charNames' : 'charNames_gen'
-        }:${charKeyToLocGenderedCharKey(key, gender)}`
-      ),
+    (key: CharacterKey): string =>
+      t(`charNames_gen:${charKeyToLocGenderedCharKey(key, gender)}`),
     [gender, t]
   )
 
@@ -104,8 +94,7 @@ export function CharacterMultiAutocomplete({
         .map(
           (ck): GeneralAutocompleteOption<CharacterKey> => ({
             key: ck,
-            label: toLabel(ck, silly),
-            alternateNames: silly ? [toLabel(ck, !silly)] : undefined,
+            label: toLabel(ck),
             favorite: charIsFavorite(ck),
             color: toVariant(ck),
           })
@@ -115,7 +104,7 @@ export function CharacterMultiAutocomplete({
           if (!a.favorite && b.favorite) return 1
           return a.label.localeCompare(b.label)
         }),
-    [silly, toLabel, toVariant, charIsFavorite, allCharKeys]
+    [toLabel, toVariant, charIsFavorite, allCharKeys]
   )
 
   return (

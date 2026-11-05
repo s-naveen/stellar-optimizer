@@ -2,7 +2,7 @@
 
 This library was generated with [Nx](https://nx.dev).
 
-This is a library for the Silly Wisher Assets used by Genshin Optimizer, with their permission to use for the April fools event.
+This is a library for the Silly Wisher Assets. The permission to use them (for the April fools event) was given to Genshin Optimizer, the project this fork is based on; it does not automatically extend to Stellar Optimizer.
 
 ## Grabbing assets
 

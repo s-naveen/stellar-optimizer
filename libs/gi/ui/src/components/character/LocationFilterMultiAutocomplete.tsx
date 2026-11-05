@@ -9,9 +9,8 @@ import {
 import { useDatabase, useDBMeta } from '@genshin-optimizer/gi/db-ui'
 import { getCharEle } from '@genshin-optimizer/gi/stats'
 import { Chip, Skeleton } from '@mui/material'
-import { Suspense, useCallback, useContext, useMemo } from 'react'
+import { Suspense, useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { SillyContext } from '../../context'
 import { CharIconSide } from '.'
 
 export function LocationFilterMultiAutocomplete({
@@ -19,26 +18,21 @@ export function LocationFilterMultiAutocomplete({
   setLocations,
   totals,
   disabled,
+  size,
 }: {
   locations: LocationCharacterKey[]
   setLocations: (v: LocationCharacterKey[]) => void
   totals: Record<LocationCharacterKey, string>
   disabled?: boolean
+  size?: 'small' | 'medium'
 }) {
-  const { t } = useTranslation([
-    'artifact',
-    'sillyWisher_charNames',
-    'charNames_gen',
-  ])
+  const { t } = useTranslation(['artifact', 'charNames_gen'])
   const database = useDatabase()
   const { gender } = useDBMeta()
-  const { silly } = useContext(SillyContext)
   const namesCB = useCallback(
-    (key: LocationCharacterKey, silly: boolean): string =>
+    (key: LocationCharacterKey): string =>
       t(
-        `${
-          silly ? 'sillyWisher_charNames' : 'charNames_gen'
-        }:${charKeyToLocGenderedCharKey(
+        `charNames_gen:${charKeyToLocGenderedCharKey(
           database.chars.LocationToCharacterKey(key),
           gender
         )}`
@@ -87,10 +81,9 @@ export function LocationFilterMultiAutocomplete({
         .map(
           (v): GeneralAutocompleteOption<LocationCharacterKey> => ({
             key: v,
-            label: namesCB(v, silly),
+            label: namesCB(v),
             favorite: isFavorite(v),
             color: toVariant(v),
-            alternateNames: [namesCB(v, false)],
           })
         )
         .sort((a, b) => {
@@ -98,7 +91,7 @@ export function LocationFilterMultiAutocomplete({
           if (!a.favorite && b.favorite) return 1
           return a.label.localeCompare(b.label)
         }),
-    [database.chars, isFavorite, toVariant, silly, namesCB]
+    [database.chars, isFavorite, toVariant, namesCB]
   )
 
   return (
@@ -112,7 +105,8 @@ export function LocationFilterMultiAutocomplete({
         toExLabel={toExLabel}
         toExItemLabel={toExItemLabel}
         label={t('artifact:filterLocation.location')}
-        chipProps={{ variant: 'outlined' }}
+        size={size}
+        chipProps={{ variant: 'outlined', size }}
       />
     </Suspense>
   )

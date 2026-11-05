@@ -13,8 +13,7 @@ import {
 import { Translate } from '@genshin-optimizer/gi/i18n'
 import type { CalcResult } from '@genshin-optimizer/gi/uidata'
 import type { Info, InfoExtra, KeyMapPrefix } from '@genshin-optimizer/gi/wr'
-import { type ReactNode, useContext } from 'react'
-import { SillyContext } from '../context'
+import type { ReactNode } from 'react'
 import { resolveInfo } from './resolveInfo'
 
 type CalcDisplay = {
@@ -42,7 +41,6 @@ const subKeyMap: Record<KeyMapPrefix, string> = {
 const displayKey = Symbol()
 
 function SourceDisplay({ source }: { source: string | undefined }) {
-  const { silly } = useContext(SillyContext)
   if (!source) return null
   if (allArtifactSetKeys.includes(source as ArtifactSetKey))
     return (
@@ -63,11 +61,7 @@ function SourceDisplay({ source }: { source: string | undefined }) {
       <ColorText color="secondary">
         {' '}
         (
-        <Translate
-          ns={silly ? 'sillyWisher_charNames' : 'charNames_gen'}
-          key18={source}
-        />
-        )
+        <Translate ns="charNames_gen" key18={source} />)
       </ColorText>
     )
   return null

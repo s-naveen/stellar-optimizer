@@ -18,8 +18,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import { Box, CardActionArea, Typography } from '@mui/material'
 import type { MouseEvent, ReactNode } from 'react'
-import { useCallback, useContext } from 'react'
-import { SillyContext } from '../../context'
+import { useCallback } from 'react'
 import { iconAsset } from '../../util/iconAsset'
 
 export function CharacterCardPico({
@@ -40,7 +39,6 @@ export function CharacterCardPico({
   const character = useCharacter(characterKey)
   const { favorite } = useCharMeta(characterKey)
   const { gender } = useDBMeta()
-  const { silly } = useContext(SillyContext)
   const onClickHandler = useCallback(
     () => onClick?.(characterKey),
     [characterKey, onClick]
@@ -87,7 +85,8 @@ export function CharacterCardPico({
           >
             <Box
               component="img"
-              src={iconAsset(characterKey, gender, silly)}
+              loading="lazy"
+              src={iconAsset(characterKey, gender)}
               maxWidth="100%"
               maxHeight="100%"
               draggable={false}

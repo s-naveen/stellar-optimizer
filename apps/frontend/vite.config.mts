@@ -42,7 +42,6 @@ const localeDirs = [
   '../../libs/common/localization/assets/locales',
   '../../libs/gi/localization/assets/locales',
   '../../libs/gi/dm-localization/assets/locales',
-  '../../libs/gi/silly-wisher-names/assets/locales',
 ].map((dir) => normalizePath(resolve(__dirname, dir)))
 
 /**

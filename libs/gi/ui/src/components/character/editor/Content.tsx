@@ -23,7 +23,7 @@ import { Box, Button, Grid, IconButton, Typography } from '@mui/material'
 import { useCallback, useContext, useMemo } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import { BuildEditContext, DataContext, SillyContext } from '../../../context'
+import { BuildEditContext, DataContext } from '../../../context'
 import { AddTeamInfo } from '../../AddTeamInfo'
 import { CharacterLevelSelect } from '../CharacterLevelSelect'
 import {
@@ -41,7 +41,6 @@ export function Content({ onClose }: { onClose?: () => void }) {
   const { t } = useTranslation([
     'page_character',
     // Always load these 2 so character names are loaded for searching/sorting
-    'sillyWisher_charNames',
     'charNames_gen',
   ])
   const navigate = useNavigate()
@@ -52,24 +51,22 @@ export function Content({ onClose }: { onClose?: () => void }) {
   } = useContext(CharacterContext)
   const { gender } = useDBMeta()
   const characterSheet = getCharSheet(characterKey, gender)
-  const { silly } = useContext(SillyContext)
   const deleteCharacter = useCallback(async () => {
     const name = t(
-      `${
-        silly ? 'sillyWisher_charNames' : 'charNames_gen'
-      }:${charKeyToLocGenderedCharKey(characterKey, gender)}`
+      `charNames_gen:${charKeyToLocGenderedCharKey(characterKey, gender)}`
     )
 
     if (!window.confirm(t('removeCharacter', { value: name }))) return
     database.chars.remove(characterKey)
     navigate('/characters')
-  }, [database, navigate, characterKey, gender, silly, t])
+  }, [database, navigate, characterKey, gender, t])
 
   return (
     <Box display="flex" flexDirection="column" gap={1}>
       <Box display="flex" gap={1}>
         <TravelerGenderSelect />
         <Button
+          variant="outlined"
           color="error"
           onClick={() => deleteCharacter()}
           startIcon={<DeleteForeverIcon />}

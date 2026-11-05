@@ -44,13 +44,15 @@ import {
   Box,
   Button,
   CardActionArea,
+  IconButton,
   Skeleton,
+  Tooltip,
   Typography,
 } from '@mui/material'
-import { Suspense, useContext, useMemo } from 'react'
+import { Suspense, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { dataContextObj } from '../../context'
-import { DataContext, SillyContext } from '../../context'
+import { DataContext } from '../../context'
 import { useCharData } from '../../hooks'
 import { getBuildTcArtifactData, iconAsset } from '../../util'
 import { ArtifactSlotName } from '../artifact'
@@ -69,13 +71,18 @@ export function TeamCard({
   const { name, description, loadoutData } = team
   const database = useDatabase()
   const [showDel, onShowDel, onHideDel] = useBoolState()
+  const { t } = useTranslation('page_team')
 
   return (
     <CardThemed
       bgt={bgt}
       sx={{
         height: '100%',
-        border: '1px rgba(200,200,200,0.4) solid',
+        transition: 'box-shadow 150ms ease, outline-color 150ms ease',
+        ':hover': {
+          boxShadow: '0 14px 32px rgba(0, 0, 0, 0.4)',
+          outlineColor: 'rgba(236, 229, 216, 0.24)',
+        },
       }}
     >
       <Box
@@ -85,37 +92,54 @@ export function TeamCard({
           flexDirection: 'column',
         }}
       >
+        {/* header: the team's name (opens the team) and a quiet delete action */}
         <Box
           sx={{
             display: 'flex',
-            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 0.5,
+            pl: 0.5,
+            pr: 1,
+            py: 0.5,
+            borderBottom: 1,
+            borderColor: 'divider',
           }}
         >
           <Button
             onClick={() => onClick()}
-            variant="outlined"
-            fullWidth
-            color="neutral300"
+            variant="text"
+            color="inherit"
             sx={{
-              borderTopRightRadius: 0,
-              borderBottomRightRadius: 0,
-              borderBottomLeftRadius: 0,
+              flexGrow: 1,
+              minWidth: 0,
+              justifyContent: 'flex-start',
+              px: 1,
+              py: 0.75,
             }}
           >
             <Typography
+              component="span"
+              noWrap
               sx={{
                 display: 'flex',
                 gap: 1,
                 alignItems: 'center',
+                minWidth: 0,
+                fontWeight: 650,
+                fontSize: '1.0625rem',
               }}
-              variant="h6"
             >
-              <span>{name}</span>
+              <Box
+                component="span"
+                sx={{ overflow: 'hidden', textOverflow: 'ellipsis' }}
+              >
+                {name}
+              </Box>
               {description && (
                 <BootstrapTooltip
                   title={<Typography>{description}</Typography>}
                 >
-                  <InfoIcon />
+                  <InfoIcon fontSize="small" sx={{ color: 'text.secondary' }} />
                 </BootstrapTooltip>
               )}
             </Typography>
@@ -127,19 +151,19 @@ export function TeamCard({
             onHide={onHideDel}
             onDel={(): void => {}}
           />
-          <Button
-            variant="outlined"
-            size="small"
-            onClick={onShowDel}
-            color="error"
-            sx={{
-              borderTopLeftRadius: 0,
-              borderBottomRightRadius: 0,
-              borderBottomLeftRadius: 0,
-            }}
-          >
-            <DeleteForeverIcon />
-          </Button>
+          <Tooltip title={t('page_team:teamSettings.deleteBtn')}>
+            <IconButton
+              size="small"
+              onClick={onShowDel}
+              aria-label={t('page_team:teamSettings.deleteBtn')}
+              sx={{
+                color: 'text.secondary',
+                '&:hover': { color: 'error.main' },
+              }}
+            >
+              <DeleteForeverIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
         </Box>
         <Box
           sx={{
@@ -155,9 +179,9 @@ export function TeamCard({
                 key={`${i}_${teamCharId}`}
                 className="team-teammate"
                 sx={{
-                  border: '1px rgba(200,200,200,0.3) solid',
-                  '&:hover': {
-                    border: '1px rgba(200,200,200,0.8) solid',
+                  '& + .team-teammate': {
+                    borderTop: 1,
+                    borderColor: 'divider',
                   },
                 }}
               >
@@ -186,6 +210,7 @@ export function TeamCard({
                     >
                       <Box
                         component="img"
+                        loading="lazy"
                         src={
                           imgAssets.team[
                             `team${i + 1}` as keyof typeof imgAssets.team
@@ -237,7 +262,6 @@ function CharacterArea({
   const database = useDatabase()
   const character = useCharacter(characterKey)
   const { gender } = useDBMeta()
-  const { silly } = useContext(SillyContext)
   const charStat = getCharStat(characterKey)
 
   const { name } = useTeamChar(teamCharId)!
@@ -304,7 +328,7 @@ function CharacterArea({
                 width: '100%',
                 height: '100%',
                 opacity: 0.5,
-                backgroundImage: `url(${banner})`,
+                backgroundImage: banner ? `url(${banner})` : undefined,
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
                 zIndex: zVals.banner,
@@ -398,7 +422,8 @@ function CharacterArea({
 
             <Box
               component="img"
-              src={iconAsset(characterKey, gender, silly)}
+              loading="lazy"
+              src={iconAsset(characterKey, gender)}
               sx={{
                 height: 120,
                 width: 120,
@@ -469,6 +494,7 @@ function WeaponCard({ weapon }: { weapon: ICachedWeapon }) {
     >
       <Box
         component="img"
+        loading="lazy"
         src={weaponAsset(weapon.key, weapon.ascension >= 2)}
         maxWidth="100%"
         maxHeight="50px"
@@ -603,6 +629,7 @@ function Set22({ sets }: { sets: ArtifactSetKey[] }) {
       {/* top left */}
       <Box
         component="img"
+        loading="lazy"
         sx={{
           position: 'absolute',
           top: 0,
@@ -616,6 +643,7 @@ function Set22({ sets }: { sets: ArtifactSetKey[] }) {
       {/* bottom right */}
       <Box
         component="img"
+        loading="lazy"
         sx={{
           position: 'absolute',
           top: 0,
@@ -688,6 +716,7 @@ function Set4({ set, num }: { set: ArtifactSetKey; num: number }) {
       </Box>
       <Box
         component="img"
+        loading="lazy"
         src={artifactAsset(set, 'flower')}
         sx={{ Width: '50px', height: '50px' }}
       />

@@ -17,9 +17,8 @@ import type { Variant } from '@genshin-optimizer/gi/wr'
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter'
 import type { AutocompleteProps } from '@mui/material'
 import { Box, Skeleton } from '@mui/material'
-import { Suspense, useCallback, useContext, useMemo } from 'react'
+import { Suspense, useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { SillyContext } from '../../context'
 import { CharIconSide } from './CharIconSideElement'
 
 type LocationAutocompleteProps = {
@@ -42,26 +41,17 @@ export function LocationAutocomplete({
   filter = () => true,
   autoCompleteProps = {},
 }: LocationAutocompleteProps) {
-  const { t } = useTranslation([
-    'ui',
-    'artifact',
-    'sillyWisher_charNames',
-    'charNames_gen',
-  ])
-  const { silly } = useContext(SillyContext)
+  const { t } = useTranslation(['ui', 'artifact', 'charNames_gen'])
   const database = useDatabase()
   const { gender } = useDBMeta()
   const toText = useCallback(
-    (silly: boolean) =>
-      (key: LocationCharacterKey): string =>
-        t(
-          `${
-            silly ? 'sillyWisher_charNames' : 'charNames_gen'
-          }:${charKeyToLocGenderedCharKey(
-            database.chars.LocationToCharacterKey(key),
-            gender
-          )}`
-        ),
+    (key: LocationCharacterKey): string =>
+      t(
+        `charNames_gen:${charKeyToLocGenderedCharKey(
+          database.chars.LocationToCharacterKey(key),
+          gender
+        )}`
+      ),
     [database, gender, t]
   )
 
@@ -110,9 +100,8 @@ export function LocationAutocomplete({
         .map(
           (v): GeneralAutocompleteOption<LocationKey> => ({
             key: v,
-            label: toText(silly)(v),
+            label: toText(v),
             favorite: isFavorite(v),
-            alternateNames: silly ? [toText(!silly)(v)] : undefined,
             color: charInDb.includes(v) ? undefined : ('secondary' as Variant),
           })
         )
@@ -124,7 +113,7 @@ export function LocationAutocomplete({
           return a.label.localeCompare(b.label)
         }),
     ],
-    [t, database, charInDb, filter, toText, silly, isFavorite]
+    [t, database, charInDb, filter, toText, isFavorite]
   )
   return (
     <Suspense fallback={<Skeleton variant="text" width={100} />}>

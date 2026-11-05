@@ -13,7 +13,6 @@
   "implicitDependencies": [
     "common-localization",
     "gi-localization",
-    "gi-dm-localization",
-    "gi-silly-wisher-names"
+    "gi-dm-localization"
   ]
 }
