@@ -38,6 +38,35 @@ function coreStatsPlugin(): Plugin {
 }
 
 /** The locale folders copied to `assets/locales` (unhashed file names, loaded by i18next). */
+/**
+ * Cloudflare Web Analytics: cookieless visit counts for the published site (no consent banner
+ * needed). Production builds only, and only on the real host, so local runs (dev server, smoke
+ * tests of dist) are never counted. The token is the public site tag from the Cloudflare
+ * dashboard (Web Analytics → gi-beta73.github.io), not a secret.
+ */
+const CF_WEB_ANALYTICS_TOKEN = 'ec971696b247424ca782ce28157bc5af'
+const CF_WEB_ANALYTICS_HOST = 'gi-beta73.github.io'
+function cloudflareWebAnalyticsPlugin(): Plugin {
+  return {
+    name: 'cf-web-analytics',
+    apply: 'build',
+    transformIndexHtml: () => [
+      {
+        tag: 'script',
+        // the beacon finds its config by the data-cf-beacon attribute when inserted this way
+        children: `if (location.hostname === ${JSON.stringify(CF_WEB_ANALYTICS_HOST)}) {
+  const s = document.createElement('script')
+  s.type = 'module'
+  s.src = 'https://static.cloudflareinsights.com/beacon.min.js'
+  s.dataset.cfBeacon = ${JSON.stringify(JSON.stringify({ token: CF_WEB_ANALYTICS_TOKEN }))}
+  document.head.appendChild(s)
+}`,
+        injectTo: 'body',
+      },
+    ],
+  }
+}
+
 const localeDirs = [
   '../../libs/common/localization/assets/locales',
   '../../libs/gi/localization/assets/locales',
@@ -84,6 +113,7 @@ export default defineConfig(() => ({
       cacheDir: resolve(__dirname, '../../node_modules/.cache/go-webp'),
     }),
     coreStatsPlugin(),
+    cloudflareWebAnalyticsPlugin(),
     react(),
     nxViteTsPaths(),
     // Nx executor for vite does not support `assets` prop for copying files.
