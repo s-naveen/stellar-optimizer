@@ -1,16 +1,57 @@
-import { CardThemed, SqBadge } from '@genshin-optimizer/common/ui'
+import {
+  type BulkAction,
+  BulkActionsMenu,
+  CollapsibleFilterCard,
+} from '@genshin-optimizer/common/ui'
 import type { ICachedArtifact } from '@genshin-optimizer/gi/db'
 import { useDatabase, useDisplayArtifact } from '@genshin-optimizer/gi/db-ui'
-import type { FilterOption } from '@genshin-optimizer/gi/schema'
+import {
+  type FilterOption,
+  initialFilterOption,
+} from '@genshin-optimizer/gi/schema'
 import { ArtifactFilterDisplay } from '@genshin-optimizer/gi/ui'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import LockIcon from '@mui/icons-material/Lock'
 import LockOpenIcon from '@mui/icons-material/LockOpen'
 import PersonOffIcon from '@mui/icons-material/PersonOff'
-import ReplayIcon from '@mui/icons-material/Replay'
-import { Button, CardContent, Grid, Skeleton, Typography } from '@mui/material'
+import { Skeleton } from '@mui/material'
 import { Suspense, useCallback, useMemo } from 'react'
-import { Trans, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
+
+const sameValue = (a: unknown, b: unknown) =>
+  Array.isArray(a) && Array.isArray(b)
+    ? a.length === b.length && a.every((x) => b.includes(x))
+    : a === b
+
+/** Filter options that differ from the defaults (what Reset would change). */
+function changedFilterKeys(option: FilterOption) {
+  const initial = initialFilterOption()
+  const keys = new Set([...Object.keys(initial), ...Object.keys(option)])
+  return [...keys].filter(
+    (key) =>
+      !sameValue(
+        option[key as keyof FilterOption],
+        initial[key as keyof FilterOption]
+      )
+  ) as (keyof FilterOption)[]
+}
+
+/** How many filters are active, counting a range (low/high) as one filter. */
+function countActiveFilters(changed: (keyof FilterOption)[]) {
+  const groups = changed
+    // only changes how the RV range is applied, it is not a filter by itself
+    .filter((key) => key !== 'useMaxRV')
+    .map((key) =>
+      key === 'levelLow' || key === 'levelHigh'
+        ? 'level'
+        : key === 'rvLow' || key === 'rvHigh'
+          ? 'rv'
+          : key === 'showEquipped' || key === 'showInventory'
+            ? 'equipped'
+            : key
+    )
+  return new Set(groups).size
+}
 
 export default function ArtifactFilter({
   numShowing,
@@ -31,63 +72,44 @@ export default function ArtifactFilter({
       }),
     [database, filterOption]
   )
+  const changed = useMemo(() => changedFilterKeys(filterOption), [filterOption])
+  const activeCount = countActiveFilters(changed)
 
   return (
-    <Suspense
-      fallback={<Skeleton variant="rectangular" width="100%" height={300} />}
+    <CollapsibleFilterCard
+      storageKey="artifactPage_filtersOpen"
+      title={t('filters.title')}
+      activeLabel={
+        activeCount ? t('filters.active', { count: activeCount }) : undefined
+      }
+      summary={
+        <>
+          <strong>{numShowing}</strong> / {total}
+        </>
+      }
+      resetLabel={t('ui:reset')}
+      resetDisabled={!changed.length}
+      onReset={() => database.displayArtifact.set({ action: 'reset' })}
     >
-      <CardThemed>
-        <CardContent>
-          <Grid container>
-            <Grid item>
-              <Typography variant="h6">
-                <Trans t={t} i18nKey="artifactFilter">
-                  Artifact Filter
-                </Trans>
-              </Typography>
-            </Grid>
-            <Grid
-              item
-              flexGrow={1}
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Typography>
-                <strong>{numShowing}</strong> / {total}
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Button
-                size="small"
-                color="error"
-                onClick={() =>
-                  database.displayArtifact.set({ action: 'reset' })
-                }
-                startIcon={<ReplayIcon />}
-              >
-                <Trans t={t} i18nKey="ui:reset" />
-              </Button>
-            </Grid>
-          </Grid>
-          <Suspense
-            fallback={
-              <Skeleton variant="rectangular" width="100%" height={400} />
-            }
-          >
-            <ArtifactFilterDisplay
-              filterOption={filterOption}
-              filterOptionDispatch={filterOptionDispatch}
-              filteredIds={artifactIds}
-            />
-          </Suspense>
-        </CardContent>
-      </CardThemed>
-    </Suspense>
+      <Suspense
+        fallback={<Skeleton variant="rectangular" width="100%" height={400} />}
+      >
+        <ArtifactFilterDisplay
+          filterOption={filterOption}
+          filterOptionDispatch={filterOptionDispatch}
+          filteredIds={artifactIds}
+        />
+      </Suspense>
+    </CollapsibleFilterCard>
   )
 }
 
-export function ArtifactRedButtons({ artifactIds }: { artifactIds: string[] }) {
+/** Delete / lock / unlock / unequip every artifact that matches the current filters. */
+export function ArtifactBulkActions({
+  artifactIds,
+}: {
+  artifactIds: string[]
+}) {
   const { t } = useTranslation(['artifact', 'ui'])
   const database = useDatabase()
   const { numDelete, numUnequip, numUnlock, numLock } = useMemo(() => {
@@ -104,99 +126,61 @@ export function ArtifactRedButtons({ artifactIds }: { artifactIds: string[] }) {
     return { numDelete, numUnequip, numUnlock, numLock }
   }, [artifactIds, database])
 
-  const unequipArtifacts = () =>
-    window.confirm(
-      `Are you sure you want to unequip ${numUnequip} artifacts currently equipped on characters?`
-    ) && artifactIds.map((id) => database.arts.set(id, { location: '' }))
-
-  const deleteArtifacts = () =>
-    window.confirm(`Are you sure you want to delete ${numDelete} artifacts?`) &&
-    artifactIds.map(
-      (id) => !database.arts.get(id)?.lock && database.arts.remove(id)
-    )
-
-  const lockArtifacts = () =>
-    window.confirm(`Are you sure you want to lock ${numUnlock} artifacts?`) &&
-    artifactIds.map((id) => database.arts.set(id, { lock: true }))
-
-  const unlockArtifacts = () =>
-    window.confirm(`Are you sure you want to unlock ${numLock} artifacts?`) &&
-    artifactIds.map((id) => database.arts.set(id, { lock: false }))
+  const actions: BulkAction[] = [
+    {
+      key: 'unequip',
+      icon: <PersonOffIcon />,
+      label: t('bulk.unequip'),
+      count: numUnequip,
+      run: () =>
+        window.confirm(
+          `Are you sure you want to unequip ${numUnequip} artifacts currently equipped on characters?`
+        ) &&
+        artifactIds.forEach((id) => database.arts.set(id, { location: '' })),
+    },
+    {
+      key: 'lock',
+      icon: <LockIcon />,
+      label: t('bulk.lock'),
+      count: numUnlock,
+      run: () =>
+        window.confirm(
+          `Are you sure you want to lock ${numUnlock} artifacts?`
+        ) && artifactIds.forEach((id) => database.arts.set(id, { lock: true })),
+    },
+    {
+      key: 'unlock',
+      icon: <LockOpenIcon />,
+      label: t('bulk.unlock'),
+      count: numLock,
+      run: () =>
+        window.confirm(
+          `Are you sure you want to unlock ${numLock} artifacts?`
+        ) &&
+        artifactIds.forEach((id) => database.arts.set(id, { lock: false })),
+    },
+    {
+      key: 'delete',
+      icon: <DeleteForeverIcon />,
+      label: t('bulk.delete'),
+      count: numDelete,
+      danger: true,
+      run: () =>
+        window.confirm(
+          `Are you sure you want to delete ${numDelete} artifacts?`
+        ) &&
+        artifactIds.forEach(
+          (id) => !database.arts.get(id)?.lock && database.arts.remove(id)
+        ),
+    },
+  ]
 
   return (
-    <Grid container spacing={1} alignItems="center">
-      <Grid item xs={12} sm={6} md={3}>
-        <Button
-          fullWidth
-          color="error"
-          disabled={!numUnequip}
-          onClick={unequipArtifacts}
-          startIcon={<PersonOffIcon />}
-        >
-          <Trans t={t} i18nKey="button.unequipArtifacts">
-            Unequip Artifacts
-          </Trans>
-          <SqBadge sx={{ ml: 1 }} color={numUnequip ? 'success' : 'secondary'}>
-            {numUnequip}
-          </SqBadge>
-        </Button>
-      </Grid>
-      <Grid item xs={12} sm={6} md={3}>
-        <Button
-          fullWidth
-          color="error"
-          disabled={!numDelete}
-          onClick={deleteArtifacts}
-          startIcon={<DeleteForeverIcon />}
-        >
-          <Trans t={t} i18nKey="button.deleteArtifacts">
-            Delete Artifacts
-          </Trans>
-          <SqBadge sx={{ ml: 1 }} color={numDelete ? 'success' : 'secondary'}>
-            {numDelete}
-          </SqBadge>
-        </Button>
-      </Grid>
-      <Grid item xs={12} sm={6} md={3}>
-        <Button
-          fullWidth
-          color="error"
-          disabled={!numLock}
-          onClick={unlockArtifacts}
-          startIcon={<LockOpenIcon />}
-        >
-          <Trans t={t} i18nKey="button.unlockrtifacts">
-            Unlock Artifacts
-          </Trans>
-          <SqBadge sx={{ ml: 1 }} color={numLock ? 'success' : 'secondary'}>
-            {numLock}
-          </SqBadge>
-        </Button>
-      </Grid>
-      <Grid item xs={12} sm={6} md={3}>
-        <Button
-          fullWidth
-          color="error"
-          disabled={!numUnlock}
-          onClick={lockArtifacts}
-          startIcon={<LockIcon />}
-        >
-          <Trans t={t} i18nKey="button.lockArtifacts">
-            Lock Artifacts
-          </Trans>
-          <SqBadge sx={{ ml: 1 }} color={numUnlock ? 'success' : 'secondary'}>
-            {numUnlock}
-          </SqBadge>
-        </Button>
-      </Grid>
-      <Grid item xs={12} display="flex" justifyContent="space-around">
-        <Typography variant="caption" color="text.secondary">
-          <Trans t={t} i18nKey="buttonHint">
-            Note: the red buttons above only apply to
-            <b>currently filtered artifacts</b>
-          </Trans>
-        </Typography>
-      </Grid>
-    </Grid>
+    <BulkActionsMenu
+      label={t('bulk.title')}
+      hint={t('bulk.hint', { count: artifactIds.length })}
+      actions={actions}
+      disabled={!artifactIds.length}
+    />
   )
 }

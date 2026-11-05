@@ -21,11 +21,13 @@ export function ArtifactSetMultiAutocomplete({
   artSetKeys,
   setArtSetKeys,
   totals,
+  size,
 }: {
   allowRarities?: ArtifactRarity[]
   artSetKeys: ArtifactSetKey[]
   setArtSetKeys: (keys: ArtifactSetKey[]) => void
   totals: Record<ArtifactSetKey, string>
+  size?: 'small' | 'medium'
 }) {
   const { t } = useTranslation(['artifact', 'artifactNames_gen'])
 
@@ -66,6 +68,8 @@ export function ArtifactSetMultiAutocomplete({
       toExLabel={toExLabel}
       toExItemLabel={toExItemLabel}
       onChange={setArtSetKeys}
+      size={size}
+      chipProps={size ? { size } : undefined}
       groupBy={(option) => option.grouper?.toString() ?? ''}
       renderGroup={(params: AutocompleteRenderGroupParams) =>
         params.group && (

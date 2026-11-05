@@ -14,12 +14,14 @@ export function SubstatMultiAutocomplete<
   totals,
   fullWidth = false,
   allSubstatKeys,
+  size,
 }: {
   substatKeys: SubstatKeyParam[]
   setSubstatKeys: (keys: SubstatKeyParam[]) => void
   totals: Record<SubstatKeyParam, string>
   fullWidth?: boolean
   allSubstatKeys: SubstatKeyParam[]
+  size?: 'small' | 'medium'
 }) {
   const { t } = useTranslation('artifact')
   const { t: tk } = useTranslation('statKey_gen')
@@ -55,6 +57,8 @@ export function SubstatMultiAutocomplete<
       valueKeys={substatKeys}
       onChange={setSubstatKeys}
       label={t('autocompleteLabels.substats')}
+      size={size}
+      chipProps={size ? { size } : undefined}
     />
   )
 }

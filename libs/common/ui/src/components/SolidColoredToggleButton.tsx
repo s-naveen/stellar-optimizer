@@ -1,39 +1,53 @@
 import type { Palette, PaletteColor, ToggleButtonProps } from '@mui/material'
-import { styled, ToggleButton } from '@mui/material'
+import { alpha, styled, ToggleButton } from '@mui/material'
+import { quietToggleStyles } from './SolidToggleButtonGroup'
 
 type SolidColoredToggleButtonPartial = {
   baseColor?: keyof Palette
   selectedColor?: keyof Palette
+  /** The compact filter style of `SolidToggleButtonGroup`'s `quiet` (selected colour defaults to `primary`). */
+  quiet?: boolean
 }
 export type SolidColoredToggleButtonProps = SolidColoredToggleButtonPartial &
   ToggleButtonProps
 
 export const SolidColoredToggleButton = styled(ToggleButton, {
-  shouldForwardProp: (prop) => prop !== 'baseColor' && prop !== 'selectedColor',
+  shouldForwardProp: (prop) =>
+    prop !== 'baseColor' && prop !== 'selectedColor' && prop !== 'quiet',
 })<SolidColoredToggleButtonPartial>(
-  ({ theme, baseColor = 'secondary', selectedColor = 'success' }) => {
+  ({ theme, baseColor = 'secondary', selectedColor, quiet = false }) => {
+    if (quiet)
+      return quietToggleStyles(
+        theme,
+        theme.palette[selectedColor ?? 'primary'] as PaletteColor
+      )
     const basePalette = theme.palette[baseColor] as PaletteColor
-    const selectedPalette = theme.palette[selectedColor] as PaletteColor
+    const selectedPalette = theme.palette[
+      selectedColor ?? 'success'
+    ] as PaletteColor
+    // tonal, like SolidToggleButtonGroup
     return {
       '&': {
-        backgroundColor: basePalette.main,
-        color: basePalette.contrastText,
+        backgroundColor: alpha(basePalette.main, 0.22),
+        color: theme.palette.text.secondary,
       },
       '&:hover': {
-        backgroundColor: basePalette.dark,
+        backgroundColor: alpha(basePalette.main, 0.4),
       },
       '&.Mui-selected': {
-        backgroundColor: selectedPalette.main,
-        color: selectedPalette.contrastText,
+        backgroundColor: alpha(selectedPalette.main, 0.2),
+        color: selectedPalette.light ?? selectedPalette.main,
+        boxShadow: `inset 0 0 0 1px ${alpha(selectedPalette.main, 0.45)}`,
       },
       '&.Mui-selected:hover': {
-        backgroundColor: selectedPalette.dark,
+        backgroundColor: alpha(selectedPalette.main, 0.3),
       },
       '&.Mui-disabled': {
-        backgroundColor: basePalette.dark,
+        backgroundColor: alpha(basePalette.main, 0.12),
+        color: theme.palette.text.disabled,
       },
       '&.Mui-selected.Mui-disabled': {
-        backgroundColor: selectedPalette.dark,
+        backgroundColor: alpha(selectedPalette.main, 0.12),
       },
     }
   }

@@ -15,7 +15,7 @@
   "buttonHint": "Note: the red buttons above only apply to <1>filtered weapons<1>",
   "equippedWeapon": "All Equipped Weapons",
   "weaponInInv": "All Unequipped Weapons",
-  "locationsTooltip": "Disable \"All Equipped Weapon\" to filter by specific characters",
+  "locationsTooltip": "Turn off \"Equipped\" to filter by specific characters",
   "subheadings": {
     "general": "General",
     "inventory": "Inventory"
@@ -28,5 +28,27 @@
     "bow": "Bow",
     "catalyst": "Catalyst"
   },
-  "tcBuild": "TC Build"
+  "tcBuild": "TC Build",
+  "chooseWeapon": "Choose a weapon",
+  "header": {
+    "add": "Add weapon"
+  },
+  "filters": {
+    "title": "Filters",
+    "active_one": "{{count}} active",
+    "active_other": "{{count}} active",
+    "groups": {
+      "weapon": "Weapon"
+    },
+    "unequipped": "Unequipped",
+    "equipped": "Equipped"
+  },
+  "bulk": {
+    "title": "Bulk actions",
+    "hint_one": "Applies to the {{count}} weapon that matches your filters.",
+    "hint_other": "Applies to the {{count}} weapons that match your filters.",
+    "lock": "Lock",
+    "unlock": "Unlock",
+    "delete": "Delete unlocked, unequipped weapons"
+  }
 }

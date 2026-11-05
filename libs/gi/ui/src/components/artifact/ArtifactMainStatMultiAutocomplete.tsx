@@ -12,10 +12,12 @@ export function ArtifactMainStatMultiAutocomplete({
   mainStatKeys,
   setMainStatKeys,
   totals,
+  size,
 }: {
   mainStatKeys: MainStatKey[]
   setMainStatKeys: (keys: MainStatKey[]) => void
   totals: Record<MainStatKey, string>
+  size?: 'small' | 'medium'
 }) {
   const { t } = useTranslation('artifact')
   const { t: tk } = useTranslation('statKey_gen')
@@ -54,6 +56,8 @@ export function ArtifactMainStatMultiAutocomplete({
       toExLabel={toExLabel}
       toExItemLabel={toExItemLabel}
       label={t('autocompleteLabels.mainStats')}
+      size={size}
+      chipProps={size ? { size } : undefined}
     />
   )
 }
