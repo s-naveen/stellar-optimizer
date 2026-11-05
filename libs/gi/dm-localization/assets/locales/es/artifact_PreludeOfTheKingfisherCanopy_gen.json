@@ -1,0 +1,23 @@
+{
+  "setEffects": {
+    "2": "Recarga de Energía +20%.",
+    "4": "Aumenta en un 25% el daño de la Habilidad Elemental y Definitiva del portador de este conjunto de artefactos. Otros efectos serán revelados en versiones futuras."
+  },
+  "pieces": {
+    "flower": {
+      "desc": "El lazo con forma de flor que ella recibió como regalo de una amiga cuyas manos eran gélidas como el hielo."
+    },
+    "plume": {
+      "desc": "La pluma que ella otorgó a su seguidor, y con la cual una vez escribió sueños absurdos."
+    },
+    "sands": {
+      "desc": "El reloj que ella le obsequió al taciturno alquimista para recordarle todos sus compromisos."
+    },
+    "goblet": {
+      "desc": "La copa de vino que ella obtuvo de su compañero como parte de la celebración."
+    },
+    "circlet": {
+      "desc": "El adorno que ella recibió de su único amo como premio."
+    }
+  }
+}

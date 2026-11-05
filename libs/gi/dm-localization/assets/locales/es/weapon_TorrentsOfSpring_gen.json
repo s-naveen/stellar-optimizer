@@ -1,0 +1,22 @@
+{
+  "name": "Marea de la Primavera",
+  "description": {},
+  "passiveName": "Trueno rompeolas",
+  "passiveDescription": {
+    "0": {
+      "0": "Aumenta el ATQ del portador en un <cryo>16%</cryo>. Cuando el ataque elemental Electro del portador golpee a un enemigo, obtendrá durante 15 s el efecto «Edicto Imperial»: el daño de reacción Superconductor Estelar infligido por los personajes en uso del equipo aumenta en un <cryo>20%</cryo>. Mientras el efecto esté activo, cuando el ataque Superconductor Estelar del portador golpee a un enemigo, se considerará que se ha cumplido la orden y se potenciará el efecto de «Edicto Imperial»: el ATQ del portador aumenta en un <cryo>16%</cryo> adicional y el daño de reacción Superconductor Estelar infligido por el personaje en uso aumenta en un <cryo>20%</cryo> adicional. Los efectos anteriores también se aplican en segundo plano."
+    },
+    "1": {
+      "0": "test aumenta el ATQ del portador en un <cryo>20%</cryo>. Cuando el ataque elemental Electro del portador golpea a un enemigo, obtiene «Edicto Real» durante 15 s: el daño de reacción Superconductor Estelar infligido por los personajes en uso del equipo aumenta en un <cryo>25%</cryo>. Mientras el efecto esté activo, cuando el ataque Superconductor Estelar del portador golpee a un enemigo, se considerará que se ha completado la orden, mejorando el efecto de «Edicto Real»: el ATQ del portador aumenta adicionalmente en un <cryo>20%</cryo> y el daño de reacción Superconductor Estelar infligido por el personaje en uso aumenta adicionalmente en un <cryo>25%</cryo>. Estos efectos también se aplican en segundo plano."
+    },
+    "2": {
+      "0": "test aumenta el ATQ del portador en un <cryo>24%</cryo>. Cuando el ataque elemental Electro del portador golpea a un enemigo, obtiene «Edicto Real», que dura 15 s: el daño de reacción Superconductor Estelar infligido por los personajes en uso del equipo aumenta en un <cryo>30%</cryo>. Durante este efecto, cuando el ataque Superconductor Estelar del portador golpea a un enemigo, se considera que la orden ha sido cumplida y mejora el efecto de «Edicto Real»: el ATQ del portador aumenta en un <cryo>24%</cryo> adicional y el daño de reacción Superconductor Estelar infligido por el personaje en uso aumenta en un <cryo>30%</cryo> adicional. Los efectos anteriores también se aplican en segundo plano."
+    },
+    "3": {
+      "0": "Aumenta el ATQ del portador en un <cryo>28%</cryo>. Cuando el ataque elemental Electro del portador golpee a un enemigo, obtendrá «Edicto Imperial» durante 15 s: el daño de reacción Superconductor Estelar infligido por los personajes en uso del equipo aumenta en un <cryo>35%</cryo>. Durante este efecto, cuando el ataque Superconductor Estelar del portador golpee a un enemigo, se considerará que la orden se ha completado, mejorando el efecto de «Edicto Imperial»: el ATQ del portador aumenta adicionalmente en un <cryo>28%</cryo> y el daño de reacción Superconductor Estelar infligido por los personajes en uso del equipo aumenta adicionalmente en un <cryo>35%</cryo>. Los efectos anteriores también se aplican en segundo plano."
+    },
+    "4": {
+      "0": "El ATQ del portador aumenta un <cryo>32%</cryo>. Cuando el ataque elemental Electro del portador golpee a un enemigo, recibirá «Edicto Imperial» durante 15 s: el daño de reacción Superconductor Estelar infligido por los personajes en uso del equipo aumenta un <cryo>40%</cryo>. Mientras el efecto esté activo, si el ataque de Superconductor Estelar del portador golpea a un enemigo, se considerará que se ha completado la orden, potenciando el efecto de «Edicto Imperial»: el ATQ del portador aumenta un <cryo>32%</cryo> adicional y el daño de reacción Superconductor Estelar infligido por el personaje en uso aumenta un <cryo>40%</cryo> extra. Los efectos anteriores también se aplican en segundo plano."
+    }
+  }
+}

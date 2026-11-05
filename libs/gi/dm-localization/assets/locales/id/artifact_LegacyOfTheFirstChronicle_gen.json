@@ -1,0 +1,23 @@
+{
+  "setEffects": {
+    "2": "ATK +18%.",
+    "4": "Saat Karakter yang mengenakan melancarkan Elemental Skill, Elemental Burst, atau melakukan Normal Attack, akan memperoleh satu Starspark hingga maksimum dua. Saat memiliki Starspark, Karakter yang mengenakan memperoleh Undying Radiance: CRIT Rate Cryo DMG yang diakibatkan +20%. Jika DMG ini adalah DMG reaksi Stellar Glimmer, CRIT Rate +20% lagi. Efek ini tetap berlaku saat Karakter yang mengenakan ada di dalam party namun tidak berada di medan pertempuran. Saat Karakter yang mengenakan berada di medan pertempuran, satu Starspark akan dihapus setiap 3 detik. Setelah semua Starspark padam, Undying Radiance akan dihapus."
+  },
+  "pieces": {
+    "flower": {
+      "desc": "Bunga abadi yang diberikan oleh langit kepada utusannya, kehidupan tanpa akhir melahirkan keserakahan."
+    },
+    "plume": {
+      "desc": "Bulu kematian yang diberikan langit tinggi kepada para utusan. Semua dosa akan diampuni di ujung takdir."
+    },
+    "sands": {
+      "desc": "Jam waktu terbalik yang diberikan langit tinggi kepada utusan, larangan yang tak dapat dilewati berubah menjadi sumber kemarahan."
+    },
+    "goblet": {
+      "desc": "Nektar manis yang diberikan langit tinggi kepada pengikut. Pesta yang tak pernah berakhir membuka gerbang keinginan."
+    },
+    "circlet": {
+      "desc": "Mahkota megah yang diberikan langit tinggi kepada utusan. Kekuatan yang tak dikendalikan oleh manusia menumbuhkan kesombongan."
+    }
+  }
+}

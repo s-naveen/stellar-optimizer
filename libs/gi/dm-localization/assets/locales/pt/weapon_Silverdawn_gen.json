@@ -1,0 +1,22 @@
+{
+  "name": "Luz Prateada",
+  "description": {},
+  "passiveName": "Tributo à Estrela Branca",
+  "passiveDescription": {
+    "0": {
+      "0": "Quando o portador lançar a Habilidade Elemental ou o Supremo, obtém o efeito Presente da Coroa Branca: aumenta o ATQ em <cryo>40%</cryo> e aumenta o Dano CRIT das Reações de Brilho Estelar em <cryo>40%</cryo> por 6s. Nessa duração, quando o portador desencadear uma Reação de Brilho Estelar ou causar Dano de Reação de Brilho Estelar, prolonga a duração desse efeito em 3s. É possível desencadear isso uma vez a cada 0.1s até 8 vezes por efeito. Além disso, quando o portador desencadear uma Reação de Brilho Estelar ou causar Dano de Reação de Brilho Estelar, regenera <cryo>10</cryo> de Energia Elemental para o portador. Esse efeito pode ser desencadeado uma vez a cada 15s."
+    },
+    "1": {
+      "0": "Quando o portador lançar a Habilidade Elemental ou o Supremo, obtém o efeito Presente da Coroa Branca: aumenta o ATQ em <cryo>52%</cryo> e aumenta o Dano CRIT das Reações de Brilho Estelar em <cryo>52%</cryo> por 6s. Nessa duração, quando o portador desencadear uma Reação de Brilho Estelar ou causar Dano de Reação de Brilho Estelar, prolonga a duração desse efeito em 3s. É possível desencadear isso uma vez a cada 0.1s até 8 vezes por efeito. Além disso, quando o portador desencadear uma Reação de Brilho Estelar ou causar Dano de Reação de Brilho Estelar, regenera <cryo>10.5</cryo> de Energia Elemental para o portador. Esse efeito pode ser desencadeado uma vez a cada 15s."
+    },
+    "2": {
+      "0": "Quando o portador lançar a Habilidade Elemental ou o Supremo, obtém o efeito Presente da Coroa Branca: aumenta o ATQ em <cryo>64%</cryo> e aumenta o Dano CRIT das Reações de Brilho Estelar em <cryo>64%</cryo> por 6s. Nessa duração, quando o portador desencadear uma Reação de Brilho Estelar ou causar Dano de Reação de Brilho Estelar, prolonga a duração desse efeito em 3s. É possível desencadear isso uma vez a cada 0.1s até 8 vezes por efeito. Além disso, quando o portador desencadear uma Reação de Brilho Estelar ou causar Dano de Reação de Brilho Estelar, regenera <cryo>11</cryo> de Energia Elemental para o portador. Esse efeito pode ser desencadeado uma vez a cada 15s."
+    },
+    "3": {
+      "0": "Quando o portador lançar a Habilidade Elemental ou o Supremo, obtém o efeito Presente da Coroa Branca: aumenta o ATQ em <cryo>76%</cryo> e aumenta o Dano CRIT das Reações de Brilho Estelar em <cryo>76%</cryo> por 6s. Nessa duração, quando o portador desencadear uma Reação de Brilho Estelar ou causar Dano de Reação de Brilho Estelar, prolonga a duração desse efeito em 3s. É possível desencadear isso uma vez a cada 0.1s até 8 vezes por efeito. Além disso, quando o portador desencadear uma Reação de Brilho Estelar ou causar Dano de Reação de Brilho Estelar, regenera <cryo>11.5</cryo> de Energia Elemental para o portador. Esse efeito pode ser desencadeado uma vez a cada 15s."
+    },
+    "4": {
+      "0": "Quando o portador lançar a Habilidade Elemental ou o Supremo, obtém o efeito Presente da Coroa Branca: aumenta o ATQ em <cryo>88%</cryo> e aumenta o Dano CRIT das Reações de Brilho Estelar em <cryo>88%</cryo> por 6s. Nessa duração, quando o portador desencadear uma Reação de Brilho Estelar ou causar Dano de Reação de Brilho Estelar, prolonga a duração desse efeito em 3s. É possível desencadear isso uma vez a cada 0.1s até 8 vezes por efeito. Além disso, quando o portador desencadear uma Reação de Brilho Estelar ou causar Dano de Reação de Brilho Estelar, regenera <cryo>12</cryo> de Energia Elemental para o portador. Esse efeito pode ser desencadeado uma vez a cada 15s."
+    }
+  }
+}

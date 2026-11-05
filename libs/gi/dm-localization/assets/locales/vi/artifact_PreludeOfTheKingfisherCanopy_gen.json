@@ -1,0 +1,23 @@
+{
+  "setEffects": {
+    "2": "Hiệu Quả Nạp Nguyên Tố tăng 20%.",
+    "4": "Sát thương Kỹ Năng Nguyên Tố và Kỹ Năng Nộ của người trang bị tăng 25%. Nhiều hiệu quả khác sẽ được hé lộ ở phiên bản sau."
+  },
+  "pieces": {
+    "flower": {
+      "desc": "Đó là thứ mà nàng nhận được từ người bạn có đôi tay lạnh giá, đóa hoa ruy băng như một món quà."
+    },
+    "plume": {
+      "desc": "Đó là thứ mà nàng ban tặng cho những người đi theo mình, cây bút lông từng dùng để viết giấc mộng hoang đường."
+    },
+    "sands": {
+      "desc": "Đó là thứ mà nàng trao tặng cho vị giả kim thuật sĩ trầm lặng ấy, là thời khắc nhắc nhở về mọi lịch trình."
+    },
+    "goblet": {
+      "desc": "Đó là thứ mà nàng nhận được từ tay đồng nghiệp của mình, là ly rượu dùng để chúc mừng."
+    },
+    "circlet": {
+      "desc": "Đó là thứ mà nàng nhận được từ vị chủ nhân duy nhất của mình, món trang sức như một phần thưởng."
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "description": {},
+  "passiveName": "Brise-vagues du tonnerre",
+  "passiveDescription": {
+    "0": {
+      "0": "L'ATQ du personnage équipé augmente de <cryo>16%</cryo>. Lorsque les attaques Électro du personnage équipé touchent des ennemis, il reçoit l'effet « Édit impérial » pendant 15 s : les DGT de la réaction d'Astroconduction infligés par le personnage de l'équipe actuellement déployé augmentent de <cryo>20%</cryo>. Pendant la durée de l'effet, lorsque les attaques d'Astroconduction du personnage équipé touchent des ennemis, cela est considéré comme un ordre accompli, ce qui améliore l'effet « Édit impérial » : l'ATQ du personnage équipé augmente de <cryo>16%</cryo> supplémentaires, et les DGT de la réaction d'Astroconduction infligés par le personnage actuellement déployé augmentent de <cryo>20%</cryo> supplémentaires. Les effets ci-dessus sont également actifs en arrière-plan."
+    },
+    "1": {
+      "0": "L'ATQ du personnage équipé augmente de <cryo>20%</cryo>. Lorsque les attaques Électro du personnage équipé touchent des ennemis, il reçoit « Édit impérial » pendant 15 s : les DGT de la réaction d'Astroconduction infligés par le personnage actif de l'équipe augmentent de <cryo>25%</cryo>. Pendant la durée de l'effet, lorsque les attaques d'Astroconduction du personnage équipé touchent des ennemis, l'ordre est considéré comme accompli, ce qui améliore l'effet d'« Édit impérial » : l'ATQ du personnage équipé augmente de <cryo>20%</cryo> supplémentaires, et les DGT de la réaction d'Astroconduction infligés par le personnage actif augmentent de <cryo>25%</cryo> supplémentaires. Les effets ci-dessus s'appliquent également en arrière-plan."
+    },
+    "2": {
+      "0": "L'ATQ du personnage équipé augmente de <cryo>24%</cryo>. Lorsque les attaques Électro du personnage équipé touchent des ennemis, il reçoit un « Décret impérial » pendant 15 s de façon continue : les DGT de la réaction d'Astroconduction infligés par le personnage de l'équipe actuellement déployé augmentent de <cryo>30%</cryo>. Pendant la durée de l'effet, lorsque les attaques d'Astroconduction du personnage équipé touchent des ennemis, cela est considéré comme l'accomplissement de la directive, ce qui améliore les effets du « Décret impérial » : l'ATQ du personnage équipé augmente de <cryo>24%</cryo> supplémentaires, et les DGT de la réaction d'Astroconduction infligés par le personnage actuellement déployé augmentent de <cryo>30%</cryo> supplémentaires. Les effets ci-dessus s'appliquent également en arrière-plan."
+    },
+    "3": {
+      "0": "L'ATQ du personnage équipé augmente de <cryo>28%</cryo>. Lorsque les attaques Électro du personnage équipé touchent des ennemis, il bénéficie de l'« Édit impérial » de façon continue pendant 15 s : les DGT de la réaction d'Astroconduction infligés par le personnage déployé de l'équipe augmentent de <cryo>35%</cryo>. Pendant la durée de cet effet, lorsque les attaques d'Astroconduction du personnage équipé touchent des ennemis, elles sont considérées comme accomplissant une directive, ce qui améliore l'effet de l'« Édit impérial » : l'ATQ du personnage équipé augmente encore de <cryo>28%</cryo>, et les DGT de la réaction d'Astroconduction infligés par le personnage déployé augmentent de <cryo>35%</cryo> supplémentaires. Ces effets sont également actifs en arrière-plan."
+    },
+    "4": {
+      "0": "L'ATQ du personnage équipé augmente de <cryo>32%</cryo>. Lorsque les attaques Électro du personnage équipé touchent des ennemis, il obtient l'effet « Édit impérial » pendant 15 secondes : les DGT de la réaction d'Astroconduction infligés par le personnage de l'équipe actuellement déployé augmentent de <cryo>40%</cryo>. Pendant la durée de l'effet, lorsque les attaques d'Astroconduction du personnage équipé touchent des ennemis, cela est considéré comme un ordre accompli, ce qui améliore l'effet « Édit impérial » : l'ATQ du personnage équipé augmente de <cryo>32%</cryo> supplémentaires, et les DGT de la réaction d'Astroconduction infligés par le personnage actuellement déployé augmentent de <cryo>40%</cryo> supplémentaires. Ces effets s'appliquent également en arrière-plan."
+    }
+  }
+}

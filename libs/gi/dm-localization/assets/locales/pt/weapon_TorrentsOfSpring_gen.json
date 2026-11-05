@@ -1,0 +1,18 @@
+{
+  "name": "Maré da Primavera",
+  "description": {},
+  "passiveName": "Trovão Sobre as Ondas",
+  "passiveDescription": {
+    "0": {},
+    "1": {
+      "0": "O ATQ do portador aumenta em <cryo>20%</cryo>. Quando os Ataques Electro do portador causam Impacto em inimigos, ele recebe \"Decreto Imperial\" por 15 segundos: o Dano de Reação de Supercondutor Estelar causado pelo Personagem em campo na equipe aumenta em <cryo>25%</cryo>. Durante o Efeito, quando os Ataques de Supercondutor Estelar do portador causam Impacto em inimigos, isso é considerado como cumprimento da ordem, aprimorando o Efeito de \"Decreto Imperial\": o ATQ do portador aumenta em mais <cryo>20%</cryo>, e o Dano de Reação de Supercondutor Estelar causado pelo Personagem em campo aumenta em mais <cryo>25%</cryo>. Os Efeitos acima também são aplicados quando o portador está fora de campo."
+    },
+    "2": {
+      "0": "O ATQ do portador aumenta em <cryo>24%</cryo>. Quando o Ataque Electro do portador acertar um inimigo, ele receberá o Efeito \"Decreto Imperial\", que dura 15 segundos: o Dano de Reação de Supercondutor Estelar causado pelo Personagem em campo na equipe aumenta em <cryo>30%</cryo>. Durante a vigência do Efeito, quando o Ataque de Supercondutor Estelar do portador acertar um inimigo, considera-se que o comando foi cumprido, aprimorando o Efeito de \"Decreto Imperial\": o ATQ do portador aumenta em mais <cryo>24%</cryo> e o Dano de Reação de Supercondutor Estelar causado pelo Personagem em campo aumenta em mais <cryo>30%</cryo>. Os Efeitos acima também são aplicados quando o portador estiver fora de campo."
+    },
+    "3": {},
+    "4": {
+      "0": "O ATQ do portador aumenta em <cryo>32%</cryo>. Quando o Ataque Electro do portador causar Impacto em inimigos, ele recebe \"Decreto Imperial\", que dura 15 segundos: o Dano de Reação de Supercondutor Estelar causado pelo Personagem atual em campo aumenta em <cryo>40%</cryo>. Durante esse período, quando o Ataque de Supercondutor Estelar do portador causar Impacto em inimigos, o comando é considerado cumprido, aprimorando o Efeito de \"Decreto Imperial\": o ATQ do portador aumenta em mais <cryo>32%</cryo> e o Dano de Reação de Supercondutor Estelar causado pelo Personagem atual em campo aumenta em mais <cryo>40%</cryo>. Os Efeitos acima também se aplicam quando fora de campo."
+    }
+  }
+}

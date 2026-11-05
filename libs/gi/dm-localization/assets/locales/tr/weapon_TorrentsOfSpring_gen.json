@@ -1,0 +1,22 @@
+{
+  "name": "Bahar Gelgiti",
+  "description": {},
+  "passiveName": "Dalga Kesen'in Elektrik Kükremesi",
+  "passiveDescription": {
+    "0": {
+      "0": "Kuşanan karakterin Saldırısını <cryo>%16</cryo> artırır. Kuşanan karakterin Elektrik saldırıları rakiplere isabet ettiğinde 15 saniyeliğine \"Kraliyet Kararnamesi\" kazanır: Sahadaki Aktif Karakterin verdiği Yıldız İletimi tepkimesi Hasarı <cryo>%20</cryo> artar. Etki devam ederken kuşanan karakterin Elektrik Yıldız İletimi saldırıları rakiplere isabet ettiğinde, emir Tamamlandı olarak kabul edilir ve \"Kraliyet Kararnamesi\" etkisini güçlendirir: Kuşanan karakterin Saldırısı <cryo>%16</cryo> daha artar ve sahadaki Aktif Karakterin verdiği Yıldız İletimi tepkimesi Hasarı ayrıca <cryo>%20</cryo> daha artar. Yukarıdaki etkiler, karakter sahada değilken de geçerlidir."
+    },
+    "1": {
+      "0": "Kuşanan karakterin Saldırısını <cryo>%20</cryo> artırır. Kuşanan karakterin Elektrik saldırıları rakiplere isabet ettiğinde 15 saniyeliğine \"Kraliyet Fermanı\" kazanır: Sahadaki Aktif Karakterin verdiği Yıldız İletimi tepkimesi Hasarı <cryo>%25</cryo> artar. Bu etki aktifken, kuşanan karakterin Yıldız İletimi saldırıları rakiplere isabet ettiğinde bu durum emrin tamamlanması olarak kabul edilir ve \"Kraliyet Fermanı\" etkisini güçlendirir: Kuşanan karakterin Saldırısı <cryo>%20</cryo> daha artar ve sahadaki Aktif Karakterin verdiği Yıldız İletimi tepkimesi Hasarı ek olarak <cryo>%25</cryo> artar. Yukarıdaki etkiler arka planda da geçerlidir."
+    },
+    "2": {
+      "0": "Kuşanan karakterin Saldırısını <cryo>%24</cryo> artırır. Kuşanan karakterin Elektrik saldırıları rakiplere isabet ettiğinde, 15 saniyeliğine \"Kraliyet Hükmü\" etkisini kazanır: Sahadaki Aktif Karakter tarafından verilen Yıldız İletimi tepkimesi Hasarı <cryo>%30</cryo> artar. Bu etki aktifken, kuşanan karakterin Yıldız İletimi saldırıları rakiplere isabet ettiğinde emir tamamlanmış sayılır ve \"Kraliyet Hükmü\" etkisini güçlendirir: Kuşanan karakterin Saldırısı <cryo>%24</cryo> daha artar ve sahadaki Aktif Karakter tarafından verilen Yıldız İletimi tepkimesi Hasarı ek olarak <cryo>%30</cryo> artar. Yukarıdaki etkiler saha dışında da geçerlidir."
+    },
+    "3": {
+      "0": "Kuşananın Saldırısını <cryo>%28</cryo> artırır. Kuşananın Elektrik saldırıları düşmanlara isabet ettiğinde 15 saniyeliğine \"İmparatorluk Fermanı\" kazanır: Takımdaki aktif karakterin verdiği Yıldız İletimi tepkimesi Hasarı <cryo>%35</cryo> artar. Etki devam ederken kuşananın Yıldız İletimi saldırıları düşmanlara isabet ettiğinde bu durum emrin yerine getirilmesi olarak kabul edilir ve \"İmparatorluk Fermanı\" etkisini güçlendirir: Kuşananın Saldırısı <cryo>%28</cryo> daha artar ve aktif karakterin verdiği Yıldız İletimi tepkimesi Hasarı ayrıca <cryo>%35</cryo> artar. Yukarıdaki etkiler saha dışında da geçerlidir."
+    },
+    "4": {
+      "0": "Kuşananın Saldırısını <cryo>%32</cryo> artırır. Kuşananın Elektrik saldırıları düşmanlara isabet ettiğinde, 15 saniyeliğine \"İmparator Fermanı\" etkisini kazanır: Sahadaki Aktif Karakter tarafından verilen Yıldız İletimi tepkimesi Hasarı <cryo>%40</cryo> artar. Bu etki aktifken, kuşananın Yıldız İletimi saldırıları düşmanlara isabet ettiğinde emir yerine getirilmiş sayılır ve \"İmparator Fermanı\" etkisini güçlendirir: Kuşananın Saldırısı ek olarak <cryo>%32</cryo> artar ve sahadaki Aktif Karakter tarafından verilen Yıldız İletimi tepkimesi Hasarı ek olarak <cryo>%40</cryo> artar. Yukarıdaki etkiler Arka Planda da geçerlidir."
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "Torrenti primaverili",
+  "description": {},
+  "passiveName": "Fulmine spezzaonda",
+  "passiveDescription": {
+    "0": {
+      "0": "Aumenta l'ATT di chi lo equipaggia del <cryo>16%</cryo>. Quando gli attacchi Electro di chi lo equipaggia colpiscono gli avversari, il personaggio ottiene \"Decreto Reale\" per 15 s: i DAN da reazione di Astroconduzione inflitti dal personaggio attivo in campo aumentano del <cryo>20%</cryo>. Fino al termine dell'effetto, quando gli attacchi di Astroconduzione Electro di chi lo equipaggia colpiscono gli avversari, l'ordine è considerato Completato, potenziando l'effetto di \"Decreto Reale\": l'ATT di chi lo equipaggia aumenta di un ulteriore <cryo>16%</cryo> e i DAN da reazione di Astroconduzione inflitti dal personaggio attivo in campo aumentano di un ulteriore <cryo>20%</cryo>. I suddetti effetti si attivano anche quando il personaggio è fuori campo."
+    },
+    "1": {
+      "0": "Aumenta l'ATT del personaggio equipaggiato del <cryo>20%</cryo>. Quando gli attacchi Electro del personaggio equipaggiato colpiscono gli avversari, esso ottiene \"Decreto reale\" per 15 s: i DAN da reazione di Astroconduzione inflitti dal personaggio attivo in campo aumentano del <cryo>25%</cryo>. Mentre questo effetto è attivo, quando gli attacchi di Astroconduzione del personaggio equipaggiato colpiscono gli avversari, l'ordine si considera completato, potenziando l'effetto \"Decreto reale\": l'ATT del personaggio equipaggiato aumenta di un ulteriore <cryo>20%</cryo> e i DAN da reazione di Astroconduzione inflitti dal personaggio attivo in campo aumentano di un ulteriore <cryo>25%</cryo>. I suddetti effetti si applicano anche nelle retrovie."
+    },
+    "2": {
+      "0": "Aumenta l'ATT del personaggio che lo equipaggia del <cryo>24%</cryo>. Quando gli attacchi Electro del personaggio che lo equipaggia colpiscono gli avversari, ottiene l'effetto \"Decreto reale\" per 15 s: i DAN da reazione di Astroconduzione inflitti dal personaggio attivo in campo aumentano del <cryo>30%</cryo>. Mentre questo effetto è attivo, quando gli attacchi di Astroconduzione del personaggio che lo equipaggia colpiscono gli avversari, l'ordine viene considerato completato, potenziando l'effetto \"Decreto reale\": l'ATT del personaggio che lo equipaggia aumenta di un ulteriore <cryo>24%</cryo> e i DAN da reazione di Astroconduzione inflitti dal personaggio attivo in campo aumentano di un ulteriore <cryo>30%</cryo>. I suddetti effetti si applicano anche fuori campo."
+    },
+    "3": {
+      "0": "Aumenta l'ATT di chi lo equipaggia del <cryo>28%</cryo>. Quando gli attacchi di Electro di chi lo equipaggia colpiscono i nemici, ottiene \"Editto imperiale\" per 15 s: i DAN da reazione di Astroconduzione inflitti dal personaggio attivo nella squadra aumentano del <cryo>35%</cryo>. Per l'intera durata dell'effetto, quando gli attacchi di Astroconduzione di chi lo equipaggia colpiscono i nemici, l'ordine viene considerato completato, potenziando l'effetto di \"Editto imperiale\": l'ATT di chi lo equipaggia aumenta di un ulteriore <cryo>28%</cryo> e i DAN da reazione di Astroconduzione inflitti dal personaggio attivo aumentano di un ulteriore <cryo>35%</cryo>. I suddetti effetti si applicano anche fuori dal campo."
+    },
+    "4": {
+      "0": "Aumenta l'ATT di chi lo equipaggia del <cryo>32%</cryo>. Quando gli attacchi Electro di chi lo equipaggia colpiscono i nemici, ottiene l'effetto \"Editto imperiale\" per 15 s: i DAN da reazione di Astroconduzione inflitti dal personaggio attivo in campo aumentano del <cryo>40%</cryo>. Mentre questo effetto è attivo, quando gli attacchi di Astroconduzione di chi lo equipaggia colpiscono i nemici, l'ordine viene considerato completato, potenziando l'effetto \"Editto imperiale\": l'ATT di chi lo equipaggia aumenta di un ulteriore <cryo>32%</cryo> e i DAN da reazione di Astroconduzione inflitti dal personaggio attivo in campo aumentano di un ulteriore <cryo>40%</cryo>. I suddetti effetti si applicano anche dalle retrovie."
+    }
+  }
+}

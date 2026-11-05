@@ -17,6 +17,11 @@ const byWeapon: Partial<Record<WeaponKey, Record<string, CondSrc>>> = {
   StaffOfHoma: {
     RecklessCinnabar: { sheet: 'lessPercentHP', values: { percent: 50 } },
   },
+  StarsealedEdict: {
+    lockStellarRadianceSc: {
+      sheet: 'elementalReaction.stellar.gainRadianceSc',
+    },
+  },
 }
 
 const byName: Record<string, CondSrc> = {

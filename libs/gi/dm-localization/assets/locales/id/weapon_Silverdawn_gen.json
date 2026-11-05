@@ -1,0 +1,22 @@
+{
+  "name": "Silverdawn",
+  "description": {},
+  "passiveName": "White Star Overture",
+  "passiveDescription": {
+    "0": {
+      "0": "Saat Karakter yang mengenakan melancarkan Elemental Skill atau Elemental Burst, memperoleh White Crown's Bequest: ATK +<cryo>40%</cryo> dan CRIT DMG reaksi Stellar Glimmer +<cryo>40%</cryo> selama 6 detik. Selama durasi ini, saat Karakter yang mengenakan memicu reaksi Stellar Glimmer atau mengakibatkan DMG reaksi Stellar Glimmer, durasi efek ini akan diperpanjang 3 detik. Efek ini dapat terpicu maksimum 8 kali untuk setiap durasinya, dan hanya dapat terpicu sekali setiap 0,1 detik. Selain itu, saat Karakter yang mengenakan memicu reaksi Stellar Glimmer atau mengakibatkan DMG reaksi Stellar Glimmer, akan memulihkan <cryo>10</cryo> poin Energy untuk Karakter yang mengenakan. Efek ini dapat terpicu sekali setiap 15 detik."
+    },
+    "1": {
+      "0": "Saat Karakter yang mengenakan melancarkan Elemental Skill atau Elemental Burst, memperoleh White Crown's Bequest: ATK +<cryo>52%</cryo> dan CRIT DMG reaksi Stellar Glimmer +<cryo>52%</cryo> selama 6 detik. Selama durasi ini, saat Karakter yang mengenakan memicu reaksi Stellar Glimmer atau mengakibatkan DMG reaksi Stellar Glimmer, durasi efek ini akan diperpanjang 3 detik. Efek ini dapat terpicu maksimum 8 kali untuk setiap durasinya, dan hanya dapat terpicu sekali setiap 0,1 detik. Selain itu, saat Karakter yang mengenakan memicu reaksi Stellar Glimmer atau mengakibatkan DMG reaksi Stellar Glimmer, akan memulihkan <cryo>10,5</cryo> poin Energy untuk Karakter yang mengenakan. Efek ini dapat terpicu sekali setiap 15 detik."
+    },
+    "2": {
+      "0": "Saat Karakter yang mengenakan melancarkan Elemental Skill atau Elemental Burst, memperoleh White Crown's Bequest: ATK +<cryo>64%</cryo> dan CRIT DMG reaksi Stellar Glimmer +<cryo>64%</cryo> selama 6 detik. Selama durasi ini, saat Karakter yang mengenakan memicu reaksi Stellar Glimmer atau mengakibatkan DMG reaksi Stellar Glimmer, durasi efek ini akan diperpanjang 3 detik. Efek ini dapat terpicu maksimum 8 kali untuk setiap durasinya, dan hanya dapat terpicu sekali setiap 0,1 detik. Selain itu, saat Karakter yang mengenakan memicu reaksi Stellar Glimmer atau mengakibatkan DMG reaksi Stellar Glimmer, akan memulihkan <cryo>11</cryo> poin Energy untuk Karakter yang mengenakan. Efek ini dapat terpicu sekali setiap 15 detik."
+    },
+    "3": {
+      "0": "Saat Karakter yang mengenakan melancarkan Elemental Skill atau Elemental Burst, memperoleh White Crown's Bequest: ATK +<cryo>76%</cryo> dan CRIT DMG reaksi Stellar Glimmer +<cryo>76%</cryo> selama 6 detik. Selama durasi ini, saat Karakter yang mengenakan memicu reaksi Stellar Glimmer atau mengakibatkan DMG reaksi Stellar Glimmer, durasi efek ini akan diperpanjang 3 detik. Efek ini dapat terpicu maksimum 8 kali untuk setiap durasinya, dan hanya dapat terpicu sekali setiap 0,1 detik. Selain itu, saat Karakter yang mengenakan memicu reaksi Stellar Glimmer atau mengakibatkan DMG reaksi Stellar Glimmer, akan memulihkan <cryo>11,5</cryo> poin Energy untuk Karakter yang mengenakan. Efek ini dapat terpicu sekali setiap 15 detik."
+    },
+    "4": {
+      "0": "Saat Karakter yang mengenakan melancarkan Elemental Skill atau Elemental Burst, memperoleh White Crown's Bequest: ATK +<cryo>88%</cryo> dan CRIT DMG reaksi Stellar Glimmer +<cryo>88%</cryo> selama 6 detik. Selama durasi ini, saat Karakter yang mengenakan memicu reaksi Stellar Glimmer atau mengakibatkan DMG reaksi Stellar Glimmer, durasi efek ini akan diperpanjang 3 detik. Efek ini dapat terpicu maksimum 8 kali untuk setiap durasinya, dan hanya dapat terpicu sekali setiap 0,1 detik. Selain itu, saat Karakter yang mengenakan memicu reaksi Stellar Glimmer atau mengakibatkan DMG reaksi Stellar Glimmer, akan memulihkan <cryo>12</cryo> poin Energy untuk Karakter yang mengenakan. Efek ini dapat terpicu sekali setiap 15 detik."
+    }
+  }
+}

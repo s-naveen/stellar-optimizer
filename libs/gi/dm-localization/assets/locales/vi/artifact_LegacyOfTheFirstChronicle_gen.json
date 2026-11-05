@@ -1,0 +1,23 @@
+{
+  "setEffects": {
+    "2": "Tấn Công tăng 18%.",
+    "4": "Khi người trang bị thi triển Kỹ Năng Nguyên Tố, Kỹ Năng Nộ hoặc thực hiện Tấn Công Thường, sẽ nhận được 1 Ánh Sao, tối đa sở hữu 2. Khi có Ánh Sao, người trang bị sẽ nhận được \"Ánh Sáng Bất Diệt\": Sát Thương Nguyên Tố Băng gây ra tăng 20% Tỷ Lệ Bạo Kích, nếu sát thương đó là sát thương phản ứng Tinh Tú Lấp Lánh, Tỷ Lệ Bạo Kích tăng thêm 20%, hiệu quả này vẫn có hiệu lực khi người trang bị đang dự bị. Khi người trang bị ở trong trận, mỗi 3s sẽ xóa 1 Ánh Sao; Sau khi toàn bộ Ánh Sao đã tắt, sẽ xóa bỏ Ánh Sáng Bất Diệt."
+  },
+  "pieces": {
+    "flower": {
+      "desc": "Đóa hoa bất tử mà trời cao ban tặng cho ngự sứ. Sinh mệnh vô tận đã nảy sinh lòng tham."
+    },
+    "plume": {
+      "desc": "Lông vũ vãng sinh mà trời cao ban tặng cho ngự sứ. Mọi tội lỗi sẽ được xá miễn tại điểm cuối của vận mệnh."
+    },
+    "sands": {
+      "desc": "Đồng hồ mặt trời đảo ngược mà trời cao ban tặng cho ngự sứ. Sự cấm chế không thể vượt qua đã trở thành vực sâu của phẫn nộ."
+    },
+    "goblet": {
+      "desc": "Rượu ngọt mà trời cao ban tặng cho ngự sứ. Bữa tiệc vui không ngừng nghỉ đã mở ra cánh cửa của dục vọng."
+    },
+    "circlet": {
+      "desc": "Vương miện hoa lệ mà trời cao ban tặng cho ngự sứ. Quyền lực không ai quản chế đã nuôi dưỡng sự kiêu ngạo."
+    }
+  }
+}

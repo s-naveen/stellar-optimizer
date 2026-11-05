@@ -1,0 +1,23 @@
+{
+  "setEffects": {
+    "2": "ATT +18%.",
+    "4": "Il personaggio equipaggiato ottiene 1 Scintilla stellare quando usa un'abilità elementale, un Tripudio elementale o esegue un attacco normale. Può accumulare fino a 2 Scintille stellari alla volta. Il personaggio equipaggiato ottiene Radiosità immortale finché possiede almeno 1 Scintilla stellare. Quest'effetto aumenta di un 20% il tasso di CRIT dei DAN da Cryo, con un ulteriore aumento di un 20% se sono DAN da reazione di Barlume astrale. Questo effetto resta attivo anche quando il personaggio equipaggiato non è in campo. Il personaggio equipaggiato perde 1 Scintilla stellare ogni 3 s mentre è in campo. Radiosità immortale termina quando tutte le Scintille stellari si sono estinte."
+  },
+  "pieces": {
+    "flower": {
+      "desc": "Le sfere celesti conferirono alla loro emissaria un fiore che non avvizzisce: da un destino imperituro nacque la cupidigia."
+    },
+    "plume": {
+      "desc": "Le sfere celesti conferirono alla loro emissaria una piuma della rinascita: ogni peccato sarebbe stato rimesso al compiersi del destino."
+    },
+    "sands": {
+      "desc": "Le sfere celesti conferirono alla loro emissaria una meridiana contrapposta al tempo: un inviolabile divieto fu sorgente d'ira."
+    },
+    "goblet": {
+      "desc": "Le sfere celesti conferirono alla loro emissaria il dolce nettare: l'eterno banchetto spalancò le porte del desiderio."
+    },
+    "circlet": {
+      "desc": "Le sfere celesti conferirono alla loro emissaria una splendida corona: dal potere incontrollato scaturì l'arroganza."
+    }
+  }
+}

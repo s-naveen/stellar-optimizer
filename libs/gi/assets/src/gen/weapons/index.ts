@@ -28,6 +28,7 @@ import BlackcliffWarbow from './BlackcliffWarbow'
 import BlackmarrowLantern from './BlackmarrowLantern'
 import BlackTassel from './BlackTassel'
 import BladeOfAtonement from './BladeOfAtonement'
+import BlazingLionfang from './BlazingLionfang'
 import BloodsoakedRuins from './BloodsoakedRuins'
 import BloodtaintedGreatsword from './BloodtaintedGreatsword'
 import BreezeborneRefrain from './BreezeborneRefrain'
@@ -183,6 +184,7 @@ import SequenceOfSolitude from './SequenceOfSolitude'
 import SerenitysCall from './SerenitysCall'
 import SerpentSpine from './SerpentSpine'
 import SharpshootersOath from './SharpshootersOath'
+import Silverdawn from './Silverdawn'
 import SilverLight from './SilverLight'
 import SilverSword from './SilverSword'
 import SilvershowerHeartstrings from './SilvershowerHeartstrings'
@@ -204,6 +206,7 @@ import SplendorOfTranquilWaters from './SplendorOfTranquilWaters'
 import StaffOfHoma from './StaffOfHoma'
 import StaffOfTheScarletSands from './StaffOfTheScarletSands'
 import StarcallersWatch from './StarcallersWatch'
+import StarsealedEdict from './StarsealedEdict'
 import SturdyBone from './SturdyBone'
 import SummitShaper from './SummitShaper'
 import SunnyMorningSleepIn from './SunnyMorningSleepIn'
@@ -229,6 +232,7 @@ import ThrillingTalesOfDragonSlayers from './ThrillingTalesOfDragonSlayers'
 import ThunderingPulse from './ThunderingPulse'
 import TidalShadow from './TidalShadow'
 import TomeOfTheEternalFlow from './TomeOfTheEternalFlow'
+import TorrentsOfSpring from './TorrentsOfSpring'
 import ToukabouShigure from './ToukabouShigure'
 import TravelersHandySword from './TravelersHandySword'
 import TulaytullahsRemembrance from './TulaytullahsRemembrance'
@@ -283,6 +287,7 @@ const data = {
   BlackcliffWarbow,
   BlackmarrowLantern,
   BladeOfAtonement,
+  BlazingLionfang,
   BloodsoakedRuins,
   BloodtaintedGreatsword,
   BreezeborneRefrain,
@@ -440,6 +445,7 @@ const data = {
   SharpshootersOath,
   SilverLight,
   SilverSword,
+  Silverdawn,
   SilvershowerHeartstrings,
   SkyriderGreatsword,
   SkyriderSword,
@@ -459,6 +465,7 @@ const data = {
   StaffOfHoma,
   StaffOfTheScarletSands,
   StarcallersWatch,
+  StarsealedEdict,
   SturdyBone,
   SummitShaper,
   SunnyMorningSleepIn,
@@ -484,6 +491,7 @@ const data = {
   ThunderingPulse,
   TidalShadow,
   TomeOfTheEternalFlow,
+  TorrentsOfSpring,
   ToukabouShigure,
   TravelersHandySword,
   TulaytullahsRemembrance,

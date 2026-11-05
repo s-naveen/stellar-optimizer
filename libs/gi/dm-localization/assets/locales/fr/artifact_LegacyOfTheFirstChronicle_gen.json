@@ -1,0 +1,23 @@
+{
+  "setEffects": {
+    "2": "Augmente l'ATQ de 18 %.",
+    "4": "Le personnage équipé gagne 1 Starspark lorsqu'il utilise une compétence élémentaire, un déchaînement élémentaire, ou effectue une Attaque normale. Il est possible de détenir jusqu'à 2 Starsparks simultanément. Le personnage équipé bénéficie de la Radiance Éternelle tant qu'il détient au moins 1 Starspark. Cet effet augmente le taux CRIT de ses DGT Cryo de 20 %, avec 20 % de taux CRIT supplémentaires si ces DGT proviennent d'une réaction Lueur Stellaire. Cet effet reste actif même lorsque le personnage équipé est hors du terrain. Le personnage équipé perd 1 Starspark toutes les 3 s lorsqu'il est sur le terrain. La Radiance Éternelle prend fin lorsque tous les Starsparks sont épuisés."
+  },
+  "pieces": {
+    "flower": {
+      "desc": "Les hauts cieux donnèrent une fleur impérissable à leur envoyé, et un destin sans fin n'engendra que la cupidité."
+    },
+    "plume": {
+      "desc": "Les hauts cieux remirent une plume de renaissance à leur envoyé, et tout péché fut pardonné à l'achèvement du destin."
+    },
+    "sands": {
+      "desc": "Les hauts cieux remirent un cadran solaire inversé à leur envoyé, et une interdiction inviolable devint une source de rage."
+    },
+    "goblet": {
+      "desc": "Les hauts cieux offrirent un doux nectar à leur envoyé, et le festin éternel ouvrit grand les portes au désir."
+    },
+    "circlet": {
+      "desc": "Les hauts cieux donnèrent une splendide couronne à leur envoyé, et un pouvoir sans entraves contribua à nourrir les germes de l'arrogance."
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "Silverdawn",
+  "description": {},
+  "passiveName": "White Star Overture",
+  "passiveDescription": {
+    "0": {
+      "0": "The equipping character gains White Crown's Bequest for 6s after using an Elemental Skill or Elemental Burst, increasing their ATK by <cryo>40%</cryo> and Stellar Glimmer reaction CRIT DMG by <cryo>40%</cryo>. Its duration is extended by 3s when the equipping character triggers a Stellar Glimmer reaction or deals Stellar Glimmer reaction DMG while White Crown's Bequest is active. This extension can occur once every 0.1s, up to 8 times per instance of White Crown's Bequest. Additionally, the equipping character regenerates <cryo>10</cryo> Elemental Energy when they trigger a Stellar Glimmer reaction or deal Stellar Glimmer reaction DMG, up to once every 15s."
+    },
+    "1": {
+      "0": "The equipping character gains White Crown's Bequest for 6s after using an Elemental Skill or Elemental Burst, increasing their ATK by <cryo>52%</cryo> and Stellar Glimmer reaction CRIT DMG by <cryo>52%</cryo>. Its duration is extended by 3s when the equipping character triggers a Stellar Glimmer reaction or deals Stellar Glimmer reaction DMG while White Crown's Bequest is active. This extension can occur once every 0.1s, up to 8 times per instance of White Crown's Bequest. Additionally, the equipping character regenerates <cryo>10.5</cryo> Elemental Energy when they trigger a Stellar Glimmer reaction or deal Stellar Glimmer reaction DMG, up to once every 15s."
+    },
+    "2": {
+      "0": "The equipping character gains White Crown's Bequest for 6s after using an Elemental Skill or Elemental Burst, increasing their ATK by <cryo>64%</cryo> and Stellar Glimmer reaction CRIT DMG by <cryo>64%</cryo>. Its duration is extended by 3s when the equipping character triggers a Stellar Glimmer reaction or deals Stellar Glimmer reaction DMG while White Crown's Bequest is active. This extension can occur once every 0.1s, up to 8 times per instance of White Crown's Bequest. Additionally, the equipping character regenerates <cryo>11</cryo> Elemental Energy when they trigger a Stellar Glimmer reaction or deal Stellar Glimmer reaction DMG, up to once every 15s."
+    },
+    "3": {
+      "0": "The equipping character gains White Crown's Bequest for 6s after using an Elemental Skill or Elemental Burst, increasing their ATK by <cryo>76%</cryo> and Stellar Glimmer reaction CRIT DMG by <cryo>76%</cryo>. Its duration is extended by 3s when the equipping character triggers a Stellar Glimmer reaction or deals Stellar Glimmer reaction DMG while White Crown's Bequest is active. This extension can occur once every 0.1s, up to 8 times per instance of White Crown's Bequest. Additionally, the equipping character regenerates <cryo>11.5</cryo> Elemental Energy when they trigger a Stellar Glimmer reaction or deal Stellar Glimmer reaction DMG, up to once every 15s."
+    },
+    "4": {
+      "0": "The equipping character gains White Crown's Bequest for 6s after using an Elemental Skill or Elemental Burst, increasing their ATK by <cryo>88%</cryo> and Stellar Glimmer reaction CRIT DMG by <cryo>88%</cryo>. Its duration is extended by 3s when the equipping character triggers a Stellar Glimmer reaction or deals Stellar Glimmer reaction DMG while White Crown's Bequest is active. This extension can occur once every 0.1s, up to 8 times per instance of White Crown's Bequest. Additionally, the equipping character regenerates <cryo>12</cryo> Elemental Energy when they trigger a Stellar Glimmer reaction or deal Stellar Glimmer reaction DMG, up to once every 15s."
+    }
+  }
+}

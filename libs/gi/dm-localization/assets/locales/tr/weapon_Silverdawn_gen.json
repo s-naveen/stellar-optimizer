@@ -1,0 +1,22 @@
+{
+  "name": "Gümüş Işık",
+  "description": {},
+  "passiveName": "",
+  "passiveDescription": {
+    "0": {
+      "0": "Kuşanan karakter, bir Element Becerisi veya Element Patlaması kullandıktan sonra 6 saniyeliğine Beyaz Tacın Mirası kazanır. Bu etki karakterin Saldırısını <cryo>%40</cryo>, Yıldız Parıltısı tepkimesinin Kritik Hasarını ise <cryo>%40</cryo> artırır. Beyaz Tacın Mirası aktifken kuşanan karakter bir Yıldız Parıltısı tepkimesi tetiklerse veya Yıldız Parıltısı Tepkimesi Hasarı verirse etkinin süresi 3 saniye uzar. Bu süre uzatması her 0,1 saniyede bir tetiklenebilir ve her bir Beyaz Tacın Mirası etkisi boyunca en fazla 8 defa gerçekleşebilir. Ayrıca kuşanan karakter bir Yıldız Parıltısı tepkimesi tetiklediğinde veya Yıldız Parıltısı Tepkimesi Hasarı verdiğinde <cryo>10</cryo> Element Enerjisi yeniler. Bu durum 15 saniyede bir gerçekleşebilir."
+    },
+    "1": {
+      "0": "Kuşanan karakter, bir Element Becerisi veya Element Patlaması kullandıktan sonra 6 saniyeliğine Beyaz Tacın Mirası kazanır. Bu etki karakterin Saldırısını <cryo>%52</cryo>, Yıldız Parıltısı tepkimesinin Kritik Hasarını ise <cryo>%52</cryo> artırır. Beyaz Tacın Mirası aktifken kuşanan karakter bir Yıldız Parıltısı tepkimesi tetiklerse veya Yıldız Parıltısı Tepkimesi Hasarı verirse etkinin süresi 3 saniye uzar. Bu süre uzatması her 0,1 saniyede bir tetiklenebilir ve her bir Beyaz Tacın Mirası etkisi boyunca en fazla 8 defa gerçekleşebilir. Ayrıca kuşanan karakter bir Yıldız Parıltısı tepkimesi tetiklediğinde veya Yıldız Parıltısı Tepkimesi Hasarı verdiğinde <cryo>10,5</cryo> Element Enerjisi yeniler. Bu durum 15 saniyede bir gerçekleşebilir."
+    },
+    "2": {
+      "0": "Kuşanan karakter, bir Element Becerisi veya Element Patlaması kullandıktan sonra 6 saniyeliğine Beyaz Tacın Mirası kazanır. Bu etki karakterin Saldırısını <cryo>%64</cryo>, Yıldız Parıltısı tepkimesinin Kritik Hasarını ise <cryo>%64</cryo> artırır. Beyaz Tacın Mirası aktifken kuşanan karakter bir Yıldız Parıltısı tepkimesi tetiklerse veya Yıldız Parıltısı Tepkimesi Hasarı verirse etkinin süresi 3 saniye uzar. Bu süre uzatması her 0,1 saniyede bir tetiklenebilir ve her bir Beyaz Tacın Mirası etkisi boyunca en fazla 8 defa gerçekleşebilir. Ayrıca kuşanan karakter bir Yıldız Parıltısı tepkimesi tetiklediğinde veya Yıldız Parıltısı Tepkimesi Hasarı verdiğinde <cryo>11</cryo> Element Enerjisi yeniler. Bu durum 15 saniyede bir gerçekleşebilir."
+    },
+    "3": {
+      "0": "Kuşanan karakter, bir Element Becerisi veya Element Patlaması kullandıktan sonra 6 saniyeliğine Beyaz Tacın Mirası kazanır. Bu etki karakterin Saldırısını <cryo>%76</cryo>, Yıldız Parıltısı tepkimesinin Kritik Hasarını ise <cryo>%76</cryo> artırır. Beyaz Tacın Mirası aktifken kuşanan karakter bir Yıldız Parıltısı tepkimesi tetiklerse veya Yıldız Parıltısı Tepkimesi Hasarı verirse etkinin süresi 3 saniye uzar. Bu süre uzatması her 0,1 saniyede bir tetiklenebilir ve her bir Beyaz Tacın Mirası etkisi boyunca en fazla 8 defa gerçekleşebilir. Ayrıca kuşanan karakter bir Yıldız Parıltısı tepkimesi tetiklediğinde veya Yıldız Parıltısı Tepkimesi Hasarı verdiğinde <cryo>11,5</cryo> Element Enerjisi yeniler. Bu durum 15 saniyede bir gerçekleşebilir."
+    },
+    "4": {
+      "0": "Kuşanan karakter, bir Element Becerisi veya Element Patlaması kullandıktan sonra 6 saniyeliğine Beyaz Tacın Mirası kazanır. Bu etki karakterin Saldırısını <cryo>%88</cryo>, Yıldız Parıltısı tepkimesinin Kritik Hasarını ise <cryo>%88</cryo> artırır. Beyaz Tacın Mirası aktifken kuşanan karakter bir Yıldız Parıltısı tepkimesi tetiklerse veya Yıldız Parıltısı Tepkimesi Hasarı verirse etkinin süresi 3 saniye uzar. Bu süre uzatması her 0,1 saniyede bir tetiklenebilir ve her bir Beyaz Tacın Mirası etkisi boyunca en fazla 8 defa gerçekleşebilir. Ayrıca kuşanan karakter bir Yıldız Parıltısı tepkimesi tetiklediğinde veya Yıldız Parıltısı Tepkimesi Hasarı verdiğinde <cryo>12</cryo> Element Enerjisi yeniler. Bu durum 15 saniyede bir gerçekleşebilir."
+    }
+  }
+}

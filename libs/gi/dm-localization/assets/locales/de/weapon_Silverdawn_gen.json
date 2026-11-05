@@ -1,0 +1,22 @@
+{
+  "name": "Silberlicht",
+  "description": {},
+  "passiveName": "Auftaktgabe für den weißen Stern",
+  "passiveDescription": {
+    "0": {
+      "0": "Verleiht dem Träger, wenn er seine Elementarfähigkeit oder Spezialfähigkeit anwendet, „Vermächtnis der weißen Krone“: Erhöht 6 s lang den ANG um <cryo>40 %</cryo> und den Kritischen Schaden durch Stellarfunkeln-Reaktionen um <cryo>40 %</cryo>. Verlängert, wenn der Träger während der Wirkungsdauer eine Stellarfunkeln-Reaktion auslöst oder damit Schaden verursacht, die Dauer dieses Effekts um 3 s, während der Effektdauer bis zu 8-mal auslösbar, 0,1 s Abklingzeit. Stellt dem Träger zudem <cryo>10</cryo> Punkte Elementarenergie wieder her, wenn er eine Stellarfunkeln-Reaktion auslöst oder damit Schaden verursacht, 15 s Abklingzeit."
+    },
+    "1": {
+      "0": "Verleiht dem Träger, wenn er seine Elementarfähigkeit oder Spezialfähigkeit anwendet, „Vermächtnis der weißen Krone“: Erhöht 6 s lang den ANG um <cryo>52 %</cryo> und den Kritischen Schaden durch Stellarfunkeln-Reaktionen um <cryo>52 %</cryo>. Verlängert, wenn der Träger während der Wirkungsdauer eine Stellarfunkeln-Reaktion auslöst oder damit Schaden verursacht, die Dauer dieses Effekts um 3 s, während der Effektdauer bis zu 8-mal auslösbar, 0,1 s Abklingzeit. Stellt dem Träger zudem <cryo>10,5</cryo> Punkte Elementarenergie wieder her, wenn er eine Stellarfunkeln-Reaktion auslöst oder damit Schaden verursacht, 15 s Abklingzeit."
+    },
+    "2": {
+      "0": "Verleiht dem Träger, wenn er seine Elementarfähigkeit oder Spezialfähigkeit anwendet, „Vermächtnis der weißen Krone“: Erhöht 6 s lang den ANG um <cryo>64 %</cryo> und den Kritischen Schaden durch Stellarfunkeln-Reaktionen um <cryo>64 %</cryo>. Verlängert, wenn der Träger während der Wirkungsdauer eine Stellarfunkeln-Reaktion auslöst oder damit Schaden verursacht, die Dauer dieses Effekts um 3 s, während der Effektdauer bis zu 8-mal auslösbar, 0,1 s Abklingzeit. Stellt dem Träger zudem <cryo>11</cryo> Punkte Elementarenergie wieder her, wenn er eine Stellarfunkeln-Reaktion auslöst oder damit Schaden verursacht, 15 s Abklingzeit."
+    },
+    "3": {
+      "0": "Verleiht dem Träger, wenn er seine Elementarfähigkeit oder Spezialfähigkeit anwendet, „Vermächtnis der weißen Krone“: Erhöht 6 s lang den ANG um <cryo>76 %</cryo> und den Kritischen Schaden durch Stellarfunkeln-Reaktionen um <cryo>76 %</cryo>. Verlängert, wenn der Träger während der Wirkungsdauer eine Stellarfunkeln-Reaktion auslöst oder damit Schaden verursacht, die Dauer dieses Effekts um 3 s, während der Effektdauer bis zu 8-mal auslösbar, 0,1 s Abklingzeit. Stellt dem Träger zudem <cryo>11,5</cryo> Punkte Elementarenergie wieder her, wenn er eine Stellarfunkeln-Reaktion auslöst oder damit Schaden verursacht, 15 s Abklingzeit."
+    },
+    "4": {
+      "0": "Verleiht dem Träger, wenn er seine Elementarfähigkeit oder Spezialfähigkeit anwendet, „Vermächtnis der weißen Krone“: Erhöht 6 s lang den ANG um <cryo>88 %</cryo> und den Kritischen Schaden durch Stellarfunkeln-Reaktionen um <cryo>88 %</cryo>. Verlängert, wenn der Träger während der Wirkungsdauer eine Stellarfunkeln-Reaktion auslöst oder damit Schaden verursacht, die Dauer dieses Effekts um 3 s, während der Effektdauer bis zu 8-mal auslösbar, 0,1 s Abklingzeit. Stellt dem Träger zudem <cryo>12</cryo> Punkte Elementarenergie wieder her, wenn er eine Stellarfunkeln-Reaktion auslöst oder damit Schaden verursacht, 15 s Abklingzeit."
+    }
+  }
+}

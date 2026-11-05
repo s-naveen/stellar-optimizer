@@ -1,0 +1,23 @@
+{
+  "setEffects": {
+    "2": "Recarga de Energia +20%",
+    "4": "Aumenta o Dano da Habilidade Elemental e do Supremo do portador em 25%. Mais efeitos serão revelados nas próximas versões."
+  },
+  "pieces": {
+    "flower": {
+      "desc": "Era uma flor de laço concedida como presente por um amigo cujas mãos eram frias como gelo."
+    },
+    "plume": {
+      "desc": "Era uma pena dada para escrever sonhos fantásticos para os seguidores dela."
+    },
+    "sands": {
+      "desc": "Era um momento passageiro concedido para lembrar um alquimista silencioso de seu cronograma."
+    },
+    "goblet": {
+      "desc": "Era um cálice de vinho, aceito em comemoração das mãos de um colega."
+    },
+    "circlet": {
+      "desc": "Era uma bugiganga delicada, premiada em louvor pela mão do único mestre dela."
+    }
+  }
+}

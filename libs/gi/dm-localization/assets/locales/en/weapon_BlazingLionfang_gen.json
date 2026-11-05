@@ -1,0 +1,27 @@
+{
+  "name": "Blazing Lionfang",
+  "description": {},
+  "passiveName": "Song of Our Covenant",
+  "passiveDescription": {
+    "0": {
+      "0": "After the equipping character has been off-field for a total of 5s, they gain the Reforged Blade effect.",
+      "1": "Reforged Blade: ATK is increased by <cryo>20%</cryo>. When the equipping character switches in during combat, they deal AoE DMG equal to <cryo>280%</cryo> of their ATK to nearby opponents. This DMG can occur once every 14s. After the equipping character has been on-field for a total of 10s, they lose the Reforged Blade effect."
+    },
+    "1": {
+      "0": "After the equipping character has been off-field for a total of 5s, they gain the Reforged Blade effect.",
+      "1": "Reforged Blade: ATK is increased by <cryo>25%</cryo>. When the equipping character switches in during combat, they deal AoE DMG equal to <cryo>350%</cryo> of their ATK to nearby opponents. This DMG can occur once every 14s. After the equipping character has been on-field for a total of 10s, they lose the Reforged Blade effect."
+    },
+    "2": {
+      "0": "After the equipping character has been off-field for a total of 5s, they gain the Reforged Blade effect.",
+      "1": "Reforged Blade: ATK is increased by <cryo>30%</cryo>. When the equipping character switches in during combat, they deal AoE DMG equal to <cryo>420%</cryo> of their ATK to nearby opponents. This DMG can occur once every 14s. After the equipping character has been on-field for a total of 10s, they lose the Reforged Blade effect."
+    },
+    "3": {
+      "0": "After the equipping character has been off-field for a total of 5s, they gain the Reforged Blade effect.",
+      "1": "Reforged Blade: ATK is increased by <cryo>35%</cryo>. When the equipping character switches in during combat, they deal AoE DMG equal to <cryo>490%</cryo> of their ATK to nearby opponents. This DMG can occur once every 14s. After the equipping character has been on-field for a total of 10s, they lose the Reforged Blade effect."
+    },
+    "4": {
+      "0": "After the equipping character has been off-field for a total of 5s, they gain the Reforged Blade effect.",
+      "1": "Reforged Blade: ATK is increased by <cryo>40%</cryo>. When the equipping character switches in during combat, they deal AoE DMG equal to <cryo>560%</cryo> of their ATK to nearby opponents. This DMG can occur once every 14s. After the equipping character has been on-field for a total of 10s, they lose the Reforged Blade effect."
+    }
+  }
+}

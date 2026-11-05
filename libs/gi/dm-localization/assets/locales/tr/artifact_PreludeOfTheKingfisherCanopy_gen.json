@@ -1,0 +1,23 @@
+{
+  "setEffects": {
+    "2": "+%20 Enerji Yüklemesi.",
+    "4": "Kuşanan karakterin Element Becerisi ve Element Patlaması Hasarını %25 artırır. İlerleyen sürümlerde daha fazla etki açıklanacaktır."
+  },
+  "pieces": {
+    "flower": {
+      "desc": "Bu, elleri buz gibi soğuk bir arkadaşının hediye ettiği, ipekten yapılma bir çiçekti."
+    },
+    "plume": {
+      "desc": "Bu, onun takipçilerine verilen, bir zamanlar en sıra dışı rüyaların yazıldığı bir tüy kalemdi."
+    },
+    "sands": {
+      "desc": "Bu, sessiz bir simyagere yapması gereken tüm işleri hatırlatsın diye verdiği geçici bir andı."
+    },
+    "goblet": {
+      "desc": "Bu, bir meslektaşının kutlama amaçlı takdim ettiği bir şarap kadehiydi."
+    },
+    "circlet": {
+      "desc": "Bu, tek ustasının bir takdir hediyesi olarak verdiği zarif bir süstü."
+    }
+  }
+}

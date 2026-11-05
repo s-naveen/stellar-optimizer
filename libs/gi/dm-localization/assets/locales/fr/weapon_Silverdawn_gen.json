@@ -1,0 +1,21 @@
+{
+  "description": {},
+  "passiveName": "Prélude à l'étoile blanche",
+  "passiveDescription": {
+    "0": {
+      "0": "Le personnage qui équipe cet objet obtient le Legs de la Couronne Blanche pendant 6 s après avoir utilisé une compétence élémentaire ou un déchaînement élémentaire, augmentant son ATQ de <cryo>40%</cryo> et le DGT CRIT de réaction Lueur Stellaire de <cryo>40%</cryo>. Sa durée est prolongée de 3 s lorsque le personnage équipé déclenche une réaction Lueur Stellaire ou inflige des DGT de réaction Lueur Stellaire lorsque le Legs de la Couronne Blanche est actif. Cette prolongation peut se produire toutes les 0,1 s, jusqu'à 8 fois par instance du Legs de la Couronne Blanche. De plus, le personnage équipé régénère <cryo>10</cryo> points d'énergie élémentaire lorsqu'il déclenche une réaction Lueur Stellaire ou inflige des DGT de réaction Lueur Stellaire, au maximum une fois toutes les 15 s."
+    },
+    "1": {
+      "0": "Le personnage équipé obtient le legs de la Couronne Blanche pendant 6 s après avoir utilisé une compétence élémentaire ou un déchaînement élémentaire, augmentant son ATQ de <cryo>52%</cryo> et le DGT CRIT de réaction Lueur Stellaire de <cryo>52%</cryo>. Sa durée est prolongée de 3 s lorsque le personnage équipé déclenche une réaction Lueur Stellaire ou inflige des DGT de réaction Lueur Stellaire lorsque le legs de la Couronne Blanche est actif. Cette prolongation peut se produire une fois toutes les 0,1 s, jusqu'à 8 fois par instance du legs de la Couronne Blanche. De plus, le personnage équipé régénère <cryo>10,5</cryo> points d'énergie élémentaire lorsqu'il déclenche une réaction Lueur Stellaire ou inflige des DGT de réaction Lueur Stellaire, au maximum une fois toutes les 15 s."
+    },
+    "2": {
+      "0": "Le personnage équipé obtient le Legs de la Couronne Blanche pendant 6s après avoir utilisé une compétence élémentaire ou un déchaînement élémentaire, augmentant son ATQ de <cryo>64%</cryo> et le DGT CRIT de la réaction Lueur Stellaire de <cryo>64%</cryo>. Sa durée est prolongée de 3s lorsque le personnage équipé déclenche une réaction Lueur Stellaire ou inflige des DGT de la réaction Lueur Stellaire alors que le Legs de la Couronne Blanche est actif. Cette prolongation peut se produire une fois toutes les 0,1s, jusqu'à 8 fois par instance du Legs de la Couronne Blanche. De plus, le personnage équipé récupère <cryo>11</cryo> points d'énergie élémentaire lorsqu'il déclenche une réaction Lueur Stellaire ou inflige des DGT de la réaction Lueur Stellaire, au maximum une fois toutes les 15s."
+    },
+    "3": {
+      "0": "Le personnage équipé obtient le Legs de la Couronne Blanche pendant 6 s après avoir utilisé une compétence élémentaire ou un déchaînement élémentaire, augmentant son ATQ de <cryo>76%</cryo> et le DGT CRIT de la réaction Lueur Stellaire de <cryo>76%</cryo>. Sa durée est prolongée de 3 s lorsque le personnage équipé déclenche une réaction Lueur Stellaire ou inflige des DGT de réaction Lueur Stellaire alors que le Legs de la Couronne Blanche est actif. Cette prolongation peut se produire une fois toutes les 0,1 s, jusqu'à 8 fois par instance du Legs de la Couronne Blanche. De plus, le personnage équipé régénère <cryo>11,5</cryo> points d'énergie élémentaire lorsqu'il déclenche une réaction Lueur Stellaire ou inflige des DGT de réaction Lueur Stellaire, au maximum une fois toutes les 15 s."
+    },
+    "4": {
+      "0": "Le personnage équipé obtient le Legs de la Couronne Blanche pendant 6 s après avoir utilisé une compétence élémentaire ou un déchaînement élémentaire, augmentant son ATQ de <cryo>88%</cryo> et le DGT CRIT de la réaction Lueur Stellaire de <cryo>88%</cryo>. Sa durée est prolongée de 3 s lorsque le personnage équipé déclenche une réaction Lueur Stellaire ou inflige des DGT de réaction Lueur Stellaire pendant que le Legs de la Couronne Blanche est actif. Cette prolongation peut se produire une fois toutes les 0,1 s, jusqu'à 8 fois par instance du Legs de la Couronne Blanche. De plus, le personnage équipé régénère <cryo>12</cryo> points d'énergie élémentaire lorsqu'il déclenche une réaction Lueur Stellaire ou inflige des DGT de réaction Lueur Stellaire, au maximum une fois toutes les 15 s."
+    }
+  }
+}

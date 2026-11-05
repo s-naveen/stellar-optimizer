@@ -1,0 +1,23 @@
+{
+  "setEffects": {
+    "2": "Erhöht die Aufladerate um 20 %.",
+    "4": "Erhöht den Schaden durch die Elementarfähigkeit und Spezialfähigkeit des Trägers um 25 %. Weitere Effekte werden in zukünftigen Versionen enthüllt."
+  },
+  "pieces": {
+    "flower": {
+      "desc": "Die Schleifenblume, die sie als Geschenk von einem Freund mit eiskalten Händen erhalten hat."
+    },
+    "plume": {
+      "desc": "Die Schreibfeder, die sie ihren Anhängern schenkte, mit der sie einst absurde Träume niedergeschrieben hatte."
+    },
+    "sands": {
+      "desc": "Die Uhr, die sie dem schweigsamen Alchimisten schenkte, um ihn an alle Termine zu erinnern."
+    },
+    "goblet": {
+      "desc": "Der gut gefüllte Becher, den sie von ihren Kollegen als Geschenk zur Feier erhalten hatte."
+    },
+    "circlet": {
+      "desc": "Das Schmuckstück, das sie als Belohnung von ihrem einzigen Meister erhalten hatte."
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "Torrents of Spring",
+  "description": {},
+  "passiveName": "Wavebreaking Thunder",
+  "passiveDescription": {
+    "0": {
+      "0": "Increases the equipper's ATK by <cryo>16%</cryo>. When the equipper's Electro attacks hit opponents, they will gain \"Royal Decree\" for 15s: Stellar-Conduct reaction DMG dealt by the active character on the field is increased by <cryo>20%</cryo>. While the effect lasts, when the equipper's Electro Stellar-Conduct attacks hit opponents, the order is considered Complete, enhancing the \"Royal Decree\" effect: the equipper's ATK is further increased by <cryo>16%</cryo>, and Stellar-Conduct reaction DMG dealt by the active character on the field is additionally increased by <cryo>20%</cryo>. The above effects also take effect while off-field."
+    },
+    "1": {
+      "0": "Increases the equipped character's ATK by <cryo>20%</cryo>. When the equipped character's Electro attacks hit opponents, they will gain \"Royal Decree\" for 15s: Stellar-Conduct reaction DMG dealt by the active character on the field is increased by <cryo>25%</cryo>. While this effect is active, when the equipped character's Stellar-Conduct attacks hit opponents, it is considered as completing the order, enhancing the \"Royal Decree\" effect: the equipped character's ATK is further increased by <cryo>20%</cryo>, and Stellar-Conduct reaction DMG dealt by the active character on the field is additionally increased by <cryo>25%</cryo>. The above effects also apply in the background."
+    },
+    "2": {
+      "0": "Increases the equipping character's ATK by <cryo>24%</cryo>. When the equipping character's Electro attacks hit opponents, they will receive the \"Royal Decree\" effect for 15s: Stellar-Conduct reaction DMG dealt by the active character on the field is increased by <cryo>30%</cryo>. While this effect is active, when the equipping character's Stellar-Conduct attacks hit opponents, it is considered as completing the order, enhancing the \"Royal Decree\" effect: the equipping character's ATK is further increased by <cryo>24%</cryo>, and Stellar-Conduct reaction DMG dealt by the active character on the field is additionally increased by <cryo>30%</cryo>. The above effects also apply off-field."
+    },
+    "3": {
+      "0": "Increases the equipper's ATK by <cryo>28%</cryo>. When the equipper's Electro attacks hit enemies, they will receive \"Imperial Edict\" for 15s: Stellar-Conduct reaction DMG dealt by the active character on the team is increased by <cryo>35%</cryo>. While the effect lasts, when the equipper's Stellar-Conduct attacks hit enemies, it is considered as completing the order, enhancing the effect of \"Imperial Edict\": the equipper's ATK is further increased by <cryo>28%</cryo>, and Stellar-Conduct reaction DMG dealt by the active character is additionally increased by <cryo>35%</cryo>. The above effects also apply off-field."
+    },
+    "4": {
+      "0": "Increases the equipper's ATK by <cryo>32%</cryo>. When the equipper's Electro attacks hit enemies, they will receive the \"Imperial Edict\" effect for 15s: Stellar-Conduct reaction DMG dealt by the active character on the field increases by <cryo>40%</cryo>. While this effect is active, when the equipper's Stellar-Conduct attacks hit enemies, it is considered as completing the order, enhancing the \"Imperial Edict\" effect: the equipper's ATK increases by an additional <cryo>32%</cryo>, and Stellar-Conduct reaction DMG dealt by the active character on the field increases by an additional <cryo>40%</cryo>. The above effects also take effect in the background."
+    }
+  }
+}

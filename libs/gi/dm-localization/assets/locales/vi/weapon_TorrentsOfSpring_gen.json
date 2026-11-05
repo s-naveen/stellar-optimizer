@@ -1,0 +1,22 @@
+{
+  "name": "Thủy Triều Mùa Xuân",
+  "description": {},
+  "passiveName": "Tiếng Sấm Phá Sóng",
+  "passiveDescription": {
+    "0": {
+      "0": "Tấn Công của người trang bị tăng <cryo>16%</cryo>. Khi tấn công Nguyên Tố Lôi của người trang bị trúng kẻ địch, sẽ nhận \"Ngự Tiền Sắc Lệnh\" duy trì 15 giây: Sát thương phản ứng Tinh-Siêu Dẫn do nhân vật trên sân hiện tại trong đội gây ra tăng <cryo>20%</cryo>. Trong thời gian duy trì hiệu quả, khi tấn công Tinh-Siêu Dẫn của người trang bị trúng kẻ địch, sẽ xem như hoàn thành chỉ lệnh, giúp tăng hiệu quả của \"Ngự Tiền Sắc Lệnh\": Tấn Công của người trang bị tiếp tục tăng <cryo>16%</cryo>, và sát thương phản ứng Tinh-Siêu Dẫn do nhân vật trên sân hiện tại gây ra tăng thêm <cryo>20%</cryo>. Hiệu quả trên khi ở ngoài trận cũng có tác dụng."
+    },
+    "1": {
+      "0": "Tấn Công của người trang bị tăng <cryo>20%</cryo>. Khi tấn công Nguyên Tố Lôi của người trang bị trúng kẻ địch, sẽ nhận \"Ngự Tiền Sắc Lệnh\" duy trì 15 giây: Sát thương phản ứng Tinh-Siêu Dẫn do nhân vật trên sân hiện tại trong đội gây ra tăng <cryo>25%</cryo>. Trong thời gian duy trì hiệu quả, khi tấn công Tinh-Siêu Dẫn của người trang bị trúng kẻ địch, sẽ xem như hoàn thành chỉ lệnh, khiến hiệu quả của \"Ngự Tiền Sắc Lệnh\" tăng lên: Tấn Công của người trang bị tăng thêm <cryo>20%</cryo>, đồng thời sát thương phản ứng Tinh-Siêu Dẫn do nhân vật trên sân hiện tại gây ra tăng thêm <cryo>25%</cryo>. Các hiệu quả trên vẫn có tác dụng khi ở ngoài sân."
+    },
+    "2": {
+      "0": "Tấn Công của người trang bị tăng <cryo>24%</cryo>. Khi tấn công Nguyên Tố Lôi của người trang bị trúng kẻ địch, sẽ nhận \"Ngự Tiền Sắc Lệnh\" duy trì 15 giây: Sát thương phản ứng Tinh-Siêu Dẫn do nhân vật đang trong trận của đội gây ra tăng <cryo>30%</cryo>. Trong thời gian duy trì hiệu quả, khi tấn công Tinh-Siêu Dẫn của người trang bị trúng kẻ địch, sẽ xem như hoàn thành chỉ lệnh, khiến hiệu quả của \"Ngự Tiền Sắc Lệnh\" tăng: Tấn Công của người trang bị tăng thêm <cryo>24%</cryo>, đồng thời sát thương phản ứng Tinh-Siêu Dẫn do nhân vật đang trong trận gây ra tiếp tục tăng thêm <cryo>30%</cryo>. Hiệu quả trên cũng có tác dụng khi ở ngoài trận."
+    },
+    "3": {
+      "0": "Tấn Công của người trang bị tăng <cryo>28%</cryo>. Khi tấn công Nguyên Tố Lôi của người trang bị trúng kẻ địch, sẽ nhận được \"Sắc Lệnh Ngự Tiền\" kéo dài 15 giây: Sát thương phản ứng Tinh-Siêu Dẫn do nhân vật trong trận hiện tại của đội gây ra tăng <cryo>35%</cryo>. Trong thời gian duy trì hiệu ứng, khi tấn công Tinh-Siêu Dẫn của người trang bị trúng kẻ địch, xem như hoàn thành chỉ lệnh, giúp hiệu quả của \"Sắc Lệnh Ngự Tiền\" tăng lên: Tấn Công của người trang bị tăng thêm <cryo>28%</cryo>, và sát thương phản ứng Tinh-Siêu Dẫn do nhân vật trong trận hiện tại gây ra tăng thêm <cryo>35%</cryo>. Hiệu quả trên vẫn có hiệu lực khi ở ngoài trận."
+    },
+    "4": {
+      "0": "Tấn Công của người trang bị tăng <cryo>32%</cryo>. Khi tấn công Nguyên Tố Lôi của người trang bị trúng kẻ địch, sẽ nhận \"Ngự Tiền Sắc Lệnh\" duy trì 15 giây: Sát thương phản ứng Tinh-Siêu Dẫn do nhân vật trên sân hiện tại trong đội gây ra tăng <cryo>40%</cryo>. Trong thời gian duy trì hiệu quả, khi tấn công Tinh-Siêu Dẫn của người trang bị trúng kẻ địch, được xem là hoàn thành chỉ lệnh, giúp tăng hiệu quả của \"Ngự Tiền Sắc Lệnh\": Tấn Công của người trang bị tăng thêm <cryo>32%</cryo>, và sát thương phản ứng Tinh-Siêu Dẫn do nhân vật trên sân hiện tại gây ra tăng thêm <cryo>40%</cryo>. Hiệu quả trên vẫn có tác dụng khi ở ngoài trận."
+    }
+  }
+}

@@ -40,6 +40,7 @@ import ScionOfTheBlazingSun from './ScionOfTheBlazingSun'
 import SeasonedHuntersBow from './SeasonedHuntersBow'
 import SequenceOfSolitude from './SequenceOfSolitude'
 import SharpshootersOath from './SharpshootersOath'
+import Silverdawn from './Silverdawn'
 import SilvershowerHeartstrings from './SilvershowerHeartstrings'
 import SkywardHarp from './SkywardHarp'
 import Slingshot from './Slingshot'
@@ -92,6 +93,7 @@ const bow: Record<WeaponBowKey, WeaponSheet> = {
   SeasonedHuntersBow,
   SequenceOfSolitude,
   SharpshootersOath,
+  Silverdawn,
   SilvershowerHeartstrings,
   SkywardHarp,
   Slingshot,

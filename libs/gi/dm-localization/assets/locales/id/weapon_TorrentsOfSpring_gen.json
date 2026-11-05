@@ -1,0 +1,22 @@
+{
+  "name": "Torrents of Spring",
+  "description": {},
+  "passiveName": "Wavebreaking Thunder",
+  "passiveDescription": {
+    "0": {
+      "0": "ATK Karakter yang mengenakan meningkat sebesar <cryo>16%</cryo>. Saat serangan Electro Karakter yang mengenakan mengenai musuh, akan mendapatkan \"Titah Kerajaan\" selama 15 detik: DMG reaksi Stellar-Conduct yang ditimbulkan oleh Karakter aktif di party meningkat sebesar <cryo>20%</cryo>. Selama efek berlangsung, saat serangan Stellar-Conduct Karakter yang mengenakan mengenai musuh, dianggap sebagai penyelesaian perintah, sehingga efek \"Titah Kerajaan\" meningkat: ATK Karakter yang mengenakan meningkat lagi sebesar <cryo>16%</cryo>, dan DMG reaksi Stellar-Conduct yang ditimbulkan oleh Karakter aktif meningkat tambahan sebesar <cryo>20%</cryo>. Efek di atas juga berlaku saat berada di latar belakang."
+    },
+    "1": {
+      "0": "ATK Karakter yang mengenakan meningkat sebesar <cryo>20%</cryo>. Saat serangan Electro Karakter yang mengenakan mengenai musuh, akan mendapatkan \"Titah Sang Ratu\" selama 15 detik: DMG reaksi Stellar-Conduct yang diberikan oleh Karakter aktif di party meningkat sebesar <cryo>25%</cryo>. Selama efek berlangsung, saat serangan Stellar-Conduct Karakter yang mengenakan mengenai musuh, dianggap sebagai penyelesaian perintah, sehingga meningkatkan efek \"Titah Sang Ratu\": ATK Karakter yang mengenakan meningkat tambahan sebesar <cryo>20%</cryo>, dan DMG reaksi Stellar-Conduct yang diberikan oleh Karakter aktif meningkat tambahan sebesar <cryo>25%</cryo>. Efek di atas juga berlaku saat Karakter berada di latar belakang."
+    },
+    "2": {
+      "0": "ATK Karakter yang mengenakan meningkat sebesar <cryo>24%</cryo>. Saat serangan Electro Karakter yang mengenakan mengenai musuh, akan mendapatkan \"Titah Kerajaan\" selama 15 detik: DMG reaksi Stellar-Conduct yang diberikan oleh Karakter aktif di party meningkat sebesar <cryo>30%</cryo>. Selama efek berlangsung, saat serangan Stellar-Conduct Karakter yang mengenakan mengenai musuh, dianggap sebagai penyelesaian perintah, sehingga meningkatkan efek \"Titah Kerajaan\": ATK Karakter yang mengenakan meningkat lagi sebesar <cryo>24%</cryo>, dan DMG reaksi Stellar-Conduct yang diberikan oleh Karakter aktif meningkat lagi sebesar <cryo>30%</cryo>. Efek di atas juga berlaku saat berada di latar belakang."
+    },
+    "3": {
+      "0": "ATK Karakter yang mengenakan meningkat sebesar <cryo>28%</cryo>. Saat serangan Electro Karakter yang mengenakan mengenai musuh, akan mendapatkan \"Titah Agung\" selama 15 detik: DMG reaksi Stellar-Conduct yang disebabkan oleh Karakter aktif dalam party meningkat sebesar <cryo>35%</cryo>. Selama efek berlangsung, saat serangan Stellar-Conduct Karakter yang mengenakan mengenai musuh, dianggap sebagai penyelesaian perintah, sehingga meningkatkan efek \"Titah Agung\": ATK Karakter yang mengenakan meningkat lagi sebesar <cryo>28%</cryo>, dan DMG reaksi Stellar-Conduct yang disebabkan oleh Karakter aktif meningkat lagi sebesar <cryo>35%</cryo>. Efek di atas juga berlaku saat tidak aktif di lapangan."
+    },
+    "4": {
+      "0": "ATK Karakter yang mengenakan meningkat sebesar <cryo>32%</cryo>. Saat serangan Electro Karakter yang mengenakan mengenai musuh, Karakter yang mengenakan akan mendapatkan \"Titah Kerajaan\" selama 15 detik: DMG reaksi Stellar-Conduct yang ditimbulkan oleh Karakter aktif dalam party meningkat sebesar <cryo>40%</cryo>. Selama efek berlangsung, saat serangan Stellar-Conduct Karakter yang mengenakan mengenai musuh, dianggap menyelesaikan perintah, sehingga meningkatkan efek \"Titah Kerajaan\": ATK Karakter yang mengenakan meningkat lagi sebesar <cryo>32%</cryo>, dan DMG reaksi Stellar-Conduct yang ditimbulkan oleh Karakter aktif meningkat tambahan sebesar <cryo>40%</cryo>. Semua efek di atas juga berlaku saat berada di latar belakang."
+    }
+  }
+}

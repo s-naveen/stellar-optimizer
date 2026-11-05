@@ -1,0 +1,22 @@
+{
+  "name": "Alba argentea",
+  "description": {},
+  "passiveName": "Ouverture dell'Astro bianco",
+  "passiveDescription": {
+    "0": {
+      "0": "Dopo aver usato un'abilità elementale o il Tripudio elementale, il personaggio che equipaggia l'arma ottiene l'effetto Retaggio della Corona bianca per 6 s, aumentando l'ATT e i DAN da CRIT delle reazioni di Barlume astrale di un <cryo>40%</cryo>. La durata si estende di 3 s quando il personaggio che equipaggia l'arma innesca una reazione di Barlume astrale o infligge DAN da reazione di Barlume astrale mentre l'effetto Retaggio della Corona bianca è attivo. Questa estensione può verificarsi una volta ogni 0,1 s, fino a 8 volte per ogni iterazione di Retaggio della Corona bianca. Inoltre, il personaggio che equipaggia l'arma rigenera <cryo>10</cryo> di energia elementale quando innesca una reazione di Barlume astrale o infligge DAN da reazione di Barlume astrale, fino a una volta ogni 15 s."
+    },
+    "1": {
+      "0": "Dopo aver usato un'abilità elementale o il Tripudio elementale, il personaggio che equipaggia l'arma ottiene l'effetto Retaggio della Corona bianca per 6 s, aumentando l'ATT e i DAN da CRIT delle reazioni di Barlume astrale di un <cryo>52%</cryo>. La durata si estende di 3 s quando il personaggio che equipaggia l'arma innesca una reazione di Barlume astrale o infligge DAN da reazione di Barlume astrale mentre l'effetto Retaggio della Corona bianca è attivo. Questa estensione può verificarsi una volta ogni 0,1 s, fino a 8 volte per ogni iterazione di Retaggio della Corona bianca. Inoltre, il personaggio che equipaggia l'arma rigenera <cryo>10,5</cryo> di energia elementale quando innesca una reazione di Barlume astrale o infligge DAN da reazione di Barlume astrale, fino a una volta ogni 15 s."
+    },
+    "2": {
+      "0": "Dopo aver usato un'abilità elementale o il Tripudio elementale, il personaggio che equipaggia l'arma ottiene l'effetto Retaggio della Corona bianca per 6 s, aumentando l'ATT e i DAN da CRIT delle reazioni di Barlume astrale di un <cryo>64%</cryo>. La durata si estende di 3 s quando il personaggio che equipaggia l'arma innesca una reazione di Barlume astrale o infligge DAN da reazione di Barlume astrale mentre l'effetto Retaggio della Corona bianca è attivo. Questa estensione può verificarsi una volta ogni 0,1 s, fino a 8 volte per ogni iterazione di Retaggio della Corona bianca. Inoltre, il personaggio che equipaggia l'arma rigenera <cryo>11</cryo> di energia elementale quando innesca una reazione di Barlume astrale o infligge DAN da reazione di Barlume astrale, fino a una volta ogni 15 s."
+    },
+    "3": {
+      "0": "Dopo aver usato un'abilità elementale o il Tripudio elementale, il personaggio che equipaggia l'arma ottiene l'effetto Retaggio della Corona bianca per 6 s, aumentando l'ATT e i DAN da CRIT delle reazioni di Barlume astrale di un <cryo>76%</cryo>. La durata si estende di 3 s quando il personaggio che equipaggia l'arma innesca una reazione di Barlume astrale o infligge DAN da reazione di Barlume astrale mentre l'effetto Retaggio della Corona bianca è attivo. Questa estensione può verificarsi una volta ogni 0,1 s, fino a 8 volte per ogni iterazione di Retaggio della Corona bianca. Inoltre, il personaggio che equipaggia l'arma rigenera <cryo>11,5</cryo> di energia elementale quando innesca una reazione di Barlume astrale o infligge DAN da reazione di Barlume astrale, fino a una volta ogni 15 s."
+    },
+    "4": {
+      "0": "Dopo aver usato un'abilità elementale o il Tripudio elementale, il personaggio che equipaggia l'arma ottiene l'effetto Retaggio della Corona bianca per 6 s, aumentando l'ATT e i DAN da CRIT delle reazioni di Barlume astrale di un <cryo>88%</cryo>. La durata si estende di 3 s quando il personaggio che equipaggia l'arma innesca una reazione di Barlume astrale o infligge DAN da reazione di Barlume astrale mentre l'effetto Retaggio della Corona bianca è attivo. Questa estensione può verificarsi una volta ogni 0,1 s, fino a 8 volte per ogni iterazione di Retaggio della Corona bianca. Inoltre, il personaggio che equipaggia l'arma rigenera <cryo>12</cryo> di energia elementale quando innesca una reazione di Barlume astrale o infligge DAN da reazione di Barlume astrale, fino a una volta ogni 15 s."
+    }
+  }
+}

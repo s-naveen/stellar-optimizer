@@ -1,0 +1,23 @@
+{
+  "setEffects": {
+    "2": "ATQ +18%.",
+    "4": "Cuando el portador de este conjunto de artefactos use una Habilidad Elemental, una Habilidad Definitiva o realice un Ataque Normal, obtendrá una “chispa astral”, acumulable hasta un máximo de dos. Al tener una chispa astral, el portador obtendrá el efecto de “luz inextinguible”, el cual aumenta en un 20% la Prob. CRIT del Daño Cryo infligido. Si dicho daño es daño de Destello Estelar, la Prob. CRIT aumentará en un 20% adicional. Este efecto se puede activar incluso cuando el portador está en tu equipo pero no en uso. Mientras el portador esté en uso, cada 3 s se eliminará una chispa astral, y cuando todas ellas se hayan apagado, el efecto de luz inextinguible se anulará."
+  },
+  "pieces": {
+    "flower": {
+      "desc": "Una flor inmarcesible que los cielos le otorgaron a la emisaria. Una vida sin fin dio paso a la codicia."
+    },
+    "plume": {
+      "desc": "Una pluma del más allá que los cielos le otorgaron a la emisaria. Todos los pecados serán perdonados cuando el destino llegue a su fin."
+    },
+    "sands": {
+      "desc": "Un reloj que cuenta el tiempo en sentido contrario, y que los cielos le otorgaron a la emisaria. La prohibición de transgredir se convirtió en el caldo de cultivo de la ira."
+    },
+    "goblet": {
+      "desc": "Un dulce néctar que los cielos le otorgaron a la emisaria. Un banquete interminable abrió las puertas del deseo."
+    },
+    "circlet": {
+      "desc": "Una espléndida corona que los cielos le otorgaron a la emisaria. El poder sin restricciones alimentó su arrogancia."
+    }
+  }
+}

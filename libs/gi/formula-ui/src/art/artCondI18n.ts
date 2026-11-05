@@ -1,6 +1,6 @@
 import {
-  allElementKeys,
   type ArtifactSetKey,
+  allElementKeys,
   type ElementKey,
 } from '@genshin-optimizer/gi/consts'
 
@@ -56,6 +56,7 @@ const bySet: Partial<Record<ArtifactSetKey, Record<string, CondSrc>>> = {
   HuskOfOpulentDreams: { stack: { art: 'condName' } },
   Instructor: { set4: { sheet: 'afterReaction' } },
   Lavawalker: { state: { sheet: 'enemyAffected.burningOrPyro' } },
+  LegacyOfTheFirstChronicle: { undyingRadiance: { art: 'condName' } },
   LongNightsOath: { stacks: { sheet: 'stacks' } },
   MaidenBeloved: { state: { sheet: 'afterUse.skillOrBurst' } },
   MarechausseeHunter: { set4: { sheet: 'hpChange' } },

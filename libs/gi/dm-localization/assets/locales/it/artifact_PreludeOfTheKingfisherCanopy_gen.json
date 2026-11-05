@@ -1,0 +1,23 @@
+{
+  "setEffects": {
+    "2": "Ricarica d'energia +20%.",
+    "4": "Aumenta di un 25% i DAN dell'abilità elementale e del Tripudio elementale del personaggio equipaggiato. Ulteriori effetti verranno rivelati nelle versioni successive."
+  },
+  "pieces": {
+    "flower": {
+      "desc": "Era un fiore fatto di seta, donatole da un'amica le cui mani erano fredde come il ghiaccio."
+    },
+    "plume": {
+      "desc": "Era una penna piumata donata ai suoi seguaci, usata per scrivere i sogni più inverosimili."
+    },
+    "sands": {
+      "desc": "Era un attimo fugace concesso a un alchimista silenzioso, per ricordargli ogni voce nel suo programma."
+    },
+    "goblet": {
+      "desc": "Era un calice di vino che ella accettò in segno di celebrazione dalle mani di un collega."
+    },
+    "circlet": {
+      "desc": "Era un delicato ninnolo conferitole in segno di elogio dal suo unico e solo padrone."
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "setEffects": {
+    "2": "+%18 Saldırı.",
+    "4": "Kuşanan karakter, bir Element Becerisi veya Element Patlaması kullandığında ya da Normal Saldırı yaptığında 1 Yıldız Kıvılcımı kazanır. Aynı anda en fazla 2 Yıldız Kıvılcımı biriktirilebilir. Karakter en az 1 Yıldız Kıvılcımına sahipse Sönmeyen Işıltı kazanır. Bu etki, Buz Hasarının Kritik Oranını %20 artırır ve söz konusu hasar Yıldız Parıltısı Tepkimesi Hasarıysa fazladan %20 Kritik Oranı daha sağlar. Kuşanan Karakter savaş alanı dışında olsa bile bu etki devam eder. Ancak karakter savaş alanındaysa her 3 saniyede bir 1 Yıldız Kıvılcımı kaybeder. Tüm Yıldız Kıvılcımları tüketildiğinde Sönmeyen Işıltı da sona erer."
+  },
+  "pieces": {
+    "flower": {
+      "desc": "Gökler, elçisine ebedi bir çiçek bahşetti; sonsuz yaşamdan açgözlülük doğdu."
+    },
+    "plume": {
+      "desc": "Gökler, elçisine yeniden doğuş tüyü bahşetti; kaderin bile sonunun geldiği yerde tüm günahlar affedilecekti."
+    },
+    "sands": {
+      "desc": "Gökler, elçisine terse akan bir güneş saati bahşetti; çiğnenemez bir yasak, öfkenin pınarına dönüştü."
+    },
+    "goblet": {
+      "desc": "Gökler, elçisine tatlı nektar bahşetti; sonu gelmeyen ziyafet, kapılarını tutkuya açtı."
+    },
+    "circlet": {
+      "desc": "Gökler, elçisine muhteşem bir taç bahşetti; kontrolsüz güçten küstahlık doğdu."
+    }
+  }
+}

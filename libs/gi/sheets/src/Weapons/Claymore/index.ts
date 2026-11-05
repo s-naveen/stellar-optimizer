@@ -6,6 +6,7 @@ import AThousandBlazingSuns from './AThousandBlazingSuns'
 import BeaconOfTheReedSea from './BeaconOfTheReedSea'
 import BlackcliffSlasher from './BlackcliffSlasher'
 import BladeOfAtonement from './BladeOfAtonement'
+import BlazingLionfang from './BlazingLionfang'
 import BloodtaintedGreatsword from './BloodtaintedGreatsword'
 import DebateClub from './DebateClub'
 import EarthShaker from './EarthShaker'
@@ -39,6 +40,7 @@ import TalkingStick from './TalkingStick'
 import TheBell from './TheBell'
 import TheUnforged from './TheUnforged'
 import TidalShadow from './TidalShadow'
+import TorrentsOfSpring from './TorrentsOfSpring'
 import UltimateOverlordsMegaMagicSword from './UltimateOverlordsMegaMagicSword'
 import Verdict from './Verdict'
 import WasterGreatsword from './WasterGreatsword'
@@ -53,6 +55,7 @@ const claymore: Record<WeaponClaymoreKey, WeaponSheet> = {
   BeaconOfTheReedSea,
   BlackcliffSlasher,
   BladeOfAtonement,
+  BlazingLionfang,
   BloodtaintedGreatsword,
   DebateClub,
   EarthShaker,
@@ -86,6 +89,7 @@ const claymore: Record<WeaponClaymoreKey, WeaponSheet> = {
   TheBell,
   TheUnforged,
   TidalShadow,
+  TorrentsOfSpring,
   UltimateOverlordsMegaMagicSword,
   Verdict,
   WasterGreatsword,

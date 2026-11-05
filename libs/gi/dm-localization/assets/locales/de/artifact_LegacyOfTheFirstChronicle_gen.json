@@ -1,0 +1,23 @@
+{
+  "setEffects": {
+    "2": "Erhöht den ANG um 18 %.",
+    "4": "Verleiht dem Träger, wenn er eine Elementarfähigkeit, Spezialfähigkeit oder einen Standardangriff anwendet, 1 Stapelung „Sternenfunke“, max. 2 Stapelungen. Verleiht dem Träger, solange er über Stapelungen von „Sternenfunke“ verfügt, „Unvergängliches Licht“: Erhöht die KT des verursachten Kryo-Schadens um 20 %. Erhöht, wenn es sich bei diesem Schaden um Schaden durch eine Stellarfunkeln-Reaktion handelt, die KT um weitere 20 %. Dieser Effekt ist auch aktiv, wenn sich der Träger im Hintergrund befindet. Entfernt, wenn der Träger aktiv ist, alle 3 s eine Stapelung „Sternenfunke“ und entfernt „Unvergängliches Licht“, sobald alle Stapelungen „Sternenfunke“ verschwunden sind."
+  },
+  "pieces": {
+    "flower": {
+      "desc": "Die unvergängliche Blume, die der hohe Himmel dem Gesandten gewährte. Sie weckt durch ihr endloses Leben die Gier."
+    },
+    "plume": {
+      "desc": "Die Feder des Todes, die der hohe Himmel dem Gesandten gewährte. Sie tilgt am Ende des Schicksals alle Sünden."
+    },
+    "sands": {
+      "desc": "Die Uhr der umgekehrten Zeit, die der hohe Himmel dem Gesandten gewährte. Sie wurde zu einem unüberwindbaren Tabu und damit zum Hort des Zorns."
+    },
+    "goblet": {
+      "desc": "Der süße Nektar, den der hohe Himmel den Gesandten gewährte. Er eröffnet mit einem nie endenden Festmahl die Pforten der Begierde."
+    },
+    "circlet": {
+      "desc": "Die prächtige Krone, die der hohe Himmel dem Gesandten gewährte. Sie nährt durch unbegrenzte Macht den Hochmut."
+    }
+  }
+}

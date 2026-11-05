@@ -1,0 +1,23 @@
+{
+  "setEffects": {
+    "2": "Energy Recharge +20%.",
+    "4": "DMG Elemental Skill dan Elemental Burst Karakter yang mengenakan +25%. Efek lainnya akan diungkapkan pada versi mendatang."
+  },
+  "pieces": {
+    "flower": {
+      "desc": "Itu adalah bunga pita yang dia terima sebagai hadiah dari sahabatnya yang memiliki tangan dingin."
+    },
+    "plume": {
+      "desc": "Itu adalah pena yang diberikan kepada pengikutnya. Pena ini pernah digunakannya untuk menulis mimpi yang tak masuk akal."
+    },
+    "sands": {
+      "desc": "Itu adalah momen yang dia berikan kepada alkemis yang pendiam untuk mengingatkan segala jadwalnya."
+    },
+    "goblet": {
+      "desc": "Itu adalah cawan anggur yang dia terima dari rekannya sebagai hadiah perayaan."
+    },
+    "circlet": {
+      "desc": "Itu adalah hadiah pajangan yang didapatkannya dari tuannya satu-satunya."
+    }
+  }
+}

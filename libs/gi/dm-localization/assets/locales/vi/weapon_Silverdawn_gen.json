@@ -1,0 +1,22 @@
+{
+  "name": "Ngày Bạc",
+  "description": {},
+  "passiveName": "Lời Tựa Gửi Ngôi Sao Trắng",
+  "passiveDescription": {
+    "0": {
+      "0": "Khi người trang bị thi triển Kỹ Năng Nguyên Tố hoặc Kỹ Năng Nộ, sẽ nhận Di Lễ Vương Miện Nhạt Màu: Tấn Công tăng <cryo>40%</cryo>, Sát Thương Bạo Kích của phản ứng Tinh Tú Lấp Lánh tăng <cryo>40%</cryo>, duy trì 6s. Trong thời gian duy trì, khi người trang bị kích hoạt phản ứng Tinh Tú Lấp Lánh hoặc gây sát thương Tinh Tú Lấp Lánh, sẽ kéo dài thời gian duy trì của hiệu quả này thêm 3s, trong mỗi lần duy trì hiệu quả tối đa kích hoạt 8 lần, mỗi 0.1s tối đa kích hoạt một lần. Ngoài ra, khi người trang bị kích hoạt phản ứng Tinh Tú Lấp Lánh hoặc gây sát thương Tinh Tú Lấp Lánh, sẽ còn hồi phục <cryo>10</cryo> điểm Năng Lượng Nguyên Tố cho người trang bị, mỗi 15s tối đa kích hoạt một lần."
+    },
+    "1": {
+      "0": "Khi người trang bị thi triển Kỹ Năng Nguyên Tố hoặc Kỹ Năng Nộ, sẽ nhận Di Lễ Vương Miện Nhạt Màu: Tấn Công tăng <cryo>52%</cryo>, Sát Thương Bạo Kích của phản ứng Tinh Tú Lấp Lánh tăng <cryo>52%</cryo>, duy trì 6s. Trong thời gian duy trì, khi người trang bị kích hoạt phản ứng Tinh Tú Lấp Lánh hoặc gây sát thương Tinh Tú Lấp Lánh, sẽ kéo dài thời gian duy trì của hiệu quả này thêm 3s, trong mỗi lần duy trì hiệu quả tối đa kích hoạt 8 lần, mỗi 0.1s tối đa kích hoạt một lần. Ngoài ra, khi người trang bị kích hoạt phản ứng Tinh Tú Lấp Lánh hoặc gây sát thương Tinh Tú Lấp Lánh, sẽ còn hồi phục <cryo>10.5</cryo> điểm Năng Lượng Nguyên Tố cho người trang bị, mỗi 15s tối đa kích hoạt một lần."
+    },
+    "2": {
+      "0": "Khi người trang bị thi triển Kỹ Năng Nguyên Tố hoặc Kỹ Năng Nộ, sẽ nhận Di Lễ Vương Miện Nhạt Màu: Tấn Công tăng <cryo>64%</cryo>, Sát Thương Bạo Kích của phản ứng Tinh Tú Lấp Lánh tăng <cryo>64%</cryo>, duy trì 6s. Trong thời gian duy trì, khi người trang bị kích hoạt phản ứng Tinh Tú Lấp Lánh hoặc gây sát thương Tinh Tú Lấp Lánh, sẽ kéo dài thời gian duy trì của hiệu quả này thêm 3s, trong mỗi lần duy trì hiệu quả tối đa kích hoạt 8 lần, mỗi 0.1s tối đa kích hoạt một lần. Ngoài ra, khi người trang bị kích hoạt phản ứng Tinh Tú Lấp Lánh hoặc gây sát thương Tinh Tú Lấp Lánh, sẽ còn hồi phục <cryo>11</cryo> điểm Năng Lượng Nguyên Tố cho người trang bị, mỗi 15s tối đa kích hoạt một lần."
+    },
+    "3": {
+      "0": "Khi người trang bị thi triển Kỹ Năng Nguyên Tố hoặc Kỹ Năng Nộ, sẽ nhận Di Lễ Vương Miện Nhạt Màu: Tấn Công tăng <cryo>76%</cryo>, Sát Thương Bạo Kích của phản ứng Tinh Tú Lấp Lánh tăng <cryo>76%</cryo>, duy trì 6s. Trong thời gian duy trì, khi người trang bị kích hoạt phản ứng Tinh Tú Lấp Lánh hoặc gây sát thương Tinh Tú Lấp Lánh, sẽ kéo dài thời gian duy trì của hiệu quả này thêm 3s, trong mỗi lần duy trì hiệu quả tối đa kích hoạt 8 lần, mỗi 0.1s tối đa kích hoạt một lần. Ngoài ra, khi người trang bị kích hoạt phản ứng Tinh Tú Lấp Lánh hoặc gây sát thương Tinh Tú Lấp Lánh, sẽ còn hồi phục <cryo>11.5</cryo> điểm Năng Lượng Nguyên Tố cho người trang bị, mỗi 15s tối đa kích hoạt một lần."
+    },
+    "4": {
+      "0": "Khi người trang bị thi triển Kỹ Năng Nguyên Tố hoặc Kỹ Năng Nộ, sẽ nhận Di Lễ Vương Miện Nhạt Màu: Tấn Công tăng <cryo>88%</cryo>, Sát Thương Bạo Kích của phản ứng Tinh Tú Lấp Lánh tăng <cryo>88%</cryo>, duy trì 6s. Trong thời gian duy trì, khi người trang bị kích hoạt phản ứng Tinh Tú Lấp Lánh hoặc gây sát thương Tinh Tú Lấp Lánh, sẽ kéo dài thời gian duy trì của hiệu quả này thêm 3s, trong mỗi lần duy trì hiệu quả tối đa kích hoạt 8 lần, mỗi 0.1s tối đa kích hoạt một lần. Ngoài ra, khi người trang bị kích hoạt phản ứng Tinh Tú Lấp Lánh hoặc gây sát thương Tinh Tú Lấp Lánh, sẽ còn hồi phục <cryo>12</cryo> điểm Năng Lượng Nguyên Tố cho người trang bị, mỗi 15s tối đa kích hoạt một lần."
+    }
+  }
+}

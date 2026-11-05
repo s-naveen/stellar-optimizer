@@ -1,0 +1,23 @@
+{
+  "setEffects": {
+    "2": "ATQ +18%",
+    "4": "Quando o portador lançar a Habilidade Elemental, Supremo ou Ataque Normal, obtém 1 de Estrela de Fogo. Pode possuir até 2. Ao possuir uma Estrela de Fogo, o portador obtém Luz Inextinguível: aumenta a Taxa CRIT do Dano Cryo causado em 20%. Se esse Dano for considerado Dano de Reação de Brilho Estelar, aumenta a Taxa CRIT em mais 20%. Esse efeito também pode ser ativado quando o portador não for o personagem ativo. Quando o portador for o personagem ativo, removerá 1 acúmulo de Estrela de Fogo a cada 3s. Depois que todas as Estrelas de Fogo apagarem, removerá o efeito Luz Inextinguível."
+  },
+  "pieces": {
+    "flower": {
+      "desc": "Os altos céus deram uma flor que não murcha ao emissário. Um destino sem fim dá origem somente à ganância."
+    },
+    "plume": {
+      "desc": "Os altos céus deram uma pluma do renascimento ao emissário. Todos os pecados serão perdoados no final do destino."
+    },
+    "sands": {
+      "desc": "Os altos céus deram relógio de sol invertido ao emissário. Uma interdição inviolável se tornou a nascente da fúria."
+    },
+    "goblet": {
+      "desc": "Os altos céus deram o néctar doce ao emissário. O banquete eterno abriu as portas para o desejo."
+    },
+    "circlet": {
+      "desc": "Os altos céus deram uma coroa esplêndida ao emissário. Poder fora de controle ajuda a nutrir as sementes da arrogância."
+    }
+  }
+}

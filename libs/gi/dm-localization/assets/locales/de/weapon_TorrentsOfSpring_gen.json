@@ -1,0 +1,20 @@
+{
+  "name": "Frühlingsflut",
+  "description": {},
+  "passiveName": "Donnerklang des Wellenspalters",
+  "passiveDescription": {
+    "0": {
+      "0": "Erhöht den ANG des Trägers um <cryo>16 %</cryo>. Wenn ein Elektro-Angriff des Trägers einen Gegner trifft, erhält er 15 s lang „Kaiserlicher Erlass“: Erhöht den durch die aktuelle Figur verursachten Schaden der Stellar-Supraleiter-Reaktion um <cryo>20 %</cryo>. Ein Stellar-Supraleiter-Treffer währenddessen schließt einen Befehl ab. Dies verstärkt den Effekt „Kaiserlicher Erlass“: Der ANG des Trägers wird um weitere <cryo>16 %</cryo> erhöht und der durch die aktuelle Figur verursachte Schaden der Stellar-Supraleiter-Reaktion um zusätzliche <cryo>20 %</cryo>. Diese Effekte wirken auch inaktiv in der Truppe."
+    },
+    "1": {
+      "0": "Erhöht den ANG der ausrüstenden Figur um <cryo>20 %</cryo>. Wenn Elektro-Angriffe der ausrüstenden Figur Gegner treffen, erhält diese fortlaufend 15 s lang „Kaiserliches Edikt“: Erhöht den von der aktuellen Figur in der Truppe verursachten Schaden der Stellar-Supraleiter-Reaktion um <cryo>25 %</cryo>. Wenn während der Dauer Stellar-Supraleiter-Angriffe der ausrüstenden Figur Gegner treffen, gilt der Befehl als abgeschlossen, wodurch der Effekt von „Kaiserliches Edikt“ verstärkt wird: Erhöht den ANG der ausrüstenden Figur um weitere <cryo>20 %</cryo> und den von der aktuellen Figur verursachten Schaden der Stellar-Supraleiter-Reaktion um zusätzliche <cryo>25 %</cryo>. Die obigen Effekte wirken auch aus dem Hintergrund."
+    },
+    "2": {
+      "0": "Erhöht den ANG des Trägers um <cryo>24 %</cryo>. Wenn ein Elektro-Angriff des Trägers einen Gegner trifft, erhält dieser 15 s lang „Kaiserlicher Erlass“: Erhöht den durch die aktuelle Figur der Truppe verursachten Schaden von Stellar-Supraleiter-Reaktionen um <cryo>30 %</cryo>. Wenn ein Stellar-Supraleiter-Angriff des Trägers während der Dauer einen Gegner trifft, gilt ein Befehl als abgeschlossen. Dadurch wird der Effekt von „Kaiserlicher Erlass“ weiter verstärkt. Der ANG des Trägers erhöht sich um zusätzliche <cryo>24 %</cryo>. Der durch die aktuelle Figur verursachte Schaden von Stellar-Supraleiter-Reaktionen steigt zusätzlich um <cryo>30 %</cryo>. Diese Effekte wirken auch im Hintergrund."
+    },
+    "3": {
+      "0": "Erhöht den ANG des Trägers um <cryo>28 %</cryo>. Wenn ein Elektro-Angriff des Trägers Gegner trifft, erhält er 15 s lang „Kaiserlicher Erlass“: Erhöht den durch die Reaktion Stellar-Supraleiter verursachten Schaden der aktuellen Figur in der Truppe um <cryo>35 %</cryo>. Wenn während der Dauer ein Stellar-Supraleiter-Angriff des Trägers Gegner trifft, gilt der Befehl als abgeschlossen und der Effekt von „Kaiserlicher Erlass“ wird verstärkt: Erhöht den ANG des Trägers um weitere <cryo>28 %</cryo> und den durch die Reaktion Stellar-Supraleiter verursachten Schaden der aktuellen Figur zusätzlich um <cryo>35 %</cryo>. Dieser Effekt tritt auch in Kraft, wenn sich die Figur inaktiv in der Truppe befindet."
+    },
+    "4": {}
+  }
+}

@@ -31,6 +31,7 @@ import HeartOfTheFurnace from './HeartOfTheFurnace'
 import HuskOfOpulentDreams from './HuskOfOpulentDreams'
 import Instructor from './Instructor'
 import Lavawalker from './Lavawalker'
+import LegacyOfTheFirstChronicle from './LegacyOfTheFirstChronicle'
 import LongNightsOath from './LongNightsOath'
 import LuckyDog from './LuckyDog'
 import MaidenBeloved from './MaidenBeloved'
@@ -47,6 +48,7 @@ import PrayersForDestiny from './PrayersForDestiny'
 import PrayersForIllumination from './PrayersForIllumination'
 import PrayersForWisdom from './PrayersForWisdom'
 import PrayersToSpringtime from './PrayersToSpringtime'
+import PreludeOfTheKingfisherCanopy from './PreludeOfTheKingfisherCanopy'
 import ResolutionOfSojourner from './ResolutionOfSojourner'
 import RetracingBolide from './RetracingBolide'
 import ScarletProof from './ScarletProof'
@@ -96,6 +98,7 @@ export const artifactSheets: Record<ArtifactSetKey, ArtifactSheet> = {
   HuskOfOpulentDreams,
   Instructor,
   Lavawalker,
+  LegacyOfTheFirstChronicle,
   LongNightsOath,
   LuckyDog,
   MaidenBeloved,
@@ -112,6 +115,7 @@ export const artifactSheets: Record<ArtifactSetKey, ArtifactSheet> = {
   PrayersForIllumination,
   PrayersForWisdom,
   PrayersToSpringtime,
+  PreludeOfTheKingfisherCanopy,
   ResolutionOfSojourner,
   RetracingBolide,
   ScarletProof,
