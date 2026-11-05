@@ -10,7 +10,6 @@ import { ElementIcon } from '@genshin-optimizer/gi/svgicons'
 import CheckBoxIcon from '@mui/icons-material/CheckBox'
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import type { IconButtonProps } from '@mui/material'
 import {
   Box,
   Button,
@@ -19,28 +18,27 @@ import {
   Chip,
   Collapse,
   Grid,
-  IconButton,
   styled,
   Typography,
 } from '@mui/material'
 import { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-interface ExpandMoreProps extends IconButtonProps {
-  expand: boolean
-}
-const ExpandButton = styled((props: ExpandMoreProps) => {
-  const { expand, ...other } = props
-  return <IconButton {...other} />
-})(({ theme, expand }) => ({
+/**
+ * Rotating "expand" chevron, sized like a small IconButton. It is not a button itself: it sits
+ * inside a CardActionArea (a <button>), which handles the click.
+ */
+const ExpandIcon = styled('span', {
+  shouldForwardProp: (prop) => prop !== 'expand',
+})<{ expand: boolean }>(({ theme, expand }) => ({
+  display: 'inline-flex',
+  padding: 5,
+  color: theme.palette.action.active,
   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: (theme as any).transitions.create('transform', {
-    duration: (theme as any).transitions.duration.shortest,
+  transition: theme.transitions.create('transform', {
+    duration: theme.transitions.duration.shortest,
   }),
 }))
-
-export default ExpandButton
 export function EnemyExpandCard({ teamId }: { teamId: string }) {
   const { t } = useTranslation('page_team')
   const [expanded, setexpanded] = useState(false)
@@ -55,7 +53,7 @@ export function EnemyExpandCard({ teamId }: { teamId: string }) {
 
   return (
     <CardThemed bgt="light">
-      <CardActionArea onClick={toggle}>
+      <CardActionArea onClick={toggle} aria-expanded={expanded}>
         <CardContent
           sx={{
             display: 'flex',
@@ -86,16 +84,9 @@ export function EnemyExpandCard({ teamId }: { teamId: string }) {
             {t('enemyEditor.defRed', { value: enemyDefRed_ })}
           </Typography>
           <Box flexGrow={1} display="flex" justifyContent="flex-end" gap={1}>
-            <ExpandButton
-              expand={expanded}
-              onClick={toggle}
-              aria-expanded={expanded}
-              aria-label="show more"
-              size="small"
-              sx={{ marginLeft: 0 }}
-            >
+            <ExpandIcon expand={expanded}>
               <ExpandMoreIcon />
-            </ExpandButton>
+            </ExpandIcon>
           </Box>
         </CardContent>
       </CardActionArea>

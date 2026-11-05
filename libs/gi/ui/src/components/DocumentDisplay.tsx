@@ -27,6 +27,8 @@ export function DocumentDisplay({
   disabled = false,
   bgt = 'normal',
   collapse = false,
+  flat = false,
+  compact = false,
 }: {
   sections: DocumentSection[]
   teamBuffOnly?: boolean
@@ -35,6 +37,10 @@ export function DocumentDisplay({
   disabled?: boolean
   bgt?: CardBackgroundColor
   collapse?: boolean
+  /** sections without their own card or padding, for a parent card that already frames them */
+  flat?: boolean
+  /** smaller section headers (narrow columns) */
+  compact?: boolean
 }) {
   const { data } = useContext(DataContext)
   if (!sections.length) return null
@@ -53,6 +59,8 @@ export function DocumentDisplay({
           disabled={disabled}
           bgt={bgt}
           collapse={collapse}
+          flat={flat}
+          compact={compact}
         />
       )
     })
@@ -72,6 +80,8 @@ function SectionDisplay({
   disabled = false,
   bgt = 'normal',
   collapse = false,
+  flat = false,
+  compact = false,
 }: {
   section: DocumentSection
   hideDesc?: boolean
@@ -79,6 +89,8 @@ function SectionDisplay({
   disabled?: boolean
   bgt?: CardBackgroundColor
   collapse?: boolean
+  flat?: boolean
+  compact?: boolean
 }) {
   if ('fields' in section) {
     return (
@@ -87,6 +99,8 @@ function SectionDisplay({
         hideDesc={hideDesc}
         hideHeader={hideHeader}
         bgt={bgt}
+        flat={flat}
+        compact={compact}
       />
     )
   } else if ('states' in section) {
@@ -97,6 +111,8 @@ function SectionDisplay({
         hideHeader={hideHeader}
         disabled={disabled}
         bgt={bgt}
+        flat={flat}
+        compact={compact}
       />
     )
   } /* if ("text" in section) */ else {
@@ -112,25 +128,46 @@ function FieldsSectionDisplay({
   hideDesc,
   hideHeader,
   bgt = 'normal',
+  flat = false,
+  compact = false,
 }: {
   section: IDocumentFields
   hideDesc?: boolean
   hideHeader?: boolean | ((section: DocumentSection) => boolean)
   bgt?: CardBackgroundColor
+  flat?: boolean
+  compact?: boolean
 }) {
   const { data } = useContext(DataContext)
   if (!data) return null
-  return (
-    <CardThemed bgt={bgt}>
+  const content = (
+    <>
       {!evalIfFunc(hideHeader, section) && section.header && (
         <HeaderDisplay
           header={section.header}
           hideDesc={hideDesc}
           hideDivider={section.fields.length === 0}
+          compact={compact}
         />
       )}
-      <FieldsDisplay bgt={bgt} fields={section.fields} />
-    </CardThemed>
+      {/* the same padding as a conditional's group, so the stat lists of both line up */}
+      {!!section.fields.length && (
+        <Box
+          sx={{
+            p: flat ? 0 : 1.25,
+            // all of its fields hidden: no empty padded strip either
+            '&:has(> .MuiList-root:empty)': { display: 'none' },
+          }}
+        >
+          <FieldsDisplay bgt={bgt} fields={section.fields} />
+        </Box>
+      )}
+    </>
+  )
+  return flat ? (
+    <Box>{content}</Box>
+  ) : (
+    <CardThemed bgt={bgt}>{content}</CardThemed>
   )
 }
 
@@ -204,10 +241,12 @@ export function HeaderDisplay({
   header,
   hideDesc,
   hideDivider,
+  compact = false,
 }: {
   header: IDocumentHeader
   hideDesc?: boolean
   hideDivider?: boolean | ((section: DocumentSection) => boolean)
+  compact?: boolean
 }) {
   const { data } = useContext(DataContext)
   const { icon: preicon, title, action } = header ?? {}
@@ -224,7 +263,12 @@ export function HeaderDisplay({
     )
   return (
     <>
-      <CardHeaderCustom avatar={icon} title={displayTitle} action={action} />
+      <CardHeaderCustom
+        avatar={icon}
+        title={displayTitle}
+        action={action}
+        compact={compact}
+      />
       {!hideDivider && <Divider />}
     </>
   )

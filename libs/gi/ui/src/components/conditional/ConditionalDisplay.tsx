@@ -7,7 +7,7 @@ import type {
   DocumentSection,
 } from '@genshin-optimizer/gi/sheets'
 import type { SxProps } from '@mui/material'
-import { CardContent } from '@mui/material'
+import { Box } from '@mui/material'
 import { useContext } from 'react'
 import { DataContext } from '../../context'
 import { HeaderDisplay } from '../DocumentDisplay'
@@ -21,6 +21,10 @@ type ConditionalDisplayProps = {
   disabled?: boolean
   bgt?: CardBackgroundColor
   sx?: SxProps
+  /** no card or padding of its own, for a parent card that already frames it */
+  flat?: boolean
+  /** a smaller header (narrow columns) */
+  compact?: boolean
 }
 
 export function ConditionalDisplay({
@@ -30,6 +34,8 @@ export function ConditionalDisplay({
   disabled = false,
   bgt = 'normal',
   sx,
+  flat = false,
+  compact = false,
 }: ConditionalDisplayProps) {
   const { data } = useContext(DataContext)
   const { teamId } = useContext(TeamCharacterContext)
@@ -47,15 +53,36 @@ export function ConditionalDisplay({
       return stateVal ? state.fields : []
     })
   }
-  return (
-    <CardThemed bgt={bgt} sx={sx}>
+  const content = (
+    <>
       {!evalIfFunc(hideHeader, conditional) && (
-        <HeaderDisplay header={conditional.header} hideDesc={hideDesc} />
+        <HeaderDisplay
+          header={conditional.header}
+          hideDesc={hideDesc}
+          compact={compact}
+        />
       )}
-      <CardContent sx={{ p: 0, '&:last-child': { pb: 0 } }}>
+      {/* the control and what it switches on, as one padded group */}
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 1,
+          p: flat ? 0 : 1.25,
+          minWidth: 0,
+          '& > *': { minWidth: 0 },
+        }}
+      >
         <ConditionalSelector conditional={conditional} disabled={disabled} />
-      </CardContent>
-      {fields && <FieldsDisplay bgt={bgt} fields={fields} />}
+        {fields && <FieldsDisplay bgt={bgt} fields={fields} />}
+      </Box>
+    </>
+  )
+  return flat ? (
+    <Box sx={sx}>{content}</Box>
+  ) : (
+    <CardThemed bgt={bgt} sx={sx}>
+      {content}
     </CardThemed>
   )
 }

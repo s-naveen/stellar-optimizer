@@ -15,8 +15,15 @@ import type {
 } from '@genshin-optimizer/gi/sheets'
 import CheckBoxIcon from '@mui/icons-material/CheckBox'
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
-import type { ButtonProps, Palette } from '@mui/material'
-import { Button, ButtonGroup, Divider, MenuItem } from '@mui/material'
+import type { ButtonProps, Palette, Theme } from '@mui/material'
+import {
+  alpha,
+  Box,
+  Button,
+  Divider,
+  MenuItem,
+  Typography,
+} from '@mui/material'
 import type { ReactNode } from 'react'
 import { useCallback, useContext } from 'react'
 import { DataContext } from '../../context'
@@ -25,6 +32,73 @@ interface ConditionalSelectorProps {
   conditional: DocumentConditional
   disabled?: boolean
 }
+/**
+ * Conditionals are form fields: a checkbox is a bordered toggle row, a multi-state conditional is a
+ * labelled select field. Both are green-tinted while on, so the state is readable at a glance.
+ */
+function toggleRowSx(active: boolean) {
+  return (theme: Theme) => {
+    const { success, text, divider } = theme.palette
+    return {
+      borderRadius: 2,
+      justifyContent: 'flex-start',
+      textAlign: 'left',
+      minHeight: 40,
+      px: 1.25,
+      py: 0.75,
+      gap: 0.25,
+      boxShadow: 'none',
+      fontWeight: 600,
+      border: `1px solid ${active ? alpha(success.main, 0.45) : divider}`,
+      backgroundColor: active ? alpha(success.main, 0.1) : 'transparent',
+      color: active ? text.primary : text.secondary,
+      '& .MuiButton-startIcon': {
+        mr: 1,
+        ml: 0,
+        color: active ? success.main : text.secondary,
+      },
+      '&:hover': {
+        boxShadow: 'none',
+        backgroundColor: active
+          ? alpha(success.main, 0.16)
+          : alpha(text.primary, 0.05),
+        color: text.primary,
+      },
+    }
+  }
+}
+
+function selectFieldSx(active: boolean) {
+  return (theme: Theme) => {
+    const { success, text } = theme.palette
+    return {
+      minWidth: 0,
+      maxWidth: '100%',
+      borderRadius: 2,
+      justifyContent: 'flex-start',
+      textAlign: 'left',
+      minHeight: 40,
+      px: 1.5,
+      py: 0.75,
+      boxShadow: 'none',
+      fontWeight: 600,
+      border: `1px solid ${active ? alpha(success.main, 0.5) : alpha(text.primary, 0.2)}`,
+      backgroundColor: active
+        ? alpha(success.main, 0.1)
+        : alpha(text.primary, 0.04),
+      color: active ? success.light : text.primary,
+      '& .MuiButton-endIcon': { ml: 'auto', color: text.secondary },
+      '&:hover': {
+        boxShadow: 'none',
+        borderColor: active ? success.main : alpha(text.primary, 0.4),
+        backgroundColor: active
+          ? alpha(success.main, 0.14)
+          : alpha(text.primary, 0.07),
+      },
+    }
+  }
+}
+
 export function ConditionalSelector({
   conditional,
   disabled = false,
@@ -80,7 +154,7 @@ function SimpleConditionalSelector({
     <Button
       fullWidth
       size="small"
-      sx={{ borderRadius: 0 }}
+      sx={toggleRowSx(validValue)}
       color={validValue ? 'success' : 'primary'}
       onClick={() =>
         setConditional(conditional.path, validValue ? undefined : stateKey)
@@ -108,45 +182,58 @@ function ExclusiveConditionalSelector({
   const conditionalValue = data.get(conditional.value).value
   const condStates = evalIfFunc(conditional.states, data)
   const state = conditionalValue ? condStates[conditionalValue] : undefined
-  const badge = state ? (
-    getStateBadge(state.name)
-  ) : (
-    <SqBadge color="secondary">Not Active</SqBadge>
-  )
+  const active = !!(conditionalValue && state)
   const condName = getCondName(conditional.name)
 
   return (
-    <DropdownButton
-      fullWidth
-      size="small"
-      sx={{ borderRadius: 0 }}
-      color={conditionalValue && state ? 'success' : 'primary'}
-      title={
-        <span>
-          {condName} {badge}
-        </span>
-      }
-      disabled={disabled}
-    >
-      <MenuItem
-        onClick={() => setConditional(conditional.path)}
-        selected={!state}
-        disabled={!state}
+    <Box sx={{ minWidth: 0 }}>
+      <Typography
+        variant="caption"
+        component="div"
+        sx={{ mb: 0.5, px: 0.25, color: 'text.secondary', fontWeight: 600 }}
       >
-        <span>Not Active</span>
-      </MenuItem>
-      <Divider />
-      {Object.entries(condStates).map(([stateKey, st]) => (
+        {condName}
+      </Typography>
+      <DropdownButton
+        fullWidth
+        size="small"
+        sx={selectFieldSx(active)}
+        color={active ? 'success' : 'primary'}
+        title={
+          // long state names wrap inside the field: a nowrap value would widen the whole card
+          <Box
+            component="span"
+            sx={{
+              display: 'block',
+              minWidth: 0,
+              flex: 1,
+              whiteSpace: 'normal',
+            }}
+          >
+            {state ? stateLabel(state.name) : 'Not Active'}
+          </Box>
+        }
+        disabled={disabled}
+      >
+        {/* the current value is marked as selected, not disabled (a greyed-out item reads as broken) */}
         <MenuItem
-          key={stateKey}
-          onClick={() => setConditional(conditional.path, stateKey)}
-          selected={conditionalValue === stateKey}
-          disabled={conditionalValue === stateKey}
+          onClick={() => setConditional(conditional.path)}
+          selected={!state}
         >
-          {st.name}
+          <span>Not Active</span>
         </MenuItem>
-      ))}
-    </DropdownButton>
+        <Divider />
+        {Object.entries(condStates).map(([stateKey, st]) => (
+          <MenuItem
+            key={stateKey}
+            onClick={() => setConditional(conditional.path, stateKey)}
+            selected={conditionalValue === stateKey}
+          >
+            {st.name}
+          </MenuItem>
+        ))}
+      </DropdownButton>
+    </Box>
   )
 }
 
@@ -163,12 +250,7 @@ function MultipleConditionalSelector({
   const setConditional = useSetConditionalCallback(database, teamId, teamCharId)
 
   return (
-    <ButtonGroup
-      fullWidth
-      orientation="vertical"
-      disableElevation
-      color="secondary"
-    >
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.75 }}>
       {Object.entries(evalIfFunc(conditional.states, data)).map(
         ([stateKey, st]) => {
           const conditionalValue = data.get(st.value).value
@@ -186,15 +268,26 @@ function MultipleConditionalSelector({
               startIcon={
                 isSelected ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />
               }
-              sx={{ borderRadius: 0 }}
+              sx={toggleRowSx(isSelected)}
             >
               {getCondName(st.name)}
             </Button>
           )
         }
       )}
-    </ButtonGroup>
+    </Box>
   )
+}
+
+/** A state's name as plain text, keeping its colour when it is an element/reaction name. */
+function stateLabel(stateName: ReactNode): ReactNode {
+  if (isElement(stateName) && stateName.props.color)
+    return (
+      <Box component="span" sx={{ color: `${stateName.props.color}.main` }}>
+        {stateName.props.children}
+      </Box>
+    )
+  return stateName
 }
 
 function isElement(disp: ReactNode): disp is JSX.Element {
