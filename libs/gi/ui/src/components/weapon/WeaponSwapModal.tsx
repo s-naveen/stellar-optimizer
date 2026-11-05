@@ -82,13 +82,25 @@ export function WeaponSwapModal({
   const [newWeaponModalShow, setnewWeaponModalShow] = useState(false)
 
   const [editWeaponId, setEditWeaponId] = useState('')
+  // weapon picked for equipping: opens the compare/equip confirmation
+  const [swapWeaponId, setSwapWeaponId] = useState('')
+  // A weapon created from this dialog is meant for this character: once its editor closes,
+  // go straight to the equip confirmation instead of making the user find it in the list.
+  const [createdWeaponId, setCreatedWeaponId] = useState('')
   const newWeapon = useCallback(
     (weaponKey: WeaponKey) => {
-      setEditWeaponId(database.weapons.new(initialWeapon(weaponKey)))
+      const id = database.weapons.new(initialWeapon(weaponKey))
+      setEditWeaponId(id)
+      setCreatedWeaponId(id)
     },
     [database, setEditWeaponId]
   )
-  const resetEditWeapon = useCallback(() => setEditWeaponId(''), [])
+  const resetEditWeapon = useCallback(() => {
+    if (createdWeaponId && database.weapons.get(createdWeaponId))
+      setSwapWeaponId(createdWeaponId)
+    setCreatedWeaponId('')
+    setEditWeaponId('')
+  }, [createdWeaponId, database])
 
   const brPt = useMediaQueryUp()
 
@@ -144,7 +156,6 @@ export function WeaponSwapModal({
     t: t,
     namespace: 'page_weapon',
   }
-  const [swapWeaponId, setSwapWeaponId] = useState('')
   const clickHandler = useCallback(() => {
     if (!swapWeaponId) {
       return

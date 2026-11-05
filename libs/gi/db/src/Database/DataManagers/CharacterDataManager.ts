@@ -16,6 +16,7 @@ import {
 } from '@genshin-optimizer/gi/consts'
 import type { ICharacter, IGOOD } from '@genshin-optimizer/gi/good'
 import { parseCharacter } from '@genshin-optimizer/gi/good'
+import { coreStats } from '@genshin-optimizer/gi/stats'
 import type { ArtCharDatabase } from '../ArtCharDatabase'
 
 export interface ICachedCharacter extends ICharacter {
@@ -222,6 +223,14 @@ export class CharacterDataManager extends DataManager<
   }
 }
 
+/**
+ * Constellation of a character added by hand: 4★ characters are usually fully constellated
+ * (they come from many wishes), 5★ ones are usually C0.
+ */
+export function defaultConstellation(key: CharacterKey) {
+  return coreStats.char.data[charKeyToLocCharKey(key)]?.rarity === 4 ? 6 : 0
+}
+
 export function initialCharacter(key: CharacterKey): ICachedCharacter {
   return {
     key,
@@ -234,6 +243,6 @@ export function initialCharacter(key: CharacterKey): ICachedCharacter {
       skill: defaultTalentLevel,
       burst: defaultTalentLevel,
     },
-    constellation: 0,
+    constellation: defaultConstellation(key),
   }
 }

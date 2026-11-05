@@ -36,7 +36,15 @@ import {
   Skeleton,
   Typography,
 } from '@mui/material'
-import { Suspense, useCallback, useMemo, useReducer, useState } from 'react'
+import {
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+  useRef,
+  useState,
+} from 'react'
 import { useTranslation } from 'react-i18next'
 import { CompareBuildWrapper } from '../build/CompareBuildWrapper'
 import { ArtifactCard } from './ArtifactCard'
@@ -131,6 +139,24 @@ export function ArtifactSwapModal({
     setSwapArtId('')
     onClose()
   }, [onChangeId, onClose, swapArtId])
+
+  // Artifacts added with the editor opened from this slot are meant for this character: once the
+  // editor closes, go straight to the equip confirmation of the last one added.
+  const createdArtIdRef = useRef('')
+  useEffect(() => {
+    if (!showEditor) return
+    createdArtIdRef.current = ''
+    return database.arts.followAny((key, reason) => {
+      if (reason === 'new') createdArtIdRef.current = key
+    })
+  }, [database, showEditor])
+  const onHideEditorOfferEquip = useCallback(() => {
+    onHideEditor()
+    const createdId = createdArtIdRef.current
+    createdArtIdRef.current = ''
+    if (createdId && database.arts.get(createdId)?.slotKey === slotKey)
+      setSwapArtId(createdId)
+  }, [database, onHideEditor, slotKey])
   return (
     <ModalWrapper
       open={show}
@@ -141,7 +167,7 @@ export function ArtifactSwapModal({
         <Suspense fallback={false}>
           <ArtifactEditor
             artifactIdToEdit={showEditor ? 'new' : ''}
-            cancelEdit={onHideEditor}
+            cancelEdit={onHideEditorOfferEquip}
             allowUpload
             allowEmpty
             fixedSlotKey={filterOption.slotKeys[0]}

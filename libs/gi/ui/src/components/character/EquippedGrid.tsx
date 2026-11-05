@@ -8,6 +8,7 @@ import type {
 } from '@genshin-optimizer/gi/consts'
 import { useDatabase } from '@genshin-optimizer/gi/db-ui'
 import { SlotIcon } from '@genshin-optimizer/gi/svgicons'
+import AddIcon from '@mui/icons-material/Add'
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz'
 import {
   Box,
@@ -179,11 +180,46 @@ export function WeaponSwapCard({
           onClose={onClose}
           onChangeId={onChangeId}
         />
-        <Button onClick={onOpen} color="info" sx={{ borderRadius: '1em' }}>
-          <SwapHorizIcon sx={{ height: 100, width: 100 }} />
-        </Button>
+        <EmptySlotButton onClick={onOpen} label={t('chooseWeapon')} />
       </Box>
     </CardThemed>
+  )
+}
+
+/** Fills an empty equipment slot: reads as a place to put something, not as another solid button. */
+function EmptySlotButton({
+  onClick,
+  label,
+}: {
+  onClick: () => void
+  label: string
+}) {
+  return (
+    <Button
+      onClick={onClick}
+      variant="outlined"
+      color="inherit"
+      sx={{
+        alignSelf: 'stretch',
+        flexGrow: 1,
+        m: 1.5,
+        flexDirection: 'column',
+        gap: 1,
+        borderRadius: 2,
+        borderStyle: 'dashed',
+        borderColor: 'rgba(160, 180, 255, 0.22)',
+        color: 'text.secondary',
+        '&:hover': {
+          borderStyle: 'dashed',
+          borderColor: 'info.main',
+          color: 'info.light',
+          bgcolor: 'rgba(23, 147, 170, 0.08)',
+        },
+      }}
+    >
+      <AddIcon sx={{ fontSize: 36 }} />
+      {label}
+    </Button>
   )
 }
 
@@ -229,9 +265,7 @@ export function ArtSwapCard({
           onClose={onClose}
           onChangeId={onChangeId}
         />
-        <Button onClick={onOpen} color="info" sx={{ borderRadius: '1em' }}>
-          <SwapHorizIcon sx={{ height: 100, width: 100 }} />
-        </Button>
+        <EmptySlotButton onClick={onOpen} label={t('chooseArtifact')} />
       </Box>
     </CardThemed>
   )

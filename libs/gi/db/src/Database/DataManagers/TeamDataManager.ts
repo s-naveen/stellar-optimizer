@@ -78,13 +78,12 @@ export class TeamDataManager extends DataManager<
       if (key.startsWith('team_') && !this.set(key, {}))
         this.database.storage.remove(key)
   }
+  /** "Team N": the first number from (team count + 1) that no team is named with yet */
   newName() {
-    const existing = this.values
-    for (let num = existing.length + 1; num <= existing.length * 2; num++) {
-      const name = `Team Name ${num}`
-      if (existing.some((tc) => tc.name !== name)) return name
-    }
-    return 'Team Name'
+    const names = new Set(this.values.map((team) => team.name))
+    let num = this.values.length + 1
+    while (names.has(`Team ${num}`)) num++
+    return `Team ${num}`
   }
   override validate(obj: unknown): Team | undefined {
     let {

@@ -100,7 +100,7 @@ const InputInvis = styled('input')({
   display: 'none',
 })
 
-const LineBreak = styled('br')()
+const LineBreak = styled('br')({})
 
 function getDefaultSlotKey(
   artifactSet?: ArtifactSetKey
@@ -140,6 +140,13 @@ export function ArtifactEditor({
   const [show, setShow] = useState(false)
 
   const [artifact, artifactDispatch] = useReducer(artifactReducer, undefined)
+  // brief confirmation after "Add", since the form clears for the next artifact
+  const [justAdded, setJustAdded] = useState(0)
+  useEffect(() => {
+    if (!justAdded) return
+    const timer = setTimeout(() => setJustAdded(0), 2500)
+    return () => clearTimeout(timer)
+  }, [justAdded])
 
   const [modalShow, setModalShow] = useState(false)
 
@@ -242,7 +249,9 @@ export function ArtifactEditor({
           fixedSlotKey ??
           getDefaultSlotKey(newValue.setKey)
       }
-      if (newValue.rarity) newValue.level = artifact?.level ?? 0
+      // a new artifact starts fully levelled (+20 for 5★): that is what most entered artifacts are
+      if (newValue.rarity)
+        newValue.level = artifact?.level ?? 4 * newValue.rarity
       if (newValue.level)
         newValue.level = clamp(
           newValue.level,
@@ -792,12 +801,25 @@ export function ArtifactEditor({
             </Grid>
           )}
 
-          {/* Error alert */}
+          {/* Error alert: only a hint until the first substat is entered (a fresh +20 artifact
+              "has 0 rolls" by definition, which is not a mistake yet) */}
           {!isValid && (
-            <Alert variant="filled" severity="error">
+            <Alert
+              variant={
+                artifact?.substats.some((s) => s.key) ? 'filled' : 'outlined'
+              }
+              severity={
+                artifact?.substats.some((s) => s.key) ? 'error' : 'info'
+              }
+            >
               {errors.map((e, i) => (
                 <div key={i}>{e}</div>
               ))}
+            </Alert>
+          )}
+          {!!justAdded && !artifact && (
+            <Alert severity="success" variant="outlined">
+              {t('editor.added')}
             </Alert>
           )}
           {/* Buttons */}
@@ -823,6 +845,7 @@ export function ArtifactEditor({
                 startIcon={<Add />}
                 onClick={() => {
                   database.arts.new(artifact!)
+                  setJustAdded(Date.now())
                   if (!allowEmpty) {
                     setShow(false)
                     cancelEdit()
