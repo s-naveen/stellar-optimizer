@@ -163,8 +163,9 @@ export function WeaponSelectionModal({
                     >
                       <Box
                         component="img"
+                        loading="lazy"
                         src={weaponAsset(weaponKey, ascension >= 2)}
-                        sx={{ width: 100, height: 'auto' }}
+                        sx={{ width: 100, height: 'auto', aspectRatio: '1' }}
                         className={` grad-${weaponStat.rarity}star`}
                       />
                       <Box sx={{ flexGrow: 1, px: 1 }}>

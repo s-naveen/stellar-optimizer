@@ -111,6 +111,7 @@ export function ArtifactCardNano({
           <ArtifactTooltip art={art}>
             <Box
               component="img"
+              loading="lazy"
               src={artifactAsset(art.setKey, slotKey)}
               sx={{ m: -1, maxHeight: '110%', maxWidth: '110%' }}
             />

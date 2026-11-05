@@ -178,6 +178,7 @@ export function WeaponCardObj({
             >
               <Box
                 component="img"
+                loading="lazy"
                 src={img ?? ''}
                 width="auto"
                 height="100%"
