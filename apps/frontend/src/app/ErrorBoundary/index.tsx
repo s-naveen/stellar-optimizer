@@ -21,7 +21,7 @@ import {
 import type { ErrorInfo, ReactNode } from 'react'
 import { Component, Suspense } from 'react'
 import type { WithTranslation } from 'react-i18next'
-import { Trans, withTranslation } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import SpaghettiCode from './SpaghettiCode.png'
 
 interface Props extends WithTranslation {
@@ -105,49 +105,13 @@ class ErrorBoundary extends Component<Props, State> {
                             <li>{t`fixes.3`}</li>
                           </Typography>
                         </ul>
-                        <Typography>{t`p2`}</Typography>
+                        <Typography>{t`p2Save`}</Typography>
                         <ul>
                           <Typography>
                             <li>{t`report.1`}</li>
                           </Typography>
                           <Typography>
                             <li>{t`report.2`}</li>
-                          </Typography>
-                          <Typography>
-                            <li>
-                              <Trans t={t} i18nKey="report.3">
-                                Click
-                                <a
-                                  href={`${process.env.NX_URL_GITHUB_GO}/issues/new?title=Unexpected%20Crash%Occurred`}
-                                  style={{ color: 'white' }}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                >
-                                  here
-                                </a>
-                                to report on GitHub. Paste the text in the
-                                description, and include your JSON files (you
-                                might need to rename them to end with '.txt')
-                              </Trans>
-                            </li>
-                          </Typography>
-                          <Typography>
-                            <li>
-                              <Trans t={t} i18nKey="report.4">
-                                Or click
-                                <a
-                                  href={process.env.NX_URL_DISCORD_GO}
-                                  style={{ color: 'white' }}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                >
-                                  here
-                                </a>
-                                to report on Discord. Open the #🐛bug-reports
-                                channel, create a new thread and paste the text
-                                in the message box. Also upload your JSON files.
-                              </Trans>
-                            </li>
                           </Typography>
                         </ul>
                       </CardContent>
