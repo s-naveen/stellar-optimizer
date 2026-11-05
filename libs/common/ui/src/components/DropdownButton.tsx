@@ -58,6 +58,7 @@ export function DropdownButton({
         transition
         onClick={handleClose}
         sx={{ zIndex: 1500 }} // Appear above modals
+        modifiers={[{ name: 'offset', options: { offset: [0, 4] } }]}
       >
         {({ TransitionProps, placement }) => (
           <Grow
@@ -67,18 +68,22 @@ export function DropdownButton({
                 placement === 'bottom-start' ? 'left top' : 'left bottom',
             }}
           >
-            {/* Replicating previous menu paper */}
+            {/* same surface as the theme's menus; at least as wide as its button */}
             <Paper
-              sx={{
+              sx={(theme) => ({
+                minWidth: anchorEl?.offsetWidth,
                 maxHeight: '50vh',
-                backgroundImage:
-                  'linear-gradient(rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12))',
-                boxShadow:
-                  'rgb(0 0 0 / 20%) 0px 5px 5px -3px, rgb(0 0 0 / 14%) 0px 8px 10px 1px, rgb(0 0 0 / 12%) 0px 3px 14px 2px',
-                paddingTop: '1px',
-                paddingBottom: '1px',
                 overflow: 'auto',
-              }}
+                py: 0.5,
+                borderRadius: 2.5,
+                backgroundColor:
+                  theme.palette.contentLight?.main ??
+                  theme.palette.background.paper,
+                backgroundImage: 'none',
+                outline: `1px solid ${theme.palette.divider}`,
+                outlineOffset: -1,
+                boxShadow: '0 16px 40px rgba(0, 0, 0, 0.55)',
+              })}
             >
               <ClickAwayListener onClickAway={handleClose}>
                 <div>

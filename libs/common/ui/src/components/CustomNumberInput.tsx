@@ -1,5 +1,5 @@
 import type { ButtonProps, InputProps } from '@mui/material'
-import { Button, InputBase, styled } from '@mui/material'
+import { alpha, Button, InputBase, styled } from '@mui/material'
 import type { ChangeEvent, KeyboardEvent } from 'react'
 import { useCallback, useEffect, useState } from 'react'
 export type CustomNumberInputProps = Omit<InputProps, 'onChange'> & {
@@ -11,24 +11,28 @@ export type CustomNumberInputProps = Omit<InputProps, 'onChange'> & {
   disableNegative?: boolean
 }
 
+// tonal (a tint of the colour behind the normal text colour): the value stays readable whatever
+// the colour, and the input does not read as a button
 export const StyledInputBase = styled(InputBase)(
   ({ theme, color = 'primary' }) => ({
-    backgroundColor: theme.palette[color].main,
-    transition: 'all 0.5s ease',
+    backgroundColor: alpha(theme.palette[color].main, 0.16),
+    boxShadow: `inset 0 0 0 1px ${alpha(theme.palette[color].main, 0.3)}`,
+    transition: 'background-color 0.15s ease, box-shadow 0.15s ease',
     '&:hover': {
-      backgroundColor: theme.palette[color].dark,
+      backgroundColor: alpha(theme.palette[color].main, 0.24),
     },
     '&.Mui-focused': {
-      backgroundColor: theme.palette[color].dark,
+      backgroundColor: alpha(theme.palette[color].main, 0.24),
+      boxShadow: `inset 0 0 0 1px ${alpha(theme.palette[color].main, 0.6)}`,
     },
     '&.Mui-disabled': {
-      backgroundColor: theme.palette[color].dark,
+      backgroundColor: alpha(theme.palette[color].main, 0.08),
     },
   })
 )
 
 const Wrapper = styled(Button)(({ theme }) => ({
-  backgroundColor: theme.palette.primary.main,
+  backgroundColor: alpha(theme.palette.primary.main, 0.16),
   padding: 0,
   overflow: 'hidden',
   div: {

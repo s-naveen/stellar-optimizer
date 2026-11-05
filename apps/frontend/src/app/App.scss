@@ -22,7 +22,8 @@ div#formula > * {
 }
 
 body {
-  background: radial-gradient(ellipse at bottom, #1b2735 0%, #0c1020 100%);
+  /* the page itself paints its gradient (App.tsx); this only shows on overscroll */
+  background: #08080a;
 }
 
 @function random_range($min, $max) {
