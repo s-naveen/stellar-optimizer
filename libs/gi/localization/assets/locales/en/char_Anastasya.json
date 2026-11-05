@@ -1,0 +1,57 @@
+{
+  "blessingCond": "Current Blessing",
+  "love": "Blessing of Love (Tap)",
+  "honor": "Blessing of Honor (Hold)",
+  "burstCond": "To the New World active (Blessing of Love)",
+  "accoladesCond": "Accolades (after Elemental Skill)",
+  "accoladesNormal": "No one Sealed",
+  "accoladesLoveSeal": "Anastasya Sealed (Love Burst)",
+  "accoladesHonorSeal": "Teammates Sealed (Honor Burst)",
+  "crownSc": "Palestar Crown Stellar-Conduct DMG (Radiance)",
+  "crownSs": "Palestar Crown Stellar Swirl DMG (Radiance)",
+  "burstCrownSc": "Palestar Crown additional Stellar-Conduct DMG (To the New World)",
+  "burstCrownSs": "Palestar Crown additional Stellar Swirl DMG (To the New World)",
+  "triumphSc": "Palestar Edict: Triumph Stellar-Conduct DMG",
+  "triumphSs": "Palestar Edict: Triumph Stellar Swirl DMG",
+  "evernightSc": "The Evernight Yields to Dawn Stellar-Conduct DMG",
+  "evernightSs": "The Evernight Yields to Dawn Stellar Swirl DMG",
+  "honorSc": {
+    "0": "Blessed Armament 1-Hit Stellar-Conduct DMG (Radiance)",
+    "1": "Blessed Armament 2-Hit Stellar-Conduct DMG (Radiance)",
+    "2": "Blessed Armament 3-Hit Stellar-Conduct DMG (Radiance)",
+    "3": "Blessed Armament 4-Hit Stellar-Conduct DMG (Radiance)",
+    "4": "Blessed Armament 5-Hit Stellar-Conduct DMG (Radiance)"
+  },
+  "honorSs": {
+    "0": "Blessed Armament 1-Hit Stellar Swirl DMG (Radiance)",
+    "1": "Blessed Armament 2-Hit Stellar Swirl DMG (Radiance)",
+    "2": "Blessed Armament 3-Hit Stellar Swirl DMG (Radiance)",
+    "3": "Blessed Armament 4-Hit Stellar Swirl DMG (Radiance)",
+    "4": "Blessed Armament 5-Hit Stellar Swirl DMG (Radiance)"
+  },
+  "doomSc": {
+    "0": "Palestar Edict: Doom 1-Hit Stellar-Conduct DMG",
+    "1": "Palestar Edict: Doom 2-Hit Stellar-Conduct DMG",
+    "2": "Palestar Edict: Doom 3-Hit Stellar-Conduct DMG"
+  },
+  "doomSs": {
+    "0": "Palestar Edict: Doom 1-Hit Stellar Swirl DMG",
+    "1": "Palestar Edict: Doom 2-Hit Stellar Swirl DMG",
+    "2": "Palestar Edict: Doom 3-Hit Stellar Swirl DMG"
+  },
+  "a4ScNote": "Polestar Field: +2 stacks per release (instead of 1).",
+  "c6TriumphSc": "C6 Triumph (on swap) Stellar-Conduct DMG",
+  "c6TriumphSs": "C6 Triumph (on swap) Stellar Swirl DMG",
+  "c6DoomSc": "C6 Doom 3rd Hit (on tap) Stellar-Conduct DMG",
+  "c6DoomSs": "C6 Doom 3rd Hit (on tap) Stellar Swirl DMG",
+  "accoladesHint": "Set \"Accolades (after Elemental Skill)\" in the Elemental Skill section. Anastasya Sealed: her share is split among the 3 teammates (each 12% → 16%; at C1 the shared part is ×3 → 24%), she keeps hers only at C1. Teammates Sealed: Anastasya gets all shares (48%), Sealed teammates keep theirs only at C1. Assumes a 4-member party.",
+  "c1Hint": "Through Accolades. Each copy keeps the type of the character it came from: Cryo copy = +15% ATK, non-Cryo copy = +60 EM. Love (Anastasya Sealed): every ally also gets one full copy of hers (shared part x3). Honor (allies Sealed): Anastasya collects every ally's copy.",
+  "c4Hint": "All Accolades bonuses (CRIT DMG, C1 ATK and EM) are multiplied by 1.3.",
+  "dispCdSelf": "CRIT DMG — Anastasya",
+  "dispCdOthers": "CRIT DMG — each ally",
+  "dispAtkSelf": "ATK — Anastasya (C1)",
+  "dispAtkCryo": "ATK — each Cryo ally (C1)",
+  "dispEmOthers": "Elemental Mastery — each non-Cryo ally (C1)",
+  "dispEmSelf": "Elemental Mastery — Anastasya (C1)",
+  "dispAtkNonCryo": "ATK — each non-Cryo ally (C1)"
+}

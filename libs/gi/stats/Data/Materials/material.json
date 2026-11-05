@@ -24005,5 +24005,41 @@
   },
   "WhereFishSwimAndWatersSing": {
     "type": "MATERIAL_FURNITURE_FORMULA"
+  },
+  "Mitya": {
+    "type": "MATERIAL_AVATAR"
+  },
+  "MityasStellaFortuna": {
+    "type": "MATERIAL_AVATAR_TALENT_MATERIAL"
+  },
+  "Kristallfold": {
+    "type": "MATERIAL_EXCHANGE"
+  },
+  "ShatteredStabilityAnchor": {
+    "type": "MATERIAL_AVATAR_MATERIAL"
+  },
+  "Danica": {
+    "type": "MATERIAL_AVATAR"
+  },
+  "Anastasya": {
+    "type": "MATERIAL_AVATAR"
+  },
+  "DanicasStellaFortuna": {
+    "type": "MATERIAL_AVATAR_TALENT_MATERIAL"
+  },
+  "AnastasyasStellaFortuna": {
+    "type": "MATERIAL_AVATAR_TALENT_MATERIAL"
+  },
+  "FairyWormwood": {
+    "type": "MATERIAL_EXCHANGE"
+  },
+  "DamagedFlint": {
+    "type": "MATERIAL_AVATAR_MATERIAL"
+  },
+  "Valeriy": {
+    "type": "MATERIAL_AVATAR"
+  },
+  "ValeriysStellaFortuna": {
+    "type": "MATERIAL_AVATAR_TALENT_MATERIAL"
   }
 }

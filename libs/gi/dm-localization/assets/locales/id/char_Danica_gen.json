@@ -1,0 +1,202 @@
+{
+  "name": "Danica",
+  "title": "",
+  "description": "",
+  "constellationName": "",
+  "auto": {
+    "name": "test Normal Attack Danica",
+    "fields": {
+      "normal": {
+        "0": "<strong>Normal Attack</strong>",
+        "1": "Melancarkan hingga 4 serangan berturut-turut."
+      },
+      "charged": {
+        "0": "<strong>Charged Attack</strong>",
+        "1": "Terus menguras Stamina untuk melancarkan tebasan berkelanjutan.",
+        "2": "Diakhiri dengan sebuah tebasan yang sangat kuat."
+      },
+      "plunging": {
+        "0": "<strong>Plunging Attack</strong>",
+        "1": "Menerjang dari udara untuk menghantam tanah, menyerang semua musuh di jalurnya dan mengakibatkan DMG Area saat mendarat."
+      }
+    },
+    "skillParams": {
+      "0": "DMG Tahap 1",
+      "1": "DMG Tahap 2",
+      "2": "DMG Tahap 3",
+      "3": "DMG Tahap 4",
+      "4": "DMG Berputar Charged Attack",
+      "5": "DMG Akhir Charged Attack",
+      "6": "Konsumsi Stamina Charged Attack",
+      "7": "Durasi Maksimum",
+      "8": "DMG Selama Plunging",
+      "9": "DMG Plunging Attack Rendah/Tinggi",
+      "10": "",
+      "11": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "skill": {
+    "name": "test Danica Elemental Skill",
+    "description": {
+      "0": "testAyunkan rantai dan jangkar untuk menimbulkan <electro>Electro DMG AoE</electro> kepada musuh di sekitar, lalu memanggil <strong>Jangkar</strong> yang mengikuti gerakan Karakter aktif saat ini.",
+      "1": "<br/>",
+      "2": "Selama <strong>Jangkar</strong> ada, Jangkar akan memberikan bantuan dalam pertempuran dengan cara yang berbeda tergantung apakah Danica sedang berada di lapangan atau tidak.",
+      "3": "<strong>Saat Danica Berada di Belakang</strong>",
+      "4": "Saat serangan <electro>Electro</electro> atau <cryo>Cryo</cryo> Karakter aktif dalam party mengenai musuh, <strong>Jangkar</strong> akan melancarkan serangan terkoordinasi, menimbulkan <electro>Electro DMG AoE</electro> di tempat musuh berada. Efek ini dapat dipicu paling banyak sekali setiap 1,5 detik.",
+      "5": "<strong>Saat Danica Berada di Lapangan</strong>",
+      "6": "Normal Attack Danica akan berubah menjadi Special Attack menggunakan jangkar, menimbulkan <electro>Electro DMG</electro> yang tidak bisa ditimpa Elemental Infusion lainnya. DMG ini dianggap sebagai DMG Normal Attack.",
+      "7": "<br/>",
+      "8": "<strong>Nilai Gairah</strong>",
+      "9": "Selama Jangkar ada, Danica dapat mengumpulkan <tooltip ns=tooltips_gen baseKey18=11470001 values=[\"50\",\"25\",\"100\"]><strong>Nilai Gairah</strong></tooltip> dengan cara melancarkan Special Normal Attack Jangkar, atau saat serangan <cryo>Cryo</cryo> atau <electro>Electro</electro> Karakter aktif dalam party mengenai musuh. Saat Nilai Gairah mencapai batas maksimum, tergantung apakah Danica berada di lapangan atau tidak, semua Nilai Gairah dapat dikonsumsi untuk melancarkan Elemental Skill Khusus yang berbeda dan memasuki Mode Pelayan yang sesuai:",
+      "10": "<strong>Defense Maid</strong>",
+      "11": "Saat Danica berada di belakang, ganti ke Danica untuk masuk ke lapangan, lalu secara otomatis melancarkan <tooltip ns=tooltips_gen baseKey18=11470002 values=[]><strong>「Swap-In Skill E2」</strong></tooltip> dan memasuki <strong>Defense Maid</strong>. Membuat Perisai bagi Karakter aktif dan menyegarkan Durasi Jangkar. Selama periode ini, <strong>「On-Field Skill E2」</strong> tidak dapat dilancarkan.",
+      "12": "<strong>Battle Maid</strong>",
+      "13": "Saat Danica berada di lapangan, Elemental Skill akan digantikan dengan <tooltip ns=tooltips_gen baseKey18=11470003 values=[\"5\"]><strong>「On-Field Skill E2」</strong></tooltip>. Setelah dilancarkan, Danica memasuki <strong>Battle Maid</strong>. Selama periode ini, setelah melancarkan「On-Field Skill E2」, Special Normal Attack Jangkar dapat melewati beberapa rangkaian Normal Attack. Selama periode ini, <strong>「Swap-In Skill E2」</strong> tidak dapat dilancarkan.",
+      "14": "<br/>",
+      "15": "Selain itu, saat Jangkar menghilang, Mode Pelayan akan berakhir. Selama Jangkar ada, Battle Maid dan Defense Maid tidak dapat aktif secara bersamaan. Saat memasuki salah satu Mode Pelayan, Mode Pelayan yang lainnya tidak dapat dimasuki."
+    },
+    "skillParams": {
+      "0": "DMG Skill",
+      "1": "Stellar-Conduct DMG Skill E2 Saat Memasuki Medan___",
+      "2": "Stellar-Conduct DMG Skill E2 Saat di Medan___",
+      "3": "DMG Serangan Terkoordinasi",
+      "4": "Ketahanan Perisai",
+      "5": "Electro DMG Normal Attack 船锚__ Tahap 1",
+      "6": "Electro DMG Normal Attack 船锚__ Tahap 2",
+      "7": "Electro DMG Normal Attack 船锚__ Tahap 3",
+      "8": "Electro DMG Normal Attack 船锚__ Tahap 4",
+      "9": "Durasi 船锚__",
+      "10": "Cooldown ____",
+      "11": "Cooldown",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "burst": {
+    "name": "Elemental Burst Danica",
+    "description": {
+      "0": "testMenggunakan etika pelayan terdekat Tsaritsa untuk menguasai medan perang, melancarkan 5 serangan area besar, memberikan <electro>DMG Electro Area</electro>.",
+      "1": "<br/>",
+      "2": "<strong>Radiance: Stellar-Conduct</strong>:",
+      "3": [
+        "Serangan ke-1 dan ke-5 akan memberikan tambahan <electro>DMG Electro Area</electro> yang dihitung sebagai DMG reaksi Stellar-Conduct.",
+        "Dalam beberapa waktu setelah melancarkan skill ini, apabila Danica berada dalam Mode Pelayan, Mode Pelayan yang sedang aktif akan di-Enhance, dan Danica akan memperoleh efek penguatan sesuai mode yang aktif:"
+      ],
+      "4": "Saat Danica berada dalam mode <tooltip ns=tooltips_gen baseKey18=11470004 values=[]><strong>Defense Maid</strong></tooltip>, ATK seluruh anggota party akan meningkat.",
+      "5": "Saat Danica berada dalam mode <tooltip ns=tooltips_gen baseKey18=11470005 values=[]><strong>Combat Maid</strong></tooltip>, seluruh poin Excitement akan langsung dipulihkan dan DMG yang diakibatkan oleh <strong>\"Skill E2 On-Field\"</strong> Danica akan meningkat.",
+      "6": "<br/>",
+      "7": "Saat Mode Pelayan berakhir, status efek penguatan akan dihapus."
+    },
+    "skillParams": {
+      "0": "Electro DMG Tahap 1/Stellar-Conduct DMG",
+      "1": "Electro DMG Tahap 2/3/4",
+      "2": "Electro DMG Tahap 5/Stellar-Conduct DMG",
+      "3": "Rasio Bonus ATK",
+      "4": "Batas Bonus ATK",
+      "5": "Peningkatan DMG E2 Saat di Medan",
+      "6": "Durasi Efek Penguatan",
+      "7": "Cooldown",
+      "8": "Konsumsi Energy",
+      "9": "",
+      "10": "",
+      "11": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "passive1": {
+    "name": "testTalenta Ascension 1",
+    "description": {
+      "0": "test<strong>jangkar</strong> musuh di sekitar <electro>Electro RES</electro>-nya berkurang 15%.",
+      "1": "<br/>",
+      "2": "<strong>Radiance: Stellar-Conduct</strong>: <electro>Electro RES</electro> musuh di sekitar jangkar berkurang tambahan 15%, dan <cryo>Cryo RES</cryo>-nya berkurang 30%."
+    }
+  },
+  "passive2": {
+    "name": "Talenta Ascension 2",
+    "description": {
+      "0": "test Setelah melancarkan <strong>「登场技E2」</strong>, ATK Danica sendiri meningkat sebesar 20%.",
+      "1": "Setelah melancarkan <strong>「在场技E2」</strong>, ATK SPD Danica sendiri meningkat sebesar 20%, dan saat Normal Attack jangkar khusus mengenai musuh, akan mendapatkan tambahan 25 poin <strong>兴奋值</strong>. Efek di atas dapat ditumpuk maksimal 3 kali.",
+      "2": "Efek di atas akan berlangsung hingga keluar dari status Defense Maid atau Battle Maid saat ini, dan memicu ulang akan memperbarui Durasi."
+    }
+  },
+  "passive3": {
+    "name": "test Talenta Bintang",
+    "description": {
+      "0": "Saat Karakter di dalam party memicu reaksi Superconduct, reaksi ini akan diubah menjadi reaksi Stellar-Conduct. DMG dasar reaksi Stellar-Conduct Karakter di dalam party meningkat berdasarkan ATK Danica: Setiap poin ATK meningkatkan DMG dasar reaksi Stellar-Conduct sebesar 0,7%, dapat meningkat hingga maksimum 14% dengan cara ini.",
+      "1": "Selain itu, saat Danica berada dalam area <tooltip ns=tooltips_gen baseKey18=11330003 values=[]><strong>Polestar Field</strong></tooltip>, ia akan memasuki status <strong>Radiance: Stellar-Conduct</strong>."
+    }
+  },
+  "passive": {
+    "name": "Talent for Daily Life",
+    "description": {
+      "0": "Saat Karakter sendiri di dalam party berada di bawah pengaruh lingkungan yang sangat dingin, Movement SPD meningkat 10%, konsumsi Stamina berkurang 10%."
+    }
+  },
+  "constellation1": {
+    "name": "test命座1",
+    "description": {
+      "0": "test Saat Danica melancarkan <strong>\"Point Man's Horn E2\"</strong> atau <strong>\"On-Field Skill E2\"</strong>, pulihkan 20 poin Energy untuk dirinya sendiri. Efek ini dapat dipicu maksimal sekali setiap 14 detik.",
+      "1": "Selain itu, efek penguatan <strong>Defense Maid</strong> dalam <strong>Elemental Burst</strong> meningkat 80%, dan efek penguatan <strong>Battle Maid</strong> meningkat 120%."
+    }
+  },
+  "constellation2": {
+    "name": "test命座2",
+    "description": {
+      "0": "Selama jangkar test ada, Danica memberikan 7 tumpukan \"Bersulang\" kepada semua Karakter di sekitarnya. Ketika semua Karakter di sekitarnya telah menggunakan total 6 tumpukan \"Bersulang\", Karakter aktif akan mendapatkan 1 tumpukan \"Bersulang\" tambahan.",
+      "1": "\"Bersulang\": Saat Karakter party menimbulkan reaksi Stellar-Conduct, 1 tumpukan \"Bersulang\" akan dikonsumsi, meningkatkan DMG yang diakibatkan. Peningkatannya setara dengan 100% ATK Danica.",
+      "2": "Selain itu, saat Danica menimbulkan reaksi Stellar-Conduct dalam mode Battle Maid, semua tumpukan \"Bersulang\" yang dimilikinya sendiri saat itu akan dikonsumsi. Setiap tumpukan akan meningkatkan DMG yang diakibatkan, dengan peningkatan setara dengan 150% ATK Danica.",
+      "3": "Saat jangkar test dipanggil ulang atau Durasi jangkar test diperbarui, tumpukan \"Bersulang\" akan direset."
+    }
+  },
+  "constellation3": {
+    "name": "testKonstelasi 3",
+    "description": {
+      "0": "Meningkatkan 3 level Skill <strong><tooltip ns=char_Danica_gen baseKey18=burst>Elemental Burst</tooltip></strong>.",
+      "1": "Maksimum: Lv. 15."
+    }
+  },
+  "constellation4": {
+    "name": "Konstelasi 4",
+    "description": {
+      "0": "Saat Karakter aktif yang dilindungi Perisai Danica memberikan DMG Stellar-Conduct kepada musuh, memulihkan 3 poin Energy untuk Karakter lain yang berada di dekatnya dalam party, efek ini dapat berlaku maksimal 1 kali setiap 3,5 detik.",
+      "1": "Selain itu, saat Danica memasuki status Battle Maid, Perisai juga akan terbentuk, namun jika Danica meninggalkan arena selama status ini berlangsung, Perisai tersebut akan hancur."
+    }
+  },
+  "constellation5": {
+    "name": "Konstelasi 5",
+    "description": {
+      "0": "Meningkatkan 3 level <strong><tooltip ns=char_Danica_gen baseKey18=skill>Elemental Skill</tooltip></strong>.",
+      "1": "Maksimum: Lv. 15."
+    }
+  },
+  "constellation6": {
+    "name": "testKonstelasi 6",
+    "description": {
+      "0": "testSelama Jangkar Kapal hadir, DMG Stellar-Conduct yang ditimbulkan oleh Karakter party di sekitar bertumbuh 20%.",
+      "1": "Selain itu, setelah Danica memasuki status <tooltip ns=tooltips_gen baseKey18=11470004 values=[]><strong>Maid Defense</strong></tooltip>, setiap 1.000 poin ATK Danica akan meningkatkan DMG Stellar-Conduct yang ditimbulkan oleh Karakter aktif sebesar 10%, maksimum 40%.",
+      "2": "Setelah memasuki status <tooltip ns=tooltips_gen baseKey18=11470005 values=[]><strong>Maid Tempur</strong></tooltip>, setiap 500 poin ATK Danica akan meningkatkan CRIT Rate skill on-field E2 miliknya sendiri sebesar 2,5%, dan CRIT DMG yang ditimbulkan sebesar 25%. CRIT Rate maksimum 10%, CRIT DMG maksimum 100%.",
+      "3": "Efek di atas akan bertahan hingga keluar dari status maid kali ini."
+    }
+  }
+}

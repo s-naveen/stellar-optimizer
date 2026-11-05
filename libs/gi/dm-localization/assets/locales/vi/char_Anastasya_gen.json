@@ -1,0 +1,205 @@
+{
+  "name": "Anastasya",
+  "title": "",
+  "description": "",
+  "constellationName": "",
+  "auto": {
+    "name": "Bình Minh Mùa Đông",
+    "fields": {
+      "normal": {
+        "0": "<strong>Tấn Công Thường</strong>",
+        "1": "Thực hiện tối đa 5 lần bắn tên liên tiếp."
+      },
+      "charged": {
+        "0": "<strong>Trọng Kích</strong>",
+        "1": "Tiến hành <strong>ngắm bắn</strong> chuẩn hơn, có sát thương cao hơn.",
+        "2": "Khi ngắm bắn, Nguyên Tố Băng sẽ tích tụ trên mũi tên. Mũi tên đầy băng sẽ gây <cryo>Sát Thương Nguyên Tố Băng</cryo>."
+      },
+      "plunging": {
+        "0": "<strong>Tấn Công Khi Đáp</strong>",
+        "1": "Bắn mưa tên xuống mặt đất, đồng thời lao nhanh xuống đất, tấn công kẻ địch trên đường và gây sát thương phạm vi khi chạm đất."
+      }
+    },
+    "skillParams": {
+      "0": "Sát thương lần 1",
+      "1": "Sát thương lần 2",
+      "2": "Sát thương lần 3",
+      "3": "Sát thương lần 4",
+      "4": "Sát thương lần 5",
+      "5": "Ngắm bắn",
+      "6": "Tụ lực ngắm bắn",
+      "7": "Sát thương khi đáp",
+      "8": "Sát thương khi đáp từ độ cao thấp/cao",
+      "9": "",
+      "10": "",
+      "11": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "skill": {
+    "name": "Sao Cực Phán Xét",
+    "description": {
+      "0": "Hé lộ bản chất của <tooltip ns=tooltips_gen baseKey18=11490001 values=[]><strong>\"Siêu Việt\"</strong></tooltip>, gây <cryo>Sát Thương Phạm Vi Nguyên Tố Băng</cryo> và dựa trên nhấn, nhấn giữ để giải phóng quyền năng theo cách thức khác nhau.",
+      "1": "<br/>",
+      "2": "<strong>Nhấn</strong>",
+      "3": "Ban Chúc Phúc <strong>\"Yêu Thương\"</strong> và tung ra <strong>Vương Miện Sao Nhạt</strong> được vương triều truyền lại.",
+      "4": "<strong>Vương Miện Sao Nhạt</strong> sẽ đi theo nhân vật trong trận hiện tại, mỗi 2s sẽ gây hai lần <cryo>Sát Thương Phạm Vi Nguyên Tố Băng</cryo> cho kẻ địch xung quanh.",
+      "5": "<tooltip ns=tooltips_gen baseKey18=11500004 values=[]><strong>Tỏa Sáng: Tinh Tú Lấp Lánh</strong></tooltip>: Lần sát thương thứ hai do <strong>Vương Miện Sao Nhạt</strong> gây ra trong mỗi lần tấn công sẽ chuyển thành gây <cryo>Sát Thương Phạm Vi Nguyên Tố Băng</cryo> được xem là sát thương phản ứng Tinh Tú Lấp Lánh tương ứng.",
+      "6": "<br/>",
+      "7": "<strong>Nhấn Giữ</strong>",
+      "8": "Ban Chúc Phúc <strong>\"Vinh Quang\"</strong> và thể hiện thương thuật điêu luyện được vương triều truyền lại.",
+      "9": "Khi ở chế độ này, Tấn Công Thường của Anastasya sẽ chuyển thành dùng <strong>Thương Hộ Thánh - Dekhomenon</strong> để tiến hành tối đa 5 đòn tấn công liên tiếp, gây <cryo>Sát Thương Phạm Vi Nguyên Tố Băng</cryo> không thể bị thay thế, và không thể tiến hành Trọng Kích.",
+      "10": "<strong>Tỏa Sáng: Tinh Tú Lấp Lánh</strong>: Khi dùng <strong>Thương Hộ Thánh</strong> thực hiện Tấn Công Thường, sát thương cuối cùng do mỗi đòn tấn công gây ra sẽ chuyển thành gây <cryo>Sát Thương Phạm Vi Nguyên Tố Băng</cryo> được xem là sát thương phản ứng Tinh Tú Lấp Lánh tương ứng."
+    },
+    "skillParams": {
+      "0": "Sát thương tức thời khi nhấn",
+      "1": "Sát thương tức thời khi nhấn giữ",
+      "2": "Sát thương Nguyên Tố Băng từ Vương Miện Sao Nhạt",
+      "3": "Sát thương Tinh-Siêu Dẫn/Tinh-Khuếch Tán từ Vương Miện Sao Nhạt",
+      "4": "Sát thương Nguyên Tố Băng lần 1",
+      "5": "Sát thương Nguyên Tố Băng lần 2",
+      "6": "Sát thương Nguyên Tố Băng lần 3",
+      "7": "Sát thương Nguyên Tố Băng lần 4",
+      "8": "Sát thương Nguyên Tố Băng lần 5",
+      "9": "Sát thương Tinh-Siêu Dẫn/Tinh-Khuếch Tán đòn 1",
+      "10": "Sát thương Tinh-Siêu Dẫn/Tinh-Khuếch Tán đòn 2",
+      "11": "Sát thương Tinh-Siêu Dẫn/Tinh-Khuếch Tán đòn 3",
+      "12": "Sát thương Tinh-Siêu Dẫn/Tinh-Khuếch Tán đòn 4",
+      "13": "Sát thương Tinh-Siêu Dẫn/Tinh-Khuếch Tán đòn 5",
+      "14": "Vương Miện Sao Nhạt duy trì",
+      "15": "Chúc Phúc \"Vinh Quang\" duy trì",
+      "16": "CD",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "burst": {
+    "name": "Gửi Thế Giới Mới",
+    "description": {
+      "0": "Dựa trên <tooltip ns=tooltips_gen baseKey18=11490001 values=[]><strong>Chúc Phúc</strong></tooltip> mà Anastasya sở hữu, có thể thi triển Kỹ Năng Nộ tương ứng và sử dụng quyền năng <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Phong Ấn</strong></tooltip> theo cách khác nhau.",
+      "1": "<br/>",
+      "2": "<strong>Gửi Thế Giới Mới</strong>",
+      "3": "Có thể thi triển khi sở hữu Chúc Phúc <strong>\"Yêu Thương\"</strong>. Gây <cryo>Sát Thương Phạm Vi Nguyên Tố Băng</cryo>, đồng thời <tooltip ns=tooltips_gen baseKey18=11490005 values=[]><strong>Đóng Băng</strong></tooltip> thời gian duy trì của Vương Miện Sao Nhạt.",
+      "4": "Trong thời gian này, tất cả nhân vật trong đội ở gần sẽ tăng sát thương phản ứng Tinh Tú Lấp Lánh gây ra, và khi Vương Miện Sao Nhạt tấn công sẽ gây thêm một lần <cryo>Sát Thương Phạm Vi Nguyên Tố Băng</cryo> được xem là sát thương phản ứng Tinh-Siêu Dẫn; Khi Anastasya chuyển sang dự bị, sẽ tự <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Phong Ấn</strong></tooltip> bản thân, và khi kết thúc <strong>Phong Ấn</strong> sẽ có thể thi triển Kỹ Năng Nguyên Tố giải phong ấn đặc biệt <tooltip ns=tooltips_gen baseKey18=11490003 values=[]><strong>Sắc Lệnh Sao Nhạt - Khải Hoàn</strong></tooltip>.",
+      "5": "<br/>",
+      "6": "<strong>Đêm Dài Sắp Sáng</strong>",
+      "7": "Có thể thi triển khi sở hữu Chúc Phúc <strong>\"Vinh Quang\"</strong>. Giải phóng sức mạnh của <strong>Thương Hộ Thánh</strong>, gây <cryo>Sát Thương Phạm Vi Nguyên Tố Băng</cryo> được xem là sát thương phản ứng Tinh-Siêu Dẫn, đồng thời <tooltip ns=tooltips_gen baseKey18=11490005 values=[]><strong>Đóng Băng</strong></tooltip> thời gian duy trì của Chúc Phúc này.",
+      "8": "Ngoài ra, Anastasya còn <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Phong Ấn</strong></tooltip> tối đa ba nhân vật khác trong đội, và khi kết thúc <strong>Phong Ấn</strong>, sẽ có thể thi triển Kỹ Năng Nguyên Tố giải phong ấn đặc biệt <tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>Sắc Lệnh Sao Nhạt - Hủy Diệt</strong></tooltip>.",
+      "9": "<br/>",
+      "10": "<strong>Tỏa Sáng: Tinh Tú Lấp Lánh</strong>: Tất cả sát thương phản ứng Tinh-Siêu Dẫn kể trên đổi thành gây <cryo>Sát Thương Phạm Vi Nguyên Tố Băng</cryo> được xem là sát thương phản ứng Tinh Tú Lấp Lánh tương ứng."
+    },
+    "skillParams": {
+      "0": "Sát thương tức thời Gửi Thế Giới Mới",
+      "1": "Gửi Thế Giới Mới tăng sát thương phản ứng Tinh Tú Lấp Lánh",
+      "2": "Sát thương Tinh-Siêu Dẫn/Tinh-Khuếch Tán từ Vương Miện Sao Nhạt",
+      "3": "Sát thương Tinh-Siêu Dẫn/Tinh-Khuếch Tán từ Khải Hoàn",
+      "4": "Sát thương Tinh-Siêu Dẫn/Tinh-Khuếch Tán từ Đêm Dài Sắp Sáng",
+      "5": "Sát thương Nguyên Tố Băng từ Hủy Diệt đòn 1",
+      "6": "Sát thương Tinh-Siêu Dẫn/Tinh-Khuếch Tán từ Hủy Diệt đòn 1",
+      "7": "Sát thương Tinh-Siêu Dẫn/Tinh-Khuếch Tán từ Hủy Diệt đòn 2",
+      "8": "Sát thương Tinh-Siêu Dẫn/Tinh-Khuếch Tán từ Hủy Diệt đòn 3",
+      "9": "Gửi Thế Giới Mới duy trì",
+      "10": "Đêm Dài Sắp Sáng duy trì",
+      "11": "CD",
+      "12": "Năng Lượng Nguyên Tố",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "passive1": {
+    "name": "Uy Quyền Đêm Huy Hoàng",
+    "description": {
+      "0": "Sau khi Anastasya thi triển Kỹ Năng Nguyên Tố <strong>Sao Cực Phán Xét</strong>, tất cả nhân vật trong đội sẽ nhận <strong>Công Huân</strong> duy trì 20s: Tăng 12% Sát Thương Bạo Kích.",
+      "1": "Khi nhân vật trong đội bị <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Phong Ấn</strong></tooltip>, cho đến 8s sau khi kết thúc Phong Ấn, <strong>Công Huân</strong> của nhân vật này sẽ tạm thời được chia đều cho các nhân vật chưa bị <strong>Phong Ấn</strong>."
+    }
+  },
+  "passive2": {
+    "name": "Tiếc Thương Không Thể Cứu Vãn",
+    "description": {
+      "0": "Khi Anastasya trong đội, phản ứng Tinh Tú Lấp Lánh do tất cả nhân vật trong đội kích hoạt sẽ lần lượt nhận các hiệu quả sau:",
+      "1": [
+        "<strong>Phản ứng Tinh-Siêu Dẫn</strong>: Mỗi khi Vùng Trục Sao giải phóng sức mạnh nguyên tố, sẽ nhận thêm lượng sức mạnh nguyên tố nhất định, và khi tạo ra Pha Lê Tinh Huy, cũng sẽ cung cấp lượng sức mạnh nguyên tố nhất định cho Vùng Trục Sao;",
+        "<strong>Phản ứng Tinh-Khuếch Tán</strong>: Cụm Gió Tinh Huy và Cụm Gió Phiêu Du khi được tạo ra sẽ lập tức tăng đến cấp 2, hiệu quả này mỗi 1s tối đa kích hoạt một lần; Ngoài ra, hệ số phản ứng cơ bản của phản ứng Tinh-Khuếch Tán tăng 15%."
+      ]
+    }
+  },
+  "passive3": {
+    "name": "Chúc Phúc Tinh Tú - Sự Trở Về Hoàn Mỹ",
+    "description": {
+      "0": "Khi ở trong <strong>Vùng Trục Sao</strong>/Trong 8s sau khi nhân vật trong đội kích hoạt phản ứng Tinh-Khuếch Tán ở gần, Anastasya sẽ phân biệt tiến vào trạng thái <strong>Tỏa Sáng: Tinh-Siêu Dẫn</strong>/<strong>Tỏa Sáng: Tinh-Khuếch Tán</strong>.",
+      "1": "Khi nhân vật trong đội kích hoạt phản ứng Siêu Dẫn/Khuếch Tán Nguyên Tố Băng, sẽ chuyển thành phản ứng Tinh-Siêu Dẫn/Tinh-Khuếch Tán, đồng thời tăng sát thương cơ bản của các phản ứng kể trên do nhân vật trong đội gây ra dựa trên Tấn Công của Anastasya: Mỗi 100 điểm Tấn Công sẽ tăng 0.7% sát thương cơ bản của các phản ứng kể trên, tối đa tăng 14% sát thương theo cách này."
+    }
+  },
+  "passive": {
+    "name": "Ân Điển Tuyết Rơi",
+    "description": {
+      "0": "Tại khu vực Snezhnaya (ngoại trừ Nod-Krai), khi nhân vật trong đội không trong trạng thái chiến đấu, sẽ dần hồi phục HP.",
+      "1": "Ngoài ra, khi Anastasya ở trong đội, năng lượng của Mắt Xám sẽ không giảm; Nếu năng lượng dưới 30%, sẽ lập tức hồi phục đến 30%.",
+      "2": "Hiệu quả trên không có tác dụng trong Bí Cảnh, Vùng Đất Thảo Phạt, La Hoàn Thâm Cảnh."
+    }
+  },
+  "constellation1": {
+    "name": "Gửi Ngày Cũ, Gửi Trái Tim Chưa Từng Tắt Lịm",
+    "description": {
+      "0": "Thiên Phú Đột Phá <tooltip ns=char_Anastasya_gen baseKey18=passive1><strong>Uy Quyền Đêm Huy Hoàng</strong></tooltip> sẽ được cường hóa: <strong>Công Huân</strong> sẽ còn khiến nhân vật <cryo>Nguyên Tố Băng</cryo> tăng 15% Tấn Công, khiến nhân vật nguyên tố khác tăng 60 điểm Tinh Thông Nguyên Tố.",
+      "1": "Ngoài ra, khi nhân vật bị <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Phong Ấn</strong></tooltip>, việc chia đều <strong>Công Huân</strong> sẽ chuyển thành sao chép. Khi Anastasya bị <strong>Phong Ấn</strong>, <strong>Công Huân</strong> ban cho nhân vật khác sẽ chuyển thành 300% mức gốc."
+    }
+  },
+  "constellation2": {
+    "name": "Gửi Đông Lạnh, Gửi Người Cùng Cạn Ly Giá Buốt",
+    "description": {
+      "0": "Sau khi thi triển Kỹ Năng Nguyên Tố <strong>Sao Cực Phán Xét</strong>, dựa trên Chúc Phúc mà Anastasya sở hữu, sẽ lần lượt nhận được các hiệu quả sau:",
+      "1": [
+        "<strong>\"Yêu Thương\"</strong>: Sát thương phản ứng Tinh Tú Lấp Lánh do tất cả nhân vật trong đội gây ra sẽ tăng 60% Sát Thương Bạo Kích, duy trì 30s;",
+        "<strong>\"Vinh Quang\"</strong>: Tấn Công Thường, Kỹ Năng Nộ <strong>Đêm Dài Sắp Sáng</strong>, Kỹ Năng Nguyên Tố hóa giải phong ấn <tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>Sắc Lệnh Sao Nhạt - Hủy Diệt</strong></tooltip> của Anastasya sẽ gây sát thương bằng 125% mức gốc, duy trì 15s."
+      ],
+      "2": "<br/>",
+      "3": "Ngoài ra, sát thương phản ứng Tinh Tú Lấp Lánh do tất cả nhân vật trong đội ở gần gây ra sẽ <tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>Thăng Tiến</strong></tooltip> 5%."
+    }
+  },
+  "constellation3": {
+    "name": "Nhìn Đêm Trắng, Đốt Cháy Hết Nỗi Đau Tử Nạn",
+    "description": {
+      "0": "Cấp kỹ năng <strong><tooltip ns=char_Anastasya_gen baseKey18=burst>Gửi Thế Giới Mới</tooltip></strong> +3.",
+      "1": "Tăng tối đa đến cấp 15."
+    }
+  },
+  "constellation4": {
+    "name": "Gửi Bạo Chúa, Cất Lên Khúc Hoan Ca Phản Kháng",
+    "description": {
+      "0": "<strong><tooltip ns=char_Anastasya_gen baseKey18=passive1>Công Huân</tooltip></strong> nhận được cường hóa: Hiệu quả tăng Sát Thương Bạo Kích, Tấn Công và Tinh Thông Nguyên Tố đổi thành 130% mức gốc."
+    }
+  },
+  "constellation5": {
+    "name": "Tiến Quân Đi, Để Hủ Bại Hóa Thành Tro Bụi",
+    "description": {
+      "0": "Cấp kỹ năng <strong><tooltip ns=char_Anastasya_gen baseKey18=skill>Sao Cực Phán Xét</tooltip></strong> +3.",
+      "1": "Tăng tối đa đến cấp 15."
+    }
+  },
+  "constellation6": {
+    "name": "Hãy Ngước Lên, Bình Minh Thuần Khiết Sắp Sáng Rồi",
+    "description": {
+      "0": "Sau khi thi triển Kỹ Năng Nguyên Tố <strong>Sao Cực Phán Xét</strong>, dựa trên Chúc Phúc mà Anastasya sở hữu, sẽ lần lượt nhận được các hiệu quả sau:",
+      "1": [
+        "<strong>\"Yêu Thương\"</strong>: Lần tới khi đổi nhân vật khác ra trận, sẽ kích hoạt một lần hiệu quả tương đương <tooltip ns=tooltips_gen baseKey18=11490003 values=[]><strong>Sắc Lệnh Sao Nhạt - Khải Hoàn</strong></tooltip>, gây sát thương bằng 250% mức gốc; Ngoài ra, sát thương phản ứng Tinh Tú Lấp Lánh do tất cả nhân vật trong đội ở gần gây ra sẽ <tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>Thăng Tiến</strong></tooltip> 10%;",
+        "<strong>\"Vinh Quang\"</strong>: Lần tới khi nhấn Kỹ Năng Nguyên Tố, sẽ kích hoạt một lần hiệu quả tương đương đòn tấn công thứ ba của <tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>Sắc Lệnh Sao Nhạt - Hủy Diệt</strong></tooltip>, gây sát thương bằng 200% mức gốc; Nếu các nhân vật khác chưa bị <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Phong Ấn</strong></tooltip>, thì đòn tấn công lần này của Anastasya sẽ được xem là sở hữu <tooltip ns=char_Anastasya_gen baseKey18=passive1><strong>Công Huân</strong></tooltip> của tất cả nhân vật trong đội. Ngoài ra, sát thương phản ứng Tinh Tú Lấp Lánh do Anastasya gây ra sẽ <tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>Thăng Tiến</strong></tooltip> 20%."
+      ],
+      "2": "<br/>",
+      "3": "Hiệu quả nêu trên duy trì 30s, mỗi 15s tối đa kích hoạt một lần. Khi trạng thái <strong>Phong Ấn</strong> của các nhân vật khác trong đội kết thúc, hiệu quả này cũng sẽ bị xóa."
+    }
+  }
+}

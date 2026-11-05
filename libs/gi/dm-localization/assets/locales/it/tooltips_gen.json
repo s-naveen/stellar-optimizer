@@ -582,5 +582,161 @@
       "0": "Sia <strong>Splendore: Astroconduzione</strong> che <strong>Splendore: Turbinio astrale</strong> sono considerati stati di <strong>Splendore: Barlume astrale</strong>.",
       "1": "I personaggi possono essere influenzati da un solo stato di Splendore alla volta, e laddove più di uno stato possa essere attivato, <strong>Splendore: Astroconduzione</strong> ha la precedenza."
     }
+  },
+  "11360001": {
+    "name": "Fari a gradiente",
+    "description": {
+      "0": "Quando Mitya è nel gruppo e viene innescata una reazione di Astroconduzione, si crea un <strong>Faro a gradiente</strong> che dura X s al posto di un <strong>Prisma stellare</strong>. Mitya può consumare i <strong>Fari a gradiente</strong> per innescare vari effetti.",
+      "1": "I <strong>Fari a gradiente</strong> seguono il personaggio attivo e, quando vengono creati, trasformano un'area circostante più grande in un <strong>Campo astropolare</strong>. Mitya può avere a disposizione più <strong>Fari a gradiente</strong>, per un massimo iniziale di X. Creare un <strong>Faro a gradiente</strong> reimposta la durata di tutti i <strong>Fari a gradiente</strong>."
+    }
+  },
+  "11360002": {
+    "name": "Nucleo di rilevamento",
+    "description": {
+      "0": "Un dispositivo energetico creato da Mitya dopo l'uso dell'abilità elementale. La pressione crea un Nucleo <strong>stabile</strong>, mentre la pressione prolungata crea un Nucleo <strong>sovraccarico</strong>.",
+      "1": "<br/>",
+      "2": "<strong>Nucleo di rilevamento stabile</strong>",
+      "3": [
+        " Segue costantemente gli avversari nelle vicinanze e infligge a intermittenza <electro>DAN da Electro ad area</electro>.",
+        " Quando Mitya raggiunge il numero massimo possibile di <strong>Fari a gradiente</strong>, il dispositivo consuma ogni nuovo <strong>Faro a gradiente</strong> generato successivamente per infliggere <electro>DAN da Electro ad area</electro> considerati come DAN da reazione di Astroconduzione.",
+        " Quando la sua durata termina o viene creato un altro <strong>Nucleo di rilevamento</strong>, il dispositivo consuma tutti i <strong>Fari a gradiente</strong> di Mitya per infliggere <electro>DAN da Electro ad area</electro> considerati come DAN da reazione di Astroconduzione, in base al numero di Fari consumati."
+      ],
+      "4": "<br/>",
+      "5": "<strong>Nucleo di rilevamento sovraccarico</strong>",
+      "6": [
+        " Finché questo dispositivo è presente e Mitya possiede almeno 1 <strong>Faro a gradiente</strong>, può eseguire l'attacco caricato speciale <strong>Detonazione a gradiente</strong> senza consumare vigore."
+      ]
+    }
+  },
+  "11470001": {
+    "name": "test Entusiasta",
+    "description": {
+      "0": "Finché il rilevatore è presente, Danica accumula <strong>Entusiasmo</strong>. L'Entusiasmo può essere ottenuto nei seguenti modi:",
+      "1": [
+        " Quando Danica non è in campo e il personaggio attivo nella squadra colpisce un nemico con attacchi <electro>Electro</electro> o <cryo>Cryo</cryo>, si ottengono 50 punti (l'effetto si attiva al massimo una volta ogni 0,1 secondi);",
+        " Quando Danica è in campo e gli attacchi normali del rilevatore speciale colpiscono i nemici, si ottengono 25 punti (l'Entusiasmo si ottiene in questo modo al massimo una volta per ogni colpo dell'attacco normale a segno)."
+      ],
+      "2": "<br/>",
+      "3": "Inoltre, quando Danica è nello stato di <strong>Domestica difensiva</strong>, può ottenere Entusiasmo solo se il personaggio attivo nella squadra colpisce i nemici con attacchi <electro>Electro</electro> o <cryo>Cryo</cryo>; quando è nello stato di <strong>Domestica guerriera</strong>, Danica può ottenere Entusiasmo solo mettendo a segno colpi con gli <strong>attacchi normali del rilevatore speciale</strong>.",
+      "4": "<br/>",
+      "5": "Quando l'Entusiasmo raggiunge il limite massimo di 100 punti, Danica può consumarlo completamente per sferrare l'abilità elementale speciale <strong>\"Abilità d'ingresso E2\"</strong> o <strong>\"Abilità in campo E2\"</strong>, ed entrare nella <strong>forma Domestica</strong> corrispondente in base al metodo di utilizzo."
+    }
+  },
+  "11470002": {
+    "name": "test\"Abilità d'ingresso E2\"",
+    "description": {
+      "0": "testDanica fa oscillare la catena del suo rilevatore per avvicinarsi rapidamente ai nemici, per poi schiantare il rilevatore a terra, infliggendo <electro>DAN da Electro</electro> ad area, considerati come DAN da reazione di Astroconduzione.",
+      "1": "<br/>",
+      "2": "Dopo aver usato questa abilità, Danica entra nello stato di <strong>Cameriera Guardiana</strong>, ottenendo i seguenti effetti:",
+      "3": [
+        "Ripristina la durata del rilevatore;",
+        "Genera uno scudo per il personaggio attualmente attivo nel gruppo. Lo scudo dura fino al termine dello stato di Cameriera Guardiana e il suo assorbimento DAN è proporzionale all'ATT di Danica, con un'efficacia del 250% contro i <electro>DAN da Electro</electro>."
+      ]
+    }
+  },
+  "11470003": {
+    "name": "test\"Abilità in campo E2\"",
+    "description": {
+      "0": "Fa oscillare la catena dell'ancora per avvicinarsi rapidamente ai nemici, dopodiché schianta l'ancora della nave al suolo, infliggendo un'ingente quantità di <electro>DAN da Electro ad area</electro> considerati come DAN da reazione di Astroconduzione.",
+      "1": "<br/>",
+      "2": "Dopo aver usato questa abilità, Danica entra in <strong>Battle Maid</strong> e ottiene i seguenti effetti: ogni volta che viene usata l'\"Abilità in campo E2\", l'<strong>Attacco normale Ancora speciale</strong> del turno successivo salterà una fase dell'Attacco normale, fino a saltare al massimo all'ultima fase dell'Attacco normale.",
+      "3": "<br/>",
+      "4": "Dopo aver usato l'<strong>\"Abilità in campo E2\"</strong> per 5 volte, Danica uscirà da <strong>Battle Maid</strong> e distruggerà l'ancora della nave."
+    }
+  },
+  "11470004": {
+    "name": "testMaid Difensiva",
+    "description": {
+      "0": "testLo stato in cui Danica entra dopo aver usato la sua speciale abilità elementale <strong>\"Abilità d'ingresso E2\"</strong>. Mentre si trova in questo stato, fornisce uno Scudo al personaggio attivo in campo e rinnova la durata di <strong>Rilevatore della nave</strong>."
+    }
+  },
+  "11470005": {
+    "name": "test Cameriera da battaglia",
+    "description": {
+      "0": "Lo stato in cui entra Danica dopo aver utilizzato la speciale abilità elementale <strong>\"On-Field Skill E2\"</strong>. Mentre si trova in questo stato, ogni volta che viene utilizzata \"On-Field Skill E2\", l'Attacco normale del rilevatore speciale salta una fase dell'Attacco normale, ignorando fino alle prime tre fasi dell'Attacco normale."
+    }
+  },
+  "11490001": {
+    "name": "Trascendenza e Benedizioni",
+    "description": {
+      "0": "Quando Anastasya usa la sua abilità elementale <strong>Giudizio divino della Stella polare</strong>, sprigiona il suo potere in modi diversi e ottiene una Benedizione in base alla diversa pressione dell'abilità.",
+      "1": [
+        " <strong>Pressione</strong>: ottiene la Benedizione dell'<strong>Amore</strong>.",
+        " <strong>Pressione prolungata</strong>: ottiene la Benedizione dell'<strong>Onore</strong>."
+      ],
+      "2": "<br/>",
+      "3": "Ogni Benedizione permette ad Anastasya di usare un Tripudio elementale diverso e di esercitare il potere della <strong>Sigillatura</strong> in modo diverso.",
+      "4": "Se Anastasya non possiede la Benedizione dell'<strong>Onore</strong>, ha sempre quella dell'<strong>Amore</strong>."
+    }
+  },
+  "11490002": {
+    "name": "Sigillatura",
+    "description": {
+      "0": "Uno stato speciale applicato ai personaggi quando Anastasya usa il suo Tripudio elementale. Quando i personaggi sono sigillati non possono entrare in campo.",
+      "1": "La durata iniziale del suddetto stato corrisponde alla durata del Tripudio elementale in questione. Il tempo rimanente può essere ridotto in modi specifici.",
+      "2": "<br/>",
+      "3": "La <strong>Benedizione</strong> di Anastasya determina quale Tripudio elementale utilizza e come usa il potere della Sigillatura:",
+      "4": [
+        " <strong>Amore</strong>: Anastasya si sigilla quando esce dal campo. I DAN inflitti da qualsiasi membro del gruppo nelle vicinanze tramite la reazione di Barlume astrale possono ridurre la durata rimanente del suo stato. Per un breve periodo di tempo dopo la fine del suo stato Sigillato, far entrare Anastasya in campo attiva l'abilità elementale speciale di dissigillamento <strong>Editto della Candida Stella: Trionfo</strong>.",
+        " <strong>Onore</strong>: Anastasya sigilla fino a 3 altri membri del gruppo. Anastasya può ridurre la durata rimanente del Sigillo usando gli attacchi normali. Per un breve periodo dopo la fine dello stato Sigillato di un personaggio, selezionare quel personaggio per la prima volta attiva l'abilità elementale speciale di dissigillamento <strong>Editto della Candida Stella: Rovina</strong> invece di farlo entrare in campo."
+      ]
+    }
+  },
+  "11490003": {
+    "name": "Editto della Candida Stella: Trionfo",
+    "description": {
+      "0": "Un'abilità elementale speciale che si attiva quando Anastasya entra in campo al termine del suo stato Sigillato. Infligge <cryo>DAN da Cryo ad area</cryo> agli avversari vicini. Questi DAN sono considerati DAN da reazione di Astroconduzione.",
+      "1": "Nello stato di <strong>Splendore: Barlume astrale</strong>, i DAN sopracitati vengono invece inflitti come <cryo>DAN da Cryo ad area</cryo> e sono considerati DAN da reazione di Barlume astrale corrispondente."
+    }
+  },
+  "11490004": {
+    "name": "Editto della Candida Stella: Rovina",
+    "description": {
+      "0": "Per un periodo limitato di tempo dopo la fine dello stato Sigillato di un altro membro del gruppo, selezionando per la prima volta quel personaggio si attiva questa abilità elementale speciale invece di farlo entrare in campo.",
+      "1": "<strong>Editto della Candida Stella: Rovina</strong> presenta 3 fasi, eseguite in sequenza selezionando per la prima volta i personaggi corrispondenti o premendo il pulsante dell'abilità elementale.",
+      "2": [
+        " Fase 1: esegue una serie di fendenti con l'<strong>Armamento benedetto: Dekhomenon</strong>, infliggendo più iterazioni di <cryo>DAN da Cryo ad area</cryo> non influenzabili da altre infusioni elementali e che sono considerate DAN da abilità elementale, seguite da un'ultima iterazione di <cryo>DAN da Cryo ad area</cryo> considerata DAN da reazione di Astroconduzione;",
+        " Fase 2: balza in avanti ed esegue un fendente, infliggendo <cryo>DAN da Cryo ad area</cryo> considerati DAN da reazione di Astroconduzione;",
+        " Fase 3: scaglia l'<strong>Armamento benedetto</strong> come una freccia, infliggendo ingenti <cryo>DAN da Cryo ad area</cryo> considerati DAN da reazione di Astroconduzione e ponendo fine all'effetto de <strong>La Notteterna cede all'alba</strong>."
+      ],
+      "3": "<br/>",
+      "4": "Nello stato di <strong>Splendore: Barlume astrale</strong>, i DAN da reazione di Astroconduzione sopracitati vengono invece inflitti come <cryo>DAN da Cryo ad area</cryo>, considerati DAN della reazione di Barlume astrale corrispondente."
+    }
+  },
+  "11490005": {
+    "name": "Congelamento",
+    "description": {
+      "0": "Una meccanica speciale. Mette in pausa la durata di un effetto, impedendo che il conto alla rovescia proceda fino al termine dell'effetto che ha attivato il congelamento."
+    }
+  },
+  "11370001": {
+    "name": "Mortaio a tiro diretto: Bombardamento ravvicinato",
+    "description": {
+      "0": "L'attacco caricato speciale di Valeriy. Utilizzando un attacco caricato quando dispone di almeno 40 punti di <strong>Slancio d'impatto</strong>, consuma tutti i punti a disposizione <strong></strong>per scatenare questo attacco caricato speciale, infliggendo <electro>DAN da Electro ad area</electro> di fronte a sé e ottenendo 15 accumuli di <strong>Direttiva d'assalto</strong>.",
+      "1": "Quando l'attacco caricato speciale viene utilizzato di nuovo, gli accumuli di <strong>Direttiva d'assalto</strong> vengono ripristinati.",
+      "2": "Entro 0,8 s dall'utilizzo dell'abilità elementale <strong>Difesa attiva: Baluardo d'attacco</strong> o del Tripudio elementale <strong>Fuoco concentrato: Raffica fulminante</strong>, se Valeriy possiede almeno 40 punti di <strong>Slancio d'impatto</strong>, il suo attacco normale successivo viene convertito nell'attacco caricato speciale <strong>Mortaio a tiro diretto: Bombardamento ravvicinato</strong>."
+    }
+  },
+  "11370002": {
+    "name": "Direttiva d'assalto",
+    "description": {
+      "0": "Un effetto speciale che Valeriy ottiene dopo aver eseguito l'attacco caricato speciale <strong>Mortaio a tiro diretto: Bombardamento ravvicinato</strong>. Aumenta diversi tipi di <electro>DAN da Electro</electro> a seconda che Valeriy si trovi o meno nello stato di <strong>Splendore: Astroconduzione</strong>.",
+      "1": [
+        " Se Valeriy è nello stato di <strong>Splendore: Astroconduzione</strong>, quando un personaggio attivo nelle vicinanze all'interno del gruppo usa un attacco normale, un attacco caricato, un attacco in picchiata, un'abilità elementale o un Tripudio elementale per infliggere <electro>DAN da Electro</electro> considerati come DAN da reazione di Astroconduzione a un avversario, viene consumato 1 accumulo di <strong>Direttiva d'assalto</strong> per aumentare i suddetti DAN in base all'ATT di Valeriy.",
+        " Se Valeriy non è nello stato di <strong>Splendore: Astroconduzione</strong>, quando un personaggio attivo nelle vicinanze all'interno del gruppo usa un attacco normale, un attacco caricato, un attacco in picchiata, un'abilità elementale o un Tripudio elementale per infligge <electro>DAN da Electro</electro> a un avversario, viene consumato 1 accumulo di <strong>Direttiva d'assalto</strong> per aumentare i suddetti DAN in base all'ATT di Valeriy."
+      ],
+      "2": "Quando una singola iterazione di <electro>DAN da Electro</electro> colpisce più avversari contemporaneamente, il numero di accumuli di <strong>Direttiva d'assalto</strong> consumati dipende dal numero di avversari colpiti."
+    }
+  },
+  "11370003": {
+    "name": "Slancio d'impatto",
+    "description": {
+      "0": "Un'energia speciale che Valeriy utilizza per potenziare le sue capacità di combattimento. Il suo massimo iniziale è 100. Quando possiede almeno 40 punti di <strong>Slancio d'impatto</strong>, può eseguire l'attacco caricato speciale <strong>Mortaio a tiro diretto: Bombardamento ravvicinato</strong>.",
+      "1": "Valeriy può ottenere <strong>Slancio d'impatto</strong>:",
+      "2": [
+        " utilizzando la sua abilità elementale <strong>Difesa attiva: Baluardo d'attacco</strong>;",
+        " dopo aver sbloccato il talento d'ascensione \"Avanzata con fuoco di copertura\", mentre il suo Tripudio elementale <strong>Fuoco concentrato: Raffica fulminante</strong> è attivo, quando un personaggio attivo vicino del gruppo colpisce un avversario con un attacco di <electro>Electro</electro>."
+      ]
+    }
   }
 }

@@ -1,0 +1,206 @@
+{
+  "name": "Dánica",
+  "title": "",
+  "description": "",
+  "constellationName": "",
+  "auto": {
+    "name": "test Ataque Normal de Dánica",
+    "fields": {
+      "normal": {
+        "0": "<strong>Ataque Normal</strong>",
+        "1": "Realiza hasta 4 tajos de espada consecutivos."
+      },
+      "charged": {
+        "0": "<strong>Ataque Cargado</strong>",
+        "1": "Consume Aguante de manera constante para realizar golpes de espada continuos.",
+        "2": "Cuando termina el Ataque Cargado, hará un golpe aún más poderoso."
+      },
+      "plunging": {
+        "0": "<strong>Ataque Descendente</strong>",
+        "1": "Se lanza desde el aire para golpear el suelo, atacando a los enemigos que encuentre en su trayecto e infligiendo Daño en el AdE en el momento del impacto."
+      }
+    },
+    "skillParams": {
+      "0": "Daño de 1er golpe",
+      "1": "Daño de 2.º golpe",
+      "2": "Daño de 3er golpe",
+      "3": "Daño de 4.º golpe",
+      "4": "Daño de ATQ Cargado en ciclo",
+      "5": "Daño final de Ataque Cargado",
+      "6": "Coste de Aguante de ATQ Cargado",
+      "7": "Duración máx.",
+      "8": "Daño de Caída",
+      "9": "Daño de impacto de caída baja/alta",
+      "10": "",
+      "11": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "skill": {
+    "name": "testHabilidad Elemental de Dánica",
+    "description": {
+      "0": "test挥动锁链与船锚，对周围的敌人造成一次<electro>Daño Electro en el AdE</electro>，并召唤跟随当前场上角色行动的<strong>船锚</strong>。",
+      "1": "<br/>",
+      "2": "Agita la cadena y el ancla para infligir <electro>Daño Electro en el AdE</electro> a los enemigos cercanos e invocar un <strong>Ancla</strong> que sigue las acciones del personaje en uso.",
+      "3": "<br/>",
+      "4": "Mientras el <strong>Ancla</strong> esté activa, colaborará en combate de distintas formas según si Dánica está en uso o no.",
+      "5": "<strong>Dánica en tu equipo pero no en uso</strong>",
+      "6": "Cuando los ataques <electro>Electro</electro> o <cryo>Cryo</cryo> del personaje en uso del equipo golpeen a un enemigo, el <strong>Ancla</strong> lanzará un ataque coordinado que inflige <electro>Daño Electro en el AdE</electro> en la posición del enemigo. Este efecto puede activarse como máximo una vez cada 1,5 s.",
+      "7": "<strong>Dánica en uso</strong>",
+      "8": "El Ataque Normal de Dánica se convierte en un ataque especial con el ancla que inflige <electro>Daño Electro</electro>, que no puede sustituirse imbuyéndose de otro elemento, y se considera daño de Ataque Normal.",
+      "9": "<br/>",
+      "10": "<strong>Entusiasmo</strong>",
+      "11": "Mientras el ancla esté activa, Dánica puede acumular <tooltip ns=tooltips_gen baseKey18=11470001 values=[\"50\",\"25\",\"100\"]><strong>Entusiasmo</strong></tooltip> usando el Ataque Normal especial con el ancla o cuando los ataques <cryo>Cryo</cryo> o <electro>Electro</electro> del personaje en uso del equipo golpeen a un enemigo. Al alcanzar el límite máximo de Entusiasmo, según si Dánica está en uso o no, se puede consumir todo el Entusiasmo para lanzar una Habilidad Elemental especial diferente y entrar en la forma de sirvienta correspondiente:",
+      "12": "<strong>Sirvienta guardiana</strong>",
+      "13": "Cuando Dánica está en tu equipo pero no en uso, al cambiar a Dánica, se lanza automáticamente <tooltip ns=tooltips_gen baseKey18=11470002 values=[]><strong>«Habilidad de Entrada E2»</strong></tooltip> y se entra en el modo <strong>Sirvienta guardiana</strong>. Genera un escudo para el personaje en uso y renueva la duración del ancla. Durante este tiempo, no se puede lanzar <strong>«Habilidad en uso E2»</strong>.",
+      "14": "<strong>Sirvienta guerrera</strong>",
+      "15": "Cuando Dánica está en uso, la Habilidad Elemental se reemplaza por <tooltip ns=tooltips_gen baseKey18=11470003 values=[\"5\"]><strong>«Habilidad en uso E2»</strong></tooltip>, y al lanzarla se entra en el modo <strong>Sirvienta guerrera</strong>. Tras lanzar «Habilidad en uso E2» durante este tiempo, el Ataque Normal especial con el ancla puede omitir parte de la cadena de Ataques Normales. Durante este tiempo, no se puede lanzar <strong>«Habilidad de Entrada E2»</strong>.",
+      "16": "<br/>",
+      "17": "Además, al desaparecer el ancla, se abandona el modo sirvienta. Mientras el ancla esté activa, los modos Sirvienta guerrera y Sirvienta guardiana no pueden coexistir: al entrar en uno de ellos, no se puede entrar en el otro."
+    },
+    "skillParams": {
+      "0": "Daño de habilidad",
+      "1": "Daño de Superconductor Estelar de Habilidad de Entrada E2",
+      "2": "Daño de Superconductor Estelar de Habilidad E2 en combate",
+      "3": "Daño de ATQ coordinado del ancla",
+      "4": "Absorción de escudo",
+      "5": "Daño Electro de 1er golpe de ATQ Normal del ancla",
+      "6": "Daño Electro de 2.º golpe de ATQ Normal del ancla",
+      "7": "Daño Electro de 3er golpe de ATQ Normal del ancla",
+      "8": "Daño Electro de 4.º golpe de ATQ Normal del ancla",
+      "9": "Duración de ancla",
+      "10": "TdE de Habilidad de Entrada E2",
+      "11": "TdE de la habilidad",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "burst": {
+    "name": "test Habilidad Definitiva de Dánica",
+    "description": {
+      "0": "test Explosión Elemental de Dánica",
+      "1": "<br/>",
+      "2": "Convoca el campo de batalla con el protocolo de allegada de la Zarina, lanzando cinco ataques de gran alcance que infligen <electro>Daño Electro en el AdE</electro>.",
+      "3": "<br/>",
+      "4": "<strong>esplendor: Superconductor Estelar</strong>:",
+      "5": [
+        "El primer y el quinto ataque infligen adicionalmente <electro>Daño Electro en el AdE</electro> considerado como daño de Superconductor Estelar.",
+        "Durante un tiempo tras su uso, si Dánica se encuentra en forma de sirvienta, se fortalecerá la forma de sirvienta activa, otorgando el efecto de fortalecimiento correspondiente según la forma actual:"
+      ],
+      "6": "Cuando Dánica está en <tooltip ns=tooltips_gen baseKey18=11470004 values=[]><strong>sirvienta guardiana</strong></tooltip>, aumenta el ATQ de todos los miembros del equipo.",
+      "7": "Cuando Dánica está en <tooltip ns=tooltips_gen baseKey18=11470005 values=[]><strong>sirvienta guerrera</strong></tooltip>, recupera de inmediato toda la Excitación y aumenta el daño infligido por <strong>«Hab. E2 en campo»</strong> de Dánica.",
+      "8": "<br/>",
+      "9": "Al finalizar la forma de sirvienta, se eliminarán los efectos de fortalecimiento."
+    },
+    "skillParams": {
+      "0": "Daño Electro/Daño de Superconductor Estelar de 1er golpe",
+      "1": "Daño Electro de 2.º/3er/4.º golpe",
+      "2": "Daño Electro/Daño de Superconductor Estelar de 5.º golpe",
+      "3": "Proporción de Bono de ATQ",
+      "4": "Bono de ATQ máximo",
+      "5": "Aumento de daño de Habilidad E2 en combate",
+      "6": "Duración de efecto de mejora",
+      "7": "TdE",
+      "8": "Energía Elemental",
+      "9": "",
+      "10": "",
+      "11": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "passive1": {
+    "name": "test Talento de ascensión I",
+    "description": {
+      "0": "test<strong>ancla</strong> reduce el <electro>RES Electro</electro> de los enemigos cercanos en un 15%.",
+      "1": "<br/>",
+      "2": "<strong>Esplendor: Superconductor Estelar</strong>: el <electro>RES Electro</electro> de los enemigos cercanos se reduce adicionalmente en un 15% y el <cryo>RES Cryo</cryo> en un 30%."
+    }
+  },
+  "passive2": {
+    "name": "Talento de ascensión 2",
+    "description": {
+      "0": "test Al usar <strong>«Habilidad de Entrada E2»</strong>, el ATQ propio de Dánica aumenta un 20%.",
+      "1": "Al usar <strong>«Habilidad en Campo E2»</strong>, la Vel. de Ataque propia de Dánica aumenta un 20%, y al golpear a un enemigo con un Ataque Normal del ancla especial, se obtienen 25 puntos adicionales de <strong>Emoción</strong>. Los efectos anteriores pueden acumularse hasta 3 veces.",
+      "2": "Estos efectos duran hasta que Dánica abandona el estado de sirvienta guardiana o sirvienta guerrera en curso; si se vuelven a activar, la duración se reinicia."
+    }
+  },
+  "passive3": {
+    "name": "Talento estelar",
+    "description": {
+      "0": "Cuando un personaje del equipo cause una reacción de Superconductor, esta se transformará en una reacción de Superconductor Estelar. El daño base de las reacciones de Superconductor Estelar de los personajes del equipo aumentará en un 0.7% por cada punto de ATQ que tenga Dánica. Como máximo, dicho daño puede aumentar en un 14% de esta manera.",
+      "1": "Además, Dánica entrará en el estado de <strong>esplendor: Superconductor Estelar</strong> mientras se encuentre dentro de un <tooltip ns=tooltips_gen baseKey18=11330003 values=[]><strong>campo estrellapolar</strong></tooltip>."
+    }
+  },
+  "passive": {
+    "name": "Talento cotidiano",
+    "description": {
+      "0": "test Cuando tus personajes del equipo estén bajo los efectos del entorno de frío extremo, la Vel. Movimiento aumenta un 10% y el Coste de Aguante se reduce un 10%."
+    }
+  },
+  "constellation1": {
+    "name": "test Constelación 1",
+    "description": {
+      "0": "testCuando Dánica usa la <strong>«Habilidad de Entrada E2»</strong> o la <strong>«Habilidad de Campo E2»</strong>, recupera 20 puntos de Energía Elemental. Este efecto puede activarse una vez cada 14 s como máximo.",
+      "1": "Además, durante la <strong>Habilidad Definitiva</strong>, el efecto de fortalecimiento de <strong>sirvienta guardiana</strong> aumenta en un 80 %, y el de <strong>sirvienta guerrera</strong>, en un 120 %."
+    }
+  },
+  "constellation2": {
+    "name": "test Constelación 2",
+    "description": {
+      "0": "Mientras el ancla test permanezca activa, Dánica aplica 7 capas de «Brindis» a todos los personajes cercanos. Cuando todos los personajes cercanos acumulen un consumo de 6 capas de «Brindis», se aplica 1 capa adicional de «Brindis» al personaje en uso.",
+      "1": "«Brindis»: Cuando un personaje del equipo inflige daño por reacción Superconductor Estelar, consume 1 capa de «Brindis» para aumentar el daño infligido en un valor equivalente al 100% del ATQ de Dánica.",
+      "2": "Además, cuando Dánica inflige daño por reacción Superconductor Estelar en forma de sirvienta guerrera, consume todas las capas actuales de «Brindis» propias; cada capa aumenta el daño infligido en un valor equivalente al 150% del ATQ de Dánica.",
+      "3": "Al invocar de nuevo el ancla o al renovar su duración, las capas de «Brindis» se reinician."
+    }
+  },
+  "constellation3": {
+    "name": "testConstelación 3",
+    "description": {
+      "0": "test Aumenta el nivel de habilidad de la <strong><tooltip ns=char_Danica_gen baseKey18=burst>Habilidad Definitiva</tooltip></strong> +3.",
+      "1": "Puede ser aumentado hasta Niv. 15."
+    }
+  },
+  "constellation4": {
+    "name": "testConstelación 4",
+    "description": {
+      "0": "Cuando el personaje en uso protegido por el escudo de Dánica inflige daño de Superconductor Estelar a los enemigos, regenera 3 puntos de Energía Elemental a los demás personajes cercanos del equipo. Este efecto puede activarse como máximo una vez cada 3,5 s.",
+      "1": "Además, cuando Dánica entra en el estado de sirvienta guerrera, también genera un escudo; si Dánica se retira de combate durante ese período, el escudo será destruido."
+    }
+  },
+  "constellation5": {
+    "name": "test Constelación 5",
+    "description": {
+      "0": "test Aumenta el nivel de habilidad de la <strong><tooltip ns=char_Danica_gen baseKey18=skill>Habilidad Elemental</tooltip></strong>+3.",
+      "1": "Puede ser aumentado hasta Niv. 15."
+    }
+  },
+  "constellation6": {
+    "name": "testConstelación 6",
+    "description": {
+      "0": "Mientras el ancla de test permanece en el campo, el daño de Superconductor Estelar infligido por los personajes cercanos del equipo asciende en un 20%.",
+      "1": "Además, tras entrar en el estado de <tooltip ns=tooltips_gen baseKey18=11470004 values=[]><strong>sirvienta guardiana</strong></tooltip>, cada 1000 puntos de ATQ de Dánica aumentarán el daño de Superconductor Estelar infligido por los personajes en activo en un 10%, hasta un máximo del 40%.",
+      "2": "Tras entrar en el estado de <tooltip ns=tooltips_gen baseKey18=11470005 values=[]><strong>sirvienta guerrera</strong></tooltip>, cada 500 puntos de ATQ de Dánica aumentarán su propia Prob. CRIT de la habilidad elemental E2 en un 2.5% y su Daño CRIT en un 25%. La Prob. CRIT aumenta hasta un máximo del 10% y el Daño CRIT hasta un máximo del 100%.",
+      "3": "Los efectos anteriores se mantienen hasta que se abandone el presente estado de sirvienta."
+    }
+  }
+}

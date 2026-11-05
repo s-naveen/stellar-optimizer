@@ -1,0 +1,9 @@
+{
+  "perBeacon": "(per Gradient Beacon)",
+  "coreCond": "Detection Core on the field",
+  "steady": "Steady State",
+  "overloaded": "Overloaded",
+  "beaconsCond": "Gradient Beacons Mitya has",
+  "a4Cond": "Gradient Beacons created (last 15s)",
+  "c4Dmg": "Detection Core Stellar-Conduct DMG (per 5 Gradient Beacons consumed)"
+}

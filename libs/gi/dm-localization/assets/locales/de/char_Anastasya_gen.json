@@ -1,0 +1,204 @@
+{
+  "name": "Anastasya",
+  "title": "",
+  "description": "",
+  "constellationName": "",
+  "auto": {
+    "name": "Morgendämmerung nach langem Winter",
+    "fields": {
+      "normal": {
+        "0": "<strong>Standardangriff</strong>",
+        "1": "Führt bis zu 5 Pfeilschüsse hintereinander aus."
+      },
+      "charged": {
+        "0": "<strong>Heftiger Schlag</strong>",
+        "1": "Führt einen <strong>gezielten Schuss</strong> mit höherem Schaden und höherer Genauigkeit aus.",
+        "2": "Konzentriert während des Zielens Kryo an der Pfeilspitze, die voll aufgeladen <cryo>Kryo-Schaden</cryo> verursacht."
+      },
+      "plunging": {
+        "0": "<strong>Angriff aus dem Fall</strong>",
+        "1": "Schießt in der Luft einen Pfeilregen ab, trifft schnell auf dem Boden auf, greift alle Gegner in der Bahn an und verursacht beim Aufkommen Flächenschaden."
+      }
+    },
+    "skillParams": {
+      "0": "SCH Phase 1",
+      "1": "SCH Phase 2",
+      "2": "SCH Phase 3",
+      "3": "SCH Phase 4",
+      "4": "SCH Phase 5",
+      "5": "Gezielte Schüsse",
+      "6": "Voll aufgeladene gezielte Schüsse",
+      "7": "SCH beim Fallen",
+      "8": "SCH beim Fallen aus niedriger/großer Höhe",
+      "9": "",
+      "10": "",
+      "11": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "skill": {
+    "name": "Heilige Vollstreckung des Polarsterns",
+    "description": {
+      "0": "Enthüllt das Wesen von <tooltip ns=tooltips_gen baseKey18=11490001 values=[]><strong>Übertreffen</strong></tooltip>, verursacht <cryo>Kryo-Flächenschaden</cryo> und entfesselt die Macht auf unterschiedliche Art und Weise, je nachdem, ob die Taste gedrückt oder gedrückt gehalten wird.",
+      "1": "<br/>",
+      "2": "<strong>Drücken</strong>",
+      "3": "Gewährt den Schutz durch <strong>Güte</strong> und wirft die von der Legende des Königshofs überlieferte <strong>Heilige Himmelssternkrone</strong>.",
+      "4": "Die <strong>Heilige Himmelssternkrone</strong> folgt der aktuellen Figur und fügt Gegnern in der Nähe alle 2 s zweimal <cryo>Kryo-Flächenschaden</cryo> zu.",
+      "5": "<tooltip ns=tooltips_gen baseKey18=11500004 values=[]><strong>Leuchten – Stellarfunkeln</strong></tooltip>: Wertet den zweiten Schaden, den die <strong>Heilige Himmelssternkrone</strong> bei jedem Angriff verursacht, stattdessen als <cryo>Kryo-Flächenschaden</cryo> der entsprechenden Stellarfunkeln-Reaktion.",
+      "6": "<br/>",
+      "7": "<strong>Gedrückthalten</strong>",
+      "8": "Gewährt den Schutz durch <strong>Ehre</strong> und zeigt die meisterhafte Speertechnik der Legende des Königshofs.",
+      "9": "Wandelt in diesem Modus Anastasyas Standardangriff in bis zu fünf aufeinanderfolgende Angriffe mit der <strong>Heiligen Lanze – Dekhomenon</strong> um, die <cryo>Kryo-Flächenschaden</cryo> verursachen, der nicht von anderen Elementen überdeckt werden kann. Heftige Schläge sind dabei nicht möglich.",
+      "10": "<strong>Leuchten – Stellarfunkeln</strong>: Wertet den letzten Schaden bei Standardangriffen mit der <strong>Heiligen Lanze</strong> stattdessen als <cryo>Kryo-Flächenschaden</cryo> der entsprechenden Stellarfunkeln-Reaktion."
+    },
+    "skillParams": {
+      "0": "Sofortiger SCH bei Drücken",
+      "1": "Sofortiger SCH bei Gedrückthalten",
+      "2": "Kryo-Schaden durch „Heilige Himmelssternkrone“",
+      "3": "SCH durch Stellar-Supraleiter/Stellar-Verwirbelung von „Heilige Himmelssternkrone“",
+      "4": "Kryo-Schaden Phase 1",
+      "5": "Kryo-Schaden Phase 2",
+      "6": "Kryo-Schaden Phase 3",
+      "7": "Kryo-Schaden Phase 4",
+      "8": "Kryo-Schaden Phase 5",
+      "9": "SCH Phase 1 durch Stellar-Supraleiter/Stellar-Verwirbelung",
+      "10": "SCH Phase 2 durch Stellar-Supraleiter/Stellar-Verwirbelung",
+      "11": "SCH Phase 3 durch Stellar-Supraleiter/Stellar-Verwirbelung",
+      "12": "SCH Phase 4 durch Stellar-Supraleiter/Stellar-Verwirbelung",
+      "13": "SCH Phase 5 durch Stellar-Supraleiter/Stellar-Verwirbelung",
+      "14": "Dauer von „Heilige Himmelssternkrone“",
+      "15": "Dauer von „Schutz durch Ehre“",
+      "16": "Abklingzeit",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "burst": {
+    "name": "Für eine neue Welt",
+    "description": {
+      "0": "Ermöglicht Anastasya basierend auf ihrem <tooltip ns=tooltips_gen baseKey18=11490001 values=[]><strong>Schutz</strong></tooltip> das Anwenden der entsprechenden Spezialfähigkeit, um die Macht der <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Versiegelung</strong></tooltip> auf unterschiedliche Weise zu nutzen.",
+      "1": "<br/>",
+      "2": "Ermöglicht die Anwendung von <strong>Für eine neue Welt</strong>, wenn der Schutz durch <strong>Güte</strong> vorhanden ist. Verursacht <cryo>Kryo-Flächenschaden</cryo> und <tooltip ns=tooltips_gen baseKey18=11490005 values=[]><strong>friert</strong></tooltip> die Dauer der „Heiligen Himmelssternkrone“ <tooltip ns=tooltips_gen baseKey18=11490005 values=[]><strong>ein</strong></tooltip>.",
+      "3": "Erhöht währenddessen den Schaden durch die Stellarfunkeln-Reaktionen aller Truppenmitglieder in der Nähe, und verursacht bei Angriffen mit der „Heiligen Himmelssternkrone“ zusätzlich einmal <cryo>Kryo-Flächenschaden</cryo>, der als Schaden durch die Reaktion Stellar-Supraleiter gewertet wird. <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Versiegelt</strong></tooltip> sich selbst, wenn Anastasya inaktiv wird. Nach dem Ende der Versiegelung kann die besondere Elementarfähigkeit zum Entsiegeln <tooltip ns=tooltips_gen baseKey18=11490003 values=[]><strong>Edikt des Bleichsterns – Triumph</strong></tooltip> angewendet werden.",
+      "4": "<br/>",
+      "5": "<strong>Ewige Nacht weicht der Morgendämmerung</strong>",
+      "6": "Kann angewendet werden, wenn der Schutz durch <strong>Ehre</strong> vorhanden ist. Entfesselt die Kraft der <strong>Heiligen Lanze</strong> und verursacht <cryo>Kryo-Flächenschaden</cryo>, der als Schaden durch die Reaktion Stellar-Supraleiter gewertet wird, und die Dauer des Schutzes <tooltip ns=tooltips_gen baseKey18=11490005 values=[]><strong>einfriert</strong></tooltip>.",
+      "7": "Ermöglicht es Anastasya, zusätzlich bis zu drei andere Truppenmitglieder zu <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>versiegeln</strong></tooltip>, wobei sie nach dem Ende der Versiegelung die besondere Elementarfähigkeit zum Entsiegeln <tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>Edikt des Bleichsterns – Vernichtung</strong></tooltip> anwenden kann.",
+      "8": "<br/>",
+      "9": "<strong>Leuchten – Stellarfunkeln</strong>: Wandelt den gesamten oben genannten Schaden durch die Reaktion Stellar-Supraleiter in <cryo>Kryo-Flächenschaden</cryo> um, der als Schaden durch die entsprechende Stellarfunkeln-Reaktion gewertet wird."
+    },
+    "skillParams": {
+      "0": "Sofortiger Schaden bei „Für eine neue Welt“",
+      "1": "SCH-Bonus von Stellarfunkeln-Reaktionen bei „Für eine neue Welt“",
+      "2": "SCH durch Stellar-Supraleiter/Stellar-Verwirbelung von „Heilige Himmelssternkrone“",
+      "3": "SCH durch Stellar-Supraleiter/Stellar-Verwirbelung bei Triumph",
+      "4": "SCH durch Stellar-Supraleiter/Stellar-Verwirbelung bei „Ewige Nacht weicht der Morgendämmerung“",
+      "5": "Kryo-Schaden durch Vernichtung Phase 1",
+      "6": "SCH Phase 1 durch Stellar-Supraleiter/Stellar-Verwirbelung bei Vernichtung",
+      "7": "SCH Phase 2 durch Stellar-Supraleiter/Stellar-Verwirbelung bei Vernichtung",
+      "8": "SCH Phase 3 durch Stellar-Supraleiter/Stellar-Verwirbelung bei Vernichtung",
+      "9": "Dauer von „Für eine neue Welt“",
+      "10": "Dauer von „Ewige Nacht weicht der Morgendämmerung“",
+      "11": "Abklingzeit",
+      "12": "Elementarenergie",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "passive1": {
+    "name": "Leuchtendes Ansehen der Flammennacht",
+    "description": {
+      "0": "Verleiht, nachdem Anastasya ihre Elementarfähigkeit <strong>Heilige Vollstreckung des Polarsterns</strong> angewendet hat, allen Truppenmitgliedern 20 s lang <strong>Ruhm</strong>: Erhöht den Schaden um 12 %.",
+      "1": "Verteilt, wenn Truppenmitglieder <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>versiegelt</strong></tooltip> sind, bis zu 8 s nach Ende der Versiegelung den gesamten <strong>Ruhm</strong> vorübergehend auf nicht <strong>versiegelte</strong> Figuren."
+    }
+  },
+  "passive2": {
+    "name": "Klage um die Verlorenen",
+    "description": {
+      "0": "Verleiht, wenn sich Anastasya in der Truppe befindet, allen von Truppenmitgliedern ausgelösten Stellarfunkeln-Reaktionen jeweils folgenden Effekt:",
+      "1": [
+        " <strong>Reaktion Stellar-Supraleiter</strong>: Verleiht dem Sternglanzfeld bei jedem Freisetzen von Elementarkraft zusätzlich eine bestimmte Menge an Elementarkraft. Verleiht dem Sternglanzfeld beim Generieren eines Sternenglanz-Prismas zudem eine bestimmte Menge an Elementarkraft.",
+        " <strong>Reaktion Stellar-Verwirbelung</strong>: Stuft Sternenglanz-Wirbelwind und Fließender Wirbelwind bei deren Erstellung direkt auf Stufe 2 hoch, 1 s Abklingzeit. Erhöht zudem den Basis-Reaktionskoeffizienten der Reaktion Stellar-Verwirbelung um 15 %."
+      ]
+    }
+  },
+  "passive3": {
+    "name": "Sternensegnung – Wiederkehr der Reinheit",
+    "description": {
+      "0": "Versetzt Anastasya, wenn sie sich im <strong>Sternglanzfeld</strong> befindet, in den Zustand <strong>Leuchten – Stellar-Supraleiter</strong> oder versetzt sie, nachdem ein Truppenmitglied in der Nähe die Reaktion Stellar-Verwirbelung ausgelöst hat, 8 s lang in den Zustand <strong>Leuchten – Stellar-Verwirbelung</strong>.",
+      "1": "Wandelt, wenn ein Truppenmitglied die Reaktion Supraleiter/Kryo-Verwirbelung auslöst, diese stattdessen in die Reaktion Stellar-Supraleiter/Stellar-Verwirbelung um und erhöht den Basis-Schaden der oben genannten Reaktionen von Truppenmitgliedern basierend auf Anastasyas ANG: Erhöht den Basis-SCH der oben genannten Reaktionen pro 100 Punkte ANG um 0,7 %. Auf diese Weise kann der Schaden um bis zu 14 % erhöht werden."
+    }
+  },
+  "passive": {
+    "name": "Gunst des fallenden Schnees",
+    "description": {
+      "0": "Stellt Truppenmitgliedern schrittweise die LP wieder her, wenn sie sich in Snezhnaya und (außer Nod-Krai) nicht im Kampf befinden.",
+      "1": "Senkt zudem die Energie des Auges von Graeae nicht, solange Anastasya in der Truppe ist. Stellt die Energie, falls diese auf unter 30 % fällt, sofort auf 30 % wieder her.",
+      "2": "Die oben genannten Effekte sind in Sphären, Gebietssäuberungen und im Gewundenen Abgrund ungültig."
+    }
+  },
+  "constellation1": {
+    "name": "Für vergangene Jahre – für ein nie erloschenes Herz",
+    "description": {
+      "0": "Verstärkt das Aufstiegstalent <tooltip ns=char_Anastasya_gen baseKey18=passive1><strong>Erhabenheit der strahlenden Nacht</strong></tooltip>: Erhöht mithilfe von <strong>Ruhm</strong> zudem den ANG von Figuren mit dem Elementartyp <cryo>Kryo</cryo> um 15 % sowie die Elementarkunde von Figuren mit anderem Elementartyp um 60 Punkte.",
+      "1": "Kopiert, wenn eine Figur <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>versiegelt</strong></tooltip> ist, zudem den <strong>Ruhm</strong>, statt ihn gleichmäßig aufzuteilen. Wird Anastasya <strong>versiegelt</strong>, beträgt der den anderen Figuren gewährte <strong>Ruhm</strong> 300 % des ursprünglichen Werts."
+    }
+  },
+  "constellation2": {
+    "name": "Für strengen Winter – für Menschen, die gemeinsam die bittere Kälte ertragen",
+    "description": {
+      "0": "Verleiht nach dem Anwenden der Elementarfähigkeit <strong>Heilige Vollstreckung des Polarsterns</strong> abhängig von Anastasyas Schutz einen der folgenden Effekte:",
+      "1": [
+        " <strong>Güte</strong>: Erhöht den Kritischen Schaden von durch Stellarfunkeln-Reaktionen verursachten Schaden aller Truppenmitglieder 30 s lang um 60 %.",
+        " <strong>Ehre</strong>: Erhöht den durch Anastasyas Standardangriff, ihre Spezialfähigkeit <strong>Ewige Nacht weicht der Morgendämmerung</strong> und ihre Elementarfähigkeit zum Entsiegeln <tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>Edikt des Bleichsterns – Vernichtung</strong></tooltip> verursachten Schaden 15 s lang auf 125 % ihres ursprünglichen Werts."
+      ],
+      "2": "<br/>",
+      "3": "<tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>Steigert</strong></tooltip> zudem den Schaden durch Stellarfunkeln-Reaktionen aller Truppenmitglieder in der Nähe um 5 %."
+    }
+  },
+  "constellation3": {
+    "name": "Für die hellen Nächte, die die Wunden der Gefallenen in Licht tauchen",
+    "description": {
+      "0": "Erhöht die Stufe der Spezialfähigkeit <strong><tooltip ns=char_Anastasya_gen baseKey18=burst>Für eine neue Welt</tooltip></strong> um 3.",
+      "1": "Höchststufe 15."
+    }
+  },
+  "constellation4": {
+    "name": "Für die Tyrannen: Singt das Lied des Widerstands",
+    "description": {
+      "0": "Verstärkt <strong><tooltip ns=char_Anastasya_gen baseKey18=passive1>Ruhm</tooltip></strong>: Erhöht den Kritischen Schaden, ANG und die Elementarkunde stattdessen auf 130 % des ursprünglichen Werts."
+    }
+  },
+  "constellation5": {
+    "name": "Marsch, lass das Verfallene zu Asche werden",
+    "description": {
+      "0": "Erhöht die Stufe der Elementarfähigkeit <strong><tooltip ns=char_Anastasya_gen baseKey18=skill>Heilige Vollstreckung des Polarsterns</tooltip></strong> um 3.",
+      "1": "Höchststufe 15."
+    }
+  },
+  "constellation6": {
+    "name": "Schaut empor – die makellose Dämmerung wird anbrechen",
+    "description": {
+      "0": "Verleiht nach dem Anwenden der Elementarfähigkeit <strong>Heilige Vollstreckung des Polarsterns</strong> abhängig von Anastasyas Schutz einen der folgenden Effekte:",
+      "1": [
+        " <strong>Güte</strong>: Löst beim nächsten Wechsel zu einer anderen Figur einmalig einen Effekt aus, der dem von <tooltip ns=tooltips_gen baseKey18=11490003 values=[]><strong>Edikt des Bleichsterns – Triumph</strong></tooltip> entspricht und 250 % des ursprünglichen Schadens verursacht. <strong><tooltip ns=tooltips_gen baseKey18=11190007 values=[]>Steigert</tooltip></strong> zudem den durch Stellarfunkeln-Reaktionen verursachten Schaden aller Truppenmitglieder in der Nähe um 10 %.",
+        " <strong>Ehre</strong>: Löst beim nächsten Drücken der Elementarfähigkeit einmalig einen Effekt aus, der dem dritten Angriff von <tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>Edikt des Bleichsterns – Vernichtung</strong></tooltip> entspricht und 200 % des ursprünglichen Schadens verursacht. Wertet, falls die anderen Figuren nicht <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>versiegelt</strong></tooltip> sind, Anastasyas Angriff so, als ob sie im Besitz des <tooltip ns=char_Anastasya_gen baseKey18=passive1><strong>Ruhms</strong></tooltip> aller Truppenmitglieder wäre. <strong><tooltip ns=tooltips_gen baseKey18=11190007 values=[]>Steigert</tooltip></strong> zudem den durch Stellarfunkeln-Reaktionen verursachten Schaden von Anastasya um 20 %."
+      ],
+      "2": "<br/>",
+      "3": "Die Wirkungsdauer der obigen Effekte beträgt 30 s, 15 s Abklingzeit. Entfernt die Effekte, wenn der Zustand <strong>Versiegelung</strong> der anderen Figuren endet."
+    }
+  }
+}

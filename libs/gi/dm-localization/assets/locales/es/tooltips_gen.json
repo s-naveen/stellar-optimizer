@@ -582,5 +582,163 @@
       "0": "<strong>Esplendor: Superconductor Estelar</strong> y <strong>esplendor: Torbellino Estelar</strong> se denominan conjuntamente “estado de <strong>esplendor: Destello Estelar</strong>”.",
       "1": "Un personaje solo puede verse afectado por un tipo de estado de esplendor a la vez, y el de <strong>esplendor: Superconductor Estelar</strong> tendrá prioridad."
     }
+  },
+  "11360001": {
+    "name": "Baliza de gradiente",
+    "description": {
+      "0": "Cuando Mitya está en el equipo, al causar una reacción de Superconductor Estelar, en lugar de crearse un <strong>prisma brilloestelar</strong>, se creará una <strong>baliza de gradiente</strong> que dura X s. Mitya puede consumir las <strong>balizas de gradiente</strong> para producir diversos efectos.",
+      "1": "Las <strong>balizas</strong> seguirán al personaje en uso y, al ser creadas, convertirán un área cercana más amplia en un <strong>campo estrellapolar</strong>. Mitya puede llevar varias <strong>balizas de gradiente</strong>, con un límite inicial de X. Al crear una nueva <strong>baliza de gradiente</strong>, se reiniciará la duración de todas las <strong>balizas</strong>."
+    }
+  },
+  "11360002": {
+    "name": "Núcleo de detección",
+    "description": {
+      "0": "Un dispositivo de energía creado tras usar la Habilidad Elemental. Al pulsar una vez dicha habilidad, se creará un núcleo de detección <strong>estable</strong>, y al mantener pulsado, un núcleo de detección <strong>sobrecalentado</strong>.",
+      "1": "<br/>",
+      "2": "<strong>Núcleo de detección estable</strong>",
+      "3": [
+        "Sigue continuamente a los enemigos cercanos y cada cierto tiempo inflige <electro>Daño Electro en el AdE</electro>.",
+        "Cuando Mitya ya no pueda llevar más <strong>balizas de gradiente</strong>, este dispositivo consumirá las nuevas <strong>balizas</strong> que se creen para infligir <electro>Daño Electro en el AdE</electro> considerado como daño de Superconductor Estelar.",
+        "Cuando termine la duración del <strong>núcleo de detección</strong> o cuando se cree uno nuevo, se consumirán todas las <strong>balizas de gradiente</strong> que lleve Mitya para infligir <electro>Daño Electro en el AdE</electro> considerado como daño de Superconductor Estelar en función de la cantidad de balizas consumidas."
+      ],
+      "4": "<br/>",
+      "5": "<strong>Núcleo de detección sobrecalentado</strong>",
+      "6": [
+        "Mientras este dispositivo esté activo y Mitya tenga al menos una <strong>baliza de gradiente</strong>, podrá realizar el Ataque Cargado especial <strong>Implosión de gradiente</strong>, el cual no consume Aguante."
+      ]
+    }
+  },
+  "11470001": {
+    "name": "test Valor de entusiasmo",
+    "description": {
+      "0": "test船锚存在期间，Dánica acumula <strong>Emoción</strong>. La Emoción puede obtenerse de las siguientes maneras:",
+      "1": [
+        "Cuando Dánica está en tu equipo pero no en uso, los <electro>Electro</electro> o los ataques <cryo>Cryo</cryo> de los personajes en uso del equipo que golpeen a un enemigo otorgan 50 puntos, con un máximo de una activación cada 0,1 s;",
+        "Cuando Dánica está en uso, los Ataques Normales del ancla especial que golpeen a un enemigo otorgan 25 puntos, con un máximo de una vez por segmento del Ataque Normal."
+      ],
+      "2": "<br/>",
+      "3": "Además, cuando Dánica se encuentra en el estado <strong>sirvienta guardiana</strong>, solo puede obtener Emoción cuando los ataques <electro>Electro</electro> o <cryo>Cryo</cryo> de los personajes en uso del equipo golpeen a un enemigo; cuando se encuentra en el estado <strong>sirvienta guerrera</strong>, solo puede obtener Emoción mediante los <strong>Ataques Normales del ancla especial</strong>.",
+      "4": "<br/>",
+      "5": "Cuando la Emoción alcanza el límite de 100 puntos, Dánica puede consumir toda la Emoción para lanzar la Habilidad Elemental especial <strong>«Habilidad de Entrada E2»</strong> o <strong>«Habilidad en Campo E2»</strong>, y entrar en la <strong>forma de sirvienta</strong> correspondiente según el modo de activación."
+    }
+  },
+  "11470002": {
+    "name": "test«Habilidad de Entrada E2»",
+    "description": {
+      "0": "test Dánica blande la cadena del ancla para acercarse rápidamente al enemigo y, a continuación, golpea el suelo con el ancla, infligiendo <electro>Daño Electro en el AdE</electro> que es considerado como daño de Superconductor Estelar.",
+      "1": "<br/>",
+      "2": "Tras su activación, Dánica entra en el estado de <strong>sirvienta guardiana</strong> y obtiene los siguientes efectos:",
+      "3": [
+        " Reinicia la duración del ancla;",
+        " Genera un escudo para el personaje en uso del equipo. El escudo durará hasta salir del estado de sirvienta guardiana, la cantidad de daño que absorbe es proporcional al ATQ de Dánica y tiene un 250% de efectividad de absorción contra el <electro>Daño Electro</electro>."
+      ]
+    }
+  },
+  "11470003": {
+    "name": "test«Hab. en campo E2»",
+    "description": {
+      "0": "Agita la cadena del ancla para acercarse rápidamente al enemigo y luego golpea el suelo con el ancla con fuerza, infligiendo una gran cantidad de <electro>Daño Electro en el AdE</electro> considerado como daño de Superconductor Estelar.",
+      "1": "<br/>",
+      "2": "Tras su uso, Dánica entra en el estado de <strong>sirvienta guerrera</strong> y obtiene los siguientes efectos: cada vez que se usa «Habilidad de campo E2», el siguiente <strong>Ataque Normal especial con ancla</strong> omitirá un segmento de Ataque Normal, pudiendo omitir hasta el último segmento.",
+      "3": "<br/>",
+      "4": "Tras usar 5 veces <strong>«Habilidad de campo E2»</strong>, Dánica saldrá del estado de <strong>sirvienta guerrera</strong> y destruirá el ancla."
+    }
+  },
+  "11470004": {
+    "name": "Sirvienta guardiana",
+    "description": {
+      "0": "testEstado en el que entra Dánica tras usar la Habilidad Elemental especial <strong>«Habilidad de Entrada E2»</strong>. Mientras se encuentre en este estado, otorgará un escudo al personaje en uso y renovará la duración del <strong>Ancla</strong>."
+    }
+  },
+  "11470005": {
+    "name": "test sirvienta guerrera",
+    "description": {
+      "0": "test Estado al que entra Dánica tras usar la Habilidad Elemental especial <strong>«Habilidad en campo E2»</strong>. Mientras se encuentra en este estado, cada vez que use «Habilidad en campo E2», el Ataque Normal especial del ancla saltará una sección de Ataques Normales, pudiendo omitir como máximo los tres primeros Ataques Normales."
+    }
+  },
+  "11490001": {
+    "name": "Trascendencia y bendiciones",
+    "description": {
+      "0": "Al usar la Habilidad Elemental, <strong>Juicio sagrado de la estrella polar</strong>, Anastasia liberará su autoridad de distintas formas y obtendrá diferentes bendiciones dependiendo de si se pulsa una vez o se mantiene pulsado.",
+      "1": [
+        "<strong>Pulsar una vez</strong>: otorga la bendición del <strong>amor</strong>.",
+        "<strong>Mantener pulsado</strong>: otorga la bendición de la <strong>gloria</strong>."
+      ],
+      "2": "<br/>",
+      "3": "Al estar bajo los efectos de estas dos bendiciones, Anastasia podrá usar la Habilidad Definitiva correspondiente y aprovechará de distinta manera la autoridad de <strong>sellado</strong>.",
+      "4": "Mientras no otorgue la bendición de la <strong>gloria</strong>, Anastasia siempre poseerá la bendición del <strong>amor</strong>."
+    }
+  },
+  "11490002": {
+    "name": "Sellado",
+    "description": {
+      "0": "Un estado especial que Anastasia otorga a los personajes al usar su Habilidad Definitiva. Mientras un personaje esté sellado, no podrá entrar en el campo de batalla.",
+      "1": "La duración inicial del sello será la misma que la duración de la Habilidad Definitiva correspondiente, y su duración restante se puede reducir a través de ciertos métodos.",
+      "2": "<br/>",
+      "3": "Dependiendo de la <strong>bendición</strong> que posea Anastasia, usará la Habilidad Definitiva correspondiente y empleará la autoridad de sellado de distintas maneras. Si la bendición que posee Anastasia es:",
+      "4": [
+        "<strong>Amor</strong>: cuando pase a estar en el equipo pero no en uso, se sellará a sí misma. Cuando cualquier personaje cercano del equipo inflija daño de Destello Estelar, la duración restante del sello se reducirá. Durante un tiempo después de que el sello haya terminado, cuando Anastasia entre en el campo de batalla, usará la Habilidad Elemental de desellado especial <strong>Edicto Estrellalbina: Triunfo</strong>.",
+        "<strong>Gloria</strong>: Anastasia sellará a un máximo de tres personajes del equipo. Cuando realice Ataques Normales, la duración restante del sello se reducirá. Durante un tiempo después de que el sello haya terminado, al seleccionar por primera vez al personaje correspondiente, este no entrará en el campo de batalla, sino que, en su lugar, Anastasia usará la Habilidad Elemental de desellado especial <strong>Edicto Estrellalbina: Condena</strong>."
+      ]
+    }
+  },
+  "11490003": {
+    "name": "Edicto Estrellalbina: Triunfo",
+    "description": {
+      "0": "La Habilidad Elemental especial que usa Anastasia al entrar en el campo de batalla una vez terminado el sello. Inflige a los enemigos cercanos <cryo>Daño Cryo en el AdE</cryo> considerado como daño de Superconductor Estelar.",
+      "1": "<strong>Esplendor: Destello Estelar</strong>",
+      "2": "Dicho daño pasa a ser <cryo>Daño Cryo en el AdE</cryo> considerado como daño de la reacción de Destello Estelar correspondiente."
+    }
+  },
+  "11490004": {
+    "name": "Edicto Estrellalbina: Condena",
+    "description": {
+      "0": "Durante un tiempo después de que el sello de los demás personajes del equipo haya terminado, al seleccionar por primera vez al personaje correspondiente, este no entrará en el campo de batalla, sino que, en su lugar, Anastasia usará esta Habilidad Elemental especial.",
+      "1": "<strong>Edicto Estrellalbina: Condena</strong> se divide en tres fases y, al seleccionar por primera vez al personaje correspondiente o al pulsar una vez la Habilidad Elemental, las tres fases se liberarán sucesivamente:",
+      "2": [
+        "Fase 1: realiza tajos consecutivos con la <strong>Lanza Bendita: Dejómenon</strong>, los cuales infligen varias veces <cryo>Daño Cryo en el AdE</cryo> que no puede sustituirse imbuyéndose de otro elemento y que se considera daño de Habilidad Elemental. Además, al final también infligirá una vez <cryo>Daño Cryo en el AdE</cryo> considerado como daño de Superconductor Estelar.",
+        "Fase 2: salta hacia delante y realiza un tajo que inflige <cryo>Daño Cryo en el AdE</cryo> considerado como daño de Superconductor Estelar.",
+        "Fase 3: dispara la <strong>Lanza Bendita</strong> como si fuera una flecha e inflige un mayor <cryo>Daño Cryo en el AdE</cryo> considerado como daño de Superconductor Estelar, además de terminar los efectos de <strong>Amanecer de la noche eterna</strong>."
+      ],
+      "3": "<br/>",
+      "4": "<strong>Esplendor: Destello Estelar</strong>",
+      "5": "El daño de Superconductor Estelar mencionado anteriormente pasa a ser <cryo>Daño Cryo en el AdE</cryo> considerado como daño de la reacción de Destello Estelar correspondiente."
+    }
+  },
+  "11490005": {
+    "name": "Congelación",
+    "description": {
+      "0": "Una mecánica especial. La duración de un efecto congelado se quedará en pausa hasta que termine el efecto que haya activado dicha congelación."
+    }
+  },
+  "11370001": {
+    "name": "Mortero directo: Bombardeo a quemarropa",
+    "description": {
+      "0": "El Ataque Cargado especial de Valeri. Al ejecutar un Ataque Cargado cuando tenga al menos 40 pts. de <strong>energía de choque</strong>, la consumirá toda para realizar este Ataque Cargado especial, el cual inflige <electro>Daño Electro en el AdE</electro> frente a sí mismo y otorga 15 cargas de <strong>orden expeledora</strong>.",
+      "1": "Al volver a ejecutar un Ataque Cargado especial, las cargas de <strong>orden expeledora</strong> se reiniciarán.",
+      "2": "Durante 0.8 s después de usar la Habilidad Elemental, <strong>Defensa ofensiva: Asedio blindado</strong>, o la Habilidad Definitiva, <strong>Fuego concentrado: Salva de electrometralla</strong>, si Valeri tiene al menos 40 pts. de <strong>energía de choque</strong>, su siguiente Ataque Normal se transformará en el Ataque Cargado especial <strong>Mortero directo: Bombardeo a quemarropa</strong>."
+    }
+  },
+  "11370002": {
+    "name": "Orden expeledora",
+    "description": {
+      "0": "Un efecto especial que obtiene Valeri tras ejecutar su Ataque Cargado especial <strong>Mortero directo: Bombardeo a quemarropa</strong>. Dependiendo de si Valeri se encuentra o no en el estado de <strong>esplendor: Superconductor Estelar</strong>, potenciará un tipo de <electro>Daño Electro</electro> diferente. Si Valeri:",
+      "1": [
+        "Se encuentra en el estado de <strong>esplendor: Superconductor Estelar</strong>, cuando los personajes en uso cercanos del equipo inflijan <electro>Daño Electro</electro> considerado como daño de Superconductor Estelar con sus Ataques Normales, Cargados o Descendentes, o con sus Habilidades Elementales o Definitivas, se consumirá una carga de <strong>orden expeledora</strong> para aumentar el daño infligido en función del ATQ de Valeri.",
+        "No se encuentra en el estado de <strong>esplendor: Superconductor Estelar</strong>, cuando los personajes en uso cercanos del equipo inflijan <electro>Daño Electro</electro> con sus Ataques Normales, Cargados o Descendentes, o con sus Habilidades Elementales o Definitivas, se consumirá una carga de <strong>orden expeledora</strong> para aumentar el daño infligido en función del ATQ de Valeri."
+      ],
+      "2": "Al golpear a varios enemigos a la vez con un mismo <electro>Daño Electro</electro>, se consumirán cargas de <strong>orden expeledora</strong> en función de la cantidad de enemigos golpeados."
+    }
+  },
+  "11370003": {
+    "name": "Energía de choque",
+    "description": {
+      "0": "Una energía especial que usa Valeri para fortalecer sus capacidades de combate. Su límite inicial es de 100 pts. Cuando tenga al menos 40 pts. de <strong>energía de choque</strong>, podrá realizar el Ataque Cargado especial <strong>Mortero directo: Bombardeo a quemarropa</strong>.",
+      "1": "Valeri puede obtener <strong>energía de choque</strong> de las siguientes formas:",
+      "2": [
+        "Al usar su Habilidad Elemental, <strong>Defensa ofensiva: Asedio blindado</strong>.",
+        "Cuando, una vez que se haya desbloqueado el talento de ascensión “En compañía de un bombardeo”, los ataques <electro>Electro</electro> de los personajes en uso cercanos del equipo golpeen a un enemigo durante la Habilidad Definitiva, <strong>Fuego concentrado: Salva de electrometralla</strong>."
+      ]
+    }
   }
 }

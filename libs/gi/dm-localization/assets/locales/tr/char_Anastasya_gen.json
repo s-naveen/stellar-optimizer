@@ -1,0 +1,205 @@
+{
+  "name": "Anastasya",
+  "title": "",
+  "description": "",
+  "constellationName": "",
+  "auto": {
+    "name": "Sonsuz Kışın Ötesindeki Şafak",
+    "fields": {
+      "normal": {
+        "0": "<strong>Normal Saldırı</strong>",
+        "1": "Arka arkaya en fazla 5 ok atar."
+      },
+      "charged": {
+        "0": "<strong>Yüklü Saldırı</strong>",
+        "1": "Daha isabetli ve daha yüksek Hasar veren bir <strong>Hedefli Atış</strong> yapar.",
+        "2": "Nişan alırken okun ucunda Buz toplanır. Tam yüklü bu Buz oku <cryo>Buz Hasarı</cryo> verir."
+      },
+      "plunging": {
+        "0": "<strong>Havadan Saldırı</strong>",
+        "1": "Havadayken yaylım ok atışı yapar ve dalışa geçerek yere vurur. Yoluna çıkan düşmanlara saldırır ve yere vurduğunda Alan Hasarı verir."
+      }
+    },
+    "skillParams": {
+      "0": "1 Vuruş Hasarı",
+      "1": "2 Vuruş Hasarı",
+      "2": "3 Vuruş Hasarı",
+      "3": "4 Vuruş Hasarı",
+      "4": "5 Vuruş Hasarı",
+      "5": "Hedefli Atış",
+      "6": "Tam Yüklü Hedefli Atış",
+      "7": "Havadan Saldırı Hasarı",
+      "8": "Havadan Saldırı Hasarı (Alçaktan/Yüksekten)",
+      "9": "",
+      "10": "",
+      "11": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "skill": {
+    "name": "Kutup Yıldızının İlahi Yargısı",
+    "description": {
+      "0": "<tooltip ns=tooltips_gen baseKey18=11490001 values=[]><strong>Aşkınlığın</strong></tooltip> gerçek doğasını ortaya çıkararak <cryo>Buz Alan Hasarı</cryo> verir ve becerinin dokunarak ya da basılı tutularak kullanılmasına göre gücünü farklı biçimlerde açığa çıkarır.",
+      "1": "<br/>",
+      "2": "<strong>Dokun</strong>",
+      "3": "<strong>Sevgi</strong> Kutsanması kazanır ve imparatorluk sarayı yadigarı <strong>Soluk Yıldız Tacını</strong> fırlatır.",
+      "4": "<strong>Soluk Yıldız Tacı</strong> aktif karakteri takip eder ve her 2 saniyede bir yakındaki düşmanlara 2 defa <cryo>Buz Alan Hasarı</cryo> verir.",
+      "5": "<tooltip ns=tooltips_gen baseKey18=11500004 values=[]><strong>Işıltı: Yıldız Parıltısı</strong></tooltip>: Her <strong>Soluk Yıldız Tacı</strong> saldırısının verdiği ikinci hasar, ilgili Yıldız Parıltısı tepkimesinin hasarı sayılan <cryo>Buz Alan Hasarına</cryo> dönüşür.",
+      "6": "<br/>",
+      "7": "<strong>Basılı Tut</strong>",
+      "8": "<strong>Onur</strong> Kutsanması kazanır ve imparatorluk sarayından miras kalan kusursuz silah becerilerini sergiler.",
+      "9": "Bu modda Anastasya'nın Normal Saldırıları, <strong>Kutsanmış Silah: Dekhomenon</strong> ile yapılan en fazla 5 vuruşluk bir saldırı dizisine dönüşür. Bu saldırılar, diğer Element Tesirleri ile değiştirilemez ve <cryo>Buz Alan Hasarı</cryo> verir. Anastasya bu modda Yüklü Saldırı yapamaz.",
+      "10": "<strong>Işıltı: Yıldız Parıltısı</strong>: <strong>Kutsanmış Silah</strong> ile yapılan her Normal Saldırının verdiği son hasar, ilgili Yıldız Parıltısı tepkimesinin hasarı sayılan <cryo>Buz Alan Hasarına</cryo> dönüşür."
+    },
+    "skillParams": {
+      "0": "Anlık Dokunma Hasarı",
+      "1": "Anlık Basılı Tutma Hasarı",
+      "2": "Soluk Yıldız Tacı Buz Hasarı",
+      "3": "Soluk Yıldız Tacı Yıldız İletimi/Yıldız Girdabı Hasarı",
+      "4": "1 Vuruş Buz Hasarı",
+      "5": "2 Vuruş Buz Hasarı",
+      "6": "3 Vuruş Buz Hasarı",
+      "7": "4 Vuruş Buz Hasarı",
+      "8": "5 Vuruş Buz Hasarı",
+      "9": "1 Vuruş Yıldız İletimi/Yıldız Girdabı Hasarı",
+      "10": "2 Vuruş Yıldız İletimi/Yıldız Girdabı Hasarı",
+      "11": "3 Vuruş Yıldız İletimi/Yıldız Girdabı Hasarı",
+      "12": "4 Vuruş Yıldız İletimi/Yıldız Girdabı Hasarı",
+      "13": "5 Vuruş Yıldız İletimi/Yıldız Girdabı Hasarı",
+      "14": "Soluk Yıldız Tacı Süresi",
+      "15": "Onur Kutsanması Süresi",
+      "16": "BS",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "burst": {
+    "name": "Yeni Dünyaya Doğru",
+    "description": {
+      "0": "Anastasya'nın mevcut <tooltip ns=tooltips_gen baseKey18=11490001 values=[]><strong>Kutsanması</strong></tooltip>, hangi Element Patlamasını kullanabileceğini ve <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Mühürleme</strong></tooltip> gücünü nasıl yöneteceğini belirler.",
+      "1": "<br/>",
+      "2": "<strong>Yeni Dünyaya Doğru</strong>",
+      "3": "Anastasya <strong>Sevgi</strong> Kutsanmasına sahipken kullanılabilir. <cryo>Buz Alan Hasarı</cryo> verir ve Soluk Yıldız Tacı'nın süresini <tooltip ns=tooltips_gen baseKey18=11490005 values=[]><strong>dondurur</strong></tooltip>.",
+      "4": "Bu süre boyunca, yakındaki tüm grup üyelerinin verdiği Yıldız Parıltısı Tepkimesi Hasarı artar ve Soluk Yıldız Tacı her saldırıda Yıldız İletimi Tepkimesi Hasarı sayılan fazladan 1 <cryo>Buz Alan Hasarı</cryo> daha verir. Anastasya ayrıca bu süre içinde değiştirilip saha dışına çıktığında kendisini <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Mühürler</strong></tooltip>. <strong>Mühürlü</strong> durumu sona erdiğinde, mührü kaldıran özel Element Becerisi <tooltip ns=tooltips_gen baseKey18=11490003 values=[]><strong>Soluk Yıldız Fermanı: Zafer'i</strong></tooltip> kullanabilir.",
+      "5": "<br/>",
+      "6": "<strong>Ebedi Gece Yerini Şafağa Bırakır</strong>",
+      "7": "Anastasya <strong>Onur</strong> Kutsanmasına sahipken kullanılabilir. <strong>Kutsanmış Silah'ın</strong> gücünü açığa çıkararak Yıldız İletimi Tepkimesi Hasarı sayılan <cryo>Buz Alan Hasarı</cryo> verir ve Kutsanma'nın süresini <tooltip ns=tooltips_gen baseKey18=11490005 values=[]><strong>dondurur</strong></tooltip>.",
+      "8": "Anastasya ayrıca en fazla 3 diğer grup üyesini <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Mühürler</strong></tooltip>. <strong>Mühürlü</strong> durumu sona erdiğinde, Anastasya mührü kaldıran özel Element Becerisi <tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>Soluk Yıldız Fermanı: Kıyamet'i</strong></tooltip> kullanabilir.",
+      "9": "<br/>",
+      "10": "<strong>Işıltı: Yıldız Parıltısı</strong>: Yukarıda açıklanan tüm Yıldız İletimi Tepkimesi Hasarı yerine ilgili Yıldız Parıltısı tepkimesinden gelen hasar olarak sayılan <cryo>Buz Alan Hasarı</cryo> olarak verilir."
+    },
+    "skillParams": {
+      "0": "Yeni Dünyaya Doğru Anlık Hasar",
+      "1": "Yeni Dünyaya Doğru Yıldız Parıltısı Tepkimesi Hasar Artışı",
+      "2": "Soluk Yıldız Tacı Yıldız İletimi/Yıldız Girdabı Hasarı",
+      "3": "Zafer Yıldız İletimi/Yıldız Girdabı Hasarı",
+      "4": "Ebedi Gece Yerini Şafağa Bırakır Yıldız İletimi/Yıldız Girdabı Hasarı",
+      "5": "Kıyamet 1 Vuruş Buz Hasarı",
+      "6": "Kıyamet 1 Vuruş Yıldız İletimi/Yıldız Girdabı Hasarı",
+      "7": "Kıyamet 2 Vuruş Yıldız İletimi/Yıldız Girdabı Hasarı",
+      "8": "Kıyamet 3 Vuruş Yıldız İletimi/Yıldız Girdabı Hasarı",
+      "9": "Yeni Dünyaya Doğru Süresi",
+      "10": "Ebedi Gece Yerini Şafağa Bırakır Süresi",
+      "11": "BS",
+      "12": "Enerji Maliyeti",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "passive1": {
+    "name": "Gecenin Işıltılı Hükümdarlığı",
+    "description": {
+      "0": "Anastasya, <strong>Kutup Yıldızının İlahi Yargısı</strong> Element Becerisini kullandıktan sonra tüm grup üyeleri 20 saniyeliğine <strong>Övgü</strong> kazanır ve Kritik Hasarları %12 artar.",
+      "1": "Bir grup üyesi <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Mühürlendiğinde</strong></tooltip>, sahip olduğu <strong>Övgü</strong>, o karakterin Mühürlü durumu sona erdikten 8 saniye sonrasına kadar <strong>Mühürlü</strong> olmayan diğer grup üyelerine geçici olarak eşit paylaştırılır."
+    }
+  },
+  "passive2": {
+    "name": "Kaybedilenler İçin Ağıt",
+    "description": {
+      "0": "Anastasya gruptayken, herhangi bir grup üyesinin tetiklediği Yıldız Parıltısı tepkimeleri şu etkileri kazanır:",
+      "1": [
+        "<strong>Yıldız İletimi</strong>: Kutup Yıldızı Alanı, her element gücü açığa çıkardığında fazladan element gücü kazanır, ayrıca bir Kutup Yıldızı Prizması oluşturulduğunda da element gücü kazanır.",
+        "<strong>Yıldız Girdabı</strong>: Yıldız Girdabı tepkimesinin temel tepkime çarpanı %15 artar. Yeni oluşturulan Yıldız Girdapları ve Sürüklenen Girdaplar ise anında 2. Seviyeye yükselir. Bu seviye artışı her 1 saniyede bir tetiklenebilir."
+      ]
+    }
+  },
+  "passive3": {
+    "name": "Yıldız Takdisi: Kusursuz Dönüş",
+    "description": {
+      "0": "Anastasya, bir <strong>Kutup Yıldızı Alanı</strong> içindeyken <strong>Işıltı: Yıldız İletimi</strong> durumunda olur ve yakınındaki bir grup üyesi Yıldız Girdabı Tepkimesi tetiklediğinde 8 saniyeliğine <strong>Işıltı: Yıldız Girdabı</strong> durumuna geçer.",
+      "1": "Grup üyeleri, sırasıyla Süper İletim/Buz Girdabı tepkimeleri yerine Yıldız İletimi/Yıldız Girdabı tepkimelerini tetikler. Anastasya ayrıca sahip olduğu her 100 Saldırı için grup üyelerinin Yıldız İletimi ve Yıldız Girdabı Temel Hasarını %0,7 oranında artırır. Bu artış en fazla %14'e kadar olabilir."
+    }
+  },
+  "passive": {
+    "name": "Düşen Karın Lütfu",
+    "description": {
+      "0": "Grup Üyeleri, Snezhnaya'da (Nod-Krai hariç) savaş dışındayken kademeli olarak Can yeniler.",
+      "1": "Ayrıca Anastasya gruptayken Graeae'in Gözü Enerji kaybetmez ve Enerjisi %30'un altındaysa anında %30'a tamamlanır.",
+      "2": "Bu etkiler Zindanlarda, Ezici Zindanlarda veya Hiçlik Sarmalında geçerli değildir."
+    }
+  },
+  "constellation1": {
+    "name": "Geride Kalan Yıllara, Sönmeyen Yüreklere",
+    "description": {
+      "0": "Yükseltme Pasif Yeteneği <tooltip ns=char_Anastasya_gen baseKey18=passive1><strong>Gecenin Işıltılı Hükümdarlığı</strong></tooltip> gelişir: <strong>Övgüler</strong>, <cryo>Buz</cryo> karakterlerinin Saldırısını %15, diğer Element Türlerindeki karakterlerin Element Ustalığını ise 60 artırır.",
+      "1": "Ayrıca bir karakter <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Mühürlü</strong></tooltip> olduğunda, sahip olduğu <strong>Övgü</strong> eşit olarak paylaştırılmak yerine Mühürlü olmayan her bir grup üyesine eksiksiz olarak kopyalanır. Anastasya <strong>Mühürlü</strong> olduğunda ise diğer karakterlere verdiği <strong>Övgülerin</strong> sağladığı bonuslar, orijinal değerlerinin %300'ü kadar olur."
+    }
+  },
+  "constellation2": {
+    "name": "Kışa ve Soğuğunu Tadan Herkese",
+    "description": {
+      "0": "Anastasya, <strong>Kutup Yıldızının İlahi Yargısı</strong> Element Becerisini kullandığında, mevcut Kutsanmasına bağlı olarak şu etkiler devreye girer:",
+      "1": [
+        " <strong>Sevgi</strong>: Tüm grup üyelerinin verdiği Yıldız Parıltısı Tepkimesi Hasarının Kritik Hasarı 30 saniyeliğine %60 artar.",
+        " <strong>Onur</strong>: Anastasya'nın Normal Saldırıları, Element Patlaması <strong>Ebedi Gece Yerini Şafağa Bırakır</strong> ve özel Mühür Açma Element Becerisi <tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>Soluk Yıldız Fermanı: Kıyamet</strong></tooltip> 15 saniyeliğine orijinal Hasarlarının %125'i kadar Hasar verir."
+      ],
+      "2": "<br/>",
+      "3": "Ayrıca, yakındaki tüm grup üyelerinin verdiği Yıldız Parıltısı Tepkimesi Hasarı %5 <tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>yükselir</strong></tooltip>."
+    }
+  },
+  "constellation3": {
+    "name": "Beyaz Geceler Uğruna, Yansın Kederimiz",
+    "description": {
+      "0": "<strong><tooltip ns=char_Anastasya_gen baseKey18=burst>Yeni Dünyaya Doğru</tooltip></strong> Element Patlamasının seviyesini 3 artırır.",
+      "1": "Maksimum yükseltme seviyesi 15'tir."
+    }
+  },
+  "constellation4": {
+    "name": "Tiranlara Haykır Asinin Şarkısını",
+    "description": {
+      "0": "<strong><tooltip ns=char_Anastasya_gen baseKey18=passive1>Övgüleri</tooltip></strong> geliştirerek Kritik Hasar, Saldırı ve Element Ustalığı bonuslarını orijinal değerlerinin %130'una yükseltir."
+    }
+  },
+  "constellation5": {
+    "name": "İlerle, Çürüme Yalnızca Kül Olana Dek",
+    "description": {
+      "0": "<strong><tooltip ns=char_Anastasya_gen baseKey18=skill>Kutup Yıldızının İlahi Yargısı</tooltip></strong> seviyesini 3 artırır.",
+      "1": "Maksimum yükseltme seviyesi 15'tir."
+    }
+  },
+  "constellation6": {
+    "name": "Kaldır Başını, Lekesiz Bir Şafak Sökecek",
+    "description": {
+      "0": "Anastasya, Element Becerisi <strong>Kutup Yıldızının İlahi Yargısı'nı</strong> kullandıktan sonra mevcut Kutsanma durumuna göre şu etkiler devreye girer:",
+      "1": [
+        " <strong>Sevgi</strong>: Alanda başka bir karaktere geçildiği ilk anda, <tooltip ns=tooltips_gen baseKey18=11490003 values=[]><strong>Soluk Yıldız Fermanı: Zafer'e</strong></tooltip> eşdeğer bir etki tetiklenir ve orijinal Hasarının %250'sini verir. Ayrıca yakındaki tüm grup üyelerinin verdiği Yıldız Parıltısı Tepkimesi Hasarı %10 <tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>yükselir</strong></tooltip>.",
+        " <strong>Onur</strong>: Element Becerisine bir sonraki dokunuşta, <tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>Soluk Yıldız Fermanı: Kıyamet'in</strong></tooltip> üçüncü saldırısına eşdeğer bir etki tetiklenir ve orijinal Hasarının %200'ünü verir. Eğer diğer grup üyeleri <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Mühürlü</strong></tooltip> değilse, Anastasya bu saldırı esnasında tüm grup üyelerinin <tooltip ns=char_Anastasya_gen baseKey18=passive1><strong>Övgüsünü</strong></tooltip> almış sayılır. Ayrıca Anastasya'nın verdiği Yıldız Parıltısı Tepkimesi Hasarı %20 <tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>yükselir</strong></tooltip>."
+      ],
+      "2": "<br/>",
+      "3": "Yukarıdaki etkiler 30 sn. sürer ve her 15 saniyede bir tetiklenebilir. Diğer grup üyelerinin <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Mühürlü</strong></tooltip> durumu sona erdiğinde bu etkiler kaybolur."
+    }
+  }
+}

@@ -1008,7 +1008,23 @@
       "icon": "UI_EquipIcon_Bow_Alkonost",
       "awakenIcon": "UI_EquipIcon_Bow_Alkonost_Awaken"
     },
-    "QuantumCatalyst": {}
+    "QuantumCatalyst": {},
+    "TorrentsOfSpring": {
+      "icon": "UI_EquipIcon_Claymore_Anchor",
+      "awakenIcon": "UI_EquipIcon_Claymore_Anchor_Awaken"
+    },
+    "StarsealedEdict": {
+      "icon": "UI_EquipIcon_Catalyst_Chernaya",
+      "awakenIcon": "UI_EquipIcon_Catalyst_Chernaya_Awaken"
+    },
+    "Silverdawn": {
+      "icon": "UI_EquipIcon_Bow_Ullr",
+      "awakenIcon": "UI_EquipIcon_Bow_Ullr_Awaken"
+    },
+    "BlazingLionfang": {
+      "icon": "UI_EquipIcon_Claymore_NatlanEventVennessa",
+      "awakenIcon": "UI_EquipIcon_Claymore_NatlanEventVennessa_Awaken"
+    }
   },
   "artifacts": {
     "ResolutionOfSojourner": {
@@ -1435,6 +1451,20 @@
       "sands": "UI_RelicIcon_15048_5",
       "goblet": "UI_RelicIcon_15048_1",
       "circlet": "UI_RelicIcon_15048_3"
+    },
+    "LegacyOfTheFirstChronicle": {
+      "flower": "UI_RelicIcon_15049_4",
+      "plume": "UI_RelicIcon_15049_2",
+      "sands": "UI_RelicIcon_15049_5",
+      "goblet": "UI_RelicIcon_15049_1",
+      "circlet": "UI_RelicIcon_15049_3"
+    },
+    "PreludeOfTheKingfisherCanopy": {
+      "flower": "UI_RelicIcon_15050_4",
+      "plume": "UI_RelicIcon_15050_2",
+      "sands": "UI_RelicIcon_15050_5",
+      "goblet": "UI_RelicIcon_15050_1",
+      "circlet": "UI_RelicIcon_15050_3"
     }
   },
   "chars": {
@@ -3626,6 +3656,78 @@
       "constellation5": "UI_Talent_U_PlayerIce_02",
       "constellation6": "UI_Talent_S_PlayerIce_04"
     },
-    "Somnia": {}
+    "Somnia": {},
+    "Mitya": {
+      "icon": "UI_AvatarIcon_Mitya",
+      "iconSide": "UI_AvatarIcon_Side_Mitya",
+      "banner": "UI_NameCardPic_Mitya_P",
+      "bar": "UI_NameCardPic_Mitya_Alpha",
+      "skill": "Skill_S_Mitya_01",
+      "burst": "Skill_E_Mitya_01_HD",
+      "passive1": "UI_Talent_S_Mitya_05",
+      "passive2": "UI_Talent_S_Mitya_06",
+      "passive3": "UI_Talent_S_Mitya_07",
+      "passive": "UI_Talent_S_Mitya_08",
+      "constellation1": "UI_Talent_S_Mitya_01",
+      "constellation2": "UI_Talent_S_Mitya_02",
+      "constellation3": "UI_Talent_U_Mitya_01",
+      "constellation4": "UI_Talent_S_Mitya_03",
+      "constellation5": "UI_Talent_U_Mitya_02",
+      "constellation6": "UI_Talent_S_Mitya_04"
+    },
+    "Danica": {
+      "icon": "UI_AvatarIcon_Danica",
+      "iconSide": "UI_AvatarIcon_Side_Danica",
+      "banner": "UI_NameCardPic_Danica_P",
+      "bar": "UI_NameCardPic_Danica_Alpha",
+      "skill": "Skill_S_Danica_01",
+      "burst": "Skill_E_Danica_01_HD",
+      "passive1": "UI_Talent_S_Danica_05",
+      "passive2": "UI_Talent_S_Danica_06",
+      "passive3": "UI_Talent_S_Danica_07",
+      "passive": "UI_Talent_S_Danica_08",
+      "constellation1": "UI_Talent_S_Danica_01",
+      "constellation2": "UI_Talent_S_Danica_02",
+      "constellation3": "UI_Talent_U_Danica_02",
+      "constellation4": "UI_Talent_S_Danica_03",
+      "constellation5": "UI_Talent_U_Danica_01",
+      "constellation6": "UI_Talent_S_Danica_04"
+    },
+    "Anastasya": {
+      "icon": "UI_AvatarIcon_Anastasya",
+      "iconSide": "UI_AvatarIcon_Side_Anastasya",
+      "banner": "UI_NameCardPic_Anastasya_P",
+      "bar": "UI_NameCardPic_Anastasya_Alpha",
+      "skill": "Skill_S_Anastasya_01",
+      "burst": "Skill_E_Anastasya_01_HD",
+      "passive1": "UI_Talent_S_Anastasya_05",
+      "passive2": "UI_Talent_S_Anastasya_06",
+      "passive3": "UI_Talent_S_Anastasya_07",
+      "passive": "UI_Talent_S_Anastasya_08",
+      "constellation1": "UI_Talent_S_Anastasya_01",
+      "constellation2": "UI_Talent_S_Anastasya_02",
+      "constellation3": "UI_Talent_U_Anastasya_01",
+      "constellation4": "UI_Talent_S_Anastasya_03",
+      "constellation5": "UI_Talent_U_Anastasya_02",
+      "constellation6": "UI_Talent_S_Anastasya_04"
+    },
+    "Valeriy": {
+      "icon": "UI_AvatarIcon_Valeriy",
+      "iconSide": "UI_AvatarIcon_Side_Valeriy",
+      "banner": "UI_NameCardPic_Valeriy_P",
+      "bar": "UI_NameCardPic_Valeriy_Alpha",
+      "skill": "Skill_S_Valeriy_01",
+      "burst": "Skill_E_Valeriy_01_HD",
+      "passive1": "UI_Talent_S_Valeriy_05",
+      "passive2": "UI_Talent_S_Valeriy_06",
+      "passive3": "UI_Talent_S_Valeriy_08",
+      "passive": "UI_Talent_S_Valeriy_07",
+      "constellation1": "UI_Talent_S_Valeriy_01",
+      "constellation2": "UI_Talent_S_Valeriy_02",
+      "constellation3": "UI_Talent_U_Valeriy_01",
+      "constellation4": "UI_Talent_S_Valeriy_03",
+      "constellation5": "UI_Talent_U_Valeriy_02",
+      "constellation6": "UI_Talent_S_Valeriy_04"
+    }
   }
 }

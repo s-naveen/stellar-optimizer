@@ -1,0 +1,199 @@
+{
+  "name": "アナスターシャ",
+  "title": "",
+  "description": "",
+  "constellationName": "",
+  "auto": {
+    "name": "長冬の暁JP3A",
+    "fields": {
+      "normal": {
+        "0": "<strong>通常攻撃</strong>",
+        "1": "最大5段の連続射撃を行う。"
+      },
+      "charged": {
+        "0": "<strong>重撃</strong>",
+        "1": "ダメージがより高く、より精確な<strong>狙い撃ち</strong>を発動する。",
+        "2": "照準時、氷元素を矢先に凝集させ、氷元素の力に満ちた矢で敵に<cryo>氷元素ダメージ</cryo>を与える。"
+      },
+      "plunging": {
+        "0": "<strong>落下攻撃</strong>",
+        "1": "空中から矢の雨を放ち、凄まじいスピードで落下し地面に衝撃を与える。経路上の敵を攻撃し、落下時に範囲ダメージを与える。JP3A"
+      }
+    },
+    "skillParams": {
+      "0": "1段ダメージ",
+      "1": "2段ダメージ",
+      "2": "3段ダメージ",
+      "3": "4段ダメージ",
+      "4": "5段ダメージ",
+      "5": "狙い撃ち",
+      "6": "フルチャージ狙い撃ち",
+      "7": "落下期間のダメージ",
+      "8": "低空/高空落下攻撃ダメージ",
+      "9": "",
+      "10": "",
+      "11": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "skill": {
+    "name": "極星聖裁JP3A",
+    "description": {
+      "0": "<tooltip ns=tooltips_gen baseKey18=11490001 values=[]><strong>「超越」</strong></tooltip>の本質を明らかにし、<cryo>氷元素範囲ダメージ</cryo>を与える。そして一回押し、長押しに応じて、異なる方法で力を解放する。",
+      "1": "<br/>",
+      "2": "<strong>一回押し</strong>",
+      "3": "<strong>「慈愛」</strong>の加護を与え、王廷に伝承される<strong>蒼星の聖冕</strong>を投擲する。",
+      "4": "<strong>蒼星の聖冕</strong>は現在のフィールド上キャラクターと共に移動し、2秒ごとに周囲の敵に<cryo>氷元素範囲ダメージ</cryo>を2回与える。",
+      "5": "<tooltip ns=tooltips_gen baseKey18=11500004 values=[]><strong>輝映・星閃</strong></tooltip>の効果として、<strong>蒼星の聖冕</strong>が攻撃時に与える2回目のダメージは、対応する星反応ダメージとみなされる<cryo>氷元素範囲ダメージ</cryo>へと変化する。",
+      "6": "<br/>",
+      "7": "<strong>長押し</strong>",
+      "8": "<strong>「栄光」</strong>の加護を与え、王廷に伝承される見事な槍術を披露する。",
+      "9": "このモードにある時、アナスターシャの通常攻撃は<strong>聖佑の槍・デゴメノ</strong>による最大5段の連続攻撃に変わり、元素付与によって他の元素に変化しない<cryo>氷元素範囲ダメージ</cryo>を与えるようになる。この間、重撃は行えない。",
+      "10": "<strong>輝映・星閃</strong>の効果として、<strong>聖佑の槍</strong>による通常攻撃時、各段の攻撃で与える最後のダメージは、対応する星反応ダメージとみなされる<cryo>氷元素範囲ダメージ</cryo>へと変化する。JP3A"
+    },
+    "skillParams": {
+      "0": "一回押しダメージ",
+      "1": "長押しダメージ",
+      "2": "蒼星聖冕氷元素ダメージ",
+      "3": "蒼星聖冕星電導/星拡散ダメージ",
+      "4": "1段氷元素ダメージ",
+      "5": "2段氷元素ダメージ",
+      "6": "3段氷元素ダメージ",
+      "7": "4段氷元素ダメージ",
+      "8": "5段氷元素ダメージ",
+      "9": "1段星電導/星拡散ダメージ",
+      "10": "2段星電導/星拡散ダメージ",
+      "11": "3段星電導/星拡散ダメージ",
+      "12": "4段星電導/星拡散ダメージ",
+      "13": "5段星電導/星拡散ダメージ",
+      "14": "蒼星聖冕継続時間",
+      "15": "栄光の加護継続時間",
+      "16": "クールタイム",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "burst": {
+    "name": "新世界へJP3A",
+    "description": {
+      "0": "アナスターシャが所持する<tooltip ns=tooltips_gen baseKey18=11490001 values=[]><strong>加護</strong></tooltip>に応じて、対応する元素爆発を発動でき、異なる方法で<tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>封存</strong></tooltip>の権能を運用できる。",
+      "1": "<br/>",
+      "2": "<strong>新世界へ</strong>",
+      "3": "<strong>「慈愛」</strong>の加護を所持している時に発動できる。<cryo>氷元素範囲ダメージ</cryo>を与え、蒼星聖冕の継続時間を<tooltip ns=tooltips_gen baseKey18=11490005 values=[]><strong>凍結</strong></tooltip>する。",
+      "4": "その間、チーム内の周囲にいる全てのキャラクターが与える星反応ダメージがアップする。さらに、蒼星聖冕が攻撃する時、星電導反応ダメージと見なされる<cryo>氷元素範囲ダメージ</cryo>を追加で1回与える。アナスターシャがチームの待機中に切り替わる時、自身を<tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>封存</strong></tooltip>する。また、<strong>封存</strong>終了時、特殊な解封元素スキル<tooltip ns=tooltips_gen baseKey18=11490003 values=[]><strong>蒼星の聖勅・凱旋</strong></tooltip>を発動できる。",
+      "5": "<br/>",
+      "6": "<strong>永夜は明けゆく</strong>",
+      "7": "<strong>「栄光」</strong>の加護を所持している時に発動できる。<strong>聖佑の槍</strong>の力を解放し、星電導反応ダメージと見なされる<cryo>氷元素範囲ダメージ</cryo>を与え、加護の継続時間を<tooltip ns=tooltips_gen baseKey18=11490005 values=[]><strong>凍結</strong></tooltip>する。",
+      "8": "また、アナスターシャはチーム内の最大3名の他のキャラクターを<tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>封存</strong></tooltip>する。そして<strong>封存</strong>終了時、特殊な解封元素スキル<tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>蒼星の聖勅・裁滅</strong></tooltip>を発動できる。",
+      "9": "<br/>",
+      "10": "<strong>輝映・星閃</strong>効果により、上記のすべての星電導反応ダメージは、対応する星反応ダメージと見なされる<cryo>氷元素範囲ダメージ</cryo>を与えるよう変更される。JP3A"
+    },
+    "skillParams": {
+      "0": "致新世界瞬時ダメージ",
+      "1": "致新世界星反応ダメージアップ",
+      "2": "蒼星聖冕星電導/星拡散ダメージ",
+      "3": "凱旋星電導/星拡散ダメージ",
+      "4": "永夜将明星電導/星拡散ダメージ",
+      "5": "裁滅一段氷元素ダメージ",
+      "6": "裁滅一段星電導/星拡散ダメージ",
+      "7": "裁滅2段星電導/星拡散ダメージ",
+      "8": "裁滅三段星電導/星拡散ダメージ",
+      "9": "致新世界継続時間",
+      "10": "永夜将明継続時間",
+      "11": "クールタイム",
+      "12": "元素エネルギー",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "passive1": {
+    "name": "煌夜の明威JP3A",
+    "description": {
+      "0": "アナスターシャが元素スキル<strong>極星聖裁</strong>を発動した後、チーム内の全キャラクターは継続時間20秒の<strong>栄勲</strong>を獲得し、会心ダメージが12%アップする。",
+      "1": "チーム内のキャラクターが<tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>封印</strong></tooltip>された時、封印終了から8秒後まで、そのキャラクターが所持している<strong>栄勲</strong>は、<strong>封印</strong>されていないキャラクターに一時的に均等分配される。JP3A"
+    }
+  },
+  "passive2": {
+    "name": "未挽の悼亡JP3A",
+    "description": {
+      "0": "アナスターシャがチームにいる時、チーム内の全キャラクターが起こす星反応はそれぞれ以下の効果を獲得する。",
+      "1": "・<strong>星電導反応</strong> 極星フィールドが元素力を放出するたびに、追加で一定の元素力を獲得し、スターライトプリズムを生成する際にも、極星フィールドに一定の元素力を付与する。",
+      "2": "・<strong>星拡散反応</strong> 星の嵐と流星の嵐は生成された時点でレベル2にアップし、この効果は1秒につき最大1回まで発動可能。また、星拡散反応の基礎反応係数が15%アップする。JP3A"
+    }
+  },
+  "passive3": {
+    "name": "星光の祝福・無染復臨JP3A",
+    "description": {
+      "0": "<strong>極星フィールド</strong>内にいる時/チーム内のキャラクターが付近で星拡散反応を起こした後の8秒間、アナスターシャはそれぞれ<strong>輝映・星電導</strong>/<strong>輝映・星拡散</strong>状態に入る。",
+      "1": "チーム内のキャラクターが超電導/氷元素拡散反応を起こすと、超電導/氷元素拡散反応は星電導/星拡散反応へと変わり、アナスターシャの攻撃力に基づいて、チームのキャラクターが与える上記反応の基礎ダメージがアップする。攻撃力100につき、上記反応の基礎ダメージ+0.7%。この方法でアップできるダメージは最大14%まで。JP3A"
+    }
+  },
+  "passive": {
+    "name": "雪降の恩寵JP3A",
+    "description": {
+      "0": "スネージナヤ地域（ナド・クライを除く）では、チーム内のキャラクターが戦闘状態にない時、HPが徐々に回復する。",
+      "1": "また、アナスターシャがチームにいる時、「グライアイの眼」のエネルギーは減少しない。さらにエネルギーが30%未満の場合、即座に30%まで回復する。",
+      "2": "上記の効果は秘境、征討領域、深境螺旋では無効となる。JP3A"
+    }
+  },
+  "constellation1": {
+    "name": "往年へ、未だ消えざる心へJP3A",
+    "description": {
+      "0": "固有天賦<tooltip ns=char_Anastasya_gen baseKey18=passive1><strong>煌夜の明威</strong></tooltip>が強化される。<strong>栄勲</strong>はさらに、元素タイプが<cryo>氷元素</cryo>のキャラクターの攻撃力を15%アップし、その他の元素タイプのキャラクターの元素熟知を60アップする。",
+      "1": "また、キャラクターが<tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>封印</strong></tooltip>された時、<strong>栄勲</strong>の均等分配はコピーに変更される。アナスターシャが<strong>封印</strong>された時、他のキャラクターに与える<strong>栄勲</strong>は本来の300%に変更される。JP3A"
+    }
+  },
+  "constellation2": {
+    "name": "厳冬へ、共に苦寒を味わう者へJP3A",
+    "description": {
+      "0": "元素スキル<strong>極星聖裁</strong>を発動した後、アナスターシャの所持する加護に応じ、それぞれ以下の効果を獲得する。",
+      "1": "・<strong>「慈愛」</strong>　チーム内の全キャラクターが与える星反応ダメージの会心ダメージが60%アップする。継続時間30秒。",
+      "2": "・<strong>「栄光」</strong>　アナスターシャの通常攻撃、元素爆発<strong>永夜将明</strong>、封印解除元素スキル<tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>蒼星の聖勅・裁滅</strong></tooltip>が本来の125%のダメージを与えるようになる。継続時間15秒。",
+      "3": "<br/>",
+      "4": "さらに、チーム内の周囲にいる全キャラクターが与える星反応ダメージが5%<tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>向上</strong></tooltip>する。JP3A"
+    }
+  },
+  "constellation3": {
+    "name": "白夜に向かい、死難の傷を燃やし照らすJP3A",
+    "description": {
+      "0": "元素爆発<strong><tooltip ns=char_Anastasya_gen baseKey18=burst>新世界へ</tooltip></strong>のスキルLv.+3。",
+      "1": "最大Lv.15まで。JP3A"
+    }
+  },
+  "constellation4": {
+    "name": "暴君に、反抗の歌をJP3A",
+    "description": {
+      "0": "<strong><tooltip ns=char_Anastasya_gen baseKey18=passive1>栄勲</tooltip></strong>が強化される。会心ダメージ、攻撃力、および元素熟知のアップ効果が本来の130%に変更される。JP3A"
+    }
+  },
+  "constellation5": {
+    "name": "進軍せよ、朽ちたものを灰と化せJP3A",
+    "description": {
+      "0": "元素スキル<strong><tooltip ns=char_Anastasya_gen baseKey18=skill>極星聖裁</tooltip></strong>のスキルLv.+3。",
+      "1": "最大Lv.15まで。JP3A"
+    }
+  },
+  "constellation6": {
+    "name": "仰ぎ見よ、無垢なる黎明が昇るJP3A",
+    "description": {
+      "0": "元素スキル<strong>極星聖裁</strong>を発動した後、アナスターシャが所持する加護に基づき、それぞれ以下の効果を獲得する。",
+      "1": "・<strong>「慈愛」</strong> 次に他のキャラクターをフィールド上に切り替えた時、<tooltip ns=tooltips_gen baseKey18=11490003 values=[]><strong>蒼星の聖勅・凱旋</strong></tooltip>と同等の効果を1回発動し、本来の250%分のダメージを与える。また、周囲にいるチーム内の全キャラクターが与える星反応ダメージが10%<tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>向上</strong></tooltip>する。",
+      "2": "・<strong>「栄光」</strong> 次に元素スキルを一回押しした時、<tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>蒼星の聖勅・裁滅</strong></tooltip>の3段目の攻撃と同等の効果を1回発動し、本来の200%分のダメージを与える。他のキャラクターが<tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>封存</strong></tooltip>されていない場合、アナスターシャの今回の攻撃は、チーム内の全キャラクターの<tooltip ns=char_Anastasya_gen baseKey18=passive1><strong>栄勲</strong></tooltip>を所持しているものとみなされる。また、アナスターシャが与える星反応ダメージが20%<tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>向上</strong></tooltip>する。",
+      "3": "<br/>",
+      "4": "上記効果は30秒継続し、15秒ごとに最大1回のみ発動可能。チーム内の他のキャラクターの<strong>封存</strong>状態が終了する時、この効果は削除される。JP3A"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "anchorCond": "Anchor is present",
+  "maidCond": "Maid Form",
+  "defenseMaid": "Defense Maid (after Entry Skill E2)",
+  "battleMaid": "Battle Maid (after On-Field Skill E2)",
+  "burstEnhCond": "Elemental Burst cast in Radiance: Stellar-Conduct (Maid Form enhanced)",
+  "hit1ScDmg": "1-Hit Stellar-Conduct DMG (Radiance)",
+  "hit5ScDmg": "5-Hit Stellar-Conduct DMG (Radiance)",
+  "a4Cond": "On-Field Skill E2 casts in Battle Maid (ATK SPD stacks)",
+  "c2ToastCond": "\"Toast\" stack consumed by a Stellar-Conduct reaction",
+  "c2SelfToastCond": "\"Toast\" stacks Danica consumes on her Stellar-Conduct hit (Battle Maid)"
+}

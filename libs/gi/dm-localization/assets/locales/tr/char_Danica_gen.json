@@ -1,0 +1,202 @@
+{
+  "name": "Danica",
+  "title": "",
+  "description": "",
+  "constellationName": "",
+  "auto": {
+    "name": "test Danica Normal Saldırı",
+    "fields": {
+      "normal": {
+        "0": "<strong>Normal Saldırı</strong>",
+        "1": "Arka arkaya en fazla 4 saldırı yapar."
+      },
+      "charged": {
+        "0": "<strong>Yüklü Saldırı</strong>",
+        "1": "Zamanla Dayanıklılık harcayarak arka arkaya saldırılar yapar.",
+        "2": "Saldırıları daha güçlü bir darbeyle bitirir."
+      },
+      "plunging": {
+        "0": "<strong>Havadan Saldırı</strong>",
+        "1": "Havadayken dalışa geçerek yere vurur ve yoluna çıkan düşmanlara Alan Hasarı verir."
+      }
+    },
+    "skillParams": {
+      "0": "1 Vuruş Hasarı",
+      "1": "2 Vuruş Hasarı",
+      "2": "3 Vuruş Hasarı",
+      "3": "4 Vuruş Hasarı",
+      "4": "Yüklü Saldırı Döngüsel Hasarı",
+      "5": "Yüklü Saldırı Son Vuruş Hasarı",
+      "6": "Yüklü Saldırı Dayanıklılık Maliyeti",
+      "7": "Maks. Süre",
+      "8": "Havadan Saldırı Hasarı",
+      "9": "Havadan Saldırı Hasarı (Alçaktan/Yüksekten)",
+      "10": "",
+      "11": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "skill": {
+    "name": "testDanica Element Becerisi",
+    "description": {
+      "0": "Zincirini ve dayanağını sallayarak yakındaki düşmanlara <electro>Elektrik Alan Hasarı</electro> verir ve alandaki mevcut karakterin hareketlerini takip eden bir <strong>Dayanak</strong> çağırır.",
+      "1": "<br/>",
+      "2": "<strong>Dayanak</strong> mevcutken, Danica'nın alanda olup olmamasına bağlı olarak savaşa farklı şekillerde yardımcı olur.",
+      "3": "<strong>Danica Alanda Değilken</strong>",
+      "4": "Gruptaki alandaki mevcut karakter düşmanlara <electro>Elektrik</electro> veya <cryo>Buz</cryo> saldırılarıyla isabet ettiğinde <strong>Dayanak</strong> bir Ortak Saldırı başlatarak düşmanların konumunda <electro>Elektrik Alan Hasarı</electro> verir. Bu etki en fazla 1,5 saniyede bir tetiklenebilir.",
+      "5": "<strong>Danica Alandayken</strong>",
+      "6": "Danica'nın Normal Saldırıları, dayanak kullanılarak Özel Saldırılara dönüşür ve başka bir elemente dönüştürülemeyen <electro>Elektrik Hasarı</electro> verir. Bu Hasar, Normal Saldırı Hasarı sayılır.",
+      "7": "<br/>",
+      "8": "<strong>Coşku</strong>",
+      "9": "Dayanak mevcutken Danica, dayanak Özel Normal Saldırılarını gerçekleştirerek veya gruptaki alandaki mevcut karakterin düşmanlara <cryo>Buz</cryo> veya <electro>Elektrik</electro> saldırılarıyla isabet etmesini sağlayarak <tooltip ns=tooltips_gen baseKey18=11470001 values=[\"50\",\"25\",\"100\"]><strong>Coşku</strong></tooltip> biriktirebilir. Coşku maksimum seviyeye ulaştığında, Danica'nın alanda olup olmamasına bağlı olarak tüm Coşku tüketilerek farklı özel Element Becerileri kullanılabilir ve ilgili Hizmetçi Formuna girilebilir:",
+      "10": "<strong>Savunma Hizmetçisi</strong>",
+      "11": "Danica alanda değilken Danica'yı alana getirmek için geçiş yapıldığında otomatik olarak <tooltip ns=tooltips_gen baseKey18=11470002 values=[]><strong>\"Giriş Becerisi E2\"</strong></tooltip> tetiklenir ve <strong>Savunma Hizmetçisi</strong> formuna girilir. Alandaki karakter için bir Kalkan oluşturur ve Dayanağın Süresini yeniler. Bu süre boyunca <strong>\"Alandaki Beceri E2\"</strong> tetiklenemez.",
+      "12": "<strong>Savaş Hizmetçisi</strong>",
+      "13": "Danica alandayken Element Becerisi, <tooltip ns=tooltips_gen baseKey18=11470003 values=[\"5\"]><strong>\"Alandaki Beceri E2\"</strong></tooltip> ile değiştirilir. Bu beceri kullanıldıktan sonra Danica, <strong>Savaş Hizmetçisi</strong> formuna girer. Bu durumdayken \"Alandaki Beceri E2\" kullanıldıktan sonra dayanak Özel Normal Saldırıları belirli Normal Saldırı kombo vuruşlarını atlayabilir. Bu süre boyunca <strong>\"Giriş Becerisi E2\"</strong> tetiklenemez.",
+      "14": "<br/>",
+      "15": "Ayrıca Dayanak kaybolduğunda Danica, Hizmetçi Formundan çıkar. Dayanak mevcutken Savaş Hizmetçisi ve Savunma Hizmetçisi aynı anda var olamaz: Bir Hizmetçi Formuna girildiğinde diğerine girilemez."
+    },
+    "skillParams": {
+      "0": "Beceri Hasarı",
+      "1": "Giriş Becerisi E2 Yıldız İletimi Hasarı",
+      "2": "Alan İçi E2 Yıldız İletimi Hasarı",
+      "3": "Çapa Ortak Saldırı Hasarı",
+      "4": "Kalkanın Hasar Emilimi",
+      "5": "Çapa Normal Saldırı 1 Vuruş Elektrik Hasarı",
+      "6": "Çapa Normal Saldırı 2 Vuruş Elektrik Hasarı",
+      "7": "Çapa Normal Saldırı 3 Vuruş Elektrik Hasarı",
+      "8": "Çapa Normal Saldırı 4 Vuruş Elektrik Hasarı",
+      "9": "Çapa Süresi",
+      "10": "Giriş Becerisi E2 BS",
+      "11": "Beceri BS",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "burst": {
+    "name": "Danica'nın Element Patlaması",
+    "description": {
+      "0": "test Çariçe'nin hizmetçisine yakışır bir zarafetle savaş alanına hükmederek, <electro>Elektrik Alan Hasarı</electro> veren 5 vuruşluk geniş menzilli bir saldırı yapar.",
+      "1": "<br/>",
+      "2": "<strong>Işıltı: Yıldız İletimi</strong>:",
+      "3": [
+        "1. ve 5. vuruşlar ek olarak Yıldız İletimi tepkime Hasarı sayılan <electro>Elektrik Alan Hasarı</electro> verir.",
+        "Kullanımdan sonraki bir süre boyunca, Danica Hizmetçi Modundaysa mevcut Hizmetçi Modu Geliştirilir ve mevcut moda bağlı olarak ilgili Geliştirme etkisini kazandırır:"
+      ],
+      "4": "Danica <tooltip ns=tooltips_gen baseKey18=11470004 values=[]><strong>Savunma Hizmetçisi</strong></tooltip> modundayken gruptaki tüm Karakterlerin Saldırısını artırır.",
+      "5": "Danica <tooltip ns=tooltips_gen baseKey18=11470005 values=[]><strong>Savaş Hizmetçisi</strong></tooltip> modundayken hemen tüm Heyecan enerjisini yeniler ve Danica'nın <strong>\"Saha İçi Beceri E2\"</strong> ile verdiği Hasarı artırır.",
+      "6": "<br/>",
+      "7": "Hizmetçi Modu sona erdiğinde Geliştirme etkisi kaldırılır."
+    },
+    "skillParams": {
+      "0": "1 Vuruş Elektrik Hasarı/Yıldız İletimi Hasarı",
+      "1": "2/3/4 Vuruş Elektrik Hasarı",
+      "2": "5 Vuruş Elektrik Hasarı/Yıldız İletimi Hasarı",
+      "3": "Saldırı Bonusu Oranı",
+      "4": "Maks. Saldırı Bonusu",
+      "5": "Alan İçi E2 Hasar Artışı",
+      "6": "Güçlendirme Süresi",
+      "7": "BS",
+      "8": "Enerji Maliyeti",
+      "9": "",
+      "10": "",
+      "11": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "passive1": {
+    "name": "testYükseliş Yeteneği 1",
+    "description": {
+      "0": "test<strong>Dayanak</strong>, yakındaki düşmanların <electro>Elektrik Direnci</electro>ni %15 azaltır.",
+      "1": "<br/>",
+      "2": "<strong>Işıltı: Yıldız İletimi</strong>: Yakındaki düşmanların <electro>Elektrik Direnci</electro>ni %15 ve <cryo>Buz Direnci</cryo>ni %30 daha azaltır."
+    }
+  },
+  "passive2": {
+    "name": "Yükseltme Yeteneği 2",
+    "description": {
+      "0": "test <strong>「Giriş Becerisi E2」</strong> kullanıldıktan sonra, Danica'nın kendi Saldırısı %20 artar.",
+      "1": "<strong>「Saha İçi Becerisi E2」</strong> kullanıldıktan sonra, Danica'nın kendi Saldırı Hızı %20 artar ve Özel Dayanak'ın Normal Saldırısı bir düşmana isabet ettiğinde ek olarak 25 <strong>Heyecan</strong> puanı kazanır. Yukarıdaki etkiler 3 kademeye kadar birikebilir.",
+      "2": "Yukarıdaki etkiler, mevcut Savunma Hizmetçisi veya Savaş Hizmetçisi durumundan çıkana kadar devam eder. Yeniden tetiklenmesi Süreyi yeniler."
+    }
+  },
+  "passive3": {
+    "name": "test Yıldız Yeteneği",
+    "description": {
+      "0": "Grup üyeleri Süper İletim tetiklediğinde bu tepkime Yıldız İletimi olarak değişir ve grup üyelerinin Temel Yıldız İletimi Hasarı, Danica'nın Saldırısına bağlı olarak artar: Danica'nın sahip olduğu her Saldırı puanı, Temel Yıldız İletimi Hasarını %0,7 artırır. Bu şekilde en fazla %14 artış elde edilebilir.",
+      "1": "Ayrıca Danica, bir <tooltip ns=tooltips_gen baseKey18=11330003 values=[]><strong>Kutup Yıldızı Alanı</strong></tooltip> içindeyken <strong>Işıltı: Yıldız İletimi</strong> durumuna girer."
+    }
+  },
+  "passive": {
+    "name": "Yaşam Yeteneği",
+    "description": {
+      "0": "test Gruptaki kendi Karakterlerin Dondurucu Soğuk etkisi altındayken Hareket Hızı %10 artar ve Dayanıklılık tüketimi %10 azalır."
+    }
+  },
+  "constellation1": {
+    "name": "test C1",
+    "description": {
+      "0": "Danica <strong>\"Giriş Becerisi E2\"</strong> veya <strong>\"Saha Becerisi E2\"</strong> kullandığında kendisine 20 Element Enerjisi yeniler. Bu etki her 14 saniyede en fazla bir kez tetiklenebilir.",
+      "1": "Ayrıca, <strong>Element Patlaması</strong>'ndaki <strong>Savunma Hizmetçisi</strong> güçlendirme etkisi %80, <strong>Savaş Hizmetçisi</strong> güçlendirme etkisi ise %120 artar."
+    }
+  },
+  "constellation2": {
+    "name": "testC2",
+    "description": {
+      "0": "Test Dayanağı mevcutken, Danica yakındaki tüm Karakterlere 7 \"Toast\" Birikimi kazandırır. Yakındaki tüm Karakterler toplam 6 \"Toast\" Birikimi tükettiğinde, sahadaki Aktif Karakter fazladan 1 \"Toast\" Birikimi kazanır.",
+      "1": "\"Toast\": Gruptaki bir Karakter bir Yıldız İletimi tepkimesi tetiklediğinde, 1 \"Toast\" Birikimi tüketilir ve verilen Hasar artar. Bu artış, Danica'nın Saldırı değerinin %100'üne eşdeğerdir.",
+      "2": "Ayrıca, Danica Savaş Hizmetçisi Modundayken bir Yıldız İletimi tepkimesi tetiklediğinde, sahip olduğu tüm mevcut \"Toast\" Birikimleri tüketilir. Her birikim verilen Hasarı artırır ve bu artışların her biri Danica'nın Saldırı değerinin %150'sine eşdeğerdir.",
+      "3": "Dayanağı yeniden çağırmak veya Süresini yenilemek \"Toast\" Birikimlerini sıfırlar."
+    }
+  },
+  "constellation3": {
+    "name": "C3",
+    "description": {
+      "0": "<strong><tooltip ns=char_Danica_gen baseKey18=burst>Element Patlamasının</tooltip></strong> Seviyesini 3 artırır.",
+      "1": "Maksimum yükseltme seviyesi 15'tir."
+    }
+  },
+  "constellation4": {
+    "name": "testC4",
+    "description": {
+      "0": "test Danica'nın Kalkanı koruması altındaki sahadaki aktif Karakter düşmanlara Yıldız İletimi Hasarı verdiğinde, yakındaki diğer grup üyeleri için 3 Element Enerjisi yeniler. Bu etki her 3.5 saniyede en fazla bir kez tetiklenebilir.",
+      "1": "Ayrıca, Danica Savaş Hizmetçisi durumuna girdiğinde bir Kalkan da oluşturulur. Kalkan aktifken Danica sahadan ayrılırsa Kalkan yok edilir."
+    }
+  },
+  "constellation5": {
+    "name": "testC5",
+    "description": {
+      "0": "<strong><tooltip ns=char_Danica_gen baseKey18=skill>Element Becerisinin</tooltip></strong> seviyesini 3 artırır.",
+      "1": "Maksimum yükseltme seviyesi 15'tir."
+    }
+  },
+  "constellation6": {
+    "name": "test C6",
+    "description": {
+      "0": "Test dayanağı mevcutken, gruptaki yakındaki karakterlerin verdiği Yıldız İletimi Hasarı %20 artar.",
+      "1": "Ek olarak, Danica <tooltip ns=tooltips_gen baseKey18=11470004 values=[]><strong>Savunmacı Hizmetçi</strong></tooltip> durumuna girdiğinde, Danica'nın her 1.000 Saldırı puanı sahadaki karakterin verdiği Yıldız İletimi Hasarını %10 artırır, en fazla %40 olmak üzere.",
+      "2": "<tooltip ns=tooltips_gen baseKey18=11470005 values=[]><strong>Savaşçı Hizmetçi</strong></tooltip> durumuna girdiğinde, Danica'nın her 500 Saldırı puanı sahadayken kendi E2 Becerisinin Kritik Oranını %2,5 ve verdiği Kritik Hasarı %25 artırır. Kritik Oranı en fazla %10, Kritik Hasar ise en fazla %100 artırılabilir.",
+      "3": "Yukarıdaki etkiler mevcut Hizmetçi durumundan çıkılana kadar sürer."
+    }
+  }
+}

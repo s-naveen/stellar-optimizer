@@ -574,5 +574,143 @@
       "0": "<strong>Leuchten – Stellar-Supraleiter</strong> und <strong>Leuchten – Stellar-Verwirbelung</strong> werden zusammen als Zustand <strong>Leuchten – Stellarfunkeln</strong> bezeichnet.",
       "1": "Eine Figur kann jeweils nur von einem Leuchten-Zustand beeinflusst werden, wobei <strong>Leuchten – Stellar-Supraleiter</strong> Vorrang hat."
     }
+  },
+  "11360001": {
+    "name": "Umwandlungsbake",
+    "description": {
+      "0": "Generiert, wenn Mitya sich in der Truppe befindet und die Reaktion Stellar-Supraleiter ausgelöst wird, kein <strong>Sternenglanz-Prisma</strong>, sondern stattdessen eine <strong>Umwandlungsbake</strong>, die X s lang bestehen bleibt. Mitya kann die <strong>Umwandlungsbake</strong> verbrauchen, um zahlreiche Effekte auszulösen.",
+      "1": "Die <strong>Umwandlungsbake</strong> folgt der aktuellen Figur. Verwandelt bei Generierung der <strong>Umwandlungsbake</strong> zudem einen größeren Bereich in der Nähe in ein <strong>Sternglanzfeld</strong>. Mitya kann mehrere <strong>Umwandlungsbaken</strong> tragen, zu Beginn liegt die Obergrenze bei max. X Stück. Setzt, wenn eine <strong>Umwandlungsbake</strong> generiert wird, die Dauer aller <strong>Umwandlungsbaken</strong> zurück."
+    }
+  },
+  "11360002": {
+    "name": "Erkennungskern",
+    "description": {
+      "0": "Ein Energieapparat, der nach dem Anwenden der Elementarfähigkeit erschaffen wird. Durch Drücken kann ein <strong>stabiler</strong> Kern erschaffen werden, durch Gedrückthalten ein Kern mit <strong>Hochspannung</strong>.",
+      "1": "<br/>",
+      "2": "<strong>Erkennungskern – Stabil</strong>",
+      "3": [
+        " Folgt fortlaufend Gegnern in der Umgebung und verursacht in bestimmten Zeitabständen <electro>Elektro-Flächenschaden</electro>.",
+        " Verbraucht, wenn Mityas <strong>Umwandlungsbaken</strong> ihre Obergrenze erreichen und neue generiert werden, diese neuen durch den Apparat, wobei <electro>Elektro-Flächenschaden</electro> verursacht wird, der als Schaden durch die Reaktion Stellar-Supraleiter gewertet wird.",
+        " Verbraucht zum Ende der Dauer oder bei einem neu generierten <strong>Erkennungskern</strong> alle getragenen <strong>Umwandlungsbaken</strong> und verursacht basierend auf der verbrauchten Menge <electro>Elektro-Flächenschaden</electro>, der als Schaden der Reaktion Stellar-Supraleiter gilt."
+      ],
+      "4": "<br/>",
+      "5": "<strong>Erkennungskern – Hochspannung</strong>",
+      "6": [
+        " Ermöglicht es Mitya, wenn dieser Apparat existiert und Mitya mindestens eine <strong>Umwandlungsbake</strong> besitzt, den besonderen heftigen Schlag <strong>Umwandlungssprengung</strong> auszuführen, der keine Ausdauer verbraucht."
+      ]
+    }
+  },
+  "11470001": {
+    "name": "test Begeisterungswert",
+    "description": {}
+  },
+  "11470002": {
+    "name": "test„Auftrittsfähigkeit E2“",
+    "description": {}
+  },
+  "11470003": {
+    "name": "test„Feld-Fähigkeit E2“",
+    "description": {
+      "0": "test schwingt die Ankerkette, um sich dem Gegner schnell zu nähern, schlägt anschließend mit dem Anker mit Voller Wucht auf den Boden und verursacht hohen <electro>Elektro-Flächenschaden</electro>, der als Schaden durch die Stellar-Supraleiter-Reaktion gilt.",
+      "1": "<br/>",
+      "2": "Nach dem Auslösen tritt Danica in den Zustand <strong>Kampfmagd</strong> ein und erhält folgenden Effekt: Nach jedem Auslösen der „Feld-Fähigkeit E2“ überspringt der nächste <strong>besondere Anker-Standardangriff</strong> eine Phase des Standardangriffs, wobei maximal bis zur letzten Phase des Standardangriffs übersprungen wird.",
+      "3": "<br/>",
+      "4": "Nach 5-maligem Auslösen der <strong>„Feld-Fähigkeit E2“</strong> verlässt sie den Zustand <strong>Kampfmagd</strong> und der Anker wird zerstört."
+    }
+  },
+  "11470004": {
+    "name": "testSchutzschildmagd",
+    "description": {
+      "0": "test Zustand, in den Danica nach dem Einsatz der speziellen Elementarfähigkeit <strong>„Auftrittsfähigkeit E2“</strong> eintritt. In diesem Zustand erhält die aktuelle Figur einen Schild und die Dauer des <strong>Schiffsankers</strong> wird erneuert."
+    }
+  },
+  "11470005": {
+    "name": "test Kampfmagd",
+    "description": {
+      "0": "Zustand, in den test Danica nach dem Anwenden der besonderen Elementarfähigkeit <strong>„Feld-Fähigkeit E2“</strong> eintritt. In diesem Zustand überspringt der besondere Anker-Standardangriff bei jeder Anwendung von „Feld-Fähigkeit E2“ einen Schlag des Standardangriffs. Dabei können maximal die ersten drei Schläge des Standardangriffs übersprungen werden."
+    }
+  },
+  "11490001": {
+    "name": "„Übertreffen“ und Schutz",
+    "description": {
+      "0": "Setzt beim Anwenden der Elementarfähigkeit <strong>Heilige Vollstreckung des Polarsterns</strong> Anastasyas Macht auf unterschiedliche Weise frei, je nachdem, ob die Taste gedrückt oder gedrückt gehalten wird, und verleiht ihr entsprechenden Schutz.",
+      "1": [
+        " <strong>Drücken</strong>: Verleiht ihr Schutz durch <strong>Güte</strong>.",
+        " <strong>Gedrückt halten</strong>: Verleiht ihr Schutz durch <strong>Ehre</strong>."
+      ],
+      "2": "<br/>",
+      "3": "Ermöglicht Anastasya unter beiden Schutzarten jeweils die Anwendung der entsprechenden Spezialfähigkeit sowie die Nutzung der <strong>versiegelten</strong> Macht auf unterschiedliche Art und Weise.",
+      "4": "Solange Anastasya nicht den Schutz durch <strong>Ehre</strong> erhalten hat, besitzt sie stets den Schutz durch <strong>Güte</strong>."
+    }
+  },
+  "11490002": {
+    "name": "Versiegelung",
+    "description": {
+      "0": "Ein besonderer Zustand, der Figuren bei der Anwendung von Anastasyas Spezialfähigkeit verliehen wird. Eine Figur, die sich im versiegelten Zustand befindet, kann nicht eingewechselt werden.",
+      "1": "Die anfängliche Dauer der Versiegelung entspricht der Dauer der entsprechenden Spezialfähigkeit. Durch bestimmte Methoden lässt sich die verbleibende Dauer der Versiegelung verringern.",
+      "2": "<br/>",
+      "3": "Abhängig vom <strong>Schutz</strong>, den Anastasya besitzt, wendet sie die entsprechende Spezialfähigkeit an und nutzt die Macht der Versiegelung auf unterschiedliche Weise. Für Anastasyas Schutz gilt:",
+      "4": [
+        " <strong>Güte</strong>: Versiegelt sich selbst, wenn Anastasya inaktiv wird. Wenn alle Truppenmitglieder in der Nähe Schaden durch Stellarfunkeln-Reaktionen verursachen, lässt sich die verbleibende Dauer der Versiegelung verringern. Nach Ende der Versiegelung wird innerhalb einer bestimmten Zeit, wenn Anastasya eingewechselt wird, die spezielle Elementarfähigkeit zum Entsiegeln <strong>Edikt des Bleichsterns – Triumph</strong> angewendet.",
+        " <strong>Ehre</strong>: Versiegelt bis zu drei andere Truppenmitglieder durch Anastasya. Durch Anwenden von Anastasyas Standardangriff lässt sich die verbleibende Dauer der Versiegelung verringern. Für eine gewisse Zeit nach Ende der Versiegelung wird beim ersten Klicken auf die entsprechende Figur diese nicht auf das Feld eingewechselt, sondern stattdessen die spezielle Elementarfähigkeit zum Entsiegeln <strong>Edikt des Bleichsterns – Vernichtung</strong> angewendet."
+      ]
+    }
+  },
+  "11490003": {
+    "name": "Edikt des Bleichsterns – Triumph",
+    "description": {
+      "0": "Eine spezielle Elementarfähigkeit, die beim Ende von Anastasyas Versiegelung und Einwechseln auf das Feld angewendet wird. Fügt Gegnern in der Nähe <cryo>Kryo-Flächenschaden</cryo> zu, der als Schaden durch die Reaktion Stellar-Supraleiter gewertet wird.",
+      "1": "<strong>Leuchten – Stellarfunkeln</strong>: Wertet oben genannten Schaden als <cryo>Kryo-Flächenschaden</cryo> der entsprechenden Stellarfunkeln-Reaktion."
+    }
+  },
+  "11490004": {
+    "name": "Edikt des Bleichsterns – Vernichtung",
+    "description": {
+      "0": "Eine besondere Elementarfähigkeit, die ausgelöst wird, wenn kurze Zeit nach dem Ende der Versiegelung anderer Truppenmitglieder auf eine Figur geklickt wird. Die jeweilige Figur wird stattdessen nicht eingewechselt.",
+      "1": "<strong>Edikt des Bleichsterns – Vernichtung</strong> hat insgesamt drei Phasen. Beim erstmaligen Klicken auf die entsprechende Figur oder beim Drücken der Elementarfähigkeit werden die drei Angriffe nacheinander ausgeführt.",
+      "2": [
+        " Phase 1: Führt mit der <strong>Heiligen Lanze – Dekhomenon</strong> einen Mehrfachschlag aus, der mehrmals <cryo>Kryo-Flächenschaden</cryo> verursacht, der nicht von anderen Elementen überdeckt werden kann und als Schaden der Elementarfähigkeit gewertet wird. Zuletzt wird einmal <cryo>Kryo-Flächenschaden</cryo> verursacht, der als Schaden durch die Reaktion Stellar-Supraleiter gewertet wird.",
+        " Phase 2: Katapultiert sich nach vorne in die Luft und führt einen Hieb aus, der <cryo>Kryo-Flächenschaden</cryo> verursacht, der als Schaden durch die Reaktion Stellar-Supraleiter gewertet wird.",
+        " Phase 3: Schießt die <strong>Heilige Lanze</strong> als Pfeil ab und verursacht damit höheren <cryo>Kryo-Flächenschaden</cryo>, der als Schaden durch die Reaktion Stellar-Supraleiter gewertet wird. Danach endet der Effekt <strong>Ewige Nacht weicht der Morgendämmerung</strong>."
+      ],
+      "3": "<br/>",
+      "4": "<strong>Leuchten – Stellarfunkeln</strong>: Wandelt den oben genannten Schaden durch die Reaktion Stellar-Supraleiter in <cryo>Kryo-Flächenschaden</cryo> um, der als Schaden der entsprechenden Stellarfunkeln-Reaktion gewertet wird."
+    }
+  },
+  "11490005": {
+    "name": "Gefroren",
+    "description": {
+      "0": "Ein spezieller Mechanismus. Bis der Effekt, der „Gefroren“ ausgelöst hat, endet, wird die Dauer des eingefrorenen Effekts nicht verkürzt."
+    }
+  },
+  "11370001": {
+    "name": "Mörserschuss – Schuss aus der Nähe",
+    "description": {
+      "0": "Valeriys besonderer heftiger Schlag. Verbraucht, wenn er beim Ausführen eines heftigen Schlags mindestens 40 Punkte <strong>Impulsenergie</strong> besitzt, die gesamte <strong>Impulsenergie</strong> und führt stattdessen diesen besonderen heftigen Schlag aus. Dieser verursacht vor ihm <electro>Elektro-Flächenschaden</electro> und verleiht ihm 15 Stapelungen <strong>Angriffsbefehl</strong>.",
+      "1": "Beim erneuten Anwenden des besonderen heftigen Schlags werden die Stapelungen von <strong>Angriffsbefehl</strong> zurückgesetzt.",
+      "2": "Wandelt innerhalb von 0,8 s nach dem Anwenden der Elementarfähigkeit <strong>Offensive Abwehr – Festungsvorstoß</strong> oder der Spezialfähigkeit <strong>Fokusfeuer – Blitz- und Schrotangriff</strong>, wenn Valeriy mindestens 40 Punkte <strong>Impulsenergie</strong> besitzt, Valeriys nächsten Standardangriff in den besonderen heftigen Schlag <strong>Mörserschuss – Schuss aus der Nähe</strong> um."
+    }
+  },
+  "11370002": {
+    "name": "Angriffsbefehl",
+    "description": {
+      "0": "Ein Spezialeffekt, den Valeriy nach dem Anwenden des besonderen heftigen Schlags <strong>Mörserschuss – Schuss aus der Nähe</strong> erhält. Erhöht, je nachdem, ob Valeriy sich im Zustand <strong>Leuchten – Stellar-Supraleiter</strong> befindet oder nicht, eine unterschiedliche Art von <electro>Elektro-Schaden</electro>. Wenn Valeriy sich:",
+      "1": [
+        " im Zustand <strong>Leuchten – Stellar-Supraleiter</strong> befindet: Verbraucht, wenn ein aktuelles Truppenmitglied in der Nähe einem Gegner durch einen Standardangriff, heftigen Schlag, Angriff aus dem Fall, eine Elementarfähigkeit oder Spezialfähigkeit <electro>Elektro-Schaden</electro> zufügt, der als Schaden durch die Reaktion Stellar-Supraleiter gewertet wird, eine Stapelung <strong>Angriffsbefehl</strong>, die den verursachten Schaden basierend auf Valeriys ANG erhöht.",
+        " sich nicht im Zustand <strong>Leuchten – Stellar-Supraleiter</strong> befindet: Verbraucht, wenn ein aktuelles Truppenmitglied in der Nähe einem Gegner durch einen Standardangriff, heftigen Schlag, Angriff aus dem Fall, eine Elementarfähigkeit oder Spezialfähigkeit <electro>Elektro-Schaden</electro> zufügt, eine Stapelung <strong>Angriffsbefehl</strong>, die den verursachten Schaden basierend auf Valeriys ANG erhöht."
+      ],
+      "2": "Verbraucht, wenn mehreren Gegnern gleichzeitig <electro>Elektro-Schaden</electro> zugefügt wird, so viele Stapelungen <strong>Angriffsbefehl</strong>, wie Gegner getroffen wurden."
+    }
+  },
+  "11370003": {
+    "name": "Impulsenergie",
+    "description": {
+      "0": "Eine besondere Energie, die Valeriy nutzt, um seine Kampfkompetenz zu verbessern. Die anfängliche Obergrenze liegt bei 100 Punkten. Wenn er mindestens 40 Punkte <strong>Impulsenergie</strong> besitzt, kann er den besonderen heftigen Schlag <strong>Mörserschuss – Schuss aus der Nähe</strong> ausführen.",
+      "1": "Valeriy kann auf folgende Weise <strong>Impulsenergie</strong> erhalten:",
+      "2": [
+        " Beim Anwenden der Elementarfähigkeit <strong>Offensive Abwehr – Festungsvorstoß</strong>.",
+        " Wenn nach dem Freischalten des Aufstiegstalents „Vorstoß mit dem schleichenden Sperrfeuer“, während der Dauer der Spezialfähigkeit <strong>Fokusfeuer – Blitz- und Schrotangriff</strong> ein aktuelles Truppenmitglied in der Nähe mit einem <electro>Elektro</electro>-Angriff Gegner trifft."
+      ]
+    }
   }
 }

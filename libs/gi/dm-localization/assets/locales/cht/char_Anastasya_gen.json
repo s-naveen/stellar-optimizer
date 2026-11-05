@@ -1,0 +1,205 @@
+{
+  "name": "安娜絲塔夏",
+  "title": "",
+  "description": "",
+  "constellationName": "",
+  "auto": {
+    "name": "長冬破曉",
+    "fields": {
+      "normal": {
+        "0": "<strong>普通攻擊</strong>",
+        "1": "進行至多五段的連續弓箭射擊。"
+      },
+      "charged": {
+        "0": "<strong>重擊</strong>",
+        "1": "進行傷害更高、更為精準的<strong>瞄準射擊</strong>。",
+        "2": "瞄準時，冰元素會在箭矢上持續積聚。聚滿了冰元素之力的箭矢會造成<cryo>冰元素傷害</cryo>。"
+      },
+      "plunging": {
+        "0": "<strong>下落攻擊</strong>",
+        "1": "從空中射出箭雨，並迅速下墜衝擊地面，攻擊下落路徑上的敵人，在落地時造成範圍傷害。"
+      }
+    },
+    "skillParams": {
+      "0": "一段傷害",
+      "1": "二段傷害",
+      "2": "三段傷害",
+      "3": "四段傷害",
+      "4": "五段傷害",
+      "5": "瞄準射擊",
+      "6": "滿蓄力瞄準射擊",
+      "7": "下墜期間傷害",
+      "8": "低空/高空墜地衝擊傷害",
+      "9": "",
+      "10": "",
+      "11": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "skill": {
+    "name": "極星聖裁",
+    "description": {
+      "0": "揭示<tooltip ns=tooltips_gen baseKey18=11490001 values=[]><strong>「超越」</strong></tooltip>的實質，造成<cryo>冰元素範圍傷害</cryo>，並依據點按、長按，以不同的方式解放權能。",
+      "1": "<br/>",
+      "2": "<strong>點按</strong>",
+      "3": "賜予<strong>「慈愛」</strong>的加護，並擲出王廷傳承的<strong>蒼星聖冕</strong>。",
+      "4": "<strong>蒼星聖冕</strong>會跟隨目前場上角色，每2秒對附近的敵人造成兩次<cryo>冰元素範圍傷害</cryo>。",
+      "5": "<tooltip ns=tooltips_gen baseKey18=11500004 values=[]><strong>輝映·星爍</strong></tooltip>：<strong>蒼星聖冕</strong>每次攻擊時造成的第二次傷害，改為造成視為對應星爍反應傷害的<cryo>冰元素範圍傷害</cryo>。",
+      "6": "<br/>",
+      "7": "<strong>長按</strong>",
+      "8": "賜予<strong>「榮耀」</strong>的加護，並展現王廷傳承的精湛槍技。",
+      "9": "處於該模式下時，安娜絲塔夏的普通攻擊將轉為以<strong>聖佑之槍·德戈梅諾</strong>進行至多五段的連續攻擊，造成無法被附魔覆蓋的<cryo>冰元素範圍傷害</cryo>，無法進行重擊。",
+      "10": "<strong>輝映·星爍</strong>：以<strong>聖佑之槍</strong>進行普通攻擊時，每段攻擊造成的最後一次傷害，改為造成視為對應星爍反應傷害的<cryo>冰元素範圍傷害</cryo>。"
+    },
+    "skillParams": {
+      "0": "點按瞬時傷害",
+      "1": "長按瞬時傷害",
+      "2": "蒼星聖冕冰元素傷害",
+      "3": "蒼星聖冕星超導/星擴散傷害",
+      "4": "一段冰元素傷害",
+      "5": "二段冰元素傷害",
+      "6": "三段冰元素傷害",
+      "7": "四段冰元素傷害",
+      "8": "五段冰元素傷害",
+      "9": "一段星超導/星擴散傷害",
+      "10": "二段星超導/星擴散傷害",
+      "11": "三段星超導/星擴散傷害",
+      "12": "四段星超導/星擴散傷害",
+      "13": "五段星超導/星擴散傷害",
+      "14": "蒼星聖冕持續時間",
+      "15": "榮耀加護持續時間",
+      "16": "冷卻時間",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "burst": {
+    "name": "致新世界",
+    "description": {
+      "0": "依據安娜絲塔夏持有的<tooltip ns=tooltips_gen baseKey18=11490001 values=[]><strong>加護</strong></tooltip>，可以施放對應的元素爆發，並以不同的方式運用<tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>封存</strong></tooltip>的權能。",
+      "1": "<br/>",
+      "2": "<strong>致新世界</strong>",
+      "3": "持有<strong>「慈愛」</strong>的加護時可以施放。造成<cryo>冰元素範圍傷害</cryo>，並<tooltip ns=tooltips_gen baseKey18=11490005 values=[]><strong>凍結</strong></tooltip>蒼星聖冕的持續時間。",
+      "4": "期間，隊伍中附近的所有角色造成的星爍反應傷害提升，且蒼星聖冕在攻擊時會額外造成一次視為星超導反應傷害的<cryo>冰元素範圍傷害</cryo>。安娜絲塔夏切換至隊伍後臺時，還會將自身<tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>封存</strong></tooltip>，並在<strong>封存</strong>結束時，可以施放特殊的解封元素戰技<tooltip ns=tooltips_gen baseKey18=11490003 values=[]><strong>蒼星聖敕·凱旋</strong></tooltip>。",
+      "5": "<br/>",
+      "6": "<strong>永夜將明</strong>",
+      "7": "持有<strong>「榮耀」</strong>的加護時可以施放。解放<strong>聖佑之槍</strong>的力量，造成視為星超導反應傷害的<cryo>冰元素範圍傷害</cryo>，並<tooltip ns=tooltips_gen baseKey18=11490005 values=[]><strong>凍結</strong></tooltip>加護的持續時間。",
+      "8": "此外，安娜絲塔夏還會<tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>封存</strong></tooltip>隊伍中至多三名其他角色，並在<strong>封存</strong>結束時，可以施放特殊的解封元素戰技<tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>蒼星聖敕·裁滅</strong></tooltip>。",
+      "9": "<br/>",
+      "10": "<strong>輝映·星爍</strong>：上述所有星超導反應傷害改為造成視為對應星爍反應傷害的<cryo>冰元素範圍傷害</cryo>。"
+    },
+    "skillParams": {
+      "0": "致新世界瞬時傷害",
+      "1": "致新世界星爍反應傷害提升",
+      "2": "蒼星聖冕星超導/星擴散傷害",
+      "3": "凱旋星超導/星擴散傷害",
+      "4": "永夜將明星超導/星擴散傷害",
+      "5": "裁滅一段冰元素傷害",
+      "6": "裁滅一段星超導/星擴散傷害",
+      "7": "裁滅二段星超導/星擴散傷害",
+      "8": "裁滅三段星超導/星擴散傷害",
+      "9": "致新世界持續時間",
+      "10": "永夜將明持續時間",
+      "11": "冷卻時間",
+      "12": "元素能量",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "passive1": {
+    "name": "煌夜的明威",
+    "description": {
+      "0": "安娜絲塔夏施放元素戰技<strong>極星聖裁</strong>後，隊伍中所有角色獲得持續20秒的<strong>榮勳</strong>：暴擊傷害提升12%。",
+      "1": "隊伍中的角色被<tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>封存</strong></tooltip>時，直至封存結束的8秒後，其所擁有的<strong>榮勳</strong>將會暫時均分給未被<strong>封存</strong>的角色。"
+    }
+  },
+  "passive2": {
+    "name": "未輓的悼亡",
+    "description": {
+      "0": "安娜絲塔夏在隊伍中時，隊伍中所有角色觸發的星爍反應將分別獲得以下效果：",
+      "1": [
+        "<strong>星超導反應</strong>：極星輝域每次釋放元素力時，會額外獲得一定的元素力，且創造星輝稜晶時，也會為極星輝域賦予一定的元素力。",
+        "<strong>星擴散反應</strong>：星輝風旋與流蕩風旋在創造時便會提升至二級，該效果每1秒至多觸發一次。此外，星擴散反應的基礎反應係數提升15%。"
+      ]
+    }
+  },
+  "passive3": {
+    "name": "星耀祝禮·無染復臨",
+    "description": {
+      "0": "處於<strong>極星輝域</strong>中時/隊伍中的角色在附近觸發星擴散反應後的8秒內，安娜絲塔夏將分別進入<strong>輝映·星超導</strong>/<strong>輝映·星擴散</strong>狀態。",
+      "1": "隊伍中的角色觸發超導/冰元素擴散反應時，將轉為觸發星超導/星擴散反應，且基於安娜絲塔夏的攻擊力，提升隊伍中角色造成的上述反應的基礎傷害：每100點攻擊力都將提升0.7%上述反應的基礎傷害，至多依此方式提升14%傷害。"
+    }
+  },
+  "passive": {
+    "name": "雪降的恩眷",
+    "description": {
+      "0": "在至冬地區（挪德卡萊除外），隊伍中的角色不處於戰鬥狀態下時，將逐漸恢復生命值。",
+      "1": "此外，安娜絲塔夏在隊伍中時，「灰眸」的能量不會下降。若其能量低於30%，還會立刻恢復至30%。",
+      "2": "上述效果在秘境、征討領域、深境螺旋中無效。"
+    }
+  },
+  "constellation1": {
+    "name": "致往年，致未曾止熄的心",
+    "description": {
+      "0": "突破天賦<tooltip ns=char_Anastasya_gen baseKey18=passive1><strong>煌夜的明威</strong></tooltip>獲得強化：<strong>榮勳</strong>還會使元素類型為<cryo>冰元素</cryo>的角色的攻擊力提升15%，使其他元素類型的角色的元素精通提升60點。",
+      "1": "此外，角色被<tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>封存</strong></tooltip>時，對<strong>榮勳</strong>的均分將改為複製。安娜絲塔夏被<strong>封存</strong>時，賜予其他角色的<strong>榮勳</strong>將改為原本的300%。"
+    }
+  },
+  "constellation2": {
+    "name": "致嚴冬，致同飲苦寒的人",
+    "description": {
+      "0": "施放元素戰技<strong>極星聖裁</strong>後，依據安娜絲塔夏持有的加護，將分別獲得以下效果：",
+      "1": [
+        "<strong>「慈愛」</strong>：隊伍中的所有角色造成的星爍反應傷害的暴擊傷害提升60%，持續30秒。",
+        "<strong>「榮耀」</strong>：安娜絲塔夏的普通攻擊、元素爆發<strong>永夜將明</strong>、解封元素戰技<tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>蒼星聖敕·裁滅</strong></tooltip>會造成原本125%的傷害，持續15秒。"
+      ],
+      "2": "<br/>",
+      "3": "此外，隊伍中附近的所有角色造成的星爍反應傷害<tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>擢升</strong></tooltip>5%。"
+    }
+  },
+  "constellation3": {
+    "name": "向白夜，把死難的傷燒亮",
+    "description": {
+      "0": "元素爆發<strong><tooltip ns=char_Anastasya_gen baseKey18=burst>致新世界</tooltip></strong>的技能等級提高3級。",
+      "1": "至多提升至15級。"
+    }
+  },
+  "constellation4": {
+    "name": "向暴君，把反抗的歌來唱",
+    "description": {
+      "0": "<strong><tooltip ns=char_Anastasya_gen baseKey18=passive1>榮勳</tooltip></strong>獲得強化：暴擊傷害、攻擊力與元素精通提升的效果改為原本的130%。"
+    }
+  },
+  "constellation5": {
+    "name": "進軍吧，讓腐朽化作飛灰",
+    "description": {
+      "0": "元素戰技<strong><tooltip ns=char_Anastasya_gen baseKey18=skill>極星聖裁</tooltip></strong>的技能等級提高3級。",
+      "1": "至多提升至15級。"
+    }
+  },
+  "constellation6": {
+    "name": "仰望吧，無垢的黎明將升",
+    "description": {
+      "0": "施放元素戰技<strong>極星聖裁</strong>後，依據安娜絲塔夏持有的加護，將分別獲得以下效果：",
+      "1": [
+        "<strong>「慈愛」</strong>：下一次將其他角色切換至場上時，會觸發一次等同於<tooltip ns=tooltips_gen baseKey18=11490003 values=[]><strong>蒼星聖敕·凱旋</strong></tooltip>的效果，造成原本250%的傷害。此外，隊伍中附近所有角色造成的星爍反應傷害<tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>擢升</strong></tooltip>10%。",
+        "<strong>「榮耀」</strong>：下一次點按元素戰技時，會觸發一次等同於<tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>蒼星聖敕·裁滅</strong></tooltip>第三段攻擊的效果，造成原本200%的傷害。若其他角色未被<tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>封存</strong></tooltip>，則安娜絲塔夏的本次攻擊視為擁有隊伍中所有角色的<tooltip ns=char_Anastasya_gen baseKey18=passive1><strong>榮勳</strong></tooltip>。此外，安娜絲塔夏造成的星爍反應傷害<tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>擢升</strong></tooltip>20%。"
+      ],
+      "2": "<br/>",
+      "3": "上述效果持續30秒，每15秒至多觸發一次。隊伍中其他角色的<strong>封存</strong>狀態結束時，該效果將移除。"
+    }
+  }
+}

@@ -576,5 +576,161 @@
       "0": "Baik <strong>Radiance: Stellar-Conduct</strong> maupun <strong>Radiance: Stellar Swirl</strong> terhitung sebagai status <strong>Radiance: Stellar Glimmer</strong>.",
       "1": "Karakter hanya dapat dipengaruhi oleh satu jenis status Radiance dalam satu waktu, dengan status <strong>Radiance: Stellar-Conduct</strong> yang menjadi prioritasnya."
     }
+  },
+  "11360001": {
+    "name": "Gradient Beacon",
+    "description": {
+      "0": "Saat Mitya berada dalam party, memicu reaksi Stellar-Conduct tidak akan menciptakan <strong>Starlight Prism</strong>. Melainkan, akan tercipta <strong>Gradient Beacon</strong> yang bertahan selama X detik. Mitya dapat mengonsumsi <strong>Gradient Beacon</strong> untuk memicu berbagai efek.",
+      "1": "<strong>Gradient Beacon</strong> akan mengikuti Karakter aktif dan saat <strong>Gradient Beacon</strong> tercipta, area di sekitarnya yang lebih luas akan berubah menjadi <strong>Polestar Field</strong>. Mitya dapat membawa beberapa <strong>Gradient Beacon</strong>, dengan batas awalnya sebesar X buah. Saat <strong>Gradient Beacon</strong> terbentuk, durasi seluruh <strong>Gradient Beacon</strong> akan direset."
+    }
+  },
+  "11360002": {
+    "name": "Detection Core",
+    "description": {
+      "0": "Sebuah perangkat energi yang diciptakan setelah Mitya melancarkan Elemental Skill-nya. Tekan untuk menciptakan Detection Core dalam <strong>Steady State</strong>, dan Tahan tombol untuk menciptakan Core dalam <strong>Overloaded State</strong>.",
+      "1": "<br/>",
+      "2": "<strong>Detection Core: Steady State</strong>",
+      "3": [
+        "Akan terus mengikuti musuh di sekitarnya dan mengakibatkan <electro>Electro DMG Area</electro> secara berkala.",
+        "Ketika <strong>Gradient Beacon</strong> yang dibawa Mitya mencapai batas maksimumnya, <strong>Gradient Beacon</strong> yang baru tercipta akan dikonsumsi perangkat ini dan mengakibatkan <electro>Electro DMG Area</electro> yang dianggap sebagai reaksi Stellar-Conduct.",
+        "Ketika durasi berakhir, atau saat <strong>Detection Core</strong> diciptakan kembali, semua <strong>Gradient Beacon</strong> yang dibawa akan dikonsumsi dan mengakibatkan <electro>Electro DMG Area</electro> yang dianggap sebagai reaksi Stellar-Conduct berdasarkan jumlah yang dikonsumsi."
+      ],
+      "4": "<br/>",
+      "5": "<strong>Detection Core: Overloaded</strong>",
+      "6": [
+        "Ketika perangkat ini ada dan Mitya memiliki setidaknya satu <strong>Gradient Beacon</strong>, Mitya dapat melancarkan Charged Attack khusus <strong>Gradient Detonation</strong> tanpa mengonsumsi Stamina."
+      ]
+    }
+  },
+  "11470001": {
+    "name": "test兴奋值",
+    "description": {
+      "0": "test船锚存在期间，Danica akan mengumpulkan <strong>Nilai Antusias</strong>. Nilai Antusias dapat diperoleh dengan cara berikut:",
+      "1": [
+        " Saat Danica berada di belakang layar, setiap serangan <electro>Electro</electro> atau <cryo>Cryo</cryo> dari Karakter aktif di party yang mengenai musuh memberikan 50 poin, maksimal terpicu sekali setiap 0,1 detik;",
+        " Saat Danica berada di lapangan, setiap Normal Attack jangkar khusus yang mengenai musuh memberikan 25 poin, dengan maksimal perolehan Nilai Antusias satu kali per rangkaian Normal Attack melalui cara ini."
+      ],
+      "2": "<br/>",
+      "3": "Selain itu, saat Danica berada dalam status <strong>Defense Maid</strong>, Danica hanya dapat memperoleh Nilai Antusias melalui serangan <electro>Electro</electro> atau <cryo>Cryo</cryo> dari Karakter aktif di party yang mengenai musuh; saat berada dalam status <strong>Battle Maid</strong>, Danica hanya dapat memperoleh Nilai Antusias melalui <strong>Normal Attack jangkar khusus</strong> yang mengenai musuh.",
+      "4": "<br/>",
+      "5": "Saat Nilai Antusias mencapai batas maksimum 100 poin, Danica dapat menggunakan seluruh Nilai Antusias untuk melancarkan Elemental Skill Khusus <strong>「Point Man's Horn E2」</strong> atau <strong>「在场技E2」</strong>, lalu memasuki <strong>Mode Maid</strong> yang sesuai berdasarkan cara melancarkannya."
+    }
+  },
+  "11470002": {
+    "name": "test\"Point Man's Horn E2\"",
+    "description": {
+      "0": "testDanica mengayunkan rantai jangkar untuk mendekati musuh dengan cepat, lalu menghantam tanah dengan jangkar kapal, menyebabkan <electro>Electro DMG Area</electro> yang dianggap sebagai reaksi Stellar-Conduct.",
+      "1": "<br/>",
+      "2": "Setelah melancarkan, Danica memasuki mode <strong>Defense Maid</strong> dan mendapatkan efek berikut:",
+      "3": [
+        "Menyegarkan Durasi jangkar kapal;",
+        "Memberikan Perisai kepada Karakter aktif dalam party saat ini, Perisai akan bertahan hingga keluar dari mode Defense Maid, ketahanan DMG-nya mendapat manfaat dari ATK Danica, dan memiliki 250% pertahanan terhadap Electro DMG."
+      ]
+    }
+  },
+  "11470003": {
+    "name": "test「在场技E2」",
+    "description": {
+      "0": "testMemutar rantai jangkar untuk mendekat ke musuh dengan cepat, lalu menghantam tanah dengan jangkar kapal, menyebabkan <electro>DMG AoE Electro</electro> besar yang dianggap sebagai reaksi Stellar-Conduct.",
+      "1": "<br/>",
+      "2": "Setelah melancarkan skill ini, Danica memasuki <strong>Maid Tempur</strong>, dan mendapatkan efek berikut: Setiap kali melancarkan \"Skill Lapangan E2\", <strong>Normal Attack Jangkar Istimewa</strong> putaran berikutnya akan melewati satu segmen Normal Attack, maksimal hingga segmen Normal Attack terakhir.",
+      "3": "<br/>",
+      "4": "Setelah melancarkan <strong>\"Skill Lapangan E2\"</strong> sebanyak 5 kali, Danica akan keluar dari <strong>Maid Tempur</strong> dan menghancurkan jangkar kapal."
+    }
+  },
+  "11470004": {
+    "name": "testMaid Defense",
+    "description": {
+      "0": "testStatus yang dimasuki Danica setelah melancarkan Elemental Skill Khusus<strong>「Point Man's Horn E2」</strong>. Saat berada dalam status ini, akan memberikan Perisai kepada Karakter aktif, dan memperbarui Durasi <strong>Jangkar Kapal</strong>."
+    }
+  },
+  "11470005": {
+    "name": "test Pelayan Tempur",
+    "description": {
+      "0": "test Status yang dimasuki Danica setelah melancarkan Elemental Skill Khusus <strong>「在场技E2」</strong>. Saat berada dalam status ini, setiap kali melancarkan「在场技E2」, Normal Attack jangkar khusus akan melewati satu segmen Normal Attack, dan dapat melewati maksimal tiga segmen Normal Attack pertama."
+    }
+  },
+  "11490001": {
+    "name": "Transcendence and Blessings",
+    "description": {
+      "0": "Saat melancarkan Elemental Skill <strong>Polestar's Divine Judgment</strong>, Anastasya akan melepaskan otoritasnya dengan cara yang berbeda dan memperoleh berkat__ yang berbeda berdasarkan <strong>Mode Tekan</strong> atau <strong>Mode Tahan</strong>",
+      "1": [
+        "<strong>Mode Tekan</strong>: memberikan berkat <strong>Love</strong>.",
+        "<strong>Mode Tahan</strong>: memberikan berkat <strong>Honor</strong>."
+      ],
+      "2": "<br/>",
+      "3": "Saat berada dalam dua berkat tersebut, Anastasya dapat melancarkan Elemental Burst yang sesuai dengan berkatnya dan dapat menggunakan otoritas <strong>segel</strong> dengan cara yang berbeda.",
+      "4": "Saat tidak mendapatkan berkat <strong>Honor</strong>, Anastasya akan selalu memiliki berkat <strong>Love</strong>."
+    }
+  },
+  "11490002": {
+    "name": "Penyegelan__",
+    "description": {
+      "0": "Status khusus yang diberikan kepada Karakter saat Anastasya melancarkan Elemental Burst. Karakter yang berada dalam status tersegel tidak dapat diganti ke medan pertempuran.",
+      "1": "Durasi awal penyegelan sama dengan durasi Elemental Burst yang terkait. Sisa durasi penyegelan dapat dikurangi dengan cara tertentu.",
+      "2": "<br/>",
+      "3": "Anastasya akan melancarkan Elemental Burst berdasarkan <strong>berkah</strong> yang dimiliki Anastasya dan menggunakan otoritas penyegelan dengan cara yang berbeda. Jika berkat yang dimiliki Anastasya adalah:",
+      "4": [
+        "<strong>Love</strong>: Saat Anastasya meninggalkan medan pertempuran, ia akan menyegel dirinya sendiri. Saat seluruh Karakter sekitar di dalam party mengakibatkan DMG reaksi Stellar Glimmer, sisa durasi penyegelan akan berkurang. Beberapa saat setelah penyegelan berakhir, Anastasya akan melancarkan Elemental Skill pembukaan skill khusus saat ia kembali ke medan pertempuran.<strong>Palestar Edict: Triumph</strong> .",
+        "<strong>Honor</strong>: Anastasya akan menyegel hingga tiga Karakter lain dalam party. Saat Anastasya melakukan Normal Attack, sisa durasi penyegelan dapat dikurangi. Beberapa saat setelah penyegelan berakhir, setelah pertama kali menekan Karakter yang terkait, Karakter tersebut tidak memasuki medan pertempuran, melainkan akan melancarkan Elemental Skill pembukaan segel khusus <strong>Palestar Edict: Doom</strong>."
+      ]
+    }
+  },
+  "11490003": {
+    "name": "Palestar Edict: Triumph",
+    "description": {
+      "0": "Skill ini adalah Elemental Skill khusus yang dipicu saat Anastasya diganti memasuki medan pertempuran setelah status penyegelannya berakhir. Mengakibatkan Cryo DMG Area terhadap musuh di sekitar, DMG ini dianggap sebagai DMG reaksi Stellar-Conduct.",
+      "1": "<strong>Radiance: Stellar Glimmer</strong>: DMG di atas diubah menjadi Cryo DMG Area yang dianggap sebagai DMG reaksi Stellar Glimmer."
+    }
+  },
+  "11490004": {
+    "name": "Palestar Edict: Doom",
+    "description": {
+      "0": "Setelah efek penyegelan Karakter lain dalam party berakhir, selama jangka waktu tertentu setelah menekan Karakter terkait untuk pertama kalinya, Karakter tersebut tidak akan memasuki medan pertempuran, melainkan akan melancarkan Elemental Skill Khusus tersebut.",
+      "1": "<strong>Palestar Edict: Doom</strong> terdiri dari tiga tahap. Saat pertama kali menekan Karakter terkait atau menekan Elemental Skill, ketiga serangan akan dilancarkan secara berurutan.",
+      "2": [
+        "Tahap pertama: menggunakan <strong>Blessed Armament: Dekhomenon</strong> untuk melakukan tebasan beruntun dan mengakibatkan beberapa kali <cryo>Cryo DMG Area</cryo> yang tidak bisa ditimpa Elemental Infusion lainnya dan dianggap sebagai DMG Elemental Skill, lalu mengakibatkan satu kali <cryo>Cryo DMG Area</cryo> yang dianggap sebagai DMG reaksi Stellar-Conduct.",
+        "Tahap kedua: melompat ke depan dan melakukan satu kali tebasan, mengakibatkan <cryo>Cryo DMG Area</cryo> yang dianggap sebagai DMG reaksi Stellar-Conduct.",
+        " Tahap ketiga: menembakkan <strong>Blessed Armament</strong> sebagai anak panah, mengakibatkan <cryo>Cryo DMG Area</cryo> yang lebih kuat dan dianggap sebagai DMG reaksi Stellar-Conduct, lalu mengakhiri efek <strong>The Evernight Yields to Dawn</strong>."
+      ],
+      "3": "<br/>",
+      "4": "<strong>Radiance: Stellar Glimmer</strong>: DMG reaksi Stellar-Conduct yang disebutkan di atas diubah menjadi <cryo>Cryo DMG Area</cryo> yang dianggap sebagai DMG reaksi Stellar Glimmer."
+    }
+  },
+  "11490005": {
+    "name": "Frozen",
+    "description": {
+      "0": "Mekanisme khusus. Durasi efek yang terkena Frozen tidak akan berkurang lagi sampai efek Frozen yang memicunya berakhir.____"
+    }
+  },
+  "11370001": {
+    "name": "Direct-Fire Mortar: Point-Blank Bombardment",
+    "description": {
+      "0": "Charged Attack khusus milik Valeriy. Saat melakukan Charged Attack dengan minimum 40 poin <strong>Impact Momentum</strong>, seluruh <strong>Impact Momentum</strong> akan dikonsumsi dan serangannya akan berubah menjadi Charged Attack khusus ini: mengakibatkan <electro>Electro DMG Area</electro> ke arah di depan dan mendapatkan 15 lapis <strong>Offensive Directive</strong>.",
+      "1": "Saat melancarkan Charged Attack khusus sekali lagi, jumlah lapisan <strong>Offensive Directive</strong> akan diperbarui.",
+      "2": "Dalam kurun 0,8 detik setelah melancarkan Elemental Skill <strong>Active Defense: Bastion Charge</strong> atau Elemental Burst <strong>Focused Fire: Lightning Salvo</strong>, jika Valeriy memiliki setidaknya 40 poin <strong>Impact Momentum</strong>, maka Normal Attack berikutnya yang dilancarkan Valeriy akan berubah menjadi Charged Attack spesial <strong>Direct-Fire Mortar: Point-Blank Bombardment</strong>."
+    }
+  },
+  "11370002": {
+    "name": "Offensive Directive",
+    "description": {
+      "0": "Efek khusus yang diperoleh Valeriy setelah melakukan Charged Attack khusus <strong>Direct-Fire Mortar: Point-Blank Bombardment</strong>. Meningkatkan jenis <electro>Electro DMG</electro> yang berbeda tergantung apakah Valeriy berada dalam status <strong>Radiance: Stellar-Conduct</strong> atau tidak. Jika Valeriy:",
+      "1": [
+        "Berada dalam status <strong>Radiance: Stellar-Conduct</strong>: Saat Normal Attack, Charged Attack, Plunging Attack, Elemental Skill, atau Elemental Burst milik Karakter aktif di sekitar dalam party mengakibatkan <electro>Electro DMG</electro> yang dianggap sebagai DMG reaksi Stellar-Conduct terhadap musuh, maka Valeriy akan mengonsumsi 1 lapis <strong>Offensive Directive</strong> untuk meningkatkan DMG yang diakibatkan berdasarkan ATK Valeriy.",
+        "Tidak berada dalam status <strong>Radiance: Stellar-Conduct</strong>: Saat Normal Attack, Charged Attack, Plunging Attack, Elemental Skill, atau Elemental Burst milik Karakter aktif di sekitar dalam party mengakibatkan <electro>Electro DMG</electro> terhadap musuh, akan mengonsumsi 1 lapis <strong>Offensive Directive</strong> untuk meningkatkan DMG yang diakibatkan berdasarkan ATK Valeriy."
+      ],
+      "2": "Saat satu kali <electro>Electro DMG</electro> mengenai beberapa musuh secara bersamaan, lapisan <strong>Offensive Directive</strong> yang dikonsumsi akan disesuaikan berdasarkan jumlah musuh yang terkena."
+    }
+  },
+  "11370003": {
+    "name": "Impact Momentum",
+    "description": {
+      "0": "Energi khusus milik Valeriy yang digunakan untuk memperkuat kemampuan bertempurnya. Batas awalnya adalah 100 poin. Saat memiliki setidaknya 40 poin <strong>Impact Momentum</strong>, Valeriy dapat melancarkan Charged Attack khusus <strong>Direct-Fire Mortar: Point-Blank Bombardment</strong>.",
+      "1": "Valeriy dapat memperoleh <strong>Impact Momentum</strong> melalui cara berikut:",
+      "2": [
+        "Saat melancarkan Elemental Skill <strong>Active Defense: Bastion Charge</strong>.",
+        "Setelah membuka Talenta Ascension \"Advance With the Creeping Barrage\", selama durasi Elemental Burst <strong>Focused Fire: Lightning Salvo</strong> aktif dan ada serangan Karakter aktif di sekitar dalam party dengan jenis elemen <electro>Electro</electro> yang mengenai musuh."
+      ]
+    }
   }
 }

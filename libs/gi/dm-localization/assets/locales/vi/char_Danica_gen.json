@@ -1,0 +1,200 @@
+{
+  "name": "Danica",
+  "title": "",
+  "description": "",
+  "constellationName": "",
+  "auto": {
+    "name": "test Danica Tấn Công Thường",
+    "fields": {
+      "normal": {
+        "0": "<strong>Tấn Công Thường</strong>",
+        "1": "Thực hiện tối đa 4 lần chém liên tiếp."
+      },
+      "charged": {
+        "0": "<strong>Trọng Kích</strong>",
+        "1": "Tiêu hao thể lực liên tục để chém nhanh liên tiếp.",
+        "2": "Sau khi Trọng Kích kết thúc, sẽ bổ một nhát cực mạnh."
+      },
+      "plunging": {
+        "0": "<strong>Tấn Công Khi Đáp</strong>",
+        "1": "Đáp xuống đất từ trên không, tấn công kẻ địch trên đường và gây sát thương phạm vi khi chạm đất."
+      }
+    },
+    "skillParams": {
+      "0": "Sát thương lần 1",
+      "1": "Sát thương lần 2",
+      "2": "Sát thương lần 3",
+      "3": "Sát thương lần 4",
+      "4": "Sát thương Trọng Kích tuần hoàn",
+      "5": "Sát thương Trọng Kích cuối cùng",
+      "6": "Thể lực Trọng Kích tiêu hao",
+      "7": "Thời gian duy trì tối đa",
+      "8": "Sát thương khi đáp",
+      "9": "Sát thương khi đáp từ độ cao thấp/cao",
+      "10": "",
+      "11": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "skill": {
+    "name": "test Kỹ Năng Nguyên Tố Danica",
+    "description": {
+      "0": "test vung dây xích và mỏ neo, gây 1 lần <electro>Sát Thương Phạm Vi Nguyên Tố Lôi</electro> cho kẻ địch xung quanh, đồng thời triệu hồi <strong>mỏ neo</strong> đi theo hành động của nhân vật trên sân hiện tại.",
+      "1": "<br/>",
+      "2": "Trong thời gian <strong>mỏ neo</strong> tồn tại, sẽ dựa vào việc Danica có đang trên sân hay không, để hỗ trợ chiến đấu theo các cách khác nhau.",
+      "3": "<strong>Khi Danica ở ngoài sân</strong>",
+      "4": "Khi tấn công <electro>Nguyên Tố Lôi</electro> hoặc <cryo>Nguyên Tố Băng</cryo> của nhân vật trên sân hiện tại trong đội trúng kẻ địch, <strong>mỏ neo</strong> sẽ phát động tấn công phối hợp, gây <electro>Sát Thương Phạm Vi Nguyên Tố Lôi</electro> tại vị trí của kẻ địch. Hiệu ứng này mỗi 1.5 giây kích hoạt tối đa 1 lần.",
+      "5": "<strong>Khi Danica ở trên sân</strong>",
+      "6": "Tấn Công Thường của Danica sẽ chuyển thành tấn công đặc biệt sử dụng mỏ neo, gây <electro>Sát Thương Nguyên Tố Lôi</electro> không thể bị đính kèm ghi đè, sát thương này được xem là sát thương Tấn Công Thường.",
+      "7": "<br/>",
+      "8": "<strong>Điểm Hưng Phấn</strong>",
+      "9": "Trong thời gian mỏ neo tồn tại, Danica có thể thông qua việc thi triển Tấn Công Thường đặc biệt của mỏ neo, hoặc tấn công <cryo>Nguyên Tố Băng</cryo> hay <electro>Nguyên Tố Lôi</electro> của nhân vật trên sân hiện tại trong đội trúng kẻ địch để tích lũy <tooltip ns=tooltips_gen baseKey18=11470001 values=[\"50\",\"25\",\"100\"]><strong>Điểm Hưng Phấn</strong></tooltip>. Khi Điểm Hưng Phấn đạt giới hạn, dựa vào việc Danica có đang trên sân hay không, có thể tiêu hao toàn bộ Điểm Hưng Phấn để thi triển Kỹ Năng Nguyên Tố đặc biệt khác nhau, và bước vào trạng thái Hầu Gái tương ứng:",
+      "10": "<strong>Hầu Gái Hộ Vệ</strong>",
+      "11": "Khi Danica ở ngoài sân, đổi sang Danica ra trận, sẽ tự động thi triển <tooltip ns=tooltips_gen baseKey18=11470002 values=[]><strong>\"Kỹ Năng Ra Trận E2\"</strong></tooltip>, và bước vào <strong>Hầu Gái Hộ Vệ</strong>. Tạo khiên cho nhân vật trên sân, đồng thời làm mới thời gian duy trì của mỏ neo. Trong thời gian này không thể thi triển <strong>\"Kỹ Năng Trên Sân E2\"</strong> nữa.",
+      "12": "<strong>Hầu Gái Chiến Đấu</strong>",
+      "13": "Khi Danica ở trên sân, Kỹ Năng Nguyên Tố sẽ thay bằng <tooltip ns=tooltips_gen baseKey18=11470003 values=[\"5\"]><strong>\"Kỹ Năng Trên Sân E2\"</strong></tooltip>, sau khi thi triển sẽ bước vào <strong>Hầu Gái Chiến Đấu</strong>. Trong thời gian này, sau khi thi triển \"Kỹ Năng Trên Sân E2\", Tấn Công Thường đặc biệt của mỏ neo có thể bỏ qua một phần chuỗi Tấn Công Thường. Trong thời gian này không thể thi triển <strong>\"Kỹ Năng Ra Trận E2\"</strong> nữa.",
+      "14": "<br/>",
+      "15": "Ngoài ra, khi mỏ neo biến mất, sẽ thoát trạng thái Hầu Gái. Trong thời gian mỏ neo tồn tại, Hầu Gái Chiến Đấu và Hầu Gái Hộ Vệ không thể tồn tại cùng lúc, khi bước vào một trong hai trạng thái Hầu Gái, sẽ không thể bước vào trạng thái Hầu Gái còn lại."
+    },
+    "skillParams": {
+      "0": "Sát thương kỹ năng",
+      "1": "Sát thương Tinh-Siêu Dẫn Kỹ Năng Ra Trận E2",
+      "2": "Sát thương Tinh-Siêu Dẫn Kỹ Năng Trong Trận E2",
+      "3": "Sát thương mỏ neo hợp lực tấn công",
+      "4": "Khiên hấp thụ",
+      "5": "Sát Thương Nguyên Tố Lôi mỏ neo Tấn Công Thường đòn 1",
+      "6": "Sát Thương Nguyên Tố Lôi mỏ neo Tấn Công Thường đòn 2",
+      "7": "Sát Thương Nguyên Tố Lôi mỏ neo Tấn Công Thường đòn 3",
+      "8": "Sát Thương Nguyên Tố Lôi mỏ neo Tấn Công Thường đòn 4",
+      "9": "Mỏ neo duy trì",
+      "10": "CD Kỹ Năng Ra Trận E2",
+      "11": "CD kỹ năng",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "burst": {
+    "name": "test Kỹ Năng Nộ Danica",
+    "description": {
+      "0": "test thống lĩnh chiến trường với uy nghi của cận thần Nữ Hoàng, phát động 5 đòn tấn công phạm vi lớn, gây <electro>Sát Thương Phạm Vi Nguyên Tố Lôi</electro>.",
+      "1": "<br/>",
+      "2": "<strong>Tỏa Sáng: Tinh-Siêu Dẫn</strong>:",
+      "3": " - Đòn tấn công đoạn 1 và đoạn 5 sẽ gây thêm <electro>Sát Thương Phạm Vi Nguyên Tố Lôi</electro> được tính là sát thương phản ứng Tinh-Siêu Dẫn.",
+      "4": " - Trong một khoảng thời gian sau khi thi triển, nếu Danica đang ở hình thái hầu gái, sẽ cường hóa hình thái hầu gái hiện tại, nhận hiệu quả cường hóa tương ứng dựa theo hình thái hiện tại:",
+      "5": "Khi Danica ở hình thái <tooltip ns=tooltips_gen baseKey18=11470004 values=[]><strong>Hầu gái thủ hộ</strong></tooltip>, sẽ tăng Tấn Công của tất cả nhân vật trong đội.",
+      "6": "Khi Danica ở hình thái <tooltip ns=tooltips_gen baseKey18=11470005 values=[]><strong>Hầu gái chiến đấu</strong></tooltip>, lập tức hồi toàn bộ giá trị hưng phấn, và tăng sát thương do <strong>\"Kỹ năng trên sân E2\"</strong> của Danica gây ra.",
+      "7": "<br/>",
+      "8": "Khi hình thái hầu gái kết thúc, trạng thái hiệu quả cường hóa sẽ bị xóa."
+    },
+    "skillParams": {
+      "0": "Sát thương Nguyên Tố Lôi/sát thương Tinh-Siêu Dẫn đòn 1",
+      "1": "Sát thương Nguyên Tố Lôi đòn 2/3/4",
+      "2": "Sát thương Nguyên Tố Lôi/sát thương Tinh-Siêu Dẫn đòn 5",
+      "3": "Tỷ lệ tăng Tấn Công",
+      "4": "Giới hạn tăng Tấn Công",
+      "5": "Kỹ năng trong trận E2 tăng sát thương",
+      "6": "Hiệu quả cường hóa duy trì",
+      "7": "CD",
+      "8": "Năng Lượng Nguyên Tố",
+      "9": "",
+      "10": "",
+      "11": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "passive1": {
+    "name": "test Thiên Phú Đột Phá 1",
+    "description": {
+      "0": "test<strong>mỏ neo</strong> làm giảm 15% <electro>Kháng Nguyên Tố Lôi</electro> của kẻ địch xung quanh.",
+      "1": "<br/>",
+      "2": "<strong>Tỏa Sáng: Tinh-Siêu Dẫn</strong>: <electro>Kháng Nguyên Tố Lôi</electro> của kẻ địch xung quanh mỏ neo giảm thêm 15%, <cryo>Kháng Nguyên Tố Băng</cryo> giảm 30%."
+    }
+  },
+  "passive2": {
+    "name": "test Thiên Phú Đột Phá 2",
+    "description": {
+      "0": "test sau khi thi triển <strong>Kỹ Năng Ra Trận E2</strong>, Tấn Công của bản thân Danica tăng 20%.",
+      "1": "Sau khi thi triển <strong>Kỹ Năng Trên Sân E2</strong>, Tốc Độ Tấn Công của bản thân Danica tăng 20%, đồng thời khi Tấn Công Thường bằng mỏ neo đặc biệt trúng kẻ địch sẽ nhận thêm 25 điểm <strong>Giá Trị Hưng Phấn</strong>, hiệu quả trên cộng dồn tối đa 3 lần.",
+      "2": "Hiệu quả trên sẽ duy trì đến khi thoát khỏi trạng thái Hầu Gái Hộ Vệ hoặc Hầu Gái Chiến Đấu lần này, kích hoạt lại sẽ làm mới thời gian duy trì."
+    }
+  },
+  "passive3": {
+    "name": "test Thiên Phú Tinh Tú",
+    "description": {
+      "0": "Khi nhân vật trong đội kích hoạt phản ứng Siêu Dẫn, sẽ chuyển thành phản ứng Tinh-Siêu Dẫn, đồng thời tăng sát thương cơ bản của phản ứng Tinh-Siêu Dẫn nhân vật trong đội gây ra dựa trên Tấn Công của Danica: Mỗi điểm Tấn Công sẽ tăng 0.7% sát thương cơ bản của phản ứng Tinh-Siêu Dẫn, tối đa tăng 14% sát thương theo cách này.",
+      "1": "Ngoài ra, khi ở trong <tooltip ns=tooltips_gen baseKey18=11330003 values=[]><strong>Vùng Trục Sao</strong></tooltip>, Danica sẽ vào trạng thái <strong>Tỏa Sáng: Tinh-Siêu Dẫn</strong>."
+    }
+  },
+  "passive": {
+    "name": "testThiên Phú Sinh Hoạt",
+    "description": {
+      "0": "testKhi nhân vật của bản thân trong đội chịu ảnh hưởng của môi trường giá lạnh, Tốc Độ Di Chuyển tăng 10%, Tiêu Hao Thể Lực giảm 10%."
+    }
+  },
+  "constellation1": {
+    "name": "test Cung Mệnh 1",
+    "description": {
+      "0": "Khi test Danica thi triển <strong>Kỹ Năng Ra Trận E2</strong> hoặc <strong>Kỹ Năng Trên Sân E2</strong>, hồi phục 20 điểm Năng Lượng Nguyên Tố cho bản thân. Hiệu quả này mỗi 14 giây tối đa kích hoạt 1 lần.",
+      "1": "Ngoài ra, trong <strong>Kỹ Năng Nộ</strong>, hiệu quả cường hóa <strong>Hầu Gái Hộ Vệ</strong> tăng 80%, hiệu quả cường hóa <strong>Hầu Gái Chiến Đấu</strong> tăng 120%."
+    }
+  },
+  "constellation2": {
+    "name": "test Cung Mệnh 2",
+    "description": {
+      "0": "Trong thời gian mỏ neo test tồn tại, Danica cấp 7 tầng \"Chúc Rượu\" cho tất cả nhân vật xung quanh, khi tất cả nhân vật xung quanh tích lũy tiêu hao 6 tầng \"Chúc Rượu\", sẽ cấp thêm 1 tầng \"Chúc Rượu\" cho nhân vật trên sân hiện tại.",
+      "1": "\"Chúc Rượu\": Khi nhân vật trong đội gây sát thương phản ứng Tinh-Siêu Dẫn, sẽ tiêu hao 1 tầng \"Chúc Rượu\", tăng sát thương gây ra, Giá Trị tăng thêm tương đương 100% Tấn Công của Danica.",
+      "2": "Ngoài ra, khi Danica trong trạng thái hầu gái chiến đấu gây sát thương phản ứng Tinh-Siêu Dẫn, sẽ tiêu hao toàn bộ số tầng \"Chúc Rượu\" hiện tại của bản thân, mỗi tầng đều sẽ làm tăng sát thương gây ra, Giá Trị tăng thêm tương đương 150% Tấn Công của Danica.",
+      "3": "Khi triệu hồi lại mỏ neo hoặc làm mới thời gian duy trì của mỏ neo, sẽ đặt lại số tầng \"Chúc Rượu\"."
+    }
+  },
+  "constellation3": {
+    "name": "test Cung Mệnh 3",
+    "description": {
+      "0": "Cấp kỹ năng <strong><tooltip ns=char_Danica_gen baseKey18=burst>Kỹ Năng Nộ</tooltip></strong> +3.",
+      "1": "Tăng tối đa đến cấp 15."
+    }
+  },
+  "constellation4": {
+    "name": "test Cung Mệnh 4",
+    "description": {
+      "0": "testKhi nhân vật trên sân hiện tại được khiên của Danica bảo vệ gây sát thương Tinh-Siêu Dẫn cho kẻ địch, sẽ hồi 3 điểm Năng Lượng Nguyên Tố cho các nhân vật khác gần đó trong đội, tối đa có hiệu lực 1 lần trong 3.5 giây.",
+      "1": "Ngoài ra, khi Danica vào trạng thái Hầu Gái Chiến Đấu cũng sẽ tạo khiên, trong thời gian này nếu Danica rời sân, khiên đó sẽ bị hủy."
+    }
+  },
+  "constellation5": {
+    "name": "test Cung Mệnh 5",
+    "description": {
+      "0": "Cấp kỹ năng test<strong><tooltip ns=char_Danica_gen baseKey18=skill>Kỹ Năng Nguyên Tố</tooltip></strong> +3.",
+      "1": "Tăng tối đa đến cấp 15."
+    }
+  },
+  "constellation6": {
+    "name": "test Cung Mệnh 6",
+    "description": {
+      "0": "testTrong thời gian Mỏ Neo tồn tại, sát thương Tinh-Siêu Dẫn gây ra bởi các nhân vật ở gần trong đội Thăng Tiến 20%.",
+      "1": "Ngoài ra, sau khi Danica vào trạng thái <tooltip ns=tooltips_gen baseKey18=11470004 values=[]><strong>Nữ Hầu Hộ Vệ</strong></tooltip>, mỗi 1000 điểm Tấn Công của Danica sẽ giúp sát thương Tinh-Siêu Dẫn do nhân vật đang ra sân gây ra tăng 10%, tối đa không quá 40%.",
+      "2": "Sau khi vào trạng thái <tooltip ns=tooltips_gen baseKey18=11470005 values=[]><strong>Nữ Hầu Chiến Đấu</strong></tooltip>, mỗi 500 điểm Tấn Công của Danica sẽ giúp Tỷ Lệ Bạo Kích của kỹ năng trên sân E2 của bản thân tăng 2.5%, Sát Thương Bạo Kích gây ra tăng 25%. Tỷ Lệ Bạo Kích tối đa không quá 10%, Sát Thương Bạo Kích tối đa không quá 100%.",
+      "3": "Các hiệu quả trên sẽ duy trì đến khi kết thúc trạng thái nữ hầu lần này."
+    }
+  }
+}

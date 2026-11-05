@@ -1,0 +1,205 @@
+{
+  "name": "安娜丝塔夏",
+  "title": "？？？",
+  "description": "测试角色",
+  "constellationName": "复临主尊座",
+  "auto": {
+    "name": "长冬破晓",
+    "fields": {
+      "normal": {
+        "0": "<strong>普通攻击</strong>",
+        "1": "进行至多五段的连续弓箭射击。"
+      },
+      "charged": {
+        "0": "<strong>重击</strong>",
+        "1": "进行伤害更高、更为精准的<strong>瞄准射击</strong>。",
+        "2": "瞄准时，冰元素会在箭矢上持续积聚。聚满了冰元素之力的箭矢会造成<cryo>冰元素伤害</cryo>。"
+      },
+      "plunging": {
+        "0": "<strong>下落攻击</strong>",
+        "1": "从空中射出箭雨，并迅速下坠冲击地面，攻击下落路径上的敌人，在落地时造成范围伤害。"
+      }
+    },
+    "skillParams": {
+      "0": "一段伤害",
+      "1": "二段伤害",
+      "2": "三段伤害",
+      "3": "四段伤害",
+      "4": "五段伤害",
+      "5": "瞄准射击",
+      "6": "满蓄力瞄准射击",
+      "7": "下坠期间伤害",
+      "8": "低空/高空坠地冲击伤害",
+      "9": "",
+      "10": "",
+      "11": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "skill": {
+    "name": "极星圣裁",
+    "description": {
+      "0": "揭示<tooltip ns=tooltips_gen baseKey18=11490001 values=[]><strong>「超越」</strong></tooltip>的实质，造成<cryo>冰元素范围伤害</cryo>，并依据点按、长按，以不同的方式解放权能。",
+      "1": "<br/>",
+      "2": "<strong>点按</strong>",
+      "3": "赐予<strong>「慈爱」</strong>的加护，并掷出王廷传承的<strong>苍星圣冕</strong>。",
+      "4": "<strong>苍星圣冕</strong>会跟随当前场上角色，每2秒对附近的敌人造成两次<cryo>冰元素范围伤害</cryo>。",
+      "5": "<tooltip ns=tooltips_gen baseKey18=11500004 values=[]><strong>辉映·星烁</strong></tooltip>：<strong>苍星圣冕</strong>每次攻击时造成的第二次伤害，改为造成视为对应星烁反应伤害的<cryo>冰元素范围伤害</cryo>。",
+      "6": "<br/>",
+      "7": "<strong>长按</strong>",
+      "8": "赐予<strong>「荣耀」</strong>的加护，并展现王廷传承的精湛枪技。",
+      "9": "处于该模式下时，安娜丝塔夏的普通攻击将转为以<strong>圣佑之枪·德戈梅诺</strong>进行至多五段的连续攻击，造成无法被附魔覆盖的<cryo>冰元素范围伤害</cryo>，无法进行重击。",
+      "10": "<strong>辉映·星烁</strong>：以<strong>圣佑之枪</strong>进行普通攻击时，每段攻击造成的最后一次伤害，改为造成视为对应星烁反应伤害的<cryo>冰元素范围伤害</cryo>。"
+    },
+    "skillParams": {
+      "0": "点按瞬时伤害",
+      "1": "长按瞬时伤害",
+      "2": "苍星圣冕冰元素伤害",
+      "3": "苍星圣冕星超导/星扩散伤害",
+      "4": "一段冰元素伤害",
+      "5": "二段冰元素伤害",
+      "6": "三段冰元素伤害",
+      "7": "四段冰元素伤害",
+      "8": "五段冰元素伤害",
+      "9": "一段星超导/星扩散伤害",
+      "10": "二段星超导/星扩散伤害",
+      "11": "三段星超导/星扩散伤害",
+      "12": "四段星超导/星扩散伤害",
+      "13": "五段星超导/星扩散伤害",
+      "14": "苍星圣冕持续时间",
+      "15": "荣耀加护持续时间",
+      "16": "冷却时间",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "burst": {
+    "name": "致新世界",
+    "description": {
+      "0": "依据安娜丝塔夏持有的<tooltip ns=tooltips_gen baseKey18=11490001 values=[]><strong>加护</strong></tooltip>，可以施放对应的元素爆发，并以不同的方式运用<tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>封存</strong></tooltip>的权能。",
+      "1": "<br/>",
+      "2": "<strong>致新世界</strong>",
+      "3": "持有<strong>「慈爱」</strong>的加护时可以施放。造成<cryo>冰元素范围伤害</cryo>，并<tooltip ns=tooltips_gen baseKey18=11490005 values=[]><strong>冻结</strong></tooltip>苍星圣冕的持续时间。",
+      "4": "期间，队伍中附近的所有角色造成的星烁反应伤害提升，且苍星圣冕在攻击时会额外造成一次视为星超导反应伤害的<cryo>冰元素范围伤害</cryo>；安娜丝塔夏切换至队伍后台时，还会将自身<strong>封存</strong>，并在<strong>封存</strong>结束时，可以施放特殊的解封元素战技<tooltip ns=tooltips_gen baseKey18=11490003 values=[]><strong>苍星圣敕·凯旋</strong></tooltip>。",
+      "5": "<br/>",
+      "6": "<strong>永夜将明</strong>",
+      "7": "持有<strong>「荣耀」</strong>的加护时可以施放。解放<strong>圣佑之枪</strong>的力量，造成视为星超导反应伤害的<cryo>冰元素范围伤害</cryo>，并<strong>冻结</strong>加护的持续时间。",
+      "8": "此外，安娜丝塔夏还会<strong>封存</strong>队伍中至多三名其他角色，并在<strong>封存</strong>结束时，可以施放特殊的解封元素战技<tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>苍星圣敕·裁灭</strong></tooltip>。",
+      "9": "<br/>",
+      "10": "<strong>辉映·星烁</strong>：上述所有星超导反应伤害改为造成视为对应星烁反应伤害的<cryo>冰元素范围伤害</cryo>。"
+    },
+    "skillParams": {
+      "0": "致新世界瞬时伤害",
+      "1": "致新世界星烁反应伤害提升",
+      "2": "苍星圣冕星超导/星扩散伤害",
+      "3": "凯旋星超导/星扩散伤害",
+      "4": "永夜将明星超导/星扩散伤害",
+      "5": "裁灭一段冰元素伤害",
+      "6": "裁灭一段星超导/星扩散伤害",
+      "7": "裁灭二段星超导/星扩散伤害",
+      "8": "裁灭三段星超导/星扩散伤害",
+      "9": "致新世界持续时间",
+      "10": "永夜将明持续时间",
+      "11": "冷却时间",
+      "12": "元素能量",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "passive1": {
+    "name": "煌夜的明威",
+    "description": {
+      "0": "安娜丝塔夏施放元素战技<strong>极星圣裁</strong>后，队伍中所有角色获得持续20秒的<strong>荣勋</strong>：暴击伤害提升12%。",
+      "1": "队伍中的角色被<tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>封存</strong></tooltip>时，直至封存结束的8秒后，其所拥有的<strong>荣勋</strong>将会暂时均分给未被<strong>封存</strong>的角色。"
+    }
+  },
+  "passive2": {
+    "name": "未挽的悼亡",
+    "description": {
+      "0": "安娜丝塔夏在队伍中时，队伍中所有角色触发的星烁反应将分别获得以下效果：",
+      "1": [
+        "<strong>星超导反应</strong>：极星辉域每次给予增益效果时，使其进一步提升；且创造星辉棱晶时，也会使极星辉域立即产生一次增益效果；",
+        "<strong>星扩散反应</strong>：星辉风旋与流荡风旋在创造时便会提升至二级，该效果每1秒至多触发一次；此外，星扩散反应的基础反应系数提升15%。"
+      ]
+    }
+  },
+  "passive3": {
+    "name": "星耀祝礼·无染复临",
+    "description": {
+      "0": "处于<strong>极星辉域</strong>中时/队伍中的角色在附近触发星扩散反应后的8秒内，安娜丝塔夏将分别进入<strong>辉映·星超导</strong>/<strong>辉映·星扩散</strong>状态。",
+      "1": "队伍中的角色触发超导/冰元素扩散反应时，将转为触发星超导/星扩散反应，且基于安娜丝塔夏的攻击力，提升队伍中角色造成的上述反应的基础伤害：每100点攻击力都将提升0.7%上述反应的基础伤害，至多通过这种方式提升14%伤害。"
+    }
+  },
+  "passive": {
+    "name": "雪降的恩眷",
+    "description": {
+      "0": "在至冬地区（挪德卡莱除外），队伍中的角色不处于战斗状态下时，将逐渐恢复生命值。",
+      "1": "此外，安娜丝塔夏在队伍中时，「灰眸」的能量不会下降；若其能量低于30%，还会立刻恢复至30%。",
+      "2": "上述效果在秘境、征讨领域、深境螺旋中无效。"
+    }
+  },
+  "constellation1": {
+    "name": "致往年，致未曾止熄的心",
+    "description": {
+      "0": "突破天赋<tooltip ns=char_Anastasya_gen baseKey18=passive1><strong>煌夜的明威</strong></tooltip>获得强化：<strong>荣勋</strong>还会使元素类型为<cryo>冰元素</cryo>的角色的攻击力提升15%，使其他元素类型的角色的元素精通提升60点。",
+      "1": "此外，角色被<tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>封存</strong></tooltip>时，均分<strong>荣勋</strong>不再会使分享者的<strong>荣勋</strong>消失；安娜丝塔夏被<strong>封存</strong>时，赐予其他角色的<strong>荣勋</strong>将改为原本的300%。"
+    }
+  },
+  "constellation2": {
+    "name": "致严冬，致同饮苦寒的人",
+    "description": {
+      "0": "施放元素战技<strong>极星圣裁</strong>后，依据安娜丝塔夏持有的加护，将分别获得以下效果：",
+      "1": [
+        "<strong>「慈爱」</strong>：队伍中的所有角色造成的星烁反应伤害的暴击伤害提升60%，持续30秒；",
+        "<strong>「荣耀」</strong>：安娜丝塔夏的普通攻击、元素爆发<strong>永夜将明</strong>、解封元素战技<tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>苍星圣敕·裁灭</strong></tooltip>会造成原本125%的伤害，持续15秒。"
+      ],
+      "2": "<br/>",
+      "3": "此外，队伍中附近的所有角色造成的星烁反应伤害<tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>擢升</strong></tooltip>5%。"
+    }
+  },
+  "constellation3": {
+    "name": "向白夜，把死难的伤烧亮",
+    "description": {
+      "0": "元素爆发<strong><tooltip ns=char_Anastasya_gen baseKey18=burst>致新世界</tooltip></strong>的技能等级提高3级。",
+      "1": "至多提升至15级。"
+    }
+  },
+  "constellation4": {
+    "name": "向暴君，把反抗的歌来唱",
+    "description": {
+      "0": "<strong><tooltip ns=char_Anastasya_gen baseKey18=passive1>荣勋</tooltip><tooltip ns=char_Anastasya_gen baseKey18=constellation1></tooltip></strong>获得强化：暴击伤害、攻击力与元素精通提升的效果改为原本的130%。"
+    }
+  },
+  "constellation5": {
+    "name": "进军吧，让腐朽化作飞灰",
+    "description": {
+      "0": "元素战技<strong><tooltip ns=char_Anastasya_gen baseKey18=skill>极星圣裁</tooltip></strong>的技能等级提高3级。",
+      "1": "至多提升至15级。"
+    }
+  },
+  "constellation6": {
+    "name": "仰望吧，无垢的黎明将升",
+    "description": {
+      "0": "施放元素战技<strong>极星圣裁</strong>后，依据安娜丝塔夏持有的加护，将分别获得以下效果：",
+      "1": [
+        "<strong>「慈爱」</strong>：下一次将其他角色切换至场上时，会触发一次等同于<tooltip ns=tooltips_gen baseKey18=11490003 values=[]><strong>苍星圣敕·凯旋</strong></tooltip>的效果，造成原本250%的伤害；此外，队伍中附近所有角色造成的星烁反应伤害<strong>擢升</strong>10%；",
+        "<strong>「荣耀」</strong>：下一次点按元素战技时，会触发一次等同于<tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>苍星圣敕·裁灭</strong></tooltip>第三段攻击的效果，造成原本200%的伤害；若其他角色未被<tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>封存</strong></tooltip>，则安娜丝塔夏的本次攻击视为拥有队伍中所有角色的<tooltip ns=char_Anastasya_gen baseKey18=passive1><strong>荣勋</strong></tooltip>。此外，安娜丝塔夏造成的星烁反应伤害<tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>擢升</strong></tooltip>20%。"
+      ],
+      "2": "<br/>",
+      "3": "上述效果持续30秒，每15秒至多触发一次。队伍中其他角色的<strong>封存</strong>状态结束时，该效果将移除。"
+    }
+  }
+}

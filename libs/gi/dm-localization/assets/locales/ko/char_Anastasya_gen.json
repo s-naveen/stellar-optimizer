@@ -1,0 +1,205 @@
+{
+  "name": "아나스타샤",
+  "title": "",
+  "description": "",
+  "constellationName": "",
+  "auto": {
+    "name": "긴 겨울의 여명",
+    "fields": {
+      "normal": {
+        "0": "<strong>일반 공격</strong>",
+        "1": "활로 최대 5번 공격한다."
+      },
+      "charged": {
+        "0": "<strong>강공격</strong>",
+        "1": "피해가 더 크고 정확한 <strong>조준 사격</strong>을 한다.",
+        "2": "조준 시 얼음 원소가 화살촉에 계속해서 모인다. 얼음 원소의 힘이 가득 찬 화살로 <anemo>얼음 원소 피해</anemo>를 준다."
+      },
+      "plunging": {
+        "0": "<strong>낙하 공격</strong>",
+        "1": "공중에서 화살비를 쏜 후 빠른 속도로 땅에 착지한다. 경로상의 적을 공격하고, 착지 시 범위 피해를 준다"
+      }
+    },
+    "skillParams": {
+      "0": "1단 공격 피해",
+      "1": "2단 공격 피해",
+      "2": "3단 공격 피해",
+      "3": "4단 공격 피해",
+      "4": "5단 공격 피해",
+      "5": "조준 사격",
+      "6": "풀차지 조준 사격",
+      "7": "낙하 기간 피해",
+      "8": "저공/고공 추락 충격 피해",
+      "9": "",
+      "10": "",
+      "11": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "skill": {
+    "name": "극성의 심판",
+    "description": {
+      "0": "<tooltip ns=tooltips_gen baseKey18=11490001 values=[]><strong>「초월」</strong></tooltip>의 본질을 밝혀 <cryo>얼음 원소 범위 피해</cryo>를 주고, 짧은 터치 또는 홀드에 따라 각기 다른 방식으로 권능을 해방한다.",
+      "1": "<br/>",
+      "2": "<strong>짧은 터치</strong>",
+      "3": "<strong>「자애」</strong>의 가호를 내리고 궁정에서 전승되는 <strong>창백한 별의 성관</strong>을 던진다.",
+      "4": "<strong>창백한 별의 성관</strong>은 현재 필드 위 캐릭터를 따라다닌다. 또한, 2초마다 주변의 적에게 <cryo>얼음 원소 범위 피해</cryo>를 2회 준다.",
+      "5": "<tooltip ns=tooltips_gen baseKey18=11500004 values=[]><strong>섬광·별빛</strong></tooltip>: <strong>창백한 별의 성관</strong>이 공격할 때마다 주는 2번째 피해가 상응하는 별빛 반응 피해로 간주되는 <cryo>얼음 원소 범위 피해</cryo>를 주는 것으로 변경된다.",
+      "6": "<br/>",
+      "7": "<strong>홀드</strong>",
+      "8": "<strong>「영광」</strong>의 가호를 내리고 궁정에서 전승되는 정교한 창술을 선보인다.",
+      "9": "해당 모드에서 아나스타샤의 일반 공격은 <strong>성스러운 가호의 창·데고메노</strong>로 최대 5번 공격하는 것으로 전환된다. 또한, 다른 원소 부여 효과로 대체되지 않는 <cryo>얼음 원소 범위 피해</cryo>를 주고 강공격을 사용할 수 없다.",
+      "10": "<strong>섬광·별빛</strong>: <strong>성스러운 가호의 창</strong>으로 일반 공격 시, 각 공격이 주는 마지막 피해가 상응하는 별빛 반응 피해로 간주되는 <cryo>얼음 원소 범위 피해</cryo>를 주는 것으로 변경된다"
+    },
+    "skillParams": {
+      "0": "짧은 터치 순간 피해",
+      "1": "홀드 순간 피해",
+      "2": "창백한 별의 성관 얼음 원소 피해",
+      "3": "창백한 별의 성관 별 초전도/별 확산 피해",
+      "4": "1단 얼음 원소 피해",
+      "5": "2단 얼음 원소 피해",
+      "6": "3단 얼음 원소 피해",
+      "7": "4단 얼음 원소 피해",
+      "8": "5단 얼음 원소 피해",
+      "9": "1단 별 초전도/별 확산 피해",
+      "10": "2단 별 초전도/별 확산 피해",
+      "11": "3단 별 초전도/별 확산 피해",
+      "12": "4단 별 초전도/별 확산 피해",
+      "13": "5단 별 초전도/별 확산 피해",
+      "14": "창백한 별의 성관 지속 시간",
+      "15": "영광의 가호 지속 시간",
+      "16": "재사용 대기시간",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "burst": {
+    "name": "신세계를 향해",
+    "description": {
+      "0": "아나스타샤가 보유한 <tooltip ns=tooltips_gen baseKey18=11490001 values=[]><strong>가호</strong></tooltip>에 따른 원소폭발을 발동할 수 있으며, 각기 다른 방식으로 <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>봉인</strong></tooltip>의 권능을 활용할 수 있다.",
+      "1": "<br/>",
+      "2": "<strong>신세계를 향해</strong>",
+      "3": "<strong>「자애」</strong>의 가호를 보유하고 있을 시 발동할 수 있다. <cryo>얼음 원소 범위 피해</cryo>를 주고, 창백한 별의 성관의 지속 시간을 <tooltip ns=tooltips_gen baseKey18=11490005 values=[]><strong>빙결</strong></tooltip>시킨다.",
+      "4": "지속 시간 동안 주변에 있는 파티 내 모든 캐릭터가 주는 별빛 반응 피해가 증가하고, 창백한 별의 성관이 공격 시 별 초전도 반응 피해로 간주되는 <cryo>얼음 원소 범위 피해</cryo>를 1회 추가로 준다. 아나스타샤가 대기 상태로 교체되면 자신을 <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>봉인</strong></tooltip>하며, <strong>봉인</strong>이 끝날 때 특수한 봉인 해제 원소전투 스킬인 <tooltip ns=tooltips_gen baseKey18=11490003 values=[]><strong>창백한 별의 칙령·개선</strong></tooltip>을 발동할 수 있다.",
+      "5": "<br/>",
+      "6": "<strong>밤이 끝날 때</strong>",
+      "7": "<strong>「영광」</strong>의 가호를 보유하고 있을 시 발동할 수 있다. <strong>성스러운 가호의 창</strong>의 힘을 해방해 별 초전도 반응 피해로 간주되는 <cryo>얼음 원소 범위 피해</cryo>를 주고, 가호의 지속 시간을 <tooltip ns=tooltips_gen baseKey18=11490005 values=[]><strong>빙결</strong></tooltip>시킨다.",
+      "8": "또한, 아나스타샤는 파티 내 다른 캐릭터를 최대 3명 <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>봉인</strong></tooltip>하며, <strong>봉인</strong> 종료 시 특수한 봉인 해제 원소전투 스킬인 <tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>창백한 별의 칙령·단죄 소멸</strong></tooltip>을 발동할 수 있다.",
+      "9": "<br/>",
+      "10": "<strong>섬광·별빛</strong>: 상술한 모든 별 초전도 반응 피해가 상응하는 별빛 반응 피해로 간주되는 <cryo>얼음 원소 범위 피해</cryo>를 주는 것으로 변경된다"
+    },
+    "skillParams": {
+      "0": "신세계를 향해 순간 피해",
+      "1": "신세계를 향해 별빛 반응 피해 증가",
+      "2": "창백한 별의 성관 별 초전도/별 확산 피해",
+      "3": "개선 별 초전도/별 확산 피해",
+      "4": "밤이 끝날 때 별 초전도/별 확산 피해",
+      "5": "단죄 소멸 1단 얼음 원소 피해",
+      "6": "단죄 소멸 1단 별 초전도/별 확산 피해",
+      "7": "단죄 소멸 2단 별 초전도/별 확산 피해",
+      "8": "단죄 소멸 3단 별 초전도/별 확산 피해",
+      "9": "신세계를 향해 지속 시간",
+      "10": "밤이 끝날 때 지속 시간",
+      "11": "재사용 대기시간",
+      "12": "원소 에너지",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "passive1": {
+    "name": "찬란한 밤의 위엄",
+    "description": {
+      "0": "아나스타샤가 원소전투 스킬 <strong>극성의 심판</strong>을 발동한 후, 파티 내 모든 캐릭터가 20초 동안 지속되는 <strong>명예</strong>를 획득한다: 치명타 피해가 12% 증가한다.",
+      "1": "파티 내 캐릭터가 <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>봉인</strong></tooltip>되었을 때, 봉인이 끝난 후 8초 동안 해당 캐릭터가 보유한 <strong>명예</strong>는 <strong>봉인</strong>되지 않은 캐릭터에게 일시적으로 균등하게 분배된다"
+    }
+  },
+  "passive2": {
+    "name": "닿지 못한 애도",
+    "description": {
+      "0": "아나스타샤가 파티에 있을 때, 파티 내 모든 캐릭터가 발동하는 별빛 반응은 각각 다음 효과를 획득한다:",
+      "1": [
+        "<strong>별 초전도 반응</strong>: 극지의 별영역이 원소력을 방출할 때마다 추가로 일정량의 원소력을 획득하며, 별빛 결정을 생성할 때도 극지의 별영역에 원소력을 일정량 부여한다.",
+        "<strong>별 확산 반응</strong>: 별빛 돌풍과 표류 돌풍이 생성될 시 2레벨로 상승하며, 해당 효과는 1초마다 최대 1회 발동한다. 또한, 별 확산 반응의 기본 반응 계수가 15% 증가한다"
+      ]
+    }
+  },
+  "passive3": {
+    "name": "별빛 축복·순수함의 재림",
+    "description": {
+      "0": "<strong>극지의 별영역</strong> 내에 있을 때/파티 내 캐릭터가 주변에 별 확산 반응 발동 후 8초 동안, 아나스타샤는 각각 <strong>섬광·별 초전도</strong>/<strong>섬광·별 확산</strong> 상태에 진입한다.",
+      "1": "파티 내 캐릭터가 초전도/얼음 원소 확산 반응 발동 시, 별 초전도/별 확산 반응 발동으로 전환되며, 아나스타샤의 공격력에 기반하여 파티 내 캐릭터가 주는 상술한 반응의 기본 피해가 증가한다: 공격력 100pt당 상술한 반응의 기본 피해가 0.7% 증가하며, 해당 방식으로 최대 14% 증가한다"
+    }
+  },
+  "passive": {
+    "name": "내리는 눈의 은총",
+    "description": {
+      "0": "스네즈나야 지역(노드크라이 제외)에서는 파티 내 캐릭터가 비전투 상태일 때 점차 HP를 회복한다.",
+      "1": "또한, 파티에 아나스타샤가 있을 시 「잿빛 눈동자」의 에너지가 감소하지 않으며, 에너지가 30% 미만일 경우 즉시 30%까지 회복한다.",
+      "2": "해당 효과는 비경, 영역 토벌, 나선 비경에서는 적용되지 않는다"
+    }
+  },
+  "constellation1": {
+    "name": "지나간 시간과 꺼지지 않는 마음에게",
+    "description": {
+      "0": "돌파 특성 <tooltip ns=char_Anastasya_gen baseKey18=passive1><strong>찬란한 밤의 위엄</strong></tooltip> 강화: <strong>명예</strong>가 추가로 원소 타입이 <cryo>얼음 원소</cryo>인 캐릭터의 공격력을 15% 증가시키고, 기타 원소 타입 캐릭터의 원소 마스터리를 60pt 증가시킨다.",
+      "1": "또한, 캐릭터가 <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>봉인</strong></tooltip>되었을 시 <strong>명예</strong>를 균등하게 분배하는 것에서 복제하는 것으로 변경되며, 아나스타샤가 <strong>봉인</strong>되었을 시 다른 캐릭터에게 부여하는 <strong>명예</strong>가 기존의 300%로 변경된다"
+    }
+  },
+  "constellation2": {
+    "name": "혹한과 고난을 함께한 이들에게",
+    "description": {
+      "0": "원소전투 스킬 <strong>극성의 심판</strong> 발동 후, 아나스타샤가 보유한 가호에 따라 각각 다음 효과를 획득한다:",
+      "1": [
+        "<strong>「자애」</strong>: 파티 내 모든 캐릭터가 주는 별빛 반응 피해의 치명타 피해가 60% 증가한다. 지속 시간: 30초",
+        "<strong>「영광」</strong>: 아나스타샤의 일반 공격, 원소폭발 <strong>밤이 끝날 때</strong>, 봉인 해제 원소전투 스킬 <tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>창백한 별의 칙령·단죄 소멸</strong></tooltip>이 기존의 125%에 해당하는 피해를 준다. 지속 시간: 15초"
+      ],
+      "2": "<br/>",
+      "3": "또한, 주변에 있는 파티 내 모든 캐릭터가 주는 별빛 반응 피해가 5% <tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>승격</strong></tooltip>한다"
+    }
+  },
+  "constellation3": {
+    "name": "백야를 향해, 죽음의 상처를 불태워 밝히리라",
+    "description": {
+      "0": "원소폭발 <strong><tooltip ns=char_Anastasya_gen baseKey18=burst>신세계를 향해</tooltip></strong>의 스킬 레벨+3",
+      "1": "최대 Lv.15까지 상승"
+    }
+  },
+  "constellation4": {
+    "name": "폭군을 향해, 저항의 노래를 부르리라",
+    "description": {
+      "0": "<strong><tooltip ns=char_Anastasya_gen baseKey18=passive1>명예</tooltip></strong> 강화: 치명타 피해, 공격력 및 원소 마스터리 증가 효과가 기존의 130%로 변경된다"
+    }
+  },
+  "constellation5": {
+    "name": "진군하라, 부패한 것을 잿더미로 만들어라",
+    "description": {
+      "0": "원소전투 스킬 <strong><tooltip ns=char_Anastasya_gen baseKey18=skill>극성의 심판</tooltip></strong>의 스킬 레벨+3",
+      "1": "최대 Lv.15까지 상승"
+    }
+  },
+  "constellation6": {
+    "name": "고개를 들어라, 무구한 여명이 밝아온다",
+    "description": {
+      "0": "원소전투 스킬 <strong>극성의 심판</strong> 발동 후, 아나스타샤가 보유한 가호에 따라 각각 다음 효과를 획득한다:",
+      "1": [
+        "<strong>「자애」</strong>: 다음에 다른 캐릭터로 교체해 출전할 때, <tooltip ns=tooltips_gen baseKey18=11490003 values=[]><strong>창백한 별의 칙령·개선</strong></tooltip>과 동일한 효과를 1회 발동해 기존의 250%에 해당하는 피해를 준다. 또한, 주변 파티 내 모든 캐릭터가 주는 별빛 반응 피해가 10% <tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>승격</strong></tooltip>된다.",
+        "<strong>「영광」</strong>: 다음에 원소전투 스킬을 짧게 터치할 시 <tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>창백한 별의 칙령·단죄 소멸</strong></tooltip>의 제3단 공격과 동일한 효과를 1회 발동해 기존의 200%에 해당하는 피해를 준다. 다른 캐릭터가 <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>봉인</strong></tooltip>되지 않은 경우, 아나스타샤의 이번 공격은 파티 내 모든 캐릭터의 <tooltip ns=char_Anastasya_gen baseKey18=passive1><strong>명예</strong></tooltip>를 보유한 것으로 간주한다. 또한, 아나스타샤가 주는 별빛 반응 피해가 20% <tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>승격</strong></tooltip>된다."
+      ],
+      "2": "<br/>",
+      "3": "상술한 효과는 30초 동안 지속되며, 15초마다 최대 1회 발동된다. 파티 내 다른 캐릭터의 <strong>봉인</strong> 상태가 끝날 때 해당 효과가 제거된다"
+    }
+  }
+}

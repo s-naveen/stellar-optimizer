@@ -576,5 +576,157 @@
       "0": "<strong>Tỏa Sáng: Tinh-Siêu Dẫn</strong> và <strong>Tỏa Sáng: Tinh-Khuếch Tán</strong> đều được gọi chung là trạng thái <strong>Tỏa Sáng: Tinh Tú Lấp Lánh</strong>",
       "1": "Nhân vật cùng lúc chỉ có thể chịu ảnh hưởng bởi một trạng thái Tỏa Sáng, đồng thời sẽ ưu tiên chịu ảnh hưởng bởi <strong>Tỏa Sáng: Tinh-Siêu Dẫn</strong>."
     }
+  },
+  "11360001": {
+    "name": "Tín Hiệu Biến Đổi",
+    "description": {
+      "0": "Khi Mitya ở trong đội, khi kích hoạt phản ứng Tinh-Siêu Dẫn, sẽ không tạo ra <strong>Pha Lê Tinh Huy</strong>, mà thay vào đó sẽ tạo ra <strong>Tín Hiệu Biến Đổi</strong> duy trì Xs. Mitya có thể tiêu hao <strong>Tín Hiệu Biến Đổi</strong> để kích hoạt các hiệu ứng khác nhau.",
+      "1": "<strong>Tín Hiệu Biến Đổi</strong> sẽ đi theo nhân vật trong trận hiện tại, đồng thời khi tạo ra <strong>Tín Hiệu Biến Đổi</strong> sẽ biến khu vực rộng lớn hơn gần đó thành <strong>Vùng Trục Sao</strong>. Mitya có thể mang theo nhiều <strong>Tín Hiệu Biến Đổi</strong>, ban đầu tối đa mang theo X. Khi tạo ra <strong>Tín Hiệu Biến Đổi</strong>, sẽ đặt lại thời gian duy trì của toàn bộ <strong>Tín Hiệu Biến Đổi</strong>."
+    }
+  },
+  "11360002": {
+    "name": "Lõi Dò Tìm",
+    "description": {
+      "0": "Thiết bị năng lượng được tạo ra sau khi thi triển Kỹ Năng Nguyên Tố. Nhấn để tạo ra Lõi <strong>Ổn Định</strong>, nhấn giữ để tạo ra Lõi <strong>Quá Tải</strong>.",
+      "1": "<br/>",
+      "2": "<strong>Lõi Dò Tìm - Ổn Định</strong>",
+      "3": [
+        "Liên tục đi theo kẻ địch xung quanh và gây <electro>Sát Thương Phạm Vi Nguyên Tố Lôi</electro> theo chu kỳ.",
+        "Khi <strong>Tín Hiệu Biến Đổi</strong> của Mitya đạt giới hạn mang theo, <strong>Tín Hiệu Biến Đổi</strong> mới tạo ra sẽ được thiết bị này tiêu hao và gây <electro>Sát Thương Phạm Vi Nguyên Tố Lôi</electro> được xem là sát thương phản ứng Tinh-Siêu Dẫn.",
+        "Khi kết thúc thời gian duy trì, hoặc khi tạo lại <strong>Lõi Dò Tìm</strong>, sẽ tiêu hao toàn bộ <strong>Tín Hiệu Biến Đổi</strong> đang mang, và dựa trên số lượng tiêu hao để gây <electro>Sát Thương Phạm Vi Nguyên Tố Lôi</electro> được xem là sát thương phản ứng Tinh-Siêu Dẫn."
+      ],
+      "4": "<br/>",
+      "5": "<strong>Lõi Dò Tìm - Quá Tải</strong>",
+      "6": [
+        "Khi thiết bị này tồn tại và Mitya có ít nhất một <strong>Tín Hiệu Biến Đổi</strong>, Mitya có thể tiến hành Trọng Kích đặc biệt <strong>Bùng Nổ Biến Đổi</strong> không tiêu hao Thể Lực."
+      ]
+    }
+  },
+  "11470001": {
+    "name": "test Giá Trị Hưng Phấn",
+    "description": {
+      "0": "Trong thời gian mỏ neo test tồn tại, Danica sẽ tích lũy <strong>Giá Trị Hưng Phấn</strong>. Giá Trị Hưng Phấn có thể nhận qua các cách sau:",
+      "1": " - Khi Danica ở ngoài trận, đòn tấn công <electro>Nguyên Tố Lôi</electro> hoặc <cryo>Nguyên Tố Băng</cryo> của nhân vật trên sân hiện tại trong đội trúng kẻ địch sẽ nhận 50 điểm, mỗi 0.1 giây tối đa kích hoạt một lần;",
+      "2": " - Khi Danica trên sân, Tấn Công Thường mỏ neo đặc biệt trúng kẻ địch sẽ nhận 25 điểm, mỗi đoạn đánh thường thông qua cách này tối đa nhận một lần Giá Trị Hưng Phấn.",
+      "3": "<br/>",
+      "4": "Ngoài ra, khi Danica ở trạng thái <strong>Hầu Gái Thủ Hộ</strong>, Danica chỉ có thể nhận Giá Trị Hưng Phấn thông qua cách đòn tấn công <electro>Nguyên Tố Lôi</electro> hoặc <cryo>Nguyên Tố Băng</cryo> của nhân vật trên sân hiện tại trong đội trúng kẻ địch; Khi ở trạng thái <strong>Hầu Gái Chiến Đấu</strong>, Danica chỉ có thể nhận Giá Trị Hưng Phấn thông qua cách <strong>Tấn Công Thường mỏ neo đặc biệt</strong> trúng mục tiêu.",
+      "5": "<br/>",
+      "6": "Khi Giá Trị Hưng Phấn đạt giới hạn 100 điểm, Danica có thể tiêu hao toàn bộ Giá Trị Hưng Phấn để thi triển Kỹ Năng Nguyên Tố đặc biệt <strong>\"Kỹ Năng Ra Trận E2\"</strong> hoặc <strong>\"Kỹ Năng Trên Sân E2\"</strong>, và căn cứ theo cách thi triển để tiến vào <strong>Hình Thái Hầu Gái</strong> tương ứng."
+    }
+  },
+  "11470002": {
+    "name": "test\"Kỹ Năng Ra Trận E2\"",
+    "description": {
+      "0": "testDanica vung xích mỏ neo nhanh chóng tiếp cận kẻ địch, sau đó dùng mỏ neo đập mạnh xuống mặt đất, gây một lần <electro>Sát Thương Phạm Vi Nguyên Tố Lôi</electro> được xem như sát thương phản ứng Tinh-Siêu Dẫn.",
+      "1": "<br/>",
+      "2": "Sau khi thi triển, Danica tiến vào trạng thái <strong>Hầu Gái Hộ Vệ</strong>, và nhận được các hiệu quả sau:",
+      "3": " - Làm mới thời gian duy trì của mỏ neo;",
+      "4": " - Tạo khiên cho nhân vật hiện đang trên sân trong đội, khiên sẽ duy trì đến khi thoát trạng thái Hầu Gái Hộ Vệ, lượng sát thương hấp thu hưởng lợi từ Tấn Công của Danica, có 250% hiệu quả hấp thu đối với <electro>Sát Thương Nguyên Tố Lôi</electro>."
+    }
+  },
+  "11470003": {
+    "name": "test Kỹ năng trên sân E2",
+    "description": {
+      "0": "test vung xích mỏ neo nhanh chóng tiếp cận kẻ địch, sau đó dùng mỏ neo đập mạnh xuống mặt đất, gây ra một lần lượng lớn <electro>Sát Thương Phạm Vi Nguyên Tố Lôi</electro> được xem là sát thương phản ứng Tinh-Siêu Dẫn.",
+      "1": "<br/>",
+      "2": "Sau khi thi triển, Danica tiến vào trạng thái <strong>Hầu Gái Chiến Đấu</strong> và nhận được hiệu quả sau: Sau mỗi lần thi triển Kỹ Năng Trong Trận E2, lượt <strong>Tấn Công Thường Mỏ Neo Đặc Biệt</strong> tiếp theo sẽ bỏ qua một đoạn Tấn Công Thường, tối đa bỏ qua đến đoạn Tấn Công Thường cuối cùng.",
+      "3": "<br/>",
+      "4": "Sau khi thi triển 5 lần <strong>Kỹ Năng Trong Trận E2</strong>, sẽ thoát khỏi trạng thái <strong>Hầu Gái Chiến Đấu</strong> và phá hủy mỏ neo."
+    }
+  },
+  "11470004": {
+    "name": "test Hầu Gái Thủ Hộ",
+    "description": {
+      "0": "testTrạng thái mà Danica tiến vào sau khi thi triển Kỹ Năng Nguyên Tố đặc biệt <strong>Kỹ Năng Ra Trận E2</strong>. Khi ở trong trạng thái này, sẽ cung cấp khiên cho nhân vật trên sân hiện tại, đồng thời làm mới thời gian duy trì của <strong>Mỏ Neo</strong>."
+    }
+  },
+  "11470005": {
+    "name": "test Hầu Gái Chiến Đấu",
+    "description": {
+      "0": "Trạng thái test Danica bước vào sau khi thi triển Kỹ Năng Nguyên Tố đặc biệt <strong>Kỹ Năng Trên Sân E2</strong>. Khi ở trong trạng thái này, mỗi lần thi triển Kỹ Năng Trên Sân E2, Tấn Công Thường mỏ neo đặc biệt đều sẽ bỏ qua một đoạn Tấn Công Thường, tối đa có thể bỏ qua ba đoạn Tấn Công Thường đầu tiên."
+    }
+  },
+  "11490001": {
+    "name": "\"Siêu Việt\" và Chúc Phúc",
+    "description": {
+      "0": "Khi thi triển Kỹ Năng Nguyên Tố <strong>Sao Cực Phán Xét</strong>, dựa trên nhấn, nhấn giữ, Anastasya sẽ giải phóng quyền năng theo những cách khác nhau, và nhận được Chúc Phúc khác nhau.",
+      "1": [
+        "<strong>Nhấn</strong>: Ban Chúc Phúc <strong>\"Yêu Thương\"</strong>;",
+        "<strong>Nhấn Giữ</strong>: Ban Chúc Phúc <strong>\"Vinh Quang\"</strong>."
+      ],
+      "2": "<br/>",
+      "3": "Dưới hai loại Chúc Phúc này, Anastasya có thể lần lượt thi triển Kỹ Năng Nộ tương ứng, và có những cách sử dụng khác nhau đối với quyền năng <strong>Phong Ấn</strong>.",
+      "4": "Khi chưa ban Chúc Phúc <strong>\"Vinh Quang\"</strong>, Anastasya sẽ luôn sở hữu Chúc Phúc <strong>\"Yêu Thương\"</strong>."
+    }
+  },
+  "11490002": {
+    "name": "Phong Ấn",
+    "description": {
+      "0": "Trạng thái đặc biệt được áp dụng cho nhân vật khi Anastasya thi triển Kỹ Năng Nộ. Khi nhân vật trong trạng thái Phong Ấn, sẽ không thể đổi ra trận.",
+      "1": "Thời gian duy trì ban đầu của Phong Ấn bằng với thời gian duy trì của Kỹ Năng Nộ tương ứng. Thông qua cách thức nhất định, có thể giảm thời gian duy trì còn lại của Phong Ấn.",
+      "2": "<br/>",
+      "3": "Dựa theo <strong>Chúc Phúc</strong> mà Anastasya sở hữu, Anastasya sẽ có thể thi triển Kỹ Năng Nộ tương ứng, và sử dụng quyền năng Phong Ấn theo những cách khác nhau. Nếu Chúc Phúc mà Anastasya sở hữu là:",
+      "4": [
+        "<strong>\"Yêu Thương\"</strong>: Khi Anastasya đổi về dự bị trong đội, sẽ tự phong ấn bản thân. Khi tất cả nhân vật trong đội ở gần gây sát thương phản ứng Tinh Tú Lấp Lánh, sẽ giảm thời gian duy trì còn lại của Phong Ấn. Trong một khoảng thời gian sau khi kết thúc Phong Ấn, khi đổi Anastasya ra trận, sẽ thi triển Kỹ Năng Nguyên Tố giải phong ấn đặc biệt <strong>Sắc Lệnh Sao Nhạt - Khải Hoàn</strong>;",
+        "<strong>\"Vinh Quang\"</strong>: Anastasya sẽ phong ấn tối đa ba nhân vật khác trong đội. Khi Anastasya thực hiện Tấn Công Thường, có thể giảm thời gian duy trì còn lại của Phong Ấn. Trong một khoảng thời gian sau khi kết thúc phong ấn, lần đầu nhấn vào nhân vật tương ứng sẽ không đổi nhân vật đó ra trận, mà chuyển sang thi triển Kỹ Năng Nguyên Tố giải phong ấn đặc biệt <strong>Sắc Lệnh Sao Nhạt - Hủy Diệt</strong>."
+      ]
+    }
+  },
+  "11490003": {
+    "name": "Sắc Lệnh Sao Nhạt - Khải Hoàn",
+    "description": {
+      "0": "Khi Phong Ấn của bản thân Anastasya kết thúc, đổi ra trận sẽ thi triển Kỹ Năng Nguyên Tố đặc biệt. Gây <cryo>Sát Thương Phạm Vi Nguyên Tố Băng</cryo> được xem là sát thương phản ứng Tinh-Siêu Dẫn cho kẻ địch ở gần.",
+      "1": "<strong>Tỏa Sáng: Tinh Tú Lấp Lánh</strong>: Sát thương kể trên đổi thành gây <cryo>Sát Thương Phạm Vi Nguyên Tố Băng</cryo> được xem là sát thương phản ứng Tinh Tú Lấp Lánh tương ứng."
+    }
+  },
+  "11490004": {
+    "name": "Sắc Lệnh Sao Nhạt - Hủy Diệt",
+    "description": {
+      "0": "Trong một khoảng thời gian sau khi kết thúc Phong Ấn của các nhân vật khác trong đội, khi lần đầu nhấn vào nhân vật tương ứng sẽ không đổi nhân vật đó ra trận, mà chuyển sang thi triển Kỹ Năng Nguyên Tố đặc biệt này.",
+      "1": "<strong>Sắc Lệnh Sao Nhạt - Hủy Diệt</strong> có tổng cộng 3 đòn, khi nhấn lần đầu vào nhân vật tương ứng, hoặc khi nhấn Kỹ Năng Nguyên Tố, sẽ lần lượt thi triển 3 đòn tấn công.",
+      "2": [
+        "Đòn 1: Dùng <strong>Thương Hộ Thánh - Dekhomenon</strong> tung các đòn chém liên tiếp, gây ra nhiều lần <cryo>Sát Thương Phạm Vi Nguyên Tố Băng</cryo> không thể bị thay thế, được xem là sát thương Kỹ Năng Nguyên Tố, và cuối cùng sẽ gây 1 lần <cryo>Sát Thương Phạm Vi Nguyên Tố Băng</cryo> được xem là sát thương phản ứng Tinh-Siêu Dẫn;",
+        "Đòn 2: Nhảy vọt lên phía trước, tiến hành 1 đòn chém, gây <cryo>Sát Thương Phạm Vi Nguyên Tố Băng</cryo> được xem là sát thương phản ứng Tinh-Siêu Dẫn;",
+        "Đòn 3: Phóng <strong>Thương Hộ Thánh</strong> ra như một mũi tên, gây <cryo>Sát Thương Phạm Vi Nguyên Tố Băng</cryo> có sát thương cao hơn, được xem là sát thương phản ứng Tinh-Siêu Dẫn, đồng thời kết thúc hiệu quả <strong>Đêm Dài Sắp Sáng</strong>."
+      ],
+      "3": "<br/>",
+      "4": "<strong>Tỏa Sáng: Tinh Tú Lấp Lánh</strong>: Sát thương phản ứng Tinh-Siêu Dẫn kể trên đổi thành gây <cryo>Sát Thương Phạm Vi Nguyên Tố Băng</cryo> được xem là sát thương phản ứng Tinh Tú Lấp Lánh tương ứng."
+    }
+  },
+  "11490005": {
+    "name": "Đóng Băng",
+    "description": {
+      "0": "Một cơ chế đặc biệt. Các hiệu ứng bị Đóng Băng sẽ không bị trừ thời gian duy trì cho đến khi hiệu ứng kích hoạt Đóng Băng kết thúc."
+    }
+  },
+  "11370001": {
+    "name": "Súng Cối Bắn Thẳng - Oanh Tạc Tầm Gần",
+    "description": {
+      "0": "Trọng Kích đặc biệt của Valeriy. Thi triển Trọng Kích khi có ít nhất 40 điểm <strong>Thế Năng Xung Kích</strong>, sẽ tiêu hao toàn bộ <strong>Thế Năng Xung Kích</strong> và chuyển sang thi triển Trọng Kích đặc biệt này, gây <electro>Sát Thương Phạm Vi Nguyên Tố Lôi</electro> về phía trước và nhận 15 tầng <strong>Chỉ Lệnh Tấn Công</strong>.",
+      "1": "Khi thi triển Trọng Kích đặc biệt lần nữa, số tầng <strong>Chỉ Lệnh Tấn Công</strong> sẽ được làm mới.",
+      "2": "Trong vòng 0.8s sau khi thi triển Kỹ Năng Nguyên Tố <strong>Phòng Ngự Tấn Công - Pháo Đài Thần Tốc</strong> hoặc Kỹ Năng Nộ <strong>Tiêu Điểm Hỏa Lực - Sấm Sét Oanh Kích</strong>, nếu Valeriy có ít nhất 40 điểm <strong>Thế Năng Xung Kích</strong>, thì Tấn Công Thường lần sau mà Valeriy thực hiện sẽ đổi thành Trọng Kích đặc biệt <strong>Súng Cối Bắn Thẳng - Oanh Tạc Tầm Gần</strong>."
+    }
+  },
+  "11370002": {
+    "name": "Chỉ Lệnh Tấn Công",
+    "description": {
+      "0": "Hiệu quả đặc biệt Valeriy nhận được sau khi thi triển Trọng Kích đặc biệt <strong>Súng Cối Bắn Thẳng - Oanh Tạc Tầm Gần</strong>. Dựa trên việc Valeriy có đang trong trạng thái <strong>Tỏa Sáng: Tinh-Siêu Dẫn</strong> hay không, sẽ giúp tăng các loại <electro>Sát Thương Nguyên Tố Lôi</electro> khác nhau. Nếu Valeriy:",
+      "1": [
+        "Đang trong trạng thái <strong>Tỏa Sáng: Tinh-Siêu Dẫn</strong>: Khi Tấn Công Thường, Trọng Kích, Tấn Công Khi Đáp, Kỹ Năng Nguyên Tố hoặc Kỹ Năng Nộ của nhân vật ra trận hiện tại trong đội ở gần gây <electro>Sát Thương Nguyên Tố Lôi</electro> được xem là sát thương phản ứng Tinh-Siêu Dẫn lên kẻ địch, sẽ tiêu hao một tầng <strong>Chỉ Lệnh Tấn Công</strong> để tăng sát thương gây ra, mức tăng dựa trên Tấn Công của Valeriy.",
+        "Không trong trạng thái <strong>Tỏa Sáng: Tinh-Siêu Dẫn</strong>: Khi Tấn Công Thường, Trọng Kích, Tấn Công Khi Đáp, Kỹ Năng Nguyên Tố hoặc Kỹ Năng Nộ của nhân vật ra trận hiện tại trong đội ở gần gây <electro>Sát Thương Nguyên Tố Lôi</electro> lên kẻ địch, sẽ tiêu hao một tầng <strong>Chỉ Lệnh Tấn Công</strong> để tăng sát thương gây ra, mức tăng dựa trên Tấn Công của Valeriy."
+      ],
+      "2": "Nếu trong một lần <electro>Sát Thương Nguyên Tố Lôi</electro> đánh trúng nhiều kẻ địch cùng lúc, sẽ dựa trên số lượng kẻ địch trúng đòn để tiêu hao số tầng <strong>Chỉ Lệnh Tấn Công</strong>."
+    }
+  },
+  "11370003": {
+    "name": "Thế Năng Xung Kích",
+    "description": {
+      "0": "Năng lượng đặc biệt Valeriy dùng để cường hóa chiến đấu, giới hạn ban đầu là 100 điểm. Khi có ít nhất 40 điểm <strong>Thế Năng Xung Kích</strong>, có thể thi triển Trọng Kích đặc biệt <strong>Súng Cối Bắn Thẳng - Oanh Tạc Tầm Gần</strong>.",
+      "1": "Valeriy có thể nhận <strong>Thế Năng Xung Kích</strong> thông qua những cách sau:",
+      "2": [
+        "Thi triển Kỹ Năng Nguyên Tố <strong>Phòng Ngự Tấn Công - Pháo Đài Thần Tốc</strong>.",
+        "Sau khi mở khóa Thiên Phú Đột Phá \"Tiến Bước Cùng Với Màn Đạn\", trong thời gian duy trì Kỹ Năng Nộ <strong>Tiêu Điểm Hỏa Lực - Sấm Sét Oanh Kích</strong>, khi đòn tấn công <electro>Nguyên Tố Lôi</electro> của nhân vật ra trận hiện tại trong đội ở gần đánh trúng kẻ địch."
+      ]
+    }
   }
 }

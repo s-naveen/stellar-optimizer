@@ -1,0 +1,6 @@
+{
+  "directiveCond": "Offensive Directive (after Direct-Fire Mortar: Point-Blank Bombardment)",
+  "momentumCond": "Impact Momentum consumed by Direct-Fire Mortar",
+  "c2ExcessCond": "20 excess Impact Momentum converted into the shield",
+  "c6Cond": "Opponent hit by Direct-Fire Mortar or Thunderburst Shells"
+}

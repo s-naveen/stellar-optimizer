@@ -1,0 +1,206 @@
+{
+  "name": "Anastasya",
+  "title": "",
+  "description": "",
+  "constellationName": "",
+  "auto": {
+    "name": "Alvorada do Longo Inverno",
+    "fields": {
+      "normal": {
+        "0": "<strong>Ataque Normal</strong>",
+        "1": "Realiza até 5 disparos consecutivos com um arco."
+      },
+      "charged": {
+        "0": "<strong>Ataque Carregado</strong>",
+        "1": "Realiza um <strong>Disparo com Mira </strong>mais preciso e com Dano aumentado.",
+        "2": "Ao mirar, Cryo se acumulará na ponta da flecha. Uma flecha completamente carregada com Cryo irá infligir <cryo>Dano Cryo</cryo>."
+      },
+      "plunging": {
+        "0": "<strong>Ataque Imersivo</strong>",
+        "1": "Dispara uma chuva de flechas no ar que atingirão o solo rapidamente, alcançando os inimigos ao longo do caminho e infligindo Dano em uma AdE durante o impacto."
+      }
+    },
+    "skillParams": {
+      "0": "Dano do 1° Golpe",
+      "1": "Dano do 2° Golpe",
+      "2": "Dano do 3° Golpe",
+      "3": "Dano do 4° Golpe",
+      "4": "Dano do 5° Golpe",
+      "5": "Disparo com Mira",
+      "6": "Disparo com Mira com Energização Completa",
+      "7": "Dano Durante a Queda",
+      "8": "Dano de Queda de Baixa/Alta Altitude",
+      "9": "",
+      "10": "",
+      "11": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "skill": {
+    "name": "Julgamento Sagrado da Estrela Polar",
+    "description": {
+      "0": "Revela a essência da <tooltip ns=tooltips_gen baseKey18=11490001 values=[]><strong>Transcendência</strong></tooltip>, causando <cryo>Dano Cryo em AdE</cryo> e lançando autoridades diferentes se pressionar ou manter pressionado.",
+      "1": "<br/>",
+      "2": "<strong>Pressionar</strong>",
+      "3": "Concede a bênção do <strong>Amor</strong> e joga relíquia real <strong>Coroa Sagrada da Estrela Azul</strong>.",
+      "4": "A <strong>Coroa Sagrada da Estrela Azul</strong> segue o personagem ativo, e causa <cryo>Dano Cryo em AdE</cryo> duas vezes contra os inimigos próximos.",
+      "5": "<tooltip ns=tooltips_gen baseKey18=11500004 values=[]><strong>Brilho Reluzente: Brilho Estelar</strong></tooltip>: o segundo Dano causado por cada vez que a<strong>Coroa Sagrada da Estrela Azul</strong> atacar será convertido para causar <cryo>Dano Cryo em AdE</cryo> que é considerado Dano da Reação de Brilho Estelar correspondente.",
+      "6": "<br/>",
+      "7": "<strong>Manter Pressionado</strong>",
+      "8": "Concede a bênção da <strong>Honra</strong>, demonstrando as habilidades militares da corte imperial.",
+      "9": "Quando estiver nesse modo, os Ataques Normais de Anastasya serão convertidos para <strong>Armamento Abençoado: Dekhomenon</strong>, que pode realizar até 5 golpes consecutivos, causando <cryo>Dano Cryo em AdE</cryo> que não possível ser substituído. Também não é possível realizar Ataques Carregados.",
+      "10": "<strong>Brilho Reluzente: Brilho Estelar</strong>: quando realizar um Ataque Normal com o <strong>Armamento Abençoado</strong>, o último Dano de cada golpe causará <cryo>Dano Cryo em AdE</cryo> que é considerado Dano de Brilho Estelar."
+    },
+    "skillParams": {
+      "0": "Dano Instantâneo ao Pressionar",
+      "1": "Dano Instantâneo ao Manter Pressionado",
+      "2": "Dano Cryo da Coroa Sagrada da Estrela Azul",
+      "3": "Dano de Supercondutor Estelar/Redemoinho Estelar da Coroa Sagrada da Estrela Azul",
+      "4": "Dano Cryo do 1º Golpe",
+      "5": "Dano Cryo do 2º Golpe",
+      "6": "Dano Cryo do 3º Golpe",
+      "7": "Dano Cryo do 4º Golpe",
+      "8": "Dano Cryo do 5º Golpe",
+      "9": "Dano de Supercondutor Estelar/Redemoinho Estelar do 1º Golpe",
+      "10": "Dano de Supercondutor Estelar/Redemoinho Estelar do 2º Golpe",
+      "11": "Dano de Supercondutor Estelar/Redemoinho Estelar do 3º Golpe",
+      "12": "Dano de Supercondutor Estelar/Redemoinho Estelar do 4º Golpe",
+      "13": "Dano de Supercondutor Estelar/Redemoinho Estelar do 5º Golpe",
+      "14": "Duração da Coroa Sagrada da Estrela Azul",
+      "15": "Duração de Bênção de Honra",
+      "16": "Tempo de Recarga",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "burst": {
+    "name": "Novo Mundo",
+    "description": {
+      "0": "De acordo com a <tooltip ns=tooltips_gen baseKey18=11490001 values=[]><strong>Bênção</strong></tooltip> que Anastasya possuir, ela pode lançar o Supremo correspondente e usar a autoridade do <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Selamento</strong></tooltip> de formas diferentes.",
+      "1": "<br/>",
+      "2": "<strong>Novo Mundo</strong>",
+      "3": "Pode lançar ao possuir a Bênção do <strong>Amor</strong>, causando <cryo>Dano Cryo em AdE</cryo> e <tooltip ns=tooltips_gen baseKey18=11490005 values=[]><strong>Congelando</strong></tooltip> a duração de Coroa Sagrada da Estrela Azul.",
+      "4": "Nessa duração, aumenta o Dano de Reações de Brilho Estelar de todos os membros próximos da equipe, e quando a Coroa Sagrada da Estrela Azul atacar, causará uma instância adicional de <cryo>Dano Cryo em AdE</cryo> que é considerado Dano de Supercondutor Estelar. Depois que Anastasya sair de campo, ela se <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Selará</strong></tooltip>, e quando o <strong>Selamento</strong> acabar, pode lançar a Habilidade Elemental especial removedora de selos <tooltip ns=tooltips_gen baseKey18=11490003 values=[]><strong>Édito das Estrelas Azuis: Retorno Triunfal</strong></tooltip>.",
+      "5": "<br/>",
+      "6": "<strong>Alvorada da Noite Eterna</strong>",
+      "7": "Pode lançar ao possuir a Bênção <strong>Honra</strong>. Lança o poder do <strong>Armamento Abençoado</strong>, causando <cryo>Dano Cryo em AdE</cryo> que é considerado Dano de Supercondutor Estelar, e<tooltip ns=tooltips_gen baseKey18=11490005 values=[]><strong>Congelando</strong></tooltip> a duração da Bênção.",
+      "8": "Além disso, Anastasya também <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Selará</strong></tooltip> até 3 outros personagens da equipe, e quando a duração do <strong>Selo</strong> acabar, pode lançar a Habilidade Elemental especial removedora de selos <tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>Édito das Estrelas Azuis: Julgamento Exterminador</strong></tooltip>,",
+      "9": "<br/>",
+      "10": "<strong>Brilho Reluzente: Brilho Estelar</strong>: todos os Danos de Supercondutor Estelar acima são alterados para <cryo>Dano Cryo em AdE</cryo> que é considerado Dano de Reações de Brilho Estelar."
+    },
+    "skillParams": {
+      "0": "Dano Instantâneo de Novo Mundo",
+      "1": "Aumento de Dano de Reações de Brilho Estelar de Novo Mundo",
+      "2": "Dano de Supercondutor Estelar/Redemoinho Estelar da Coroa Sagrada da Estrela Azul",
+      "3": "Dano de Supercondutor Estelar/Redemoinho Estelar de Retorno Triunfal",
+      "4": "Dano de Supercondutor Estelar/Redemoinho Estelar da Alvorada da Noite Eterna",
+      "5": "Dano Cryo do 1º Golpe de Julgamento Exterminador",
+      "6": "Dano de Supercondutor Estelar/Redemoinho Estelar do 1º Golpe de Julgamento Exterminador",
+      "7": "Dano de Supercondutor Estelar/Redemoinho Estelar do 2º Golpe de Julgamento Exterminador",
+      "8": "Dano de Supercondutor Estelar/Redemoinho Estelar do 3º Golpe de Julgamento Exterminador",
+      "9": "Duração de Novo Mundo",
+      "10": "Duração de Alvorada da Noite Eterna",
+      "11": "Recarga",
+      "12": "Energia Elemental",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "passive1": {
+    "name": "Reino Brilhante da Noite",
+    "description": {
+      "0": "Depois que Anastasya lançar sua Habilidade Elemental <strong>Julgamento Sagrado da Estrela Polar</strong>, todos os membros da equipe obtêm <strong>Honrados</strong> por 20s: aumenta o Dano CRIT em 12%.",
+      "1": "Quando um personagem da equipe for <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Selado</strong></tooltip>, todo seu <strong>Honrado</strong> será dividido igualmente entre os membros da equipe que não estão <strong>Selados</strong>, até 8s após o fim do estado Selado desse personagem."
+    }
+  },
+  "passive2": {
+    "name": "Lamento para os Perdidos",
+    "description": {
+      "0": "Quando Anastasya está na equipe, todos os membros da equipe que desencadearem Reações de Brilho Estelar obterão os seguintes efeitos respectivos:",
+      "1": [
+        " <strong>Supercondutor Estelar</strong>: cada vez que o Campo da Estrela Polar lançar Energia Elemental, se obterá uma certa quantidade adicional de Energia Elemental. Ao criar um Prisma de Brilho Estrelar, também se concederá uma certa quantidade de Energia Elemental.",
+        " <strong>Redemoinho Estelar</strong>: quando o Vórtice do Vento Estelar e Vórtice Flutuante forem criados, serão elevados para o nível 2. Esse efeito pode ser desencadeado uma vez por segundo. Além disso, aumenta o multiplicador básico de Redemoinho Estelar em 15%."
+      ]
+    }
+  },
+  "passive3": {
+    "name": "Bênção das Estrelas: Retorno Imaculado",
+    "description": {
+      "0": "Quando estiver no <strong>Campo da Estrela Polar</strong>/nos 8s após os personagens próximos da equipe desencadearem Redemoinho Estelar, Anastasya entrará nos estados <strong>Brilho Reluzente: Supercondutor Estelar</strong>/<strong>Brilho Reluzente: Redemoinho Estelar</strong> respectivamente.",
+      "1": "Quando um membro da equipe desencadear Supercondutor/Redemoinho Cryo, mudará para Supercondutor Estelar/Redemoinho Estelar, e com base no ATQ de Anastasya, aumenta o Dano Básico das reações acima causado pelos personagens: cada 100 de ATQ aumentam esse Dano Básico em 0.7%. É possível aumentar o Dano até 14% dessa forma."
+    }
+  },
+  "passive": {
+    "name": "Graça da Chuva de Neve",
+    "description": {
+      "0": "Os membros da equipe recuperam Vida gradualmente fora de combate em Snezhnaya (exceto em Nod-Krai).",
+      "1": "Além disso, quando Anastasya estiver na equipe, a energia do Olho de Graeae não diminuirá. Se a Energia cair para abaixo de 30%, regenerará imediatamente para 30%.",
+      "2": "Esse efeito não pode ser ativado em domínios, Domínios Dizimados e Abismo do Espiral."
+    }
+  },
+  "constellation1": {
+    "name": "Ao Passado, aos Corações Acesos",
+    "description": {
+      "0": "O Talento de Ascensão <tooltip ns=char_Anastasya_gen baseKey18=passive1><strong>Reino Brilhante da Noite</strong></tooltip> é fortalecido: <strong>Honrado</strong> aumenta o ATQ dos personagens <cryo>Cryo</cryo> em 15%, e aumenta a Proficiência Elemental dos personagens de outros Tipos Elementais em 60.",
+      "1": "Além disso, quando o personagem estiver <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Selado</strong></tooltip>, seu <strong>Honrado</strong> será copiado para outros membros da equipe não selados ao invés de ser dividido igualmente. Quando Anastasya estiver <strong>Selada</strong>, o <strong>Honrado</strong> concedido para os outros membros da equipe será de 300% da quantidade original."
+    }
+  },
+  "constellation2": {
+    "name": "Ao Inverno e Aqueles que o Provam",
+    "description": {
+      "0": "Depois de lançar a Habilidade Elemental <strong>Julgamento Sagrado da Estrela Polar</strong>, Anastasya obtém os respectivos efeitos de acordo com a Bênção que obteve:",
+      "1": [
+        " <strong>Amor</strong>: aumenta o Dano CRIT de Reações de Brilho Estelar de todos os membros da equipe em 60% por 30s.",
+        " <strong>Honra</strong>: o Ataque Normal, Supremo <strong>Alvorada da Noite Eterna</strong> e Habilidade Elemental removedora de selos <tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>Édito das Estrelas Azuis: Julgamento Exterminador</strong></tooltip> de Anastasya causam 125% do Dano original por 15s."
+      ],
+      "2": "<br/>",
+      "3": "Além disso, <tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>Eleva</strong></tooltip> o Dano de Reações de Brilho Estelar causado por todos os membros próximos da equipe em 5%."
+    }
+  },
+  "constellation3": {
+    "name": "Para Noites Brancas, Incendeiem Nosso Luto",
+    "description": {
+      "0": "Aumenta o nível do <strong><tooltip ns=char_Anastasya_gen baseKey18=burst>Novo Mundo</tooltip></strong> em 3.",
+      "1": "O nível máximo de elevação é 15."
+    }
+  },
+  "constellation4": {
+    "name": "Para Tiranos, Cantem o Coro dos Rebeldes",
+    "description": {
+      "0": "<strong><tooltip ns=char_Anastasya_gen baseKey18=passive1>Honrado</tooltip></strong> é fortalecido: o efeito de aumento de Dano CRIT, ATQ e Proficiência Elemental é alterado para 130% do valor original."
+    }
+  },
+  "constellation5": {
+    "name": "Marchem, Até o Último Âmbar Apodrecido Morrer",
+    "description": {
+      "0": "Aumenta o nível da Habilidade Elemental <strong><tooltip ns=char_Anastasya_gen baseKey18=skill>Julgamento Sagrado da Estrela Polar</tooltip></strong> em 3 níveis. ",
+      "1": "O nível máximo de elevação é 15."
+    }
+  },
+  "constellation6": {
+    "name": "Olhe para Cima, a Alvorada Imaculada se Erguerá",
+    "description": {
+      "0": "Depois de lançar a Habilidade Elemental <strong>Julgamento Sagrado da Estrela Polar</strong>, Anastasya obtém os respectivos efeitos de acordo com a Bênção que possui:",
+      "1": [
+        " <strong>Amor</strong>: na próxima vez que trocar para outro personagem ativo, desencadeará um efeito equivalente a <tooltip ns=tooltips_gen baseKey18=11490003 values=[]><strong>Édito das Estrelas Azuis: Retorno Triunfal</strong></tooltip> uma vez, causando 250% do Dano original. Além disso, <tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>Eleva</strong></tooltip> o Dano de Reações de Brilho Estelar por todos os membros da equipe em 10%.",
+        " <strong>Honra</strong>: na próxima vez que pressionar para lançar a Habilidade Elemental, desencadeará um efeito equivalente ao 3º golpe de <tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>Édito das Estrelas Azuis: Julgamento Exterminador</strong></tooltip>, causando 200% do Dano original. Se os outros personagens ainda não estiverem <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Selados</strong></tooltip>, o ataque de Anastasya considerará que todos os personagens da equipe possuem <tooltip ns=char_Anastasya_gen baseKey18=passive1><strong>Honrado</strong></tooltip>."
+      ],
+      "2": "Além disso, <tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>Eleva</strong></tooltip> o Dano de Reações de Brilho Estelar causado por Anastasya em 20%.",
+      "3": "<br/>",
+      "4": "Esses efeitos duram 30s e podem ser desencadeados uma vez a cada 15s. Quando o <strong>Selamento</strong> dos outros personagens da equipe acabar, esse efeito será removido."
+    }
+  }
+}

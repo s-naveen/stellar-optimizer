@@ -1,0 +1,208 @@
+{
+  "name": "Anastasia",
+  "title": "",
+  "description": "",
+  "constellationName": "",
+  "auto": {
+    "name": "Alba del largo invierno",
+    "fields": {
+      "normal": {
+        "0": "<strong>Ataque Normal</strong>",
+        "1": "Realiza hasta 5 disparos consecutivos con arco."
+      },
+      "charged": {
+        "0": "<strong>Ataque Cargado</strong>",
+        "1": "Realiza un <strong>Disparo Preciso</strong> que inflige mayor daño y tiene mayor precisión.",
+        "2": "Al apuntar, el elemento Cryo se acumulará en la punta de la flecha, que al estar totalmente cargada con la fuerza del hielo, infligirá <cryo>Daño Cryo</cryo>."
+      },
+      "plunging": {
+        "0": "<strong>Ataque Descendente</strong>",
+        "1": "Dispara una lluvia de flechas desde el aire y desciende rápidamente mientras ataca a los enemigos a su paso, infligiendo Daño en el AdE al impactar contra el suelo."
+      }
+    },
+    "skillParams": {
+      "0": "Daño de 1er golpe",
+      "1": "Daño de 2.º golpe",
+      "2": "Daño de 3er golpe",
+      "3": "Daño de 4.º golpe",
+      "4": "Daño de 5.º golpe",
+      "5": "Disparo Preciso",
+      "6": "Disparo Preciso (carga completa)",
+      "7": "Daño de Caída",
+      "8": "Daño de impacto de caída baja/alta",
+      "9": "",
+      "10": "",
+      "11": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "skill": {
+    "name": "Juicio sagrado de la estrella polar",
+    "description": {
+      "0": "Revela la esencia de la <tooltip ns=tooltips_gen baseKey18=11490001 values=[]><strong>trascendencia</strong></tooltip>, inflige <cryo>Daño Cryo en el AdE</cryo> y libera su autoridad de distintas formas dependiendo de si se pulsa una vez o se mantiene pulsado.",
+      "1": "<br/>",
+      "2": "<strong>Pulsar una vez</strong>",
+      "3": "Otorga la bendición del <strong>amor</strong> y lanza la <strong>sacrocorona de la Estrella Albina</strong>, un legado de la corte real.",
+      "4": "La <strong>sacrocorona de la Estrella Albina</strong> seguirá al personaje en uso e infligirá dos veces <cryo>Daño Cryo en el AdE</cryo> a los enemigos cercanos cada 2 s.",
+      "5": "<tooltip ns=tooltips_gen baseKey18=11500004 values=[]><strong>Esplendor: Destello Estelar</strong></tooltip>",
+      "6": "La segunda vez que la <strong>sacrocorona de la Estrella Albina</strong> inflija daño con su ataque, este pasará a ser <cryo>Daño Cryo en el AdE</cryo> considerado como daño de la reacción de Destello Estelar correspondiente.",
+      "7": "<br/>",
+      "8": "<strong>Mantener pulsado</strong>",
+      "9": "Otorga la bendición de la <strong>gloria</strong> y hace uso de la sofisticada técnica de lanza heredada por la corte real.",
+      "10": "Mientras esté en este modo, los Ataques Normales de Anastasia se convertirán en hasta cinco ataques consecutivos que realizará con la <strong>Lanza Bendita: Dejómenon</strong>, que infligen <cryo>Daño Cryo en el AdE</cryo>, el cual no puede sustituirse imbuyéndose de otro elemento, y no podrá realizar Ataques Cargados.",
+      "11": "<strong>Esplendor: Destello Estelar</strong>",
+      "12": "Al realizar Ataques Normales con la <strong>Lanza Bendita</strong>, el último daño de cada golpe pasará a ser <cryo>Daño Cryo en el AdE</cryo> considerado como daño de la reacción de Destello Estelar correspondiente."
+    },
+    "skillParams": {
+      "0": "Daño instantáneo al pulsar una vez",
+      "1": "Daño instantáneo al mantener pulsado",
+      "2": "Daño Cryo de sacrocorona de la Estrella Albina",
+      "3": "Daño de Superconductor Estelar/Torbellino Estelar de sacrocorona de la Estrella Albina",
+      "4": "Daño Cryo de 1er golpe",
+      "5": "Daño Cryo de 2.º golpe",
+      "6": "Daño Cryo de 3er golpe",
+      "7": "Daño Cryo de 4.º golpe",
+      "8": "Daño Cryo de 5.º golpe",
+      "9": "Daño de Superconductor Estelar/Torbellino Estelar de 1er golpe",
+      "10": "Daño de Superconductor Estelar/Torbellino Estelar de 2.º golpe",
+      "11": "Daño de Superconductor Estelar/Torbellino Estelar de 3er golpe",
+      "12": "Daño de Superconductor Estelar/Torbellino Estelar de 4.º golpe",
+      "13": "Daño de Superconductor Estelar/Torbellino Estelar de 5.º golpe",
+      "14": "Duración de sacrocorona de la Estrella Albina",
+      "15": "Duración de bendición de la gloria",
+      "16": "TdE",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "burst": {
+    "name": "Para el nuevo mundo",
+    "description": {
+      "0": "Dependiendo de la <tooltip ns=tooltips_gen baseKey18=11490001 values=[]><strong>bendición</strong></tooltip> que posea Anastasia, podrá usar la Habilidad Definitiva correspondiente y utilizar de distintas formas la autoridad del <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>sellado</strong></tooltip>.",
+      "1": "<br/>",
+      "2": "<strong>Para el nuevo mundo</strong>",
+      "3": "Se puede usar cuando posea la bendición del <strong>amor</strong>. Infligirá <cryo>Daño Cryo en el AdE</cryo> y <tooltip ns=tooltips_gen baseKey18=11490005 values=[]><strong>congelará</strong></tooltip> la duración de la sacrocorona de la Estrella Albina.",
+      "4": "Durante ese tiempo, aumentará el daño de las reacciones de Destello Estelar infligido por todos los personajes cercanos del equipo, y cuando la sacrocorona de la Estrella Albina ataque, infligirá una vez adicional <cryo>Daño Cryo en el AdE</cryo> considerado como daño de Superconductor Estelar. Cuando Anastasia pase a estar en el equipo pero no en uso, se <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>sellará</strong></tooltip> a sí misma y, al terminar el <strong>sello</strong>, podrá usar la Habilidad Elemental especial de desellado <tooltip ns=tooltips_gen baseKey18=11490003 values=[]><strong>Edicto Estrellalbina: Triunfo</strong></tooltip>.",
+      "5": "<br/>",
+      "6": "<strong>Amanecer de la noche eterna</strong>",
+      "7": "Se puede usar cuando Anastasia posea la bendición de la <strong>gloria</strong>. Libera el poder de la <strong>Lanza Bendita</strong> para infligir <cryo>Daño Cryo en el AdE</cryo> considerado como daño de Superconductor Estelar y <tooltip ns=tooltips_gen baseKey18=11490005 values=[]><strong>congelar</strong></tooltip> la duración de la bendición.",
+      "8": "Además, Anastasia <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>sellará</strong></tooltip> a un máximo de tres personajes del equipo y, al terminar el <strong>sello</strong>, podrá usar la Habilidad Elemental especial de desellado <tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>Edicto Estrellalbina: Condena</strong></tooltip>.",
+      "9": "<br/>",
+      "10": "<strong>Esplendor: Destello Estelar</strong>",
+      "11": "Todo el daño de Superconductor Estelar mencionado anteriormente pasará a ser <cryo>Daño Cryo en el AdE</cryo> considerado como daño de la reacción de Destello Estelar correspondiente."
+    },
+    "skillParams": {
+      "0": "Daño instantáneo de “Para el nuevo mundo”",
+      "1": "Aumento de daño de Destello Estelar de “Para el nuevo mundo”",
+      "2": "Daño de Superconductor Estelar/Torbellino Estelar de sacrocorona de la Estrella Albina",
+      "3": "Daño de Superconductor Estelar/Torbellino Estelar de “Triunfo”",
+      "4": "Daño de Superconductor Estelar/Torbellino Estelar de “Amanecer de la noche eterna”",
+      "5": "Daño Cryo de 1.ª fase de “Condena”",
+      "6": "Daño de Superconductor Estelar/Torbellino Estelar de 1.ª fase de “Condena”",
+      "7": "Daño de Superconductor Estelar/Torbellino Estelar de 2.ª fase de “Condena”",
+      "8": "Daño de Superconductor Estelar/Torbellino Estelar de 3.ª fase de “Condena”",
+      "9": "Duración de “Para el nuevo mundo”",
+      "10": "Duración de “Amanecer de la noche eterna”",
+      "11": "TdE",
+      "12": "Energía elemental",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "passive1": {
+    "name": "Majestuosidad de la noche radiante",
+    "description": {
+      "0": "Después de que Anastasia use su Habilidad Elemental, <strong>Juicio sagrado de la estrella polar</strong>, todos los miembros del equipo obtienen durante 20 s el efecto de <strong>condecoración</strong>, el cual aumenta en un 12% el Daño CRIT.",
+      "1": "Cuando un personaje del equipo sea <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>sellado</strong></tooltip>, hasta 8 s después de que finalice el sello, la <strong>condecoración</strong> que posee se repartirá temporalmente a partes iguales entre los personajes que no estén <strong>sellados</strong>."
+    }
+  },
+  "passive2": {
+    "name": "Duelo por los caídos",
+    "description": {
+      "0": "Cuando Anastasia esté en el equipo, las reacciones de Destello Estelar causadas por todos los miembros del equipo obtendrán respectivamente los siguientes efectos:",
+      "1": [
+        "<strong>Superconductor Estelar</strong>: cada vez que el campo estrellapolar libere poder elemental, obtendrá cierta cantidad de poder elemental adicional y, al crear un prisma brilloestelar, también otorgará cierta cantidad de poder elemental al campo estrellapolar.",
+        "<strong>Torbellino Estelar</strong>: los vórtices brilloestelares y los vórtices errantes subirán a nivel 2 en cuanto sean creados. Este efecto solo puede activarse una vez por segundo. Además, aumenta en un 15% el coeficiente base de la reacción de Torbellino Estelar."
+      ]
+    }
+  },
+  "passive3": {
+    "name": "Bendición fulgorestelar: Retorno inmaculado",
+    "description": {
+      "0": "Al estar dentro de un <strong>campo estrellapolar</strong> o durante 8 s después de que un personaje del equipo cause una reacción de Torbellino Estelar en las cercanías, Anastasia entrará en el estado de <strong>esplendor: Superconductor Estelar</strong> o el de <strong>esplendor: Torbellino Estelar</strong>, respectivamente.",
+      "1": "Cuando un personaje del equipo cause una reacción de Superconductor o Torbellino Cryo, esta se transformará respectivamente en una reacción de Superconductor Estelar o Torbellino Estelar. El daño base de estas reacciones de los personajes del equipo aumentará en un 0.7% por cada 100 pts. de ATQ que tenga Anastasia. Como máximo, dicho daño puede aumentar en un 14% de esta manera."
+    }
+  },
+  "passive": {
+    "name": "Gracia de las nieves",
+    "description": {
+      "0": "Al encontrarse en Snezhnaya (excluyendo Nod Krai), los personajes del equipo recuperarán Vida progresivamente cuando no estén en combate.",
+      "1": "Además, mientras Anastasia esté en el equipo, la energía del Ojo de las Grayas no disminuirá. Si su energía es inferior al 30%, se restaurará de inmediato hasta el 30%.",
+      "2": "Estos efectos no se activarán en dominios, Dominios de la cruzada o en la Espiral del Abismo"
+    }
+  },
+  "constellation1": {
+    "name": "Al pasado y a los corazones que siguen brillando",
+    "description": {
+      "0": "Fortalece el talento de ascensión <tooltip ns=char_Anastasya_gen baseKey18=passive1><strong>Majestuosidad de la noche radiante</strong></tooltip>, de manera que el efecto de <strong>condecoración</strong> también aumenta en un 15% el ATQ de los personajes <cryo>Cryo</cryo>, y en 60 pts. la Maestría Elemental de los personajes de otros tipos elementales.",
+      "1": "Además, cuando un personaje esté <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>sellado</strong></tooltip>, el efecto de <strong>condecoración</strong> no se repartirá equitativamente, sino que se copiará. Cuando Anastasia esté <strong>sellada</strong>, la <strong>condecoración</strong> que otorgue a los demás personajes pasará a ser el 300% de la cantidad original."
+    }
+  },
+  "constellation2": {
+    "name": "Al duro invierno y a quienes han bebido su frío amargo",
+    "description": {
+      "0": "Tras usar la Habilidad Elemental, <strong>Juicio sagrado de la estrella polar</strong>, otorga los siguientes efectos respectivamente según la bendición que posea Anastasia:",
+      "1": [
+        "<strong>Amor</strong>: el Daño CRIT de la reacción de Destello Estelar infligido por todos los personajes del equipo aumenta un 60% durante 30 s.",
+        "<strong>Gloria</strong>: los Ataques Normales de Anastasia, su Habilidad Definitiva, <strong>Amanecer de la noche eterna</strong>, y su Habilidad Elemental de desellado, <tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>Edicto Estrellalbina: Condena</strong></tooltip>, infligen un 125% del daño original durante 15 s."
+      ],
+      "2": "<br/>",
+      "3": "Además, el daño de Destello Estelar infligido por todos los personajes cercanos del equipo <tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>asciende</strong></tooltip> en un 5%."
+    }
+  },
+  "constellation3": {
+    "name": "Hacia las noches blancas, prendiendo fuego a nuestro dolor",
+    "description": {
+      "0": "Aumenta el nivel de habilidad de <strong><tooltip ns=char_Anastasya_gen baseKey18=burst>Para el nuevo mundo</tooltip></strong> +3.",
+      "1": "Puede ser aumentado hasta Niv. 15."
+    }
+  },
+  "constellation4": {
+    "name": "Hacia los tiranos, cantando el himno de la rebelión",
+    "description": {
+      "0": "Fortalece el efecto de <strong><tooltip ns=char_Anastasya_gen baseKey18=passive1>condecoración</tooltip></strong>, de manera que los efectos de aumento de Daño CRIT, ATQ y Maestría Elemental pasan a ser el 130% de los originales."
+    }
+  },
+  "constellation5": {
+    "name": "Adelante, que lo podrido se reduzca a cenizas",
+    "description": {
+      "0": "Aumenta el nivel de habilidad de <strong><tooltip ns=char_Anastasya_gen baseKey18=skill>Juicio sagrado de la estrella polar</tooltip></strong> +3.",
+      "1": "Puede ser aumentado hasta Niv. 15."
+    }
+  },
+  "constellation6": {
+    "name": "Miren hacia arriba, pues pronto se alzará un amanecer impoluto",
+    "description": {
+      "0": "Tras usar la Habilidad Elemental, <strong>Juicio sagrado de la estrella polar</strong>, otorga los siguientes efectos respectivamente según la bendición que posea Anastasia:",
+      "1": [
+        "<strong>Amor</strong>: la próxima vez que otro personaje entre al campo de batalla, se activará un efecto equivalente al de <tooltip ns=tooltips_gen baseKey18=11490003 values=[]><strong>Edicto Estrellalbina: Triunfo</strong></tooltip> que infligirá un 250% del daño original. Además, el daño de Destello Estelar que inflijan todos los personajes cercanos del equipo <tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>ascenderá</strong></tooltip> en un 10%.",
+        "<strong>Gloria</strong>: la próxima vez que se pulse una vez la Habilidad Elemental, se activará un efecto equivalente al de la fase 3 de <tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>Edicto Estrellalbina: Condena</strong></tooltip> que infligirá un 200% del daño original. Si no hay ningún otro personaje <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>sellado</strong></tooltip>, se considerará que este ataque de Anastasia posee la <tooltip ns=char_Anastasya_gen baseKey18=passive1><strong>condecoración</strong></tooltip> de todos los miembros del equipo. Además, el daño de Destello Estelar de Anastasia <tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>ascenderá</strong></tooltip> en un 20%."
+      ],
+      "2": "<br/>",
+      "3": "Los efectos mencionados anteriormente duran 30 s, solo pueden activarse una vez cada 15 s y se anularán una vez que termine el <strong>sello</strong> de los demás personajes del equipo."
+    }
+  }
+}

@@ -1,0 +1,205 @@
+{
+  "name": "Anastasya",
+  "title": "",
+  "description": "",
+  "constellationName": "",
+  "auto": {
+    "name": "The Dawn Beyond the Long Winter",
+    "fields": {
+      "normal": {
+        "0": "<strong>Normal Attack</strong>",
+        "1": "Melancarkan hingga 5 tembakan panah berturut-turut menggunakan busur."
+      },
+      "charged": {
+        "0": "<strong>Charged Attack</strong>",
+        "1": "Melancarkan sebuah <strong>Serangan Membidik</strong> yang lebih akurat untuk mengakibatkan DMG yang lebih besar.",
+        "2": "Saat membidik, Cryo akan berkumpul di ujung anak panah. Panah dengan Cryo yang terkumpul penuh akan mengakibatkan <cryo>Cryo DMG</cryo>."
+      },
+      "plunging": {
+        "0": "<strong>Plunging Attack</strong>",
+        "1": "Melancarkan hujan panah dari udara, menerjang tanah dengan kecepatan tinggi, menyerang musuh di jalur terjangan, dan mengakibatkan DMG Area saat mendarat."
+      }
+    },
+    "skillParams": {
+      "0": "DMG Tahap 1",
+      "1": "DMG Tahap 2",
+      "2": "DMG Tahap 3",
+      "3": "DMG Tahap 4",
+      "4": "DMG Tahap 5",
+      "5": "DMG Membidik",
+      "6": "DMG Membidik Penuh",
+      "7": "DMG Selama Plunging",
+      "8": "DMG Plunging Attack Rendah/Tinggi",
+      "9": "",
+      "10": "",
+      "11": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "skill": {
+    "name": "Polestar's Divine Judgment",
+    "description": {
+      "0": "Mengungkap hakikat <tooltip ns=tooltips_gen baseKey18=11490001 values=[]><strong>Transcendence__</strong></tooltip> dan mengakibatkan <cryo>Cryo DMG Area</cryo>, lalu melepaskan otoritas dengan cara berbeda sesuai Mode Tekan atau Mode Tahan.",
+      "1": "<br/>",
+      "2": "<strong>Mode Tekan</strong>",
+      "3": "Memberikan berkat <strong>Love</strong> dan melemparkan <strong>Palestar Crown</strong> warisan istana kerajaan.",
+      "4": "<strong>Palestar Crown</strong> akan mengikuti <strong>Karakter aktif</strong> dan mengakibatkan <cryo>Cryo DMG Area</cryo> dua kali setiap 2 detiknya terhadap musuh di sekitar.",
+      "5": "<tooltip ns=tooltips_gen baseKey18=11500004 values=[]><strong>Radiance: Stellar Glimmer</strong></tooltip>: Setiap kali <strong>Palestar Crown</strong> menyerang, DMG yang diakibatkan kedua kalinya akan berubah menjadi <cryo>Cryo DMG Area</cryo> yang dianggap sebagai DMG reaksi Stellar Glimmer terkait.",
+      "6": "<br/>",
+      "7": "<strong>Mode Tahan</strong>",
+      "8": "Memberikan berkat <strong>Honor</strong> dan menunjukkan teknik tembakan__ luar biasa warisan istana kerajaan.",
+      "9": "Saat berada dalam mode ini, <strong>Normal Attack</strong> Anastasya akan berubah menjadi serangan beruntun hingga lima tahap menggunakan <strong>Blessed Armament: Dekhomenon</strong>, mengakibatkan <cryo>Cryo DMG Area</cryo> yang tidak bisa ditimpa Elemental Infusion lainnya. Tidak dapat melakukan Charged Attack.",
+      "10": "<strong>Radiance: Stellar Glimmer</strong>: Saat menggunakan <strong>Blessed Armament</strong> untuk melancarkan Normal Attack, DMG terakhir dari setiap tahap serangan akan berubah menjadi <cryo>Cryo DMG Area</cryo> yang dianggap sebagai DMG reaksi Stellar Glimmer terkait."
+    },
+    "skillParams": {
+      "0": "DMG Instan__ Mode Tekan",
+      "1": "DMG Instan Mode Tahan",
+      "2": "Cryo DMG Palestar Crown",
+      "3": "Stellar-Conduct/Stellar Swirl DMG Palestar Crown",
+      "4": "Cryo DMG Tahap 1",
+      "5": "Cryo DMG Tahap 2",
+      "6": "Cryo DMG Tahap 3",
+      "7": "Cryo DMG Tahap 4",
+      "8": "Cryo DMG Tahap 5",
+      "9": "DMG Stellar-Conduct/Stellar Swirl Tahap 1",
+      "10": "DMG Stellar-Conduct/Stellar Swirl Tahap 2",
+      "11": "DMG Stellar-Conduct/Stellar Swirl Tahap 3",
+      "12": "DMG Stellar-Conduct/Stellar Swirl Tahap 4",
+      "13": "DMG Stellar-Conduct/Stellar Swirl Tahap 5",
+      "14": "Durasi Palestar Crown",
+      "15": "Durasi Blessing of Honor",
+      "16": "Cooldown",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "burst": {
+    "name": "To the New World",
+    "description": {
+      "0": "Anastasya dapat melancarkan Elemental Burst yang sesuai berdasarkan <tooltip ns=tooltips_gen baseKey18=11490001 values=[]><strong>otoritas__</strong></tooltip> yang dimilikinya dan menggunakan otoritas <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>penyegelan__</strong></tooltip> dengan berbagai cara.",
+      "1": "<br/>",
+      "2": "<strong>To the New World</strong>",
+      "3": "Dapat dilancarkan saat memiliki otoritas <strong>Love</strong>. Mengakibatkan <cryo>Cryo DMG Area</cryo> dan <tooltip ns=tooltips_gen baseKey18=11490005 values=[]><strong>membekukan</strong></tooltip> durasi Palestar Crown.",
+      "4": "Selama durasi ini, DMG reaksi Stellar Glimmer yang diakibatkan seluruh Karakter sekitar dalam party meningkat, dan saat menyerang, Palestar Crown akan mengakibatkan satu kali <cryo>Cryo DMG Area</cryo> tambahan yang dianggap sebagai DMG reaksi Stellar-Conduct. Saat Anastasya berpindah posisi dan tidak berada di medan pertempuran, dia juga akan menyegel dirinya sendiri. Saat penyegelan berakhir, dia dapat melancarkan Elemental Skill pembukaan segel khusus <tooltip ns=tooltips_gen baseKey18=11490003 values=[]><strong>Palestar Edict: Triumph</strong></tooltip>.",
+      "5": "<br/>",
+      "6": "<strong>The Evernight Yields to Dawn</strong>",
+      "7": "Dapat dilancarkan saat memiliki otoritas <strong>Honor</strong>. Melepaskan kekuatan <strong>Blessed Armament</strong> dan mengakibatkan <cryo>Cryo DMG Area</cryo> yang dianggap sebagai DMG reaksi Stellar-Conduct, dan <tooltip ns=tooltips_gen baseKey18=11490005 values=[]><strong>membekukan</strong></tooltip> durasi otoritas.",
+      "8": "Selain itu, Anastasya juga akan <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>menyegel</strong></tooltip> maksimum tiga Karakter lain dalam party. Saat penyegelan berakhir, dia dapat melancarkan Elemental Skill pembukaan segel khusus <tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>Palestar Edict: Doom</strong></tooltip>.",
+      "9": "<br/>",
+      "10": "<strong>Radiance: Stellar Glimmer</strong>: Seluruh DMG reaksi Stellar-Conduct yang disebutkan di atas diubah menjadi <cryo>Cryo DMG Area</cryo> yang dianggap sebagai DMG reaksi Stellar Glimmer terkait."
+    },
+    "skillParams": {
+      "0": "DMG Langsung To the New World",
+      "1": "Peningkatan DMG Reaksi Stellar Glimmer To the New World",
+      "2": "Stellar-Conduct/Stellar Swirl DMG Palestar Crown",
+      "3": "Stellar-Conduct/Stellar Swirl DMG Triumph",
+      "4": "Stellar-Conduct/Stellar Swirl DMG The Evernight Yields to Dawn",
+      "5": "Cryo DMG Tahap 1 Doom",
+      "6": "Stellar-Conduct/Stellar Swirl DMG Tahap 1 Doom",
+      "7": "Stellar-Conduct/Stellar Swirl DMG Tahap 2 Doom",
+      "8": "Stellar-Conduct/Stellar Swirl DMG Tahap 3 Doom",
+      "9": "Durasi To the New World",
+      "10": "Durasi The Evernight Yields to Dawn",
+      "11": "Cooldown",
+      "12": "Konsumsi Energy",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "passive1": {
+    "name": "The Radiant Reign of Night",
+    "description": {
+      "0": "Setelah melancarkan Elemental Skill <strong>Polestar's Divine Judgment</strong>,Seluruh anggota party mendapatkan <strong>Honors</strong> selama 20 detik: CRIT DMG meningkat 12%.",
+      "1": "Saat Karakter dalam party <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>disegel</strong></tooltip>, <strong>Honors</strong> yang dimilikinya akan dibagikan secara merata kepada Karakter yang belum <strong>disegel</strong> hingga 8 detik setelah status penyegelan Karakter tersebut berakhir."
+    }
+  },
+  "passive2": {
+    "name": "Lament for the Lost",
+    "description": {
+      "0": "Saat Anastasya berada dalam party, reaksi Stellar Glimmer yang dipicu oleh seluruh anggota party akan memperoleh efek berikut secara terpisah:",
+      "1": [
+        "<strong>Reaksi Stellar-Conduct</strong>: Setiap kali melepaskan kekuatan elemen, Polestar Field akan memperoleh kekuatan elemen tambahan. Selain itu, saat menciptakan Starlight Prism, Polestar Field juga akan memperoleh kekuatan elemen.",
+        "<strong>Reaksi Stellar Swirl</strong>: Stellar Vortex dan Wandering Vortex akan meningkat ke level 2 saat diciptakan. Efek ini hanya dapat terpicu sekali setiap 1 detik. Selain itu, koefisien reaksi dasar Stellar Swirl meningkat sebesar 15%."
+      ]
+    }
+  },
+  "passive3": {
+    "name": "Stellar Jubilee: Immaculate Return",
+    "description": {
+      "0": "Anastasya akan memasuki status <strong>Radiance: Stellar-Conduct</strong> saat berada di dalam <strong>Polestar Field</strong> atau <strong>Radiance: Stellar Swirl</strong> selama 8 detik setelah Karakter dalam party di sekitar memicu reaksi Stellar Swirl.",
+      "1": "Ketika Karakter dalam party memicu reaksi Superconduct/Cryo Swirl, reaksi ini akan berubah menjadi reaksi Stellar-Conduct/Stellar Swirl dan DMG dasar dari reaksi yang disebutkan di atas akan meningkat berdasarkan ATK Anastasya: Setiap 100 poin ATK akan meningkatkan DMG dasar reaksi sebesar 0,7%. Peningkatan DMG maksimum yang bisa didapatkan dengan cara ini adalah 14%."
+    }
+  },
+  "passive": {
+    "name": "The Falling Snow's Favor",
+    "description": {
+      "0": "Di wilayah Snezhnaya (kecuali Nod-Krai), Karakter dalam party akan memulihkan HP secara bertahap saat tidak berada dalam kondisi bertempur.",
+      "1": "Selain itu, saat Anastasya berada dalam party, energi Eye of Graeae tidak akan berkurang. Jika energi di bawah 30%, akan langsung dipulihkan hingga 30%.",
+      "2": "Efek di atas tidak berlaku di Domain, Domain Trounce, dan Spiral Abyss."
+    }
+  },
+  "constellation1": {
+    "name": "To Years Past, To Hearts Still Alight",
+    "description": {
+      "0": "Talenta Ascension <tooltip ns=char_Anastasya_gen baseKey18=passive1><strong>The Radiant Reign of Night</strong></tooltip> diperkuat: <strong>Accolades</strong> juga meningkatkan ATK Karakter berelemen <cryo>Cryo</cryo> sebesar 15%, serta Elemental Mastery Karakter berelemen lain sebesar 60 poin.",
+      "1": "Selain itu, saat Karakter berada dalam status <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>disegel</strong></tooltip>, <strong>Accolades</strong> tidak dibagi rata lagi, melainkan disalin sama rata. Saat Anastasya berada dalam status <strong>disegel</strong>, <strong>Accolades</strong> yang diberikan kepada Karakter lain menjadi 300% dari nilai aslinya."
+    }
+  },
+  "constellation2": {
+    "name": "To Winter, All Who Taste Its Bite",
+    "description": {
+      "0": "Setelah melancarkan Elemental Skill <strong>Polestar's Divine Judgment</strong>, Anastasya akan mendapatkan efek berikut berdasarkan berkat__ yang dimilikinya:",
+      "1": [
+        "<strong>Love</strong>: CRIT DMG Reaksi Stellar Glimmer yang diakibatkan seluruh Karakter dalam party meningkat 60% selama 30 detik;",
+        "<strong>Honor</strong>: Normal Attack, Elemental Burst <strong>The Evernight Yields to Dawn</strong>, dan Elemental Skill pembukaan segel <tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>Palestar Edict: Doom</strong></tooltip> Anastasya mengakibatkan 125% dari DMG aslinya selama 15 detik."
+      ],
+      "2": "<br/>",
+      "3": "Selain itu, DMG Reaksi Stellar Glimmer yang diakibatkan seluruh Karakter di sekitar dalam party <tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>bertumbuh</strong></tooltip> 5%."
+    }
+  },
+  "constellation3": {
+    "name": "To White Nights, Set Our Grief Afire",
+    "description": {
+      "0": "Meningkatkan 3 level Elemental Burst <strong><tooltip ns=char_Anastasya_gen baseKey18=burst>To the New World</tooltip></strong>.",
+      "1": "Maksimum: Lv. 15."
+    }
+  },
+  "constellation4": {
+    "name": "To Tyrants, Sing The Rebel's Choir",
+    "description": {
+      "0": "Efek peningkatan CRIT DMG, ATK, dan Elemental Mastery dari <strong><tooltip ns=char_Anastasya_gen baseKey18=passive1>Accolades</tooltip></strong> diperkuat menjadi 130% dari nilai aslinya."
+    }
+  },
+  "constellation5": {
+    "name": "March On, Till Rot's Last Ember Dies",
+    "description": {
+      "0": "Meningkatkan 3 level Elemental Skill <strong><tooltip ns=char_Anastasya_gen baseKey18=skill>Polestar's Divine Judgment</tooltip></strong>.",
+      "1": "Maksimum: Lv. 15."
+    }
+  },
+  "constellation6": {
+    "name": "Look Up, a Dawn Unstained Shall Rise",
+    "description": {
+      "0": "Setelah melancarkan Elemental Skill <strong>Polestar's Divine Judgment</strong>, Anastasya akan mendapatkan efek berikut berdasarkan berkat yang dimilikinya:",
+      "1": [
+        "<strong>Love</strong>: Saat mengganti Karakter lain ke medan pertempuran kali berikutnya, akan memicu efek yang setara dengan <tooltip ns=tooltips_gen baseKey18=11490003 values=[]><strong>Palestar Edict: Triumph</strong></tooltip> satu kali yang mengakibatkan 250% dari DMG aslinya. Selain itu, DMG Reaksi Stellar Glimmer yang diakibatkan seluruh Karakter di sekitar dalam party <tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>bertumbuh</strong></tooltip> 10%.",
+        "<strong>Honor</strong>: Saat menekan Elemental Skill yang berikutnya, akan memicu efek yang setara dengan serangan <tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>Palestar Edict: Doom</strong></tooltip> tahap ketiga satu kali yang mengakibatkan 200% dari DMG aslinya. Jika tidak ada Karakter lain yang sedang <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>disegel</strong></tooltip>, serangan Anastasya kali ini dianggap memiliki <tooltip ns=char_Anastasya_gen baseKey18=passive1><strong>Accolades</strong></tooltip> dari seluruh Karakter dalam party. Selain itu, DMG Reaksi Stellar Glimmer yang diakibatkan Anastasya <tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>bertumbuh</strong></tooltip> 20%."
+      ],
+      "2": "<br/>",
+      "3": "Efek di atas berlangsung selama 30 detik dan hanya dapat terpicu sekali setiap 15 detik. Efek ini akan dihapus saat status <strong>penyegelan</strong> milik Karakter lain dalam party berakhir."
+    }
+  }
+}

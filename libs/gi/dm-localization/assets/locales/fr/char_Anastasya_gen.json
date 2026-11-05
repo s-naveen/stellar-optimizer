@@ -1,0 +1,205 @@
+{
+  "name": "Anastasya",
+  "title": "",
+  "description": "",
+  "constellationName": "",
+  "auto": {
+    "name": "L'aube au-delà de l'Éternhiver",
+    "fields": {
+      "normal": {
+        "0": "<strong>Attaque normale</strong>",
+        "1": "Enchaîne jusqu'à 5 tirs consécutifs."
+      },
+      "charged": {
+        "0": "<strong>Attaque chargée</strong>",
+        "1": "Effectue un <strong>tir visé</strong> plus précis infligeant davantage de DGT.",
+        "2": "Lors de la visée, la flèche se charge de glace, infligeant de considérables <cryo>DGT Cryo</cryo> quand elle est complètement chargée."
+      },
+      "plunging": {
+        "0": "<strong>Attaque plongeante</strong>",
+        "1": "Tire une pluie de flèches depuis les airs et plonge au sol, attaquant les ennemis en chemin et infligeant des DGT de zone à l'impact."
+      }
+    },
+    "skillParams": {
+      "0": "DGT 1er coup",
+      "1": "DGT 2e coup",
+      "2": "DGT 3e coup",
+      "3": "DGT 4e coup",
+      "4": "DGT 5e coup",
+      "5": "DGT tir visé",
+      "6": "DGT tir visé (pleine charge)",
+      "7": "DGT durant la chute",
+      "8": "DGT chute basse/élevée",
+      "9": "",
+      "10": "",
+      "11": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "skill": {
+    "name": "Jugement divin de l'Étoile polaire",
+    "description": {
+      "0": "Révèle la véritable nature de <tooltip ns=tooltips_gen baseKey18=11490001 values=[]><strong>Transcendance</strong></tooltip>, infligeant des <cryo>DGT Cryo de zone d'effet</cryo> et déchaînant son pouvoir de différentes façons selon que la compétence est utilisée en appui simple ou en appui long.",
+      "1": "<br/>",
+      "2": "<strong>Appui simple</strong>",
+      "3": "Obtient la Bénédiction de l'<strong>Amour</strong> et lance la <strong>Couronne Étoile Pâle</strong>, un héritage de la cour impériale.",
+      "4": "La <strong>Couronne Étoile Pâle</strong> suit le personnage actif et inflige 2 instances de <cryo>DGT Cryo de zone d'effet</cryo> aux adversaires proches toutes les 2s.",
+      "5": "<tooltip ns=tooltips_gen baseKey18=11500004 values=[]><strong>Rayonnement : Éclat Stellaire</strong></tooltip> : La deuxième instance de DGT infligée par chaque attaque de la <strong>Couronne Étoile Pâle</strong> devient des <cryo>DGT Cryo de zone d'effet</cryo> considérés comme des DGT provenant de la réaction Éclat Stellaire correspondante.",
+      "6": "<br/>",
+      "7": "<strong>Appui long</strong>",
+      "8": "Obtient la Bénédiction de l'<strong>Honneur</strong> et démontre la maîtrise des armes transmise par la cour impériale.",
+      "9": "Dans ce mode, les Attaques normales d'Anastasya sont remplacées par une séquence pouvant atteindre 5 attaques avec l'<strong>Armement Béni : Dekhomenon</strong>, infligeant des <cryo>DGT Cryo de zone d'effet</cryo> ne pouvant pas être supplantés par d'autres Infusions élémentaires. Elle ne peut pas effectuer d'Attaques chargées dans ce mode.",
+      "10": "<strong>Rayonnement : Éclat Stellaire</strong> : La dernière instance de DGT de chaque Attaque normale effectuée avec l'<strong>Armement Béni</strong> devient des <cryo>DGT Cryo de zone d'effet</cryo> considérés comme des DGT provenant de la réaction Éclat Stellaire correspondante."
+    },
+    "skillParams": {
+      "0": "DGT instantanés (appui simple)",
+      "1": "DGT instantanés (appui long)",
+      "2": "DGT Cryo Couronne de Pâle Étoile",
+      "3": "Dégâts d'Astroconduction/Astrodispersion de la Couronne Étoile Pâle",
+      "4": "DGT Cryo 1er coup",
+      "5": "DGT Cryo 2e coup",
+      "6": "DGT Cryo 3e coup",
+      "7": "DGT Cryo 4e coup",
+      "8": "DGT Cryo 5e coup",
+      "9": "DGT Astroconduction/Astrodispersion 1 frappe",
+      "10": "Dégâts d'Astroconduction/Astrodispersion au 2e coup",
+      "11": "Dégâts d'Astroconduction/Astrodispersion à 3 coups",
+      "12": "Dégâts d'Astroconduction/Astrodispersion (4 coups)",
+      "13": "Dégâts d'Astroconduction/Astrodispersion à 5 coups",
+      "14": "Durée de la Couronne Palestar",
+      "15": "Durée de la Bénédiction de l'Honneur",
+      "16": "Temps de recharge",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "burst": {
+    "name": "Vers un Nouveau Monde",
+    "description": {
+      "0": "Le <tooltip ns=tooltips_gen baseKey18=11490001 values=[]><strong>Bienfait</strong></tooltip> actuel d'Anastasya détermine quel déchaînement élémentaire elle peut utiliser et comment elle manie le pouvoir du <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Scellement</strong></tooltip>.",
+      "1": "<br/>",
+      "2": "<strong>致新世界</strong>",
+      "3": "Peut être utilisé lorsqu'Anastasya détient le Bienfait de l'<strong>Amour</strong>. Inflige des <cryo>DGT Cryo de zone d'effet</cryo> et <tooltip ns=tooltips_gen baseKey18=11490005 values=[]><strong>fige</strong></tooltip> la durée de la Couronne de Paléétoile.",
+      "4": "Pendant cette période, tous les membres du groupe à proximité infligent des DGT de réaction Lueur Stellaire augmentés, et la Couronne de Paléétoile inflige 1 instance supplémentaire de <cryo>DGT Cryo de zone d'effet</cryo> considérés comme des DGT de réaction d'Astroconduction à chaque attaque. Anastasya se <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Scelle</strong></tooltip> également lorsqu'elle est remplacée pendant cette période. Lorsque son état <strong>Scellée</strong> prend fin, elle peut utiliser la compétence élémentaire de déscellement spéciale <tooltip ns=tooltips_gen baseKey18=11490003 values=[]><strong>Édit de Paléétoile : Triomphe</strong></tooltip>.",
+      "5": "<br/>",
+      "6": "<strong>La Nuit Éternelle Cède à l'Aube</strong>",
+      "7": "Peut être utilisé lorsqu'Anastasya détient le Bienfait de l'<strong>Honneur</strong>. Déchaîne la puissance de l'<strong>Armement Béni</strong>, infligeant des <cryo>DGT Cryo de zone d'effet</cryo> considérés comme des DGT de réaction d'Astroconduction, et <tooltip ns=tooltips_gen baseKey18=11490005 values=[]><strong>fige</strong></tooltip> la durée du Bienfait.",
+      "8": "Anastasya <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Scelle</strong></tooltip> également jusqu'à 3 autres membres du groupe. Lorsque l'état <strong>Scellé</strong> prend fin, Anastasya peut utiliser la compétence élémentaire de déscellement spéciale <tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>Édit de Paléétoile : Fléau</strong></tooltip>.",
+      "9": "<br/>",
+      "10": "<strong>Radiance : Lueur Stellaire</strong> : Tous les DGT de réaction d'Astroconduction décrits ci-dessus sont infligés à la place en tant que <cryo>DGT Cryo de zone d'effet</cryo> considérés comme des DGT de la réaction Lueur Stellaire correspondante."
+    },
+    "skillParams": {
+      "0": "Dégâts instantanés vers le Nouveau Monde",
+      "1": "Augmentation des dégâts de Réaction Lueur Stellaire de Vers le Nouveau Monde",
+      "2": "Dégâts Astroconduction/Astrodispersion de Couronne Palastre",
+      "3": "DMG Astroconduction/Astrodispersion Triomphe Stellaire",
+      "4": "Dégâts d'Astroconduction/Astrodispersion de La Nuit Éternelle Cède à L'aube",
+      "5": "DGT Cryo coup fatal",
+      "6": "Dégâts de 1 frappe Astroconduction/Astrodispersion Extinction",
+      "7": "Dégâts d'Astroconduction/Astrodispersion de la 2e frappe de Condamnation",
+      "8": "Dégâts d'Astroconduction/Astrodispersion de Crève-Monde en 3 coups",
+      "9": "Durée de « Vers le Nouveau Monde »",
+      "10": "Durée de La Nuit Éternelle Cède à l'Aube",
+      "11": "Temps de recharge",
+      "12": "Énergie élémentaire",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "passive1": {
+    "name": "Le Règne Rayonnant de la Nuit",
+    "description": {
+      "0": "Tous les membres de l'équipe obtiennent des <strong>Accolades</strong> pendant 20s après qu'Anastasya utilise sa compétence élémentaire <strong>Jugement Divin de l'Étoile Polaire</strong>, augmentant leur DGT CRIT de 12%.",
+      "1": "Lorsqu'un membre de l'équipe est <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Scellé</strong></tooltip>, ses <strong>Accolades</strong> sont temporairement réparties équitablement entre les membres de l'équipe qui ne sont pas <strong>Scellés</strong>, et ce jusqu'à 8s après la fin de l'état Scellé de ce Personnage."
+    }
+  },
+  "passive2": {
+    "name": "Lament for the Lost",
+    "description": {
+      "0": "Lorsqu'Anastasya est dans l'équipe, les réactions Éclat Stellaire déclenchées par n'importe quel membre de l'équipe bénéficient des effets suivants :",
+      "1": [
+        "<strong>Astroconduction</strong> : le Champ Polaire gagne de la puissance élémentaire supplémentaire à chaque fois qu'il en libère, et en reçoit également chaque fois qu'un Prisme Polaire est créé ;",
+        "<strong>Astrodispersion</strong> : le multiplicateur de réaction de base de l'Astrodispersion est augmenté de 15 %. Les Vortex Stellaires et les Vortex Dérivants nouvellement créés sont également immédiatement élevés au Niveau 2. Cette augmentation de niveau peut se déclencher une fois toutes les 1 s."
+      ]
+    }
+  },
+  "passive3": {
+    "name": "Jubilé Stellaire : Retour Immaculé",
+    "description": {
+      "0": "Anastasya passe en <strong>radiance « Astroconduction »</strong> ou en <strong>radiance « Astrodispersion »</strong> pendant 8 s lorsqu'elle est dans une <strong>étendue polaris</strong> ou lorsqu'un personnage de l'équipe a déclenché une réaction d'Astrodispersion à proximité, respectivement.",
+      "1": "Lorsqu'un personnage de l'équipe déclenche une réaction de Supraconduction ou de Dispersion Cryo, elle est convertie en réaction d'Astroconduction ou d'Astrodispersion, dont les DGT de base augmentent selon l'ATQ d'Anastasya : chaque tranche de 100 pts d'ATQ augmente les DGT de base de ces réactions de 0,7 %, les DGT pouvant être augmentés d'un maximum de 14 % de cette manière."
+    }
+  },
+  "passive": {
+    "name": "La Faveur de la Neige Tombante",
+    "description": {
+      "0": "Les membres du groupe récupèrent progressivement des PV hors combat à Snezhnaya (à l'exception de Nod-Krai).",
+      "1": "De plus, lorsqu'Anastasya est dans le groupe, l'Œil de Graie ne perd pas d'énergie et son énergie est immédiatement rechargée à 30 % si elle est inférieure à 30 %.",
+      "2": "Ces effets ne s'appliquent pas dans les Donjons, les Donjons de la conquête ou les Profondeurs spiralées."
+    }
+  },
+  "constellation1": {
+    "name": "Aux Années Révolues, Aux Cœurs Encore Embrasés",
+    "description": {
+      "0": "Le Talent d'Ascension <tooltip ns=char_Anastasya_gen baseKey18=passive1><strong>Le Rayonnement du règne nocturne</strong></tooltip> est renforcé : les <strong>Accolades</strong> augmentent également l'ATQ des personnages <cryo>Cryo</cryo> de 15% et la Maestria élémentaire des personnages d'autres Types élémentaires de 60.",
+      "1": "De plus, lorsqu'un personnage est <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Scellé</strong></tooltip>, ses <strong>Accolades</strong> sont intégralement copiées vers chaque membre de l'équipe qui n'est pas Scellé, au lieu d'être divisées équitablement. Lorsqu'Anastasya est <strong>Scellée</strong>, les <strong>Accolades</strong> qu'elle accorde aux autres personnages fournissent 300% de leurs bonus d'origine."
+    }
+  },
+  "constellation2": {
+    "name": "À l'Hiver, Tous Ceux Qui Goûtent Sa Morsure",
+    "description": {
+      "0": "Après qu'Anastasya utilise sa compétence élémentaire, <strong>Jugement divin de l'Étoile polaire</strong>, les effets suivants s'appliquent en fonction de sa Bénédiction actuelle :",
+      "1": [
+        " <strong>Amour</strong> : le DGT CRIT des DMG de Réaction Lueur stellaire infligés par tous les membres du groupe est augmenté de 60% pendant 30s ;",
+        " <strong>Honneur</strong> : les Attaques normales, le déchaînement élémentaire <strong>La nuit éternelle cède à l'aube</strong> et la compétence élémentaire spéciale de Déscellement <tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>Édit de l'Étoile pâle : Doom</strong></tooltip> d'Anastasya infligent 125% de leurs DMG d'origine pendant 15s."
+      ],
+      "2": "<br/>",
+      "3": "De plus, les DMG de Réaction Lueur stellaire infligés par tous les membres du groupe à proximité sont <tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>Amplifiés</strong></tooltip> de 5%."
+    }
+  },
+  "constellation3": {
+    "name": "Aux Nuits Blanches, Que Notre Deuil s'Embrase",
+    "description": {
+      "0": "Augmente le niveau du déchaînement élémentaire <strong><tooltip ns=char_Anastasya_gen baseKey18=burst>To the New World</tooltip></strong> de 3.",
+      "1": "Le niveau maximum est 15."
+    }
+  },
+  "constellation4": {
+    "name": "To Tyrants, Sing The Rebel's Choir",
+    "description": {
+      "0": "Renforce <strong><tooltip ns=char_Anastasya_gen baseKey18=passive1>Accolades</tooltip></strong>, augmentant les bonus de DGT CRIT, d'ATQ et de Maestria élémentaire à 130% de leurs valeurs d'origine."
+    }
+  },
+  "constellation5": {
+    "name": "March On, Till Rot's Last Ember Dies",
+    "description": {
+      "0": "Augmente le niveau de <strong><tooltip ns=char_Anastasya_gen baseKey18=skill>Jugement Divin de l'Étoile Polaire</tooltip></strong> de 3.",
+      "1": "Niveau d'amélioration maximum : 15."
+    }
+  },
+  "constellation6": {
+    "name": "Lève les yeux, une aube sans tache se lèvera",
+    "description": {
+      "0": "Après qu'Anastasya utilise sa compétence élémentaire, <strong>Jugement divin de l'Étoile polaire</strong>, les effets suivants s'appliquent selon sa Bénédiction actuelle :",
+      "1": [
+        " <strong>Amour</strong> : la prochaine fois qu'un autre personnage est remplacé sur le terrain, un effet équivalent à <tooltip ns=tooltips_gen baseKey18=11490003 values=[]><strong>Édit de l'Étoile pâle : Triomphe</strong></tooltip> est déclenché, infligeant 250 % de ses DGT d'origine. De plus, les DGT de réaction Lueur stellaire infligés par tous les membres proches du groupe sont <tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>Augmentés</strong></tooltip> de 10 % ;",
+        " <strong>Honneur</strong> : la prochaine fois que la compétence élémentaire est utilisée via un appui simple, un effet équivalent à la troisième attaque de <tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>Édit de l'Étoile pâle : Condamnation</strong></tooltip> est déclenché, infligeant 200 % de ses DGT d'origine. Si les autres membres du groupe ne sont pas <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Scellés</strong></tooltip>, Anastasya est considérée comme possédant les <tooltip ns=char_Anastasya_gen baseKey18=passive1><strong>Accolades</strong></tooltip> de tous les membres du groupe pour cette attaque. De plus, les DGT de réaction Lueur stellaire infligés par Anastasya sont <tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>Augmentés</strong></tooltip> de 20 %."
+      ],
+      "2": "<br/>",
+      "3": "Les effets ci-dessus durent 30 s et peuvent être déclenchés toutes les 15 s. Ils sont retirés lorsque le statut <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Scellé</strong></tooltip> des autres membres du groupe prend fin."
+    }
+  }
+}

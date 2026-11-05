@@ -575,5 +575,160 @@
       "0": "<strong>Brilho Reluzente: Supercondutor Estelar</strong> e <strong>Brilho Reluzente: Redemoinho Estelar</strong> são unificados em <strong>Brilho Reluzente: Brilho Estelar</strong>.",
       "1": "O personagem só pode ser afetado por um tipo de Brilho Reluzente simultaneamente, e será priorizada a influência de <strong>Brilho Reluzente: Supercondutor Estelar</strong>"
     }
+  },
+  "11360001": {
+    "name": "Sinalizador Alternado",
+    "description": {
+      "0": "Quando Mitya está na equipe, ao desencadear a reação de Supercondutor Estelar, em vez de criar um <strong>Prisma de Brilho Estrelar</strong>, será criado um <strong>Sinalizador Alternado</strong> que dura Xs. Mitya pode consumir o <strong>Sinalizador Alternado</strong> para desencadear vários efeitos.",
+      "1": "O <strong>Sinalizador Alternado</strong> seguirá o personagem ativo, transformando uma área próxima maior em um <strong>Campo da Estrela Polar</strong> no momento em que o <strong>Sinalizador Alternado</strong> é criado. Mitya pode carregar múltiplos <strong>Sinalizadores Alternados</strong>, com um limite inicial de X. Ao criar um <strong>Sinalizador Alternado</strong>, a duração de todos os <strong>Sinalizadores Alternados</strong> será redefinida."
+    }
+  },
+  "11360002": {
+    "name": "Núcleo Detector",
+    "description": {
+      "0": "Dispositivo Energético criado ao lançar a Habilidade Elemental. Pressione para criar o Núcleo <strong>Estável</strong>. Mantenha Pressionado para criar o Núcleo <strong>Sobrecarregado</strong>.",
+      "1": "<br/>",
+      "2": "<strong>Núcleo Detector: Estável</strong>",
+      "3": [
+        " Segue os inimigos próximos, causando <electro>Dano Electro em AdE</electro> periodicamente.",
+        " Quando Mitya alcançar o máximo de <strong>Sinalizadores Alternados</strong> carregáveis, gerar um novo <strong>Sinalizador Alternado</strong> consumirá esse dispositivo e causará <electro>Dano Electro em AdE</electro> que é considerado Dano de Supercondutor Estelar.",
+        " Quando a duração acabar, ou ao recriar um <strong>Núcleo Detector</strong>, consumirá todos os <strong>Sinalizadores Alternados</strong> e, baseado na quantidade consumida, causará <electro>Dano Electro em AdE</electro> que é considerado Dano de Supercondutor Estelar."
+      ],
+      "4": "<br/>",
+      "5": "<strong>Núcleo Detector: Sobrecarregado</strong>",
+      "6": [
+        " Quando esse dispositivo existir e Mitya possuir pelo menos 1 <strong>Sinalizador Alternado</strong>, Mitya pode realizar seu Ataque Carregado Especial <strong>Explosão Concentrada Alternada</strong> sem consumir Stamina."
+      ]
+    }
+  },
+  "11470001": {
+    "name": "test Animação",
+    "description": {
+      "0": "testEnquanto a Âncora do Navio estiver presente, Danica acumula <strong>Animação</strong>. A Animação pode ser obtida das seguintes formas:",
+      "1": [
+        "Quando Danica está fora de campo, cada Ataque <electro>Electro</electro> ou <cryo>Cryo</cryo> do Personagem em campo que cause Impacto em inimigos concede 50 pontos, podendo ser desencadeado no máximo uma vez a cada 0,1 segundo;",
+        "Quando Danica está em campo, cada Ataque Normal da Âncora do Navio Especial que cause Impacto em inimigos concede 25 pontos, podendo ser obtido no máximo uma vez por sequência de Ataque Normal."
+      ],
+      "2": "<br/>",
+      "3": "Além disso, quando Danica está no estado <strong>Empregada Protetora</strong>, ela só pode obter Animação por meio de Ataques <electro>Electro</electro> ou <cryo>Cryo</cryo> do Personagem em campo que causem Impacto em inimigos; quando está no estado <strong>Empregada Batalhadora</strong>, ela só pode obter Animação por meio do Impacto do <strong>Ataque Normal da Âncora do Navio Especial</strong>.",
+      "4": "<br/>",
+      "5": "Quando a Animação atingir o limite de 100 pontos, Danica pode consumir toda a Animação para usar a Habilidade Elemental especial <strong>\"Habilidade de Entrada E2\"</strong> ou <strong>\"Habilidade em Campo E2\"</strong>, entrando na <strong>Forma de Empregada</strong> correspondente com base na forma de uso."
+    }
+  },
+  "11470002": {
+    "name": "test\"Habilidade Elemental de Entrada E2\"",
+    "description": {
+      "0": "testDanica balança a corrente da âncora para se aproximar rapidamente dos inimigos e, em seguida, golpeia o Solo com a Âncora do Navio, causando 1 instância de <electro>Dano Electro em uma AdE</electro> considerado como Reação de Supercondutor Estelar.",
+      "1": "<br/>",
+      "2": "Após ser usada, Danica entra no estado <strong>Empregada Protetora</strong> e obtém os seguintes Efeitos:",
+      "3": [
+        "Renova a Duração da Âncora do Navio;",
+        "Gera um Escudo para o Personagem em campo na equipe. O Escudo dura até o fim do estado Empregada Protetora, e sua Absorção escala com o ATQ de Danica, com 250% de eficiência de Absorção contra <electro>Dano Electro</electro>."
+      ]
+    }
+  },
+  "11470003": {
+    "name": "\"Técnica em Campo E2\"",
+    "description": {
+      "0": "testAgita a corrente da âncora para se aproximar rapidamente dos inimigos e, em seguida, desfere um Soco no Solo com a Âncora do Navio, causando um alto <electro>Dano em uma AdE de Electro</electro> considerado uma Reação de Supercondutor Estelar.",
+      "1": "<br/>",
+      "2": "Após ser usada, Danica entra no modo <strong>Empregada Batalhadora</strong> e obtém os seguintes Efeitos: cada vez que \"Habilidade em Campo E2\" for usada, o próximo <strong>Ataque Normal Especial de Âncora do Navio</strong> da rodada seguinte irá Saltar uma sequência de Ataque Normal, podendo Saltar até a última sequência.",
+      "3": "<br/>",
+      "4": "Após usar <strong>\"Habilidade em Campo E2\"</strong> 5 vezes, o modo <strong>Empregada Batalhadora</strong> é encerrado e a Âncora do Navio é destruída."
+    }
+  },
+  "11470004": {
+    "name": "Empregada Protetora",
+    "description": {
+      "0": "testEstado em que Danica entra após usar a Habilidade Elemental especial <strong>\"Habilidade de Entrada E2\"</strong>. Nesse estado, fornece um Escudo ao Personagem em campo e renova a Duração da <strong>Âncora do Navio</strong>."
+    }
+  },
+  "11470005": {
+    "name": "test Empregada Batalhadora",
+    "description": {
+      "0": "testEstado que Danica entra após usar a Habilidade Elemental especial <strong>\"Habilidade em Campo E2\"</strong>. Enquanto estiver nesse estado, cada vez que a \"Habilidade em Campo E2\" for usada, o Ataque Normal da Âncora do Navio especial saltará uma fase de Ataque Normal, podendo saltar até as três primeiras fases."
+    }
+  },
+  "11490001": {
+    "name": "Transcendência e Bênção",
+    "description": {
+      "0": "Ao lançar a Habilidade Elemental <strong>Julgamento Sagrado da Estrela Polar</strong>, Anastasya lança autoridades diferentes se pressionar ou manter pressionado, e obtém Bênçãos diferentes.",
+      "1": [
+        " <strong>Pressionar</strong>: concede a Bênção do <strong>Amor</strong>.",
+        " <strong>Manter Pressionado</strong>: concede a Bênção da <strong>Honra</strong>."
+      ],
+      "2": "Quando estiver sob efeitos das duas Bênçãos, Anastasya pode lançar seus Supremos correspondentes, e sua autoridade sobre <strong>Selos</strong> possui usos diferentes.",
+      "3": "Quando não estiver sob efeito da Bênção da <strong>Honra</strong>, Anastasya sempre possuirá a Bênção do <strong>Amor</strong>."
+    }
+  },
+  "11490002": {
+    "name": "Selo",
+    "description": {
+      "0": "Estado especial que Anastasya concede para os personagens ao lançar seu Supremo. Quando os personagens estiverem Selados, não poderão entrar em campo.",
+      "1": "A duração inicial do Selo é igual a duração do Supremo correspondente. É possível diminuir a duração restante do Selo de uma certa forma.",
+      "2": "<br/>",
+      "3": "Anastasya usará sua autoridade sobre Selos de formas diferentes de acordo com as <strong>Bênçãos</strong> possuídas e o Supremo correspondente lançado. Se a Bênção que Anastasya possuir for:",
+      "4": [
+        " <strong>Amor</strong>: quando Anastasya sair de campo, selará a si mesma. Quando todos os membros próximos da equipe causarem Dano de Brilho Estelar, reduzirão a duração restante do Selamento. Retornar Anastasya ao campo um certo tempo após a duração do Selamento acabar fará ela lançar sua Habilidade Elemental especial removedora de selos <strong>Édito das Estrelas Azuis: Retorno Triunfal</strong>.",
+        " <strong>Honra</strong>: Anastasya selará até três personagens. Quando Anastasya realizar um Ataque Normal, reduzirá a duração restante do Selamento. Um certo tempo após o Selo acabar, ao pressionar para trocar para um personagem, ele não ficará ativo. Ao invés disso, lançará a Habilidade Elemental especial removedora de selos <strong>Édito das Estrelas Azuis: Julgamento Exterminador</strong>."
+      ]
+    }
+  },
+  "11490003": {
+    "name": "Édito das Estrelas Azuis: Retorno Triunfal",
+    "description": {
+      "0": "Uma Habilidade Elemental especial ativada ao colocar Anastasya em campo após o Selo que aplicou em si mesma acabar. Causa <cryo>Dano Cryo em AdE</cryo> contra os inimigos próximos que é considerado Dano de Supercondutor Estelar.",
+      "1": "<strong>Brilho Reluzente: Brilho Estelar</strong>: o Dano acima causa <cryo>Dano Cryo em AdE</cryo> que é considerado Dano de Reação de Brilho Estelar."
+    }
+  },
+  "11490004": {
+    "name": "Édito das Estrelas Azuis: Julgamento Exterminador",
+    "description": {
+      "0": "Dentro de um certo tempo após o Selamento dos outros personagens da equipe acabar, ao pressionar o personagem correspondente, ele não se tornará o ativo. Ao invés disso, lançará essa Habilidade Elemental especial.",
+      "1": "<strong>Édito das Estrelas Azuis: Julgamento Exterminador</strong> possui 3 estágios. Ao pressionar o personagem correspondente, ou ao pressionar a Habilidade Elemental, lançará esses ataques com 3 estágios.",
+      "2": [
+        " Primeiro Estágio: faz um corte contínuo com <strong>Armamento Abençoado: Dekhomenon</strong>, causando <cryo>Dano Cryo em AdE</cryo> várias vezes que é considerado Dano de Habilidade Elemental e não pode ser substituído, para no final causar uma instância de <cryo>Dano Cryo em AdE</cryo> que é considerado Dano de Supercondutor Estelar.",
+        " Segundo Estágio: salta em frente fazendo um corte e causando <cryo>Dano Cryo em AdE</cryo> que é considerado Dano de Supercondutor Estelar.",
+        " Terceiro Estágio: dispara o <strong>Armamento Abençoado</strong> como uma flecha, causando mais <cryo>Dano Cryo em AdE</cryo> que é considerado Dano de Supercondutor Estelar, e termina o efeito <strong>Alvorada da Noite Eterna</strong>."
+      ],
+      "3": "<br/>",
+      "4": "<strong>Brilho Reluzente: Brilho Estelar</strong>: o Dano de Supercondutor Estelar acima é alterado para <cryo>Dano Cryo em AdE</cryo> que é considerado Dano da Reação de Brilho Estelar correspondente."
+    }
+  },
+  "11490005": {
+    "name": "Congelado",
+    "description": {
+      "0": "Uma mecânica especial. Pausa a duração de um efeito, impedindo que continue a contagem regressiva até que o efeito que ativou o congelamento acabe."
+    }
+  },
+  "11370001": {
+    "name": "Disparo de Morteiro: Bombardeio de Curta Distância",
+    "description": {
+      "0": "Ataque Carregado especial de Valeriy. Ao realizar um Ataque Carregado enquanto possui pelo menos 40 pontos de <strong>Energia de Choque</strong>, consumirá toda a <strong>Energia de Choque</strong> para lançar este Ataque Carregado especial em seu lugar, causando <electro>Dano Electro em uma AdE</electro> à sua frente e concedendo 15 acúmulos de <strong>Ordem de Ataque</strong>.",
+      "1": "Ao usar este Ataque Carregado especial novamente, o número de acúmulos de <strong>Ordem de Ataque</strong> será redefinido.",
+      "2": "Dentro de 0.8s após usar a Habilidade Elemental <strong>Defesa de Ofensiva: Ataque Relâmpago da Fortaleza</strong> ou o Supremo <strong>Ponto de Fogo: Invasão Relâmpago</strong>, se Valeriy possuir pelo menos 40 pontos de <strong>Energia de Choque</strong>, o próximo Ataque Normal que ele realizar será convertido no Ataque Carregado especial <strong>Disparo de Morteiro: Bombardeio de Curta Distância</strong>."
+    }
+  },
+  "11370002": {
+    "name": "Ordem de Ataque",
+    "description": {
+      "0": "Efeito especial obtido após Valeriy realizar seu Ataque Carregado especial <strong>Disparo de Morteiro: Bombardeio de Curta Distância</strong>. Aumenta o <electro>Dano Electro</electro> de formas diferentes se Valeriy estiver no estado <strong>Brilho Reluzente: Supercondutor Estelar</strong>. Se Valeriy:",
+      "1": [
+        " Estiver no estado <strong>Brilho Reluzente: Supercondutor Estelar</strong>: quando o personagem ativo da equipe causar <electro>Dano Electro</electro> que é considerado Dano de Supercondutor Estelar com seu Ataque Normal, Carregado, Imersivo, Habilidade Elemental ou Supremo, consome 1 de <strong>Ordem de Ataque</strong> para aumentar o Dano causado baseado no ATQ de Valeriy.",
+        " Se não estiver no estado <strong>Brilho Reluzente: Supercondutor Estelar</strong>: quando o personagem ativo da equipe causar <electro>Dano Electro</electro> contra o inimigo com seu Ataque Normal, Carregado, Imersivo, Habilidade Elemental ou Supremo, consome 1 de <strong>Ordem de Ataque</strong> para aumentar o Dano causado baseado no ATQ de Valeriy."
+      ],
+      "2": "Se o <electro>Dano Electro</electro> atingir mais de um inimigo ao mesmo tempo, consumirá a quantidade de acúmulos de <strong>Ordem de Ataque</strong> de acordo com a quantidade de inimigos atingidos."
+    }
+  },
+  "11370003": {
+    "name": "Energia de Choque",
+    "description": {
+      "0": "Energia especial usada para fortalecer Valeriy em batalha. Máximo inicial de 100. Ao possuir pelo menos 40 de <strong>Energia de Choque</strong>, pode fazer o Ataque Carregado especial <strong>Disparo de Morteiro: Bombardeio de Curta Distância</strong>.",
+      "1": "Valeriy pode obter <strong>Energia de Choque</strong> das seguintes maneiras:",
+      "2": [
+        " Ao lançar a Habilidade Elemental <strong>Defesa de Ofensiva: Ataque Relâmpago da Fortaleza</strong>.",
+        " Quando os ataques do personagem ativo de Tipo Elemental <electro>Electro</electro> da equipe atingirem o inimigo após desbloquear o Talento Passivo \"Na Companhia de Balas\" e na duração do Supremo <strong>Ponto de Fogo: Invasão Relâmpago</strong>."
+      ]
+    }
   }
 }

@@ -1,0 +1,202 @@
+{
+  "name": "Danica",
+  "title": "",
+  "description": "",
+  "constellationName": "",
+  "auto": {
+    "name": "test Danica Attacco normale",
+    "fields": {
+      "normal": {
+        "0": "<strong>Attacco normale</strong>",
+        "1": "Sferra fino a 4 colpi consecutivi."
+      },
+      "charged": {
+        "0": "<strong>Attacco caricato</strong>",
+        "1": "Consuma vigore nel tempo per sferrare fendenti continui.",
+        "2": "Al termine della sequenza, sferra un fendente più potente."
+      },
+      "plunging": {
+        "0": "<strong>Attacco in picchiata</strong>",
+        "1": "Attacca scagliandosi contro il suolo da mezz'aria, infliggendo DAN agli avversari lungo la traiettoria e DAN ad area all'impatto."
+      }
+    },
+    "skillParams": {
+      "0": "DAN da 1º colpo",
+      "1": "DAN da 2º colpo",
+      "2": "DAN da 3º colpo",
+      "3": "DAN da 4º colpo",
+      "4": "DAN da ATT caricato ciclico",
+      "5": "DAN da ATT caricato finali",
+      "6": "Costo vigore ATT caricato",
+      "7": "Durata max",
+      "8": "DAN da ATT in picchiata",
+      "9": "DAN da ATT in picchiata basso/alto",
+      "10": "",
+      "11": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "skill": {
+    "name": "testAbilità elementale di Danica",
+    "description": {
+      "0": "Brandisce la sua catena e il suo rilevatore, infliggendo <electro>DAN da Electro ad area</electro> agli avversari vicini ed evocando un <strong>rilevatore</strong> che segue i movimenti del personaggio attualmente in campo.",
+      "1": "<br/>",
+      "2": "Fintanto che il <strong>rilevatore</strong> è presente, fornirà supporto in combattimento in modi diversi a seconda che Danica sia in campo o meno.",
+      "3": "<strong>Quando Danica non è in campo</strong>",
+      "4": "Quando l'attuale personaggio in campo del gruppo colpisce gli avversari con attacchi di elemento <electro>Electro</electro> o <cryo>Cryo</cryo>, il <strong>rilevatore</strong> sferrerà un attacco coordinato, infliggendo <electro>DAN da Electro ad area</electro> nella posizione degli avversari. Questo effetto può attivarsi al massimo una volta ogni 1,5 s.",
+      "5": "<strong>Quando Danica è in campo</strong>",
+      "6": "Gli attacchi normali di Danica verranno convertiti in attacchi speciali tramite il rilevatore, infliggendo <electro>DAN da Electro</electro> che non possono essere sovrascritti da infusioni. Questi DAN sono considerati DAN da attacco normale.",
+      "7": "<br/>",
+      "8": "<strong>Entusiasmo</strong>",
+      "9": "Fintanto che il rilevatore è presente, Danica può accumulare <tooltip ns=tooltips_gen baseKey18=11470001 values=[\"50\",\"25\",\"100\"]><strong>Entusiasmo</strong></tooltip> sferrando attacchi normali speciali con il rilevatore o quando l'attuale personaggio in campo del gruppo colpisce gli avversari con attacchi di elemento <cryo>Cryo</cryo> o <electro>Electro</electro>. Quando l'Entusiasmo raggiunge il massimo, a seconda che Danica sia in campo o meno, tutto l'Entusiasmo può essere consumato per sferrare diverse abilità elementali speciali ed entrare nella corrispondente modalità Cameriera:",
+      "10": "<strong>Cameriera di Difesa</strong>",
+      "11": "Quando Danica non è in campo, cambia personaggio per portarla in campo, attivando automaticamente l'<tooltip ns=tooltips_gen baseKey18=11470002 values=[]><strong>\"Abilità d'ingresso E2\"</strong></tooltip> ed entrando in modalità <strong>Cameriera di Difesa</strong>. Genera uno scudo per il personaggio in campo e ripristina la durata del rilevatore. Durante questo tempo, l'<strong>\"Abilità in campo E2\"</strong> non può essere attivata.",
+      "12": "<strong>Cameriera da Battaglia</strong>",
+      "13": "Quando Danica è in campo, l'abilità elementale verrà sostituita dall'<tooltip ns=tooltips_gen baseKey18=11470003 values=[\"5\"]><strong>\"Abilità in campo E2\"</strong></tooltip>. Dopo averla usata, Danica entra in modalità <strong>Cameriera da Battaglia</strong>. In questo stato, dopo aver usato l'\"Abilità in campo E2\", gli attacchi normali speciali del rilevatore possono saltare alcuni colpi della combo di attacchi normali. Durante questo tempo, l'<strong>\"Abilità d'ingresso E2\"</strong> non può essere attivata.",
+      "14": "<br/>",
+      "15": "Inoltre, quando il rilevatore scompare, Danica esce dalla modalità Cameriera. Fintanto che il rilevatore è presente, le modalità Cameriera da Battaglia e Cameriera di Difesa non possono coesistere: una volta entrati in una modalità Cameriera, non si può entrare nell'altra."
+    },
+    "skillParams": {
+      "0": "DAN da abilità",
+      "1": "DAN da Astroconduzione abilità d'ingresso E2",
+      "2": "DAN da Astroconduzione E2 in campo",
+      "3": "DAN da attacco coordinato Ancora",
+      "4": "Assorbimento DAN scudo",
+      "5": "DAN da Electro da 1º colpo attacco normale Ancora",
+      "6": "DAN da Electro da 2º colpo attacco normale Ancora",
+      "7": "DAN da Electro da 3º colpo attacco normale Ancora",
+      "8": "DAN da Electro da 4º colpo attacco normale Ancora",
+      "9": "Durata Ancora",
+      "10": "TdR abilità d'ingresso E2",
+      "11": "TdR abilità",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "burst": {
+    "name": "Tripudio elementale di Danica",
+    "description": {
+      "0": "test Dominando il campo di battaglia con l'eleganza dell'ancella della Tsaritsa, sferra un attacco ad ampio raggio da 5 colpi, infliggendo <electro>DAN da Electro ad area</electro>.",
+      "1": "<br/>",
+      "2": "<strong>Splendore: Astroconduzione</strong>:",
+      "3": [
+        "Il 1º e il 5º colpo infliggono inoltre <electro>DAN da Electro ad area</electro> considerati come DAN da reazione di Astroconduzione.",
+        "Per un certo periodo di tempo dopo l'utilizzo, se Danica è in modalità Maid, l'attuale modalità Maid verrà potenziata, conferendo il corrispondente effetto di potenziamento in base alla modalità attuale:"
+      ],
+      "4": "Quando Danica è in modalità <tooltip ns=tooltips_gen baseKey18=11470004 values=[]><strong>Maid di Difesa</strong></tooltip>, aumenta l'ATT di tutti i personaggi nel gruppo.",
+      "5": "Quando Danica è in modalità <tooltip ns=tooltips_gen baseKey18=11470005 values=[]><strong>Maid da battaglia</strong></tooltip>, ripristina immediatamente tutta l'energia di Eccitazione e aumenta i DAN inflitti dall'<strong>\"Abilità in campo E2\"</strong> di Danica.",
+      "6": "<br/>",
+      "7": "Quando la modalità Maid termina, l'effetto di potenziamento verrà rimosso."
+    },
+    "skillParams": {
+      "0": "DAN da Electro/Astroconduzione da 1º colpo",
+      "1": "DAN da Electro da 2º/3º/4º colpo",
+      "2": "DAN da Electro/Astroconduzione da 5º colpo",
+      "3": "Tasso bonus ATT",
+      "4": "Bonus ATT max",
+      "5": "Aumento DAN E2 in campo",
+      "6": "Durata effetto positivo",
+      "7": "TdR",
+      "8": "Costo energia",
+      "9": "",
+      "10": "",
+      "11": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "passive1": {
+    "name": "testTalento di Ascensione 1",
+    "description": {
+      "0": "test<strong>Rilevatore</strong> riduce la <electro>RES a Electro</electro> dei nemici vicini del 15%.",
+      "1": "<br/>",
+      "2": "<strong>Splendore: Astroconduzione</strong>: riduce ulteriormente la <electro>RES a Electro</electro> dei nemici vicini del 15% e la loro <cryo>RES a Cryo</cryo> del 30%."
+    }
+  },
+  "passive2": {
+    "name": "Talento d'ascensione 2",
+    "description": {
+      "0": "test Dopo aver lanciato l'<strong>「Abilità d'ingresso E2」</strong>, l'ATT di Danica aumenta del 20%.",
+      "1": "Dopo aver lanciato l'<strong>「Abilità in campo E2」</strong>, la VEL d'ATT di Danica aumenta del 20% e, quando l'Attacco normale del Rilevatore speciale colpisce un nemico, ottiene inoltre 25 punti <strong>Eccitazione</strong>. Gli effetti sopracitati possono accumularsi fino a 3 volte.",
+      "2": "Gli effetti sopracitati durano fino all'uscita dall'attuale stato di Maid di Difesa o Maid da battaglia. Un nuovo innesco ne ripristinerà la durata."
+    }
+  },
+  "passive3": {
+    "name": "test Talento astrale",
+    "description": {
+      "0": "Quando i membri del gruppo innescano una reazione di Superconduzione, questa si trasforma in Astroconduzione, e i DAN base da Astroconduzione dei membri del gruppo vengono aumentati in base all'ATT di Danica. Per ogni punto di ATT di Danica, i suddetti DAN base aumentano di uno 0,7%, fino a un 14% massimo.",
+      "1": "Inoltre, quando Danica si trova in un <tooltip ns=tooltips_gen baseKey18=11330003 values=[]><strong>Campo astropolare</strong></tooltip>, entra nello stato di <strong>Splendore: Astroconduzione</strong>."
+    }
+  },
+  "passive": {
+    "name": "Talento vitale",
+    "description": {
+      "0": "test Quando i tuoi personaggi nel gruppo sono sotto l'effetto di Freddo estremo, la VEL di movimento aumenta del 10% e il consumo di vigore diminuisce del 10%."
+    }
+  },
+  "constellation1": {
+    "name": "test C1",
+    "description": {
+      "0": "testQuando Danica usa l'<strong>\"abilità d'ingresso E2\"</strong> o l'<strong>\"abilità in campo E2\"</strong>, ripristina 20 di energia elementale per se stessa. Questo effetto può attivarsi al massimo una volta ogni 14 secondi.",
+      "1": "Inoltre, l'effetto di potenziamento <strong>Cameriera di Difesa</strong> nel <strong>Tripudio elementale</strong> aumenta dell'80% e l'effetto di potenziamento <strong>Cameriera da battaglia</strong> aumenta del 120%."
+    }
+  },
+  "constellation2": {
+    "name": "testC2",
+    "description": {
+      "0": "Mentre il rilevatore di prova è presente, Danica fornisce 7 accumuli di \"Toast\" a tutti i personaggi vicini. Quando tutti i personaggi vicini hanno consumato un totale di 6 accumuli di \"Toast\", il personaggio attivo in campo ottiene inoltre 1 accumulo di \"Toast\".",
+      "1": "\"Toast\": quando un personaggio del gruppo innesca una reazione di Astroconduzione, 1 accumulo di \"Toast\" verrà consumato, aumentando i DAN inflitti. Questo aumento è pari al 100% dell'ATT di Danica.",
+      "2": "Inoltre, quando Danica innesca una reazione di Astroconduzione mentre è in modalità Cameriera da battaglia, tutti gli accumuli di \"Toast\" attualmente in suo possesso verranno consumati. Ogni accumulo aumenta i DAN inflitti, con ciascun aumento pari al 150% dell'ATT di Danica.",
+      "3": "Evocare nuovamente il rilevatore o ripristinarne la durata azzererà gli accumuli di \"Toast\"."
+    }
+  },
+  "constellation3": {
+    "name": "C3",
+    "description": {
+      "0": "Aumenta di 3 il livello di <strong><tooltip ns=char_Danica_gen baseKey18=burst>Tripudio elementale</tooltip></strong>.",
+      "1": "Il livello di potenziamento massimo è 15."
+    }
+  },
+  "constellation4": {
+    "name": "testC4",
+    "description": {
+      "0": "test Quando il personaggio attivo in campo sotto la protezione dello Scudo di Danica infligge DAN da Astroconduzione agli avversari, rigenera 3 di energia elementale per gli altri membri del gruppo nelle vicinanze. Questo effetto può attivarsi al massimo una volta ogni 3,5 s.",
+      "1": "Inoltre, quando Danica entra nello stato di Cameriera da Battaglia, verrà generato anche uno Scudo. Se Danica lascia il campo mentre lo Scudo è attivo, questo verrà distrutto."
+    }
+  },
+  "constellation5": {
+    "name": "testC5",
+    "description": {
+      "0": "Aumenta di 3 il livello dell'<strong><tooltip ns=char_Danica_gen baseKey18=skill>abilità elementale</tooltip></strong>.",
+      "1": "Il livello di potenziamento massimo è 15."
+    }
+  },
+  "constellation6": {
+    "name": "Test C6",
+    "description": {
+      "0": "Finché il rilevatore di test è presente, il DAN da Astroconduzione inflitto dai personaggi del gruppo nelle vicinanze aumenta del 20%.",
+      "1": "Inoltre, quando Danica entra nello stato <tooltip ns=tooltips_gen baseKey18=11470004 values=[]><strong>Domestica difensiva</strong></tooltip>, ogni 1.000 punti ATT di Danica aumentano del 10% il DAN da Astroconduzione inflitto dal personaggio in campo, fino a un massimo del 40%.",
+      "2": "Quando entra nello stato <tooltip ns=tooltips_gen baseKey18=11470005 values=[]><strong>Domestica guerriera</strong></tooltip>, ogni 500 punti ATT di Danica aumentano del 2,5% il tasso di CRIT della sua abilità E2 in campo e del 25% il DAN da CRIT inflitto. Il tasso di CRIT può aumentare fino a un massimo del 10% e il DAN da CRIT fino a un massimo del 100%.",
+      "3": "Gli effetti sopra indicati durano fino all'uscita dall'attuale stato Domestica."
+    }
+  }
+}

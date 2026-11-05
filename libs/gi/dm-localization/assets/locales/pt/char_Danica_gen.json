@@ -1,0 +1,202 @@
+{
+  "name": "Danica",
+  "title": "",
+  "description": "",
+  "constellationName": "",
+  "auto": {
+    "name": "test Ataque Normal de Danica",
+    "fields": {
+      "normal": {
+        "0": "<strong>Ataque Normal</strong>",
+        "1": "Realiza até 4 golpes consecutivos."
+      },
+      "charged": {
+        "0": "<strong>Ataque Carregado</strong>",
+        "1": "Drena Stamina ao longo do tempo para realizar cortes contínuos.",
+        "2": "Ao final da sequência, realiza um corte ainda mais poderoso."
+      },
+      "plunging": {
+        "0": "<strong>Ataque Imersivo</strong>",
+        "1": "Mergulha em pleno ar para golpear o chão, causando dano aos inimigos em seu caminho e infligindo dano em uma AdE durante o impacto."
+      }
+    },
+    "skillParams": {
+      "0": "Dano do 1° Golpe",
+      "1": "Dano do 2° Golpe",
+      "2": "Dano do 3° Golpe",
+      "3": "Dano do 4° Golpe",
+      "4": "Dano de Loop de Ataque Carregado",
+      "5": "Dano Final de Ataque Carregado",
+      "6": "Consumo de Stamina de Ataque Carregado",
+      "7": "Duração Máxima",
+      "8": "Dano Durante a Queda",
+      "9": "Dano de Queda de Baixa/Alta Altitude",
+      "10": "",
+      "11": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "skill": {
+    "name": "test Habilidade Elemental de Danica",
+    "description": {
+      "0": "testAgita a corrente e a Âncora do Navio, causando <electro>Dano Electro em uma AdE</electro> nos Inimigos ao redor e invocando uma <strong>Âncora do Navio</strong> que segue as ações do Personagem em campo.",
+      "1": "<br/>",
+      "2": "Enquanto a <strong>Âncora do Navio</strong> estiver presente, ela auxilia no combate de formas diferentes dependendo se Danica está ou não em campo.",
+      "3": "<strong>Danica fora de campo</strong>",
+      "4": "Quando o Personagem em campo da equipe causar Impacto em inimigos com Ataques <electro>Electro</electro> ou <cryo>Cryo</cryo>, a <strong>Âncora do Navio</strong> desencadeará um Ataque Coordenado, causando <electro>Dano Electro em uma AdE</electro> na posição dos inimigos. Este Efeito pode ser desencadeado no máximo uma vez a cada 1,5 segundos.",
+      "5": "<strong>Danica em campo</strong>",
+      "6": "O Ataque Normal de Danica é trocado por um Ataque Especial realizado com a Âncora do Navio, causando <electro>Dano Electro</electro> que não pode ser sobrescrito por Encantamento. Esse Dano é considerado Dano de Ataque Normal.",
+      "7": "<br/>",
+      "8": "<strong>Animação</strong>",
+      "9": "Enquanto a Âncora do Navio estiver presente, Danica pode acumular <tooltip ns=tooltips_gen baseKey18=11470001 values=[\"50\",\"25\",\"100\"]><strong>Animação</strong></tooltip> usando o Ataque Normal Especial da Âncora do Navio ou quando o Personagem em campo da equipe causar Impacto em inimigos com Ataques <cryo>Cryo</cryo> ou <electro>Electro</electro>. Quando a Animação atingir o limite máximo, dependendo se Danica está ou não em campo, é possível consumir toda a Animação para usar uma Habilidade Elemental especial diferente e entrar no Modo Empregada correspondente:",
+      "10": "<strong>Empregada Protetora</strong>",
+      "11": "Quando Danica estiver fora de campo, ao trocar para Danica, ela usará automaticamente <tooltip ns=tooltips_gen baseKey18=11470002 values=[]><strong>\"Habilidade de Entrada E2\"</strong></tooltip> e entrará no modo <strong>Empregada Protetora</strong>. Um Escudo é gerado para o Personagem em campo e a Duração da Âncora do Navio é renovada. Durante este período, não é possível usar a <strong>\"Habilidade em Campo E2\"</strong>.",
+      "12": "<strong>Empregada Batalhadora</strong>",
+      "13": "Quando Danica estiver em campo, a Habilidade Elemental é trocada por <tooltip ns=tooltips_gen baseKey18=11470003 values=[\"5\"]><strong>\"Habilidade em Campo E2\"</strong></tooltip>. Ao usá-la, Danica entra no modo <strong>Empregada Batalhadora</strong>. Durante este período, após usar a \"Habilidade em Campo E2\", o Ataque Normal Especial da Âncora do Navio pode saltar parte da sequência de Ataques Normais. Durante este período, não é possível usar a <strong>\"Habilidade de Entrada E2\"</strong>.",
+      "14": "<br/>",
+      "15": "Além disso, ao desaparecer a Âncora do Navio, o modo Empregada é encerrado. Enquanto a Âncora do Navio estiver presente, os modos Empregada Batalhadora e Empregada Protetora não podem coexistir — ao entrar em um deles, não será possível entrar no outro."
+    },
+    "skillParams": {
+      "0": "Dano de Habilidade",
+      "1": "Dano de Supercondutor Estelar de Habilidade E2 em Campo",
+      "2": "Dano de Supercondutor Estelar de Habilidade E2 em Campo",
+      "3": "Dano de Ataque Coordenado de Âncora de Navio",
+      "4": "Absorção do Escudo",
+      "5": "Dano Electro de 1º Golpe do Ataque Normal de Âncora do Navio",
+      "6": "Dano Electro de 2º Golpe do Ataque Normal de Âncora do Navio",
+      "7": "Dano Electro do 3º Golpe do Ataque Normal de Âncora do Navio",
+      "8": "Dano Electro do 4º Golpe do Ataque Normal de Âncora do Navio",
+      "9": "Duração da Âncora do Navio",
+      "10": "Recarga da Habilidade E2 em Campo",
+      "11": "Recarga de Habilidade",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "burst": {
+    "name": "test Supremo de Danica",
+    "description": {
+      "0": "testComanda o campo de batalha com a etiqueta de uma serva próxima à Tsaritsa, desferindo 5 Ataques em uma grande área e causando <electro>Dano Electro em uma AdE</electro>.",
+      "1": "<br/>",
+      "2": "<strong>Brilho Reluzente: Supercondutor Estelar</strong>:",
+      "3": [
+        "O 1º e o 5º Ataques causam adicionalmente <electro>Dano Electro em uma AdE</electro> contabilizado como Dano de Reação de Supercondutor.",
+        "Por um período após a ativação, se Danica estiver na Forma de Empregada, essa forma será fortalecida com Efeitos correspondentes à forma atual:"
+      ],
+      "4": "Quando Danica estiver na forma <tooltip ns=tooltips_gen baseKey18=11470004 values=[]><strong>Empregada Protetora</strong></tooltip>, o ATQ de todos os membros da equipe será aumentado.",
+      "5": "Quando Danica estiver na forma <tooltip ns=tooltips_gen baseKey18=11470005 values=[]><strong>Empregada Batalhadora</strong></tooltip>, toda a Animação será restaurada imediatamente e o Dano causado pela <strong>\"Habilidade E2 em Campo\"</strong> de Danica será aumentado.",
+      "6": "<br/>",
+      "7": "Ao encerrar a Forma de Empregada, os Efeitos de fortalecimento serão removidos."
+    },
+    "skillParams": {
+      "0": "Dano Electro/Dano de Supercondutor Estelar do 1º Golpe",
+      "1": "Dano Electro do 2º/3º/4º Golpe",
+      "2": "Dano Electro/Dano de Supercondutor Estelar do 5º Golpe",
+      "3": "Proporção de Bônus de ATQ",
+      "4": "Limite de Bônus de ATQ",
+      "5": "Aumento de Dano de Habilidade E2 em Campo",
+      "6": "Duração do Efeito de Fortalecimento",
+      "7": "Recarga",
+      "8": "Energia Elemental",
+      "9": "",
+      "10": "",
+      "11": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "passive1": {
+    "name": "testTalento de Ascensão 1",
+    "description": {
+      "0": "test<strong>Âncora do Navio</strong>diminui a <electro>RES Electro</electro> dos Inimigos ao redor em 15%.",
+      "1": "<br/>",
+      "2": "<strong>Brilho Reluzente: Supercondutor Estelar</strong>: a <electro>RES Electro</electro> dos inimigos ao redor da Âncora do Navio é reduzida em 15% adicionais e a <cryo>RES Cryo</cryo> é reduzida em 30%."
+    }
+  },
+  "passive2": {
+    "name": "testTalento de Ascensão 2",
+    "description": {
+      "0": "testAo usar <strong>\"Habilidade de Entrada E2\"</strong>, o ATQ de Danica aumenta em 20%.",
+      "1": "Ao usar <strong>\"Habilidade em Campo E2\"</strong>, a Vel. de ATQ de Danica aumenta em 20%, e o Ataque Normal da Âncora do Navio especial ganha 25 pontos de <strong>Animação</strong> adicionais ao causar Impacto em inimigos. Os efeitos acima podem ser Acumulados até 3 vezes.",
+      "2": "Os efeitos acima persistem até que Danica saia do estado de Empregada Protetora ou Empregada Batalhadora atual. Ao ser desencadeado novamente, a Duração é renovada."
+    }
+  },
+  "passive3": {
+    "name": "test Talento Estelar",
+    "description": {
+      "0": "Quando um personagem da equipe desencadear Reação de Supercondutor, converterá para Supercondutor Estelar, e aumentará o Dano Básico de Supercondutor Estelar causado pelos personagens da equipe com base no ATQ de Danica: cada ponto de ATQ aumenta o Dano Básico de Supercondutor Estelar em 0.7%. É possível aumentar até 14% dessa forma.",
+      "1": "Além disso, quando está dentro do <tooltip ns=tooltips_gen baseKey18=11330003 values=[]><strong>Campo da Estrela Polar</strong></tooltip>, Danica entrará no estado <strong>Brilho Reluzente: Supercondutor Estelar</strong>."
+    }
+  },
+  "passive": {
+    "name": "Talento Vital",
+    "description": {
+      "0": "test Quando os Personagens da equipe estiverem sob a influência de um Ambiente de Frio Extremo, a Veloc. Mov. aumenta em 10% e o Consumo de Stamina diminui em 10%."
+    }
+  },
+  "constellation1": {
+    "name": "test Constelação 1",
+    "description": {
+      "0": "testQuando Danica usa <strong>\"Habilidade de Entrada E2\"</strong> ou <strong>\"Habilidade em Campo E2\"</strong>, regenera 20 pontos de Energia Elemental para si mesma. Este efeito pode ser desencadeado no máximo uma vez a cada 14 segundos.",
+      "1": "Além disso, no <strong>Supremo</strong>, o efeito de fortalecimento da <strong>Empregada Protetora</strong> é aumentado em 80%, e o efeito de fortalecimento da <strong>Empregada Batalhadora</strong> é aumentado em 120%."
+    }
+  },
+  "constellation2": {
+    "name": "testConstelação 2",
+    "description": {
+      "0": "Durante a existência da Âncora do Navio, Danica concede 7 Acúmulos de \"Brinde\" a todos os Personagens próximos. Quando todos os Personagens próximos consumirem 6 Acúmulos de \"Brinde\" no total, o Personagem em campo recebe 1 Acúmulo adicional de \"Brinde\".",
+      "1": "\"Brinde\": Quando um Personagem da equipe causar Dano de Reação de Supercondutor Estelar, 1 Acúmulo de \"Brinde\" será consumido, aumentando o Dano causado em um Valor equivalente a 100% do ATQ de Danica.",
+      "2": "Além disso, quando Danica causar Dano de Reação de Supercondutor Estelar no modo Empregada Batalhadora, todos os seus Acúmulos de \"Brinde\" serão consumidos, e cada Acúmulo aumenta o Dano causado em um Valor equivalente a 150% do ATQ de Danica.",
+      "3": "Ao realizar uma nova invocação da Âncora do Navio ou ao renovar sua Duração, os Acúmulos de \"Brinde\" serão redefinidos."
+    }
+  },
+  "constellation3": {
+    "name": "Constelação 3",
+    "description": {
+      "0": "testAumenta o nível do <strong><tooltip ns=char_Danica_gen baseKey18=burst>Supremo</tooltip></strong> em 3.",
+      "1": "O nível máximo de elevação é 15."
+    }
+  },
+  "constellation4": {
+    "name": "testConstelação 4",
+    "description": {
+      "0": "Quando o Personagem em campo protegido pelo Escudo de Danica causar Dano de Supercondutor Estelar a inimigos, restaura 3 pontos de Energia Elemental para os outros Personagens próximos da equipe. Esse efeito pode ocorrer no máximo uma vez a cada 3,5 segundos.",
+      "1": "Além disso, quando Danica entra no estado Empregada Batalhadora, um Escudo também é gerado. Se Danica sair de campo durante esse período, o Escudo será destruído."
+    }
+  },
+  "constellation5": {
+    "name": "testConstelação 5",
+    "description": {
+      "0": "Aumenta o nível da <strong><tooltip ns=char_Danica_gen baseKey18=skill>Habilidade Elemental</tooltip></strong> em 3.",
+      "1": "O nível máximo de elevação é 15."
+    }
+  },
+  "constellation6": {
+    "name": "testConstelação 6",
+    "description": {
+      "0": "testEnquanto a Âncora do Navio estiver presente, o Dano de Supercondutor Estelar causado pelos personagens próximos da equipe é elevado em 20%.",
+      "1": "Além disso, após Danica entrar no estado <tooltip ns=tooltips_gen baseKey18=11470004 values=[]><strong>Empregada Protetora</strong></tooltip>, cada 1.000 pontos de ATQ de Danica aumentam em 10% o Dano de Supercondutor Estelar causado pelo personagem em campo, até um máximo de 40%.",
+      "2": "Após entrar no estado <tooltip ns=tooltips_gen baseKey18=11470005 values=[]><strong>Empregada Batalhadora</strong></tooltip>, cada 500 pontos de ATQ de Danica aumentam em 2,5% a própria Taxa CRIT da Habilidade em Campo E2 e em 25% o Dano CRIT causado. O aumento da Taxa CRIT não pode exceder 10% e o do Dano CRIT não pode exceder 100%.",
+      "3": "Os efeitos acima duram até a saída do atual estado de empregada."
+    }
+  }
+}

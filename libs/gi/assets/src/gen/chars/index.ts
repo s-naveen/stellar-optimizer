@@ -5,6 +5,7 @@ import Alhaitham from './Alhaitham'
 import Aloy from './Aloy'
 import Alyosha from './Alyosha'
 import Amber from './Amber'
+import Anastasya from './Anastasya'
 import AratakiItto from './AratakiItto'
 import Arlecchino from './Arlecchino'
 import Baizhu from './Baizhu'
@@ -23,6 +24,7 @@ import Collei from './Collei'
 import Columbina from './Columbina'
 import Cyno from './Cyno'
 import Dahlia from './Dahlia'
+import Danica from './Danica'
 import Dehya from './Dehya'
 import Diluc from './Diluc'
 import Diona from './Diona'
@@ -68,6 +70,7 @@ import Lynette from './Lynette'
 import Lyney from './Lyney'
 import Mavuika from './Mavuika'
 import Mika from './Mika'
+import Mitya from './Mitya'
 import Mona from './Mona'
 import Mualani from './Mualani'
 import Nahida from './Nahida'
@@ -107,6 +110,7 @@ import TravelerGeo from './TravelerGeo'
 import TravelerHydro from './TravelerHydro'
 import TravelerM from './TravelerM'
 import TravelerPyro from './TravelerPyro'
+import Valeriy from './Valeriy'
 import Varesa from './Varesa'
 import Varka from './Varka'
 import Venti from './Venti'
@@ -137,6 +141,7 @@ const data = {
   Aloy,
   Alyosha,
   Amber,
+  Anastasya,
   AratakiItto,
   Arlecchino,
   Baizhu,
@@ -155,6 +160,7 @@ const data = {
   Columbina,
   Cyno,
   Dahlia,
+  Danica,
   Dehya,
   Diluc,
   Diona,
@@ -200,6 +206,7 @@ const data = {
   Lyney,
   Mavuika,
   Mika,
+  Mitya,
   Mona,
   Mualani,
   Nahida,
@@ -239,6 +246,7 @@ const data = {
   TravelerHydro,
   TravelerM,
   TravelerPyro,
+  Valeriy,
   Varesa,
   Varka,
   Venti,

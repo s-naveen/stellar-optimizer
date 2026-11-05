@@ -577,5 +577,161 @@
       "0": "<strong>Radiance: Stellar-Conduct</strong> and <strong>Radiance: Stellar Swirl</strong> are both considered <strong>Radiance: Stellar Glimmer</strong> states.",
       "1": "Characters can only be affected by one Radiance state at any one time, and where more than one state can be triggered, <strong>Radiance: Stellar-Conduct</strong> shall apply first."
     }
+  },
+  "11360001": {
+    "name": "Gradient Beacons",
+    "description": {
+      "0": "When Mitya is in the party and a Stellar-Conduct reaction is triggered, a <strong>Gradient Beacon</strong> that lasts for Xs will be created instead of a <strong>Starlight Prism</strong>. Mitya can consume <strong>Gradient Beacons</strong> to trigger various effects.",
+      "1": "<strong>Gradient Beacons</strong> follow the active character and transform a larger nearby area into a <strong>Polestar Field</strong> when a <strong>Gradient Beacon</strong> is created. Mitya can have multiple <strong>Gradient Beacons</strong>, with an initial maximum of X. Creating a <strong>Gradient Beacon</strong> will reset the duration of all <strong>Gradient Beacons</strong>."
+    }
+  },
+  "11360002": {
+    "name": "Detection Core",
+    "description": {
+      "0": "An energy device Mitya creates after using his Elemental Skill. Tapping it creates a Core in <strong>Steady State</strong>, while holding it creates an <strong>Overloaded</strong> core.",
+      "1": "<br/>",
+      "2": "<strong>Detection Core: Steady State</strong>",
+      "3": [
+        "Continuously follows nearby opponents and intermittently deals <electro>AoE Electro DMG</electro>;",
+        "When Mitya has reached the maximum number of <strong>Gradient Beacons</strong> he can have, the device will consume any newly generated <strong>Gradient Beacon</strong> and deal <electro>AoE Electro DMG</electro> that is considered Stellar-Conduct reaction DMG;",
+        "When its duration ends or another <strong>Detection Core</strong> is created, the device will consume all <strong>Gradient Beacons</strong> Mitya has and deal <electro>AoE Electro DMG</electro> that is considered Stellar-Conduct reaction DMG based on the number consumed."
+      ],
+      "4": "<br/>",
+      "5": "<strong>Detection Core: Overloaded</strong>",
+      "6": [
+        "While this device is present and Mitya has at least 1 <strong>Gradient Beacon</strong>, he can perform the special Charged Attack <strong>Gradient Detonation</strong> without consuming Stamina."
+      ]
+    }
+  },
+  "11470001": {
+    "name": "test Excited",
+    "description": {
+      "0": "testWhile the anchor is present, Danica accumulates <strong>Excitement</strong>. Excitement can be gained in the following ways:",
+      "1": [
+        "When Danica is off-field, when the active Character on the team hits an enemy with <electro>Electro</electro> or <cryo>Cryo</cryo> attacks, 50 points are gained, triggered at most once every 0.1 seconds;",
+        "When Danica is on-field, when the Special Anchor's Normal Attacks hit enemies, 25 points are gained, with Excitement gained this way at most once per Normal Attack hit."
+      ],
+      "2": "<br/>",
+      "3": "Additionally, when Danica is in the <strong>Defense Maid</strong> state, Danica can only gain Excitement when the active Character on the team hits enemies with <electro>Electro</electro> or <cryo>Cryo</cryo> attacks; when in the <strong>Combat Maid</strong> state, Danica can only gain Excitement by landing hits with <strong>Special Anchor Normal Attacks</strong>.",
+      "4": "<br/>",
+      "5": "When Excitement reaches the maximum of 100 points, Danica can consume all Excitement to unleash the special Elemental Skill <strong>\"Entry Skill E2\"</strong> or <strong>\"On-Field Skill E2\"</strong>, and enter the corresponding <strong>Maid Form</strong> based on how it is used."
+    }
+  },
+  "11470002": {
+    "name": "test\"Entry Skill E2\"",
+    "description": {
+      "0": "testDanica swings her anchor chain to rapidly close in on enemies, then slams the anchor into the ground, dealing <electro>Electro DMG</electro> in an AoE, considered as Stellar-Conduct reaction DMG.",
+      "1": "<br/>",
+      "2": "After using this ability, Danica enters the <strong>Guardian Maid</strong> state, gaining the following effects:",
+      "3": [
+        "Refreshes the anchor's Duration;",
+        "Generates a Shield for the current active Character in the party. The Shield lasts until the Guardian Maid state ends, and its DMG Absorption scales with Danica's ATK, with 250% effectiveness against <electro>Electro DMG</electro>."
+      ]
+    }
+  },
+  "11470003": {
+    "name": "test\"On-Field Skill E2\"",
+    "description": {
+      "0": "testSwings the anchor chain to rapidly close in on enemies, then slams the ship anchor into the ground, dealing a large amount of <electro>AoE Electro DMG</electro> that is considered Stellar-Conduct reaction DMG.",
+      "1": "<br/>",
+      "2": "After using this skill, Danica enters <strong>Battle Maid</strong> and gains the following effects: Each time \"On-Field Skill E2\" is used, the next round's <strong>Special Anchor Normal Attack</strong> will skip one Normal Attack stage, up to a maximum of skipping to the last Normal Attack stage.",
+      "3": "<br/>",
+      "4": "After using <strong>\"On-Field Skill E2\"</strong> 5 times, Danica will exit <strong>Battle Maid</strong> and destroy the ship anchor."
+    }
+  },
+  "11470004": {
+    "name": "testDefense Maid",
+    "description": {
+      "0": "testThe state Danica enters after using her special Elemental Skill <strong>\"Entry Skill E2\"</strong>. While in this state, she provides a Shield to the active Character on the field and refreshes the Duration of <strong>Ship Anchor</strong>."
+    }
+  },
+  "11470005": {
+    "name": "test Battle Maid",
+    "description": {
+      "0": "testThe state Danica enters after using the special Elemental Skill <strong>\"On-Field Skill E2\"</strong>. While in this state, each time \"On-Field Skill E2\" is used, the Special Anchor's Normal Attack will Jump over a Normal Attack stage, skipping up to the first three Normal Attack stages."
+    }
+  },
+  "11490001": {
+    "name": "Transcendence and Blessings",
+    "description": {
+      "0": "When Anastasya uses her Elemental Skill <strong>Polestar's Divine Judgment</strong>, she unleashes her power in different ways and gains a different Blessing depending on whether the skill is tapped or held.",
+      "1": [
+        "<strong>Tap</strong>: Gains the Blessing of <strong>Love</strong>;",
+        "<strong>Hold</strong>: Gains the Blessing of <strong>Honor</strong>."
+      ],
+      "2": "<br/>",
+      "3": "Each Blessing allows Anastasya to use a different Elemental Burst and wield the power of <strong>Sealing</strong> differently.",
+      "4": "Anastasya always holds the Blessing of <strong>Love</strong> when she does not hold the Blessing of <strong>Honor</strong>."
+    }
+  },
+  "11490002": {
+    "name": "Sealing",
+    "description": {
+      "0": "A special state applied to characters when Anastasya uses her Elemental Burst. Characters in the Sealed state cannot be switched in.",
+      "1": "The initial Sealing duration matches the duration of the corresponding Elemental Burst. Its remaining duration can be reduced through specific means.",
+      "2": "<br/>",
+      "3": "Anastasya's <strong>Blessing</strong> determines which Elemental Burst she uses and how she wields the power of Sealing:",
+      "4": [
+        "<strong>Love</strong>: Anastasya Seals herself when she switches off-field. Stellar Glimmer reaction DMG dealt by any nearby party member can reduce the remaining duration of her Sealed state. For a limited time after her Sealed state ends, switching Anastasya in triggers the special unsealing Elemental Skill <strong>Palestar Edict: Triumph</strong>;",
+        "<strong>Honor</strong>: Anastasya Seals up to 3 other party members. Anastasya can reduce the remaining duration of Sealing by using Normal Attacks. For a limited time after a character's Sealed state ends, selecting that character for the first time triggers the special unsealing Elemental Skill <strong>Palestar Edict: Doom</strong> instead of switching them in."
+      ]
+    }
+  },
+  "11490003": {
+    "name": "Palestar Edict: Triumph",
+    "description": {
+      "0": "A special Elemental Skill triggered by switching Anastasya in after her own Sealed state ends. Deals <cryo>AoE Cryo DMG</cryo> to nearby opponents. This DMG is considered Stellar-Conduct reaction DMG.",
+      "1": "<strong>Radiance: Stellar Glimmer</strong>: The aforementioned DMG is instead dealt as <cryo>AoE Cryo DMG</cryo> that is considered DMG from the corresponding Stellar Glimmer reaction."
+    }
+  },
+  "11490004": {
+    "name": "Palestar Edict: Doom",
+    "description": {
+      "0": "For a limited time after another party member's Sealed state ends, selecting that character for the first time triggers this special Elemental Skill instead of switching them in.",
+      "1": "<strong>Palestar Edict: Doom</strong> has 3 stages, performed in sequence by selecting the corresponding characters for the first time or pressing the Elemental Skill.",
+      "2": [
+        "Stage 1: Performs a series of slashes with the <strong>Blessed Armament: Dekhomenon</strong>, dealing multiple instances of <cryo>AoE Cryo DMG</cryo> that cannot be overridden by other Elemental Infusions and are considered Elemental Skill DMG, followed by a final instance of <cryo>AoE Cryo DMG</cryo> that is considered Stellar-Conduct reaction DMG;",
+        "Stage 2: Leaps forward and performs a slash, dealing <cryo>AoE Cryo DMG</cryo> that is considered Stellar-Conduct reaction DMG;",
+        "Stage 3: Fires the <strong>Blessed Armament</strong> as an arrow, dealing greater <cryo>AoE Cryo DMG</cryo> considered Stellar-Conduct reaction DMG and ending the effect of <strong>The Evernight Yields to Dawn</strong>."
+      ],
+      "3": "<br/>",
+      "4": "<strong>Radiance: Stellar Glimmer</strong>: The Stellar-Conduct reaction DMG described above is instead dealt as <cryo>AoE Cryo DMG</cryo> considered DMG from the corresponding Stellar Glimmer reaction."
+    }
+  },
+  "11490005": {
+    "name": "Freeze",
+    "description": {
+      "0": "A special mechanic. Pauses an effect's duration, preventing it from counting down until the effect that triggered the freeze ends."
+    }
+  },
+  "11370001": {
+    "name": "Direct-Fire Mortar: Point-Blank Bombardment",
+    "description": {
+      "0": "Valeriy's special Charged Attack. Using a Charged Attack while he has at least 40 <strong>Impact Momentum</strong> consumes all <strong>Impact Momentum</strong> to unleash this special Charged Attack instead, dealing <electro>AoE Electro DMG</electro> in front of him and granting 15 stacks of <strong>Offensive Directive</strong>.",
+      "1": "When this special Charged Attack is used again, the <strong>Offensive Directive</strong> stack count will be refreshed.",
+      "2": "Within 0.8s after using the Elemental Skill <strong>Active Defense: Bastion Charge</strong> or the Elemental Burst <strong>Focused Fire: Lightning Salvo</strong>, if Valeriy has at least 40 <strong>Impact Momentum</strong>, the next Normal Attack he uses will be converted to the special Charged Attack <strong>Direct-Fire Mortar: Point-Blank Bombardment</strong>."
+    }
+  },
+  "11370002": {
+    "name": "Offensive Directive",
+    "description": {
+      "0": "A special effect Valeriy gains after performing the special Charged Attack <strong>Direct-Fire Mortar: Point-Blank Bombardment</strong>. It increases different types of <electro>Electro DMG</electro> depending on whether Valeriy is in the <strong>Radiance: Stellar-Conduct</strong> state. If Valeriy is:",
+      "1": [
+        "In the <strong>Radiance: Stellar-Conduct</strong> state: When a nearby active character in the party deals <electro>Electro DMG</electro> considered Stellar-Conduct reaction DMG to an opponent with a Normal Attack, Charged Attack, Plunging Attack, Elemental Skill, or Elemental Burst, 1 stack of <strong>Offensive Directive</strong> is consumed to increase that DMG, with the increase based on Valeriy's ATK;",
+        "Not in the <strong>Radiance: Stellar-Conduct</strong> state: When a nearby active character in the party deals <electro>Electro DMG</electro> to an opponent with a Normal Attack, Charged Attack, Plunging Attack, Elemental Skill, or Elemental Burst, 1 stack of <strong>Offensive Directive</strong> is consumed to increase that DMG, with the increase based on Valeriy's ATK."
+      ],
+      "2": "When a single instance of <electro>Electro DMG</electro> hits multiple opponents simultaneously, <strong>Offensive Directive</strong> stacks are consumed based on the number of opponents hit."
+    }
+  },
+  "11370003": {
+    "name": "Impact Momentum",
+    "description": {
+      "0": "A special energy Valeriy uses to enhance his combat capabilities. Its initial maximum is 100. When he has at least 40 <strong>Impact Momentum</strong>, he can perform the special Charged Attack <strong>Direct-Fire Mortar: Point-Blank Bombardment</strong>.",
+      "1": "Valeriy can gain <strong>Impact Momentum</strong> in the following ways:",
+      "2": [
+        "By using his Elemental Skill <strong>Active Defense: Bastion Charge</strong>;",
+        "After unlocking the Ascension Talent \"Advance With the Creeping Barrage,\" while his Elemental Burst <strong>Focused Fire: Lightning Salvo</strong> is active, when a nearby active character in the party hits an opponent with an <electro>Electro</electro> attack."
+      ]
+    }
   }
 }

@@ -36,7 +36,7 @@ import {
   resonanceData,
 } from '@genshin-optimizer/gi/sheets'
 import { getCharStat } from '@genshin-optimizer/gi/stats'
-import { computeUIData } from '@genshin-optimizer/gi/uidata'
+import { computeUIData, uiDataForTeam } from '@genshin-optimizer/gi/uidata'
 import type { Data, NumNode } from '@genshin-optimizer/gi/wr'
 import {
   common,
@@ -346,6 +346,36 @@ export function assertCondNameSets(
  * Team buffs / resonance across members still need uiDataForTeam — see parity.md.
  */
 export function buildWrSolo(fixture: ParityFixture) {
+  return computeUIData(buildWrLayers(fixture))
+}
+
+/**
+ * Solo WR UIData built through `uiDataForTeam` (the app's team pipeline), so the
+ * member's own WR `teamBuff` entries apply to itself like in the real UI.
+ */
+export function buildWrTeamSolo(fixture: ParityFixture) {
+  const key = fixture.members[0]!.char.key
+  const team = uiDataForTeam({ [key]: buildWrLayers(fixture) }, 'F', key)
+  return team[key]!.target
+}
+
+/**
+ * Multi-member WR team through `uiDataForTeam` (members[0] of each fixture). Lets tests
+ * check buffs one character gives another. Returns per-character target UIData.
+ */
+export function buildWrTeam(fixtures: ParityFixture[], activeIdx = 0) {
+  const keys = fixtures.map((f) => f.members[0]!.char.key)
+  const teamData = Object.fromEntries(
+    fixtures.map((f, i) => [keys[i], buildWrLayers(f)])
+  )
+  const team = uiDataForTeam(teamData, 'F', keys[activeIdx]!)
+  return Object.fromEntries(keys.map((k) => [k, team[k]!.target])) as Record<
+    string,
+    ReturnType<typeof computeUIData>
+  >
+}
+
+export function buildWrLayers(fixture: ParityFixture): Data[] {
   const member = fixture.members[0]
   if (!member) throw new Error('ParityFixture.members must be non-empty')
 
@@ -443,7 +473,7 @@ export function buildWrSolo(fixture: ParityFixture) {
     resonanceData,
     reactionData,
   ]
-  return computeUIData(data)
+  return data
 }
 
 /** Pando calculator tagged to `src` (default member 0). */

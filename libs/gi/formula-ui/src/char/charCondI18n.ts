@@ -35,6 +35,12 @@ const byChar: Partial<Record<CharacterKey, Record<string, CondSrc>>> = {
     A4: { sheet: 'hitOp.weakSpot' },
     C6: { ch: 'c6CondName' },
   },
+  Anastasya: {
+    blessing: { ch: 'blessingCond' },
+    accolades: { ch: 'accoladesCond' },
+    burstActive: { ch: 'burstCond' },
+    a0StellarRadianceSc: { sheet: 'elementalReaction.stellar.radiance' },
+  },
   AratakiItto: {
     burst: { sheet: 'afterUse.burst' },
     constellation4: { ch: 'c4.name' },
@@ -48,6 +54,15 @@ const byChar: Partial<Record<CharacterKey, Record<string, CondSrc>>> = {
     asc4: { ch: 'asc4Cond' },
     c6: { ch: 'constellation6' },
     skill: { sheet: 'activeCharField' },
+  },
+  Danica: {
+    anchor: { ch: 'anchorCond' },
+    maidForm: { ch: 'maidCond' },
+    burstEnhanced: { ch: 'burstEnhCond' },
+    a4Stacks: { ch: 'a4Cond' },
+    a0StellarRadianceSc: { sheet: 'elementalReaction.polestar.inside' },
+    c2Toast: { ch: 'c2ToastCond' },
+    c2SelfToast: { ch: 'c2SelfToastCond' },
   },
   Eula: {
     Grimheart: { chg: 'skill.description.6' },
@@ -152,6 +167,11 @@ const byChar: Partial<Record<CharacterKey, Record<string, CondSrc>>> = {
     LisaA4: { ch: 'a4C' },
     LisaC2: { ch: 'c2C' },
   },
+  Mitya: {
+    detectionCore: { ch: 'coreCond' },
+    gradientBeacons: { ch: 'beaconsCond' },
+    a4Stacks: { ch: 'a4Cond' },
+  },
   Mona: {
     Omen: { ch: 'omen' },
     ProphecyOfSubmersion: { ch: 'hitOp.affectedByOmen' },
@@ -191,6 +211,14 @@ const byChar: Partial<Record<CharacterKey, Record<string, CondSrc>>> = {
     c4: { ch: 'c4.expires' },
     skillEye: { ch: 'skill.eye' },
     skillEyeTeam: { ch: 'skill.partyCost' },
+  },
+  Valeriy: {
+    offensiveDirective: { ch: 'directiveCond' },
+    a4Momentum: { ch: 'momentumCond' },
+    a0StellarRadianceSc: { sheet: 'elementalReaction.polestar.inside' },
+    c2Skill: { sheet: 'afterUse.skill' },
+    c2Excess: { ch: 'c2ExcessCond' },
+    c6Hit: { ch: 'c6Cond' },
   },
   Vodyanitsa: {
     a1Vortex: { ch: 'a1Cond' },

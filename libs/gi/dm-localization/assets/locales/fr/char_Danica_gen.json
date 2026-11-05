@@ -1,0 +1,202 @@
+{
+  "name": "Danica",
+  "title": "",
+  "description": "",
+  "constellationName": "",
+  "auto": {
+    "name": "test Danica Attaque normale",
+    "fields": {
+      "normal": {
+        "0": "<strong>Attaque normale</strong>",
+        "1": "Enchaîne jusqu'à 4 coups d'épée."
+      },
+      "charged": {
+        "0": "<strong>Attaque chargée</strong>",
+        "1": "Consomme de l'endurance de façon continue pour exécuter une succession d'entailles aussi rapides que tranchantes.",
+        "2": "L'attaque chargée se termine sur un coup puissant."
+      },
+      "plunging": {
+        "0": "<strong>Attaque plongeante</strong>",
+        "1": "Plonge depuis les airs pour frapper le sol, infligeant des DGT aux ennemis en chemin et des DGT de zone à l'impact."
+      }
+    },
+    "skillParams": {
+      "0": "DGT 1er coup",
+      "1": "DGT 2e coup",
+      "2": "DGT 3e coup",
+      "3": "DGT 4e coup",
+      "4": "DGT enchaînement attaque chargée",
+      "5": "DGT coup final attaque chargée",
+      "6": "Coût d'endurance attaque chargée",
+      "7": "Durée max",
+      "8": "DGT durant la chute",
+      "9": "DGT chute basse/élevée",
+      "10": "",
+      "11": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "skill": {
+    "name": "test Compétence élémentaire de Danica",
+    "description": {
+      "0": "test manie la chaîne et l'ancre pour infliger des <electro>DGT Électro de zone</electro> aux ennemis proches, et invoque une <strong>ancre</strong> qui suit les actions du personnage déployé.",
+      "1": "<br/>",
+      "2": "Tant que l'<strong>ancre</strong> est présente, elle aide au combat de différentes manières selon que Danica est déployée ou non.",
+      "3": "<strong>Lorsque Danica est en retrait</strong>",
+      "4": "Lorsque les attaques <electro>Électro</electro> ou <cryo>Cryo</cryo> du personnage déployé de l'équipe touchent des ennemis, l'<strong>ancre</strong> lance une attaque coordonnée qui inflige des <electro>DGT Électro de zone</electro> à l'emplacement des ennemis. Cet effet peut être déclenché une fois toutes les 1,5 s au maximum.",
+      "5": "<strong>Lorsque Danica est déployée</strong>",
+      "6": "L'Attaque normale de Danica se transforme en Attaque spéciale utilisant l'ancre, infligeant des <electro>DGT Électro</electro> ne pouvant pas être enchantés, ces dégâts étant considérés comme des DGT d'Attaque normale.",
+      "7": "<br/>",
+      "8": "<strong>Excitation</strong>",
+      "9": "Tant que l'ancre est présente, Danica peut accumuler de l'<tooltip ns=tooltips_gen baseKey18=11470001 values=[\"50\",\"25\",\"100\"]><strong>Excitation</strong></tooltip> en utilisant l'Attaque normale spéciale de l'ancre, ou lorsque les attaques <cryo>Cryo</cryo> ou <electro>Électro</electro> du personnage déployé de l'équipe touchent des ennemis. Lorsque l'Excitation atteint sa limite, selon que Danica est déployée ou non, elle peut consommer toute l'Excitation pour lancer une compétence élémentaire spéciale différente, et entrer dans la Configuration de servante correspondante :",
+      "10": "<strong>Servante protectrice</strong>",
+      "11": "Lorsque Danica est en retrait, passer à Danica pour la déployer lance automatiquement la <tooltip ns=tooltips_gen baseKey18=11470002 values=[]><strong>« Compétence d'entrée E2 »</strong></tooltip>, et elle entre dans la Configuration de <strong>Servante protectrice</strong>. Cela génère un bouclier pour le personnage déployé et réinitialise la durée de l'ancre. Pendant cette période, la <strong>« Compétence de déploiement E2 »</strong> ne peut plus être lancée.",
+      "12": "<strong>Servante de combat</strong>",
+      "13": "Lorsque Danica est déployée, sa compétence élémentaire est remplacée par la <tooltip ns=tooltips_gen baseKey18=11470003 values=[\"5\"]><strong>« Compétence de déploiement E2 »</strong></tooltip>, et après l'avoir lancée, elle entre dans la Configuration de <strong>Servante de combat</strong>. Après avoir lancé la « Compétence de déploiement E2 » pendant cette période, l'Attaque normale spéciale de l'ancre peut sauter une partie de l'enchaînement d'Attaque normale. Pendant cette période, la <strong>« Compétence d'entrée E2 »</strong> ne peut plus être lancée.",
+      "14": "<br/>",
+      "15": "De plus, lorsque l'ancre disparaît, elle quitte la Configuration de servante. Tant que l'ancre est présente, la Servante de combat et la Servante protectrice ne peuvent pas exister simultanément ; entrer dans l'une de ces Configurations de servante empêche d'entrer dans l'autre."
+    },
+    "skillParams": {
+      "0": "1",
+      "1": "Compétence d'entrée E2 Dégâts d'Astroconduction",
+      "2": "Dégâts d'Astroconduction E2 en jeu",
+      "3": "DGT attaque coordonnée de l'Ancre",
+      "4": "Absorption des dégâts de bouclier",
+      "5": "DGT Électro de l'Attaque normale 1 coup avec l'ancre",
+      "6": "Attaque normale 2 de l'ancre - DGT Électro",
+      "7": "DGT Électro de l'attaque normale (3 coups) à l'ancre",
+      "8": "Attaque normale à 4 coups à l'ancre DGT Électro",
+      "9": "Durée de l'ancre",
+      "10": "TdR compétence d'entrée E2",
+      "11": "Temps de recharge",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "burst": {
+    "name": "testDéchaînement élémentaire de Danica",
+    "description": {
+      "0": "test domine le champ de bataille avec la prestance d'une proche de la Tsarine, déclenchant 5 attaques à large zone d'effet qui infligent des <electro>DGT Électro de zone</electro>.",
+      "1": "<br/>",
+      "2": "<strong>Reflet : Astroconduction</strong> :",
+      "3": [
+        " Les 1re et 5e attaques infligent des <electro>DGT Électro de zone</electro> supplémentaires, étant considérés comme des DGT de réaction d'Astroconduction.",
+        " Pendant un certain temps après le déclenchement, si Danica est en Configuration de servante, la Configuration de servante actuelle sera renforcée, accordant des effets de renforcement correspondants selon la Configuration actuelle :"
+      ],
+      "4": "Lorsque Danica est en <tooltip ns=tooltips_gen baseKey18=11470004 values=[]><strong>Servante protectrice</strong></tooltip>, l'ATQ de tous les personnages de l'équipe augmente.",
+      "5": "Lorsque Danica est en <tooltip ns=tooltips_gen baseKey18=11470005 values=[]><strong>Servante de combat</strong></tooltip>, elle restaure immédiatement tous ses points d'excitation et les DGT infligés par la <strong>« Compétence sur le terrain E2 »</strong> de Danica augmentent.",
+      "6": "<br/>",
+      "7": "À la fin de la Configuration de servante, l'état de l'effet de renforcement est retiré."
+    },
+    "skillParams": {
+      "0": "DGT Électro 1 frappe/DGT Astroconduction",
+      "1": "DGT Électro 2/3/4 coups",
+      "2": "DGT Électro du 5e coup/DGT d'Astroconduction",
+      "3": "Bonus d'ATQ",
+      "4": "Limite de bonus d'ATQ",
+      "5": "Augmentation des dégâts E2 sur le terrain",
+      "6": "Durée de buff",
+      "7": "Temps de recharge",
+      "8": "Énergie élémentaire",
+      "9": "",
+      "10": "",
+      "11": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "passive1": {
+    "name": "test Aptitude d'élévation 1",
+    "description": {
+      "0": "testLa <electro>RÉS Électro</electro> des ennemis proches de l'<strong>ancre</strong> diminue de 15 %.",
+      "1": "<br/>",
+      "2": "<strong>Reflet - Astroconduction</strong> : la <electro>RÉS Électro</electro> des ennemis proches de l'ancre diminue de 15 % supplémentaires, et leur <cryo>RÉS Cryo</cryo> diminue de 30 %."
+    }
+  },
+  "passive2": {
+    "name": "test Aptitude d'élévation 2",
+    "description": {
+      "0": "test Après avoir lancé la <strong>« Compétence d'entrée E2 »</strong>, l'ATQ de Danica augmente de 20 %.",
+      "1": "Après avoir lancé la <strong>« Compétence sur le terrain E2 »</strong>, la VIT d'attaque de Danica augmente de 20 %. De plus, lorsqu'une Attaque normale de l'ancre spéciale touche des ennemis, elle octroie 25 points d'<strong>Excitation</strong> supplémentaires. Les effets ci-dessus peuvent être cumulés jusqu'à 3 fois.",
+      "2": "Ces effets s'appliquent de façon continue jusqu'à la sortie de l'état actuel de servante protectrice ou de servante de combat. Un nouveau déclenchement en réinitialisera la durée."
+    }
+  },
+  "passive3": {
+    "name": "test Aptitude Stella",
+    "description": {
+      "0": "Lorsqu'un personnage de l'équipe déclenche une réaction de Supraconduction, elle est convertie en réaction d'Astroconduction, dont les DGT de base augmentent selon l'ATQ de Danica : chaque point d'ATQ augmente les DGT de base de réaction d'Astroconduction de 0,7 %, les DGT pouvant être augmentés d'un maximum de 14 % de cette manière.",
+      "1": "De plus, Danica passe en <strong>radiance « Astroconduction »</strong> lorsqu'elle se trouve dans une <tooltip ns=tooltips_gen baseKey18=11330003 values=[]><strong>étendue polaris</strong></tooltip>."
+    }
+  },
+  "passive": {
+    "name": "testConnaissances pratiques",
+    "description": {
+      "0": "test Lorsque vos personnages dans l'équipe sont sous l'effet d'un environnement de Grand froid, leur VIT de déplacement augmente de 10 % et leur consommation d'endurance diminue de 10 %."
+    }
+  },
+  "constellation1": {
+    "name": "test Constellation 1",
+    "description": {
+      "0": "testLorsque Danica utilise sa <strong>« Compétence d'entrée E2 »</strong> ou sa <strong>« Compétence de terrain E2 »</strong>, elle restaure 20 points d'énergie élémentaire. Cet effet peut être déclenché une fois toutes les 14 s.",
+      "1": "De plus, pendant le <strong>déchaînement élémentaire</strong>, l'effet de renforcement de la <strong>Servante protectrice</strong> augmente de 80 %, et l'effet de renforcement de la <strong>Servante de combat</strong> augmente de 120 %."
+    }
+  },
+  "constellation2": {
+    "name": "test Constellation 2",
+    "description": {
+      "0": "Pendant que l'ancre de test est présente, Danica accorde 7 cumuls de « Toast » à tous les personnages à proximité. Lorsque les personnages à proximité ont consommé un total de 6 cumuls de « Toast », le personnage déployé reçoit 1 cumul de « Toast » supplémentaire.",
+      "1": "« Toast » : lorsqu'un personnage de l'équipe inflige des dégâts de réaction d'Astroconduction, 1 cumul de « Toast » est consommé, ce qui augmente les dégâts infligés d'une valeur équivalant à 100 % de l'ATQ de Danica.",
+      "2": "De plus, lorsque Danica inflige des dégâts de réaction d'Astroconduction dans sa Configuration de servante de combat, elle consomme l'intégralité de ses cumuls de « Toast » actuels. Chaque cumul augmente les dégâts infligés d'une valeur équivalant à 150 % de l'ATQ de Danica.",
+      "3": "Lors d'une nouvelle invocation de l'ancre ou de l'actualisation de sa durée, les cumuls de « Toast » sont réinitialisés."
+    }
+  },
+  "constellation3": {
+    "name": "test Constellation 3",
+    "description": {
+      "0": "test Niveau d'aptitude <strong><tooltip ns=char_Danica_gen baseKey18=burst>Déchaînement élémentaire</tooltip></strong> +3.",
+      "1": "Niveau max : 15"
+    }
+  },
+  "constellation4": {
+    "name": "test Constellation 4",
+    "description": {
+      "0": "test Lorsque le personnage déployé protégé par le bouclier de Danica inflige des dégâts d'Astroconduction aux ennemis, il restaure 3 pts d'énergie élémentaire aux autres personnages de l'équipe à proximité. Cet effet peut être déclenché une fois toutes les 3,5 s au maximum.",
+      "1": "De plus, lorsque Danica entre dans l'état de servante de combat, un bouclier est également généré. Si Danica quitte le terrain pendant cette période, ce bouclier est détruit."
+    }
+  },
+  "constellation5": {
+    "name": "test Constellation 5",
+    "description": {
+      "0": "testNiveau d'aptitude <strong><tooltip ns=char_Danica_gen baseKey18=skill>Compétence élémentaire</tooltip></strong> +3.",
+      "1": "Niveau max : 15"
+    }
+  },
+  "constellation6": {
+    "name": "test Constellation 6",
+    "description": {
+      "0": "Tant que l'ancre de test est présente, les DGT d'Astroconduction infligés par les personnages proches de l'équipe augmentent de 20%.",
+      "1": "De plus, après que Danica est entrée en état <tooltip ns=tooltips_gen baseKey18=11470004 values=[]><strong>Servante gardienne</strong></tooltip>, chaque 1 000 points d'ATQ de Danica augmentent de 10% les DGT d'Astroconduction infligés par le personnage en scène, sans dépasser 40%.",
+      "2": "Après être entrée en état <tooltip ns=tooltips_gen baseKey18=11470005 values=[]><strong>Servante combattante</strong></tooltip>, chaque 500 points d'ATQ de Danica augmentent de 2,5% son taux CRIT avec la compétence sur le terrain E2 et de 25% ses DGT CRIT. Le taux CRIT ne peut pas dépasser 10% et les DGT CRIT ne peuvent pas dépasser 100%.",
+      "3": "Ces effets persistent jusqu'à la fin de l'état de servante actuel."
+    }
+  }
+}

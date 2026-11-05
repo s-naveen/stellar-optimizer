@@ -1,0 +1,205 @@
+{
+  "name": "Anastasya",
+  "title": "",
+  "description": "",
+  "constellationName": "",
+  "auto": {
+    "name": "L'alba dopo l'inverno eterno",
+    "fields": {
+      "normal": {
+        "0": "<strong>Attacco normale</strong>",
+        "1": "Scocca fino a 5 frecce consecutive con un arco."
+      },
+      "charged": {
+        "0": "<strong>Attacco caricato</strong>",
+        "1": "Effettua un <strong>attacco mirato</strong> ancora più preciso con DAN aumentati.",
+        "2": "Mentre mira, l'elemento di Cryo si accumula sulla punta della freccia prima che questa venga scoccata. Una freccia di Cryo caricata al massimo infligge <cryo>DAN da Cryo</cryo>."
+      },
+      "plunging": {
+        "0": "<strong>Attacco in picchiata</strong>",
+        "1": "Scocca una pioggia di frecce a mezz'aria prima di cadere al suolo, colpendo gli avversari lungo il percorso e infliggendo DAN ad area all'impatto."
+      }
+    },
+    "skillParams": {
+      "0": "DAN da 1º colpo",
+      "1": "DAN da 2º colpo",
+      "2": "DAN da 3º colpo",
+      "3": "DAN da 4º colpo",
+      "4": "DAN da 5º colpo",
+      "5": "ATT mirato",
+      "6": "ATT mirato a piena carica",
+      "7": "DAN da ATT in picchiata",
+      "8": "DAN da ATT in picchiata basso/alto",
+      "9": "",
+      "10": "",
+      "11": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "skill": {
+    "name": "Giudizio divino della Stella polare",
+    "description": {
+      "0": "Rivela la vera natura della <tooltip ns=tooltips_gen baseKey18=11490001 values=[]><strong>Trascendenza</strong></tooltip>, infliggendo <cryo>DAN da Cryo ad area</cryo> e scatenando il suo potere in modi diversi in base alla diversa pressione dell'abilità.",
+      "1": "<br/>",
+      "2": "<strong>Pressione</strong>",
+      "3": "Ottiene la Benedizione dell'<strong>Amore</strong> e scaglia la <strong>Corona della Candida Stella</strong>, un cimelio della corte imperiale.",
+      "4": "La <strong>Corona della Candida Stella</strong> segue il personaggio attivo e infligge 2 iterazioni di <cryo>DAN da Cryo ad area</cryo> agli avversari vicini ogni 2 s.",
+      "5": "Nello stato di <tooltip ns=tooltips_gen baseKey18=11500004 values=[]><strong>Splendore: Barlume astrale</strong></tooltip>, i DAN inflitti dalla seconda iterazione di ogni attacco della <strong>Corona della Candida Stella</strong> diventano <cryo>DAN da Cryo ad area</cryo> considerati DAN da reazione di Barlume astrale corrispondente.",
+      "6": "<br/>",
+      "7": "<strong>Pressione prolungata</strong>",
+      "8": "Ottiene la Benedizione dell'<strong>Onore</strong> e dimostra la suprema abilità con le armi tramandata dalla corte imperiale.",
+      "9": "In questa modalità, gli attacchi normali di Anastasya vengono sostituiti da una sequenza di un massimo di 5 attacchi con l'<strong>Armamento benedetto: Dekhomenon</strong>, che infliggono <cryo>DAN da Cryo ad area</cryo> non influenzabili da altre infusioni elementali. In questa modalità non può eseguire attacchi caricati.",
+      "10": "Nello stato di <strong>Splendore: Barlume astrale</strong>, i DAN di ogni attacco normale dell'ultima iterazione eseguiti con l'<strong>Armamento benedetto</strong> diventano <cryo>DAN da Cryo ad area</cryo> considerati DAN da reazione di Barlume astrale corrispondente."
+    },
+    "skillParams": {
+      "0": "DAN istantanei da pressione",
+      "1": "DAN istantanei da pressione prolungata",
+      "2": "DAN da Cryo della Corona della Candida Stella",
+      "3": "DAN da Astroconduzione/Turbinio astrale Corona della Candida Stella",
+      "4": "DAN da Cryo da 1º colpo",
+      "5": "DAN da Cryo da 2º colpo",
+      "6": "DAN da Cryo da 3º colpo",
+      "7": "DAN da Cryo da 4º colpo",
+      "8": "DAN da Cryo da 5º colpo",
+      "9": "DAN da Astroconduzione/Turbinio astrale da 1º colpo",
+      "10": "DAN da Astroconduzione/Turbinio astrale da 2º colpo",
+      "11": "DAN da Astroconduzione/Turbinio astrale da 3º colpo",
+      "12": "DAN da Astroconduzione/Turbinio astrale da 4º colpo",
+      "13": "DAN da Astroconduzione/Turbinio astrale da 5º colpo",
+      "14": "Durata Corona della Candida Stella",
+      "15": "Durata Benedizione dell'onore",
+      "16": "TdR",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "burst": {
+    "name": "Verso il nuovo mondo",
+    "description": {
+      "0": "La <strong>Benedizione</strong> attuale di Anastasya determina quale <strong>Tripudio elementale</strong> può utilizzare e come esercita il potere della <strong>Sigillatura</strong>.",
+      "1": "<br/>",
+      "2": "<strong>Verso il nuovo mondo</strong>",
+      "3": "Può essere utilizzato mentre Anastasya possiede la Benedizione dell'<strong>Amore</strong>. Infligge <cryo>DAN da Cryo ad area</cryo> e <tooltip ns=tooltips_gen baseKey18=11490005 values=[]><strong>congela</strong></tooltip> la durata della Corona della Candida Stella.",
+      "4": "Durante questo periodo di tempo, tutti i membri del gruppo nelle vicinanze infliggono DAN aumentati con le reazioni di Barlume astrale, mentre la Corona della Candida Stella infligge 1 iterazione aggiuntiva di <cryo>DAN da Cryo ad area</cryo>, considerati DAN da reazione di Astroconduzione con ogni attacco. Inoltre, Anastasya si <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>sigilla</strong></tooltip> quando esce dal campo durante questo periodo di tempo. Al termine di questo stato, può utilizzare l'abilità elementale speciale di dissigillamento <tooltip ns=tooltips_gen baseKey18=11490003 values=[]><strong>Editto della Candida Stella: Trionfo</strong></tooltip>.",
+      "5": "<br/>",
+      "6": "<strong>La Notteterna cede all'alba</strong>",
+      "7": "Può essere utilizzato mentre Anastasya possiede la Benedizione dell'<strong>Onore</strong>. Scatena il potere dell'<strong>Armamento benedetto</strong>, infliggendo <cryo>DAN da Cryo ad area</cryo> considerati DAN da reazione di Astroconduzione, e <tooltip ns=tooltips_gen baseKey18=11490005 values=[]><strong>congela</strong></tooltip> la durata della Benedizione.",
+      "8": "Inoltre, Anastasya <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>sigilla</strong></tooltip> fino a 3 altri membri del gruppo. Al termine dello stato, Anastasya può utilizzare l'abilità elementale speciale di dissigillamento <tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>Editto della Candida Stella: Rovina</strong></tooltip>.",
+      "9": "<br/>",
+      "10": "Nello stato di <strong>Splendore: Barlume astrale</strong>, tutti i DAN da reazione di Astroconduzione sopracitati vengono invece inflitti come <cryo>DAN da Cryo ad area</cryo> e sono considerati DAN della reazione Barlume astrale corrispondente."
+    },
+    "skillParams": {
+      "0": "DAN istantanei di Verso il nuovo mondo",
+      "1": "Aumento DAN delle reazioni di Barlume astrale di Verso il nuovo mondo",
+      "2": "DAN da Astroconduzione/Turbinio astrale Corona della Candida Stella",
+      "3": "DAN da Astroconduzione/Turbinio astrale Trionfo",
+      "4": "DAN da Astroconduzione/Turbinio astrale La Notteterna cede all'alba",
+      "5": "DAN da Cryo da 1º colpo di Rovina",
+      "6": "DAN da Astroconduzione/Turbinio astrale da 1º colpo di Rovina",
+      "7": "DAN da Astroconduzione/Turbinio astrale da 2º colpo di Rovina",
+      "8": "DAN da Astroconduzione/Turbinio astrale da 3º colpo di Rovina",
+      "9": "Durata Verso il nuovo mondo",
+      "10": "Durata La Notteterna cede all'alba",
+      "11": "TdR",
+      "12": "Costo energia",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": ""
+    }
+  },
+  "passive1": {
+    "name": "Il radioso regno della notte",
+    "description": {
+      "0": "Tutti i membri del gruppo ottengono <strong>Riconoscimenti</strong> per 20 s dopo che Anastasya ha usato la sua abilità elementale <strong>Giudizio divino della Stella polare</strong>, che aumenta i loro DAN da CRIT di un 12%.",
+      "1": "Quando un membro del gruppo è <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Sigillato</strong></tooltip>, i suoi <strong>Riconoscimenti</strong> vengono temporaneamente distribuiti equamente tra i membri del gruppo che non sono <strong>Sigillati</strong> fino a 8 s dopo la fine dello stato Sigillato di quel personaggio."
+    }
+  },
+  "passive2": {
+    "name": "Lamento per i perduti",
+    "description": {
+      "0": "Quando Anastasya è nel gruppo, le reazioni di Barlume astrale attivate da qualsiasi membro del gruppo ottengono i seguenti effetti:",
+      "1": [
+        " <strong>Astroconduzione</strong>: il Campo astropolare ottiene potere elementale aggiuntivo ogni volta che rilascia potere elementale e riceve inoltre potere elementale ogni volta che viene creato un Prisma astropolare;",
+        " <strong>Turbinio astrale</strong>: il moltiplicatore della reazione base di Turbinio astrale aumenta di un 15%. I Vortici astrali e i Vortici erranti appena creati vengono inoltre portati immediatamente al livello 2. Questo incremento di livello può attivarsi una volta ogni 1 s."
+      ]
+    }
+  },
+  "passive3": {
+    "name": "Giubileo astrale: Ritorno immacolato",
+    "description": {
+      "0": "Anastasya entra nello stato di <strong>Splendore: Astroconduzione</strong> quando si trova all'interno di un <tooltip ns=tooltips_gen baseKey18=11330003 values=[]><strong>Campo astropolare</strong></tooltip> o nello stato di <strong>Splendore: Turbinio astrale</strong> per 8 s dopo che un membro vicino del gruppo ha innescato una reazione di Turbinio astrale.",
+      "1": "Quando un membro del gruppo innesca una reazione di Superconduzione o Turbinio di Cryo, questa diventa una reazione di Astroconduzione o di Turbinio astrale rispettivamente, e i DAN base di tale reazione aumentano di un ulteriore 0,7% per ogni 100 di ATT di Anastasya. In questo modo è possibile ottenere fino a un 14% di aumento massimo."
+    }
+  },
+  "passive": {
+    "name": "Grazia nevosa",
+    "description": {
+      "0": "I membri del gruppo recuperano gradualmente i PS quando non sono in combattimento a Snezhnaya (esclusa Nod-Krai).",
+      "1": "Inoltre, quando Anastasya è nel gruppo, l'energia dell'Occhio delle Graie non diminuisce e, se è inferiore a un 30%, si ricarica immediatamente fino a quella cifra.",
+      "2": "Non ha effetto nei domini, nei Domini della conquista o nell'Abisso a spirale."
+    }
+  },
+  "constellation1": {
+    "name": "Agli anni trascorsi, ai cuori ancora ardenti",
+    "description": {
+      "0": "Il talento d'ascensione <tooltip ns=char_Anastasya_gen baseKey18=passive1><strong>Il radioso regno della notte</strong></tooltip> viene potenziato: i <strong>Riconoscimenti</strong> aumentano anche l'ATT dei personaggi di <cryo>Cryo</cryo> di un 15% e la maestria elementale dei personaggi degli altri tipi elementali di 60.",
+      "1": "Inoltre, quando un personaggio è <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Sigillato</strong></tooltip>, i suoi <strong>Riconoscimenti</strong> vengono copiati per intero su ogni membro del gruppo non in suddetto stato, invece di essere distribuiti equamente. Quando Anastasya è <strong>Sigillata</strong>, i <strong>Riconoscimenti</strong> che conferisce agli altri personaggi forniscono bonus pari a un 300% di quelli originali."
+    }
+  },
+  "constellation2": {
+    "name": "All'Inverno, a tutti coloro che ne avvertono il morso",
+    "description": {
+      "0": "Dopo che Anastasya ha usato la sua abilità elementale, <strong>Giudizio divino della Stella polare</strong>, si applicano i seguenti effetti in base alla sua Benedizione attuale:",
+      "1": [
+        " <strong>Amore</strong>: i DAN da CRIT dei DAN delle reazioni di Barlume astrale inflitti da tutti i membri del gruppo aumentano di un 60% per 30 s;",
+        " <strong>Onore</strong>: l'Attacco normale di Anastasya, il Tripudio elementale <strong>La Notteterna cede all'alba</strong> e l'abilità elementale speciale di dissigillamento <tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>Editto della Candida Stella: Rovina</strong></tooltip> infliggono DAN pari a un 125% dei loro DAN originali per 15 s."
+      ],
+      "2": "<br/>",
+      "3": "Inoltre, i DAN delle reazioni di Barlume astrale inflitti da tutti i membri del gruppo nelle vicinanze vengono <tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>innalzati</strong></tooltip> di un 5%."
+    }
+  },
+  "constellation3": {
+    "name": "Alle notti bianche, diamo fuoco al nostro dolore",
+    "description": {
+      "0": "Aumenta di 3 il livello del Tripudio elementale <strong><tooltip ns=char_Anastasya_gen baseKey18=burst>Verso il nuovo mondo</tooltip></strong>.",
+      "1": "Il livello di potenziamento massimo è 15."
+    }
+  },
+  "constellation4": {
+    "name": "Ai tiranni, canta il coro dei ribelli",
+    "description": {
+      "0": "Potenzia i <strong><tooltip ns=char_Anastasya_gen baseKey18=passive1>Riconoscimenti</tooltip></strong>, aumentando i bonus di DAN da CRIT, ATT e maestria elementale a un 130% dei loro valori originali."
+    }
+  },
+  "constellation5": {
+    "name": "In marcia, finché non si spegne l'ultima brace della putrefazione",
+    "description": {
+      "0": "Aumenta di 3 il livello di <strong><tooltip ns=char_Anastasya_gen baseKey18=skill>Giudizio divino della Stella polare</tooltip></strong>.",
+      "1": "Il livello di potenziamento massimo è 15."
+    }
+  },
+  "constellation6": {
+    "name": "Guarda, l'alba immacolata arriverà",
+    "description": {
+      "0": "Dopo che Anastasya ha utilizzato la sua abilità elementale, <strong>Giudizio divino della Stella polare</strong>, si applicano i seguenti effetti in base alla sua Benedizione attuale:",
+      "1": [
+        " <strong>Amore</strong>: la prossima volta che un altro personaggio entra in campo, si attiva un effetto equivalente a <tooltip ns=tooltips_gen baseKey18=11490003 values=[]><strong>Editto della Candida Stella: Trionfo</strong></tooltip>, che infligge DAN pari a un 250% dei DAN originali. Inoltre, i DAN da reazione di Barlume astrale inflitti da tutti i membri del gruppo vicini vengono <tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>innalzati</strong></tooltip> di un 10%;",
+        " <strong>Onore</strong>: la prossima volta che si seleziona l'abilità elementale, si attiva un effetto equivalente al terzo attacco di <tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>Editto della Candida Stella: Rovina</strong></tooltip>, che infligge DAN pari a un 200% dei DAN originali. Se gli altri membri del gruppo non sono <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Sigillati</strong></tooltip>, per questo attacco Anastasya viene considerata in possesso dei <tooltip ns=char_Anastasya_gen baseKey18=passive1><strong>Riconoscimenti</strong></tooltip> di tutti i membri del gruppo. Inoltre, i DAN da reazione di Barlume astrale inflitti da Anastasya vengono <tooltip ns=tooltips_gen baseKey18=11190007 values=[]><strong>innalzati</strong></tooltip> di un 20%."
+      ],
+      "2": "<br/>",
+      "3": "Gli effetti sopracitati durano 30 s, possono essere attivati una volta ogni 15 s e vengono rimossi quando gli altri membri del gruppo non sono più <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Sigillati</strong></tooltip>."
+    }
+  }
+}

@@ -579,5 +579,161 @@
       "0": "La <strong>radiance « Astroconduction »</strong> et la <strong>radiance « Astrodispersion »</strong> sont toutes les deux considérées comme des <strong>radiances astrales</strong>.",
       "1": "Les personnages peuvent être affectés par un seul type de radiance à la fois, la <strong>radiance « Astroconduction »</strong> ayant la priorité."
     }
+  },
+  "11360001": {
+    "name": "Balise de gradient",
+    "description": {
+      "0": "Lorsque Mitya fait partie de l'équipe, les réactions d'Astroconduction ne créent pas de <strong>prismes de lumière stellaire</strong>, mais créent des <strong>balises de gradient</strong> d'une durée de X s. Mitya peut consommer les <strong>balises de gradient</strong> pour déclencher divers effets.",
+      "1": "Les <strong>balises de gradient</strong> suivent le personnage déployé et transforment une plus grande zone environnante en <strong>étendue polaris</strong> lors de leur création<strong></strong>. La quantité de <strong>balises de gradient</strong> que Mitya peut avoir en même temps est limitée, avec une limite de départ de X. Créer une <strong>balise de gradient</strong> réinitialise la durée de toutes les <strong>balises de gradient</strong>."
+    }
+  },
+  "11360002": {
+    "name": "Noyau de détection",
+    "description": {
+      "0": "Un dispositif énergétique créé en utilisant une compétence élémentaire : un appui simple crée un noyau <strong>stable</strong>, tandis qu'un appui long crée un noyau <strong>surchargé</strong>.",
+      "1": "<br/>",
+      "2": "<strong>Noyau de détection stable</strong>",
+      "3": [
+        " Suit de façon continue les ennemis proches et inflige par intermittence des <electro>DGT Électro de zone</electro>.",
+        " Lorsque Mitya a atteint la limite de <strong>balises de gradient</strong> qu'il peut avoir, ce dispositif consomme toute nouvelle <strong>balise de gradient</strong> créée pour infliger des <electro>DGT Électro de zone</electro> considérés comme des DGT d'Astroconduction.",
+        " À la fin de sa durée ou en créant un nouveau <strong>noyau de détection</strong>, toutes les <strong>balises de gradient</strong> sont consommées pour infliger des <electro>DGT Électro de zone</electro> considérés comme des DGT d'Astroconduction selon la quantité de balises consommées."
+      ],
+      "4": "<br/>",
+      "5": "<strong>Noyau de détection surchargé</strong>",
+      "6": [
+        " Lorsqu'un tel dispositif est présent sur le terrain alors que Mitya possède au moins 1 <strong>balise de gradient</strong>, Mitya peut utiliser l'attaque chargée spéciale <strong>Détonation de gradient</strong> qui ne consomme pas d'endurance."
+      ]
+    }
+  },
+  "11470001": {
+    "name": "test Exaltation",
+    "description": {
+      "0": "Tant que l'ancre est présente, Danica accumule de l'<strong>Excitation</strong>. L'Excitation peut être obtenue des manières suivantes :",
+      "1": [
+        " Lorsque Danica est en arrière-plan, elle obtient 50 points lorsqu'une attaque <electro>Électro</electro> ou <cryo>Cryo</cryo> du personnage actif de l'équipe touche des ennemis. Cet effet peut être déclenché une fois toutes les 0,1 s ;",
+        " Lorsque Danica est sur le terrain, elle obtient 25 points lorsque l'attaque normale de l'ancre spéciale touche des ennemis. Chaque coup de l'attaque normale ne permet d'obtenir de l'Excitation de cette manière qu'une seule fois."
+      ],
+      "2": "<br/>",
+      "3": "De plus, lorsque Danica est dans l'état <strong>Servante protectrice</strong>, elle ne peut obtenir de l'Excitation que lorsqu'une attaque <electro>Électro</electro> ou <cryo>Cryo</cryo> du personnage actif de l'équipe touche des ennemis ; lorsqu'elle est dans l'état <strong>Servante de combat</strong>, elle ne peut obtenir de l'Excitation que lorsque l'<strong>attaque normale de l'ancre spéciale</strong> touche des ennemis.",
+      "4": "<br/>",
+      "5": "Lorsque l'Excitation atteint sa limite de 100 points, Danica peut consommer toute son Excitation pour lancer la compétence élémentaire spéciale <strong>« Compétence d'entrée E2 »</strong> ou <strong>« Compétence sur le terrain E2 »</strong>, et entre dans la <strong>configuration de servante</strong> correspondante selon la méthode de lancement."
+    }
+  },
+  "11470002": {
+    "name": "test « Compétence d'entrée E2 »",
+    "description": {
+      "0": "test Danica manie sa chaîne d'ancre pour s'approcher rapidement des ennemis, puis frappe violemment le sol avec son ancre, infligeant des <electro>DGT Électro de zone</electro> considérés comme des DGT de réaction d'Astroconduction.",
+      "1": "<br/>",
+      "2": "Après l'utilisation, Danica entre dans l'état <strong>Servante protectrice</strong> et obtient les effets suivants :",
+      "3": [
+        " Réinitialise la durée de l'ancre ;",
+        " Génère un bouclier pour le personnage déployé de l'équipe qui dure jusqu'à la fin de l'état Servante protectrice. L'absorption de DGT du bouclier est en fonction de l'ATQ de Danica, et il est efficace à 250 % contre les <electro>DGT Électro</electro>."
+      ]
+    }
+  },
+  "11470003": {
+    "name": "test « Compétence sur le terrain E2 »",
+    "description": {
+      "0": "test balance la chaîne de l'ancre pour s'approcher rapidement des ennemis, puis frappe violemment le sol avec l'ancre, infligeant d'importants <electro>DGT Électro de zone</electro> étant considérés comme des dégâts de réaction d'Astroconduction.",
+      "1": "<br/>",
+      "2": "Après utilisation, Danica entre dans l'état <strong>Servante de combat</strong> et obtient l'effet suivant : après chaque utilisation de la « Compétence sur le terrain E2 », la prochaine <strong>Attaque normale spéciale d'ancre</strong> sautera un coup d'Attaque normale, pouvant sauter jusqu'au dernier coup de l'Attaque normale.",
+      "3": "<br/>",
+      "4": "Après avoir utilisé 5 fois <strong>« Compétence sur le terrain E2 »</strong>, elle quitte l'état <strong>Servante de combat</strong> et détruit l'ancre."
+    }
+  },
+  "11470004": {
+    "name": "test Servante protectrice",
+    "description": {
+      "0": "test État dans lequel entre Danica après avoir lancé la compétence élémentaire spéciale <strong>« Compétence d'entrée E2 »</strong>. Dans cet état, elle confère un bouclier au personnage déployé et réinitialise la durée de l'<strong>ancre</strong>."
+    }
+  },
+  "11470005": {
+    "name": "test Servante de combat",
+    "description": {
+      "0": "test État dans lequel Danica entre après avoir lancé la compétence élémentaire spéciale <strong>« Compétence sur le terrain E2 »</strong>. Dans cet état, à chaque fois qu'elle lance la « Compétence sur le terrain E2 », l'Attaque normale spéciale de l'ancre saute une séquence d'Attaque normale, pouvant sauter jusqu'aux trois premières séquences d'Attaque normale au maximum."
+    }
+  },
+  "11490001": {
+    "name": "Transcendance et Bénédictions",
+    "description": {
+      "0": "Lorsqu'Anastasya utilise sa compétence élémentaire <strong>Jugement divin de l'étoile polaire</strong>, elle libère son pouvoir de différentes manières et obtient une Bénédiction différente selon que la compétence est utilisée en appui simple ou en appui long.",
+      "1": [
+        "<strong>Appui simple</strong> : obtient la Bénédiction de l'<strong>Amour</strong> ;",
+        "<strong>Appui long</strong> : obtient la Bénédiction de l'<strong>Honneur</strong>."
+      ],
+      "2": "<br/>",
+      "3": "Chaque Bénédiction permet à Anastasya d'utiliser un déchaînement élémentaire différent et de manier le pouvoir du <strong>Scellement</strong> différemment.",
+      "4": "Anastasya possède toujours la Bénédiction de l'<strong>Amour</strong> lorsqu'elle ne détient pas la Bénédiction de l'<strong>Honneur</strong>."
+    }
+  },
+  "11490002": {
+    "name": "Scellé",
+    "description": {
+      "0": "Un état spécial appliqué aux personnages lorsqu'Anastasya utilise son déchaînement élémentaire. Les personnages à l'état Enchaîné ne peuvent pas être remplacés sur le terrain.",
+      "1": "La durée initiale de l'Enchaînement correspond à la durée du déchaînement élémentaire correspondant. Sa durée restante peut être réduite par des moyens spécifiques.",
+      "2": "<br/>",
+      "3": "La <strong>Bénédiction</strong> d'Anastasya détermine quel déchaînement élémentaire elle utilise et comment elle manie le pouvoir de l'Enchaînement :",
+      "4": [
+        "<strong>Amour</strong> : Anastasya s'Enchaîne elle-même lorsqu'elle quitte le terrain. Les dégâts de réaction Éclat Stellaire infligés par tout membre de l'équipe à proximité peuvent réduire la durée restante de son état Enchaîné. Pendant un temps limité après la fin de son état Enchaîné, remplacer Anastasya sur le terrain déclenche la compétence élémentaire de désenchaînement spéciale <strong>Édit de Pâleétoile : Triomphe</strong> ;",
+        "<strong>Honneur</strong> : Anastasya Enchaîne jusqu'à 3 autres membres de l'équipe. Anastasya peut réduire la durée restante de l'Enchaînement en utilisant des Attaques normales. Pendant un temps limité après la fin de l'état Enchaîné d'un personnage, le sélectionner pour la première fois déclenche la compétence élémentaire de désenchaînement spéciale <strong>Édit de Pâleétoile : Doom</strong> au lieu de le remplacer sur le terrain."
+      ]
+    }
+  },
+  "11490003": {
+    "name": "Édit Astraile : Triomphe",
+    "description": {
+      "0": "Une compétence élémentaire spéciale déclenchée en faisant entrer Anastasya en jeu après la fin de son propre état Scellé. Inflige des <cryo>DGT Cryo de zone d'effet</cryo> aux adversaires proches. Ces DGT sont considérés comme des DGT de réaction Astroconduction.",
+      "1": "<strong>Rayonnance : Lueur stellaire</strong> : Les DGT susmentionnés sont infligés à la place sous forme de <cryo>DGT Cryo de zone d'effet</cryo> considérés comme des DGT provenant de la réaction Lueur stellaire correspondante."
+    }
+  },
+  "11490004": {
+    "name": "Édit de l'Astre Pâle : Condamnation",
+    "description": {
+      "0": "Pendant un court laps de temps après la fin de l'état Scellé d'un autre membre de l'équipe, sélectionner ce personnage pour la première fois déclenche cette compétence élémentaire spéciale au lieu de le remplacer.",
+      "1": "<strong>Édit céleste de la Pâle-Étoile : Extinction</strong> comporte 3 phases, exécutées en séquence en sélectionnant les personnages correspondants pour la première fois ou en appuyant sur la compétence élémentaire.",
+      "2": [
+        "Phase 1 : Effectue une série de tailles avec l'<strong>Armement béni : Dekhomenon</strong>, infligeant plusieurs instances de <cryo>DGT Cryo de zone d'effet</cryo> qui ne peuvent pas être supplantées par d'autres Infusions élémentaires et sont considérées comme des DGT de compétence élémentaire, suivies d'une dernière instance de <cryo>DGT Cryo de zone d'effet</cryo> considérée comme des DGT de réaction d'Astroconduction ;",
+        "Phase 2 : Bondit en avant et effectue une taille, infligeant des <cryo>DGT Cryo de zone d'effet</cryo> considérés comme des DGT de réaction d'Astroconduction ;",
+        "Phase 3 : Tire l'<strong>Armement béni</strong> comme une flèche, infligeant de plus grands <cryo>DGT Cryo de zone d'effet</cryo> considérés comme des DGT de réaction d'Astroconduction et mettant fin à l'effet de <strong>La nuit éternelle cède à L'aube</strong>."
+      ],
+      "3": "<br/>",
+      "4": "<strong>Radiance : Lueur stellaire</strong> : Les DGT de réaction d'Astroconduction décrits ci-dessus sont infligés à la place sous forme de <cryo>DGT Cryo de zone d'effet</cryo> considérés comme des DGT de la réaction de Lueur stellaire correspondante."
+    }
+  },
+  "11490005": {
+    "name": "Gel",
+    "description": {
+      "0": "Une mécanique spéciale. Met en pause la durée d'un effet, l'empêchant de se décompter jusqu'à la fin de l'effet qui a déclenché le gel."
+    }
+  },
+  "11370001": {
+    "name": "Mortier à tir direct : Bombardement à bout portant",
+    "description": {
+      "0": "L'attaque chargée spéciale de Valeriy. Utiliser une attaque chargée lorsque Valeriy a au moins 40 pts d'<strong>élan d'impact</strong> consomme tout l'<strong>élan d'impact</strong> pour déclencher cette attaque chargée spéciale à la place, infligeant des <electro>DGT Électro de zone</electro> vers l'avant et lui accordant 15 cumuls d'<strong>ordre d'assaut</strong>.",
+      "1": "Utiliser à nouveau cette attaque chargée spéciale actualise la quantité d'<strong>ordre d'assaut</strong>.",
+      "2": "Pendant 0,8 s après avoir utilisé la compétence élémentaire <strong>Défense active : Charge de bastion</strong> ou le déchaînement élémentaire <strong>Tir concentré : Salve éclair</strong>, la prochaine attaque normale de Valeriy est convertie en attaque chargée spéciale <strong>Mortier à tir direct : Bombardement à bout portant</strong> s'il possède au moins 40 pts d'<strong>élan d'impact</strong>."
+    }
+  },
+  "11370002": {
+    "name": "Ordre d'assaut",
+    "description": {
+      "0": "Valeriy obtient cet effet spécial après avoir utilisé son attaque chargée spéciale <strong>Mortier à tir direct : Bombardement à bout portant</strong>, l'effet augmentant différents types de <electro>DGT Électro</electro> selon la <strong>radiance « Astroconduction »</strong> de Valeriy.",
+      "1": [
+        " Si Valeriy est en <strong>radiance « Astroconduction »</strong> : lorsqu'un personnage déployé de l'équipe à proximité inflige des <electro>DGT Électro</electro> considérés comme des DGT d'Astroconduction à un ennemi avec une attaque normale, chargée, plongeante, une compétence élémentaire ou un déchaînement élémentaire, 1 cumul d'<strong>ordre d'assaut</strong> est consommé pour augmenter les DGT infligés selon l'ATQ de Valeriy.",
+        " Si Valeriy n'est pas en <strong>radiance « Astroconduction »</strong> : lorsqu'un personnage déployé de l'équipe à proximité inflige des <electro>DGT Électro</electro> à un ennemi avec une attaque normale, chargée, plongeante, une compétence élémentaire ou un déchaînement élémentaire, 1 cumul d'<strong>ordre d'assaut</strong> est consommé pour augmenter les DGT infligés selon l'ATQ de Valeriy."
+      ],
+      "2": "Lorsqu'une instance de <electro>DGT Électro</electro> touche plusieurs ennemis en même temps, les cumuls d'<strong>ordre d'assaut</strong> sont consommés selon la quantité d'ennemis touchés."
+    }
+  },
+  "11370003": {
+    "name": "Élan d'impact",
+    "description": {
+      "0": "Une énergie spéciale que Valeriy utilise pour améliorer ses capacités de combat, dont la limite initiale est de 100. Lorsqu'il possède au moins 40 pts d'<strong>élan d'impact</strong>, il peut utiliser l'attaque chargée spéciale <strong>Mortier à tir direct : Bombardement à bout portant</strong>.",
+      "1": "Valeriy peut obtenir de l'<strong>élan d'impact</strong> de différentes manières :",
+      "2": [
+        " En utilisant sa compétence élémentaire <strong>Défense active : Charge de bastion</strong>.",
+        " Lorsqu'une attaque <electro>Électro</electro> d'un personnage déployé de l'équipe à proximité touche un ennemi pendant la durée du déchaînement élémentaire <strong>Tir concentré : Salve éclair</strong> après avoir débloqué l'aptitude d'élévation « Avancer avec le barrage rampant »."
+      ]
+    }
   }
 }

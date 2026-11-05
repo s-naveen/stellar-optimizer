@@ -5,6 +5,7 @@ import Alhaitham from './Character_Alhaitham_Card.jpg'
 import Aloy from './Character_Aloy_Card.png'
 import Alyosha from './Character_Alyosha_Card.webp'
 import Amber from './Character_Amber_Card.jpg'
+import Anastasya from './Character_Anastasya_Card.webp'
 import AratakiItto from './Character_Arataki_Itto_Card.jpg'
 import Arlecchino from './Character_Arlecchino_Card.jpg'
 import Baizhu from './Character_Baizhu_Card.jpg'
@@ -24,6 +25,7 @@ import Collei from './Character_Collei_Card.jpg'
 import Columbina from './Character_Columbina_Card.webp'
 import Cyno from './Character_Cyno_Card.jpg'
 import Dahlia from './Character_Dahlia_Card.jpg'
+import Danica from './Character_Danica_Card.webp'
 import Dehya from './Character_Dehya_Card.jpg'
 import Diluc from './Character_Diluc_Card.jpg'
 import Diona from './Character_Diona_Card.png'
@@ -69,6 +71,7 @@ import Lynette from './Character_Lynette_Card.jpg'
 import Lyney from './Character_Lyney_Card.jpg'
 import Mavuika from './Character_Mavuika_Card.jpg'
 import Mika from './Character_Mika_Card.jpg'
+import Mitya from './Character_Mitya_Card.webp'
 import Mona from './Character_Mona_Card.jpg'
 import Mualani from './Character_Mualani_Card.jpg'
 import Nahida from './Character_Nahida_Card.jpeg'
@@ -99,6 +102,7 @@ import Sucrose from './Character_Sucrose_Card.jpg'
 import Tartaglia from './Character_Tartaglia_Card.png'
 import Thoma from './Character_Thoma_Card.jpg'
 import Tighnari from './Character_Tighnari_Card.jpg'
+import Valeriy from './Character_Valeriy_Card.webp'
 import Varesa from './Character_Varesa_Card.jpg'
 import Venti from './Character_Venti_Card.jpg'
 import Vesna from './Character_Vesna_Card.webp'
@@ -130,6 +134,7 @@ const charCards = {
   Aloy,
   Alyosha,
   Amber,
+  Anastasya,
   AratakiItto,
   Arlecchino,
   Baizhu,
@@ -148,6 +153,7 @@ const charCards = {
   Columbina,
   Cyno,
   Dahlia,
+  Danica,
   Dehya,
   Diluc,
   Diona,
@@ -193,6 +199,7 @@ const charCards = {
   Lynette,
   Mavuika,
   Mika,
+  Mitya,
   Mona,
   Mualani,
   Nahida,
@@ -225,6 +232,7 @@ const charCards = {
   Tighnari,
   TravelerF,
   TravelerM,
+  Valeriy,
   Varesa,
   Varka,
   Venti,

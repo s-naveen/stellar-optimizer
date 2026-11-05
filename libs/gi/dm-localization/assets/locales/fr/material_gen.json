@@ -24259,5 +24259,41 @@
   },
   "WhereFishSwimAndWatersSing": {
     "name": "« Là où les poissons nagent et où les eaux chantent »"
+  },
+  "Mitya": {
+    "name": "Mitya"
+  },
+  "MityasStellaFortuna": {
+    "name": "Stella Fortuna de Mitya"
+  },
+  "Kristallfold": {
+    "name": "Pli-de-cristal"
+  },
+  "ShatteredStabilityAnchor": {
+    "name": "Ancre de stabilité brisée"
+  },
+  "Danica": {
+    "name": "Danica"
+  },
+  "Anastasya": {
+    "name": "Anastasya"
+  },
+  "DanicasStellaFortuna": {
+    "name": "Stella Fortuna de Danica"
+  },
+  "AnastasyasStellaFortuna": {
+    "name": "Stella Fortuna d'Anastasya"
+  },
+  "FairyWormwood": {
+    "name": "Armoise nivéole"
+  },
+  "DamagedFlint": {
+    "name": ""
+  },
+  "Valeriy": {
+    "name": "Valeriy"
+  },
+  "ValeriysStellaFortuna": {
+    "name": "Stella Fortuna de Valeriy"
   }
 }

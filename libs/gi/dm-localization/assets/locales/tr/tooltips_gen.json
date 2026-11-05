@@ -579,5 +579,161 @@
       "0": "<strong>Işıltı: Yıldız İletimi</strong> ve <strong>Işıltı: Yıldız Girdabı</strong>, <strong>Işıltı: Yıldız Parıltısı</strong> durumu sayılır.",
       "1": "Karakterler aynı anda yalnızca bir Işıltı durumunda olabilir. Birden fazla durumun tetiklenebileceği durumlarda önce <strong>Işıltı: Yıldız İletimi</strong> uygulanır."
     }
+  },
+  "11360001": {
+    "name": "Kademeli İşaretler",
+    "description": {
+      "0": "Mitya gruptayken bir Yıldız İletimi tepkimesi tetiklendiğinde, <strong>Yıldız Işığı Prizması</strong> yerine X saniye süren bir <strong>Kademeli İşaret</strong> oluşturur. Mitya <strong>Kademeli İşaretler</strong> tüketerek çeşitli etkiler tetikleyebilir.",
+      "1": "<strong>Kademeli İşaretler</strong> aktif karakteri takip eder ve bir <strong>Kademeli İşaret</strong> oluşturulduğunda yakındaki daha büyük bir alanı <strong>Kutup Yıldızı Alanına</strong> dönüştürür. Mitya, başlangıçta en fazla X adet olmak üzere aynı anda birden fazla <strong>Kademeli İşaret</strong> bulundurabilir. Bir <strong>Kademeli İşaret</strong> oluşturmak, tüm <strong>Kademeli İşaretlerin</strong> süresini sıfırlar."
+    }
+  },
+  "11360002": {
+    "name": "Tespit Çekirdeği",
+    "description": {
+      "0": "Element Becerisi kullanıldıktan sonra Mitya'nın oluşturduğu bir enerji cihazı. Dokunulduğunda <strong>Kararlı</strong> durumunda bir Tespit Çekirdeği, basılı tutulduğunda ise <strong>Aşırı Yüklü</strong> durumunda bir Tespit Çekirdeği oluşturur.",
+      "1": "<br/>",
+      "2": "<strong>Tespit Çekirdeği: Kararlı</strong>",
+      "3": [
+        "Yakındaki düşmanları sürekli takip eder ve aralıklı olarak <electro>Elektrik Alan Hasarı</electro> verir.",
+        "Mitya sahip olabileceği maksimum <strong>Kademeli İşaret</strong> sayısına ulaştığında cihaz, yeni oluşturulan tüm <strong>Kademeli İşaretleri</strong> tüketir ve Yıldız İletimi Tepkimesi Hasarı sayılan <electro>Elektrik Alan Hasarı</electro> verir.",
+        "Süresi bittiğinde veya başka bir <strong>Tespit Çekirdeği</strong> oluşturulduğunda cihaz, Mitya'nın sahip olduğu tüm <strong>Kademeli İşaretleri</strong> tüketir ve tüketilen miktara bağlı olarak Yıldız İletimi Tepkimesi Hasarı sayılan <electro>Elektrik Alan Hasarı</electro> verir."
+      ],
+      "4": "<br/>",
+      "5": "<strong>Tespit Çekirdeği: Aşırı Yüklü</strong>",
+      "6": [
+        "Bu cihaz alandayken Mitya en az 1 <strong>Kademeli İşarete</strong> sahip olduğunda, Dayanıklılık tüketmeden <strong>Kademeli Patlama</strong> özel Yüklü Saldırısını gerçekleştirebilir."
+      ]
+    }
+  },
+  "11470001": {
+    "name": "test Heyecanlı",
+    "description": {
+      "0": "testDayanak mevcutken Danica <strong>Heyecan</strong> biriktirir. Heyecan şu yollarla kazanılabilir:",
+      "1": [
+        "Danica alan dışındayken, takımdaki Aktif Karakter düşmanlara <electro>Elektrik</electro> veya <cryo>Buz</cryo> saldırılarıyla isabet sağladığında 50 puan kazanılır, bu en fazla her 0,1 saniyede bir tetiklenir;",
+        "Danica alandayken, Özel Dayanak'ın Normal Saldırıları düşmanlara isabet ettiğinde 25 puan kazanılır, bu şekilde kazanılan Heyecan her Normal Saldırı isabeti başına en fazla bir kez elde edilebilir."
+      ],
+      "2": "<br/>",
+      "3": "Ayrıca Danica <strong>Savunma Hizmetçisi</strong> durumundayken, yalnızca takımdaki Aktif Karakter düşmanlara <electro>Elektrik</electro> veya <cryo>Buz</cryo> saldırılarıyla isabet sağladığında Heyecan kazanabilir; <strong>Savaş Hizmetçisi</strong> durumundayken ise Danica yalnızca <strong>Özel Dayanak Normal Saldırıları</strong> ile isabet sağlayarak Heyecan kazanabilir.",
+      "4": "<br/>",
+      "5": "Heyecan maksimum 100 puana ulaştığında Danica tüm Heyecanı tüketerek özel Element Becerisi <strong>\"Giriş Becerisi E2\"</strong> veya <strong>\"Alandaki Beceri E2\"</strong>'yi açığa çıkarabilir ve nasıl kullanıldığına bağlı olarak ilgili <strong>Hizmetçi Formu</strong>'na girebilir."
+    }
+  },
+  "11470002": {
+    "name": "test\"Giriş Becerisi E2\"",
+    "description": {
+      "0": "testDanica, düşmanlara hızla yaklaşmak için dayanak zincirini savurur, ardından dayanağı yere çarparak bir Etki Alanında, Yıldız İletimi tepkime Hasarı olarak kabul edilen <electro>Elektrik Hasarı</electro> verir.",
+      "1": "<br/>",
+      "2": "Bu yeteneği kullandıktan sonra Danica, <strong>Koruyucu Hizmetçi</strong> durumuna girer ve şu etkileri kazanır:",
+      "3": [
+        "Dayanağın Süresini yeniler;",
+        "Gruptaki mevcut Aktif Karakter için bir Kalkan oluşturur. Kalkan, Koruyucu Hizmetçi durumu sona erene kadar devam eder, Hasar Emilimi Danica'nın Saldırısı ile orantılıdır ve <electro>Elektrik Hasarı</electro>na karşı %250 etkilidir."
+      ]
+    }
+  },
+  "11470003": {
+    "name": "test\"Sahadaki Beceri E2\"",
+    "description": {
+      "0": "testDüşmanlara hızla yaklaşmak için dayanak zincirini sallar, ardından gemi dayanağını yere çarparak Yıldız İletimi tepkime Hasarı sayılan büyük miktarda <electro>Elektrik Alan Hasarı</electro> verir.",
+      "1": "<br/>",
+      "2": "Bu beceriyi kullandıktan sonra Danica <strong>Savaş Hizmetçisi</strong> durumuna girer ve aşağıdaki etkileri kazanır: \"Sahadaki Beceri E2\" her kullanıldığında, sonraki turun <strong>Özel Dayanak Normal Saldırısı</strong> bir Normal Saldırı aşamasını atlar, en fazla son Normal Saldırı aşamasına kadar atlanabilir.",
+      "3": "<br/>",
+      "4": "<strong>\"Sahadaki Beceri E2\"</strong> 5 kez kullanıldıktan sonra Danica, <strong>Savaş Hizmetçisi</strong> durumundan çıkar ve gemi dayanağını yok eder."
+    }
+  },
+  "11470004": {
+    "name": "testSavunma Hizmetçisi",
+    "description": {
+      "0": "testDanica'nın özel Element Becerisi <strong>\"Giriş Becerisi E2\"</strong>'yi kullandıktan sonra girdiği durumdur. Bu durumdayken sahadaki aktif Karaktere bir Kalkan sağlar ve <strong>Gemi Dayanağı</strong> Süresini yeniler."
+    }
+  },
+  "11470005": {
+    "name": "test Savaş Hizmetçisi",
+    "description": {
+      "0": "testDanica'nın özel Element Becerisi <strong>\"Saha İçi Beceri E2\"</strong>'yi kullandıktan sonra girdiği durum. Bu durumdayken \"Saha İçi Beceri E2\" her kullanıldığında, Özel Dayanak'ın Normal Saldırısı bir Normal Saldırı aşamasının üzerinden Sıçrar ve ilk üç Normal Saldırı aşamasına kadar atlar."
+    }
+  },
+  "11490001": {
+    "name": "Aşkınlık ve Kutsanmalar",
+    "description": {
+      "0": "Anastasya, <strong>Kutup Yıldızının İlahi Yargısı</strong> Element Becerisini kullandığında gücünü farklı şekillerde açığa çıkarır ve beceriye dokunulmasına veya basılı tutulmasına göre farklı bir Kutsanma kazanır.",
+      "1": [
+        "<strong>Dokunduğunda</strong>: <strong>Sevgi</strong> Kutsanması kazanır;",
+        "<strong>Basılı Tuttuğunda</strong>: <strong>Onur</strong> Kutsanması kazanır."
+      ],
+      "2": "<br/>",
+      "3": "Her bir Kutsanma, Anastasya'nın farklı bir Element Patlaması kullanmasını ve <strong>Mühürleme</strong> gücünü farklı bir şekilde yönlendirmesini sağlar.",
+      "4": "Anastasya, <strong>Onur</strong> Kutsanmasına sahip olmadığında daima <strong>Sevgi</strong> Kutsanmasına sahiptir."
+    }
+  },
+  "11490002": {
+    "name": "Mühürleme",
+    "description": {
+      "0": "Anastasya Element Patlaması kullandığında karakterlere uygulanan özel bir durumdur. Mühürlü durumdaki karakterlere geçiş yapılamaz.",
+      "1": "Başlangıçtaki Mühürleme süresi, ilgili Element Patlamasının süresine eşittir. Kalan süre belirli yöntemlerle kısaltılabilir.",
+      "2": "<br/>",
+      "3": "Anastasya'nın <strong>Kutsanması</strong>, hangi Element Patlamasını kullanacağını ve Mühürleme gücünü nasıl yöneteceğini belirler:",
+      "4": [
+        "<strong>Sevgi</strong>: Anastasya saha dışına geçtiğinde kendini mühürler. Yakındaki herhangi bir grup üyesinin verdiği Yıldız Parıltısı Tepkimesi Hasarı, bu Mühürlü durumun kalan süresini kısaltabilir. Mühürlü durumu bittikten sonra kısa bir süreliğine Anastasya'ya geçiş yapmak, özel mühür açma Element Becerisi <strong>Soluk Yıldız Fermanı: Zafer'i</strong> tetikler;",
+        "<strong>Onur</strong>: Anastasya en fazla 3 üye olmak üzere diğer grup üyelerini mühürler. Anastasya Normal Saldırı yaparak Mühürlemenin kalan süresini kısaltabilir. Bir karakterin Mühürlü durumu bittikten sonra kısa bir süreliğine o karakteri ilk kez seçmek, karaktere geçiş yapmak yerine özel mühür açma Element Becerisi <strong>Soluk Yıldız Fermanı: Kıyamet'i</strong> tetikler."
+      ]
+    }
+  },
+  "11490003": {
+    "name": "Soluk Yıldız Fermanı: Zafer",
+    "description": {
+      "0": "Kendi Mühürlü durumu bittikten sonra Anastasya'ya geçiş yapıldığında tetiklenen bir özel Element Becerisi. Yakındaki düşmanlara <cryo>Buz Alan Hasarı</cryo> verir. Bu Hasar, Yıldız İletimi tepkimesi Hasarı sayılır.",
+      "1": "<strong>Işıltı: Yıldız Parıltısı</strong>: Söz konusu Hasar, ilgili Yıldız Parıltısı tepkimesi Hasarı sayılan <cryo>Buz Alan Hasarı</cryo> olarak verilir."
+    }
+  },
+  "11490004": {
+    "name": "Soluk Yıldız Fermanı: Kıyamet",
+    "description": {
+      "0": "Başka bir grup üyesinin Mühürlü durumu bittikten sonraki kısa bir süre boyunca, o karakteri ilk kez seçmek, karaktere geçiş yapmak yerine bu özel Element Becerisini tetikler.",
+      "1": "<strong>Soluk Yıldız Fermanı: Kıyamet</strong> 3 aşamadan oluşur; bu aşamalar ilgili karakterleri ilk kez seçerek veya Element Becerisine basarak sırayla gerçekleştirilir.",
+      "2": [
+        "1. Aşama: <strong>Kutsanmış Silah: Dekhomenon</strong> ile art arda kesici darbeler savurarak diğer Element Tesirleriyle değiştirilemeyen ve Element Becerisi Hasarı sayılan çok sayıda <cryo>Buz Alan Hasarı</cryo> verir, ardından Yıldız İletimi tepkimesi Hasarı sayılan son bir <cryo>Buz Alan Hasarı</cryo> daha verir.",
+        "2. Aşama: İleri atılarak bir kesici darbe yapar ve Yıldız İletimi tepkimesi Hasarı sayılan <cryo>Buz Alan Hasarı</cryo> verir.",
+        "3. Aşama: <strong>Kutsanmış Silahı</strong> bir ok gibi fırlatarak Yıldız İletimi tepkimesi Hasarı sayılan daha büyük bir <cryo>Buz Alan Hasarı</cryo> verir ve <strong>Ebedi Gece Yerini Şafağa Bırakır</strong> etkisini sonlandırır."
+      ],
+      "3": "<br/>",
+      "4": "<strong>Işıltı: Yıldız Parıltısı</strong>: Yukarıda belirtilen Yıldız İletimi tepkimesi Hasarı, ilgili Yıldız Parıltısı tepkimesinden gelen Hasar sayılan <cryo>Buz Alan Hasarı</cryo> olarak verilir."
+    }
+  },
+  "11490005": {
+    "name": "Dondurma",
+    "description": {
+      "0": "Özel bir mekanik. Bir etkinin süresini duraklatır ve dondurma durumunu tetikleyen etki bitene kadar sürenin azalmasını engeller."
+    }
+  },
+  "11370001": {
+    "name": "Doğrudan Atışlı Havan Topu: Hassas Bombardıman",
+    "description": {
+      "0": "Valeriy'nin özel Yüklü Saldırısı. En az 40 <strong>Darbe İvmesi</strong> varken Yüklü Saldırı kullanmak, tüm <strong>Darbe İvmesini</strong> tüketerek bunun yerine bu özel Yüklü Saldırıyı gerçekleştirir. Önündeki alana <electro>Elektrik Alan Hasarı</electro> verir ve 15 kademe <strong>Taarruz Emri</strong> kazandırır.",
+      "1": "Bu özel Yüklü Saldırı tekrar kullanıldığında <strong>Taarruz Emri</strong> kademe sayısı yenilenir.",
+      "2": "<strong>Aktif Savunma: Hisar Hücumu</strong> Element Becerisi veya <strong>Odaklı Ateş: Yıldırım Yaylımı</strong> Element Patlaması kullanıldıktan sonraki 0,8sn içinde Valeriy'nin en az 40 <strong>Darbe İvmesi</strong> varsa, kullanacağı bir sonraki Normal Saldırı <strong>Doğrudan Atışlı Havan Topu: Hassas Bombardıman</strong> özel Yüklü Saldırısına dönüşür."
+    }
+  },
+  "11370002": {
+    "name": "Taarruz Emri",
+    "description": {
+      "0": "Valeriy'nin <strong>Doğrudan Atışlı Havan Topu: Hassas Bombardıman</strong> özel Yüklü Saldırısını gerçekleştirdikten sonra kazandığı özel bir etki. Valeriy'nin <strong>Işıltı: Yıldız İletimi</strong> durumunda olup olmamasına bağlı olarak farklı türlerdeki <electro>Elektrik Hasarını</electro> artırır. Eğer Valeriy:",
+      "1": [
+        "<strong>Işıltı: Yıldız İletimi</strong> durumundaysa yakındaki aktif bir grup üyesi, bir düşmana Normal Saldırı, Yüklü Saldırı, Havadan Saldırı, Element Becerisi veya Element Patlaması ile Yıldız İletimi Tepkimesi Hasarı olarak kabul edilen <electro>Elektrik Hasarı</electro> verdiğinde 1 kademe <strong>Taarruz Emri</strong> tüketilir ve verilen Hasar Valeriy'nin Saldırısına göre artar.",
+        "<strong>Işıltı: Yıldız İletimi</strong> durumunda değilse yakındaki aktif bir grup üyesi, bir düşmana Normal Saldırı, Yüklü Saldırı, Havadan Saldırı, Element Becerisi veya Element Patlaması ile <electro>Elektrik Hasarı</electro> verdiğinde 1 kademe <strong>Taarruz Emri</strong> tüketilir ve verilen Hasar Valeriy'nin Saldırısına göre artar."
+      ],
+      "2": "Tek seferde verilen <electro>Elektrik Hasarı</electro> aynı anda birden fazla düşmana isabet ettiğinde, <strong>Taarruz Emri</strong> kademeleri isabet alan düşman sayısına göre tüketilir."
+    }
+  },
+  "11370003": {
+    "name": "Darbe İvmesi",
+    "description": {
+      "0": "Valeriy'nin savaş kabiliyetlerini geliştirmek için kullandığı özel bir enerji. Başlangıçtaki maksimum değeri 100'dür. En az 40 <strong>Darbe İvmesi</strong> biriktiğinde, <strong>Doğrudan Atışlı Havan Topu: Hassas Bombardıman</strong> özel Yüklü Saldırısını gerçekleştirebilir.",
+      "1": "Valeriy aşağıdaki yollarla <strong>Darbe İvmesi</strong> kazanabilir:",
+      "2": [
+        "<strong>Aktif Savunma: Hisar Hücumu</strong> Element Becerisini kullanarak.",
+        "\"Genişleyen Yaylım Ateşiyle İlerleme\" Yükseltme Yeteneğini açtıktan sonra, <strong>Odaklı Ateş: Yıldırım Yaylımı</strong> Element Patlaması etkinken, yakında bulunan bir grup üyesi bir düşmana Element Türü <electro>Elektrik</electro> olan bir saldırı ile vurduğunda."
+      ]
+    }
   }
 }

@@ -219,6 +219,11 @@ export const reactionConditionals: DocumentConditional[] = [
           node: polestarStacks_stellarconduct_mult_disp,
         },
         {
+          // Anastasya A4 (only source of stellarswirl_mult_) -> Polestar Field gains 2 stacks per release
+          canShow: (data) => data.get(input.total.stellarswirl_mult_).value > 0,
+          text: st('elementalReaction.polestar.anastasyaA4'),
+        },
+        {
           text: stg('duration'),
           value: 4,
           unit: 's',
