@@ -1,4 +1,14 @@
 {
   "showingNum_one": "Showing <1>{{count}}</1> out of {{value}} Team",
-  "showingNum_other": "Showing <1>{{count}}</1> out of {{value}} Teams"
+  "showingNum_other": "Showing <1>{{count}}</1> out of {{value}} Teams",
+  "empty": {
+    "title": "No teams yet",
+    "description": "A team holds up to four characters, so their buffs, resonance and reactions show up in every damage number. Create one, or import a team someone shared with you.",
+    "create": "Create a team",
+    "import": "Import a team"
+  },
+  "header": {
+    "create": "Create team",
+    "import": "Import team"
+  }
 }

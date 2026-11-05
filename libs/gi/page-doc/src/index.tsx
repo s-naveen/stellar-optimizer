@@ -1,4 +1,9 @@
-import { CardThemed, CodeBlock, SqBadge } from '@genshin-optimizer/common/ui'
+import {
+  CardThemed,
+  CodeBlock,
+  PageHeader,
+  SqBadge,
+} from '@genshin-optimizer/common/ui'
 import {
   allArtifactSetKeys,
   allLocationCharacterKeys,
@@ -21,121 +26,121 @@ import {
   Typography,
 } from '@mui/material'
 import { Suspense } from 'react'
-import ReactGA from 'react-ga4'
 import { useTranslation } from 'react-i18next'
 import { Link, Route, Routes, useMatch } from 'react-router-dom'
 
 export default function PageDocumentation() {
   // const { t } = useTranslation("documentation")
-  ReactGA.send({ hitType: 'pageview', page: '/doc' })
 
   const {
     params: { currentTab },
   } = useMatch('/doc/:currentTab') ?? { params: { currentTab: '' } }
 
   return (
-    <CardThemed>
-      <Grid container sx={{ px: 2, py: 1 }}>
-        <Grid item flexGrow={1}>
-          <Typography variant="h6">Documentation</Typography>
-        </Grid>
-        <Grid item>
-          <Typography variant="h6">
-            <SqBadge color="info">Version 3</SqBadge>
-          </Typography>
-        </Grid>
-      </Grid>
-      <Divider />
-      <CardContent>
-        <Grid container spacing={1}>
-          <Grid item xs={12} md={2}>
-            <CardThemed bgt="light" sx={{ height: '100%' }}>
-              <Tabs
-                orientation="vertical"
-                value={currentTab}
-                aria-label="Documentation Navigation"
-                sx={{ borderRight: 1, borderColor: 'divider' }}
-              >
-                <Tab label="Overview" value="" component={Link} to="" />
-                <Tab
-                  label={'Key naming convention'}
-                  value="KeyNaming"
-                  component={Link}
-                  to="KeyNaming"
-                />
-                <Tab
-                  label={<code>StatKey</code>}
-                  value="StatKey"
-                  component={Link}
-                  to="StatKey"
-                />
-                <Tab
-                  label={<code>ArtifactSetKey</code>}
-                  value="ArtifactSetKey"
-                  component={Link}
-                  to="ArtifactSetKey"
-                />
-                <Tab
-                  label={<code>CharacterKey</code>}
-                  value="CharacterKey"
-                  component={Link}
-                  to="CharacterKey"
-                />
-                <Tab
-                  label={<code>WeaponKey</code>}
-                  value="WeaponKey"
-                  component={Link}
-                  to="WeaponKey"
-                />
-                <Tab
-                  label={<code>MaterialKey</code>}
-                  value="MaterialKey"
-                  component={Link}
-                  to="MaterialKey"
-                />
-                <Tab
-                  label={'Version History'}
-                  value="VersionHistory"
-                  component={Link}
-                  to="VersionHistory"
-                />
-              </Tabs>
-            </CardThemed>
-          </Grid>
-          <Grid item xs={12} md={10}>
-            <CardThemed bgt="light" sx={{ height: '100%' }}>
-              <CardContent>
-                <Suspense
-                  fallback={
-                    <Skeleton variant="rectangular" width="100%" height={600} />
-                  }
+    <Box display="flex" flexDirection="column" gap={1}>
+      <PageHeader
+        title="Documentation"
+        actions={<SqBadge color="info">Version 3</SqBadge>}
+      />
+      <CardThemed>
+        <CardContent>
+          <Grid container spacing={1}>
+            <Grid item xs={12} md={2}>
+              <CardThemed bgt="light" sx={{ height: '100%' }}>
+                <Tabs
+                  orientation="vertical"
+                  value={currentTab}
+                  aria-label="Documentation Navigation"
+                  sx={{ borderRight: 1, borderColor: 'divider' }}
                 >
-                  <Routes>
-                    <Route index element={<Overview />} />
-                    <Route
-                      path="/VersionHistory"
-                      element={<VersionHistoryPane />}
-                    />
-                    <Route path="/MaterialKey" element={<MaterialKeyPane />} />
-                    <Route
-                      path="/ArtifactSetKey"
-                      element={<ArtifactSetKeyPane />}
-                    />
-                    <Route path="/WeaponKey" element={<WeaponKeyPane />} />
-                    <Route
-                      path="/CharacterKey"
-                      element={<CharacterKeyPane />}
-                    />
-                    <Route path="/StatKey" element={<StatKeyPane />} />
-                    <Route path="/KeyNaming" element={<KeyNamingPane />} />
-                  </Routes>
-                </Suspense>
-              </CardContent>
-            </CardThemed>
+                  <Tab label="Overview" value="" component={Link} to="" />
+                  <Tab
+                    label={'Key naming convention'}
+                    value="KeyNaming"
+                    component={Link}
+                    to="KeyNaming"
+                  />
+                  <Tab
+                    label={<code>StatKey</code>}
+                    value="StatKey"
+                    component={Link}
+                    to="StatKey"
+                  />
+                  <Tab
+                    label={<code>ArtifactSetKey</code>}
+                    value="ArtifactSetKey"
+                    component={Link}
+                    to="ArtifactSetKey"
+                  />
+                  <Tab
+                    label={<code>CharacterKey</code>}
+                    value="CharacterKey"
+                    component={Link}
+                    to="CharacterKey"
+                  />
+                  <Tab
+                    label={<code>WeaponKey</code>}
+                    value="WeaponKey"
+                    component={Link}
+                    to="WeaponKey"
+                  />
+                  <Tab
+                    label={<code>MaterialKey</code>}
+                    value="MaterialKey"
+                    component={Link}
+                    to="MaterialKey"
+                  />
+                  <Tab
+                    label={'Version History'}
+                    value="VersionHistory"
+                    component={Link}
+                    to="VersionHistory"
+                  />
+                </Tabs>
+              </CardThemed>
+            </Grid>
+            <Grid item xs={12} md={10}>
+              <CardThemed bgt="light" sx={{ height: '100%' }}>
+                <CardContent>
+                  <Suspense
+                    fallback={
+                      <Skeleton
+                        variant="rectangular"
+                        width="100%"
+                        height={600}
+                      />
+                    }
+                  >
+                    <Routes>
+                      <Route index element={<Overview />} />
+                      <Route
+                        path="/VersionHistory"
+                        element={<VersionHistoryPane />}
+                      />
+                      <Route
+                        path="/MaterialKey"
+                        element={<MaterialKeyPane />}
+                      />
+                      <Route
+                        path="/ArtifactSetKey"
+                        element={<ArtifactSetKeyPane />}
+                      />
+                      <Route path="/WeaponKey" element={<WeaponKeyPane />} />
+                      <Route
+                        path="/CharacterKey"
+                        element={<CharacterKeyPane />}
+                      />
+                      <Route path="/StatKey" element={<StatKeyPane />} />
+                      <Route path="/KeyNaming" element={<KeyNamingPane />} />
+                    </Routes>
+                  </Suspense>
+                </CardContent>
+              </CardThemed>
+            </Grid>
           </Grid>
-        </Grid>
-      </CardContent>
-    </CardThemed>
+        </CardContent>
+      </CardThemed>
+    </Box>
   )
 }
 
@@ -209,8 +214,9 @@ function Overview() {
         manual conversion.
       </Typography>
       <Typography gutterBottom>
-        As of version 6.0.0, Genshin Optimizer's database export conforms to
-        this format.
+        Stellar Optimizer's database export conforms to this format. For
+        compatibility with other GOOD tools, exports keep the source name shown
+        in the examples below.
       </Typography>
       <CodeBlock text={goodCode} />
       <br />

@@ -1,13 +1,15 @@
+import { PageHeader } from '@genshin-optimizer/common/ui'
 import { Box } from '@mui/material'
-import ReactGA from 'react-ga4'
+import { useTranslation } from 'react-i18next'
 import EXPCalc from './EXPCalc'
 import ResinCounter from './ResinCounter'
 import TeyvatTime from './TeyvatTime'
 
 export default function PageTools() {
-  ReactGA.send({ hitType: 'pageview', page: '/tools' })
+  const { t } = useTranslation('ui')
   return (
     <Box display="flex" flexDirection="column" gap={1}>
+      <PageHeader title={t('tabs.tools')} />
       <TeyvatTime />
       <ResinCounter />
       <EXPCalc />

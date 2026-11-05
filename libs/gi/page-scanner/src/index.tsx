@@ -1,5 +1,5 @@
 import { AnvilIcon, DiscordIcon } from '@genshin-optimizer/common/svgicons'
-import { CardThemed, SqBadge } from '@genshin-optimizer/common/ui'
+import { CardThemed, PageHeader, SqBadge } from '@genshin-optimizer/common/ui'
 import { FlowerIcon } from '@genshin-optimizer/gi/svgicons'
 import {
   Backpack,
@@ -24,44 +24,17 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material'
-import ReactGA from 'react-ga4'
 import { Trans, useTranslation } from 'react-i18next'
-import { Link as RouterLink } from 'react-router-dom'
 import AdScanner from './AdeptiScanner.png'
 import Artiscan from './artiscan.png'
 import GIScanner from './GIScanner.png'
 import Irminsul from './Irminsul.webp'
 
 export default function PageScanner() {
-  const { t } = useTranslation('page_scanner')
-  ReactGA.send({ hitType: 'pageview', page: '/scanner' })
+  const { t } = useTranslation(['page_scanner', 'ui'])
   return (
     <Box display="flex" flexDirection="column" gap={2}>
-      <CardThemed>
-        <CardContent>
-          <Trans t={t} i18nKey="intro">
-            <Typography gutterBottom variant="h5">
-              Scanners
-            </Typography>
-            <Typography>
-              Scanners are Genshin tools that can automatically scan game data
-              from screenshots or directly from the game.
-            </Typography>
-            <Typography gutterBottom>
-              Below are several scanners that have been tested with GO.
-            </Typography>
-            <Typography variant="subtitle2">
-              To upload the exported file, go to the
-              <Link component={RouterLink} to="/setting">
-                Settings
-              </Link>
-              page, and upload your file in the
-              {'<strong>Database Upload</strong>'}
-              section.
-            </Typography>
-          </Trans>
-        </CardContent>
-      </CardThemed>
+      <PageHeader title={t('ui:tabs.scanner')} />
 
       <Grid container columns={{ xs: 1, md: 2, lg: 4 }} spacing={2}>
         <Grid item xs={1}>
