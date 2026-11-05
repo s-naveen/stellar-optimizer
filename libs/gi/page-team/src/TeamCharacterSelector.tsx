@@ -1,33 +1,33 @@
 import { useBoolState } from '@genshin-optimizer/common/react-util'
 import {
-  BootstrapTooltip,
   CardThemed,
   ModalWrapper,
   TextFieldLazy,
 } from '@genshin-optimizer/common/ui'
-import { colorToRgbaString, hexToColor } from '@genshin-optimizer/common/util'
-import type { CharacterKey, ElementKey } from '@genshin-optimizer/gi/consts'
+import type { CharacterKey } from '@genshin-optimizer/gi/consts'
 import { useDatabase, useDBMeta, useTeam } from '@genshin-optimizer/gi/db-ui'
-import { getCharEle } from '@genshin-optimizer/gi/stats'
 import { CharacterName, CharIconSide, TeamIcon } from '@genshin-optimizer/gi/ui'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
 import CloseIcon from '@mui/icons-material/Close'
 import GroupsIcon from '@mui/icons-material/Groups'
 import PersonIcon from '@mui/icons-material/Person'
+import type { Theme } from '@mui/material'
 import {
+  alpha,
   Box,
-  Button,
   CardContent,
   CardHeader,
   Divider,
   IconButton,
+  Link,
   Tab,
   Tabs,
+  Tooltip,
   Typography,
-  useTheme,
 } from '@mui/material'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
+import { Link as RouterLink, useNavigate } from 'react-router-dom'
+import { TeamActions } from './TeamActions'
 export default function TeamCharacterSelector({
   teamId,
   characterKey,
@@ -37,130 +37,99 @@ export default function TeamCharacterSelector({
   characterKey?: CharacterKey
   tab?: string
 }) {
-  const { t } = useTranslation('page_team')
+  const { t } = useTranslation(['page_team', 'ui'])
   const navigate = useNavigate()
   const database = useDatabase()
 
   const { gender } = useDBMeta()
   const team = useTeam(teamId)!
   const { loadoutData } = team
-
-  const elementArray: Array<ElementKey | undefined> = loadoutData.map(
-    (loadoutDatum) => {
-      if (!loadoutDatum) return
-      const teamChar = database.teamChars.get(loadoutDatum.teamCharId)
-      if (!teamChar) return
-      return getCharEle(teamChar.key)
-    }
-  )
-  const selectedIndex = loadoutData.findIndex(
-    (loadoutDatum) =>
-      loadoutDatum &&
-      database.teamChars.get(loadoutDatum?.teamCharId)?.key === characterKey
-  )
-  const selectedEle = elementArray[selectedIndex]
-  const theme = useTheme()
   const [showEditor, onShowEditor, onHideEditor] = useBoolState()
 
   return (
+    // the page header of a team: the same type and spacing as PageHeader on the other pages
     <Box
-      sx={(theme) => {
-        const backrgba = colorToRgbaString(
-          hexToColor(theme.palette['contentLight'].main)!,
-          !characterKey ? 1 : 0.5
-        )!
-        const rgbas = [
-          // color for team setting
-          backrgba,
-          ...elementArray.map((ele, i) => {
-            if (!ele) return 'rgba(0,0,0,0)'
-
-            const hex = theme.palette[ele].main as string
-            const color = hexToColor(hex)
-            if (!color) return 'rgba(0,0,0,0)'
-            return colorToRgbaString(color, selectedIndex === i ? 0.5 : 0.15)
-          }),
-        ]
-        const selectedRgb =
-          selectedEle && hexToColor(theme.palette[selectedEle].main)
-        const rgba =
-          (selectedRgb && colorToRgbaString(selectedRgb, 0.3)) ??
-          'rgb(200,200,200,0.3)'
-        return {
-          // will be in the form of `linear-gradient(to right, red xx%, orange xx%, yellow xx%, green xx%)`
-          background: `linear-gradient(to right, ${rgbas
-            .map(
-              (rgba, i, arr) =>
-                `${rgba} ${i * (100 / arr.length) + 50 / arr.length}%`
-            )
-            .join(', ')})`,
-          borderBottom: `2px ${rgba} solid`,
-          '& .MuiTab-root:hover': {
-            transition: 'background-color 0.25s ease',
-            backgroundColor: 'rgba(255,255,255,0.1)',
-          },
-          '& .Mui-selected': {
-            color: 'white !important',
-          },
-          '& .MuiTabs-indicator': {
-            height: '4px',
-            backgroundColor:
-              (selectedEle && theme.palette[selectedEle]?.main) ??
-              'rgb(200,200,200,0.5)', //team settings
-          },
-        }
-      }}
+      component="header"
+      sx={{ px: 0.5, pt: { xs: 1.5, md: 3 }, pb: { xs: 1.5, md: 2 } }}
     >
       <TeamEditorModal
         teamId={teamId}
         show={showEditor}
         onClose={onHideEditor}
       />
-      <BootstrapTooltip
-        placement="top"
-        title={
-          <Box>
-            <Box
-              sx={{
-                display: 'flex',
-                color: 'info.light',
-                gap: 1,
-              }}
-            >
-              <BorderColorIcon />
-              <Typography>
-                <strong>{t('team.editNameDesc')}</strong>
-              </Typography>
-            </Box>
-            {!!team.description && <Typography>{team.description}</Typography>}
-          </Box>
-        }
+      {/* back to the team list */}
+      <Link
+        component={RouterLink}
+        to="/teams"
+        underline="hover"
+        sx={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 0.5,
+          mb: 0.5,
+          color: 'text.secondary',
+          fontSize: '0.8125rem',
+          fontWeight: 600,
+          '&:hover': { color: 'text.primary' },
+        }}
       >
-        <Button
-          variant="outlined"
-          fullWidth
-          startIcon={<TeamIcon />}
-          color="neutral200"
+        <TeamIcon sx={{ fontSize: 16 }} />
+        {t('ui:tabs.teams')}
+      </Link>
+      {/* title row: the team's name is the page title, renamed in place */}
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 1,
+          minWidth: 0,
+          mb: 2,
+        }}
+      >
+        <Typography
+          variant="h4"
+          component="h1"
+          noWrap
           sx={{
-            borderBottomLeftRadius: 0,
-            borderBottomRightRadius: 0,
+            fontSize: { xs: '1.5rem', md: '1.875rem' },
+            lineHeight: 1.2,
+            minWidth: 0,
           }}
-          onClick={onShowEditor}
         >
-          <Typography noWrap variant="h5">
-            {team.name}
+          {team.name}
+        </Typography>
+        <Tooltip title={t('team.editNameDesc')}>
+          <IconButton
+            size="small"
+            onClick={onShowEditor}
+            aria-label={t('team.editNameDesc')}
+            sx={{ color: 'text.secondary' }}
+          >
+            <BorderColorIcon fontSize="small" />
+          </IconButton>
+        </Tooltip>
+        {!!team.description && (
+          <Typography
+            color="text.secondary"
+            noWrap
+            sx={{ ml: 1, minWidth: 0, display: { xs: 'none', md: 'block' } }}
+          >
+            {team.description}
           </Typography>
-        </Button>
-      </BootstrapTooltip>
+        )}
+        <Box sx={{ flexGrow: 1 }} />
+        <TeamActions teamId={teamId} />
+      </Box>
+      {/* members: pills; the open one is gold, like the active nav item */}
       <Tabs
-        variant="fullWidth"
         value={characterKey ?? 'team'}
+        variant="scrollable"
+        scrollButtons="auto"
+        allowScrollButtonsMobile
+        TabIndicatorProps={{ sx: { display: 'none' } }}
         sx={{
           minHeight: 0,
-          '& .MuiTab-root': {
-            minHeight: '2em',
-            py: 1,
-          },
+          '& .MuiTabs-flexContainer': { gap: 1 },
         }}
       >
         <Tab
@@ -169,21 +138,12 @@ export default function TeamCharacterSelector({
           value={'team'}
           label={t('teamSettings.tab.team')}
           onClick={() => navigate(`/teams/${teamId}/`)}
-          sx={{
-            border: '1px solid rgba(255,255,255,0.3)',
-          }}
+          sx={memberTabSx}
         />
         {loadoutData.map((loadoutDatum, ind) => {
           const teamCharKey =
             loadoutDatum &&
             database.teamChars.get(loadoutDatum?.teamCharId)?.key
-          const eleKey = teamCharKey && getCharEle(teamCharKey)
-          const color = eleKey && theme.palette[eleKey].main
-          const colorrgb = color && hexToColor(color)
-
-          const colorrbga = (alpha = 1) =>
-            (colorrgb && colorToRgbaString(colorrgb, alpha)) ??
-            `rgba(255,255,255,${alpha})`
           return (
             <Tab
               icon={
@@ -193,12 +153,7 @@ export default function TeamCharacterSelector({
                   <PersonIcon />
                 )
               }
-              sx={{
-                border: `1px solid ${colorrbga(0.3)}`,
-                '&:hover': {
-                  border: `1px solid ${colorrbga(0.8)}`,
-                },
-              }}
+              sx={memberTabSx}
               iconPosition="start"
               value={teamCharKey ?? ind}
               key={ind}
@@ -221,6 +176,37 @@ export default function TeamCharacterSelector({
       </Tabs>
     </Box>
   )
+}
+
+/**
+ * A member (or "Team settings") pill. The open one is gold with the same tint as the active nav
+ * item; the others are quiet outlined pills (the avatar carries the character).
+ */
+function memberTabSx(theme: Theme) {
+  const { primary, text, divider } = theme.palette
+  return {
+    minHeight: 40,
+    py: 0.5,
+    px: 1.75,
+    borderRadius: 999,
+    fontWeight: 600,
+    color: text.secondary,
+    backgroundColor: alpha(text.primary, 0.03),
+    boxShadow: `inset 0 0 0 1px ${divider}`,
+    transition:
+      'background-color 150ms ease, box-shadow 150ms ease, color 150ms ease',
+    '&:hover': {
+      color: text.primary,
+      backgroundColor: alpha(text.primary, 0.06),
+    },
+    '&.Mui-selected': {
+      color: `${primary.light} !important`,
+      backgroundColor: alpha(primary.main, 0.14),
+      boxShadow: `inset 0 0 0 1px ${alpha(primary.main, 0.4)}`,
+    },
+    '&.Mui-selected:hover': { backgroundColor: alpha(primary.main, 0.2) },
+    '&.Mui-disabled': { opacity: 0.45 },
+  }
 }
 function TeamEditorModal({
   teamId,

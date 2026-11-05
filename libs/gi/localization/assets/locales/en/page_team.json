@@ -38,7 +38,11 @@
     "deleteBtn": "Delete Team",
     "addCharBtn": "Add Character",
     "toFieldBtn": "To Field",
-    "onFieldBtn": "On-field Character"
+    "onFieldBtn": "On-field Character",
+    "buffsTitle": "Team buffs",
+    "buffsEmpty": "Add a character to see the team's resonance, Moonsign, Hexerei and reaction buffs.",
+    "noResonance": "No elemental resonance with this lineup.",
+    "removeBtn": "Remove from team"
   },
   "exportModal": {
     "msg": "Copied team data to clipboard.",
@@ -58,7 +62,7 @@
     "defIgn": "DEF Ignore {{value}}%",
     "defRed": "DEF Red. {{value}}%",
     "announceBtn": "To get the specific resistance values of enemies, please visit the wiki.",
-    "note": "Note: Genshin Impact halves resistance shred values below 0%. For the sake of calculations enter the RAW value and GO will do the rest. (e.g. 10% - 20% = -10%)",
+    "note": "Note: Genshin Impact halves resistance shred values below 0%. For the sake of calculations enter the RAW value and Stellar Optimizer will do the rest. (e.g. 10% - 20% = -10%)",
     "immunity": "Immunity"
   },
   "teamComponents": {
@@ -84,5 +88,10 @@
     "edit": "Edit Loadout",
     "name": "Loadout Name",
     "desc": "Loadout Description"
+  },
+  "tcNoOptimize": {
+    "title": "This loadout is using a theorycraft build",
+    "description": "The optimizer and the artifact upgrader search the artifacts you own, so they need a real build. Switch this loadout to its equipped build to use them; your theorycraft build is kept and can be picked again from the build menu above.",
+    "useEquipped": "Use the equipped build"
   }
 }

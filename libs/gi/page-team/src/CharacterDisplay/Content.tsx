@@ -1,15 +1,11 @@
-import { CardThemed } from '@genshin-optimizer/common/ui'
-import { colorToRgbaString, hexToColor } from '@genshin-optimizer/common/util'
-import { characterAsset } from '@genshin-optimizer/gi/assets'
-import type { CharacterKey, ElementKey } from '@genshin-optimizer/gi/consts'
-import { TeamCharacterContext, useDBMeta } from '@genshin-optimizer/gi/db-ui'
-import { getCharEle } from '@genshin-optimizer/gi/stats'
+import { EmptyState } from '@genshin-optimizer/common/ui'
+import { TeamCharacterContext, useDatabase } from '@genshin-optimizer/gi/db-ui'
 import FactCheckIcon from '@mui/icons-material/FactCheck'
 import PersonIcon from '@mui/icons-material/Person'
 import ScienceIcon from '@mui/icons-material/Science'
 import TrendingUpIcon from '@mui/icons-material/TrendingUp'
 import UpgradeIcon from '@mui/icons-material/Upgrade'
-import { Skeleton, Tab, Tabs, useMediaQuery, useTheme } from '@mui/material'
+import { Box, Button, Skeleton, Tab, Tabs } from '@mui/material'
 import { Suspense, useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate, Route, Link as RouterLink, Routes } from 'react-router-dom'
@@ -21,10 +17,7 @@ import TabTalent from './Tabs/TabTalent'
 import TabTheorycraft from './Tabs/TabTheorycraft'
 import TabUpopt from './Tabs/TabUpgradeOpt'
 export default function Content({ tab }: { tab?: string }) {
-  const {
-    loadoutDatum,
-    teamChar: { key: characterKey },
-  } = useContext(TeamCharacterContext)
+  const { loadoutDatum } = useContext(TeamCharacterContext)
   const isTCBuild = !!(
     loadoutDatum.buildTcId && loadoutDatum.buildType === 'tc'
   )
@@ -34,20 +27,11 @@ export default function Content({ tab }: { tab?: string }) {
   return (
     <>
       <FormulaModal />
-      <TabNav
-        tab={tab}
-        characterKey={characterKey}
-        isTCBuild={isTCBuild}
-        onChange={() => {}}
-      />
-      <CharacterPanel isTCBuild={isTCBuild} />
-      <TabNav
-        tab={tab}
-        characterKey={characterKey}
-        isTCBuild={isTCBuild}
-        hideTitle
-        onChange={scrollTop}
-      />
+      <TabNav tab={tab} isTCBuild={isTCBuild} onChange={() => {}} />
+      <Box sx={{ p: 1 }}>
+        <CharacterPanel isTCBuild={isTCBuild} />
+      </Box>
+      <TabNav tab={tab} isTCBuild={isTCBuild} hideTitle onChange={scrollTop} />
     </>
   )
 }
@@ -65,114 +49,104 @@ function CharacterPanel({ isTCBuild }: { isTCBuild: boolean }) {
           <Route path="" element={<TabOverview />} />
         )}
         <Route path="talent" element={<TabTalent />} />
-        {!isTCBuild && <Route path="optimize" element={<TabBuild />} />}
-
-        {!isTCBuild && <Route path="upopt" element={<TabUpopt />} />}
+        {/* a theorycraft build has no real artifacts to search: explain instead of hiding the tabs */}
+        <Route
+          path="optimize"
+          element={isTCBuild ? <NeedsRealBuild /> : <TabBuild />}
+        />
+        <Route
+          path="upopt"
+          element={isTCBuild ? <NeedsRealBuild /> : <TabUpopt />}
+        />
         <Route path="*" element={<Navigate to="" replace />} />
       </Routes>
     </Suspense>
   )
 }
+/**
+ * The open member's bar: the tabs on the left (gold when active, as everywhere), the loadout and
+ * build choosers on the right; on small screens the choosers sit above the tabs. At the top of the
+ * card it is its header; repeated below the panel (`hideTitle`) it is the footer, tabs only.
+ */
 function TabNav({
   tab,
-  characterKey,
   isTCBuild,
   hideTitle = false,
   onChange,
 }: {
   tab?: string
-  characterKey: CharacterKey
   isTCBuild: boolean
   hideTitle?: boolean
   onChange?: () => void
 }) {
-  const { gender } = useDBMeta()
-  const elementKey = getCharEle(characterKey)
-  const banner = characterAsset(characterKey, 'banner', gender)
-
   return (
-    <CardThemed
-      sx={(theme) => {
-        return {
-          position: 'relative',
-          boxShadow: elementKey
-            ? `0px 0px 0px 1px ${theme.palette[elementKey].main} inset`
-            : undefined,
-          '&::before': {
-            content: '""',
-            display: 'block',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            opacity: 0.3,
-            backgroundImage: `url(${banner})`,
-            backgroundPosition: 'center',
-            backgroundSize: 'cover',
-          },
-        }
+    <Box
+      component="nav"
+      sx={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        columnGap: 2,
+        rowGap: 1,
+        px: { xs: 1, md: 1.5 },
+        pt: hideTitle ? 0 : { xs: 1, md: 0 },
+        ...(hideTitle
+          ? { borderTop: 1, borderColor: 'divider' }
+          : { borderBottom: 1, borderColor: 'divider' }),
       }}
     >
-      {!hideTitle && <LoadoutHeader elementKey={elementKey} />}
-      <LoadoutTabs
-        tab={tab}
-        isTCBuild={isTCBuild}
-        elementKey={elementKey}
-        onChange={onChange}
-      />
-    </CardThemed>
+      {!hideTitle && (
+        <Box
+          sx={{
+            order: { xs: 0, md: 1 },
+            ml: { md: 'auto' },
+            width: { xs: '100%', md: 'auto' },
+            minWidth: 0,
+            py: { md: 1 },
+          }}
+        >
+          <LoadoutHeader />
+        </Box>
+      )}
+      <LoadoutTabs tab={tab} isTCBuild={isTCBuild} onChange={onChange} />
+    </Box>
   )
 }
 
 function LoadoutTabs({
   tab,
-  elementKey,
   isTCBuild,
   onChange,
 }: {
   tab?: string
-  elementKey?: ElementKey
   isTCBuild: boolean
   onChange?: () => void
 }) {
   const { t } = useTranslation('page_character')
-  const theme = useTheme()
-  const isXs = useMediaQuery(theme.breakpoints.down('md'))
 
   return (
     <Tabs
       value={tab ?? 'overview'}
-      variant={isXs ? 'scrollable' : 'fullWidth'}
-      onChange={onChange}
+      variant="scrollable"
+      scrollButtons="auto"
       allowScrollButtonsMobile
-      sx={(theme) => {
-        const color = elementKey && theme.palette[elementKey]?.main
-        const colorrgb = color && hexToColor(color)
-        const colorrbga = (alpha = 1) =>
-          (colorrgb && colorToRgbaString(colorrgb, alpha)) ??
-          `rgba(255,255,255,${alpha})`
-        return {
-          minHeight: 0,
-          position: 'relative',
-          '& .MuiTab-root:hover': {
-            transition: 'background-color 0.25s ease',
-            backgroundColor: colorrbga(0.1),
-            border: `1px solid ${colorrbga(0.8)}`,
-          },
-          '& .MuiTab-root.Mui-selected': {
-            color: `${color} !important`,
-          },
-          '& .MuiTab-root': {
-            textShadow: '#000 0 0 10px !important',
-            border: `1px solid ${colorrbga(0.3)}`,
-            minHeight: 0,
-          },
-          '& .MuiTabs-indicator': {
-            backgroundColor: color,
-            height: '4px',
-          },
-        }
+      onChange={onChange}
+      sx={{
+        order: { xs: 1, md: 0 },
+        minWidth: 0,
+        maxWidth: '100%',
+        minHeight: 0,
+        '& .MuiTab-root': {
+          minHeight: 52,
+          px: 1.75,
+          fontWeight: 600,
+          color: 'text.secondary',
+          transition: 'color 150ms ease',
+        },
+        '& .MuiTab-root .MuiSvgIcon-root': { fontSize: 20 },
+        '& .MuiTab-root:hover': { color: 'text.primary' },
+        '& .MuiTab-root.Mui-selected': { color: 'primary.light' },
+        '& .MuiTabs-indicator': { height: 2, borderRadius: 1 },
       }}
     >
       {isTCBuild ? (
@@ -202,26 +176,49 @@ function LoadoutTabs({
         component={RouterLink}
         to="talent"
       />
-      {!isTCBuild && (
-        <Tab
-          iconPosition="start"
-          value="optimize"
-          label={t('tabs.optimize')}
-          icon={<TrendingUpIcon />}
-          component={RouterLink}
-          to="optimize"
-        />
-      )}
-      {!isTCBuild && (
-        <Tab
-          iconPosition="start"
-          value="upopt"
-          label={t('tabs.upopt')}
-          icon={<UpgradeIcon />}
-          component={RouterLink}
-          to="upopt"
-        />
-      )}
+      <Tab
+        iconPosition="start"
+        value="optimize"
+        label={t('tabs.optimize')}
+        icon={<TrendingUpIcon />}
+        component={RouterLink}
+        to="optimize"
+      />
+      <Tab
+        iconPosition="start"
+        value="upopt"
+        label={t('tabs.upopt')}
+        icon={<UpgradeIcon />}
+        component={RouterLink}
+        to="upopt"
+      />
     </Tabs>
+  )
+}
+
+/** Shown on Optimize / Artifact Upgrader while the loadout uses a theorycraft build. */
+function NeedsRealBuild() {
+  const { t } = useTranslation('page_team')
+  const database = useDatabase()
+  const { teamId, teamCharId } = useContext(TeamCharacterContext)
+  return (
+    <Box sx={{ p: { xs: 1, md: 2 } }}>
+      <EmptyState
+        icon={<ScienceIcon />}
+        title={t('tcNoOptimize.title')}
+        description={t('tcNoOptimize.description')}
+        actions={
+          <Button
+            onClick={() =>
+              database.teams.setLoadoutDatum(teamId, teamCharId, {
+                buildType: 'equipped',
+              })
+            }
+          >
+            {t('tcNoOptimize.useEquipped')}
+          </Button>
+        }
+      />
+    </Box>
   )
 }

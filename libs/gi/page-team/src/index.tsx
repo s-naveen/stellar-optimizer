@@ -1,5 +1,4 @@
 import { CardThemed, useTitle } from '@genshin-optimizer/common/ui'
-import { colorToRgbaString, hexToColor } from '@genshin-optimizer/common/util'
 import type { CharacterKey } from '@genshin-optimizer/gi/consts'
 import { charKeyToLocGenderedCharKey } from '@genshin-optimizer/gi/consts'
 import type { GeneratedBuild } from '@genshin-optimizer/gi/db'
@@ -15,7 +14,7 @@ import {
   useTeam,
   useTeamChar,
 } from '@genshin-optimizer/gi/db-ui'
-import { getCharEle } from '@genshin-optimizer/gi/stats'
+import { preloadNamespaces } from '@genshin-optimizer/gi/i18n'
 import {
   type ChartData,
   DataContext,
@@ -24,7 +23,6 @@ import {
   GraphContext,
   type GraphContextObj,
   OptTargetWrapper,
-  SillyContext,
   useTeamDataNoContext,
 } from '@genshin-optimizer/gi/ui'
 import { Box, Skeleton } from '@mui/material'
@@ -83,7 +81,6 @@ const graphBuildAll: Record<string, GeneratedBuild[]> = {}
 function Page({ teamId }: { teamId: string }) {
   const database = useDatabase()
   const navigate = useNavigate()
-  const { silly } = useContext(SillyContext)
   const { gender } = useDBMeta()
 
   const team = useTeam(teamId)!
@@ -123,8 +120,43 @@ function Page({ teamId }: { teamId: string }) {
 
   const teamChar = useTeamChar(teamCharId ?? '')
 
+  // Request the namespaces of the page and of every team member (character, weapon, artifact
+  // sets) at once. Otherwise they are fetched one network round trip at a time as the nested
+  // sheets render (12 sequential rounds for a 4-character team).
+  useMemo(() => {
+    const namespaces = [
+      'charNames_gen',
+      'page_character',
+      'page_team',
+      'tooltips_gen',
+      'sheet_gen',
+      'sheet',
+      'teams_gen',
+      'elementalResonance_gen',
+      'reaction_gen',
+      'weaponNames_gen',
+      'build',
+      'loadout',
+    ]
+    for (const datum of loadoutData) {
+      if (!datum) continue
+      const charKey = database.teamChars.get(datum.teamCharId)?.key
+      // Traveler namespaces are named per element/gender; let them load on demand.
+      if (charKey && !charKey.startsWith('Traveler'))
+        namespaces.push(`char_${charKey}_gen`)
+      const weaponKey = database.teams.getLoadoutWeapon(datum)?.key
+      if (weaponKey) namespaces.push(`weapon_${weaponKey}_gen`)
+      for (const artId of Object.values(
+        database.teams.getLoadoutArtifactIds(datum)
+      )) {
+        const setKey = artId && database.arts.get(artId)?.setKey
+        if (setKey) namespaces.push(`artifact_${setKey}_gen`)
+      }
+    }
+    preloadNamespaces(namespaces)
+  }, [database, loadoutData])
+
   const { t } = useTranslation([
-    'sillyWisher_charNames',
     'charNames_gen',
     'page_character',
     'page_team',
@@ -136,20 +168,18 @@ function Page({ teamId }: { teamId: string }) {
     useMemo(() => {
       const charName = characterKey
         ? t(
-            `${
-              silly ? 'sillyWisher_charNames' : 'charNames_gen'
-            }:${charKeyToLocGenderedCharKey(characterKey, gender)}`
+            `charNames_gen:${charKeyToLocGenderedCharKey(characterKey, gender)}`
           )
         : t('page_team:teamSettings.tab.team')
       const tabName = tab
         ? t(`page_character:tabs.${tab}`)
         : characterKey
-          ? t('page_character:tabs.setting')
+          ? t('page_character:tabs.overview')
           : tab
       return tabName
         ? `${team.name} - ${charName} - ${tabName}`
         : `${team.name} - ${charName}`
-    }, [t, team.name, silly, characterKey, gender, tab])
+    }, [t, team.name, characterKey, gender, tab])
   )
 
   const teamCharacterContextValue: TeamCharacterContextObj | undefined =
@@ -178,49 +208,30 @@ function Page({ teamId }: { teamId: string }) {
   }, [charUIData, teamData])
 
   return (
-    <Box sx={{ display: 'flex', gap: 1, flexDirection: 'column' }}>
-      <CardThemed>
-        <TeamCharacterSelector
-          teamId={teamId}
-          characterKey={characterKey}
-          tab={tab}
-        />
-        <Box
-          sx={(theme) => {
-            const elementKey = characterKey && getCharEle(characterKey)
-            if (!elementKey) return {}
-            const hex = theme.palette[elementKey].main as string
-            const color = hexToColor(hex)
-            if (!color) return {}
-            const rgba = colorToRgbaString(color, 0.1)
-            return {
-              background: `linear-gradient(to bottom, ${rgba} 0%, rgba(0,0,0,0)) 25%`,
-            }
-          }}
-        >
-          {teamCharacterContextValue ? (
-            dataContextValue ? (
-              <TeamCharacterContext.Provider value={teamCharacterContextValue}>
-                <DataContext.Provider value={dataContextValue}>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: 1,
-                      p: 1,
-                    }}
-                  >
-                    <InnerContent tab={tab} />
-                  </Box>
-                </DataContext.Provider>
-              </TeamCharacterContext.Provider>
-            ) : (
-              fallback
-            )
+    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+      {/* the team's name, actions and members sit on the page like every page header; the card
+          below holds the open member's tabs and content */}
+      <TeamCharacterSelector
+        teamId={teamId}
+        characterKey={characterKey}
+        tab={tab}
+      />
+      {/* `clip` still clips to the rounded corners but, unlike `hidden`, is not a scroll
+          container, so sticky bars inside (the optimizer's generate bar) stick to the window */}
+      <CardThemed sx={{ '@supports (overflow: clip)': { overflow: 'clip' } }}>
+        {teamCharacterContextValue ? (
+          dataContextValue ? (
+            <TeamCharacterContext.Provider value={teamCharacterContextValue}>
+              <DataContext.Provider value={dataContextValue}>
+                <InnerContent tab={tab} />
+              </DataContext.Provider>
+            </TeamCharacterContext.Provider>
           ) : (
-            <TeamSetting teamId={teamId} teamData={teamData} />
-          )}
-        </Box>
+            fallback
+          )
+        ) : (
+          <TeamSetting teamId={teamId} teamData={teamData} />
+        )}
       </CardThemed>
     </Box>
   )
