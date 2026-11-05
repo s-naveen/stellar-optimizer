@@ -5,21 +5,23 @@ import {
 } from '@genshin-optimizer/common/react-util'
 import {
   CardThemed,
+  PageHeader,
   ShowingAndSortOptionSelect,
   useInfScroll,
 } from '@genshin-optimizer/common/ui'
 import { filterFunction, sortFunction } from '@genshin-optimizer/common/util'
 import type { SubstatKey } from '@genshin-optimizer/gi/consts'
 import { useDatabase, useDisplayArtifact } from '@genshin-optimizer/gi/db-ui'
+import { preloadNamespaces } from '@genshin-optimizer/gi/i18n'
 import {
   type ArtifactSortKey,
   artifactSortKeys,
 } from '@genshin-optimizer/gi/schema'
+import { giCtaSx } from '@genshin-optimizer/gi/theme'
 import {
   AddArtInfo,
   ArtifactCard,
   ArtifactEditor,
-  InfoComponent,
 } from '@genshin-optimizer/gi/ui'
 import {
   artifactFilterConfigs,
@@ -28,20 +30,30 @@ import {
 } from '@genshin-optimizer/gi/util'
 import AddIcon from '@mui/icons-material/Add'
 import DifferenceIcon from '@mui/icons-material/Difference'
-import { Box, Button, CardContent, Grid, Skeleton } from '@mui/material'
-import { Suspense, useDeferredValue, useEffect, useMemo, useState } from 'react'
-import ReactGA from 'react-ga4'
+import { Box, Button, CardContent, Skeleton } from '@mui/material'
+import { Suspense, useDeferredValue, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import ArtifactFilter, { ArtifactRedButtons } from './ArtifactFilter'
+import ArtifactFilter, { ArtifactBulkActions } from './ArtifactFilter'
+import { ArtifactGuideButton } from './ArtifactGuide'
 import DupModal from './DupModal'
-import ArtifactInfoDisplay from './InfoDisplay'
 
-const columns = { xs: 1, sm: 2, md: 3, lg: 3, xl: 4 }
 const numToShowMap = { xs: 5, sm: 6, md: 12, lg: 12, xl: 12 }
 
 export default function PageArtifact() {
-  const { t } = useTranslation(['artifact', 'ui'])
   const database = useDatabase()
+  // Request every namespace the artifact cards use at once; otherwise each artifact set's
+  // translations are fetched in its own network round trip while the cards render.
+  useMemo(
+    () =>
+      preloadNamespaces([
+        'artifact',
+        'artifactNames_gen',
+        'statKey_gen',
+        ...database.arts.values.map(({ setKey }) => `artifact_${setKey}_gen`),
+      ]),
+    [database]
+  )
+  const { t } = useTranslation(['artifact', 'ui'])
   const artifactDisplayState = useDisplayArtifact()
 
   const [artifactIdToEdit, setArtifactIdToEdit] = useState<string | undefined>()
@@ -56,10 +68,6 @@ export default function PageArtifact() {
     () => new Set(effFilter),
     [effFilter]
   ) as Set<SubstatKey>
-
-  useEffect(() => {
-    ReactGA.send({ hitType: 'pageview', page: '/artifact' })
-  }, [])
 
   const noArtifact = !database.arts.values.length
   const sortConfigs = useMemo(
@@ -133,13 +141,30 @@ export default function PageArtifact() {
           setArtifactIdToEdit={setArtifactIdToEdit}
         />
       </Suspense>
-      <InfoComponent
-        pageKey="artifactPage"
-        modalTitle={t('info.title')}
-        text={t('tipsOfTheDay', { returnObjects: true }) as string[]}
-      >
-        <ArtifactInfoDisplay />
-      </InfoComponent>
+      <PageHeader
+        title={t('ui:tabs.artifacts')}
+        count={totalArtNum}
+        actions={
+          <>
+            <ArtifactGuideButton />
+            <Button
+              variant="outlined"
+              color="inherit"
+              startIcon={<DifferenceIcon />}
+              onClick={onShowDup}
+            >
+              {t('header.duplicates')}
+            </Button>
+            <Button
+              sx={giCtaSx}
+              startIcon={<AddIcon />}
+              onClick={() => setArtifactIdToEdit('new')}
+            >
+              {t('header.add')}
+            </Button>
+          </>
+        }
+      />
 
       {noArtifact && <AddArtInfo />}
 
@@ -149,44 +174,23 @@ export default function PageArtifact() {
         artifactIds={filteredArtIds}
       />
       <CardThemed>
-        <CardContent>
-          <Box
-            pb={2}
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            flexWrap="wrap"
-          >
-            <ShowingAndSortOptionSelect
-              showingTextProps={showingTextProps}
-              sortByButtonProps={sortByButtonProps}
-            />
-          </Box>
-          <ArtifactRedButtons artifactIds={filteredArtIds} />
+        <CardContent
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: 1,
+            // "Showing x of y" on the left, sort + bulk actions on the right
+            '& > p': { mr: 'auto' },
+          }}
+        >
+          <ShowingAndSortOptionSelect
+            showingTextProps={showingTextProps}
+            sortByButtonProps={sortByButtonProps}
+          />
+          <ArtifactBulkActions artifactIds={filteredArtIds} />
         </CardContent>
       </CardThemed>
-      <Grid container columns={columns} spacing={1}>
-        <Grid item xs>
-          <Button
-            fullWidth
-            onClick={() => setArtifactIdToEdit('new')}
-            color="info"
-            startIcon={<AddIcon />}
-          >
-            {t('addNew')}
-          </Button>
-        </Grid>
-        <Grid item xs={1}>
-          <Button
-            fullWidth
-            onClick={onShowDup}
-            color="info"
-            startIcon={<DifferenceIcon />}
-          >
-            {t('showDup')}
-          </Button>
-        </Grid>
-      </Grid>
       <Suspense
         fallback={
           <Skeleton
@@ -195,9 +199,17 @@ export default function PageArtifact() {
           />
         }
       >
-        <Grid container spacing={1} columns={columns}>
+        {/* auto-fill: a wider page gets more cards per row, not wider cards */}
+        <Box
+          sx={{
+            display: 'grid',
+            gap: { xs: 1, md: 2 },
+            gridTemplateColumns:
+              'repeat(auto-fill, minmax(min(300px, 100%), 1fr))',
+          }}
+        >
           {artifactIdsToShow.map((artId) => (
-            <Grid item key={artId} xs={1}>
+            <Box key={artId} sx={{ minWidth: 0 }}>
               <ArtifactCard
                 artifactId={artId}
                 effFilter={effFilterSet}
@@ -210,9 +222,9 @@ export default function PageArtifact() {
                   database.arts.set(artId, ({ lock }) => ({ lock: !lock }))
                 }
               />
-            </Grid>
+            </Box>
           ))}
-        </Grid>
+        </Box>
         {filteredArtIds.length !== artifactIdsToShow.length && (
           <Skeleton
             ref={(node) => {

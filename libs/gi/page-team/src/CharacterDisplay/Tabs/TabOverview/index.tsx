@@ -9,7 +9,7 @@ import {
   WeaponCardNano,
 } from '@genshin-optimizer/gi/ui'
 import { uiInput as input } from '@genshin-optimizer/gi/wr'
-import { Box, Grid, Stack } from '@mui/material'
+import { Box, Grid, Stack, useMediaQuery } from '@mui/material'
 import { useContext, useMemo } from 'react'
 import CharacterProfileCard from '../../../CharProfileCard'
 import useCompareData from '../../../useCompareData'
@@ -20,6 +20,7 @@ import EquipmentSection from './EquipmentSection'
 
 export default function TabOverview() {
   const [scrollRef, onScroll] = useScrollRef()
+  const isWide = useMediaQuery('(min-width: 1900px)')
 
   const data = useContext(DataContext)
   const compareData = useCompareData()
@@ -70,7 +71,8 @@ export default function TabOverview() {
               </Box>
               <DataContext.Provider value={dataContextObj}>
                 <StatDisplayComponent
-                  columns={{ xs: 1, sm: 1, md: 2, lg: 2, xl: 3 }}
+                  // the team page is widest on large screens: a 4th column instead of wider ones
+                  columns={isWide ? 4 : { xs: 1, sm: 1, md: 2, lg: 2, xl: 3 }}
                   BonusStatEditor={BonusStatsModal}
                   CustomMTargetEditor={CustomMultiTargetModal}
                 />

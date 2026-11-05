@@ -1,15 +1,9 @@
-import { ScrollTop, useRefSize, useTitle } from '@genshin-optimizer/common/ui'
+import { ScrollTop, useTitle } from '@genshin-optimizer/common/ui'
 import { ArtCharDatabase } from '@genshin-optimizer/gi/db'
 import { DatabaseContext } from '@genshin-optimizer/gi/db-ui'
-import '@genshin-optimizer/gi/i18n' // import to load translations
+import { preloadNamespaces } from '@genshin-optimizer/gi/i18n' // also initializes translations
 import { theme } from '@genshin-optimizer/gi/theme'
-import {
-  GOAdWrapper,
-  SillyContext,
-  SnowContext,
-  useSilly,
-  useSnow,
-} from '@genshin-optimizer/gi/ui'
+import { SnowContext, useSnow } from '@genshin-optimizer/gi/ui'
 import {
   Box,
   Container,
@@ -17,89 +11,143 @@ import {
   Skeleton,
   StyledEngineProvider,
   ThemeProvider,
-  useTheme,
 } from '@mui/material'
 import type { ComponentType } from 'react'
-import { lazy, Suspense, useCallback, useMemo } from 'react'
-import { HashRouter, Route, Routes } from 'react-router-dom'
+import { lazy, Suspense, useCallback, useEffect, useMemo } from 'react'
+import { HashRouter, Route, Routes, useLocation } from 'react-router-dom'
 import './App.scss'
-import {
-  AdBanner,
-  AdBlockContextWrapper,
-  AdRailSticky,
-} from '@genshin-optimizer/common/ad'
 import { useDatabases } from '@genshin-optimizer/common/database-ui'
 import ErrorBoundary from './ErrorBoundary'
 import Footer from './Footer'
 import Header from './Header'
 import Snow from './Snow'
 
-const PageHome = lazy(
-  () =>
-    import('@genshin-optimizer/gi/page-home') as unknown as Promise<{
-      default: ComponentType<any>
-    }>
+type PageModule = { default: ComponentType<any> }
+/**
+ * `lazy()` for a route page, plus `preload()` to fetch it before it is navigated to.
+ * Once loaded, the page renders without suspending (no skeleton flash when switching tabs).
+ */
+function lazyPage(load: () => Promise<unknown>) {
+  let loaded: PageModule | undefined
+  let loading: Promise<PageModule> | undefined
+  const preload = () =>
+    (loading ??= (load() as Promise<PageModule>).then(
+      (mod) => (loaded = mod),
+      (error) => {
+        loading = undefined // allow a retry, e.g. after a network hiccup
+        throw error
+      }
+    ))
+  const Page = lazy(() => {
+    const mod = loaded
+    if (!mod) return preload()
+    // A thenable that resolves synchronously: React renders the page without suspending.
+    return {
+      // biome-ignore lint/suspicious/noThenProperty: a sync thenable is the point here (see above)
+      then: (resolve: (m: PageModule) => void) => resolve(mod),
+    } as unknown as Promise<PageModule>
+  })
+  return Object.assign(Page, { preload })
+}
+
+const PageHome = lazyPage(() => import('@genshin-optimizer/gi/page-home'))
+const PageArtifacts = lazyPage(
+  () => import('@genshin-optimizer/gi/page-artifacts')
 )
-const PageArtifacts = lazy(
-  () =>
-    import('@genshin-optimizer/gi/page-artifacts') as unknown as Promise<{
-      default: ComponentType<any>
-    }>
+const PageTools = lazyPage(() => import('@genshin-optimizer/gi/page-tools'))
+const PageSettings = lazyPage(
+  () => import('@genshin-optimizer/gi/page-settings')
 )
-const PageTools = lazy(
-  () =>
-    import('@genshin-optimizer/gi/page-tools') as unknown as Promise<{
-      default: ComponentType<any>
-    }>
+const PageWeapons = lazyPage(() => import('@genshin-optimizer/gi/page-weapons'))
+const PageArchive = lazyPage(() => import('@genshin-optimizer/gi/page-archive'))
+const PageDocumentation = lazyPage(
+  () => import('@genshin-optimizer/gi/page-doc')
 )
-const PageSettings = lazy(
-  () =>
-    import('@genshin-optimizer/gi/page-settings') as unknown as Promise<{
-      default: ComponentType<any>
-    }>
+const PageScanner = lazyPage(() => import('@genshin-optimizer/gi/page-scanner'))
+const PageCharacters = lazyPage(
+  () => import('@genshin-optimizer/gi/page-characters')
 )
-const PageWeapons = lazy(
-  () =>
-    import('@genshin-optimizer/gi/page-weapons') as unknown as Promise<{
-      default: ComponentType<any>
-    }>
-)
-const PageArchive = lazy(
-  () =>
-    import('@genshin-optimizer/gi/page-archive') as unknown as Promise<{
-      default: ComponentType<any>
-    }>
-)
-const PageDocumentation = lazy(
-  () =>
-    import('@genshin-optimizer/gi/page-doc') as unknown as Promise<{
-      default: ComponentType<any>
-    }>
-)
-const PageScanner = lazy(
-  () =>
-    import('@genshin-optimizer/gi/page-scanner') as unknown as Promise<{
-      default: ComponentType<any>
-    }>
-)
-const PageCharacters = lazy(
-  () =>
-    import('@genshin-optimizer/gi/page-characters') as unknown as Promise<{
-      default: ComponentType<any>
-    }>
-)
-const PageTeams = lazy(
-  () =>
-    import('@genshin-optimizer/gi/page-teams') as unknown as Promise<{
-      default: ComponentType<any>
-    }>
-)
-const PageTeam = lazy(
-  () =>
-    import('@genshin-optimizer/gi/page-team') as unknown as Promise<{
-      default: ComponentType<any>
-    }>
-)
+const PageTeams = lazyPage(() => import('@genshin-optimizer/gi/page-teams'))
+const PageTeam = lazyPage(() => import('@genshin-optimizer/gi/page-team'))
+
+// Most visited first. Prefetched one at a time while the browser is idle (see usePrefetchPages).
+const prefetchOrder = [
+  PageCharacters,
+  PageTeams,
+  PageTeam,
+  PageArtifacts,
+  PageWeapons,
+  PageHome,
+  PageSettings,
+  PageTools,
+  PageArchive,
+  PageDocumentation,
+  PageScanner,
+]
+// Static namespaces of the main pages, so a first visit to them does not wait on translations.
+const prefetchNamespaces = [
+  'page_character',
+  'page_team',
+  'page_teams',
+  'page_weapon',
+  'page_home',
+  'artifact',
+  'artifactNames_gen',
+  'weaponNames_gen',
+  'statKey_gen',
+  'sheet',
+  'sheet_gen',
+  'tooltips_gen',
+]
+
+/** After the first page has loaded, fetch the other pages in the background so tab switches are instant. */
+function usePrefetchPages() {
+  useEffect(() => {
+    const connection = (
+      navigator as Navigator & {
+        connection?: { saveData?: boolean; effectiveType?: string }
+      }
+    ).connection
+    if (connection?.saveData || connection?.effectiveType?.includes('2g'))
+      return
+    let cancelled = false
+    let cancelIdle = () => {}
+    const queue = [...prefetchOrder]
+    const next = () => {
+      // Offline: a failed import would trigger the reload-on-preload-error handler (main.tsx).
+      if (cancelled || !navigator.onLine) return
+      const page = queue.shift()
+      if (!page) {
+        preloadNamespaces(prefetchNamespaces)
+        return
+      }
+      page
+        .preload()
+        .catch(() => undefined)
+        .finally(() => {
+          cancelIdle = whenIdle(next)
+        })
+    }
+    // Give the current page a head start before using the network/CPU for the others.
+    const timer = setTimeout(() => {
+      cancelIdle = whenIdle(next)
+    }, 1500)
+    return () => {
+      cancelled = true
+      clearTimeout(timer)
+      cancelIdle()
+    }
+  }, [])
+}
+
+function whenIdle(fn: () => void): () => void {
+  if (typeof requestIdleCallback === 'function') {
+    const id = requestIdleCallback(fn, { timeout: 3000 })
+    return () => cancelIdleCallback(id)
+  }
+  const id = setTimeout(fn, 50)
+  return () => clearTimeout(id)
+}
 
 function App() {
   const dbIndex = Number.parseInt(localStorage.getItem('dbIndex') || '1')
@@ -122,36 +170,48 @@ function App() {
     () => ({ databases, setDatabases, database, setDatabase }),
     [databases, setDatabases, database, setDatabase]
   )
-  const SillyContextObj = useSilly()
   const SnowContextObj = useSnow()
+  usePrefetchPages()
   return (
     <StyledEngineProvider injectFirst>
       {/* https://mui.com/guides/interoperability/#css-injection-order-2 */}
       <ThemeProvider theme={theme}>
         <CssBaseline enableColorScheme />
-        <SillyContext.Provider value={SillyContextObj}>
-          <SnowContext.Provider value={SnowContextObj}>
-            <DatabaseContext.Provider value={dbContextObj}>
-              <ErrorBoundary>
-                <HashRouter basename="/">
-                  <AdBlockContextWrapper>
-                    <Content />
-                  </AdBlockContextWrapper>
-                  <ScrollTop />
-                </HashRouter>
-              </ErrorBoundary>
-            </DatabaseContext.Provider>
-          </SnowContext.Provider>
-        </SillyContext.Provider>
+        <SnowContext.Provider value={SnowContextObj}>
+          <DatabaseContext.Provider value={dbContextObj}>
+            <ErrorBoundary>
+              <HashRouter basename="/">
+                <Content />
+                <ScrollTop />
+              </HashRouter>
+            </ErrorBoundary>
+          </DatabaseContext.Provider>
+        </SnowContext.Provider>
       </ThemeProvider>
     </StyledEngineProvider>
   )
 }
+/**
+ * Width of the main column (all keep a margin from the window edges that grows with the screen):
+ * - a team page (`/teams/<id>`: four members side by side, the build tabs) is the densest, so it
+ *   gets the most room;
+ * - the card-grid list pages come next (the original layout kept side gutters for ads, which this
+ *   site doesn't have), so wide screens show more cards per row;
+ * - the other pages (home, archive, settings, docs…) would only stretch, so they keep a readable
+ *   width.
+ */
+const listPage = /^\/(characters|artifacts|weapons|teams)(\/|$)/
+const teamPage = /^\/teams\/[^/]+/
+function useContentMaxWidth() {
+  const { pathname } = useLocation()
+  if (teamPage.test(pathname)) return 2240
+  // `/teams` is the team list; `/characters/<key>` is the list + editor
+  return listPage.test(pathname) ? 1920 : 1600
+}
+
 function Content() {
   useTitle()
-  const theme = useTheme()
-  const { width, ref } = useRefSize(true)
-  const adWidth = width - (theme.breakpoints.values.xl + 10) //account for the "full width" of container
+  const contentMaxWidth = useContentMaxWidth()
   return (
     <Box
       display="flex"
@@ -163,25 +223,18 @@ function Content() {
       })}
     >
       <Header anchor="back-to-top-anchor" />
-      {/* Top banner ad */}
-      <AdBanner width={width} dataAdSlot="3477080462" Ad={GOAdWrapper} />
       {/* Main content */}
-      <Box
-        display="flex"
-        ref={ref}
-        justifyContent="center"
-        alignItems="flex-start"
-      >
-        {/* left Rail ad */}
-        <AdRailSticky
-          adWidth={adWidth}
-          dataAdSlot="2411728037"
-          Ad={GOAdWrapper}
-        />
-        {/* Content */}
+      <Box display="flex" justifyContent="center" alignItems="flex-start">
+        {/* Content: see useContentMaxWidth for the width; the side padding keeps it off the
+            window edges (8px on phones up to 48px on large screens) */}
         <Container
-          maxWidth="xl"
-          sx={{ px: { xs: 0.5, sm: 1 }, flexGrow: 1, mx: 0 }}
+          maxWidth={false}
+          sx={{
+            px: { xs: 1, sm: 2, md: 3, lg: 4, xl: 6 },
+            flexGrow: 1,
+            mx: 0,
+            maxWidth: contentMaxWidth,
+          }}
         >
           <Suspense
             fallback={
@@ -208,20 +261,11 @@ function Content() {
             </Routes>
           </Suspense>
         </Container>
-        {/* right rail ad */}
-        <AdRailSticky
-          adWidth={adWidth}
-          dataAdSlot="2411728037"
-          Ad={GOAdWrapper}
-          isRightRail
-        />
       </Box>
 
       {/* make sure footer is always at bottom */}
       <Box flexGrow={1} />
       <Snow />
-      {/* Footer Ad */}
-      <AdBanner width={width} dataAdSlot="2396256483" Ad={GOAdWrapper} />
       <Footer />
     </Box>
   )

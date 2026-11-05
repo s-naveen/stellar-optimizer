@@ -8,6 +8,7 @@ import {
 } from '@genshin-optimizer/common/react-util'
 import {
   CardThemed,
+  PageHeader,
   ShowingAndSortOptionSelect,
   useInfScroll,
 } from '@genshin-optimizer/common/ui'
@@ -15,6 +16,8 @@ import { filterFunction, sortFunction } from '@genshin-optimizer/common/util'
 import type { WeaponKey } from '@genshin-optimizer/gi/consts'
 import { initialWeapon } from '@genshin-optimizer/gi/db'
 import { useDatabase } from '@genshin-optimizer/gi/db-ui'
+import { preloadNamespaces } from '@genshin-optimizer/gi/i18n'
+import { giCtaSx } from '@genshin-optimizer/gi/theme'
 import {
   WeaponCard,
   WeaponEditor,
@@ -24,41 +27,30 @@ import {
   weaponSortMap,
 } from '@genshin-optimizer/gi/ui'
 import AddIcon from '@mui/icons-material/Add'
-import {
-  Box,
-  Button,
-  CardContent,
-  Grid,
-  Skeleton,
-  TextField,
-} from '@mui/material'
+import { Box, Button, CardContent, Skeleton, TextField } from '@mui/material'
 import type { ChangeEvent } from 'react'
 import {
   Suspense,
   useCallback,
   useDeferredValue,
-  useEffect,
   useMemo,
   useState,
 } from 'react'
-import ReactGA from 'react-ga4'
 import { useTranslation } from 'react-i18next'
-import WeaponFilter, { WeaponRedButtons } from './WeaponFilter'
+import WeaponFilter, { WeaponBulkActions } from './WeaponFilter'
 
-const columns = { xs: 1, sm: 2, md: 3, lg: 3, xl: 4 }
 const numToShowMap = { xs: 10, sm: 12, md: 24, lg: 24, xl: 24 }
 
 const sortKeys = Object.keys(weaponSortMap)
 export default function PageWeapon() {
+  // The weapon cards also use 'artifact'; fetch it together with the page's namespaces.
+  preloadNamespaces(['artifact'])
   const { t } = useTranslation(['page_weapon', 'ui', 'weaponNames_gen'])
   const database = useDatabase()
   const displayWeapon = useDataEntryBase(database.displayWeapon)
 
   const [newWeaponModalShow, onNewWeaponModalShow, onNewWeaponModalHide] =
     useBoolState(false)
-  useEffect(() => {
-    ReactGA.send({ hitType: 'pageview', page: '/weapon' })
-  }, [])
 
   const brPt = useMediaQueryUp()
 
@@ -202,36 +194,51 @@ export default function PageWeapon() {
         />
       </Suspense>
 
+      <PageHeader
+        title={t('ui:tabs.weapons')}
+        count={totalWeaponNum}
+        actions={
+          <Button
+            sx={giCtaSx}
+            startIcon={<AddIcon />}
+            onClick={onNewWeaponModalShow}
+          >
+            {t('header.add')}
+          </Button>
+        }
+      />
       <WeaponFilter
         numShowing={weaponIds.length}
         total={totalWeaponNum}
         weaponIds={weaponIds}
       />
       <CardThemed>
-        <CardContent sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            flexWrap="wrap"
-          >
-            <TextField
-              autoFocus
-              size="small"
-              value={searchTerm}
-              onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
-                setSearchTerm(e.target.value)
-              }
-              label={t('weaponName')}
-              sx={{ height: '100%' }}
-              InputProps={{ sx: { height: '100%' } }}
-            />
-            <ShowingAndSortOptionSelect
-              showingTextProps={showingTextProps}
-              sortByButtonProps={sortByButtonProps}
-            />
-          </Box>
-          <WeaponRedButtons weaponIds={weaponIds} />
+        <CardContent
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: 1,
+            // search left, "Showing x of y" centred, sort + bulk actions right
+            '& > p': { mx: 'auto' },
+          }}
+        >
+          <TextField
+            autoFocus
+            size="small"
+            value={searchTerm}
+            onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+              setSearchTerm(e.target.value)
+            }
+            label={t('weaponName')}
+            sx={{ height: '100%' }}
+            InputProps={{ sx: { height: '100%' } }}
+          />
+          <ShowingAndSortOptionSelect
+            showingTextProps={showingTextProps}
+            sortByButtonProps={sortByButtonProps}
+          />
+          <WeaponBulkActions weaponIds={weaponIds} />
         </CardContent>
       </CardThemed>
       <Suspense
@@ -242,26 +249,26 @@ export default function PageWeapon() {
           />
         }
       >
-        <Button
-          fullWidth
-          onClick={onNewWeaponModalShow}
-          color="info"
-          startIcon={<AddIcon />}
+        {/* auto-fill: a wider page gets more cards per row, not wider cards */}
+        <Box
+          sx={{
+            display: 'grid',
+            gap: { xs: 1, md: 2 },
+            gridTemplateColumns:
+              'repeat(auto-fill, minmax(min(300px, 100%), 1fr))',
+          }}
         >
-          {t('page_weapon:addWeapon')}
-        </Button>
-        <Grid container spacing={1} columns={columns}>
           {weaponIdsToShow.map((weaponId) => (
-            <Grid item key={weaponId} xs={1}>
+            <Box key={weaponId} sx={{ minWidth: 0 }}>
               <WeaponCard
                 weaponId={weaponId}
                 onDelete={deleteWeapon}
                 onEdit={editWeapon}
                 canEquip
               />
-            </Grid>
+            </Box>
           ))}
-        </Grid>
+        </Box>
       </Suspense>
       {weaponIds.length !== weaponIdsToShow.length && (
         <Skeleton
