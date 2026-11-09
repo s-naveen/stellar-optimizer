@@ -1,7 +1,7 @@
 import { CardThemed, InfoTooltipInline } from '@genshin-optimizer/common/ui'
 import type { CharacterKey, SubstatKey } from '@genshin-optimizer/gi/consts'
 import type { TeamOpt } from '@genshin-optimizer/gi/db'
-import { useDatabase, useDBMeta } from '@genshin-optimizer/gi/db-ui'
+import { useDatabase, useDBGender } from '@genshin-optimizer/gi/db-ui'
 import type {
   SensitivityLevel,
   SensitivityTalent,
@@ -59,10 +59,12 @@ function useTeamSensitivity(
   result: TeamOptResult
 ) {
   const database = useDatabase()
-  const { gender } = useDBMeta()
+  const gender = useDBGender()
   // what the cells depend on besides the result
   const key = JSON.stringify([
     teamOpt.attacks,
+    teamOpt.timeline ?? null,
+    teamOpt.rotationTime ?? 0,
     teamOpt.onField ?? '',
     teamOpt.bonusStats ?? {},
     teamOpt.assumeMaxMain,
@@ -165,7 +167,7 @@ export function TeamSensitivity({
   result: TeamOptResult
 }) {
   const { t } = useTranslation(['page_team', 'statKey_gen'])
-  const { gender } = useDBMeta()
+  const gender = useDBGender()
   const { cells, done } = useTeamSensitivity(teamId, teamOpt, result)
 
   const groups: {
