@@ -802,7 +802,7 @@ function characterPage(
       : `${c.name} Optimizer: Best DPS Build, Artifacts & Weapons`
   const description = b
     ? builds.length > 1
-      ? `${cap(c.short)}${c.support ? ' as a support, plus' : ':'} computed DPS builds for ${variantsText(builds)}, with the best sets, main stats and weapons. Optimize yours, free.`
+      ? `${cap(c.short)}${c.support ? ' as a support, plus' : ':'} computed DPS builds for ${variantsText(builds)}: best sets, main stats and weapons. Optimize yours, free.`
       : `${c.support ? `${cap(c.short)} as a support, plus the computed DPS build: ` : `${cap(c.short)}'s best DPS build: `}${setLabel(b.sets[0].sets)}, ${statShort(b.mains[0].sands)}/${statShort(b.mains[0].goblet)}/${statShort(b.mains[0].circlet)}, ${weaponName(b.weapons[0].key)}. Optimize yours, free.`
     : `Optimize ${named}'s Genshin Impact build from your own artifacts: it tries the combinations you own and calculates the damage. Free, in your browser.`
   const related = all.filter((o) => o.element === c.element && o.key !== c.key)
