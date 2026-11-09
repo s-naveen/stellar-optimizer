@@ -36,6 +36,7 @@ import {
   optimizeTeam,
   partTerms,
   statGains,
+  TeamOptSetRulesUnmet,
   teamOptArtValues,
   teamOptBonusStats,
   teamOptMembers,
@@ -626,6 +627,72 @@ describe('team optimize', () => {
       expect(
         setCount({ ...more, builds: alternative.builds }, ayaka)
       ).toBeLessThan(4)
+  })
+
+  it('gives a member the pieces its set rules need when another member holds them', async () => {
+    const { database, teamId, shenheId, ids } = setup()
+    // Ayaka (no set rules) wears the only Blizzard Strayer pieces; Shenhe may only use that set
+    // (at most one piece of each other set), so her own step finds nothing free that fits
+    for (const id of Object.values(ids.crit))
+      database.arts.set(id, { location: ayaka })
+    database.optConfigs.set(database.teamChars.get(shenheId)!.optConfigId, {
+      artSetExclusion: { NoblesseOblige: [2, 4], GladiatorsFinale: [2, 4] },
+    })
+    const teamOpt: TeamOpt = {
+      ...initTeamOpt(),
+      attacks: {
+        [ayaka]: [attack(['burst', 'cutting'], 19)],
+        [shenhe]: [attack(['skill', 'press'], 2)],
+      },
+    }
+    const result = (await optimizeTeam({
+      database,
+      teamId,
+      gender: 'F',
+      teamOpt,
+      solve: bruteForce,
+    }))!
+    const pieces = (ck: CharacterKey) =>
+      Object.values(result.builds[ck] ?? {}).map(
+        (id) => database.arts.get(id!)!
+      )
+    // she took the Blizzard Strayer pieces from Ayaka: both keep to their set rules
+    expect(pieces(shenhe).length).toBe(5)
+    expect(
+      meetsSetRules(pieces(shenhe), {
+        NoblesseOblige: [2, 4],
+        GladiatorsFinale: [2, 4],
+      })
+    ).toBe(true)
+    expect(pieces(ayaka).length).toBe(5)
+    const used = [...pieces(ayaka), ...pieces(shenhe)].map((a) => a.id)
+    expect(new Set(used).size).toBe(10)
+  })
+
+  it('gives no result when no team build keeps every member’s set rules', async () => {
+    const { database, teamId, ayakaId, shenheId } = setup()
+    // both may only use Blizzard Strayer (3+ pieces each): its 5 pieces can't serve both
+    for (const id of [ayakaId, shenheId])
+      database.optConfigs.set(database.teamChars.get(id)!.optConfigId, {
+        artSetExclusion: { NoblesseOblige: [2, 4], GladiatorsFinale: [2, 4] },
+      })
+    const teamOpt: TeamOpt = {
+      ...initTeamOpt(),
+      attacks: {
+        [ayaka]: [attack(['burst', 'cutting'], 19)],
+        [shenhe]: [attack(['skill', 'press'], 2)],
+      },
+    }
+    const run = optimizeTeam({
+      database,
+      teamId,
+      gender: 'F',
+      teamOpt,
+      solve: bruteForce,
+    })
+    await expect(run).rejects.toBeInstanceOf(TeamOptSetRulesUnmet)
+    const error = await run.catch((e) => e as TeamOptSetRulesUnmet)
+    expect(error.characterKeys.length).toBeGreaterThan(0)
   })
 
   it('keeps members that are kept, and respects their constraints', async () => {

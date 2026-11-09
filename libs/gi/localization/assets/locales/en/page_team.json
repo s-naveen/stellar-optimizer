@@ -232,8 +232,6 @@
       "attackHits": "×{{hits}} per rotation",
       "stale": "Found with an earlier rotation or settings: what changed since is not in it.",
       "runAgain": "Run again",
-      "setRulesUnmet": "Its allowed sets: no build fits, kept",
-      "setRulesWhy": "No build of the artifacts it may use keeps to the sets allowed on its Optimize tab (with its main stats, artifact levels and the inventory settings), so it kept its build. Allow more sets or artifacts.",
       "compare": "Compare with equipped",
       "belowNow": "Below your current builds ({{value}})",
       "belowNowSets_one": "can’t keep their current build: it breaks their allowed sets (Requirements → Artifact sets)",
@@ -279,7 +277,9 @@
       "how": "Each member is optimized in turn for the whole rotation’s damage, the others fixed, the biggest damage dealer first. Rounds repeat until no build changes; then members trade pieces and weapons where the team gains.",
       "weapon": "weapon {{weapon}}/{{weapons}}",
       "energyFor": "energy check:",
-      "exchange": "exchanges between members"
+      "exchange": "exchanges between members",
+      "setRulesUnmet": "No team build fits the allowed sets of",
+      "setRulesUnmetWhy": "Even with the pieces the other members hold, no build of the artifacts they may use keeps to the sets allowed on their Optimize tab (Requirements → Artifact sets), with their main stats and the inventory settings. Allow more sets, or free up pieces of the sets they need."
     },
     "slot": {
       "circlet": "Circlet",

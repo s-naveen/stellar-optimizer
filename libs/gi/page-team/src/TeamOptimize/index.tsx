@@ -39,7 +39,14 @@ import {
   Typography,
 } from '@mui/material'
 import type { ReactNode } from 'react'
-import { useCallback, useEffect, useId, useMemo, useState } from 'react'
+import {
+  Fragment,
+  useCallback,
+  useEffect,
+  useId,
+  useMemo,
+  useState,
+} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { buffsForAttacker, useTeamBuffs } from './buffs'
@@ -350,7 +357,13 @@ export default function TeamOptimize({
 
       {state.type === 'error' && (
         <Alert severity="error" onClose={clear}>
-          {t('teamOpt.run.error', 'Team Optimize stopped:')} {state.message}
+          {state.setRulesUnmet?.length ? (
+            <SetRulesUnmet characterKeys={state.setRulesUnmet} />
+          ) : (
+            <>
+              {t('teamOpt.run.error', 'Team Optimize stopped:')} {state.message}
+            </>
+          )}
         </Alert>
       )}
       {result && shown && builds.length > 1 && (
@@ -673,6 +686,30 @@ function RunBar({
           : t('teamOpt.run.button', 'Optimize team')}
       </Button>
     </Box>
+  )
+}
+
+/** A run without a result: no team build keeps these members to their allowed sets */
+function SetRulesUnmet({ characterKeys }: { characterKeys: CharacterKey[] }) {
+  const { t } = useTranslation('page_team')
+  const { gender } = useDBMeta()
+  return (
+    <>
+      {t('teamOpt.run.setRulesUnmet', 'No team build fits the allowed sets of')}{' '}
+      {characterKeys.map((ck, i) => (
+        <Fragment key={ck}>
+          {i > 0 && ', '}
+          <strong>
+            <CharacterName characterKey={ck} gender={gender} />
+          </strong>
+        </Fragment>
+      ))}
+      {'. '}
+      {t(
+        'teamOpt.run.setRulesUnmetWhy',
+        'Even with the pieces the other members hold, no build of the artifacts they may use keeps to the sets allowed on their Optimize tab (Requirements → Artifact sets), with their main stats and the inventory settings. Allow more sets, or free up pieces of the sets they need.'
+      )}
+    </>
   )
 }
 

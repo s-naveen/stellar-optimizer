@@ -1,3 +1,4 @@
+import type { CharacterKey } from '@genshin-optimizer/gi/consts'
 import type { ArtCharDatabase, TeamOpt } from '@genshin-optimizer/gi/db'
 import { initTeamOpt } from '@genshin-optimizer/gi/db'
 import { useDatabase, useDBMeta } from '@genshin-optimizer/gi/db-ui'
@@ -16,6 +17,7 @@ import type {
 import {
   optimizeTeam,
   TeamOptCancelled,
+  TeamOptSetRulesUnmet,
   teamOptMembers,
   useNumWorkers,
 } from '@genshin-optimizer/gi/ui'
@@ -31,7 +33,12 @@ export type TeamOptRunState =
       /** The settings it was found with (the rotation its damage is for) */
       teamOpt: TeamOpt
     }
-  | { type: 'error'; message: string }
+  | {
+      type: 'error'
+      message: string
+      /** The members no team build keeps to the allowed sets of (the run gave no result) */
+      setRulesUnmet?: CharacterKey[]
+    }
 
 /** The live counters of the solver of the current step */
 export type TeamOptStatus = {
@@ -254,6 +261,12 @@ export function useTeamOptRun(teamId: string) {
     } catch (e) {
       if (cancelled || e instanceof TeamOptCancelled)
         setState(lastRun(database, teamId))
+      else if (e instanceof TeamOptSetRulesUnmet)
+        setState({
+          type: 'error',
+          message: e.message,
+          setRulesUnmet: e.characterKeys,
+        })
       else setState({ type: 'error', message: (e as Error)?.message ?? `${e}` })
     } finally {
       cancelRef.current = () => {}

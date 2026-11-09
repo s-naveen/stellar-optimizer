@@ -133,11 +133,6 @@ export interface TeamOptResult {
    */
   untickedWeapons?: CharacterKey[]
   /**
-   * Optimized members whose build breaks their set rules (their Optimize tab's set exclusions): no
-   * build of the artifacts they may use keeps to them, so they kept the one they had
-   */
-  setRulesUnmet?: CharacterKey[]
-  /**
    * Optimized members whose own build (before the run) breaks their set rules: they could not keep
    * it, which can leave the team below where it started
    */
@@ -159,6 +154,18 @@ export interface TeamOptResult {
 export class TeamOptCancelled extends Error {
   constructor() {
     super('Team optimization cancelled')
+  }
+}
+
+/**
+ * No team build keeps every optimized member's set rules (their Optimize tab's set exclusions):
+ * `characterKeys` are the members left outside them, even with the pieces the others hold
+ */
+export class TeamOptSetRulesUnmet extends Error {
+  constructor(readonly characterKeys: CharacterKey[]) {
+    super(
+      `No build of the artifacts they may use keeps to the allowed sets of ${characterKeys.join(', ')}`
+    )
   }
 }
 
@@ -1003,6 +1010,75 @@ export async function optimizeTeam({
         .length
     )
   }
+  /** The optimized members whose build in `s` breaks their set rules */
+  const outsideSetRules = (s: TeamState) =>
+    order.filter(
+      ({ characterKey }) =>
+        !keepsSetRules(characterKey, artsIn(s, characterKey))
+    )
+  /**
+   * Set rules come before damage. A member left outside its set rules (no build of the free pieces
+   * keeps to them, say another member holds the only pieces of its set) takes, among everything but
+   * the kept members' pieces, its best build that keeps to them; the others get its previous pieces,
+   * as equipping does, and settle again in the next round. A repair stands when no other member's
+   * set rules break, so each one leaves fewer members outside them.
+   */
+  const repairIn = async (s: TeamState, round: number) => {
+    let repaired = false
+    const kept = new Set<string>(
+      members
+        .filter((m) => !order.includes(m))
+        .flatMap((m) => Object.values(s.builds[m.characterKey] ?? {}))
+        .filter(notEmpty)
+    )
+    for (const [i, member] of order.entries()) {
+      const { characterKey } = member
+      const optConfig = optConfigs[characterKey]
+      if (!optConfig || keepsSetRules(characterKey, artsIn(s, characterKey)))
+        continue
+      if (isCancelled()) throw new TeamOptCancelled()
+      await onStep?.({
+        round,
+        maxRounds,
+        step: i + 1,
+        steps: order.length,
+        characterKey,
+        exchange: true,
+      })
+      if (isCancelled()) throw new TeamOptCancelled()
+      const problem = problemIn(s, characterKey)
+      if (!problem) continue
+      const input = {
+        characterKey,
+        arts: teamOptPool(
+          allArts,
+          member,
+          optConfig,
+          teamOpt,
+          teamLocations,
+          kept
+        ),
+        objective: problem.objective,
+        constraints: problem.constraints,
+        exclusion: optConfig.artSetExclusion,
+        mainStatAssumptionLevel,
+      }
+      // its requirements too if a build meets them, else its set rules alone (the next round gives
+      // it the closest build to them that keeps to the rules)
+      const result =
+        (await solve(input)) ?? (await solve({ ...input, constraints: [] }))
+      if (isCancelled()) throw new TeamOptCancelled()
+      if (!result) continue
+      const next = copyState(s)
+      assign(next, member, result.artifactIds)
+      if (breaksSetRules(s, next)) continue
+      if (outsideSetRules(next).length >= outsideSetRules(s).length) continue
+      s.builds = next.builds
+      s.weaponIds = next.weaponIds
+      repaired = true
+    }
+    return repaired
+  }
   /**
    * Exchanges a member's own step cannot make, as it does not take what a settled member holds:
    * a member re-optimized with the others' pieces too (they get its previous ones, as equipping
@@ -1460,6 +1536,8 @@ export async function optimizeTeam({
           changed = true
         }
       }
+      // a member left outside its set rules takes the pieces it needs from the others
+      if (order.length > 1 && (await repairIn(state, round))) changed = true
       // once the members' own steps settle: the exchanges between members (twice at most)
       if (!changed && exchanges < 2 && order.length > 1) {
         exchanges++
@@ -1632,14 +1710,9 @@ export async function optimizeTeam({
     state.weaponIds,
     teamOpt
   )
-  // (no build of its artifacts keeps to them: it kept what it had)
-  const setRulesUnmet = order
-    .filter(({ characterKey }) => isFull(state, characterKey))
-    .filter(
-      ({ characterKey }) =>
-        !keepsSetRules(characterKey, artsIn(state, characterKey))
-    )
-    .map((m) => m.characterKey)
+  // no team build keeps every member's set rules: no result (a partial one would break them)
+  const setRulesUnmet = outsideSetRules(state).map((m) => m.characterKey)
+  if (setRulesUnmet.length) throw new TeamOptSetRulesUnmet(setRulesUnmet)
   const startBreaksSetRules = order
     .filter(({ characterKey }) => isFull(start, characterKey))
     .filter(
@@ -1657,7 +1730,6 @@ export async function optimizeTeam({
     optimized: order.map((m) => m.characterKey),
     energy,
     ...(untickedWeapons.length ? { untickedWeapons } : {}),
-    ...(setRulesUnmet.length ? { setRulesUnmet } : {}),
     ...(startBreaksSetRules.length ? { startBreaksSetRules } : {}),
     ...(startUntickedWeapons.length ? { startUntickedWeapons } : {}),
     ...(alternatives.length ? { alternatives } : {}),

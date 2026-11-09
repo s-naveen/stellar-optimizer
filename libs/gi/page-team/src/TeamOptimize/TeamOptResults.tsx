@@ -553,7 +553,6 @@ function MemberResult({
       .sort(([, a], [, b]) => b - a) as [ArtifactSetKey, number][]
   }, [build, database])
   // no build of its artifacts keeps to its set rules: it kept the one it had
-  const setRulesUnmet = !!result.setRulesUnmet?.includes(characterKey)
   const unmet = result.after.unmet[characterKey]
   const shortfalls = result.after.shortfalls?.[characterKey]
   const weaponId = result.weapons?.[characterKey]
@@ -824,26 +823,6 @@ function MemberResult({
             })}
           </Box>
         </Typography>
-      )}
-      {setRulesUnmet && (
-        <Tooltip
-          placement="top"
-          title={t(
-            'teamOpt.result.setRulesWhy',
-            'No build of the artifacts it may use keeps to the sets allowed on its Optimize tab (with its main stats, artifact levels and the inventory settings), so it kept its build. Allow more sets or artifacts.'
-          )}
-        >
-          <Typography
-            variant="caption"
-            color="warning.main"
-            sx={{ alignSelf: 'flex-start', cursor: 'help' }}
-          >
-            {t(
-              'teamOpt.result.setRulesUnmet',
-              'Its allowed sets: no build fits, kept'
-            )}
-          </Typography>
-        </Tooltip>
       )}
       {shortfalls?.length ? (
         <Shortfalls
