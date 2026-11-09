@@ -1,11 +1,14 @@
 #!/usr/bin/env node
 // Releases of Stellar Optimizer. The changelog (libs/gi/ui/src/changelog/changelog.json, newest
 // first) is the one source: the app shows it (home page, footer version), CHANGELOG.md and the
-// GitHub release notes are made from it. Every deploy is a release.
+// GitHub release notes are made from it. Every deploy is a release. Notes list only what users
+// notice in the app (no SEO, deploy or tooling work): a deploy with nothing of that kind is a
+// release without notes, which the app and CHANGELOG.md leave out (GitHub calls it maintenance).
 //
 //   node tools/site/release.mjs draft            next release from the commits since the last tag
 //                                                 (feat → minor, fix/perf → patch, `!:` → major);
-//                                                 prints JSON to edit into plain language
+//                                                 prints JSON to edit into plain language, dropping
+//                                                 every line users would not notice
 //   node tools/site/release.mjs add <entry.json>  puts it first in the changelog, sets package.json's
 //                                                 version, rewrites CHANGELOG.md
 //   node tools/site/release.mjs notes [version]   the release's notes as Markdown
@@ -89,12 +92,19 @@ function draft() {
   console.log(JSON.stringify(entry, null, 2))
 }
 
+const hasNotes = (release) => GROUPS.some(([key]) => release[key]?.length)
+
 function markdown(release, heading = '##') {
   const lines = [
     `${heading} [v${release.version}](https://github.com/${REPO}/releases/tag/v${release.version}) (${release.date})`,
     '',
   ]
   if (release.title) lines.push(`_${release.title}_`, '')
+  if (!hasNotes(release))
+    lines.push(
+      'Maintenance release: no changes you would notice in the app.',
+      ''
+    )
   for (const [key, label] of GROUPS) {
     if (!release[key]?.length) continue
     lines.push(`### ${label}`, '', ...release[key].map((s) => `- ${s}`), '')
@@ -113,7 +123,7 @@ function writeChangelogMd(all) {
   ]
   writeFileSync(
     CHANGELOG_MD,
-    `${[...intro, ...all.map((r) => markdown(r))].join('\n').trimEnd()}\n`
+    `${[...intro, ...all.filter(hasNotes).map((r) => markdown(r))].join('\n').trimEnd()}\n`
   )
 }
 
@@ -123,8 +133,10 @@ function add(file) {
     throw new Error(`bad version: ${entry.version}`)
   if (!/^\d{4}-\d{2}-\d{2}$/.test(entry.date ?? ''))
     throw new Error(`bad date: ${entry.date}`)
-  if (!GROUPS.some(([key]) => entry[key]?.length))
-    throw new Error('the release has no notes')
+  if (!hasNotes(entry))
+    console.log(
+      'no notes: a maintenance release (left out of the app and CHANGELOG.md)'
+    )
   const all = releases().filter((r) => r.version !== entry.version)
   all.unshift(entry)
   writeFileSync(CHANGELOG, `${JSON.stringify(all, null, 2)}\n`)

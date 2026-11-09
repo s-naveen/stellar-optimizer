@@ -13,7 +13,7 @@ import {
 import { Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Release } from '../../changelog'
-import { RELEASES_URL, releases, releaseUrl } from '../../changelog'
+import { notedReleases, RELEASES_URL, releaseUrl } from '../../changelog'
 
 /** "9 Nov 2026" in the reader's language (the date is a plain YYYY-MM-DD, no time zone shift) */
 export function releaseDate(date: string, language?: string) {
@@ -108,7 +108,7 @@ export function ReleaseNotes({
   )
 }
 
-/** Every release, newest first, with a link to the releases on GitHub */
+/** Every release with notes, newest first, with a link to the releases on GitHub */
 export function ChangelogDialog({
   open,
   onClose,
@@ -152,7 +152,7 @@ export function ChangelogDialog({
         <Divider />
         <CardContent>
           <Stack spacing={2.5}>
-            {releases.map((release, i) => (
+            {notedReleases.map((release, i) => (
               <Fragment key={release.version}>
                 {i > 0 && <Divider />}
                 <ReleaseNotes release={release} />
