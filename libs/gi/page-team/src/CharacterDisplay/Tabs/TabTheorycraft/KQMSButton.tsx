@@ -23,7 +23,6 @@ export default function KQMSButton({
   return (
     <>
       <Button
-        color="keqing"
         onClick={onOpen}
         startIcon={<ImgIcon src={kqmIcon} />}
         disabled={disabled}

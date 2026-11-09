@@ -14,8 +14,9 @@ import {
 } from '@genshin-optimizer/gi/consts'
 import { ArtifactRarityDropdown } from '@genshin-optimizer/gi/ui'
 import { getSubstatValue } from '@genshin-optimizer/gi/util'
-import { Box, MenuItem, Stack, Typography } from '@mui/material'
-import { useCallback, useContext } from 'react'
+import TuneIcon from '@mui/icons-material/Tune'
+import { Box, Button, MenuItem, Stack, Typography } from '@mui/material'
+import { useCallback, useContext, useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { BuildTcContext } from '../../../../BuildTcContext'
 import { ArtifactAllSubstatEditor } from './ArtifactAllSubstatEditor'
@@ -63,6 +64,8 @@ export function ArtifactSubCard({
     (t, [k, v]) => t + v / getSubstatValue(k, rarity, substatsType),
     0
   )
+  /** Per-substat sliders and roll limits (the limits only matter to "Best roll distribution") */
+  const [detailed, setDetailed] = useState(false)
   const { high, numUpgrades } = artSubstatRollData[rarity]
   const maxRolls = (high + numUpgrades) * 5
   return (
@@ -123,10 +126,32 @@ export function ArtifactSubCard({
               </ColorText>
             </CardThemed>
           </BootstrapTooltip>
+          <BootstrapTooltip
+            placement="top"
+            title={t(
+              'tabTheorycraft.fineTuneHint',
+              'Sliders, the all-substats row and the roll limit of each substat (what "Best roll distribution" may add)'
+            )}
+          >
+            <Button
+              size="small"
+              startIcon={<TuneIcon />}
+              onClick={() => setDetailed((d) => !d)}
+              aria-pressed={detailed}
+              sx={detailed ? { color: 'primary.light' } : undefined}
+            >
+              {t('tabTheorycraft.fineTune', 'Sliders & limits')}
+            </Button>
+          </BootstrapTooltip>
         </Box>
-        <ArtifactAllSubstatEditor disabled={disabled} />
+        {detailed && <ArtifactAllSubstatEditor disabled={disabled} />}
         {Object.entries(substats).map(([k]) => (
-          <ArtifactSubstatEditor key={k} statKey={k} disabled={disabled} />
+          <ArtifactSubstatEditor
+            key={k}
+            statKey={k}
+            disabled={disabled}
+            detailed={detailed}
+          />
         ))}
       </Stack>
     </CardThemed>

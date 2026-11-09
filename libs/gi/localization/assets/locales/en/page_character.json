@@ -102,7 +102,17 @@
       "scalesWith": "The selected Optimization target and constraints scales with: ",
       "distribute": ". The solver will only distribute stats to these substats.",
       "feasibilty": "There may be additional leftover substats that should be distributed to non-scaling stats to ensure the solution is feasible."
-    }
+    },
+    "whatIf": "A what-if copy of a build: change anything, nothing gets equipped.",
+    "back": "Back to {{name}}",
+    "equipped": "Equipped",
+    "distTitle": "Best roll distribution",
+    "distInfo": "Finds the best way to spend extra substat rolls on this build for the optimization target, within the constraints and how many rolls each substat can take, then adds them to the substats.",
+    "distRolls": "extra rolls",
+    "cancel": "Cancel",
+    "distUsed": "About {{used}} of the {{max}} rolls these artifacts hold are used",
+    "fineTune": "Sliders & limits",
+    "fineTuneHint": "Sliders, the all-substats row and the roll limit of each substat (what \"Best roll distribution\" may add)"
   },
   "tabTeambuff": {
     "team_reso": "Team Resonance",

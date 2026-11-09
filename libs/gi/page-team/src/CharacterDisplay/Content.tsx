@@ -4,14 +4,15 @@ import {
   useOptimisticValue,
 } from '@genshin-optimizer/common/ui'
 import { TeamCharacterContext, useDatabase } from '@genshin-optimizer/gi/db-ui'
+import { giCtaSx } from '@genshin-optimizer/gi/theme'
 import FactCheckIcon from '@mui/icons-material/FactCheck'
 import PersonIcon from '@mui/icons-material/Person'
 import ScienceIcon from '@mui/icons-material/Science'
 import TrendingUpIcon from '@mui/icons-material/TrendingUp'
 import UpgradeIcon from '@mui/icons-material/Upgrade'
 import { Box, Button, Skeleton, Tab, Tabs } from '@mui/material'
-import { Suspense, useCallback, useContext } from 'react'
 import type { MouseEvent } from 'react'
+import { Suspense, useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate, Route, Link as RouterLink, Routes } from 'react-router-dom'
 import FormulaModal from './FormulaModal'
@@ -20,6 +21,7 @@ import TabBuild from './Tabs/TabOptimize'
 import TabOverview from './Tabs/TabOverview'
 import TabTalent from './Tabs/TabTalent'
 import TabTheorycraft from './Tabs/TabTheorycraft'
+import { buildBeforeTc } from './Tabs/TabTheorycraft/buildBeforeTc'
 import TabUpopt from './Tabs/TabUpgradeOpt'
 export default function Content({ tab }: { tab?: string }) {
   const { loadoutDatum } = useContext(TeamCharacterContext)
@@ -128,10 +130,10 @@ function LoadoutTabs({
   onChange?: () => void
 }) {
   const { t } = useTranslation('page_character')
-
-  return (
   // the clicked tab is selected at once; its panel renders in the navigation's transition
   const [value, select] = useOptimisticValue(tab ?? 'overview')
+
+  return (
     <Tabs
       value={value}
       variant="scrollable"
@@ -211,7 +213,11 @@ function LoadoutTabs({
 function NeedsRealBuild() {
   const { t } = useTranslation('page_team')
   const database = useDatabase()
-  const { teamId, teamCharId } = useContext(TeamCharacterContext)
+  const { teamId, teamCharId, loadoutDatum } = useContext(TeamCharacterContext)
+  // the build the theorycraft copy came from, when it is not just the equipped one
+  const back = buildBeforeTc(database, teamCharId, loadoutDatum)
+  const use = (buildType: 'equipped' | 'real') =>
+    database.teams.setLoadoutDatum(teamId, teamCharId, { buildType })
   return (
     <Box sx={{ p: { xs: 1, md: 2 } }}>
       <EmptyState
@@ -219,15 +225,33 @@ function NeedsRealBuild() {
         title={t('tcNoOptimize.title')}
         description={t('tcNoOptimize.description')}
         actions={
-          <Button
-            onClick={() =>
-              database.teams.setLoadoutDatum(teamId, teamCharId, {
-                buildType: 'equipped',
-              })
-            }
+          <Box
+            sx={{
+              display: 'flex',
+              gap: 1,
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+            }}
           >
-            {t('tcNoOptimize.useEquipped')}
-          </Button>
+            {back === 'real' && (
+              <Button sx={giCtaSx} onClick={() => use('real')}>
+                {t('tcNoOptimize.back', {
+                  defaultValue: 'Back to {{name}}',
+                  name: database.teams.getActiveBuildName({
+                    ...loadoutDatum,
+                    buildType: 'real',
+                  }),
+                })}
+              </Button>
+            )}
+            <Button
+              // the main (gold) action unless "Back to <build>" is offered
+              sx={back === 'real' ? undefined : giCtaSx}
+              onClick={() => use('equipped')}
+            >
+              {t('tcNoOptimize.useEquipped')}
+            </Button>
+          </Box>
         }
       />
     </Box>

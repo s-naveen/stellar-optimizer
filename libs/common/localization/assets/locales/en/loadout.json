@@ -4,7 +4,9 @@
     "builds": "Builds",
     "newBuildBtn": "New Build",
     "tcBuilds": "TC Builds",
-    "newTcBuildBtn": "New TC Build"
+    "newTcBuildBtn": "New TC Build",
+    "theorycraftBtn": "Theorycraft this build",
+    "theorycraftHint": "Starts as a copy of the current build, then opens it in the Theorycraft tab"
   },
   "mTargetEditor": {
     "title": "Target Editor",

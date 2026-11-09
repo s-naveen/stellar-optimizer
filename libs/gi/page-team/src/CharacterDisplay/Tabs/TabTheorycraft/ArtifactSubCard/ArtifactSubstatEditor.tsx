@@ -6,8 +6,8 @@ import {
 } from '@genshin-optimizer/common/ui'
 import { clamp, getUnitStr } from '@genshin-optimizer/common/util'
 import { artMaxLevel, type SubstatKey } from '@genshin-optimizer/gi/consts'
-import { KeyMap } from '@genshin-optimizer/gi/keymap'
 import { StatIcon } from '@genshin-optimizer/gi/svgicons'
+import { statName } from '@genshin-optimizer/gi/ui'
 import { artDisplayValue, getSubstatValue } from '@genshin-optimizer/gi/util'
 import InfoIcon from '@mui/icons-material/Info'
 import { Box, Slider, Stack, Typography } from '@mui/material'
@@ -18,9 +18,12 @@ import { BuildTcContext } from '../../../../BuildTcContext'
 export function ArtifactSubstatEditor({
   statKey,
   disabled = false,
+  detailed = true,
 }: {
   statKey: SubstatKey
   disabled?: boolean
+  /** Also the slider and the roll limit */
+  detailed?: boolean
 }) {
   const { t } = useTranslation('page_character')
   const {
@@ -128,7 +131,7 @@ export function ArtifactSubstatEditor({
           }}
         >
           <StatIcon statKey={statKey} iconProps={{ fontSize: 'inherit' }} />
-          {KeyMap.getStr(statKey)}
+          {statName(statKey)}
           {getUnitStr(statKey)}
         </CardThemed>
         <NumberInputLazy
@@ -188,63 +191,65 @@ export function ArtifactSubstatEditor({
           </ColorText>
         </CardThemed>
       </Box>
-      <Box
-        display="flex"
-        gap={1}
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <CardThemed
-          sx={{
-            px: 2,
-            flexGrow: 1,
-            display: 'flex',
-            gap: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-            overflow: 'visible',
-          }}
+      {detailed && (
+        <Box
+          display="flex"
+          gap={1}
+          justifyContent="space-between"
+          alignItems="center"
         >
-          <Slider
+          <CardThemed
+            sx={{
+              px: 2,
+              flexGrow: 1,
+              display: 'flex',
+              gap: 1,
+              alignItems: 'center',
+              justifyContent: 'center',
+              overflow: 'visible',
+            }}
+          >
+            <Slider
+              size="small"
+              value={rolls}
+              max={Math.min(maxRolls, maxSubstat)}
+              min={0}
+              step={1}
+              marks
+              valueLabelDisplay="auto"
+              onChange={(_e, v) => setRolls(v as number)}
+              onChangeCommitted={(_e, v) => setRValue(v as number)}
+              disabled={disabled}
+            />
+          </CardThemed>
+          <NumberInputLazy
+            value={maxSubstat}
+            onChange={(v) => v !== undefined && setMaxSubstat(v)}
             size="small"
-            value={rolls}
-            max={Math.min(maxRolls, maxSubstat)}
-            min={0}
-            step={1}
-            marks
-            valueLabelDisplay="auto"
-            onChange={(_e, v) => setRolls(v as number)}
-            onChangeCommitted={(_e, v) => setRValue(v as number)}
-            disabled={disabled}
+            color={
+              // 0.0001 to nudge float comparasion
+              rolls - 0.0001 > maxSubstat
+                ? 'error'
+                : maxSubstat > maxRolls
+                  ? 'warning'
+                  : 'success'
+            }
+            focused
+            inputProps={{
+              sx: { width: '2ch' },
+              min: 0,
+              max: 99, // 3 digits aren't visible
+            }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  {t('tabTheorycraft.substat.max')}
+                </InputAdornment>
+              ),
+            }}
           />
-        </CardThemed>
-        <NumberInputLazy
-          value={maxSubstat}
-          onChange={(v) => v !== undefined && setMaxSubstat(v)}
-          size="small"
-          color={
-            // 0.0001 to nudge float comparasion
-            rolls - 0.0001 > maxSubstat
-              ? 'error'
-              : maxSubstat > maxRolls
-                ? 'warning'
-                : 'success'
-          }
-          focused
-          inputProps={{
-            sx: { width: '2ch' },
-            min: 0,
-            max: 99, // 3 digits aren't visible
-          }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                {t('tabTheorycraft.substat.max')}
-              </InputAdornment>
-            ),
-          }}
-        />
-      </Box>
+        </Box>
+      )}
     </Stack>
   )
 }

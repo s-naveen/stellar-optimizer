@@ -17,6 +17,7 @@ import {
   artifactLevelVariant,
   StatColoredWithUnit,
   StatWithUnit,
+  statName,
 } from '@genshin-optimizer/gi/ui'
 import {
   artDisplayValue,
@@ -82,7 +83,7 @@ export function ArtifactMainLevelSlot({
             gap={1}
           >
             <StatIcon statKey={keys[0]} iconProps={iconInlineProps} />{' '}
-            {KeyMap.getStr(keys[0])}
+            {statName(keys[0])}
           </Box>
         ) : (
           <DropdownButton
