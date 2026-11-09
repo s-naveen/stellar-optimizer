@@ -56,15 +56,22 @@ function coreStatsPlugin(): Plugin {
 
 /** The locale folders copied to `assets/locales` (unhashed file names, loaded by i18next). */
 /**
- * Cloudflare Web Analytics: cookieless visit counts for the published site (no consent banner
- * needed). Production builds only, and only on the real host, so local runs (dev server, smoke
- * tests of dist) are never counted. The token is the public site tag from the Cloudflare
- * dashboard (Web Analytics → gi-beta73.github.io), not a secret.
- * Opening the site once with `?notrack` stops counting that browser (for the site's own team);
- * `?notrack=off` counts it again.
+ * Cloudflare Web Analytics: cookieless visit counts for the published sites (no consent banner
+ * needed). Production builds only, and only on the real hosts, so local runs (dev server, smoke
+ * tests of dist) are never counted. Each host has its own Web Analytics site, so the beta and the
+ * released site are counted apart; the tokens are the public site tags from the Cloudflare
+ * dashboard (Web Analytics → the site → Manage site), not secrets. gi-beta73.github.io's site is
+ * in another Cloudflare account than stellaroptimizer.com's (set up as "JS Snippet installation",
+ * so Cloudflare injects nothing itself).
+ * Opening a site once with `?notrack` stops counting that browser there (for the site's own
+ * team); `?notrack=off` counts it again.
  */
-const CF_WEB_ANALYTICS_TOKEN = 'ec971696b247424ca782ce28157bc5af'
-const CF_WEB_ANALYTICS_HOST = 'gi-beta73.github.io'
+const CF_WEB_ANALYTICS_TOKENS: Record<string, string> = {
+  'gi-beta73.github.io': 'ec971696b247424ca782ce28157bc5af',
+  'stellaroptimizer.com': 'cb9d851f67d541428fdf3ef910d61702',
+}
+/** The site search engines treat as the original (canonical links, sitemap): the beta site */
+const CANONICAL_HOST = 'gi-beta73.github.io'
 // the beacon finds its config by the data-cf-beacon attribute when inserted this way
 const CF_BEACON_INLINE = `(() => {
   try {
@@ -73,11 +80,12 @@ const CF_BEACON_INLINE = `(() => {
     else if (q.has('notrack')) localStorage.setItem('stellar-notrack', '1')
     if (localStorage.getItem('stellar-notrack')) return
   } catch {}
-  if (location.hostname !== ${JSON.stringify(CF_WEB_ANALYTICS_HOST)}) return
+  const token = ${JSON.stringify(CF_WEB_ANALYTICS_TOKENS)}[location.hostname.replace(/^www./, '')]
+  if (!token) return
   const s = document.createElement('script')
   s.type = 'module'
   s.src = 'https://static.cloudflareinsights.com/beacon.min.js'
-  s.dataset.cfBeacon = ${JSON.stringify(JSON.stringify({ token: CF_WEB_ANALYTICS_TOKEN }))}
+  s.dataset.cfBeacon = JSON.stringify({ token })
   document.head.appendChild(s)
 })()`
 function cloudflareWebAnalyticsPlugin(): Plugin {
@@ -177,7 +185,7 @@ export default defineConfig(() => ({
     cloudflareWebAnalyticsPlugin(),
     // static landing pages (/<name>-optimizer/, /optimizers/), sitemap.xml and robots.txt
     seoPagesPlugin({
-      siteUrl: `https://${CF_WEB_ANALYTICS_HOST}/`,
+      siteUrl: `https://${CANONICAL_HOST}/`,
       siteName: 'Stellar Optimizer',
       bodyEndHtml: `<script>${CF_BEACON_INLINE}</script>`,
       upcoming: new Set(beta.characters),
