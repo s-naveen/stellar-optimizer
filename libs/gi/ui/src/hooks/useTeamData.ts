@@ -272,7 +272,8 @@ type CharBundle = {
   data: Data[]
 }
 
-function getCharDataBundle(
+/** One member's data, as `getTeamData` builds it (also used by Team Optimize, with overrides) */
+export function getCharDataBundle(
   database: ArtCharDatabase,
   useCustom = false,
   mainStatAssumptionLevel: number,

@@ -171,11 +171,15 @@ function computeFormulaDisplay(
     case 'mul':
     case 'min':
     case 'max': {
-      if (ops.length === 1) result.prec = GetCalcDisplay(ops[0]).prec
+      // A sum's terms that add 0 (every artifact set's Energy Recharge when Team Optimize has them
+      // all loaded, "Custom DEF 0") say nothing: left out, one kept if all are
+      const shown = op === 'add' ? ops.filter((o) => o.value !== 0) : ops
+      const terms = shown.length ? shown : ops.slice(0, 1)
+      if (terms.length === 1) result.prec = GetCalcDisplay(terms[0]).prec
       else result.prec = details[op].prec
       const { head, sep, tail, prec } = details[op]
       components.push(head)
-      ops.forEach((op, i) => {
+      terms.forEach((op, i) => {
         if (i !== 0) components.push(sep)
         addComponents(op, prec)
       })

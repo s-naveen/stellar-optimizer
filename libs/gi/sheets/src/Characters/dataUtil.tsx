@@ -5,12 +5,14 @@ import {
 } from '@genshin-optimizer/common/util'
 import type {
   CharacterKey,
+  CharacterSheetKey,
   ElementKey,
   MainStatKey,
   StellarReactionKey,
   SubstatKey,
 } from '@genshin-optimizer/gi/consts'
 import {
+  allCharacterSheetKeys,
   allElementKeys,
   allLunarReactionKeys,
   allMainStatKeys,
@@ -503,7 +505,16 @@ export function dataObjForCharacterSheet(
   return mergeData([
     data,
     moonsignData,
-    ...additional.map((d) => inferInfoMut(d)),
+    // (each buff tagged with this character: formulas say where a term comes from, "(Valeriy)",
+    // as they do for weapons and artifact sets)
+    ...additional.map((d) =>
+      inferInfoMut(
+        d,
+        (allCharacterSheetKeys as readonly string[]).includes(key)
+          ? (key as CharacterSheetKey)
+          : undefined
+      )
+    ),
   ])
 }
 

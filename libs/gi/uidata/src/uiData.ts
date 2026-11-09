@@ -376,8 +376,16 @@ export class UIData {
       case 'min':
       case 'max': {
         if (process.env['NODE_ENV'] !== 'development') {
+          // (in production, terms that change nothing are left out, as a lighter display) but
+          // not a named stat: a CRIT Rate capped at 100% (×1) is still the hit's CRIT Rate, and
+          // what reads the hit's parts must find it, as it does in development
+          // (a named 0 in a sum stays out: it shows nothing and sums are many)
           const identity = allOperations[operation]([])
-          operands = operands.filter((operand) => operand.value !== identity)
+          operands = operands.filter(
+            (operand) =>
+              operand.value !== identity ||
+              (operation !== 'add' && !!operand.info?.path)
+          )
         }
       }
     }
