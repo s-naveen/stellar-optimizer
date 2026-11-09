@@ -6,7 +6,7 @@ import type { TeamCharacterContextObj } from '@genshin-optimizer/gi/db-ui'
 import {
   TeamCharacterContext,
   useDatabase,
-  useDBMeta,
+  useDBGender,
   useOptConfig,
   useTeam,
 } from '@genshin-optimizer/gi/db-ui'
@@ -204,7 +204,7 @@ function MemberRunRow({
 }) {
   const { t } = useTranslation('page_team')
   const database = useDatabase()
-  const { gender } = useDBMeta()
+  const gender = useDBGender()
   const team = useTeam(teamId)
   const { characterKey, isTc, teamCharId, loadoutDatum } = member
   const teamChar = database.teamChars.get(teamCharId) ?? member.teamChar

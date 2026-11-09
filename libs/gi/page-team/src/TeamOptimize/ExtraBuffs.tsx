@@ -2,7 +2,7 @@ import { NumberInputLazy } from '@genshin-optimizer/common/ui'
 import { getUnitStr } from '@genshin-optimizer/common/util'
 import type { CharacterKey } from '@genshin-optimizer/gi/consts'
 import type { TeamOpt } from '@genshin-optimizer/gi/db'
-import { useDBMeta } from '@genshin-optimizer/gi/db-ui'
+import { useDBGender } from '@genshin-optimizer/gi/db-ui'
 import type { StatOption, TeamOptMember } from '@genshin-optimizer/gi/ui'
 import {
   CharacterName,
@@ -203,7 +203,7 @@ export function ExtraBuffs({
 /** Who a buff is for: the whole team, or a member (avatar and name) */
 function TargetName({ target }: { target: Target }) {
   const { t } = useTranslation('page_team')
-  const { gender } = useDBMeta()
+  const gender = useDBGender()
   return (
     <Box
       component="span"

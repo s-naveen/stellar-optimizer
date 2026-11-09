@@ -6,7 +6,7 @@ import type {
 } from '@genshin-optimizer/gi/consts'
 import { allArtifactSetKeys, allWeaponKeys } from '@genshin-optimizer/gi/consts'
 import type { ArtCharDatabase, TeamOptAttack } from '@genshin-optimizer/gi/db'
-import { useDatabase, useDBMeta } from '@genshin-optimizer/gi/db-ui'
+import { useDatabase, useDBGender } from '@genshin-optimizer/gi/db-ui'
 import type {
   CharacterSheet,
   DocumentConditional,
@@ -348,7 +348,7 @@ export function useAttackTeamData(
   version: unknown
 ) {
   const database = useDatabase()
-  const { gender } = useDBMeta()
+  const gender = useDBGender()
   const [teamOpt] = useTeamOpt(teamId)
   const [teamData, setTeamData] = useState<
     Partial<Record<CharacterKey, { target: UIData }>> | undefined

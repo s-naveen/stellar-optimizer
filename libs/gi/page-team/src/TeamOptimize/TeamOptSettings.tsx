@@ -17,7 +17,7 @@ import {
   TeamCharacterContext,
   useCharacter,
   useDatabase,
-  useDBMeta,
+  useDBGender,
   useOptConfig,
   useTeam,
   useTeamChar,
@@ -763,7 +763,7 @@ function RequirementsModal({
 }) {
   const { t } = useTranslation('page_team')
   const database = useDatabase()
-  const { gender } = useDBMeta()
+  const gender = useDBGender()
   const team = useTeam(teamId)!
   const { characterKey, teamCharId, loadoutDatum } = member
   const teamChar = database.teamChars.get(teamCharId) ?? member.teamChar

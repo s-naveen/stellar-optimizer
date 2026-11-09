@@ -20,7 +20,7 @@ import {
   getLevelString,
 } from '@genshin-optimizer/gi/consts'
 import type { ICachedWeapon, TeamOpt } from '@genshin-optimizer/gi/db'
-import { useDatabase, useDBMeta, useTeam } from '@genshin-optimizer/gi/db-ui'
+import { useDatabase, useDBGender, useTeam } from '@genshin-optimizer/gi/db-ui'
 import { KeyMap } from '@genshin-optimizer/gi/keymap'
 import { getWeaponSheet } from '@genshin-optimizer/gi/sheets'
 import { getWeaponStat, weaponHasRefinement } from '@genshin-optimizer/gi/stats'
@@ -108,7 +108,7 @@ export function TeamOptResults({
   const database = useDatabase()
   const team = useTeam(teamId)
   const { before, after } = result
-  const { gender } = useDBMeta()
+  const gender = useDBGender()
   const gain = before.total > 0 ? after.total / before.total - 1 : 0
   // recomputed with the database: an applied result has no changes left
   const changed = useMemo(
@@ -534,7 +534,7 @@ function MemberResult({
   } = member
   const { t } = useTranslation('page_team')
   const database = useDatabase()
-  const { gender } = useDBMeta()
+  const gender = useDBGender()
   const constellation = isTc
     ? database.buildTcs.get(loadoutDatum.buildTcId)?.character?.constellation
     : database.chars.get(characterKey)?.constellation

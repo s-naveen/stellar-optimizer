@@ -1,6 +1,6 @@
 import type { ArtCharDatabase, TeamOpt } from '@genshin-optimizer/gi/db'
 import { initTeamOpt } from '@genshin-optimizer/gi/db'
-import { useDatabase, useDBMeta } from '@genshin-optimizer/gi/db-ui'
+import { useDatabase, useDBGender } from '@genshin-optimizer/gi/db-ui'
 import type { OptProblemInput } from '@genshin-optimizer/gi/solver'
 import {
   GOSolver,
@@ -121,7 +121,7 @@ function nextPaint(): Promise<void> {
 /** Runs Team Optimize for a team: one solver run per member and round (see `optimizeTeam`) */
 export function useTeamOptRun(teamId: string) {
   const database = useDatabase()
-  const { gender } = useDBMeta()
+  const gender = useDBGender()
   const [maxWorkers] = useNumWorkers()
   const [state, setStateRaw] = useState<TeamOptRunState>(() =>
     lastRun(database, teamId)

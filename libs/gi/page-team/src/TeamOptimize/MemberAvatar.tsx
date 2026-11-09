@@ -1,6 +1,6 @@
 import { characterAsset } from '@genshin-optimizer/gi/assets'
 import type { CharacterKey } from '@genshin-optimizer/gi/consts'
-import { useDBMeta } from '@genshin-optimizer/gi/db-ui'
+import { useDBGender } from '@genshin-optimizer/gi/db-ui'
 import { Box } from '@mui/material'
 
 /**
@@ -14,7 +14,7 @@ export function MemberAvatar({
   characterKey: CharacterKey
   size?: number
 }) {
-  const { gender } = useDBMeta()
+  const gender = useDBGender()
   return (
     <Box
       component="img"
