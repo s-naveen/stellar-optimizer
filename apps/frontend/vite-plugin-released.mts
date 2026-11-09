@@ -21,6 +21,8 @@ export type BetaContent = {
   pageSlugs: string[]
   /** names the leak scan looks for, besides the keys */
   leakNames: string[]
+  /** names released content can use too (so not scanned for), kept out of the changelog */
+  otherNames?: string[]
 }
 
 export function readBetaContent(file: string): BetaContent {
@@ -117,8 +119,11 @@ export function releasedOnlyPlugin(
         let changed = stripBetaKeys(data, isBeta)
         if (path.endsWith('/changelog/changelog.json'))
           changed =
-            dropLinesNaming(data, [...beta.characters, ...beta.leakNames]) ||
-            changed
+            dropLinesNaming(data, [
+              ...beta.characters,
+              ...beta.leakNames,
+              ...(beta.otherNames ?? []),
+            ]) || changed
         return changed ? { code: JSON.stringify(data), map: null } : null
       }
       if (!/\.(ts|tsx)$/.test(path)) return null
