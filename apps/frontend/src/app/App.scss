@@ -26,9 +26,23 @@ body {
   background: #08080a;
 }
 
+/*
+ * Seeded pseudo-random numbers (Park–Miller), so every build emits the same CSS. With math.random()
+ * each build got a new stylesheet hash, which renamed every chunk that preloads it (~40 files): a
+ * re-download for every visitor after each deploy, even when nothing changed.
+ * The products stay below 2^53, so the arithmetic is exact.
+ */
+$_rand-seed: 20261106;
+@function _rand() {
+  $_rand-seed: ($_rand-seed * 16807) % 2147483647 !global;
+  @return math.div($_rand-seed, 2147483647);
+}
+/* an integer in 1..$max, like math.random($max) */
+@function rand_int($max) {
+  @return math.floor(_rand() * $max) + 1;
+}
 @function random_range($min, $max) {
-  $rand: math.random();
-  $random_range: $min + math.floor($rand * (($max - $min) + 1));
+  $random_range: $min + math.floor(_rand() * (($max - $min) + 1));
   @return $random_range;
 }
 
@@ -51,18 +65,18 @@ body {
   z-index: 99999;
 
   @for $i from 1 through $total {
-    $random-x: math.random(1000000) * 0.0001vw;
+    $random-x: rand_int(1000000) * 0.0001vw;
     $random-offset: random_range(-100000, 100000) * 0.0001vw;
     $random-x-end: $random-x + $random-offset;
     $random-x-end-yoyo: $random-x + math.div($random-offset, 2);
     $random-yoyo-time: math.div(random_range(30000, 80000), 100000);
     $random-yoyo-y: $random-yoyo-time * 300vh;
-    $random-scale: math.random(10000) * 0.0001;
+    $random-scale: rand_int(10000) * 0.0001;
     $fall-duration: random_range(10, 30) * 1s;
-    $fall-delay: math.random(30) * -1s;
+    $fall-delay: rand_int(30) * -1s;
 
     &:nth-child(#{$i}) {
-      opacity: math.random(10000) * 0.0001;
+      opacity: rand_int(10000) * 0.0001;
       transform: translate($random-x, -10px) scale($random-scale);
       animation: fall-#{$i} $fall-duration $fall-delay linear infinite;
     }
