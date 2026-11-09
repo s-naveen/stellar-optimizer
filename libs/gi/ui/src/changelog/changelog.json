@@ -1,5 +1,9 @@
 [
   {
+    "version": "1.0.1",
+    "date": "2026-11-09"
+  },
+  {
     "version": "1.0.0",
     "date": "2026-11-09",
     "title": "The first Stellar Optimizer release",
