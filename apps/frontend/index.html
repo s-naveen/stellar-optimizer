@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Stellar Optimizer</title>
+    <title>Stellar Optimizer: Genshin Impact Artifact &amp; Build Optimizer</title>
     <meta name="application-name" content="Stellar Optimizer" />
     <meta name="apple-mobile-web-app-title" content="Stellar Optimizer" />
     <base href="" />
@@ -16,26 +16,145 @@
     <link rel="license" href="LICENSE.txt" />
     <meta name="theme-color" content="#08080a" />
     <meta
-      name="Description"
-      content="The Ultimate Genshin Impact calculator, that allows you to min-max your characters according to how you play, using what you have."
+      name="google-site-verification"
+      content="DGeHq3Brz16RomyNiNV4y2tjA5JZbFq9tnt6zOYIoqU"
     />
+    <meta
+      name="description"
+      content="Free Genshin Impact optimizer: find the best artifacts, weapons and teams for every character from your own inventory, with full damage calculations, including new characters like Danica and the Tsaritsa."
+    />
+    <link rel="canonical" href="https://gi-beta73.github.io/" />
     <meta property="og:site_name" content="Stellar Optimizer" />
     <meta
       property="og:url"
       content="https://gi-beta73.github.io/"
     />
-    <meta
-      property="og:title"
-      content="Stellar Optimizer: artifact optimizer for Genshin Impact"
-    />
+    <meta property="og:title" content="Stellar Optimizer: Genshin Impact Artifact &amp; Build Optimizer" />
     <meta
       property="og:description"
-      content="The Ultimate Genshin Impact calculator, that allows you to min-max your characters according to how you play, using what you have."
+      content="Free Genshin Impact optimizer: find the best artifacts, weapons and teams for every character from your own inventory, with full damage calculations, including new characters like Danica and the Tsaritsa."
     />
     <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://gi-beta73.github.io/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Stellar Optimizer" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Stellar Optimizer: Genshin Impact Artifact &amp; Build Optimizer" />
+    <meta name="twitter:description" content="Free Genshin Impact optimizer: find the best artifacts, weapons and teams for every character from your own inventory, with full damage calculations, including new characters like Danica and the Tsaritsa." />
+    <meta name="twitter:image" content="https://gi-beta73.github.io/og-image.png" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://gi-beta73.github.io/#website","url":"https://gi-beta73.github.io/","name":"Stellar Optimizer","description":"Free Genshin Impact optimizer: find the best artifacts, weapons and teams for every character from your own inventory, with full damage calculations, including new characters like Danica and the Tsaritsa."},{"@type":"WebApplication","@id":"https://gi-beta73.github.io/#app","name":"Stellar Optimizer","url":"https://gi-beta73.github.io/","description":"Free Genshin Impact optimizer: find the best artifacts, weapons and teams for every character from your own inventory, with full damage calculations, including new characters like Danica and the Tsaritsa.","applicationCategory":"GameApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"image":"https://gi-beta73.github.io/og-image.png"}]}</script>
+    <!--
+      The page's colours from the first paint (the theme's: same as the app's CssBaseline, so
+      nothing changes when the app takes over), and the loading screen #root shows until then.
+    -->
+    <style>
+      html,
+      body {
+        margin: 0;
+        background: #08080a;
+        color-scheme: dark;
+      }
+      .boot {
+        box-sizing: border-box;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 32px 24px 12vh;
+        color: rgba(236, 229, 216, 0.64);
+        font: 15px/1.6 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        text-align: center;
+      }
+      .boot-logo {
+        width: 64px;
+        height: 64px;
+        margin-bottom: 20px;
+      }
+      .boot h1 {
+        margin: 0 0 8px;
+        color: #ece5d8;
+        font-size: 1.35rem;
+        font-weight: 600;
+        line-height: 1.3;
+      }
+      .boot p {
+        margin: 0;
+        max-width: 560px;
+      }
+      .boot-bar {
+        position: relative;
+        width: 168px;
+        height: 2px;
+        margin: 24px 0;
+        overflow: hidden;
+        border-radius: 2px;
+        background: rgba(211, 188, 142, 0.16);
+      }
+      .boot-bar::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 40%;
+        border-radius: 2px;
+        background: #d3bc8e;
+        animation: boot-slide 1.3s ease-in-out infinite;
+      }
+      @keyframes boot-slide {
+        from {
+          transform: translateX(-100%);
+        }
+        to {
+          transform: translateX(250%);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .boot-bar::after {
+          width: 100%;
+          opacity: 0.4;
+          animation: none;
+        }
+      }
+      .boot-links {
+        font-size: 13px;
+      }
+      .boot a {
+        color: #d3bc8e;
+        text-decoration: none;
+      }
+      .boot a:hover {
+        text-decoration: underline;
+      }
+    </style>
+    <noscript><style>.boot-bar { display: none; }</style></noscript>
   </head>
   <body class="notranslate">
     <script type="module" src="src/main.tsx"></script>
-    <div id="root"></div>
+    <!--
+      Shown until the app renders (React replaces it), and what crawlers that don't run JavaScript
+      (most AI crawlers) read. Keep it short and factual.
+    -->
+    <div id="root">
+      <main class="boot">
+        <img class="boot-logo" src="/favicon.svg" alt="" width="64" height="64" />
+        <h1>Stellar Optimizer: Genshin Impact artifact &amp; build optimizer</h1>
+        <p>
+          Find the best artifacts, weapons and teams for every character from
+          your own inventory, with full damage calculations. Free, no account,
+          runs in your browser.
+        </p>
+        <div class="boot-bar" role="progressbar" aria-label="Loading"></div>
+        <p class="boot-links">
+          <a href="danica-optimizer/">Danica best build</a>
+          · <a href="tsaritsa-optimizer/">Tsaritsa best build</a>
+          · <a href="optimizers/">Character optimizers</a>
+          · <a href="faq/">FAQ</a>
+        </p>
+        <noscript><p>Stellar Optimizer needs JavaScript to run.</p></noscript>
+      </main>
+    </div>
   </body>
 </html>

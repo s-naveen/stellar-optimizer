@@ -12,6 +12,7 @@ import { viteStaticCopy } from 'vite-plugin-static-copy'
 // biome-ignore lint/style/noRestrictedImports: the build plugin below must run the exact derivation used at runtime
 import { deriveCoreStats } from '../../libs/gi/stats/src/coreStats/derive'
 import pkg from '../../package.json' with { type: 'json' }
+import { seoPagesPlugin } from './vite-plugin-seo-pages.mts'
 import { webpAssets } from './vite-plugin-webp.mts'
 
 /**
@@ -43,26 +44,32 @@ function coreStatsPlugin(): Plugin {
  * needed). Production builds only, and only on the real host, so local runs (dev server, smoke
  * tests of dist) are never counted. The token is the public site tag from the Cloudflare
  * dashboard (Web Analytics → gi-beta73.github.io), not a secret.
+ * Opening the site once with `?notrack` stops counting that browser (for the site's own team);
+ * `?notrack=off` counts it again.
  */
 const CF_WEB_ANALYTICS_TOKEN = 'ec971696b247424ca782ce28157bc5af'
 const CF_WEB_ANALYTICS_HOST = 'gi-beta73.github.io'
-function cloudflareWebAnalyticsPlugin(): Plugin {
-  return {
-    name: 'cf-web-analytics',
-    apply: 'build',
-    transformIndexHtml: () => [
-      {
-        tag: 'script',
-        // the beacon finds its config by the data-cf-beacon attribute when inserted this way
-        children: `if (location.hostname === ${JSON.stringify(CF_WEB_ANALYTICS_HOST)}) {
+// the beacon finds its config by the data-cf-beacon attribute when inserted this way
+const CF_BEACON_INLINE = `(() => {
+  try {
+    const q = new URLSearchParams(location.search)
+    if (q.get('notrack') === 'off') localStorage.removeItem('stellar-notrack')
+    else if (q.has('notrack')) localStorage.setItem('stellar-notrack', '1')
+    if (localStorage.getItem('stellar-notrack')) return
+  } catch {}
+  if (location.hostname !== ${JSON.stringify(CF_WEB_ANALYTICS_HOST)}) return
   const s = document.createElement('script')
   s.type = 'module'
   s.src = 'https://static.cloudflareinsights.com/beacon.min.js'
   s.dataset.cfBeacon = ${JSON.stringify(JSON.stringify({ token: CF_WEB_ANALYTICS_TOKEN }))}
   document.head.appendChild(s)
-}`,
-        injectTo: 'body',
-      },
+})()`
+function cloudflareWebAnalyticsPlugin(): Plugin {
+  return {
+    name: 'cf-web-analytics',
+    apply: 'build',
+    transformIndexHtml: () => [
+      { tag: 'script', children: CF_BEACON_INLINE, injectTo: 'body' },
     ],
   }
 }
@@ -143,6 +150,12 @@ export default defineConfig(() => ({
             k === 'NODE_ENV' ||
             k === 'NX_URLS_GUIDES') &&
           !/PATREON|PAYPAL|TWITCH|TWITTER/.test(k)
+    // static landing pages (/<name>-optimizer/, /optimizers/), sitemap.xml and robots.txt
+    seoPagesPlugin({
+      siteUrl: `https://${CF_WEB_ANALYTICS_HOST}/`,
+      siteName: 'Stellar Optimizer',
+      bodyEndHtml: `<script>${CF_BEACON_INLINE}</script>`,
+    }),
       )
     ),
     __VERSION__: `"${pkg.version}"`,

@@ -1,4 +1,4 @@
-import { AppBar, Box, Skeleton, Typography } from '@mui/material'
+import { AppBar, Box, Link, Skeleton, Typography } from '@mui/material'
 import { Suspense } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 
@@ -18,11 +18,30 @@ function FooterContent() {
       sx={{ bgcolor: 'neutral800.main' }}
       elevation={0}
     >
-      <Box sx={{ px: 2, py: 1 }}>
+      <Box
+        sx={{
+          px: 2,
+          py: 1,
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'space-between',
+          columnGap: 2,
+        }}
+      >
         <Typography variant="caption" sx={{ color: 'neutral400.main' }}>
           <Trans t={t} i18nKey="ui:rightsDisclaimer">
             Stellar Optimizer is not affiliated with or endorsed by HoYoverse.
           </Trans>
+        </Typography>
+        <Typography variant="caption" sx={{ color: 'neutral400.main' }}>
+          {/* plain links (not hash routes) to the static pages made for search engines */}
+          <Link href="optimizers/" color="inherit" underline="hover">
+            {t('characterOptimizers')}
+          </Link>
+          {' · '}
+          <Link href="faq/" color="inherit" underline="hover">
+            {t('faq')}
+          </Link>
         </Typography>
       </Box>
     </AppBar>

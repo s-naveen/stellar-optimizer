@@ -1,0 +1,1966 @@
+{
+  "generated": "2026-11-06",
+  "assumptions": {
+    "level": 90,
+    "talents": "9/9/9",
+    "constellation": 0,
+    "artifacts": "5★ +20, KQM Standards substats (2 rolls of each substat, 20 more placed by the optimizer)",
+    "weapons": "5★ at R1, 4★ at R5, level 90",
+    "enemy": "level 100, 10% RES, no DEF reduction",
+    "team": "solo; set and weapon effects the character can trigger alone are at full stacks",
+    "energy": "no Energy Recharge requirement"
+  },
+  "characters": {
+    "Mitya": [
+      {
+        "charKey": "Mitya",
+        "label": "Overloaded Detection Core, in Radiance: Stellar-Conduct, consuming Gradient Beacons with Gradient Detonation",
+        "target": "one Gradient Beacon's Stellar-Conduct hit from Gradient Detonation (his special Charged Attack)",
+        "targetPaths": [
+          "charged.gradientStellarDmg"
+        ],
+        "weapon": "StarsealedEdict",
+        "sets": [
+          {
+            "sets": {
+              "DisenchantmentInDeepShadow": 4
+            },
+            "rel": 100,
+            "mains": {
+              "sands": "eleMas",
+              "goblet": "eleMas",
+              "circlet": "eleMas"
+            }
+          },
+          {
+            "sets": {
+              "BlizzardStrayer": 4
+            },
+            "rel": 90.8,
+            "mains": {
+              "sands": "eleMas",
+              "goblet": "eleMas",
+              "circlet": "eleMas"
+            }
+          },
+          {
+            "sets": {
+              "HeartOfTheFurnace": 4
+            },
+            "rel": 88.8,
+            "mains": {
+              "sands": "eleMas",
+              "goblet": "eleMas",
+              "circlet": "eleMas"
+            }
+          },
+          {
+            "sets": {
+              "AubadeOfMorningstarAndMoon": 4
+            },
+            "rel": 85.5,
+            "mains": {
+              "sands": "eleMas",
+              "goblet": "eleMas",
+              "circlet": "eleMas"
+            }
+          },
+          {
+            "sets": {
+              "ThunderingFury": 4
+            },
+            "rel": 80.8,
+            "mains": {
+              "sands": "eleMas",
+              "goblet": "eleMas",
+              "circlet": "eleMas"
+            }
+          },
+          {
+            "sets": {
+              "ADayCarvedFromRisingWinds": 4
+            },
+            "rel": 75.5,
+            "mains": {
+              "sands": "eleMas",
+              "goblet": "eleMas",
+              "circlet": "eleMas"
+            }
+          }
+        ],
+        "mains": [
+          {
+            "sands": "eleMas",
+            "goblet": "eleMas",
+            "circlet": "eleMas",
+            "rel": 100,
+            "swappable": false
+          },
+          {
+            "sands": "eleMas",
+            "goblet": "eleMas",
+            "circlet": "critRate_",
+            "rel": 93.1,
+            "swappable": false
+          },
+          {
+            "sands": "eleMas",
+            "goblet": "eleMas",
+            "circlet": "critDMG_",
+            "rel": 87.2,
+            "swappable": false
+          }
+        ],
+        "rolls": [
+          {
+            "key": "critRate_",
+            "rolls": 10
+          },
+          {
+            "key": "critDMG_",
+            "rolls": 6
+          },
+          {
+            "key": "eleMas",
+            "rolls": 4
+          }
+        ],
+        "weapons": [
+          {
+            "key": "StarsealedEdict",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 100
+          },
+          {
+            "key": "SunnyMorningSleepIn",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 92.9
+          },
+          {
+            "key": "DawningFrost",
+            "rarity": 4,
+            "refinement": 5,
+            "rel": 92.3
+          },
+          {
+            "key": "StarcallersWatch",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 89.9
+          },
+          {
+            "key": "ClashOfKings",
+            "rarity": 4,
+            "refinement": 5,
+            "rel": 87.6
+          },
+          {
+            "key": "ReliquaryOfTruth",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 85.4
+          },
+          {
+            "key": "AThousandFloatingDreams",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 79.1
+          },
+          {
+            "key": "NightweaversLookingGlass",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 79.1
+          },
+          {
+            "key": "BlackmarrowLantern",
+            "rarity": 4,
+            "refinement": 5,
+            "rel": 74.5
+          },
+          {
+            "key": "SacrificialFragments",
+            "rarity": 4,
+            "refinement": 5,
+            "rel": 74.5
+          },
+          {
+            "key": "KagurasVerity",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 73.3
+          },
+          {
+            "key": "EtherlightSpindlelute",
+            "rarity": 4,
+            "refinement": 5,
+            "rel": 72.4
+          },
+          {
+            "key": "QuantumCatalyst",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 71.7
+          },
+          {
+            "key": "WintersHeavyHeart",
+            "rarity": 4,
+            "refinement": 5,
+            "rel": 70.6
+          },
+          {
+            "key": "FruitOfFulfillment",
+            "rarity": 4,
+            "refinement": 5,
+            "rel": 70.3
+          }
+        ],
+        "scalesWith": [
+          "eleMas",
+          "critDMG_",
+          "critRate_"
+        ],
+        "value": 38154,
+        "itemConditionals": [
+          "ADayCarvedFromRisingWinds.set4=on",
+          "Berserker.hp=70",
+          "BlizzardStrayer.state=cryo",
+          "BraveHeart.hp=50",
+          "CelestialGift.set4=on",
+          "CrimsonWitchOfFlames.stack=3",
+          "DeepwoodMemories.set4=on",
+          "DesertPavilionChronicle.set4=on",
+          "DisenchantmentInDeepShadow.state=on",
+          "EchoesOfAnOffering.mode=avg",
+          "FinaleOfTheDeepGalleries.0EnergyNoBurst=on",
+          "FinaleOfTheDeepGalleries.0EnergyNoNormal=on",
+          "FlowerOfParadiseLost.stacks=4",
+          "HeartOfDepth.skill=cast",
+          "HeartOfTheFurnace.4Stellar=on",
+          "HuskOfOpulentDreams.stack=4",
+          "LegacyOfTheFirstChronicle.undyingRadiance=on",
+          "LongNightsOath.stacks=5",
+          "MaidenBeloved.state=on",
+          "MartialArtist.state=on",
+          "NighttimeWhispersInTheEchoingWoods.afterSkill=on",
+          "NoblesseOblige.set4=on",
+          "NymphsDream.set4=3",
+          "PaleFlame.stacks=2",
+          "ShimenawasReminiscence.usedEnergy=used",
+          "SilkenMoonsSerenade.4GleamingMoon=on",
+          "TenacityOfTheMillelith.skill=cast",
+          "Thundersoother.state=on",
+          "TinyMiracle.element=dendro",
+          "VermillionHereafter.afterBurst=on",
+          "AthameArtis.burstHit=on",
+          "Azurelight.afterSkill=on",
+          "Azurelight.noEnergy=on",
+          "BeyondTheChrysalis.devotion=on",
+          "BeyondTheChrysalis.defiance=on",
+          "CinnabarSpindle.SpotlessHeart=on",
+          "CoolSteel.BaneOfWaterAndIce=on",
+          "DarkIronSword.Overloaded=on",
+          "Emberwell.stellar=on",
+          "ExaiphanesBlade.passive=on",
+          "FinaleOfTheDeep.afterSkill=on",
+          "FinaleOfTheDeep.bond=on",
+          "FleuveCendreFerryman.afterSkill=on",
+          "FluteOfEzpitzal.afterSkill=on",
+          "FreedomSworn.MillennialMovement=on",
+          "HaranGeppakuFutsu.HonedFlow=2",
+          "HarbingerOfDawn.SkyPiercingMight=on",
+          "HereticsMoltenBlade.passive=18",
+          "IronSting.InfusionStinger=2",
+          "KeyOfKhajNisut.afterSkill=3",
+          "LightbearingMoonshard.passive=on",
+          "LionsRoar.BaneOfFireAndThunder=on",
+          "MistsplitterReforged.MistsplittersEmblem=3",
+          "MoonweaversDawn.energy=60",
+          "NewBough.passive=3",
+          "PeakPatrolSong.odeStacks=2",
+          "PeakPatrolSong.odeMaxed=on",
+          "PrototypeRancour.stack=4",
+          "RoyalLongsword.stack=1",
+          "SapwoodBlade.passive=on",
+          "SilverLight.passive=2",
+          "SkyriderSword.Determination=on",
+          "SkywardBlade.SkyPiercingMight=on",
+          "SplendorOfTranquilWaters.teamHpChange=2",
+          "SturdyBone.afterSprint=on",
+          "SummitShaper.GoldenMajesty=5",
+          "TheAlleyFlash.ItinerantHero=on",
+          "TheDockhandsAssistant.symbolsConsumed=3",
+          "ToukabouShigure.passive=on",
+          "UrakuMisugiri.teamGeo=on",
+          "WhitelakeFrostfeather.passive=3",
+          "WolfFang.skillStacks=4",
+          "WolfFang.burstStacks=4",
+          "ATeaspoonOfTranscendence.passive=3",
+          "AThousandBlazingSuns.passive=on",
+          "BeaconOfTheReedSea.afterSkill=on",
+          "BladeOfAtonement.stellar=on",
+          "BlazingLionfang.reforgedBlade=on",
+          "BloodtaintedGreatsword.BaneOfFireAndThunder=on",
+          "FangOfTheMountainKing.stacks=6",
+          "FerrousShadow.Unbending=on",
+          "FlameForgedInsight.passive=on",
+          "ForestRegalia.passive=on",
+          "GestOfTheMightyWolf.stacks=4",
+          "MailedFlower.passive=on",
+          "PortablePowerSaw.symbolsConsumed=3",
+          "Rainslasher.BaneOfStormAndTide=on",
+          "RoyalGreatsword.stack=1",
+          "SerpentSpine.Wavesplitter=5",
+          "SkyriderGreatsword.stack=4",
+          "SongOfBrokenPines.RebelsBannerHymn=on",
+          "TalkingStick.affectedPyro=on",
+          "TalkingStick.affectedOther=on",
+          "TheUnforged.GoldenMajesty=5",
+          "TorrentsOfSpring.royalDecree=complete",
+          "UltimateOverlordsMegaMagicSword.melusines=12",
+          "Whiteblind.stack=4",
+          "BlackTassel.PressTheAdvantage=on",
+          "BloodsoakedRuins.afterBurst=on",
+          "BloodsoakedRuins.afterLc=on",
+          "CalamityQueller.stack=6",
+          "Deathmatch.stack=moreThanOne",
+          "DisasterAndRemorse.unforgivable=on",
+          "DisasterAndRemorse.irreparable=on",
+          "EngulfingLightning.TimelessDream=on",
+          "FootprintOfTheRainbow.afterSkill=on",
+          "FracturedHalo.afterSkillBurst=on",
+          "Frostbreath.react=on",
+          "LumidouceElegy.stacks=2",
+          "Moonpiercer.passive=on",
+          "MountainBracingBolt.afterOtherSkill=on",
+          "PrimordialJadeWingedSpear.stack=7",
+          "ProspectorsDrill.marksConsumed=3",
+          "PrototypeStarglitter.stack=2",
+          "RoyalSpear.stack=1",
+          "SacrificersStaff.passive=3",
+          "SongOfTheVigil.stellar=on",
+          "StaffOfHoma.RecklessCinnabar=on",
+          "StaffOfTheScarletSands.stacks=3",
+          "SymphonistOfScents.healing=on",
+          "TamayurateiNoOhanashi.afterSkill=on",
+          "VortexVanquisher.GoldenMajesty=5",
+          "AlleyHunter.OppidanAmbush=10",
+          "AmosBow.StrongWilled=5",
+          "AquaSimulacra.passive=on",
+          "BreezeborneRefrain.viper=on",
+          "ChainBreaker.natlanOrNonEle=3",
+          "Cloudforged.energyStacks=2",
+          "CompoundBow.InfusionArrow=4",
+          "CovenantOfFrostAndSnow.passive=on",
+          "ElegyForTheEnd.ThePartingRefrain=on",
+          "FadingTwilight.state=dawnblaze",
+          "FlowerWreathedFeathers.passive=6",
+          "GoldenFrostboundOath.skillOrLc=on",
+          "Hamayumi.FullDraw=on",
+          "HuntersPath.passive=on",
+          "IbisPiercer.passiveStacks=2",
+          "KingsSquire.passive=on",
+          "MitternachtsWaltz.EvernightDuetNormal=on",
+          "PolarStar.GoldenMajesty=4",
+          "Predator.PressTheAdvantage=2",
+          "RangeGauge.marksConsumed=3",
+          "RoyalBow.Focus=1",
+          "ScionOfTheBlazingSun.afterHit=on",
+          "Silverdawn.whiteCrownsBequest=on",
+          "SilvershowerHeartstrings.blessingStacks=3",
+          "Slingshot.Slingshot=more",
+          "TheDaybreakChronicles.passive=6",
+          "ThunderingPulse.RuleByThunder=3",
+          "WindblumeOde.WindblumeWish=on",
+          "BalladOfTheBoundlessBlue.hits=3",
+          "ClashOfKings.skill=on",
+          "DawningFrost.chargedHit=on",
+          "DawningFrost.skillHit=on",
+          "DodocoTales.DodoventureCharged=on",
+          "EchoesOfTheHeart.stellar=on",
+          "EmeraldOrb.Rapids=on",
+          "EtherlightSpindlelute.condPassive=on",
+          "FlowingPurity.afterSkill=on",
+          "FlowingPurity.bond=on",
+          "FruitOfFulfillment.stacks=5",
+          "HakushinRing.SakuraSaiguu=dendro",
+          "HymnOfTheMaelstrom.stacks=3",
+          "HymnOfTheMaelstrom.frozenSwirl=on",
+          "JadefallsSplendor.condPassive=on",
+          "KagurasVerity.KaguraDance=3",
+          "LostPrayerToTheSacredWinds.BoundlessBlessing=4",
+          "MagicGuide.BaneOfStormAndTide=on",
+          "MemoryOfDust.GoldenMajesty=5",
+          "NocturnesCurtainCall.passive=on",
+          "OathswornEye.faLight=skillBurst",
+          "PrototypeAmber.Gliding=on",
+          "QuantumCatalyst.stacks=5",
+          "ReliquaryOfTruth.afterSkill=on",
+          "RingOfYaxche.afterSkill=on",
+          "RoyalGrimoire.stack=1",
+          "SolarPearl.solarShineSkillBurst=skillBurst",
+          "StarsealedEdict.crystalCompounding=on",
+          "StarsealedEdict.lawOfCombustion=3",
+          "SunnyMorningSleepIn.afterSkill=on",
+          "SunnyMorningSleepIn.afterBurst=on",
+          "SurfsUp.stacks=4",
+          "TheWidsith.Debut=recitative",
+          "ThrillingTalesOfDragonSlayers.Heritage=on",
+          "TulaytullahsRemembrance.timePassive=12",
+          "VividNotions.dawn=on",
+          "VividNotions.twilight=on",
+          "WaveridingWhirl.passive=on",
+          "WineAndSong.EverChanging=on"
+        ]
+      }
+    ],
+    "Danica": [
+      {
+        "charKey": "Danica",
+        "label": "Battle Maid on-field, in Radiance: Stellar-Conduct, after her Elemental Burst",
+        "target": "On-Field Skill E2 damage (Stellar-Conduct)",
+        "targetPaths": [
+          "skill.onFieldDmg"
+        ],
+        "weapon": "TorrentsOfSpring",
+        "sets": [
+          {
+            "sets": {
+              "DisenchantmentInDeepShadow": 4
+            },
+            "rel": 100,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "HeartOfTheFurnace": 4
+            },
+            "rel": 96.9,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "ADayCarvedFromRisingWinds": 4
+            },
+            "rel": 85.4,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "WanderersTroupe": 2,
+              "GladiatorsFinale": 2
+            },
+            "rel": 83.9,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "BlizzardStrayer": 4
+            },
+            "rel": 83.7,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critDMG_"
+            }
+          },
+          {
+            "sets": {
+              "VermillionHereafter": 4
+            },
+            "rel": 80.7,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "NymphsDream": 4
+            },
+            "rel": 80.4,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "ThunderingFury": 4
+            },
+            "rel": 79.1,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "NoblesseOblige": 4
+            },
+            "rel": 79,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "AubadeOfMorningstarAndMoon": 4
+            },
+            "rel": 78.8,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "EchoesOfAnOffering": 4
+            },
+            "rel": 78.5,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "ArchaicPetra": 4
+            },
+            "rel": 73.6,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          }
+        ],
+        "mains": [
+          {
+            "sands": "atk_",
+            "goblet": "eleMas",
+            "circlet": "critRate_",
+            "rel": 100,
+            "swappable": true
+          },
+          {
+            "sands": "atk_",
+            "goblet": "eleMas",
+            "circlet": "critDMG_",
+            "rel": 99.1,
+            "swappable": true
+          },
+          {
+            "sands": "atk_",
+            "goblet": "atk_",
+            "circlet": "critRate_",
+            "rel": 98.6,
+            "swappable": false
+          },
+          {
+            "sands": "atk_",
+            "goblet": "atk_",
+            "circlet": "critDMG_",
+            "rel": 97.7,
+            "swappable": false
+          }
+        ],
+        "rolls": [
+          {
+            "key": "critDMG_",
+            "rolls": 10
+          },
+          {
+            "key": "critRate_",
+            "rolls": 8
+          },
+          {
+            "key": "atk_",
+            "rolls": 2
+          }
+        ],
+        "weapons": [
+          {
+            "key": "TorrentsOfSpring",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 100
+          },
+          {
+            "key": "AThousandBlazingSuns",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 93.8
+          },
+          {
+            "key": "ATeaspoonOfTranscendence",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 90.2
+          },
+          {
+            "key": "BeaconOfTheReedSea",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 89.1
+          },
+          {
+            "key": "Verdict",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 87.5
+          },
+          {
+            "key": "ForgedByTheGoldenMelody",
+            "rarity": 4,
+            "refinement": 5,
+            "rel": 86.9,
+            "cycled": true
+          },
+          {
+            "key": "SongOfBrokenPines",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 83.3
+          },
+          {
+            "key": "TheUnforged",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 83.2
+          },
+          {
+            "key": "WolfsGravestone",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 83.2
+          },
+          {
+            "key": "RedhornStonethresher",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 82.8
+          },
+          {
+            "key": "GestOfTheMightyWolf",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 82.4
+          },
+          {
+            "key": "MailedFlower",
+            "rarity": 4,
+            "refinement": 5,
+            "rel": 81.4
+          },
+          {
+            "key": "TalkingStick",
+            "rarity": 4,
+            "refinement": 5,
+            "rel": 80.5
+          },
+          {
+            "key": "FangOfTheMountainKing",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 78.7
+          },
+          {
+            "key": "RoyalGreatsword",
+            "rarity": 4,
+            "refinement": 5,
+            "rel": 77.9
+          }
+        ],
+        "scalesWith": [
+          "atk",
+          "atk_",
+          "eleMas",
+          "critDMG_",
+          "critRate_"
+        ],
+        "value": 34766,
+        "itemConditionals": [
+          "ADayCarvedFromRisingWinds.set4=on",
+          "Berserker.hp=70",
+          "BlizzardStrayer.state=cryo",
+          "BraveHeart.hp=50",
+          "CelestialGift.set4=on",
+          "CrimsonWitchOfFlames.stack=3",
+          "DeepwoodMemories.set4=on",
+          "DisenchantmentInDeepShadow.state=on",
+          "EchoesOfAnOffering.mode=avg",
+          "FinaleOfTheDeepGalleries.0EnergyNoBurst=on",
+          "FinaleOfTheDeepGalleries.0EnergyNoNormal=on",
+          "FlowerOfParadiseLost.stacks=4",
+          "HeartOfDepth.skill=cast",
+          "HeartOfTheFurnace.4Stellar=on",
+          "HuskOfOpulentDreams.stack=4",
+          "LegacyOfTheFirstChronicle.undyingRadiance=on",
+          "LongNightsOath.stacks=5",
+          "MaidenBeloved.state=on",
+          "MartialArtist.state=on",
+          "NighttimeWhispersInTheEchoingWoods.afterSkill=on",
+          "NoblesseOblige.set4=on",
+          "NymphsDream.set4=3",
+          "PaleFlame.stacks=2",
+          "ShimenawasReminiscence.usedEnergy=used",
+          "SilkenMoonsSerenade.4GleamingMoon=on",
+          "TenacityOfTheMillelith.skill=cast",
+          "Thundersoother.state=on",
+          "TinyMiracle.element=dendro",
+          "VermillionHereafter.afterBurst=on",
+          "AthameArtis.burstHit=on",
+          "Azurelight.afterSkill=on",
+          "Azurelight.noEnergy=on",
+          "BeyondTheChrysalis.devotion=on",
+          "BeyondTheChrysalis.defiance=on",
+          "CinnabarSpindle.SpotlessHeart=on",
+          "CoolSteel.BaneOfWaterAndIce=on",
+          "DarkIronSword.Overloaded=on",
+          "Emberwell.stellar=on",
+          "ExaiphanesBlade.passive=on",
+          "FinaleOfTheDeep.afterSkill=on",
+          "FinaleOfTheDeep.bond=on",
+          "FleuveCendreFerryman.afterSkill=on",
+          "FluteOfEzpitzal.afterSkill=on",
+          "FreedomSworn.MillennialMovement=on",
+          "HaranGeppakuFutsu.HonedFlow=2",
+          "HarbingerOfDawn.SkyPiercingMight=on",
+          "HereticsMoltenBlade.passive=18",
+          "IronSting.InfusionStinger=2",
+          "KagotsurubeIsshin.passive=on",
+          "KeyOfKhajNisut.afterSkill=3",
+          "LightbearingMoonshard.passive=on",
+          "LightOfFoliarIncision.afterNormalEle=on",
+          "LionsRoar.BaneOfFireAndThunder=on",
+          "MistsplitterReforged.MistsplittersEmblem=3",
+          "MoonweaversDawn.energy=60",
+          "NewBough.passive=3",
+          "PeakPatrolSong.odeStacks=2",
+          "PeakPatrolSong.odeMaxed=on",
+          "PrototypeRancour.stack=4",
+          "RoyalLongsword.stack=1",
+          "SapwoodBlade.passive=on",
+          "SilverLight.passive=2",
+          "SkyriderSword.Determination=on",
+          "SkywardBlade.SkyPiercingMight=on",
+          "SplendorOfTranquilWaters.teamHpChange=2",
+          "SturdyBone.afterSprint=on",
+          "SummitShaper.GoldenMajesty=5",
+          "TheAlleyFlash.ItinerantHero=on",
+          "TheDockhandsAssistant.symbolsConsumed=3",
+          "ToukabouShigure.passive=on",
+          "UrakuMisugiri.teamGeo=on",
+          "WhitelakeFrostfeather.passive=3",
+          "WolfFang.skillStacks=4",
+          "WolfFang.burstStacks=4",
+          "AThousandBlazingSuns.passive=on",
+          "BeaconOfTheReedSea.afterSkill=on",
+          "BladeOfAtonement.stellar=on",
+          "BlazingLionfang.reforgedBlade=on",
+          "BloodtaintedGreatsword.BaneOfFireAndThunder=on",
+          "FangOfTheMountainKing.stacks=6",
+          "FerrousShadow.Unbending=on",
+          "FlameForgedInsight.passive=on",
+          "ForestRegalia.passive=on",
+          "GestOfTheMightyWolf.stacks=4",
+          "MailedFlower.passive=on",
+          "PortablePowerSaw.symbolsConsumed=3",
+          "Rainslasher.BaneOfStormAndTide=on",
+          "RoyalGreatsword.stack=1",
+          "SerpentSpine.Wavesplitter=5",
+          "SkyriderGreatsword.stack=4",
+          "SongOfBrokenPines.RebelsBannerHymn=on",
+          "TalkingStick.affectedPyro=on",
+          "TalkingStick.affectedOther=on",
+          "TheUnforged.GoldenMajesty=5",
+          "TorrentsOfSpring.royalDecree=complete",
+          "UltimateOverlordsMegaMagicSword.melusines=12",
+          "Whiteblind.stack=4",
+          "BlackTassel.PressTheAdvantage=on",
+          "BloodsoakedRuins.afterBurst=on",
+          "BloodsoakedRuins.afterLc=on",
+          "CalamityQueller.stack=6",
+          "Deathmatch.stack=moreThanOne",
+          "DisasterAndRemorse.unforgivable=on",
+          "DisasterAndRemorse.irreparable=on",
+          "EngulfingLightning.TimelessDream=on",
+          "FootprintOfTheRainbow.afterSkill=on",
+          "FracturedHalo.afterSkillBurst=on",
+          "Frostbreath.react=on",
+          "LumidouceElegy.stacks=2",
+          "Moonpiercer.passive=on",
+          "MountainBracingBolt.afterOtherSkill=on",
+          "PrimordialJadeWingedSpear.stack=7",
+          "ProspectorsDrill.marksConsumed=3",
+          "PrototypeStarglitter.stack=2",
+          "RoyalSpear.stack=1",
+          "SacrificersStaff.passive=3",
+          "SongOfTheVigil.stellar=on",
+          "StaffOfHoma.RecklessCinnabar=on",
+          "StaffOfTheScarletSands.stacks=3",
+          "SymphonistOfScents.healing=on",
+          "TamayurateiNoOhanashi.afterSkill=on",
+          "VortexVanquisher.GoldenMajesty=5",
+          "AlleyHunter.OppidanAmbush=10",
+          "AmosBow.StrongWilled=5",
+          "AquaSimulacra.passive=on",
+          "BreezeborneRefrain.viper=on",
+          "ChainBreaker.natlanOrNonEle=3",
+          "Cloudforged.energyStacks=2",
+          "CompoundBow.InfusionArrow=4",
+          "CovenantOfFrostAndSnow.passive=on",
+          "ElegyForTheEnd.ThePartingRefrain=on",
+          "FadingTwilight.state=dawnblaze",
+          "FlowerWreathedFeathers.passive=6",
+          "GoldenFrostboundOath.skillOrLc=on",
+          "Hamayumi.FullDraw=on",
+          "KingsSquire.passive=on",
+          "MitternachtsWaltz.EvernightDuetNormal=on",
+          "MitternachtsWaltz.EvernightDuetSkill=on",
+          "PolarStar.GoldenMajesty=3",
+          "Predator.PressTheAdvantage=2",
+          "RangeGauge.marksConsumed=3",
+          "RoyalBow.Focus=1",
+          "ScionOfTheBlazingSun.afterHit=on",
+          "Silverdawn.whiteCrownsBequest=on",
+          "SilvershowerHeartstrings.blessingStacks=3",
+          "Slingshot.Slingshot=more",
+          "TheDaybreakChronicles.passive=6",
+          "ThunderingPulse.RuleByThunder=3",
+          "WindblumeOde.WindblumeWish=on",
+          "BalladOfTheBoundlessBlue.hits=3",
+          "ClashOfKings.skill=on",
+          "DawningFrost.skillHit=on",
+          "DodocoTales.DodoventureNormal=on",
+          "EchoesOfTheHeart.stellar=on",
+          "EmeraldOrb.Rapids=on",
+          "EtherlightSpindlelute.condPassive=on",
+          "FlowingPurity.afterSkill=on",
+          "FlowingPurity.bond=on",
+          "FruitOfFulfillment.stacks=5",
+          "HakushinRing.SakuraSaiguu=dendro",
+          "HymnOfTheMaelstrom.stacks=3",
+          "HymnOfTheMaelstrom.frozenSwirl=on",
+          "JadefallsSplendor.condPassive=on",
+          "KagurasVerity.KaguraDance=3",
+          "LostPrayerToTheSacredWinds.BoundlessBlessing=4",
+          "MagicGuide.BaneOfStormAndTide=on",
+          "MemoryOfDust.GoldenMajesty=5",
+          "NocturnesCurtainCall.passive=on",
+          "OathswornEye.faLight=skillBurst",
+          "PrototypeAmber.Gliding=on",
+          "QuantumCatalyst.stacks=5",
+          "ReliquaryOfTruth.afterSkill=on",
+          "RingOfYaxche.afterSkill=on",
+          "RoyalGrimoire.stack=1",
+          "SolarPearl.solarShineNormal=normal",
+          "SolarPearl.solarShineSkillBurst=skillBurst",
+          "StarsealedEdict.crystalCompounding=on",
+          "StarsealedEdict.lawOfCombustion=3",
+          "SunnyMorningSleepIn.afterSkill=on",
+          "SunnyMorningSleepIn.afterBurst=on",
+          "SurfsUp.stacks=4",
+          "TheWidsith.Debut=recitative",
+          "ThrillingTalesOfDragonSlayers.Heritage=on",
+          "TulaytullahsRemembrance.timePassive=12",
+          "TulaytullahsRemembrance.hitPassive=5",
+          "VividNotions.dawn=on",
+          "VividNotions.twilight=on",
+          "WaveridingWhirl.passive=on",
+          "WineAndSong.EverChanging=on"
+        ]
+      }
+    ],
+    "Anastasya": [
+      {
+        "charKey": "Anastasya",
+        "variant": "Stellar-Conduct team",
+        "label": "Blessing of Honor on-field, in Radiance: Stellar-Conduct, during The Evernight Yields to Dawn",
+        "target": "one full Honor Normal Attack chain, including its Stellar-Conduct hits",
+        "targetPaths": [
+          "skill.honor0",
+          "skill.honor0Sc",
+          "skill.honor1",
+          "skill.honor1Sc",
+          "skill.honor2",
+          "skill.honor2Sc",
+          "skill.honor3",
+          "skill.honor3Sc",
+          "skill.honor4",
+          "skill.honor4Sc"
+        ],
+        "weapon": "Silverdawn",
+        "sets": [
+          {
+            "sets": {
+              "DisenchantmentInDeepShadow": 4
+            },
+            "rel": 100,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "HeartOfTheFurnace": 4
+            },
+            "rel": 97.8,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "LegacyOfTheFirstChronicle": 4
+            },
+            "rel": 94.8,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critDMG_"
+            }
+          },
+          {
+            "sets": {
+              "ADayCarvedFromRisingWinds": 4
+            },
+            "rel": 83.3,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "BlizzardStrayer": 4
+            },
+            "rel": 82.4,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "ShimenawasReminiscence": 4
+            },
+            "rel": 81.9,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "WanderersTroupe": 2,
+              "GladiatorsFinale": 2
+            },
+            "rel": 81.8,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "EchoesOfAnOffering": 4
+            },
+            "rel": 81.1,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "FinaleOfTheDeepGalleries": 4
+            },
+            "rel": 79.4,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "WanderersTroupe": 2,
+              "BlizzardStrayer": 2
+            },
+            "rel": 78.2,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "VermillionHereafter": 4
+            },
+            "rel": 78.1,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "NymphsDream": 4
+            },
+            "rel": 77.8,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "GladiatorsFinale": 2,
+              "BlizzardStrayer": 2
+            },
+            "rel": 77.5,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "ThunderingFury": 4
+            },
+            "rel": 77,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "AubadeOfMorningstarAndMoon": 4
+            },
+            "rel": 76.3,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          }
+        ],
+        "mains": [
+          {
+            "sands": "atk_",
+            "goblet": "eleMas",
+            "circlet": "critRate_",
+            "rel": 100,
+            "swappable": true
+          },
+          {
+            "sands": "atk_",
+            "goblet": "atk_",
+            "circlet": "critRate_",
+            "rel": 98.8,
+            "swappable": false
+          },
+          {
+            "sands": "eleMas",
+            "goblet": "eleMas",
+            "circlet": "critRate_",
+            "rel": 97.9,
+            "swappable": false
+          },
+          {
+            "sands": "atk_",
+            "goblet": "eleMas",
+            "circlet": "critDMG_",
+            "rel": 96.1,
+            "swappable": true
+          }
+        ],
+        "rolls": [
+          {
+            "key": "critDMG_",
+            "rolls": 9
+          },
+          {
+            "key": "critRate_",
+            "rolls": 6
+          },
+          {
+            "key": "atk_",
+            "rolls": 3
+          },
+          {
+            "key": "eleMas",
+            "rolls": 2
+          }
+        ],
+        "weapons": [
+          {
+            "key": "Silverdawn",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 100
+          },
+          {
+            "key": "JadeVista",
+            "rarity": 4,
+            "refinement": 5,
+            "rel": 90.3,
+            "pinned": true,
+            "note": "with three teammates of other elements: +72% ATK"
+          },
+          {
+            "key": "ThunderingPulse",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 90.3
+          },
+          {
+            "key": "PolarStar",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 88
+          },
+          {
+            "key": "TheDaybreakChronicles",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 85.2
+          },
+          {
+            "key": "TheFirstGreatMagic",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 83.2
+          },
+          {
+            "key": "BreezeborneRefrain",
+            "rarity": 4,
+            "refinement": 5,
+            "rel": 83.2
+          },
+          {
+            "key": "AmosBow",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 83.2
+          },
+          {
+            "key": "SkywardHarp",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 82.1
+          },
+          {
+            "key": "AquaSimulacra",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 81.1
+          },
+          {
+            "key": "HuntersPath",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 80
+          },
+          {
+            "key": "ElegyForTheEnd",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 79.6
+          },
+          {
+            "key": "JadeVista",
+            "rarity": 4,
+            "refinement": 1,
+            "rel": 79.3,
+            "pinned": true,
+            "note": "with three teammates of other elements: +36% ATK"
+          },
+          {
+            "key": "ChainBreaker",
+            "rarity": 4,
+            "refinement": 5,
+            "rel": 78.8,
+            "note": "with three teammates of other elements"
+          },
+          {
+            "key": "GoldenFrostboundOath",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 78.5
+          }
+        ],
+        "scalesWith": [
+          "cryo_dmg_",
+          "atk",
+          "atk_",
+          "critDMG_",
+          "critRate_",
+          "eleMas"
+        ],
+        "value": 102064,
+        "itemConditionals": [
+          "ADayCarvedFromRisingWinds.set4=on",
+          "Berserker.hp=70",
+          "BlizzardStrayer.state=cryo",
+          "BraveHeart.hp=50",
+          "CelestialGift.set4=on",
+          "CrimsonWitchOfFlames.stack=3",
+          "DeepwoodMemories.set4=on",
+          "DisenchantmentInDeepShadow.state=on",
+          "EchoesOfAnOffering.mode=avg",
+          "FinaleOfTheDeepGalleries.0EnergyNoBurst=on",
+          "FinaleOfTheDeepGalleries.0EnergyNoNormal=on",
+          "FlowerOfParadiseLost.stacks=4",
+          "HeartOfDepth.skill=cast",
+          "HeartOfTheFurnace.4Stellar=on",
+          "HuskOfOpulentDreams.stack=4",
+          "LegacyOfTheFirstChronicle.undyingRadiance=on",
+          "LongNightsOath.stacks=5",
+          "MaidenBeloved.state=on",
+          "MartialArtist.state=on",
+          "NighttimeWhispersInTheEchoingWoods.afterSkill=on",
+          "NoblesseOblige.set4=on",
+          "NymphsDream.set4=3",
+          "PaleFlame.stacks=2",
+          "ShimenawasReminiscence.usedEnergy=used",
+          "SilkenMoonsSerenade.4GleamingMoon=on",
+          "TenacityOfTheMillelith.skill=cast",
+          "Thundersoother.state=on",
+          "TinyMiracle.element=dendro",
+          "VermillionHereafter.afterBurst=on",
+          "AthameArtis.burstHit=on",
+          "Azurelight.afterSkill=on",
+          "Azurelight.noEnergy=on",
+          "BeyondTheChrysalis.devotion=on",
+          "BeyondTheChrysalis.defiance=on",
+          "CinnabarSpindle.SpotlessHeart=on",
+          "CoolSteel.BaneOfWaterAndIce=on",
+          "DarkIronSword.Overloaded=on",
+          "Emberwell.stellar=on",
+          "ExaiphanesBlade.passive=on",
+          "FinaleOfTheDeep.afterSkill=on",
+          "FinaleOfTheDeep.bond=on",
+          "FleuveCendreFerryman.afterSkill=on",
+          "FluteOfEzpitzal.afterSkill=on",
+          "FreedomSworn.MillennialMovement=on",
+          "HaranGeppakuFutsu.HonedFlow=2",
+          "HarbingerOfDawn.SkyPiercingMight=on",
+          "HereticsMoltenBlade.passive=18",
+          "IronSting.InfusionStinger=2",
+          "KagotsurubeIsshin.passive=on",
+          "KeyOfKhajNisut.afterSkill=3",
+          "LightbearingMoonshard.passive=on",
+          "LightOfFoliarIncision.afterNormalEle=on",
+          "LionsRoar.BaneOfFireAndThunder=on",
+          "MistsplitterReforged.MistsplittersEmblem=3",
+          "MoonweaversDawn.energy=60",
+          "NewBough.passive=3",
+          "PeakPatrolSong.odeStacks=2",
+          "PeakPatrolSong.odeMaxed=on",
+          "PrototypeRancour.stack=4",
+          "RoyalLongsword.stack=1",
+          "SapwoodBlade.passive=on",
+          "SilverLight.passive=2",
+          "SkyriderSword.Determination=on",
+          "SkywardBlade.SkyPiercingMight=on",
+          "SplendorOfTranquilWaters.teamHpChange=2",
+          "SturdyBone.afterSprint=on",
+          "SummitShaper.GoldenMajesty=5",
+          "TheAlleyFlash.ItinerantHero=on",
+          "TheDockhandsAssistant.symbolsConsumed=3",
+          "ToukabouShigure.passive=on",
+          "UrakuMisugiri.teamGeo=on",
+          "WhitelakeFrostfeather.passive=3",
+          "WolfFang.skillStacks=4",
+          "WolfFang.burstStacks=4",
+          "AThousandBlazingSuns.passive=on",
+          "BeaconOfTheReedSea.afterSkill=on",
+          "BladeOfAtonement.stellar=on",
+          "BlazingLionfang.reforgedBlade=on",
+          "BloodtaintedGreatsword.BaneOfFireAndThunder=on",
+          "FangOfTheMountainKing.stacks=6",
+          "FerrousShadow.Unbending=on",
+          "FlameForgedInsight.passive=on",
+          "ForestRegalia.passive=on",
+          "GestOfTheMightyWolf.stacks=4",
+          "MailedFlower.passive=on",
+          "PortablePowerSaw.symbolsConsumed=3",
+          "Rainslasher.BaneOfStormAndTide=on",
+          "RoyalGreatsword.stack=1",
+          "SerpentSpine.Wavesplitter=5",
+          "SkyriderGreatsword.stack=4",
+          "SongOfBrokenPines.RebelsBannerHymn=on",
+          "TalkingStick.affectedPyro=on",
+          "TalkingStick.affectedOther=on",
+          "TheUnforged.GoldenMajesty=5",
+          "TorrentsOfSpring.royalDecree=complete",
+          "UltimateOverlordsMegaMagicSword.melusines=12",
+          "Whiteblind.stack=4",
+          "BlackTassel.PressTheAdvantage=on",
+          "BloodsoakedRuins.afterBurst=on",
+          "BloodsoakedRuins.afterLc=on",
+          "CalamityQueller.stack=6",
+          "Deathmatch.stack=moreThanOne",
+          "DisasterAndRemorse.unforgivable=on",
+          "DisasterAndRemorse.irreparable=on",
+          "EngulfingLightning.TimelessDream=on",
+          "FootprintOfTheRainbow.afterSkill=on",
+          "FracturedHalo.afterSkillBurst=on",
+          "Frostbreath.react=on",
+          "LumidouceElegy.stacks=2",
+          "Moonpiercer.passive=on",
+          "MountainBracingBolt.afterOtherSkill=on",
+          "PrimordialJadeWingedSpear.stack=7",
+          "ProspectorsDrill.marksConsumed=3",
+          "PrototypeStarglitter.stack=2",
+          "RoyalSpear.stack=1",
+          "SacrificersStaff.passive=3",
+          "SongOfTheVigil.stellar=on",
+          "StaffOfHoma.RecklessCinnabar=on",
+          "StaffOfTheScarletSands.stacks=3",
+          "SymphonistOfScents.healing=on",
+          "TamayurateiNoOhanashi.afterSkill=on",
+          "VortexVanquisher.GoldenMajesty=5",
+          "AlleyHunter.OppidanAmbush=10",
+          "AmosBow.StrongWilled=5",
+          "AquaSimulacra.passive=on",
+          "BreezeborneRefrain.viper=on",
+          "ChainBreaker.natlanOrNonEle=3",
+          "Cloudforged.energyStacks=2",
+          "CompoundBow.InfusionArrow=4",
+          "CovenantOfFrostAndSnow.passive=on",
+          "ElegyForTheEnd.ThePartingRefrain=on",
+          "FadingTwilight.state=dawnblaze",
+          "FlowerWreathedFeathers.passive=6",
+          "GoldenFrostboundOath.skillOrLc=on",
+          "Hamayumi.FullDraw=on",
+          "KingsSquire.passive=on",
+          "MitternachtsWaltz.EvernightDuetNormal=on",
+          "MitternachtsWaltz.EvernightDuetSkill=on",
+          "PolarStar.GoldenMajesty=3",
+          "Predator.PressTheAdvantage=2",
+          "RangeGauge.marksConsumed=3",
+          "RoyalBow.Focus=1",
+          "ScionOfTheBlazingSun.afterHit=on",
+          "Silverdawn.whiteCrownsBequest=on",
+          "SilvershowerHeartstrings.blessingStacks=3",
+          "Slingshot.Slingshot=more",
+          "TheDaybreakChronicles.passive=6",
+          "ThunderingPulse.RuleByThunder=3",
+          "WindblumeOde.WindblumeWish=on",
+          "BalladOfTheBoundlessBlue.hits=3",
+          "ClashOfKings.skill=on",
+          "DawningFrost.skillHit=on",
+          "DodocoTales.DodoventureNormal=on",
+          "EchoesOfTheHeart.stellar=on",
+          "EmeraldOrb.Rapids=on",
+          "EtherlightSpindlelute.condPassive=on",
+          "FlowingPurity.afterSkill=on",
+          "FlowingPurity.bond=on",
+          "FruitOfFulfillment.stacks=5",
+          "HakushinRing.SakuraSaiguu=dendro",
+          "HymnOfTheMaelstrom.stacks=3",
+          "HymnOfTheMaelstrom.frozenSwirl=on",
+          "JadefallsSplendor.condPassive=on",
+          "KagurasVerity.KaguraDance=3",
+          "LostPrayerToTheSacredWinds.BoundlessBlessing=4",
+          "MagicGuide.BaneOfStormAndTide=on",
+          "MemoryOfDust.GoldenMajesty=5",
+          "NocturnesCurtainCall.passive=on",
+          "OathswornEye.faLight=skillBurst",
+          "PrototypeAmber.Gliding=on",
+          "QuantumCatalyst.stacks=5",
+          "ReliquaryOfTruth.afterSkill=on",
+          "RingOfYaxche.afterSkill=on",
+          "RoyalGrimoire.stack=1",
+          "SolarPearl.solarShineNormal=normal",
+          "SolarPearl.solarShineSkillBurst=skillBurst",
+          "StarsealedEdict.crystalCompounding=on",
+          "StarsealedEdict.lawOfCombustion=3",
+          "SunnyMorningSleepIn.afterSkill=on",
+          "SunnyMorningSleepIn.afterBurst=on",
+          "SurfsUp.stacks=4",
+          "TheWidsith.Debut=recitative",
+          "ThrillingTalesOfDragonSlayers.Heritage=on",
+          "TulaytullahsRemembrance.timePassive=12",
+          "TulaytullahsRemembrance.hitPassive=5",
+          "VividNotions.dawn=on",
+          "VividNotions.twilight=on",
+          "WaveridingWhirl.passive=on",
+          "WineAndSong.EverChanging=on"
+        ]
+      },
+      {
+        "charKey": "Anastasya",
+        "variant": "Stellar Swirl team",
+        "label": "Blessing of Honor on-field, in Radiance: Stellar Swirl, during The Evernight Yields to Dawn",
+        "target": "one full Honor Normal Attack chain, including its Stellar Swirl hits",
+        "targetPaths": [
+          "skill.honor0",
+          "skill.honor0Ss",
+          "skill.honor1",
+          "skill.honor1Ss",
+          "skill.honor2",
+          "skill.honor2Ss",
+          "skill.honor3",
+          "skill.honor3Ss",
+          "skill.honor4",
+          "skill.honor4Ss"
+        ],
+        "weapon": "Silverdawn",
+        "sets": [
+          {
+            "sets": {
+              "HeartOfTheFurnace": 4
+            },
+            "rel": 100,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "LegacyOfTheFirstChronicle": 4
+            },
+            "rel": 97.1,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "eleMas"
+            }
+          },
+          {
+            "sets": {
+              "ADayCarvedFromRisingWinds": 4
+            },
+            "rel": 84.6,
+            "mains": {
+              "sands": "eleMas",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "WanderersTroupe": 2,
+              "GladiatorsFinale": 2
+            },
+            "rel": 83.1,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "BlizzardStrayer": 4
+            },
+            "rel": 82.7,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "ShimenawasReminiscence": 4
+            },
+            "rel": 80.6,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "EchoesOfAnOffering": 4
+            },
+            "rel": 80,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "VermillionHereafter": 4
+            },
+            "rel": 79.2,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "NymphsDream": 4
+            },
+            "rel": 78.9,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "WanderersTroupe": 2,
+              "BlizzardStrayer": 2
+            },
+            "rel": 78.5,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "ViridescentVenerer": 4
+            },
+            "rel": 78.3,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "GladiatorsFinale": 2,
+              "BlizzardStrayer": 2
+            },
+            "rel": 77.9,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "AubadeOfMorningstarAndMoon": 4
+            },
+            "rel": 77.4,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "NoblesseOblige": 4
+            },
+            "rel": 77.4,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          },
+          {
+            "sets": {
+              "DisenchantmentInDeepShadow": 4
+            },
+            "rel": 76.8,
+            "mains": {
+              "sands": "atk_",
+              "goblet": "eleMas",
+              "circlet": "critRate_"
+            }
+          }
+        ],
+        "mains": [
+          {
+            "sands": "atk_",
+            "goblet": "eleMas",
+            "circlet": "critRate_",
+            "rel": 100,
+            "swappable": true
+          },
+          {
+            "sands": "eleMas",
+            "goblet": "eleMas",
+            "circlet": "critRate_",
+            "rel": 98.4,
+            "swappable": false
+          },
+          {
+            "sands": "atk_",
+            "goblet": "atk_",
+            "circlet": "critRate_",
+            "rel": 98.2,
+            "swappable": false
+          },
+          {
+            "sands": "atk_",
+            "goblet": "atk_",
+            "circlet": "eleMas",
+            "rel": 92.4,
+            "swappable": false
+          }
+        ],
+        "rolls": [
+          {
+            "key": "critDMG_",
+            "rolls": 8
+          },
+          {
+            "key": "critRate_",
+            "rolls": 8
+          },
+          {
+            "key": "eleMas",
+            "rolls": 3
+          },
+          {
+            "key": "atk_",
+            "rolls": 1
+          }
+        ],
+        "weapons": [
+          {
+            "key": "Silverdawn",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 100
+          },
+          {
+            "key": "JadeVista",
+            "rarity": 4,
+            "refinement": 5,
+            "rel": 90.2,
+            "pinned": true,
+            "note": "with three teammates of other elements: +72% ATK"
+          },
+          {
+            "key": "PolarStar",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 88.4
+          },
+          {
+            "key": "ThunderingPulse",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 87.3
+          },
+          {
+            "key": "BreezeborneRefrain",
+            "rarity": 4,
+            "refinement": 5,
+            "rel": 82.9
+          },
+          {
+            "key": "TheFirstGreatMagic",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 82.7
+          },
+          {
+            "key": "SkywardHarp",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 82.1
+          },
+          {
+            "key": "TheDaybreakChronicles",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 81.4
+          },
+          {
+            "key": "AmosBow",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 80.4
+          },
+          {
+            "key": "HuntersPath",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 79.9
+          },
+          {
+            "key": "AquaSimulacra",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 79.5
+          },
+          {
+            "key": "JadeVista",
+            "rarity": 4,
+            "refinement": 1,
+            "rel": 79.3,
+            "pinned": true,
+            "note": "with three teammates of other elements: +36% ATK"
+          },
+          {
+            "key": "ElegyForTheEnd",
+            "rarity": 5,
+            "refinement": 1,
+            "rel": 79.3
+          },
+          {
+            "key": "ChainBreaker",
+            "rarity": 4,
+            "refinement": 5,
+            "rel": 78.8,
+            "note": "with three teammates of other elements"
+          },
+          {
+            "key": "Cloudforged",
+            "rarity": 4,
+            "refinement": 5,
+            "rel": 78
+          }
+        ],
+        "scalesWith": [
+          "cryo_dmg_",
+          "atk",
+          "atk_",
+          "critDMG_",
+          "critRate_",
+          "eleMas"
+        ],
+        "value": 161909,
+        "itemConditionals": [
+          "ADayCarvedFromRisingWinds.set4=on",
+          "Berserker.hp=70",
+          "BlizzardStrayer.state=cryo",
+          "BraveHeart.hp=50",
+          "CelestialGift.set4=on",
+          "CrimsonWitchOfFlames.stack=3",
+          "DeepwoodMemories.set4=on",
+          "EchoesOfAnOffering.mode=avg",
+          "FinaleOfTheDeepGalleries.0EnergyNoBurst=on",
+          "FinaleOfTheDeepGalleries.0EnergyNoNormal=on",
+          "FlowerOfParadiseLost.stacks=4",
+          "HeartOfDepth.skill=cast",
+          "HeartOfTheFurnace.4Stellar=on",
+          "HuskOfOpulentDreams.stack=4",
+          "LegacyOfTheFirstChronicle.undyingRadiance=on",
+          "LongNightsOath.stacks=5",
+          "MaidenBeloved.state=on",
+          "MartialArtist.state=on",
+          "NighttimeWhispersInTheEchoingWoods.afterSkill=on",
+          "NoblesseOblige.set4=on",
+          "NymphsDream.set4=3",
+          "PaleFlame.stacks=2",
+          "ShimenawasReminiscence.usedEnergy=used",
+          "SilkenMoonsSerenade.4GleamingMoon=on",
+          "TenacityOfTheMillelith.skill=cast",
+          "TinyMiracle.element=dendro",
+          "VermillionHereafter.afterBurst=on",
+          "AthameArtis.burstHit=on",
+          "Azurelight.afterSkill=on",
+          "Azurelight.noEnergy=on",
+          "BeyondTheChrysalis.devotion=on",
+          "BeyondTheChrysalis.defiance=on",
+          "CinnabarSpindle.SpotlessHeart=on",
+          "CoolSteel.BaneOfWaterAndIce=on",
+          "DarkIronSword.Overloaded=on",
+          "Emberwell.stellar=on",
+          "ExaiphanesBlade.passive=on",
+          "FinaleOfTheDeep.afterSkill=on",
+          "FinaleOfTheDeep.bond=on",
+          "FleuveCendreFerryman.afterSkill=on",
+          "FluteOfEzpitzal.afterSkill=on",
+          "FreedomSworn.MillennialMovement=on",
+          "HaranGeppakuFutsu.HonedFlow=2",
+          "HarbingerOfDawn.SkyPiercingMight=on",
+          "HereticsMoltenBlade.passive=18",
+          "IronSting.InfusionStinger=2",
+          "KagotsurubeIsshin.passive=on",
+          "KeyOfKhajNisut.afterSkill=3",
+          "LightbearingMoonshard.passive=on",
+          "LightOfFoliarIncision.afterNormalEle=on",
+          "MistsplitterReforged.MistsplittersEmblem=3",
+          "MoonweaversDawn.energy=60",
+          "NewBough.passive=3",
+          "PeakPatrolSong.odeStacks=2",
+          "PeakPatrolSong.odeMaxed=on",
+          "PrototypeRancour.stack=4",
+          "RoyalLongsword.stack=1",
+          "SapwoodBlade.passive=on",
+          "SilverLight.passive=2",
+          "SkyriderSword.Determination=on",
+          "SkywardBlade.SkyPiercingMight=on",
+          "SplendorOfTranquilWaters.teamHpChange=2",
+          "SturdyBone.afterSprint=on",
+          "SummitShaper.GoldenMajesty=5",
+          "TheAlleyFlash.ItinerantHero=on",
+          "TheDockhandsAssistant.symbolsConsumed=3",
+          "ToukabouShigure.passive=on",
+          "UrakuMisugiri.teamGeo=on",
+          "WhitelakeFrostfeather.passive=3",
+          "WolfFang.skillStacks=4",
+          "WolfFang.burstStacks=4",
+          "AThousandBlazingSuns.passive=on",
+          "BeaconOfTheReedSea.afterSkill=on",
+          "BladeOfAtonement.stellar=on",
+          "BlazingLionfang.reforgedBlade=on",
+          "FangOfTheMountainKing.stacks=6",
+          "FerrousShadow.Unbending=on",
+          "FlameForgedInsight.passive=on",
+          "ForestRegalia.passive=on",
+          "GestOfTheMightyWolf.stacks=4",
+          "MailedFlower.passive=on",
+          "PortablePowerSaw.symbolsConsumed=3",
+          "RoyalGreatsword.stack=1",
+          "SerpentSpine.Wavesplitter=5",
+          "SkyriderGreatsword.stack=4",
+          "SongOfBrokenPines.RebelsBannerHymn=on",
+          "TalkingStick.affectedPyro=on",
+          "TalkingStick.affectedOther=on",
+          "TheUnforged.GoldenMajesty=5",
+          "TorrentsOfSpring.royalDecree=complete",
+          "UltimateOverlordsMegaMagicSword.melusines=12",
+          "Whiteblind.stack=4",
+          "BlackTassel.PressTheAdvantage=on",
+          "BloodsoakedRuins.afterBurst=on",
+          "BloodsoakedRuins.afterLc=on",
+          "CalamityQueller.stack=6",
+          "Deathmatch.stack=moreThanOne",
+          "DisasterAndRemorse.unforgivable=on",
+          "DisasterAndRemorse.irreparable=on",
+          "EngulfingLightning.TimelessDream=on",
+          "FootprintOfTheRainbow.afterSkill=on",
+          "FracturedHalo.afterSkillBurst=on",
+          "Frostbreath.react=on",
+          "LumidouceElegy.stacks=2",
+          "Moonpiercer.passive=on",
+          "MountainBracingBolt.afterOtherSkill=on",
+          "PrimordialJadeWingedSpear.stack=7",
+          "ProspectorsDrill.marksConsumed=3",
+          "PrototypeStarglitter.stack=2",
+          "RoyalSpear.stack=1",
+          "SacrificersStaff.passive=3",
+          "SongOfTheVigil.stellar=on",
+          "StaffOfHoma.RecklessCinnabar=on",
+          "StaffOfTheScarletSands.stacks=3",
+          "SymphonistOfScents.healing=on",
+          "TamayurateiNoOhanashi.afterSkill=on",
+          "VortexVanquisher.GoldenMajesty=5",
+          "AlleyHunter.OppidanAmbush=10",
+          "AmosBow.StrongWilled=5",
+          "AquaSimulacra.passive=on",
+          "BreezeborneRefrain.viper=on",
+          "ChainBreaker.natlanOrNonEle=3",
+          "Cloudforged.energyStacks=2",
+          "CompoundBow.InfusionArrow=4",
+          "CovenantOfFrostAndSnow.passive=on",
+          "ElegyForTheEnd.ThePartingRefrain=on",
+          "FadingTwilight.state=dawnblaze",
+          "FlowerWreathedFeathers.passive=6",
+          "GoldenFrostboundOath.skillOrLc=on",
+          "Hamayumi.FullDraw=on",
+          "KingsSquire.passive=on",
+          "MitternachtsWaltz.EvernightDuetNormal=on",
+          "MitternachtsWaltz.EvernightDuetSkill=on",
+          "PolarStar.GoldenMajesty=3",
+          "Predator.PressTheAdvantage=2",
+          "RangeGauge.marksConsumed=3",
+          "RoyalBow.Focus=1",
+          "ScionOfTheBlazingSun.afterHit=on",
+          "Silverdawn.whiteCrownsBequest=on",
+          "SilvershowerHeartstrings.blessingStacks=3",
+          "Slingshot.Slingshot=more",
+          "TheDaybreakChronicles.passive=6",
+          "ThunderingPulse.RuleByThunder=3",
+          "WindblumeOde.WindblumeWish=on",
+          "BalladOfTheBoundlessBlue.hits=3",
+          "ClashOfKings.skill=on",
+          "DawningFrost.skillHit=on",
+          "DodocoTales.DodoventureNormal=on",
+          "EchoesOfTheHeart.stellar=on",
+          "EmeraldOrb.Rapids=on",
+          "EtherlightSpindlelute.condPassive=on",
+          "FlowingPurity.afterSkill=on",
+          "FlowingPurity.bond=on",
+          "FruitOfFulfillment.stacks=5",
+          "HakushinRing.SakuraSaiguu=dendro",
+          "HymnOfTheMaelstrom.stacks=3",
+          "HymnOfTheMaelstrom.frozenSwirl=on",
+          "JadefallsSplendor.condPassive=on",
+          "KagurasVerity.KaguraDance=3",
+          "LostPrayerToTheSacredWinds.BoundlessBlessing=4",
+          "MemoryOfDust.GoldenMajesty=5",
+          "NocturnesCurtainCall.passive=on",
+          "OathswornEye.faLight=skillBurst",
+          "PrototypeAmber.Gliding=on",
+          "QuantumCatalyst.stacks=5",
+          "ReliquaryOfTruth.afterSkill=on",
+          "RingOfYaxche.afterSkill=on",
+          "RoyalGrimoire.stack=1",
+          "SolarPearl.solarShineNormal=normal",
+          "SolarPearl.solarShineSkillBurst=skillBurst",
+          "StarsealedEdict.crystalCompounding=on",
+          "StarsealedEdict.lawOfCombustion=3",
+          "SunnyMorningSleepIn.afterSkill=on",
+          "SunnyMorningSleepIn.afterBurst=on",
+          "SurfsUp.stacks=4",
+          "TheWidsith.Debut=recitative",
+          "ThrillingTalesOfDragonSlayers.Heritage=on",
+          "TulaytullahsRemembrance.timePassive=12",
+          "TulaytullahsRemembrance.hitPassive=5",
+          "VividNotions.dawn=on",
+          "VividNotions.twilight=on",
+          "WaveridingWhirl.passive=on",
+          "WineAndSong.EverChanging=on"
+        ]
+      }
+    ]
+  }
+}

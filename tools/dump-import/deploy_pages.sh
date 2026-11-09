@@ -9,6 +9,7 @@
 # index.html cached can load their chunks; and only changed files are uploaded (fast deploys).
 set -e
 cd ${0:A:h}/../..
+REPO_ROOT=$PWD
 OWNER=${1:-gi-beta73}
 REPO=${2:-$OWNER.github.io}
 BRANCH=${3:-main}
@@ -32,6 +33,9 @@ if [ ! -d $SITE/.git ]; then
   git clone -q --depth 1 --branch $BRANCH https://github.com/$OWNER/$REPO.git $SITE 2>/dev/null || {
     mkdir -p $SITE && git -C $SITE init -q -b $BRANCH && git -C $SITE remote add origin https://github.com/$OWNER/$REPO.git; }
 fi
+# sitemap <lastmod>: the deployed date for unchanged pages, today for changed ones; the changed
+# URLs are submitted to IndexNow once the push is live
+node tools/site/seo-publish.mjs lastmod dist/apps/frontend $SITE > /tmp/indexnow-urls.txt
 # copy the new build over the old one (no --delete: old hashed assets stay available)
 rsync -a dist/apps/frontend/ $SITE/
 cd $SITE
@@ -40,3 +44,5 @@ git -c user.name="$OWNER" -c user.email="$OWNER@users.noreply.github.com" commit
 git push -q origin $BRANCH
 gh api -X POST repos/$OWNER/$REPO/pages -f "source[branch]=$BRANCH" -f "source[path]=/" >/dev/null 2>&1 || true
 echo "Pushed $(git rev-parse --short HEAD). Pages rebuild takes ~1 min: https://$REPO/"
+# tell Bing/Yandex/… about the changed pages (waits until the deploy serves them)
+node $REPO_ROOT/tools/site/seo-publish.mjs indexnow $SITE < /tmp/indexnow-urls.txt || echo "IndexNow submission failed (not fatal)"
