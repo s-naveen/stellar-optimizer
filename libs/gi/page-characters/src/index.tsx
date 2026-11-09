@@ -7,6 +7,7 @@ import { useMediaQueryUp } from '@genshin-optimizer/common/react-util'
 import {
   CardThemed,
   EmptyState,
+  notePendingNavigation,
   PageHeader,
   ShowingAndSortOptionSelect,
   useInfScroll,
@@ -331,7 +332,11 @@ export default function PageCharacter() {
             <CharacterCard
               key={charKey}
               characterKey={charKey}
-              onClick={() => navigate(`${charKey}`)}
+              onClick={() => {
+                // the editor takes a moment to render: show the progress bar meanwhile
+                notePendingNavigation()
+                navigate(`${charKey}`)
+              }}
               hideStats
             />
           ))}

@@ -1,5 +1,9 @@
 import { useDataManagerKeys } from '@genshin-optimizer/common/database-ui'
 import { AnvilIcon } from '@genshin-optimizer/common/svgicons'
+import {
+  isPlainLeftClick,
+  useOptimisticValue,
+} from '@genshin-optimizer/common/ui'
 import { shouldShowDevComponents } from '@genshin-optimizer/common/util'
 import { useDatabase, useDBMeta } from '@genshin-optimizer/gi/db-ui'
 import { FlowerIcon } from '@genshin-optimizer/gi/svgicons'
@@ -35,7 +39,7 @@ import {
   useTheme,
 } from '@mui/material'
 import type { ReactNode } from 'react'
-import { Suspense, useState } from 'react'
+import { createContext, Suspense, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link as RouterLink, useMatch } from 'react-router-dom'
 import goLogo from './go_logo.svg'
@@ -110,6 +114,12 @@ const settingsNav: NavEntry = {
 const menuNav: NavEntry[] = [settingsNav, ...secondaryNav]
 
 const { gold, goldLight, parchment, hairline, hairlineStrong } = giTokens
+
+/**
+ * Marks a clicked nav entry as the current page at once (see HeaderContent): the page itself renders
+ * in the navigation's transition.
+ */
+const SelectNavContext = createContext<(value: string) => void>(() => {})
 
 /** Inventory size next to a nav item: a quiet pill, so the labels stay the first thing you read. */
 function NavCount({ count }: { count: number }) {
@@ -216,6 +226,7 @@ function NavItem({
   block?: boolean
 }) {
   const { t } = useTranslation('ui')
+  const select = useContext(SelectNavContext)
   const label = t(entry.i18Key)
   const link = (
     <Button
@@ -223,7 +234,10 @@ function NavItem({
       color="inherit"
       component={RouterLink}
       to={entry.to}
-      onClick={onClick}
+      onClick={(e) => {
+        if (isPlainLeftClick(e)) select(entry.value)
+        onClick?.()
+      }}
       aria-current={active ? 'page' : undefined}
       aria-label={showLabel ? undefined : label}
       sx={[
@@ -252,6 +266,7 @@ function SettingsMenu({
   showLabel: boolean
 }) {
   const { t } = useTranslation('ui')
+  const select = useContext(SelectNavContext)
   const { name: dbName } = useDBMeta()
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
   // the tooltip would otherwise stay over the open menu until the pointer moves
@@ -267,7 +282,10 @@ function SettingsMenu({
         key={entry.value}
         component={RouterLink}
         to={entry.to}
-        onClick={close}
+        onClick={(e) => {
+          if (isPlainLeftClick(e)) select(entry.value)
+          close()
+        }}
         selected={current}
         aria-current={current ? 'page' : undefined}
       >
@@ -376,11 +394,15 @@ function SettingsMenu({
 
 function Brand({ onClick }: { onClick?: () => void }) {
   const { t } = useTranslation('ui')
+  const select = useContext(SelectNavContext)
   return (
     <Box
       component={RouterLink}
       to="/"
-      onClick={onClick}
+      onClick={(e) => {
+        if (isPlainLeftClick(e)) select('')
+        onClick?.()
+      }}
       sx={{
         display: 'flex',
         alignItems: 'center',
@@ -440,13 +462,21 @@ function HeaderContent({ anchor }: { anchor: string }) {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
   const {
-    params: { currentTab },
+    params: { currentTab: routeTab },
   } = useMatch({ path: '/:currentTab', end: false }) ?? {
     params: { currentTab: '' },
   }
-  if (isMobile)
-    return <MobileHeader anchor={anchor} currentTab={currentTab ?? ''} />
-  return <DesktopHeader anchor={anchor} currentTab={currentTab ?? ''} />
+  // a clicked entry is the current page at once; the page renders in the navigation's transition
+  const [currentTab, select] = useOptimisticValue(routeTab ?? '')
+  return (
+    <SelectNavContext.Provider value={select}>
+      {isMobile ? (
+        <MobileHeader anchor={anchor} currentTab={currentTab} />
+      ) : (
+        <DesktopHeader anchor={anchor} currentTab={currentTab} />
+      )}
+    </SelectNavContext.Provider>
+  )
 }
 
 function DesktopHeader({

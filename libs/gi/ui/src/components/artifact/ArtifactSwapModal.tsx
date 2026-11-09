@@ -2,6 +2,7 @@ import { useDataManagerValues } from '@genshin-optimizer/common/database-ui'
 import {
   useBoolState,
   useMediaQueryUp,
+  useOpenedOnce,
 } from '@genshin-optimizer/common/react-util'
 import {
   CardThemed,
@@ -53,19 +54,29 @@ import { ArtifactEditor } from './editor'
 
 const numToShowMap = { xs: 2 * 3, sm: 2 * 3, md: 3 * 3, lg: 4 * 3, xl: 4 * 3 }
 
-export function ArtifactSwapModal({
-  artId,
-  onChangeId,
-  slotKey,
-  show,
-  onClose,
-}: {
+type ArtifactSwapModalProps = {
   artId: string
   onChangeId: (id: string | null) => void
   slotKey: ArtifactSlotKey
   show: boolean
   onClose: () => void
-}) {
+}
+/**
+ * Mounted on first open: every equipped artifact has one, and closed it would still filter the whole
+ * inventory each time the build around it renders.
+ */
+export function ArtifactSwapModal(props: ArtifactSwapModalProps) {
+  return useOpenedOnce(props.show) ? (
+    <ArtifactSwapModalContent {...props} />
+  ) : null
+}
+function ArtifactSwapModalContent({
+  artId,
+  onChangeId,
+  slotKey,
+  show,
+  onClose,
+}: ArtifactSwapModalProps) {
   const { t } = useTranslation(['page_character', 'artifact'])
   const database = useDatabase()
 

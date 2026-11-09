@@ -16,11 +16,7 @@ import {
   getCharLevelString,
   getLevelString as getWeaponLevelString,
 } from '@genshin-optimizer/gi/consts'
-import type {
-  ArtifactData,
-  ICachedArtifact,
-  ICachedWeapon,
-} from '@genshin-optimizer/gi/db'
+import type { ArtifactData, ICachedWeapon } from '@genshin-optimizer/gi/db'
 import type { CharacterContextObj } from '@genshin-optimizer/gi/db-ui'
 import {
   CharacterContext,
@@ -51,10 +47,7 @@ import {
 } from '@mui/material'
 import { Suspense, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { dataContextObj } from '../../context'
-import { DataContext } from '../../context'
-import { useCharData } from '../../hooks'
-import { getBuildTcArtifactData, iconAsset } from '../../util'
+import { iconAsset } from '../../util'
 import { ArtifactSlotName } from '../artifact'
 import { TeamDelModal } from './TeamDelModal'
 
@@ -271,23 +264,13 @@ function CharacterArea({
     () => database.teams.getLoadoutWeapon(loadoutDatum),
     [loadoutDatum, database]
   )
-  const arts = (() => {
-    const { buildType, buildTcId } = loadoutDatum
-    if (buildType === 'tc' && buildTcId)
-      return getBuildTcArtifactData(database.buildTcs.get(buildTcId)!)
-    return Object.values(
-      database.teams.getLoadoutArtifacts(loadoutDatum)
-    ).filter((a) => a) as ICachedArtifact[]
-  })()
-
   const artifactData = useMemo(
     () => database.teams.getLoadoutArtifactData(loadoutDatum),
     [database, loadoutDatum]
   )
 
-  const teamData = useCharData(characterKey, undefined, arts, weapon)
-  const data = teamData?.[characterKey]?.target
-
+  // The card shows the member's level, weapon and set icons, all read from the database: it does not
+  // work out the character's stats (that took ~3 ms per member, again on every render of the list).
   const characterContextObj: CharacterContextObj | undefined = useMemo(
     () =>
       character && {
@@ -295,189 +278,176 @@ function CharacterArea({
       },
     [character]
   )
-  const dataContextObj: dataContextObj | undefined = useMemo(
-    () =>
-      data &&
-      teamData && {
-        data,
-        teamData,
-      },
-    [data, teamData]
-  )
   const banner = characterAsset(characterKey, 'banner', gender)
   const element = getCharEle(characterKey)
-  if (!characterContextObj || !dataContextObj) return null
+  if (!characterContextObj) return null
   return (
     <CharacterContext.Provider value={characterContextObj}>
-      <DataContext.Provider value={dataContextObj}>
-        <Suspense
-          fallback={
-            <Skeleton variant="rectangular" width="100%" height={300} />
-          }
+      <Suspense
+        fallback={<Skeleton variant="rectangular" width="100%" height={300} />}
+      >
+        <Box
+          className={!banner ? `grad-${charStat.rarity}star` : undefined}
+          sx={{
+            display: 'flex',
+            '&::before': {
+              content: '""',
+              display: 'block',
+              position: 'absolute',
+              left: 0,
+              top: 0,
+              width: '100%',
+              height: '100%',
+              opacity: 0.5,
+              backgroundImage: banner ? `url(${banner})` : undefined,
+              backgroundPosition: 'center',
+              backgroundSize: 'cover',
+              zIndex: zVals.banner,
+            },
+          }}
         >
+          {/* Gradient + filter */}
           <Box
-            className={!banner ? `grad-${charStat.rarity}star` : undefined}
+            sx={(theme) => ({
+              position: 'absolute',
+              width: '100%',
+              height: '100%',
+              zIndex: zVals.bannerFilter,
+              backdropFilter: 'blur(3px)',
+              background: `linear-gradient(to right, ${colorToRgbaString(
+                hexToColor(theme.palette.neutral600.main as string)!,
+                0.8
+              )}, ${colorToRgbaString(
+                hexToColor(theme.palette.neutral600.main as string)!,
+                0.4
+              )} 100% )`,
+            })}
+          />
+          {/* Bottom Gradient */}
+          <Box
+            sx={(theme) => ({
+              position: 'absolute',
+              width: '100%',
+              height: '100%',
+              zIndex: zVals.darkDRop,
+              // dark gradient
+              background: `linear-gradient(to top, ${colorToRgbaString(
+                hexToColor(theme.palette.neutral600.main as string)!,
+                0.9
+              )}, rgba(0,0,0,0) 25% )`,
+            })}
+          />
+          {/* Left */}
+          <Box
             sx={{
-              display: 'flex',
-              '&::before': {
-                content: '""',
-                display: 'block',
-                position: 'absolute',
-                left: 0,
-                top: 0,
-                width: '100%',
-                height: '100%',
-                opacity: 0.5,
-                backgroundImage: banner ? `url(${banner})` : undefined,
-                backgroundPosition: 'center',
-                backgroundSize: 'cover',
-                zIndex: zVals.banner,
-              },
+              height: 120,
+              width: 120,
+              position: 'absolute',
+              zIndex: zVals.other,
             }}
           >
-            {/* Gradient + filter */}
-            <Box
-              sx={(theme) => ({
-                position: 'absolute',
-                width: '100%',
-                height: '100%',
-                zIndex: zVals.bannerFilter,
-                backdropFilter: 'blur(3px)',
-                background: `linear-gradient(to right, ${colorToRgbaString(
-                  hexToColor(theme.palette.neutral600.main as string)!,
-                  0.8
-                )}, ${colorToRgbaString(
-                  hexToColor(theme.palette.neutral600.main as string)!,
-                  0.4
-                )} 100% )`,
-              })}
-            />
-            {/* Bottom Gradient */}
-            <Box
-              sx={(theme) => ({
-                position: 'absolute',
-                width: '100%',
-                height: '100%',
-                zIndex: zVals.darkDRop,
-                // dark gradient
-                background: `linear-gradient(to top, ${colorToRgbaString(
-                  hexToColor(theme.palette.neutral600.main as string)!,
-                  0.9
-                )}, rgba(0,0,0,0) 25% )`,
-              })}
-            />
-            {/* Left */}
-            <Box
-              sx={{
-                height: 120,
-                width: 120,
-                position: 'absolute',
-                zIndex: zVals.other,
-              }}
-            >
-              {character && (
-                <Typography
-                  sx={{
-                    position: 'absolute',
-                    lineHeight: 1,
-                    bottom: 0,
-                    p: 0.5,
-                    textShadow: '0 0 5px black',
-                  }}
-                >
-                  {getCharLevelString(character.level, character.ascension)}
-                </Typography>
-              )}
-              {character && (
-                <Typography
-                  sx={{
-                    position: 'absolute',
-                    lineHeight: 1,
-                    bottom: 0,
-                    right: 0,
-                    p: 0.5,
-                    textShadow: '0 0 5px black',
-                  }}
-                >
-                  C{character.constellation}
-                </Typography>
-              )}
-              {characterKey.startsWith('Traveler') && (
-                <Typography
-                  sx={{
-                    position: 'absolute',
-                    lineHeight: 1,
-                    top: 0,
-                    left: 0,
-                    p: 0.5,
-                    textShadow: '0 0 5px black',
-                  }}
-                >
-                  <ColorText color={element}>
-                    <ElementIcon ele={element} />
-                  </ColorText>
-                </Typography>
-              )}
-            </Box>
+            {character && (
+              <Typography
+                sx={{
+                  position: 'absolute',
+                  lineHeight: 1,
+                  bottom: 0,
+                  p: 0.5,
+                  textShadow: '0 0 5px black',
+                }}
+              >
+                {getCharLevelString(character.level, character.ascension)}
+              </Typography>
+            )}
+            {character && (
+              <Typography
+                sx={{
+                  position: 'absolute',
+                  lineHeight: 1,
+                  bottom: 0,
+                  right: 0,
+                  p: 0.5,
+                  textShadow: '0 0 5px black',
+                }}
+              >
+                C{character.constellation}
+              </Typography>
+            )}
+            {characterKey.startsWith('Traveler') && (
+              <Typography
+                sx={{
+                  position: 'absolute',
+                  lineHeight: 1,
+                  top: 0,
+                  left: 0,
+                  p: 0.5,
+                  textShadow: '0 0 5px black',
+                }}
+              >
+                <ColorText color={element}>
+                  <ElementIcon ele={element} />
+                </ColorText>
+              </Typography>
+            )}
+          </Box>
 
-            <Box
-              component="img"
-              loading="lazy"
-              src={iconAsset(characterKey, gender)}
+          <Box
+            component="img"
+            loading="lazy"
+            src={iconAsset(characterKey, gender)}
+            sx={{
+              height: 120,
+              width: 120,
+              zIndex: zVals.characterIcon,
+            }}
+          />
+          {/* Right */}
+          <Box
+            sx={{
+              pr: 0.5,
+              pl: 0.5,
+              py: 0.5,
+              display: 'flex',
+              flexDirection: 'column',
+              flexGrow: 1,
+              width: '100%',
+              minWidth: 0,
+              justifyContent: 'space-between',
+              zIndex: zVals.other,
+            }}
+          >
+            <Typography
+              noWrap
               sx={{
-                height: 120,
-                width: 120,
-                zIndex: zVals.characterIcon,
-              }}
-            />
-            {/* Right */}
-            <Box
-              sx={{
-                pr: 0.5,
-                pl: 0.5,
-                py: 0.5,
                 display: 'flex',
-                flexDirection: 'column',
-                flexGrow: 1,
-                width: '100%',
-                minWidth: 0,
-                justifyContent: 'space-between',
-                zIndex: zVals.other,
+                gap: 1,
+                alignItems: 'center',
+                textShadow: '0 0 5px black',
               }}
             >
-              <Typography
-                noWrap
-                sx={{
-                  display: 'flex',
-                  gap: 1,
-                  alignItems: 'center',
-                  textShadow: '0 0 5px black',
-                }}
-              >
-                <PersonIcon />
-                <span>{name}</span>
-              </Typography>
+              <PersonIcon />
+              <span>{name}</span>
+            </Typography>
 
-              <Typography
-                noWrap
-                sx={{
-                  display: 'flex',
-                  gap: 1,
-                  alignItems: 'center',
-                  textShadow: '0 0 5px black',
-                }}
-              >
-                <CheckroomIcon />
-                <span>{buildname}</span>
-              </Typography>
-              <Box sx={{ display: 'flex', mb: 0.5, gap: 1 }}>
-                <WeaponCard weapon={weapon} />
-                <ArtifactCard artifactData={artifactData} />
-              </Box>
+            <Typography
+              noWrap
+              sx={{
+                display: 'flex',
+                gap: 1,
+                alignItems: 'center',
+                textShadow: '0 0 5px black',
+              }}
+            >
+              <CheckroomIcon />
+              <span>{buildname}</span>
+            </Typography>
+            <Box sx={{ display: 'flex', mb: 0.5, gap: 1 }}>
+              <WeaponCard weapon={weapon} />
+              <ArtifactCard artifactData={artifactData} />
             </Box>
           </Box>
-        </Suspense>
-      </DataContext.Provider>
+        </Box>
+      </Suspense>
     </CharacterContext.Provider>
   )
 }

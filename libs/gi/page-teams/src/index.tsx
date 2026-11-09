@@ -10,6 +10,7 @@ import {
   CardThemed,
   EmptyState,
   ModalWrapper,
+  notePendingNavigation,
   PageHeader,
   ShowingAndSortOptionSelect,
   useInfScroll,
@@ -290,7 +291,11 @@ export default function PageTeams() {
                 <TeamCard
                   teamId={tid}
                   bgt="light"
-                  onClick={(cid) => navigate(`${tid}${cid ? `/${cid}` : ''}`)}
+                  onClick={(cid) => {
+                    // the team page takes a moment to render: show the progress bar meanwhile
+                    notePendingNavigation()
+                    navigate(`${tid}${cid ? `/${cid}` : ''}`)
+                  }}
                 />
               </Suspense>
             </Box>

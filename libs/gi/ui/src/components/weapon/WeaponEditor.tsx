@@ -15,6 +15,7 @@ import {
 import type { ICachedWeapon } from '@genshin-optimizer/gi/db'
 import {
   CharacterContext,
+  TeamCharacterContext,
   useDatabase,
   useWeapon,
 } from '@genshin-optimizer/gi/db-ui'
@@ -42,7 +43,7 @@ import {
 } from '@mui/material'
 import { useCallback, useContext, useMemo } from 'react'
 import { DataContext } from '../../context'
-import { useTeamData } from '../../hooks'
+import { useTeamDataNoContext } from '../../hooks'
 import { LocationAutocomplete } from '../character'
 import { DocumentDisplay } from '../DocumentDisplay'
 import { FieldDisplayList, NodeFieldDisplay } from '../FieldDisplay'
@@ -113,7 +114,16 @@ export function WeaponEditor({
     [weaponSheet, weapon]
   )
 
-  const newTeamData = useTeamData(0, undefined, weapon)
+  // the team's stats with this weapon: only while it is open (the editor stays mounted, closed, in
+  // every build display, and the calculation is the team's whole)
+  const { teamId, teamCharId } = useContext(TeamCharacterContext)
+  const newTeamData = useTeamDataNoContext(
+    weapon ? teamId : '',
+    teamCharId,
+    0,
+    undefined,
+    weapon
+  )
   const newData = character && newTeamData?.[character.key]?.target
 
   return (

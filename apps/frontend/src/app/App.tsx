@@ -1,4 +1,8 @@
-import { ScrollTop, useTitle } from '@genshin-optimizer/common/ui'
+import {
+  NavigationProgress,
+  ScrollTop,
+  useTitle,
+} from '@genshin-optimizer/common/ui'
 import { ArtCharDatabase } from '@genshin-optimizer/gi/db'
 import { DatabaseContext } from '@genshin-optimizer/gi/db-ui'
 import { preloadNamespaces } from '@genshin-optimizer/gi/i18n' // also initializes translations
@@ -180,7 +184,10 @@ function App() {
         <SnowContext.Provider value={SnowContextObj}>
           <DatabaseContext.Provider value={dbContextObj}>
             <ErrorBoundary>
-              <HashRouter basename="/">
+              {/* navigation renders in a transition: the page stays responsive while the next one
+                  renders (clicked tabs and nav items show at once, see useOptimisticValue) */}
+              <HashRouter basename="/" future={{ v7_startTransition: true }}>
+                <NavigationProgress />
                 <Content />
                 <ScrollTop />
               </HashRouter>

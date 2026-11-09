@@ -1,5 +1,8 @@
 import { useDataManagerValues } from '@genshin-optimizer/common/database-ui'
-import { useMediaQueryUp } from '@genshin-optimizer/common/react-util'
+import {
+  useMediaQueryUp,
+  useOpenedOnce,
+} from '@genshin-optimizer/common/react-util'
 import {
   CardThemed,
   ImgIcon,
@@ -60,19 +63,29 @@ import { WeaponSelectionModal } from './WeaponSelectionModal'
 const numToShowMap = { xs: 2 * 3, sm: 2 * 3, md: 3 * 3, lg: 4 * 3, xl: 4 * 3 }
 const rarityHandler = handleMultiSelect([...allRarityKeys])
 
-export function WeaponSwapModal({
-  weaponId,
-  onChangeId,
-  weaponTypeKey,
-  show,
-  onClose,
-}: {
+type WeaponSwapModalProps = {
   weaponId: string
   onChangeId: (id: string) => void
   weaponTypeKey: WeaponTypeKey
   show: boolean
   onClose: () => void
-}) {
+}
+/**
+ * Mounted on first open: closed, it would still sort the weapon inventory, and its weapon editor work
+ * out the team's stats, each time the build around it renders.
+ */
+export function WeaponSwapModal(props: WeaponSwapModalProps) {
+  return useOpenedOnce(props.show) ? (
+    <WeaponSwapModalContent {...props} />
+  ) : null
+}
+function WeaponSwapModalContent({
+  weaponId,
+  onChangeId,
+  weaponTypeKey,
+  show,
+  onClose,
+}: WeaponSwapModalProps) {
   const { t } = useTranslation([
     'page_character',
     'page_weapon',

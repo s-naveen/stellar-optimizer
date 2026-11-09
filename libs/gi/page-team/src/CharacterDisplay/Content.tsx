@@ -1,4 +1,8 @@
-import { EmptyState } from '@genshin-optimizer/common/ui'
+import {
+  EmptyState,
+  isPlainLeftClick,
+  useOptimisticValue,
+} from '@genshin-optimizer/common/ui'
 import { TeamCharacterContext, useDatabase } from '@genshin-optimizer/gi/db-ui'
 import FactCheckIcon from '@mui/icons-material/FactCheck'
 import PersonIcon from '@mui/icons-material/Person'
@@ -7,6 +11,7 @@ import TrendingUpIcon from '@mui/icons-material/TrendingUp'
 import UpgradeIcon from '@mui/icons-material/Upgrade'
 import { Box, Button, Skeleton, Tab, Tabs } from '@mui/material'
 import { Suspense, useCallback, useContext } from 'react'
+import type { MouseEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate, Route, Link as RouterLink, Routes } from 'react-router-dom'
 import FormulaModal from './FormulaModal'
@@ -125,12 +130,18 @@ function LoadoutTabs({
   const { t } = useTranslation('page_character')
 
   return (
+  // the clicked tab is selected at once; its panel renders in the navigation's transition
+  const [value, select] = useOptimisticValue(tab ?? 'overview')
     <Tabs
-      value={tab ?? 'overview'}
+      value={value}
       variant="scrollable"
       scrollButtons="auto"
       allowScrollButtonsMobile
-      onChange={onChange}
+      onChange={(e, clicked: string) => {
+        // a modified click opens the tab in a new browser tab instead
+        if (isPlainLeftClick(e as MouseEvent)) select(clicked)
+        onChange?.()
+      }}
       sx={{
         order: { xs: 1, md: 0 },
         minWidth: 0,
