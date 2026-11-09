@@ -31,7 +31,8 @@ import {
 import { testing as kernelTesting } from './kernel'
 import { solveLocal } from './local'
 import { preprocess } from './preprocess'
-import { plotConfigFor } from './schedule'
+import { insideBin, PlotStore, SolverWorker } from './SolverWorker'
+import { initialItems, plotConfigFor } from './schedule'
 
 /** Deterministic PRNG (mulberry32) */
 function rng(seed: number) {
@@ -50,20 +51,29 @@ const sets = [
   'NoblesseOblige',
 ] as ArtifactSetKey[]
 const [A, B, C] = sets
+/** More sets (only A, B and C have bonuses): many allowed set combinations, i.e. packed work */
+const manySets = [
+  ...sets,
+  'ViridescentVenerer',
+  'EmblemOfSeveredFate',
+  'CrimsonWitchOfFlames',
+  'BlizzardStrayer',
+] as ArtifactSetKey[]
 const r = (key: string) => dynRead(key)
 
 function makeArts(
   rand: () => number,
   perSlot: number,
-  partial: boolean
+  partial: boolean,
+  setList = sets
 ): ArtifactsBySlot {
   let id = 0
-  const keys = ['atk_', 'atk', 'cr', 'cd', 'er', 'em', 'dmg_', ...sets]
+  const keys = ['atk_', 'atk', 'cr', 'cd', 'er', 'em', 'dmg_', ...setList]
   const values = Object.fromEntries(
     allArtifactSlotKeys.map((slot) => {
       const list: ArtifactBuildData[] = []
       for (let i = 0; i < perSlot; i++) {
-        const set = sets[Math.floor(rand() * sets.length)]
+        const set = setList[Math.floor(rand() * setList.length)]
         const v: Record<string, number> = { [set]: 1 }
         // multiples of 1/16 keep sums exact, so plot bins are unambiguous
         const q = (x: number) => Math.round(x * 16) / 16
@@ -112,6 +122,8 @@ type Case = {
   partial?: boolean
   constraints?: 'er' | 'er+cr'
   plot?: boolean
+  /** artifacts of 7 sets instead of 3 */
+  manySets?: boolean
 }
 
 function bruteForce(
@@ -158,7 +170,12 @@ function close(a: number, b: number) {
 
 function run(c: Case, opts: { workers: number; chunkSize?: number }) {
   const rand = rng(c.seed)
-  const arts = makeArts(rand, c.perSlot, !!c.partial)
+  const arts = makeArts(
+    rand,
+    c.perSlot,
+    !!c.partial,
+    c.manySets ? manySets : sets
+  )
   const { target, er, critRate } = formula()
   const constraints: { value: OptNode; min: number }[] = []
   // 1.3125 is reachable exactly (stats are multiples of 1/16), so boundary builds must be kept
@@ -218,6 +235,39 @@ const cases: Case[] = [
     topN: 2,
     exclusion: { rainbow: [2, 4] },
     constraints: 'er+cr',
+  },
+  // many set combinations: most of the work is packed (see `SolverWorker.packItems`)
+  {
+    seed: 11,
+    perSlot: 8,
+    topN: 5,
+    exclusion: { rainbow: [4] },
+    manySets: true,
+  },
+  {
+    seed: 12,
+    perSlot: 8,
+    topN: 3,
+    exclusion: { [A]: [2], [B]: [4], rainbow: [2] },
+    constraints: 'er',
+    manySets: true,
+  },
+  {
+    seed: 13,
+    perSlot: 7,
+    topN: 4,
+    exclusion: { [C]: [2, 4], rainbow: [2, 4] },
+    plot: true,
+    manySets: true,
+  },
+  {
+    seed: 14,
+    perSlot: 8,
+    topN: 1,
+    exclusion: { rainbow: [2] },
+    constraints: 'er+cr',
+    partial: true,
+    manySets: true,
   },
 ]
 const schedules = [
@@ -286,6 +336,36 @@ describe('solver matches brute force', () => {
       })
 })
 
+describe('packed work', () => {
+  test('many small set combinations are packed, and every build is accounted for', () => {
+    const rand = rng(21)
+    const arts = makeArts(rand, 8, false, manySets)
+    const { target, er } = formula()
+    const exclusion: ArtSetExclusion = { rainbow: [4] }
+    const setup = preprocess({
+      arts,
+      optimizationTarget: target,
+      constraints: [{ value: er, min: 1.1875 }],
+      exclusion,
+      topN: 3,
+    })
+    const { items, total } = initialItems(setup.arts, exclusion)
+    const { items: packed, skipped } = new SolverWorker(setup).packItems(items)
+    expect(items.length).toBeGreaterThan(100)
+    const packs = packed.filter((i) => i.pack)
+    expect(packs.length).toBeGreaterThan(0)
+    expect(packed.length).toBeLessThan(items.length / 10)
+    // packs hold the items' builds: nothing lost or counted twice
+    expect(packed.reduce((s, i) => s + i.count, 0) + skipped).toBe(total)
+    for (const p of packs) {
+      const { counts, ubs, idx } = p.pack!
+      expect(idx.length).toBe(5 * counts.length)
+      expect(counts.reduce((s, c) => s + c, 0)).toBe(p.count)
+      expect(Math.max(...ubs)).toBe(p.ub)
+    }
+  })
+})
+
 describe('common fixes', () => {
   test('computeFullArtRange includes 0 for keys missing from some artifacts, with negative values', () => {
     const arts: ArtifactsBySlot = {
@@ -312,6 +392,45 @@ describe('common fixes', () => {
     // re-merging an already merged plot must not change it
     expect(mergePlot([once], 0.01)).toEqual(once)
     expect(Object.keys(once).length).toBeLessThanOrEqual(1500)
+  })
+  test('insideBin moves a value next to a bin into it, by very little', () => {
+    for (const scale of [0.01, 0.02, 0.32, 2.56])
+      for (let k = -40; k <= 40; k++) {
+        const edge = k * scale
+        for (const x of [
+          edge,
+          edge * (1 + 1e-7),
+          edge * (1 - 1e-7),
+          edge + 1e-9,
+          edge - 1e-9,
+        ])
+          for (const key of [k - 1, k]) {
+            const y = insideBin(x, key, scale)
+            expect(Math.floor(y / scale)).toBe(key)
+            expect(Math.abs(y - x)).toBeLessThan(
+              1e-6 * Math.max(1, Math.abs(x))
+            )
+          }
+      }
+  })
+  test('a build binned by the GPU stays in that bin, through mergePlot', () => {
+    // a total of exactly 37.3 is on the edge of two 0.02-wide bins: f32 and f64 sums can put it
+    // on either side, and the plot must keep the side the GPU picked
+    const scale = 0.02
+    for (const x of [
+      37.3, 37.299999999999997, 37.300000000000004, 0, 4, 659.74,
+    ])
+      for (const side of [-1, 0]) {
+        const at = Math.round(x / scale) + side
+        const store = new PlotStore({ scale, base: -1, len: 40000 })
+        store.add(x, 5, () => ['a'], at + 1) // (bins are relative to base)
+        const [build] = Object.values(store.data())
+        expect(Math.floor(build!.plot! / scale)).toBe(at)
+        expect(Math.abs(build!.plot! - x)).toBeLessThan(1e-9)
+        const [merged] = Object.values(mergePlot([store.data()], scale))
+        expect(Math.floor(merged!.plot! / scale)).toBe(at)
+        expect(merged!.value).toBe(5)
+      }
   })
 })
 

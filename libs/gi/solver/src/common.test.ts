@@ -14,7 +14,12 @@ import {
   threshold,
 } from '@genshin-optimizer/gi/wr'
 import type { ArtifactBuildData, ArtifactsBySlot } from './common'
-import { artSetPerm, exclusionToAllowed, pruneAll } from './common'
+import {
+  artSetPerm,
+  exclusionToAllowed,
+  filterFeasiblePerm,
+  pruneAll,
+} from './common'
 
 function* allCombinations(
   sets: Record<ArtifactSlotKey, Iterable<ArtifactSetKey>>
@@ -146,4 +151,67 @@ describe('common.ts', () => {
       testFormulasEqual({ nodes: [node], arts }, z)
     })
   })
+})
+
+describe('artSetPerm with slot availability', () => {
+  const pool: ArtifactSetKey[] = [
+    'Adventurer',
+    'ArchaicPetra',
+    'Berserker',
+    'BloodstainedChivalry',
+    'BraveHeart',
+    'CrimsonWitchOfFlames',
+  ]
+  const show = (
+    filters: Iterable<
+      ReturnType<typeof artSetPerm> extends Iterable<infer F> ? F : never
+    >
+  ) =>
+    [...filters].map((filter) =>
+      allArtifactSlotKeys
+        .map((slot) => {
+          const f = filter[slot]
+          return f.kind === 'id'
+            ? 'id'
+            : `${f.kind}:${[...f.sets].sort().join('+')}`
+        })
+        .join('|')
+    )
+  let seed = 7
+  const random = () => (seed = (seed * 16807) % 2147483647) / 2147483647
+  for (let trial = 0; trial < 60; trial++) {
+    const exclusion: ArtSetExclusion = {}
+    for (const set of pool) {
+      const r = random()
+      if (r < 0.35) exclusion[set as keyof ArtSetExclusion] = [2, 4]
+      else if (r < 0.5) exclusion[set as keyof ArtSetExclusion] = [4]
+      else if (r < 0.6) exclusion[set as keyof ArtSetExclusion] = [2]
+    }
+    const r = random()
+    if (r < 0.3) exclusion.rainbow = [2, 4]
+    else if (r < 0.45) exclusion.rainbow = [4]
+    const artSets = new Set(pool.filter(() => random() < 0.85))
+    // each slot has a random part of the sets
+    const available = objKeyMap(
+      allArtifactSlotKeys,
+      () => new Set([...artSets].filter(() => random() < 0.6))
+    )
+    const arts = {
+      base: {},
+      values: objKeyMap(allArtifactSlotKeys, (slot) =>
+        [...available[slot]].map((set, i) => ({
+          id: `${slot}${i}`,
+          set,
+          values: {},
+        }))
+      ),
+    }
+    test(`trial ${trial}`, () => {
+      const pruned = show(artSetPerm(exclusion, artSets, available))
+      const full = show(
+        filterFeasiblePerm(artSetPerm(exclusion, artSets), arts)
+      )
+      expect(pruned).toEqual(full)
+    })
+  }
 })

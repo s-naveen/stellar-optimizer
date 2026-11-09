@@ -1,5 +1,5 @@
 import type { SolverBuild } from '../common.js'
-import { filterArts, mergeBuilds, mergePlot } from '../common.js'
+import { mergeBuilds, mergePlot } from '../common.js'
 import type {
   FinalizeResult,
   OptProblemInput,
@@ -9,6 +9,7 @@ import type {
   WorkerResult,
   WorkItem,
 } from '../type.js'
+import { exclusionMasks } from './exclusion.js'
 import { GPUSolver } from './gpu.js'
 import { PlotStore } from './SolverWorker.js'
 import {
@@ -21,12 +22,16 @@ import {
 
 /** Problems up to this many builds are solved by the lead worker alone, right away */
 const LOCAL_MAX = 1_000_000
-/** WebGPU is only used for problems with at least this many builds... */
+/**
+ * WebGPU is used (racing the CPU workers, see `start`) for problems with at least this many
+ * builds in their whole search space
+ */
 const GPU_MIN_TOTAL = 64_000_000
-/** ...and then for every item with at least this many builds (smaller ones stay on the CPU) */
-const GPU_MIN_ITEM = 1_000_000
-/** If the GPU has not started within this long, the CPU takes over its work */
-const GPU_START_TIMEOUT_MS = 2_000
+/**
+ * The CPU workers wait while the GPU sweeps (running both made the tab stutter, for no gain with
+ * a working GPU), unless the GPU looks this slow (ms, projected from its progress): then they race
+ */
+const GPU_HEDGE_MS = 60_000
 /** Idle pooled workers are terminated after this long */
 const POOL_IDLE_MS = 120_000
 /** If the lead worker does not answer within this long, it is replaced (once) by a fresh worker */
@@ -101,6 +106,8 @@ export class GOSolver {
   private readonly problem: OptProblemInput
   private readonly status: Status
   private readonly numWorkers: number
+  /** May the GPU take part (also needs WebGPU, and a problem big enough) */
+  private readonly allowGPU: boolean
   private readonly run = nextRun++
   private workers: Worker[] = []
   /** Workers with an outstanding command (may still be computing for this run) */
@@ -110,10 +117,23 @@ export class GOSolver {
   private rejectSolve: ((e: unknown) => void) | undefined
   private stopTracking: (() => void) | undefined
 
-  constructor(problem: OptProblemInput, status: Status, numWorker: number) {
+  /** `options.gpu`: `false` keeps the GPU out of this solve (the CPU workers only) */
+  constructor(
+    problem: OptProblemInput,
+    status: Status,
+    numWorker: number,
+    options: { gpu?: boolean } = {}
+  ) {
     this.problem = problem
     this.status = status
-    this.numWorkers = Math.max(1, Math.floor(numWorker) || 1)
+    this.allowGPU = options.gpu ?? true
+    // one core is left for the browser (drawing the page, the GPU process): with every core busy
+    // computing, the whole tab stutters while the optimizer runs
+    const cores = globalThis.navigator?.hardwareConcurrency || 8
+    this.numWorkers = Math.max(
+      1,
+      Math.min(Math.floor(numWorker) || 1, cores - 1)
+    )
     status.total = Number.NaN
     status.testedPerSecond = 0
     status.skippedPerSecond = 0
@@ -155,32 +175,39 @@ export class GOSolver {
       .map((c) => c.min)
     const nCons = mins.length
     const topN = problem.topN
+    // "Beat this value", a constraint on the target itself (each step of Team Optimize asks its
+    // member to beat its current build): few builds meet the constraints, and the GPU collects
+    // them as it sweeps instead of sweeping twice
+    const floored = problem.constraints.some(
+      (c) =>
+        c.value === problem.optimizationTarget &&
+        c.min > Number.NEGATIVE_INFINITY
+    )
 
-    /** Preprocessed setup, when the GPU is used */
-    let gpuSetup: Setup | undefined
     let leadReady = false
+    /** The GPU is sweeping: the CPU workers wait (see `GPU_HEDGE_MS`) */
+    let gpuRacing = false,
+      cpuHedge = false
+    /** Starts the helper workers (deferred while the GPU sweeps) */
+    let spawnHelpers: (() => void) | undefined
+    // The GPU may solve the problem alone: the lead then prepares the CPU's work only once it
+    // is needed (`proceed`), and meanwhile stays idle, so it is not stopped when the GPU wins
+    // (and goes back to the pool, warm, for the next run)
+    const waitForCPU = this.allowGPU && gpuAllowed()
+    let leadWorker: Worker | undefined
+    /** The lead waits for `proceed` */
+    let leadWaiting = false
+    const proceed = () => {
+      if (!leadWaiting || !leadWorker) return
+      leadWaiting = false
+      post(leadWorker, { command: 'proceed', run })
+    }
+    /** Builds the lead dropped while preparing, counted once the CPU does the work */
+    let leadSkipped = 0
     let plot: PlotConfig | undefined
     let chunkSize = Number.POSITIVE_INFINITY
-    const cpuHeap = new WorkHeap(),
-      gpuHeap = new WorkHeap()
-    /** The GPU is used for this run (it may still be starting) */
-    let gpuInUse = false
-    let gpuActive = false,
-      gpuBusy = false
-    const gpuTop: SolverBuild[] = []
-    let gpuPlot: PlotStore | undefined
-    const eligible = (item: WorkItem) => !item.cpu && item.count >= GPU_MIN_ITEM
-    // While the GPU is in use, its items wait for it (even while it starts): it finishes one in
-    // milliseconds, while a CPU worker that took one would hold up the end of the run
-    const route = (item: WorkItem) =>
-      (gpuInUse && eligible(item) ? gpuHeap : cpuHeap).push(item)
-    /** The GPU could not start, or stopped working: the CPU takes over its items */
-    const dropGPU = () => {
-      gpuInUse = false
-      gpuActive = false
-      for (let next = gpuHeap.pop(); next; next = gpuHeap.pop())
-        cpuHeap.push(next)
-    }
+    const cpuHeap = new WorkHeap()
+    const route = (item: WorkItem) => cpuHeap.push(item)
 
     const tracker = new ThresholdTracker(topN)
     let threshold = Number.NEGATIVE_INFINITY
@@ -223,18 +250,13 @@ export class GOSolver {
 
     const pump = () => {
       if (this.finished || finalizing || !leadReady) return
+      if (gpuRacing && !cpuHedge) return
       while (idle.length) {
         const batch = takeBatch(cpuHeap, threshold, plotMode, skip)
         if (!batch.length) break
         post(idle.pop()!, { command: 'work', run, items: batch, chunkSize })
       }
-      void runGPU()
-      if (
-        this.busy.size === starting.size &&
-        !gpuBusy &&
-        !cpuHeap.size &&
-        !gpuHeap.size
-      ) {
+      if (this.busy.size === starting.size && !cpuHeap.size) {
         finalizing = true
         // Helpers that are still starting have nothing to report: do not wait for them
         starting.forEach(retire)
@@ -257,86 +279,95 @@ export class GOSolver {
       w.onerror = () => w.terminate()
     }
 
-    const runGPU = async () => {
-      const gpu = this.gpu
-      const setup = gpuSetup
-      if (!gpu || !gpuActive || gpuBusy || this.finished || !setup) return
-      const [item] = takeBatch(gpuHeap, threshold, plotMode, skip)
-      if (!item) return
-      gpuBusy = true
-      try {
-        const arts = filterArts(setup.arts, item.filter)
-        const res = await gpu.run(
-          arts,
-          plotMode ? Number.NEGATIVE_INFINITY : threshold
-        )
-        if (this.finished) return
-        if (!res.ok) cpuHeap.push({ ...item, cpu: true })
-        else {
-          status.tested += res.tested
-          status.failed += res.failed
-          let changed = false
-          for (const { arts: picked, values } of res.candidates) {
-            if (!mins.every((m, i) => m <= values[1 + i])) continue
-            const artifactIds = picked.map((a) => a.id).filter((id) => id)
-            gpuPlot?.add(values[1 + nCons], values[0], () => artifactIds)
-            if (insertTop(gpuTop, { value: values[0], artifactIds }, topN))
-              changed = true
-          }
-          if (changed)
-            report(
-              'gpu',
-              gpuTop.map((b) => b.value)
-            )
-        }
-      } catch (e) {
-        // GPU failed (device lost, ...): continue on the CPU
-        console.warn('WebGPU solver disabled:', e)
-        this.gpu?.destroy()
-        this.gpu = undefined
-        cpuHeap.push({ ...item, cpu: true })
-        dropGPU()
-      } finally {
-        gpuBusy = false
-      }
+    /**
+     * The GPU solves the problem on its own, racing the CPU workers: one dense sweep of the
+     * whole search space, with the set rules checked per build (see `gpu.ts`). Whichever
+     * finishes first gives the result; both are exact. It starts as soon as the lead has
+     * preprocessed the problem, while the lead still enumerates the CPU's work.
+     */
+    /** Let the CPU workers work: the GPU failed, or looks slow (`hedge`: it carries on, racing) */
+    const startCPU = (hedge: boolean) => {
+      if (this.finished || !gpuRacing || cpuHedge) return
+      if (hedge) cpuHedge = true
+      else gpuRacing = false
+      // the status now shows the CPU's progress
+      status.tested = 0
+      status.failed = 0
+      status.skipped += leadSkipped
+      leadSkipped = 0
+      proceed()
+      spawnHelpers?.()
       pump()
     }
-
-    const startGPU = (s: Setup) => {
-      gpuInUse = true
-      // A GPU that never starts must not hold its items forever
-      const timeout = setTimeout(() => {
-        if (this.finished || gpuActive || !gpuInUse) return
-        console.warn('WebGPU did not start in time, continuing on the CPU')
-        dropGPU()
-        pump()
-      }, GPU_START_TIMEOUT_MS)
-      return GPUSolver.create(s, plot).then(
-        (gpu) => {
-          clearTimeout(timeout)
-          if (this.finished) return gpu?.destroy()
-          if (!gpu) {
-            dropGPU()
-            return pump()
-          }
-          this.gpu = gpu
-          gpuInUse = true
-          gpuActive = true
-          // Hand it the waiting items (all of them, if it started after the timeout)
-          const pending: WorkItem[] = []
-          for (let next = cpuHeap.pop(); next; next = cpuHeap.pop())
-            pending.push(next)
-          pending.forEach(route)
-          pump()
-        },
-        (e) => {
-          clearTimeout(timeout)
-          console.warn('WebGPU unavailable:', e)
-          if (this.finished) return
-          dropGPU()
-          pump()
+    /**
+     * The GPU solves the problem on its own: one dense sweep of the whole search space, with the
+     * set rules checked per build (see `gpu.ts`). The CPU workers wait meanwhile (the lead still
+     * prepares their work): if the GPU fails they take over, and if it looks slow they race it
+     * (first to finish wins; both are exact). It starts as soon as the lead has preprocessed the
+     * problem.
+     */
+    const raceGPU = async (
+      setup: Setup,
+      plotCfg: PlotConfig | undefined,
+      fullTotal: number
+    ) => {
+      gpuRacing = true
+      // the progress bar follows the GPU (until the lead knows the exact total)
+      if (!Number.isFinite(status.total)) status.total = fullTotal
+      const started = performance.now()
+      try {
+        const gpu = await GPUSolver.create(
+          setup,
+          plotCfg,
+          exclusionMasks(problem.exclusion)
+        )
+        if (!gpu) return startCPU(false)
+        if (this.finished) return gpu.destroy()
+        this.gpu = gpu
+        const res = await gpu.run(
+          setup.arts,
+          plotMode ? Number.NEGATIVE_INFINITY : threshold,
+          (fraction) => {
+            if (this.finished || cpuHedge) return
+            status.tested = Math.round(Math.min(1, fraction) * status.total)
+            const elapsed = performance.now() - started
+            if (elapsed > 3000 && elapsed / fraction > GPU_HEDGE_MS)
+              startCPU(true)
+          },
+          floored
+        )
+        if (this.finished) return
+        if (!res.ok) {
+          console.warn(
+            `WebGPU sweep stopped (${res.reason}), continuing on the CPU`
+          )
+          return startCPU(false)
         }
-      )
+        const top: SolverBuild[] = []
+        const store = plotCfg ? new PlotStore(plotCfg) : undefined
+        for (const { arts: picked, values, bin } of res.candidates) {
+          if (!mins.every((m, i) => m <= values[1 + i])) continue
+          const artifactIds = picked.map((a) => a.id).filter((id) => id)
+          store?.add(values[1 + nCons], values[0], () => artifactIds, bin)
+          insertTop(top, { value: values[0], artifactIds }, topN)
+        }
+        // the builds the set rules allow, all evaluated
+        status.total = res.tested
+        status.tested = res.tested
+        status.failed = res.failed
+        status.skipped = 0
+        finish(
+          top,
+          plotCfg && store
+            ? mergePlot([store.data()], plotCfg.scale)
+            : undefined
+        )
+      } catch (e) {
+        // (device lost, ...): the CPU workers take over
+        if (this.finished) return
+        console.warn('WebGPU solver stopped:', e)
+        startCPU(false)
+      }
     }
 
     const onMessage = (w: Worker, r: WorkerResult) => {
@@ -345,6 +376,19 @@ export class GOSolver {
         return fail(new Error(`Worker Error: ${r.message}`))
       if (r.run !== run) return
       leadAnswered = true
+      // the lead is alive and still preparing the work
+      if (r.resultType === 'started') return
+      if (r.resultType === 'prepared') {
+        if (waitForCPU) {
+          leadWaiting = true
+          if (r.fullTotal >= GPU_MIN_TOTAL) {
+            // (the lead finishes listing the items, then idles until `proceed`)
+            this.busy.delete(w)
+            void raceGPU(r.setup, r.plot, r.fullTotal)
+          } else proceed()
+        }
+        return
+      }
       if (r.resultType !== 'err') this.busy.delete(w)
       switch (r.resultType) {
         case 'ready': {
@@ -355,6 +399,8 @@ export class GOSolver {
           const { items, total, local, setup } = r.lead
           plot = r.lead.plot
           status.total = total
+          if (gpuRacing && !cpuHedge) leadSkipped += r.lead.skipped ?? 0
+          else status.skipped += r.lead.skipped ?? 0
           if (local) {
             status.tested += local.tested
             status.failed += local.failed
@@ -366,13 +412,7 @@ export class GOSolver {
           }
           if (!setup) return fail(new Error('Worker Error: missing setup'))
           leadReady = true
-          if (plot) gpuPlot = new PlotStore(plot)
           chunkSize = chunkSizeFor(total, this.numWorkers)
-          // Before routing: the GPU's items wait for it while it starts
-          if (total >= GPU_MIN_TOTAL && gpuAllowed()) {
-            gpuSetup = setup
-            void startGPU(setup)
-          }
           items.forEach(route)
           // Helpers join for large problems, starting from the lead's preprocessed setup
           const helpers =
@@ -380,12 +420,17 @@ export class GOSolver {
               this.numWorkers,
               Math.max(items.length, Math.ceil(total / chunkSize))
             ) - 1
-          for (let i = 0; i < helpers; i++) {
-            const h = acquireWorker()
-            attach(h)
-            starting.add(h)
-            post(h, { command: 'init', run, lead: false, setup })
+          spawnHelpers = () => {
+            spawnHelpers = undefined
+            for (let i = 0; i < helpers; i++) {
+              const h = acquireWorker()
+              attach(h)
+              starting.add(h)
+              post(h, { command: 'init', run, lead: false, setup })
+            }
           }
+          // (while the GPU sweeps, they start only if it fails or looks slow)
+          if (!gpuRacing || cpuHedge) spawnHelpers()
           break
         }
         case 'work':
@@ -400,13 +445,13 @@ export class GOSolver {
           finals.push(r)
           if (finals.length === ready.length)
             finish(
-              mergeBuilds([...finals.map((f) => f.builds), gpuTop], topN),
+              mergeBuilds(
+                finals.map((f) => f.builds),
+                topN
+              ),
               plot
                 ? mergePlot(
-                    [
-                      ...finals.map((f) => f.plotData ?? {}),
-                      gpuPlot?.data() ?? {},
-                    ],
+                    finals.map((f) => f.plotData ?? {}),
                     plot.scale
                   )
                 : undefined
@@ -426,6 +471,7 @@ export class GOSolver {
     let leadAnswered = false
     const startLead = (attempt: number) => {
       const lead = attempt ? newWorker() : acquireWorker()
+      leadWorker = lead
       attach(lead)
       post(lead, {
         command: 'init',
@@ -433,6 +479,7 @@ export class GOSolver {
         lead: true,
         problem,
         localMax: LOCAL_MAX,
+        waitForCPU,
       })
       // A worker that never answers (failed to load, stale code, ...) must not hang the UI
       setTimeout(() => {

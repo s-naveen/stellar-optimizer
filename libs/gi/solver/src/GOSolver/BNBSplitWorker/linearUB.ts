@@ -20,12 +20,22 @@ function weightedSum(
 export function linearUB(nodes: OptNode[], arts: ArtifactsBySlot): Linear[] {
   const polys = polyUB(nodes, arts)
   const minMax = computeFullArtRange(arts)
+  // The same monomial bounds come back many times (one per attack of a team rotation...): one
+  // LP each (the same inputs give the same bound)
+  const bounded = new Map<string, ReturnType<typeof linbound>>()
 
   return polys.map((poly) =>
     weightedSum(
       ...poly.map((mon) => {
         const bounds = mon.terms.map((key) => minMax[key])
-        const { w, $c } = linbound(bounds, mon.$k >= 0 ? 'upper' : 'lower')
+        const direction = mon.$k >= 0 ? 'upper' : 'lower'
+        const key = `${direction}:${bounds.map(({ min, max }) => `${min},${max}`).join(';')}`
+        let bound = bounded.get(key)
+        if (!bound) {
+          bound = linbound(bounds, direction)
+          bounded.set(key, bound)
+        }
+        const { w, $c } = bound
         const linboi: Linear = { $c }
         mon.terms.forEach((key, i) => (linboi[key] = w[i] + (linboi[key] ?? 0)))
         return [mon.$k, linboi] as readonly [number, Linear]

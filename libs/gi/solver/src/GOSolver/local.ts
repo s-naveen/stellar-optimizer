@@ -33,19 +33,26 @@ export function solveLocal(
   const plot = plotConfigFor(setup)
   const plotMode = !!setup.plotBase
   const numWorkers = opts.workers ?? 1
-  const workers = Array.from(
-    { length: numWorkers },
-    () => new SolverWorker(setup, plot)
-  )
-  const { items, total } = initialItems(setup.arts, exclusion)
+  const { items: initial, total } = initialItems(setup.arts, exclusion)
+  // same preparation as the lead worker's (see `SolverWorker.packItems`)
+  const first = new SolverWorker(setup, plot)
+  const packed = first.packItems(initial)
+  const packedSetup = { ...setup, slotFilters: packed.slotFilters }
+  const workers = [
+    first,
+    ...Array.from(
+      { length: numWorkers - 1 },
+      () => new SolverWorker(packedSetup, plot)
+    ),
+  ]
   const heap = new WorkHeap()
-  items.forEach((item) => heap.push(item))
+  packed.items.forEach((item) => heap.push(item))
   const chunkSize = opts.chunkSize ?? chunkSizeFor(total, numWorkers)
   const tracker = new ThresholdTracker(setup.topN)
   let threshold = Number.NEGATIVE_INFINITY,
     tested = 0,
     failed = 0,
-    skipped = 0,
+    skipped = packed.skipped,
     turn = 0
   while (heap.size) {
     const batch = takeBatch(heap, threshold, plotMode, (c) => (skipped += c))

@@ -13,11 +13,10 @@ import type {
   ArtSetExclusion,
   ArtSetExclusionKey,
 } from '@genshin-optimizer/gi/db'
-import type { ConstantNode, OptNode } from '@genshin-optimizer/gi/wr'
+import type { OptNode } from '@genshin-optimizer/gi/wr'
 import {
   allOperations,
   constant,
-  constantFold,
   dynRead,
   forEachNodes,
   mapFormulas,
@@ -214,20 +213,11 @@ function reaffine(
     (f) => f
   )
 
+  const affineValues = affineEvaluator([...affineMap.keys()])
+  const affineKeys = [...affineMap.values()].map((v) => v.path[1])
   function reaffineArt(stat: DynStat): DynStat {
-    const values = constantFold(
-      [...affineMap.keys()],
-      {
-        dyn: objMap(stat, (value) => constant(value)),
-      } as any,
-      (_) => true
-    )
-    return Object.fromEntries(
-      [...affineMap.values()].map((v, i) => [
-        v.path[1],
-        (values[i] as ConstantNode<number>).value,
-      ])
-    )
+    const values = affineValues(stat)
+    return Object.fromEntries(affineKeys.map((key, i) => [key, values[i]]))
   }
   const result = {
     nodes,
@@ -282,15 +272,22 @@ function pruneOrder(
   )
   const values = objKeyMap(allArtifactSlotKeys, (slot) => {
     const list = arts.values[slot]
-    const newList = list.filter((art) => {
+    const stats = list.map((art) => keys.map((k) => art.values[k] ?? 0))
+    const newList = list.filter((art, a) => {
       let count = 0
-      return list.every((other) => {
-        const otherBetterEqual = keys.every(
-          (k) => (other.values[k] ?? 0) >= (art.values[k] ?? 0)
-        )
-        const otherMaybeBetter = keys.some(
-          (k) => (other.values[k] ?? 0) > (art.values[k] ?? 0)
-        )
+      const mine = stats[a]
+      return list.every((other, o) => {
+        const theirs = stats[o]
+        // every stat at least as high (NaN: not), and one of them higher
+        let otherBetterEqual = true,
+          otherMaybeBetter = false
+        for (let k = 0; k < mine.length; k++) {
+          if (!(theirs[k] >= mine[k])) {
+            otherBetterEqual = false
+            break
+          }
+          if (theirs[k] > mine[k]) otherMaybeBetter = true
+        }
         const otherBetter =
           otherBetterEqual && (otherMaybeBetter || other.id > art.id)
         const canSwitch =
@@ -317,6 +314,7 @@ export function pruneArtRange(
     Object.entries(arts.base).map(([key, x]) => [key, { min: x, max: x }])
   )
   const wrap = { arts }
+  const rangesOf = nodeRangeEvaluator(nodes)
   while (true) {
     const artRanges = objKeyMap(allArtifactSlotKeys, (slot) =>
       computeArtRange(wrap.arts.values[slot])
@@ -333,10 +331,8 @@ export function pruneArtRange(
     const values = objKeyMap(allArtifactSlotKeys, (slot) => {
       const result = wrap.arts.values[slot].filter((art) => {
         const read = addArtRange([computeArtRange([art]), otherArtRanges[slot]])
-        const newRange = computeNodeRange(nodes, read)
-        return nodes.every(
-          (node, i) =>
-            newRange.get(node)!.max >= (minimum[i] ?? Number.NEGATIVE_INFINITY)
+        return rangesOf(read).every(
+          (range, i) => range.max >= (minimum[i] ?? Number.NEGATIVE_INFINITY)
         )
       })
       if (result.length !== wrap.arts.values[slot].length) progress = true
@@ -457,78 +453,236 @@ export function computeNodeRange(
   forEachNodes(
     nodes,
     (_) => {},
-    (f) => {
-      const { operation } = f
-      const operands = f.operands.map((op) => range.get(op)!)
-      let current: MinMax
-      switch (operation) {
-        case 'read':
-          if (f.path[0] !== 'dyn')
-            throw new Error(
-              `Found non-dyn path ${f.path} while computing range`
-            )
-          current = reads[f.path[1]] ?? { min: 0, max: 0 }
-          break
-        case 'const':
-          current = computeMinMax([f.value])
-          break
-        case 'add':
-        case 'min':
-        case 'max':
-          current = {
-            min: allOperations[operation](operands.map((x) => x.min)),
-            max: allOperations[operation](operands.map((x) => x.max)),
-          }
-          break
-        case 'res':
-          current = {
-            min: allOperations[operation]([operands[0].max]),
-            max: allOperations[operation]([operands[0].min]),
-          }
-          break
-        case 'mul':
-          current = operands.reduce((accu, current) =>
-            computeMinMax([
-              accu.min * current.min,
-              accu.min * current.max,
-              accu.max * current.min,
-              accu.max * current.max,
-            ])
-          )
-          break
-        case 'threshold':
-          if (operands[0].min >= operands[1].max) current = operands[2]
-          else if (operands[0].max < operands[1].min) current = operands[3]
-          else current = computeMinMax([], [operands[2], operands[3]])
-          break
-        case 'sum_frac': {
-          const [x, c] = operands,
-            sum = { min: x.min + c.min, max: x.max + c.max }
-          if (sum.min <= 0 && sum.max >= 0)
-            current =
-              x.min <= 0 && x.max >= 0
-                ? { min: Number.NaN, max: Number.NaN }
-                : {
-                    min: Number.NEGATIVE_INFINITY,
-                    max: Number.POSITIVE_INFINITY,
-                  }
-          // TODO: Check this
-          else
-            current = computeMinMax([
-              x.min / sum.min,
-              x.min / sum.max,
-              x.max / sum.min,
-              x.max / sum.max,
-            ])
-          break
-        }
-        default:
-          assertUnreachable(operation)
-      }
-      range.set(f, current)
-    }
+    (f) =>
+      range.set(
+        f,
+        nodeRange(
+          f,
+          f.operands.map((op) => range.get(op)!),
+          reads
+        )
+      )
   )
   return range
+}
+/**
+ * `computeNodeRange` for many `reads` (one per artifact...): the nodes are walked once, then each
+ * call only evaluates them in order. Returns the ranges of `nodes` themselves.
+ */
+export function nodeRangeEvaluator(
+  nodes: OptNode[]
+): (reads: DynMinMax) => MinMax[] {
+  const order: OptNode[] = []
+  const index = new Map<OptNode, number>()
+  forEachNodes(
+    nodes,
+    (_) => {},
+    (f) => {
+      if (index.has(f)) return
+      index.set(f, order.length)
+      order.push(f)
+    }
+  )
+  // Straight-line code, the same arithmetic as `nodeRange` (each operation as `allOperations`
+  // and `computeMinMax` do it, operands in the same order): bit-identical ranges, without a
+  // walk, an array or an object per node and artifact
+  const consts: number[] = []
+  const lines: string[] = []
+  const L = (n: OptNode) => `L[${index.get(n)}]`
+  const H = (n: OptNode) => `H[${index.get(n)}]`
+  order.forEach((f, i) => {
+    const ops = f.operands as OptNode[]
+    const l = `L[${i}]`,
+      h = `H[${i}]`
+    const { operation } = f
+    switch (operation) {
+      case 'read': {
+        if (f.path[0] !== 'dyn')
+          throw new Error(`Found non-dyn path ${f.path} while computing range`)
+        lines.push(
+          `r = reads[${JSON.stringify(f.path[1])}]; if (r === undefined || r === null) { ${l} = 0; ${h} = 0 } else { ${l} = r.min; ${h} = r.max }`
+        )
+        break
+      }
+      case 'const':
+        consts.push(f.value)
+        lines.push(`${l} = C[${consts.length - 1}]; ${h} = ${l}`)
+        break
+      case 'add':
+        lines.push(
+          `${l} = 0 + ${ops.map(L).join(' + ')}; ${h} = 0 + ${ops.map(H).join(' + ')}`
+        )
+        break
+      case 'min':
+      case 'max':
+        lines.push(
+          `${l} = Math.${operation}(${ops.map(L).join(', ')}); ${h} = Math.${operation}(${ops.map(H).join(', ')})`
+        )
+        break
+      case 'res':
+        lines.push(`${l} = RES([${H(ops[0])}]); ${h} = RES([${L(ops[0])}])`)
+        break
+      case 'mul': {
+        // (reduce without a seed: one operand is its own range)
+        lines.push(`a = ${L(ops[0])}; b = ${H(ops[0])}`)
+        for (const op of ops.slice(1))
+          lines.push(
+            `p = a * ${L(op)}; q = a * ${H(op)}; s = b * ${L(op)}; t = b * ${H(op)}; a = Math.min(p, q, s, t); b = Math.max(p, q, s, t)`
+          )
+        lines.push(`${l} = a; ${h} = b`)
+        break
+      }
+      case 'threshold': {
+        const [v, t, pass, fail] = ops
+        lines.push(
+          `if (${L(v)} >= ${H(t)}) { ${l} = ${L(pass)}; ${h} = ${H(pass)} } else if (${H(v)} < ${L(t)}) { ${l} = ${L(fail)}; ${h} = ${H(fail)} } else { ${h} = Math.max(${H(pass)}, ${H(fail)}); ${l} = Math.min(${L(pass)}, ${L(fail)}) }`
+        )
+        break
+      }
+      case 'sum_frac': {
+        const [x, c] = ops
+        lines.push(
+          `a = ${L(x)} + ${L(c)}; b = ${H(x)} + ${H(c)}; if (a <= 0 && b >= 0) { if (${L(x)} <= 0 && ${H(x)} >= 0) { ${l} = NaN; ${h} = NaN } else { ${l} = -Infinity; ${h} = Infinity } } else { p = ${L(x)} / a; q = ${L(x)} / b; s = ${H(x)} / a; t = ${H(x)} / b; ${h} = Math.max(p, q, s, t); ${l} = Math.min(p, q, s, t) }`
+        )
+        break
+      }
+      default:
+        assertUnreachable(operation)
+    }
+  })
+  const roots = nodes.map((node) => index.get(node)!)
+  const body = `let r, a, b, p, q, s, t;\n${lines.join('\n')}\nreturn [${roots.map((i) => `{ min: L[${i}], max: H[${i}] }`).join(', ')}]`
+  // (compiled like the kernel: from the formula's own nodes)
+  const run = new Function('reads', 'L', 'H', 'C', 'RES', body) as (
+    reads: DynMinMax,
+    L: Float64Array,
+    H: Float64Array,
+    C: number[],
+    RES: (x: number[]) => number
+  ) => MinMax[]
+  const lo = new Float64Array(order.length),
+    hi = new Float64Array(order.length)
+  return (reads) => run(reads, lo, hi, consts, allOperations.res)
+}
+/** The range of node `f`, given its operands' ranges */
+function nodeRange(f: OptNode, operands: MinMax[], reads: DynMinMax): MinMax {
+  const { operation } = f
+  let current: MinMax
+  switch (operation) {
+    case 'read':
+      if (f.path[0] !== 'dyn')
+        throw new Error(`Found non-dyn path ${f.path} while computing range`)
+      current = reads[f.path[1]] ?? { min: 0, max: 0 }
+      break
+    case 'const':
+      current = computeMinMax([f.value])
+      break
+    case 'add':
+    case 'min':
+    case 'max':
+      current = {
+        min: allOperations[operation](operands.map((x) => x.min)),
+        max: allOperations[operation](operands.map((x) => x.max)),
+      }
+      break
+    case 'res':
+      current = {
+        min: allOperations[operation]([operands[0].max]),
+        max: allOperations[operation]([operands[0].min]),
+      }
+      break
+    case 'mul':
+      current = operands.reduce((accu, current) =>
+        computeMinMax([
+          accu.min * current.min,
+          accu.min * current.max,
+          accu.max * current.min,
+          accu.max * current.max,
+        ])
+      )
+      break
+    case 'threshold':
+      if (operands[0].min >= operands[1].max) current = operands[2]
+      else if (operands[0].max < operands[1].min) current = operands[3]
+      else current = computeMinMax([], [operands[2], operands[3]])
+      break
+    case 'sum_frac': {
+      const [x, c] = operands,
+        sum = { min: x.min + c.min, max: x.max + c.max }
+      if (sum.min <= 0 && sum.max >= 0)
+        current =
+          x.min <= 0 && x.max >= 0
+            ? { min: Number.NaN, max: Number.NaN }
+            : {
+                min: Number.NEGATIVE_INFINITY,
+                max: Number.POSITIVE_INFINITY,
+              }
+      // TODO: Check this
+      else
+        current = computeMinMax([
+          x.min / sum.min,
+          x.min / sum.max,
+          x.max / sum.min,
+          x.max / sum.max,
+        ])
+      break
+    }
+    default:
+      assertUnreachable(operation)
+  }
+  return current
+}
+/**
+ * The values of affine `nodes` (reads, constants, sums and products) for one artifact's stats,
+ * exactly as `constantFold` computes them (the same operations, in the same order); a missing
+ * stat counts as its read's empty accumulation (0 for a sum). The nodes are walked once.
+ */
+function affineEvaluator(nodes: OptNode[]): (stat: DynStat) => number[] {
+  const order: OptNode[] = []
+  const index = new Map<OptNode, number>()
+  forEachNodes(
+    nodes,
+    (_) => {},
+    (f) => {
+      if (index.has(f)) return
+      index.set(f, order.length)
+      order.push(f)
+    }
+  )
+  const operands = order.map((f) => f.operands.map((op) => index.get(op)!))
+  const roots = nodes.map((node) => index.get(node)!)
+  return (stat) => {
+    const values: number[] = new Array(order.length)
+    for (let i = 0; i < order.length; i++) {
+      const f = order[i]
+      switch (f.operation) {
+        case 'const':
+          values[i] = f.value
+          break
+        case 'read': {
+          const key = f.path[1]
+          // biome-ignore lint/suspicious/noPrototypeBuiltins: `Object.hasOwn` is not in this lib target
+          const own = Object.prototype.hasOwnProperty.call(stat, key)
+          values[i] =
+            f.path[0] === 'dyn' && own
+              ? stat[key]
+              : f.accu === undefined
+                ? Number.NaN
+                : allOperations[f.accu]([])
+          break
+        }
+        case 'add':
+        case 'mul':
+          values[i] = allOperations[f.operation](
+            operands[i].map((j) => values[j])
+          )
+          break
+        default:
+          throw new Error(`Unexpected ${f.operation} node in an affine one`)
+      }
+    }
+    return roots.map((i) => values[i])
+  }
 }
 function computeMinMax(
   values: readonly number[],
@@ -648,10 +802,18 @@ export function exclusionToAllowed(
         : [0, 1, 2, 3, 4, 5]
   )
 }
-/** A *disjoint* set of `RequestFilter` satisfying the exclusion rules */
+/**
+ * A *disjoint* set of `RequestFilter` satisfying the exclusion rules.
+ *
+ * With `available` (the sets each slot has artifacts of), branches that would put a set in a
+ * slot without artifacts of it are cut as they are generated: the result is that of
+ * `filterFeasiblePerm` on the full set, without enumerating (and dropping) the rest, which can
+ * be millions of filters when many sets are limited to one piece.
+ */
 export function* artSetPerm(
   exclusion: ArtSetExclusion,
-  artSets: Set<ArtifactSetKey>
+  artSets: Set<ArtifactSetKey>,
+  available?: Partial<Record<ArtifactSlotKey, Set<ArtifactSetKey | undefined>>>
 ): Iterable<RequestFilter> {
   /**
    * This generation algorithm is separated into two parts:
@@ -728,6 +890,37 @@ export function* artSetPerm(
     exclusion as Record<ArtSetExclusionKey, (2 | 4)[]>,
     exclusionToAllowed
   )
+  // Allowed piece counts as bit masks (bit `n`: `n` pieces allowed), for the sets with a rule
+  const ruled = [...artSets].filter(
+    (set) => allowedCounts[set as ArtSetExclusionKey]
+  )
+  const allowedMask: Partial<Record<ArtifactSetKey, number>> = {}
+  for (const set of ruled)
+    allowedMask[set] = [...allowedCounts[set as ArtSetExclusionKey]!].reduce(
+      (mask, n) => mask | (1 << n),
+      0
+    )
+  // One (immutable) filter object per set and per excluded list, shared by every yielded filter:
+  // there can be millions of them, and consumers dedupe slot filters by identity.
+  const requiredOf: Partial<
+    Record<ArtifactSetKey, { kind: 'required'; sets: Set<ArtifactSetKey> }>
+  > = {}
+  const required1 = (set: ArtifactSetKey) =>
+    (requiredOf[set] ??= { kind: 'required', sets: new Set([set]) })
+  const excludeOf = new Map<
+    string,
+    { kind: 'exclude'; sets: Set<ArtifactSetKey> }
+  >()
+  const excludeFilter = (sets: Set<ArtifactSetKey>) => {
+    const key = [...sets].sort().join(',')
+    let f = excludeOf.get(key)
+    if (!f) excludeOf.set(key, (f = { kind: 'exclude', sets }))
+    return f
+  }
+  /** Whether every slot (index) of `slots` has artifacts of `set` */
+  const fits = (slots: number[], set: ArtifactSetKey) =>
+    !available ||
+    slots.every((j) => available[allArtifactSlotKeys[j]]?.has(set) ?? false)
 
   function* check(shape: number[]) {
     const used: Set<ArtifactSetKey> = new Set(),
@@ -749,6 +942,7 @@ export function* artSetPerm(
 
       for (const set of artSets) {
         if (used.has(set)) continue
+        if (!fits(groupped[i], set)) continue
         const length = groupped[i].length,
           allowedSet = allowedCounts[set as ArtSetExclusionKey]
         let requiredRainbows = 0
@@ -763,11 +957,7 @@ export function* artSetPerm(
         used.add(set)
         counts[set] = groupped[i].length
         groupped[i].forEach(
-          (j) =>
-            (result[allArtifactSlotKeys[j]] = {
-              kind: 'required',
-              sets: new Set([set]),
-            })
+          (j) => (result[allArtifactSlotKeys[j]] = required1(set))
         )
         usableRainbows -= requiredRainbows
 
@@ -786,16 +976,19 @@ export function* artSetPerm(
         missing: ArtifactSetKey[] = [],
         rejected: ArtifactSetKey[] = []
       let required = 0
-      for (const set of artSets) {
-        const allowedSet = allowedCounts[set as ArtSetExclusionKey],
+      for (const set of ruled) {
+        const mask = allowedMask[set]!,
           count = counts[set]
-        if (!allowedSet) continue
-        if (range(1, remaining).every((j) => !allowedSet.has(count + j)))
+        // no allowed count within count+1..count+remaining
+        if (((mask >> (count + 1)) & ((1 << remaining) - 1)) === 0)
           rejected.push(set)
-        else if (!allowedSet.has(count)) {
-          required += [...allowedSet].find((x) => x > count)! - count
+        else if (!(mask & (1 << count))) {
+          let next = count + 1
+          while (!(mask & (1 << next))) next++
+          required += next - count
           missing.push(set)
-        } else if (range(0, remaining).some((j) => !allowedSet.has(count + j)))
+          // some count within count..count+remaining not allowed
+        } else if ((~mask >> count) & ((1 << (remaining + 1)) - 1))
           isolated.push(set)
       }
       if (required > remaining) return
@@ -803,31 +996,34 @@ export function* artSetPerm(
         yield { ...result }
         return
       }
+      const slot = [rainbows[i]]
       if (required === remaining) {
         for (const set of missing) {
+          if (!fits(slot, set)) continue
           counts[set]++
-          result[allArtifactSlotKeys[rainbows[i]]] = {
-            kind: 'required',
-            sets: new Set([set]),
-          }
+          result[allArtifactSlotKeys[rainbows[i]]] = required1(set)
           yield* check_free(i + 1)
           counts[set]--
         }
         return
       }
       for (const set of [...isolated, ...missing]) {
+        if (!fits(slot, set)) continue
         counts[set]++
-        result[allArtifactSlotKeys[rainbows[i]]] = {
-          kind: 'required',
-          sets: new Set([set]),
-        }
+        result[allArtifactSlotKeys[rainbows[i]]] = required1(set)
         yield* check_free(i + 1)
         counts[set]--
       }
-      result[allArtifactSlotKeys[rainbows[i]]] = {
-        kind: 'exclude',
-        sets: new Set([...missing, ...rejected, ...isolated]),
-      }
+      const excluded = new Set([...missing, ...rejected, ...isolated])
+      // some set the slot has must be left
+      if (
+        available &&
+        [...(available[allArtifactSlotKeys[rainbows[i]]] ?? [])].every((set) =>
+          excluded.has(set!)
+        )
+      )
+        return
+      result[allArtifactSlotKeys[rainbows[i]]] = excludeFilter(excluded)
       yield* check_free(i + 1)
     }
     yield* check(0)

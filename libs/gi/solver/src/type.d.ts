@@ -1,3 +1,4 @@
+import type { ArtifactSlotKey } from '@genshin-optimizer/gi/consts'
 import type { ArtSetExclusion } from '@genshin-optimizer/gi/db'
 import type { OptNode } from '@genshin-optimizer/gi/wr'
 import type {
@@ -26,7 +27,26 @@ export interface WorkItem {
   ub: number
   /** Must be solved on the CPU (e.g. the GPU could not handle it) */
   cpu?: true
+  /**
+   * Many small sub-spaces solved together, in order (see `SolverWorker.packItems`). `filter`
+   * is then its first (best) member's, `count` the total and `ub` the first member's bound.
+   */
+  pack?: PackedItems
 }
+/**
+ * Members of a pack, as typed arrays (cheap to send between threads, unlike millions of
+ * filter objects). Member `i`'s filter is `Setup.slotFilters[slot][idx[5 * i + s]]` for the
+ * `s`-th slot of `allArtifactSlotKeys`.
+ */
+export interface PackedItems {
+  idx: Uint16Array
+  /** Builds of each member */
+  counts: Float64Array
+  /** Upper bound of the target over each member, in descending order */
+  ubs: Float64Array
+}
+/** One slot of a `RequestFilter` */
+export type SlotFilter = RequestFilter[ArtifactSlotKey]
 /** Plot bins `floor(x / scale) - base`, for bins in `[0, len)` */
 export interface PlotConfig {
   scale: number
@@ -38,8 +58,14 @@ export interface PlotConfig {
  * Messages to/from the (pooled, reused) workers. Every message carries the `run` it belongs
  * to, so that late messages of a cancelled run are ignored by the next one.
  */
-export type WorkerCommand = Init | Work | Threshold | Finalize
-export type WorkerResult = Ready | WorkDone | Finalized | WorkerError
+export type WorkerCommand = Init | Work | Threshold | Finalize | Proceed
+export type WorkerResult =
+  | Started
+  | Prepared
+  | Ready
+  | WorkDone
+  | Finalized
+  | WorkerError
 
 /** A preprocessed problem (see `preprocess`) */
 export interface Setup {
@@ -52,6 +78,8 @@ export interface Setup {
   plotBase: OptNode | undefined
   topN: number
   plot?: PlotConfig
+  /** The distinct slot filters of the packed work items, per slot (set by the lead) */
+  slotFilters?: Record<ArtifactSlotKey, SlotFilter[]>
 }
 /**
  * Start a run. The lead worker preprocesses `problem` (keeping that work off the main
@@ -66,6 +94,11 @@ export interface LeadInit {
   problem: OptProblemInput
   /** Problems up to this many builds are solved by the lead directly */
   localMax: number
+  /**
+   * After `prepared`, wait for `proceed` before preparing the CPU's work: the GPU may solve
+   * the problem alone, and this worker then stays idle (and warm, back in the pool)
+   */
+  waitForCPU?: boolean
 }
 export interface HelperInit {
   command: 'init'
@@ -90,7 +123,29 @@ export interface Finalize {
   command: 'finalize'
   run: number
 }
+/** The CPU is needed after all (see `LeadInit.waitForCPU`): the lead prepares its work */
+export interface Proceed {
+  command: 'proceed'
+  run: number
+}
 
+/** The lead's first answer to `init`, before its (possibly long) preprocessing: it has loaded */
+export interface Started {
+  resultType: 'started'
+  run: number
+}
+/**
+ * The lead's preprocessed problem, before it enumerates the work: the GPU can start on the
+ * whole search space meanwhile (see `GOSolver`)
+ */
+export interface Prepared {
+  resultType: 'prepared'
+  run: number
+  setup: Setup
+  plot: PlotConfig | undefined
+  /** Builds in the whole search space, set rules not applied */
+  fullTotal: number
+}
 export interface Ready {
   resultType: 'ready'
   run: number
@@ -109,6 +164,8 @@ export interface Ready {
     }
     /** The preprocessed problem, for helpers and the GPU (absent when solved right away) */
     setup?: Setup
+    /** Builds dropped while preparing `items` (they cannot meet the constraints) */
+    skipped?: number
   }
 }
 export interface Finalized {

@@ -1,13 +1,9 @@
+import { objMap } from '@genshin-optimizer/common/util'
+import type { ArtifactSetKey } from '@genshin-optimizer/gi/consts'
+import { allArtifactSlotKeys } from '@genshin-optimizer/gi/consts'
 import type { ArtSetExclusion } from '@genshin-optimizer/gi/db'
-import type { ArtifactsBySlot, SolverBuild } from '../common.js'
-import {
-  artSetPerm,
-  computeFullArtRange,
-  computeNodeRange,
-  countBuilds,
-  filterArts,
-  filterFeasiblePerm,
-} from '../common.js'
+import type { ArtifactsBySlot, RequestFilter, SolverBuild } from '../common.js'
+import { artSetPerm, computeFullArtRange, computeNodeRange } from '../common.js'
 import type { PlotConfig, Setup, WorkItem } from '../type.js'
 
 /** Each worker should get about this many chunks, for load balancing */
@@ -29,10 +25,43 @@ export function initialItems(
   const sets = new Set(
     Object.values(arts.values).flatMap((list) => list.map((art) => art.set!))
   )
+  // which sets each slot has, and how many artifacts of each: the permutations are cut to the
+  // feasible ones as they are generated, and counted without building filtered lists
+  const tally = objMap(arts.values, (list) => {
+    const bySet = new Map<ArtifactSetKey | undefined, number>()
+    for (const art of list) bySet.set(art.set, (bySet.get(art.set) ?? 0) + 1)
+    return bySet
+  })
+  const available = objMap(tally, (bySet) => new Set(bySet.keys()))
+  const countOf = (filter: RequestFilter) => {
+    let count = 1
+    for (const slot of allArtifactSlotKeys) {
+      const f = filter[slot],
+        bySet = tally[slot]
+      let n = 0
+      switch (f.kind) {
+        case 'required':
+          for (const set of f.sets) n += bySet.get(set) ?? 0
+          break
+        case 'exclude':
+          n = arts.values[slot].length
+          for (const set of f.sets) n -= bySet.get(set) ?? 0
+          break
+        case 'id':
+          n = arts.values[slot].filter((art) => f.ids.has(art.id)).length
+          break
+      }
+      if (!n) return 0
+      count *= n
+    }
+    return count
+  }
   const items: WorkItem[] = []
   let total = 0
-  for (const filter of filterFeasiblePerm(artSetPerm(exclusion, sets), arts)) {
-    const count = countBuilds(filterArts(arts, filter))
+  // (no `filterFeasiblePerm`: a filter that is not feasible, i.e. a slot without matching
+  // artifacts, counts 0 builds and is dropped here)
+  for (const filter of artSetPerm(exclusion, sets, available)) {
+    const count = countOf(filter)
     if (!count) continue
     total += count
     items.push({ filter, count, ub: Number.POSITIVE_INFINITY })
@@ -61,11 +90,14 @@ export function plotConfigFor(setup: Setup): PlotConfig | undefined {
 /** Max-heap of work items by upper bound, so that promising regions are solved first */
 export class WorkHeap {
   private readonly heap: WorkItem[] = []
+  /** Builds in the queued items */
+  total = 0
   get size() {
     return this.heap.length
   }
   push(item: WorkItem) {
     const { heap } = this
+    this.total += item.count
     heap.push(item)
     let i = heap.length - 1
     while (i > 0) {
@@ -78,6 +110,7 @@ export class WorkHeap {
   pop(): WorkItem | undefined {
     const { heap } = this
     const top = heap[0]
+    if (top) this.total -= top.count
     const last = heap.pop()
     if (heap.length && last) {
       heap[0] = last

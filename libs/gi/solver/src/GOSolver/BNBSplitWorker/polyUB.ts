@@ -1,4 +1,4 @@
-import { assertUnreachable, cartesian } from '@genshin-optimizer/common/util'
+import { assertUnreachable } from '@genshin-optimizer/common/util'
 import type { ConstantNode, OptNode } from '@genshin-optimizer/gi/wr'
 import {
   allOperations,
@@ -315,21 +315,45 @@ function constM(v: number): Monomial {
 function weightedReadM(key: string, v: number): Monomial {
   return { $k: v, terms: [key] }
 }
-function sumM(...monomials: Monomial[][]): Monomial[] {
-  return monomials.flat()
+/**
+ * Monomials a linear bound is built from, at most. Each one costs a small LP, and expanding a
+ * product of long sums is exponential: past this, the formula gets no linear bound (the solver
+ * then prunes with ranges only, see `SolverWorker`), instead of spending seconds or minutes here.
+ */
+export const MAX_MONOMIALS = 8_000
+
+/** `mons` with like terms merged (and zero terms dropped) */
+function mergeLikeTerms(mons: Monomial[]): Monomial[] {
+  const merged = new Map<string, Monomial>()
+  for (const { $k, terms } of mons) {
+    if (!$k) continue
+    const sorted = [...terms].sort()
+    const key = sorted.join('|')
+    const prev = merged.get(key)
+    if (prev) prev.$k += $k
+    else merged.set(key, { $k, terms: sorted })
+  }
+  const result = [...merged.values()].filter((m) => m.$k)
+  if (result.length > MAX_MONOMIALS)
+    throw new PolyError('too many terms', 'polynomial expansion')
+  return result
 }
+function sumM(...monomials: Monomial[][]): Monomial[] {
+  return mergeLikeTerms(monomials.flat())
+}
+/** Multiplies one factor at a time, merging like terms as it goes (the product is the same) */
 function prodM(...monomials: Monomial[][]): Monomial[] {
-  monomials = monomials.map((mons) => mons.filter((m) => m.$k))
-  return cartesian(...monomials).map((monos) =>
-    monos.reduce(
-      (ret, nxt) => {
-        ret.$k *= nxt.$k
-        ret.terms.push(...nxt.terms)
-        return ret
-      },
-      { $k: 1, terms: [] }
-    )
-  )
+  let acc: Monomial[] = [{ $k: 1, terms: [] }]
+  for (const factor of monomials.map((mons) => mons.filter((m) => m.$k))) {
+    if (acc.length * factor.length > MAX_MONOMIALS * 64)
+      throw new PolyError('too many terms', 'polynomial expansion')
+    const next: Monomial[] = []
+    for (const a of acc)
+      for (const b of factor)
+        next.push({ $k: a.$k * b.$k, terms: [...a.terms, ...b.terms] })
+    acc = mergeLikeTerms(next)
+  }
+  return acc
 }
 function foldLikeTerms(mon: Monomial[]): Monomial[] {
   mon = mon.filter((m) => m.$k)
