@@ -47,7 +47,11 @@ import type { BuildTcContexObj, SetBuildTcAction } from './BuildTcContext'
 import { BuildTcContext } from './BuildTcContext'
 import Content from './CharacterDisplay/Content'
 import TeamCharacterSelector from './TeamCharacterSelector'
+import TeamOptimize from './TeamOptimize'
 import TeamSetting from './TeamSetting'
+
+/** `/teams/:teamId/optimize`: Team Optimize (no character key is lowercase) */
+const TEAM_OPT_PATH = 'optimize'
 
 export default function PageTeam() {
   const database = useDatabase()
@@ -111,9 +115,10 @@ function Page({ teamId }: { teamId: string }) {
   useEffect(() => {
     window.scrollTo({ top: 0 })
   }, [])
+  const isTeamOpt = characterKeyRaw === TEAM_OPT_PATH
   useEffect(() => {
-    if (!loadoutDatum) navigate('', { replace: true })
-  }, [loadoutDatum, navigate])
+    if (!loadoutDatum && !isTeamOpt) navigate('', { replace: true })
+  }, [loadoutDatum, navigate, isTeamOpt])
 
   const teamCharId = loadoutDatum?.teamCharId
   const characterKey = database.teamChars.get(teamCharId)?.key
@@ -166,6 +171,7 @@ function Page({ teamId }: { teamId: string }) {
 
   useTitle(
     useMemo(() => {
+      if (isTeamOpt) return `${team.name} - ${t('page_team:teamOpt.title')}`
       const charName = characterKey
         ? t(
             `charNames_gen:${charKeyToLocGenderedCharKey(characterKey, gender)}`
@@ -179,7 +185,7 @@ function Page({ teamId }: { teamId: string }) {
       return tabName
         ? `${team.name} - ${charName} - ${tabName}`
         : `${team.name} - ${charName}`
-    }, [t, team.name, characterKey, gender, tab])
+    }, [t, team.name, characterKey, gender, tab, isTeamOpt])
   )
 
   const teamCharacterContextValue: TeamCharacterContextObj | undefined =
@@ -215,11 +221,14 @@ function Page({ teamId }: { teamId: string }) {
         teamId={teamId}
         characterKey={characterKey}
         tab={tab}
+        teamOpt={isTeamOpt}
       />
       {/* `clip` still clips to the rounded corners but, unlike `hidden`, is not a scroll
           container, so sticky bars inside (the optimizer's generate bar) stick to the window */}
       <CardThemed sx={{ '@supports (overflow: clip)': { overflow: 'clip' } }}>
-        {teamCharacterContextValue ? (
+        {isTeamOpt ? (
+          <TeamOptimize teamId={teamId} teamData={teamData} />
+        ) : teamCharacterContextValue ? (
           dataContextValue ? (
             <TeamCharacterContext.Provider value={teamCharacterContextValue}>
               <DataContext.Provider value={dataContextValue}>

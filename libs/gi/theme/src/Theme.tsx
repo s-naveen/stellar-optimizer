@@ -402,7 +402,7 @@ const elementTheme = createTheme({
       name: 'lunarcrystallize',
     }),
     stellarconduct: commonTheme.palette.augmentColor({
-      color: { main: '#e4d1ff', contrastText: '#222' },
+      color: { main: '#cdb0ff', contrastText: '#222' },
       name: 'stellarconduct',
     }),
     stellarcryo: commonTheme.palette.augmentColor({

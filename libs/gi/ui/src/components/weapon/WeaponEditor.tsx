@@ -193,7 +193,7 @@ export function WeaponEditor({
                     </Box>
                   </Grid>
                   <Grid item xs={6} sm={12}>
-                    <Typography>
+                    <Typography component="div">
                       <small>{key && <WeaponDesc weaponKey={key} />}</small>
                     </Typography>
                   </Grid>
@@ -242,7 +242,7 @@ export function WeaponEditor({
                     {key && <WeaponPassiveName weaponKey={key} />}
                   </strong>
                 </Typography>
-                <Typography gutterBottom>
+                <Typography gutterBottom component="div">
                   {key && (
                     <WeaponPassiveDesc
                       weaponKey={key}

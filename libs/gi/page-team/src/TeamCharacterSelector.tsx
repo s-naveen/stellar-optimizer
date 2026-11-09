@@ -3,6 +3,7 @@ import {
   CardThemed,
   ModalWrapper,
   TextFieldLazy,
+  useOptimisticValue,
 } from '@genshin-optimizer/common/ui'
 import type { CharacterKey } from '@genshin-optimizer/gi/consts'
 import { useDatabase, useDBMeta, useTeam } from '@genshin-optimizer/gi/db-ui'
@@ -11,6 +12,7 @@ import BorderColorIcon from '@mui/icons-material/BorderColor'
 import CloseIcon from '@mui/icons-material/Close'
 import GroupsIcon from '@mui/icons-material/Groups'
 import PersonIcon from '@mui/icons-material/Person'
+import TrendingUpIcon from '@mui/icons-material/TrendingUp'
 import type { Theme } from '@mui/material'
 import {
   alpha,
@@ -32,10 +34,13 @@ export default function TeamCharacterSelector({
   teamId,
   characterKey,
   tab = '',
+  teamOpt = false,
 }: {
   teamId: string
   characterKey?: CharacterKey
   tab?: string
+  /** Team Optimize is open */
+  teamOpt?: boolean
 }) {
   const { t } = useTranslation(['page_team', 'ui'])
   const navigate = useNavigate()
@@ -45,6 +50,9 @@ export default function TeamCharacterSelector({
   const team = useTeam(teamId)!
   const { loadoutData } = team
   const [showEditor, onShowEditor, onHideEditor] = useBoolState()
+  const [selected, select] = useOptimisticValue<string | number>(
+    teamOpt ? 'teamOpt' : (characterKey ?? 'team')
+  )
 
   return (
     // the page header of a team: the same type and spacing as PageHeader on the other pages
@@ -122,7 +130,9 @@ export default function TeamCharacterSelector({
       </Box>
       {/* members: pills; the open one is gold, like the active nav item */}
       <Tabs
-        value={characterKey ?? 'team'}
+        value={selected}
+        // the clicked pill turns gold at once; the member renders in the navigation's transition
+        onChange={(_e, clicked: string | number) => select(clicked)}
         variant="scrollable"
         scrollButtons="auto"
         allowScrollButtonsMobile
@@ -173,6 +183,16 @@ export default function TeamCharacterSelector({
             />
           )
         })}
+        {/* the whole team at once: set apart from the members */}
+        <Tab
+          icon={<TrendingUpIcon />}
+          iconPosition="start"
+          value="teamOpt"
+          label={t('teamOpt.tab')}
+          disabled={loadoutData.every((datum) => !datum)}
+          onClick={() => navigate(`/teams/${teamId}/optimize`)}
+          sx={(theme) => ({ ...memberTabSx(theme), ml: { xs: 0, sm: 1.5 } })}
+        />
       </Tabs>
     </Box>
   )

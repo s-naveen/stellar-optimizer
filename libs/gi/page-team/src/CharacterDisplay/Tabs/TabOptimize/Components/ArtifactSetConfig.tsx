@@ -84,7 +84,7 @@ type SetInfo = {
 }
 
 // Sets the optimizer can filter (the 1-piece "Prayers" sets are not part of builds).
-const configurableSetKeys = Object.entries(setKeysByRarities)
+export const configurableSetKeys = Object.entries(setKeysByRarities)
   .reverse()
   .flatMap(([, sets]) => sets)
   .filter(
@@ -116,8 +116,13 @@ const sectionLabelSx = {
  */
 export default function ArtifactSetConfig({
   disabled,
+  dialogOnly,
+  onDialogClose,
 }: {
   disabled?: boolean
+  /** Only the dialog, open at once (e.g. from a summary elsewhere): closing it calls `onDialogClose` */
+  dialogOnly?: boolean
+  onDialogClose?: () => void
 }) {
   const { t } = useTranslation(['page_character_optimize', 'artifactNames_gen'])
   const dataContext = useContext(DataContext)
@@ -127,9 +132,12 @@ export default function ArtifactSetConfig({
     teamCharId,
   } = useContext(TeamCharacterContext)
   const { artSetExclusion } = useOptConfig(optConfigId)!
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(!!dialogOnly)
   const onOpen = useCallback(() => setOpen(true), [])
-  const onClose = useCallback(() => setOpen(false), [])
+  const onClose = useCallback(() => {
+    setOpen(false)
+    onDialogClose?.()
+  }, [onDialogClose])
 
   const total = configurableSetKeys.length
   const isExcluded = useCallback(
@@ -178,58 +186,62 @@ export default function ArtifactSetConfig({
 
   return (
     <>
-      <CardThemed bgt="light">
-        <CardContent sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <Typography sx={{ fontWeight: 600, flexGrow: 1 }}>
-              {t('artSetConfig.heading')}
-            </Typography>
-            <Button
-              size="small"
-              variant="outlined"
-              color="inherit"
-              startIcon={<TuneIcon />}
-              onClick={onOpen}
-              disabled={disabled}
-            >
-              {t('artSetConfig.edit')}
-            </Button>
-          </Box>
-          <Box
-            component="dl"
-            sx={{
-              m: 0,
-              display: 'grid',
-              gridTemplateColumns: 'auto 1fr',
-              columnGap: 2,
-              rowGap: 0.5,
-              '& dt': { color: 'text.secondary' },
-              '& dd': { m: 0, textAlign: 'right' },
-            }}
+      {!dialogOnly && (
+        <CardThemed bgt="light">
+          <CardContent
+            sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}
           >
-            <SummaryRow
-              label={t('artSetConfig.summary.fourPc')}
-              value={describe(allowed4)}
-            />
-            <SummaryRow
-              label={t('artSetConfig.summary.twoPc')}
-              value={describe(allowed2)}
-            />
-            <SummaryRow
-              label={t('artSetConfig.summary.mixed')}
-              value={mixedText}
-            />
-            <SummaryRow
-              label={t('artSetConfig.summary.effects')}
-              value={
-                condTotal
-                  ? t('artSetConfig.summary.effectsOn', { count: condTotal })
-                  : t('artSetConfig.summary.effectsNone')
-              }
-            />
-          </Box>
-        </CardContent>
-      </CardThemed>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Typography sx={{ fontWeight: 600, flexGrow: 1 }}>
+                {t('artSetConfig.heading')}
+              </Typography>
+              <Button
+                size="small"
+                variant="outlined"
+                color="inherit"
+                startIcon={<TuneIcon />}
+                onClick={onOpen}
+                disabled={disabled}
+              >
+                {t('artSetConfig.edit')}
+              </Button>
+            </Box>
+            <Box
+              component="dl"
+              sx={{
+                m: 0,
+                display: 'grid',
+                gridTemplateColumns: 'auto 1fr',
+                columnGap: 2,
+                rowGap: 0.5,
+                '& dt': { color: 'text.secondary' },
+                '& dd': { m: 0, textAlign: 'right' },
+              }}
+            >
+              <SummaryRow
+                label={t('artSetConfig.summary.fourPc')}
+                value={describe(allowed4)}
+              />
+              <SummaryRow
+                label={t('artSetConfig.summary.twoPc')}
+                value={describe(allowed2)}
+              />
+              <SummaryRow
+                label={t('artSetConfig.summary.mixed')}
+                value={mixedText}
+              />
+              <SummaryRow
+                label={t('artSetConfig.summary.effects')}
+                value={
+                  condTotal
+                    ? t('artSetConfig.summary.effectsOn', { count: condTotal })
+                    : t('artSetConfig.summary.effectsNone')
+                }
+              />
+            </Box>
+          </CardContent>
+        </CardThemed>
+      )}
 
       <ModalWrapper
         open={open}
