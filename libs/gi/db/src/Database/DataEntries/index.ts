@@ -9,6 +9,10 @@ import {
 } from './DisplayCharacterEntry'
 import { type TeamSortKey, teamSortKeys } from './DisplayTeamEntry'
 import type { TimeZoneKey } from './DisplayTool'
+import type {
+  ITeamOptResultsEntry,
+  TeamOptSavedRun,
+} from './TeamOptResultsEntry'
 import { RESIN_MAX, timeZones } from './DisplayTool'
 import type { WeaponSortKey } from './DisplayWeaponEntry'
 
@@ -17,6 +21,8 @@ export type {
   ArchiveCharacterOption,
   ArchiveWeaponOption,
   CharacterSortKey,
+  ITeamOptResultsEntry,
+  TeamOptSavedRun,
   TeamSortKey,
   TimeZoneKey,
   WeaponSortKey,

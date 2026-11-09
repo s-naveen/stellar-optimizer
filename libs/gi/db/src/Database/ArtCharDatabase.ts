@@ -8,6 +8,7 @@ import { DisplayArchiveEntry } from './DataEntries/DisplayArchiveEntry'
 import { DisplayArtifactEntry } from './DataEntries/DisplayArtifactEntry'
 import { DisplayCharacterEntry } from './DataEntries/DisplayCharacterEntry'
 import { DisplayTeamEntry } from './DataEntries/DisplayTeamEntry'
+import { TeamOptResultsEntry } from './DataEntries/TeamOptResultsEntry'
 import { DisplayToolEntry } from './DataEntries/DisplayTool'
 import { DisplayWeaponEntry } from './DataEntries/DisplayWeaponEntry'
 import { ArtifactDataManager } from './DataManagers/ArtifactDataManager'
@@ -48,6 +49,8 @@ export class ArtCharDatabase extends Database {
   displayArchive: DisplayArchiveEntry
   displayTool: DisplayToolEntry
   displayTeam: DisplayTeamEntry
+  /** Each team's last Team Optimize result (not exported) */
+  teamOptResults: TeamOptResultsEntry
   dbIndex: 1 | 2 | 3 | 4
   dbVer: number
 
@@ -98,6 +101,7 @@ export class ArtCharDatabase extends Database {
     this.displayCharacter = new DisplayCharacterEntry(this)
     this.displayTool = new DisplayToolEntry(this)
     this.displayTeam = new DisplayTeamEntry(this)
+    this.teamOptResults = new TeamOptResultsEntry(this)
     this.displayArchive = new DisplayArchiveEntry(this)
 
     // invalidates character when things change.
@@ -151,6 +155,7 @@ export class ArtCharDatabase extends Database {
       this.displayTool,
       this.displayTeam,
       this.displayArchive,
+      this.teamOptResults,
     ] as const
   }
 
