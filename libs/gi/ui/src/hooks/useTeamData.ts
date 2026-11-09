@@ -7,6 +7,7 @@ import type {
   ICachedCharacter,
   ICachedWeapon,
   LoadoutDatum,
+  Team,
 } from '@genshin-optimizer/gi/db'
 import {
   TeamCharacterContext,
@@ -96,10 +97,26 @@ export function useTeamDataNoContext(
     ]
   )
 
-  useEffect(
-    () => (teamId ? database.teams.follow(teamId, setDbDirty) : undefined),
-    [teamId, setDbDirty, database]
-  )
+  useEffect(() => {
+    if (!teamId) return undefined
+    // the team's data is made of its line-up, enemy and conditionals: a change to anything else
+    // (Team Optimize's settings, its name) leaves it as it is
+    const inputsOf = (team: Team | undefined) =>
+      team
+        ? JSON.stringify([
+            team.loadoutData,
+            team.enemyOverride,
+            team.conditional,
+          ])
+        : ''
+    let inputs = inputsOf(database.teams.get(teamId))
+    return database.teams.follow(teamId, (_key, reason, team) => {
+      const next = inputsOf(team as Team | undefined)
+      if (reason === 'update' && next === inputs) return
+      inputs = next
+      setDbDirty()
+    })
+  }, [teamId, setDbDirty, database])
 
   useEffect(() => {
     if (!dbDirty) return () => {}

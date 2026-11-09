@@ -7,7 +7,7 @@ import {
   parseTeamRotation,
   teamRotationExport,
 } from '@genshin-optimizer/gi/db'
-import { useDBMeta } from '@genshin-optimizer/gi/db-ui'
+import { useDBGender } from '@genshin-optimizer/gi/db-ui'
 import type { TeamOptMember } from '@genshin-optimizer/gi/ui'
 import { CharacterName } from '@genshin-optimizer/gi/ui'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
@@ -137,7 +137,7 @@ function ImportModal({
   ) => void
 }) {
   const { t } = useTranslation('page_team')
-  const { gender } = useDBMeta()
+  const gender = useDBGender()
   const [text, setText] = useState('')
   const rotation = useMemo(
     () => (text.trim() ? parseTeamRotation(text) : undefined),

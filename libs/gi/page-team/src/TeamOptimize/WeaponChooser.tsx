@@ -26,7 +26,7 @@ import {
 } from '@genshin-optimizer/gi/db'
 import {
   useDatabase,
-  useDBMeta,
+  useDBGender,
   useOptConfig,
   useTeamChar,
 } from '@genshin-optimizer/gi/db-ui'
@@ -758,7 +758,7 @@ function MemberEnergy({
   setValue: (value: number) => void
 }) {
   const { t } = useTranslation('page_team')
-  const { gender } = useDBMeta()
+  const gender = useDBGender()
   // without an Energy Recharge requirement, the value has nothing to lower (yet)
   const needsEnergy = hasEnergyRequirement(
     useOptConfig(teamChar.optConfigId)?.statFilters
@@ -947,7 +947,7 @@ function PassiveAvatarToggle({
   member: TeamOptMember
   line: PassiveLine
 }) {
-  const { gender } = useDBMeta()
+  const gender = useDBGender()
   const [value, set] = usePassive(member, line.path)
   const stateKey = line.states[0]?.[0]
   const on = !!stateKey && value === stateKey
@@ -1232,7 +1232,7 @@ function SwapMenu({
 function RemoveWeaponButton({ weapon }: { weapon: ICachedWeapon }) {
   const { t } = useTranslation('page_team')
   const database = useDatabase()
-  const { gender } = useDBMeta()
+  const gender = useDBGender()
   const [asking, setAsking] = useState(false)
   const type = getWeaponStat(weapon.key).weaponType
   const replacement = defaultInitialWeaponKey(type)

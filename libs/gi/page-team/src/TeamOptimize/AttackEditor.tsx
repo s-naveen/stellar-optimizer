@@ -20,7 +20,7 @@ import {
   allowedAmpReactions,
 } from '@genshin-optimizer/gi/consts'
 import type { TeamOptAttack } from '@genshin-optimizer/gi/db'
-import { useDatabase, useDBMeta } from '@genshin-optimizer/gi/db-ui'
+import { useDatabase, useDBGender } from '@genshin-optimizer/gi/db-ui'
 import { KeyMap } from '@genshin-optimizer/gi/keymap'
 import type { BuffRef, StatGain, TeamOptMember } from '@genshin-optimizer/gi/ui'
 import {
@@ -188,7 +188,7 @@ export function AttackEditor({
   onRemove: () => void
 }) {
   const { t } = useTranslation(['page_team', 'loadout'])
-  const { gender } = useDBMeta()
+  const gender = useDBGender()
   const info = useAttackInfo(data, attack.path)
   const element = (info?.variant ?? 'physical') as ElementKey
   const reactions = useMemo(
@@ -858,7 +858,7 @@ function BuffGroup({
   onChange: (attack: TeamOptAttack) => void
 }) {
   const { t } = useTranslation('page_team')
-  const { gender } = useDBMeta()
+  const gender = useDBGender()
   // what a buff gives is read where Team settings shows it: on its owner (the team's: the attacker)
   const data = teamData?.[owner === 'team' ? characterKey : owner]?.target
   return (
@@ -1702,7 +1702,7 @@ function useAttackStats(
   active: boolean
 ) {
   const database = useDatabase()
-  const { gender } = useDBMeta()
+  const gender = useDBGender()
   const [teamOpt] = useTeamOpt(teamId)
   const [hit, setHit] = useState<
     { target: UIData; hit: CalcResult | undefined } | null | undefined

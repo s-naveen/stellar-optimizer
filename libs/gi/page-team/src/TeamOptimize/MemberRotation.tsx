@@ -11,7 +11,7 @@ import {
   initTeamOptAttack,
   TEAM_OPT_MAX_ATTACKS,
 } from '@genshin-optimizer/gi/db'
-import { useDBMeta } from '@genshin-optimizer/gi/db-ui'
+import { useDBGender } from '@genshin-optimizer/gi/db-ui'
 import type {
   TeamData,
   TeamOptEvaluation,
@@ -85,7 +85,7 @@ export function MemberRotation({
   footer?: ReactNode
 }) {
   const { t } = useTranslation('page_team')
-  const { gender } = useDBMeta()
+  const gender = useDBGender()
   const { characterKey, teamChar } = member
   const data = teamData?.[characterKey]?.target
   const [showPicker, onShowPicker, onHidePicker] = useBoolState()
@@ -546,7 +546,7 @@ function AttackRow({
   onRemove: () => void
 }) {
   const { t } = useTranslation('page_team')
-  const { gender } = useDBMeta()
+  const gender = useDBGender()
   const limits = attack.limits ?? []
   const states = attack.states ?? []
   const ownOnField =
