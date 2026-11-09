@@ -3,8 +3,6 @@ import type { CharacterKey, GenderKey } from '@genshin-optimizer/gi/consts'
 import { Alert, Grid, LinearProgress, styled, Typography } from '@mui/material'
 import type { ReactNode } from 'react'
 import { CharacterName } from './Trans'
-
-export const warningBuildNumber = 10000000
 export type BuildStatus = {
   type: 'active' | 'inactive'
   tested: number // tested, including `failed`

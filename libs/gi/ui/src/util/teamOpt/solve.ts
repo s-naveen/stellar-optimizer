@@ -41,11 +41,6 @@ export interface TeamOptSolveInput {
   mainStatAssumptionLevel: number
   /** How many builds to find, best first (default 1): the next ones come in `more` */
   topN?: number
-  /**
-   * The engine to search with: the CPU's branch and bound (it prunes with the floor), or the
-   * GPU's whole-space sweep. Default: the solver's choice.
-   */
-  engine?: 'cpu' | 'gpu'
   /** Told, after the search, how much of the space it went through */
   onWork?: (work: { tested: number; total: number }) => void
 }
@@ -528,7 +523,7 @@ export async function optimizeTeam({
     for (const art of input.arts)
       perSlot.set(art.slotKey, (perSlot.get(art.slotKey) ?? 0) + 1)
     profile.space += [...perSlot.values()].reduce((a, b) => a * b, 1)
-    // the engine is the solver's choice: measured on Apple Silicon, starting members on the
+    // the solver picks CPU or GPU itself: measured on Apple Silicon, starting members on the
     // CPU's branch and bound was slower than the GPU's sweep, even where the floor pruned it well
     const result = await solveRaw({
       ...input,

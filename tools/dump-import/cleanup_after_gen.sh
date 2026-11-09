@@ -16,7 +16,7 @@ AGG=(libs/gi/stats/src/allStat_gen.json libs/gi/stats/Data/Materials/material.js
   libs/gi/dm/src/dm/material/MaterialExcelConfigData_idmap_gen.json
   libs/gi/dm/src/dm/weapon/WeaponExcelConfigData_idmap_gen.json
   libs/gi/dm/src/dm/common/EquipAffixExcelConfigData_idmap_gen.json
-  libs/gi/mats/src/allCharacterMats_gen.json libs/gi/assets-data/src/AssetsData_gen.json)
+  libs/gi/assets-data/src/AssetsData_gen.json)
 "${MERGE[@]}" $AGG
 # artifact piece ids are new keys whose value names the set: keep those of allow-listed set ids
 python3 -I - $SNAP $ALLOW <<'PY'
@@ -53,4 +53,4 @@ for p in out:
     if any(re.search(rf'(^|[/_]){re.escape(a)}([/_.]|$)',p) for a in allow): continue
     shutil.copy2(s,p); print('restored (earlier import)',p)
 PY
-git diff --stat libs/gi/stats libs/gi/dm/src/dm libs/gi/dm-localization libs/gi/mats libs/gi/assets-data | tail -1
+git diff --stat libs/gi/stats libs/gi/dm/src/dm libs/gi/dm-localization libs/gi/assets-data | tail -1

@@ -104,7 +104,6 @@ export const artifactSandsStatKeys = [
   'eleMas',
   'enerRech_',
 ] as const
-export type ArtifactSandsStatKey = (typeof artifactSandsStatKeys)[number]
 
 export const artifactGobletStatKeys = [
   'hp_',
@@ -120,7 +119,6 @@ export const artifactGobletStatKeys = [
   'cryo_dmg_',
   'dendro_dmg_',
 ] as const
-export type ArtifactGobletStatKey = (typeof artifactGobletStatKeys)[number]
 
 export const artifactCircletStatKeys = [
   'hp_',
@@ -131,7 +129,6 @@ export const artifactCircletStatKeys = [
   'critDMG_',
   'heal_',
 ] as const
-export type ArtifactCircletStatKey = (typeof artifactCircletStatKeys)[number]
 
 export const artSlotMainKeys = {
   flower: ['hp'] as readonly MainStatKey[],

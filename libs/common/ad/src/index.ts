@@ -1,6 +1,0 @@
-export * from './assets'
-export * from './components'
-export * from './consts'
-export * from './GoAd'
-export * from './type'
-export * from './urlUtil'

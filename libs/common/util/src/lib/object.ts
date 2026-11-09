@@ -49,45 +49,6 @@ export function layeredAssignment<T, Obj>(
   return obj
 }
 
-/**
- * Filter the object to only have key:value for a correspoding array of keys
- * Assumes that `keys` is a superset of Object.keys(obj)
- * @param obj
- * @param keys
- * @returns
- */
-export function objFilterKeys<K extends string, K2 extends string, V>(
-  obj: Record<K, V>,
-  keys: K2[]
-): Record<K2, V> {
-  return Object.fromEntries(
-    Object.entries(obj).filter(([k]) => keys.includes(k as K2))
-  ) as Record<K2, V>
-}
-
-/**
- * Filter an object's entries based on a predicate function
- * @param obj The object to filter
- * @param f Predicate function that takes (value, key, index)
- * @returns A new object containing only the entries that pass the predicate
- */
-export function objFilter<K extends string | number, V>(
-  obj: Record<K, V>,
-  f: (v: V, k: K, i: number) => boolean
-): Record<K, V>
-export function objFilter<K extends string | number, V>(
-  obj: Partial<Record<K, V>>,
-  f: (v: V, k: K, i: number) => boolean
-): Partial<Record<K, V>>
-export function objFilter<K extends string | number, V>(
-  obj: Record<K, V>,
-  f: (v: V, k: K, i: number) => boolean
-): Record<K, V> {
-  return Object.fromEntries(
-    Object.entries(obj).filter(([k, v], i) => f(v as V, k as K, i))
-  ) as Record<K, V>
-}
-
 export function objMap<K extends string | number, V, V2>(
   obj: Record<K, V>,
   f: (v: V, k: K, i: number) => V2
@@ -229,67 +190,6 @@ export function missingObjKeys<K extends string, V>(
   keys: readonly K[]
 ) {
   return keys.filter((k) => !(Object.keys(obj) as string[]).includes(k))
-}
-
-/**
- * reverses the keys and values of an object
- */
-export function reverseMap<K extends string, V extends string>(
-  obj: Record<K, V>
-): Record<V, K> {
-  return Object.fromEntries(
-    Object.entries(obj).map(([k, v]) => [v, k])
-  ) as Record<V, K>
-}
-
-export function shallowCompareObj<T extends Record<string, any>>(
-  obj1: T,
-  obj2: T
-) {
-  const keys1 = Object.keys(obj1)
-  const keys2 = Object.keys(obj2)
-
-  // Check if the objects have the same number of keys
-  if (keys1.length !== keys2.length) return false
-
-  // Check if all keys and their values are the same
-  for (const key of keys1) if (obj1[key] !== obj2[key]) return false
-
-  return true
-}
-
-export function objFindValue<K extends string, V extends string>(
-  obj: Record<K, V>,
-  value: V
-): K | undefined {
-  return Object.keys(obj).find((k) => obj[k as K] === value) as K | undefined
-}
-
-/**
- * Returns a new object that is the sum of `a` and `b`
- */
-export function objSum(
-  a: Record<string, number>,
-  b: Record<string, number>
-): Record<string, number> {
-  const sum = { ...a }
-  for (const k in b) sum[k] = (sum[k] ?? 0) + b[k]
-  return sum
-}
-
-/**
- * Apply obj `add` to the `base` object
- */
-export function objSumInPlace(
-  base: Record<string, number>,
-  add: Record<string, number>
-): Record<string, number> {
-  for (const k in add) base[k] = (base[k] ?? 0) + add[k]
-  return base
-}
-
-export function prettify(obj: object | undefined) {
-  return JSON.stringify(obj, undefined, 2)
 }
 
 /**

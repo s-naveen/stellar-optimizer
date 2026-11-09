@@ -58,12 +58,6 @@ import CustomDot from './CustomDot'
 import CustomTooltip from './CustomTooltip'
 import EnhancedPoint from './EnhancedPoint'
 
-export type Point = {
-  x: number
-  y: number
-  artifactIds: string[]
-  min?: number
-}
 type ChartCardProps = {
   plotBase?: string[]
   setPlotBase: (path: string[] | undefined) => void

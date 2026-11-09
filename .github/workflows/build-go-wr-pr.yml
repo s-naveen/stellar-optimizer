@@ -6,13 +6,6 @@ permissions:
 
 on:
   pull_request:
-    paths-ignore:
-      - 'apps/gi-frontend/**'
-      - 'libs/gi/formula/**'
-      - 'libs/gi/formula-ui/**'
-      - 'libs/gi/i18n-node/**'
-      - 'libs/game-opt/**'
-      - 'libs/pando/**'
     types: [opened, reopened, synchronize, labeled]
 
 jobs:

@@ -2,12 +2,6 @@ import type {
   ElementWithPhyKey,
   TransformativeReactionKey,
 } from '@genshin-optimizer/gi/consts'
-
-export const hitTypes = {
-  hit: 'DMG',
-  avgHit: 'Avg. DMG',
-  critHit: 'CRIT Hit DMG',
-} as const
 export const hitMoves = {
   normal: 'Normal Att.',
   charged: 'Charged Att.',

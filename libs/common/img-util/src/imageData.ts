@@ -1,20 +1,5 @@
 import { clamp } from '@genshin-optimizer/common/util'
 
-export function cropCanvas(
-  srcCanvas: HTMLCanvasElement,
-  x: number,
-  y: number,
-  w: number,
-  h: number
-) {
-  const canvas = document.createElement('canvas')
-  const ctx = canvas.getContext('2d')!
-  canvas.width = w
-  canvas.height = h
-  ctx.drawImage(srcCanvas, x, y, w, h, 0, 0, w, h)
-  return canvas
-}
-
 type CropOptions = {
   x1?: number
   x2?: number

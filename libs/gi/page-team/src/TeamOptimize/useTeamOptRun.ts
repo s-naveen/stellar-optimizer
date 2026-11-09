@@ -170,7 +170,6 @@ export function useTeamOptRun(teamId: string) {
         exclusion,
         mainStatAssumptionLevel,
         topN = 1,
-        engine,
         onWork,
       }) => {
         const problem: OptProblemInput = {
@@ -181,10 +180,7 @@ export function useTeamOptRun(teamId: string) {
           topN,
         }
         Object.assign(status.current, initStatus())
-        // the engine Team Optimize picked for this member (the CPU: no GPU sweep)
-        const solver = new GOSolver(problem, status.current, maxWorkers, {
-          gpu: engine !== 'cpu',
-        })
+        const solver = new GOSolver(problem, status.current, maxWorkers)
         stopSolver = () => solver.cancel(new TeamOptCancelled())
         const t0 = performance.now()
         try {

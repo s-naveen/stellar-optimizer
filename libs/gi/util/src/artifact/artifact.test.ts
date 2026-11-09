@@ -2,11 +2,7 @@ import type { SubstatKey } from '@genshin-optimizer/gi/consts'
 import { artSubstatRollData } from '@genshin-optimizer/gi/consts'
 import type { IArtifact } from '@genshin-optimizer/gi/good'
 import { allStats } from '@genshin-optimizer/gi/stats'
-import {
-  getArtifactEfficiency,
-  getSubstatEfficiency,
-  getSubstatRolls,
-} from './artifact'
+import { getArtifactEfficiency, getSubstatRolls } from './artifact'
 
 const artifactSubstatRoll = allStats.art.subRoll
 describe('Substat Rolls/efficiency', () => {
@@ -86,22 +82,6 @@ describe('Substat Rolls/efficiency', () => {
     test('deal with invalid', () => {
       expect(getSubstatRolls('def_', 10000, 4)).toEqual([])
       expect(getSubstatRolls('def_', 0, 4)).toEqual([])
-    })
-  })
-  describe('getSubstatEfficiency()', () => {
-    test('should deal with one roll', () => {
-      expect(getSubstatEfficiency('def_', [0.0729 * 100])).toEqual(100)
-      expect(getSubstatEfficiency('def_', [(0.0729 * 100) / 2])).toEqual(
-        100 / 2
-      )
-    })
-    test('should deal with invalids', () => {
-      expect(getSubstatEfficiency('def_', [9999])).toEqual(100)
-      expect(getSubstatEfficiency('def_', [9999, 9999, 9999, 9999])).toEqual(
-        100
-      )
-      expect(getSubstatEfficiency('def_', [-1])).toEqual(0)
-      expect(getSubstatEfficiency('', [-1])).toEqual(0)
     })
   })
 

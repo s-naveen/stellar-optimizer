@@ -21,8 +21,6 @@ type Num = number | NumNode
 type Str = string | undefined | StrNode
 type N_S = Num | Str
 type AnyNode = NumNode | StrNode
-
-export const todo: OptNode = constant(Number.NaN, { path: 'TODO' })
 export const one = percent(1),
   naught = percent(0)
 export const zero = constant(0)

@@ -106,8 +106,6 @@ export class GOSolver {
   private readonly problem: OptProblemInput
   private readonly status: Status
   private readonly numWorkers: number
-  /** May the GPU take part (also needs WebGPU, and a problem big enough) */
-  private readonly allowGPU: boolean
   private readonly run = nextRun++
   private workers: Worker[] = []
   /** Workers with an outstanding command (may still be computing for this run) */
@@ -117,16 +115,9 @@ export class GOSolver {
   private rejectSolve: ((e: unknown) => void) | undefined
   private stopTracking: (() => void) | undefined
 
-  /** `options.gpu`: `false` keeps the GPU out of this solve (the CPU workers only) */
-  constructor(
-    problem: OptProblemInput,
-    status: Status,
-    numWorker: number,
-    options: { gpu?: boolean } = {}
-  ) {
+  constructor(problem: OptProblemInput, status: Status, numWorker: number) {
     this.problem = problem
     this.status = status
-    this.allowGPU = options.gpu ?? true
     // one core is left for the browser (drawing the page, the GPU process): with every core busy
     // computing, the whole tab stutters while the optimizer runs
     const cores = globalThis.navigator?.hardwareConcurrency || 8
@@ -193,7 +184,7 @@ export class GOSolver {
     // The GPU may solve the problem alone: the lead then prepares the CPU's work only once it
     // is needed (`proceed`), and meanwhile stays idle, so it is not stopped when the GPU wins
     // (and goes back to the pool, warm, for the next run)
-    const waitForCPU = this.allowGPU && gpuAllowed()
+    const waitForCPU = gpuAllowed()
     let leadWorker: Worker | undefined
     /** The lead waits for `proceed` */
     let leadWaiting = false

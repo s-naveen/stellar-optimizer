@@ -69,7 +69,7 @@ jobs:
           git fetch --tags --force
           oldTag=$(git tag --list --sort=creatordate | tail -n 1)
           echo -e "**What's Changed**\n" >> $TEMP_FILE
-          git log --pretty='format:* %s' $oldTag..HEAD -- . ':!libs/gi/formula' ':!libs/gi/formula-ui' ':!libs/gi/i18n-node' ':!libs/game-opt' ':!libs/pando' >> $TEMP_FILE
+          git log --pretty='format:* %s' $oldTag..HEAD -- . >> $TEMP_FILE
           echo -e "\n\n**Full Changelog**: https://github.com/${{ github.repository }}/compare/$oldTag..${{ steps.get-version.outputs.version }}" >> $TEMP_FILE
           gh release create ${{ steps.get-version.outputs.version }} -F $TEMP_FILE -t ${{ steps.get-version.outputs.version }} --target $(git rev-parse HEAD)
         env:

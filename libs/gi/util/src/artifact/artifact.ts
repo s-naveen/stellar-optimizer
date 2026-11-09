@@ -1,6 +1,5 @@
 import type { Unit } from '@genshin-optimizer/common/util'
 import {
-  clampPercent,
   getUnitStr,
   objKeyMap,
   toPercent,
@@ -16,7 +15,6 @@ import {
   allArtifactSetKeys,
   allSubstatKeys,
   artMaxLevel,
-  artSubstatRollData,
 } from '@genshin-optimizer/gi/consts'
 import type { IArtifact } from '@genshin-optimizer/gi/schema'
 import { coreStats } from '@genshin-optimizer/gi/stats'
@@ -73,15 +71,6 @@ export function getSubstatSummedRolls(
   return Object.keys(coreStats.art.subRoll[rarity][key]).map((v) =>
     Number.parseFloat(v)
   )
-}
-
-export function getSubstatEfficiency(
-  substatKey: SubstatKey | '',
-  rolls: number[]
-): number {
-  const sum = rolls.reduce((a, b) => a + b, 0)
-  const max = substatKey ? getSubstatValue(substatKey) * rolls.length : 0
-  return max ? clampPercent((sum / max) * 100) : 0
 }
 
 const substatCache = new Map<string, number>()
@@ -168,12 +157,6 @@ export function getSubstatRange(rarity: ArtifactRarity, key: SubstatKey) {
 
 export function getRollsRemaining(level: number, rarity: ArtifactRarity) {
   return Math.ceil((artMaxLevel[rarity] - level) / 4)
-}
-
-export function getTotalPossibleRolls(rarity: ArtifactRarity) {
-  return (
-    artSubstatRollData[rarity].high + artSubstatRollData[rarity].numUpgrades
-  )
 }
 const maxSubstatRollEfficiency = objKeyMap(allArtifactRarityKeys, (rarity) =>
   Math.max(

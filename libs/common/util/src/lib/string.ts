@@ -1,22 +1,6 @@
-import { fixFloat } from './number'
-
 //use to pretty print timestamps, or anything really.
 export function strPadLeft(string: string, pad: string, length: number) {
   return (new Array(length + 1).join(pad) + string).slice(-length)
-}
-
-//fuzzy compare strings. longer the distance, the higher the mismatch.
-export function hammingDistance(str1: string, str2: string) {
-  let dist = 0
-  str1 = str1.toLowerCase()
-  str2 = str2.toLowerCase()
-  for (let i = 0, j = Math.max(str1.length, str2.length); i < j; i++) {
-    let match = true
-    if (!str1[i] || !str2[i] || str1[i] !== str2[i]) match = false
-    if (str1[i - 1] === str2[i] || str1[i + 1] === str2[i]) match = true
-    if (!match) dist++
-  }
-  return dist
 }
 
 export function levenshteinDistance(str1: string, str2: string) {
@@ -37,24 +21,4 @@ export function levenshteinDistance(str1: string, str2: string) {
     }
   }
   return arr[str2.length][str1.length]
-}
-
-export function extractJSON(s: string): object | null {
-  const jsonPattern = /\{(?:[^{}]|(\{(?:[^{}]|(\{[^{}]*\}))*\}))*\}/
-  const match = s.match(jsonPattern)
-
-  if (match) {
-    try {
-      return JSON.parse(match[0])
-    } catch (_error) {
-      // Or should it return a different value for erroneous JSON?
-      return null
-    }
-  } else {
-    return null
-  }
-}
-
-export function parseFloatBetter(s: string, precision = 100, factor = 0.01) {
-  return fixFloat(+s, precision, factor)
 }

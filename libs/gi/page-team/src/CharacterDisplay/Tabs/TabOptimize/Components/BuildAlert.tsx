@@ -10,8 +10,6 @@ import {
 } from '@mui/material'
 import type { MutableRefObject, ReactNode } from 'react'
 import { useEffect, useReducer, useSyncExternalStore } from 'react'
-
-export const warningBuildNumber = 10000000
 export type BuildStatus = {
   type: 'active' | 'inactive'
   tested: number // tested, including `failed`

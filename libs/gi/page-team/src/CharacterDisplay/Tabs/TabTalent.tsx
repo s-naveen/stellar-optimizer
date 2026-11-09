@@ -1,8 +1,4 @@
-import {
-  CardThemed,
-  ConditionalWrapper,
-  DropdownButton,
-} from '@genshin-optimizer/common/ui'
+import { CardThemed, ConditionalWrapper } from '@genshin-optimizer/common/ui'
 import { range } from '@genshin-optimizer/common/util'
 import { maxConstellationCount } from '@genshin-optimizer/gi/consts'
 import {
@@ -36,7 +32,6 @@ import {
   CardContent,
   Chip,
   Grid,
-  MenuItem,
   ToggleButton,
   ToggleButtonGroup,
   Typography,
@@ -542,43 +537,5 @@ function ConstellationHeader() {
         </ToggleButtonGroup>
       </CardContent>
     </CardThemed>
-  )
-}
-
-export function ConstellationDropdown() {
-  const {
-    character: { key: characterKey },
-  } = useContext(CharacterContext)
-  const { data } = useContext(DataContext)
-  const { buildTc, setBuildTc } = useContext(BuildTcContext)
-  const { t } = useTranslation('sheet_gen')
-  const database = useDatabase()
-  const constellation = data.get(input.constellation).value
-  return (
-    <DropdownButton
-      fullWidth
-      title={t('constellationLvl', { level: constellation })}
-      color="primary"
-      sx={{ color: buildTc?.character ? 'yellow' : undefined }}
-    >
-      {range(0, maxConstellationCount).map((i) => (
-        <MenuItem
-          key={i}
-          selected={constellation === i}
-          disabled={constellation === i}
-          onClick={() =>
-            buildTc?.character
-              ? setBuildTc((buildTc) => {
-                  if (buildTc.character) buildTc.character.constellation = i
-                })
-              : database.chars.set(characterKey, {
-                  constellation: i,
-                })
-          }
-        >
-          {t('constellationLvl', { level: i })}
-        </MenuItem>
-      ))}
-    </DropdownButton>
   )
 }

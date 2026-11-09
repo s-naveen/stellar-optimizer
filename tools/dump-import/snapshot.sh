@@ -8,7 +8,6 @@ rm -rf $SNAP && mkdir -p $SNAP
 rsync -a --relative \
   libs/gi/stats/Data libs/gi/stats/src/allStat_gen.json \
   libs/gi/dm-localization/assets \
-  libs/gi/mats/src/allCharacterMats_gen.json \
   libs/gi/assets-data/src/AssetsData_gen.json \
   libs/gi/dm/src/dm \
   $SNAP/

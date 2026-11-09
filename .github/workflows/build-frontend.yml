@@ -5,7 +5,7 @@ on:
   workflow_call:
     inputs:
       frontend_name:
-        description: 'Frontend type to build. Can be `frontend` or `gi-frontend`.'
+        description: 'Frontend type to build. Can only be `frontend`.'
         type: string
         required: true
       deployment_name:
@@ -46,7 +46,6 @@ jobs:
       - name: Setup .env
         run: |
           printf '%s' "$ENVFILE" > apps/frontend/.env.local
-          printf '%s' "$ENVFILE" > apps/gi-frontend/.env.local
         env:
           ENVFILE: ${{ vars.ENVFILE }}
       - name: Build frontend

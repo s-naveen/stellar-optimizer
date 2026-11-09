@@ -10,13 +10,11 @@ import {
   allArtifactSlotKeys,
   allSubstatKeys,
   artMaxLevel,
-  artSlotMainKeys,
 } from '@genshin-optimizer/gi/consts'
 import type { ICachedArtifact } from '@genshin-optimizer/gi/db'
 import type { IArtifact } from '@genshin-optimizer/gi/good'
 import type { DynStat } from '@genshin-optimizer/gi/solver'
 import { getMainStatValue, getRollsRemaining } from '@genshin-optimizer/gi/util'
-import { allMainStatProbs } from './consts'
 import { expandRollsLevel } from './expandRolls'
 import { expandSubstatLevel, makeSubstatNode } from './expandSubstat'
 import { crawlSubstats } from './substatProbs'
@@ -109,51 +107,6 @@ export function levelUpArtifact(
       n: makeSubstatNode(info2),
     }
   })
-}
-
-/**
- * Simulates obtaining a fresh artifact from a Domain, Boss, or Strongbox then
- * leveling it to max level.
- */
-export function freshArtifact(
-  info: { sets: ArtifactSetKey[]; p3sub: number; rarity: ArtifactRarity },
-  currentBuild: Build
-): weightedNode[] {
-  const { rarity, p3sub } = info
-  const out: weightedNode[] = []
-  allArtifactSlotKeys.forEach((slotKey) => {
-    const pSlot = 1 / 5
-    artSlotMainKeys[slotKey].forEach((mainStatKey) => {
-      info.sets.forEach((setKey) => {
-        const pSet = 1 / info.sets.length
-        const pMain = allMainStatProbs[slotKey][mainStatKey] ?? 0
-        const base = toStats(currentBuild, {
-          slotKey,
-          rarity,
-          mainStatKey,
-          setKey,
-        })
-
-        const subsToConsider = allSubstatKeys.filter((s) => s !== mainStatKey)
-        crawlSubstats([], subsToConsider).forEach(({ p, subs }) => {
-          const nodeInfo = {
-            base,
-            rarity,
-            subkeys: subs.map((key) => ({ key, baseRolls: 1 })),
-            rollsLeft: getRollsRemaining(0, rarity),
-          }
-          const n = makeSubstatNode(nodeInfo)
-          out.push({ p: p * pMain * pSet * pSlot * (1 - p3sub), n })
-
-          // 3-substat start just means we have one fewer total roll.
-          nodeInfo.rollsLeft -= 1
-          const n2 = makeSubstatNode(nodeInfo)
-          out.push({ p: p * pMain * pSet * pSlot * p3sub, n: n2 })
-        })
-      })
-    })
-  })
-  return out
 }
 
 /**

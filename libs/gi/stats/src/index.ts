@@ -39,10 +39,6 @@ export function getCharStat(ck: CharacterKey): Omit<CharacterDataGen, 'ele'> {
   return allStats.char.data[locCharKey]
 }
 
-export function getCharParam(ck: CharacterSheetKey) {
-  return allStats.char.skillParam[ck]
-}
-
 export function isCharMelee(ck: CharacterKey) {
   const charStat = getCharStat(ck)
   const weaponTypeKey = charStat.weaponType

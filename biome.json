@@ -20,8 +20,7 @@
       "!!.nx/workspace-data",
       "!**/*_gen.json",
       "!libs/gi/stats/Data",
-      "!libs/**/*/localization/assets/locales/**/*/*.json",
-      "!libs/gi/silly-wisher-names/Translated/**/*.json"
+      "!libs/**/*/localization/assets/locales/**/*/*.json"
     ]
   },
   "formatter": {

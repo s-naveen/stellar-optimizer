@@ -1,4 +1,4 @@
-import { objKeyMap, objKeyValMap } from '@genshin-optimizer/common/util'
+import { objKeyValMap } from '@genshin-optimizer/common/util'
 import {
   allStellarReactionKeys,
   type CharacterKey,

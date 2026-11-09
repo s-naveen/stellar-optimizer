@@ -2,7 +2,6 @@ import { z } from 'zod'
 import {
   zodArray,
   zodBoolean,
-  zodBooleanRecord,
   zodBoundedNumber,
   zodClampedNumber,
   zodEnumWithDefault,
@@ -90,23 +89,6 @@ describe('zodSchemas utilities', () => {
     it('should return fallback for non-string values', () => {
       expect(zodString().parse(123)).toBe('')
       expect(zodString('default').parse(null)).toBe('default')
-    })
-  })
-
-  describe('zodBooleanRecord', () => {
-    const keys = ['ability1', 'ability2', 'ability3'] as const
-    const schema = zodBooleanRecord(keys)
-
-    it('should only include keys from allowed list with boolean values', () => {
-      expect(
-        schema.parse({ ability1: true, invalidKey: true, ability2: 'string' })
-      ).toEqual({ ability1: true })
-    })
-
-    it('should return empty object for non-object input', () => {
-      expect(schema.parse(null)).toEqual({})
-      expect(schema.parse('string')).toEqual({})
-      expect(schema.parse([])).toEqual({})
     })
   })
 

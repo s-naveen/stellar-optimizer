@@ -3,7 +3,6 @@ import { CardThemed, SqBadge } from '@genshin-optimizer/common/ui'
 import { weaponAsset } from '@genshin-optimizer/gi/assets'
 import { getLevelString as getWeaponLevelString } from '@genshin-optimizer/gi/consts'
 import type { ICachedWeapon } from '@genshin-optimizer/gi/db'
-import { useWeapon } from '@genshin-optimizer/gi/db-ui'
 import type { IWeapon } from '@genshin-optimizer/gi/good'
 import { getWeaponSheet } from '@genshin-optimizer/gi/sheets'
 import { getWeaponStat, weaponHasRefinement } from '@genshin-optimizer/gi/stats'
@@ -14,11 +13,6 @@ import { Box, Typography } from '@mui/material'
 import { useMemo } from 'react'
 import { GetCalcDisplay, resolveInfo } from '../../util'
 import { WeaponName } from './WeaponTrans'
-export function WeaponFullCard({ weaponId }: { weaponId: string }) {
-  const weapon = useWeapon(weaponId)
-  if (!weapon) return null
-  return <WeaponFullCardObj weapon={weapon} />
-}
 export function WeaponFullCardObj({
   weapon,
   bgt = 'normal',

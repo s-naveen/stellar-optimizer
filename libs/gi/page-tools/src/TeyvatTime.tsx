@@ -11,10 +11,6 @@ import { useDatabase } from '@genshin-optimizer/gi/db-ui'
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled'
 import { CardContent, Divider, Grid, MenuItem, Typography } from '@mui/material'
 import { useCallback, useEffect, useState } from 'react'
-
-export function initToolsDisplayTimezone() {
-  return { timeZoneKey: Object.keys(timeZones)[0] as TimeZoneKey }
-}
 export default function TeyvatTime() {
   const database = useDatabase()
   const [{ timeZoneKey }, setState] = useState(() => database.displayTool.get())

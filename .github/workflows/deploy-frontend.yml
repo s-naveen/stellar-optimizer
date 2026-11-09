@@ -5,9 +5,7 @@ on:
   workflow_run:
     workflows:
       - Build GO (WR) PR
-      - Build GI (Pando) PR
       - New Beta GO Release
-      - New Beta GI Release
     types:
       - completed
 

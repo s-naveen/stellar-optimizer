@@ -1,4 +1,4 @@
-import type { Palette, PaletteColor, ToggleButtonProps } from '@mui/material'
+import type { Palette, PaletteColor } from '@mui/material'
 import { alpha, styled, ToggleButton } from '@mui/material'
 import { quietToggleStyles } from './SolidToggleButtonGroup'
 
@@ -8,8 +8,6 @@ type SolidColoredToggleButtonPartial = {
   /** The compact filter style of `SolidToggleButtonGroup`'s `quiet` (selected colour defaults to `primary`). */
   quiet?: boolean
 }
-export type SolidColoredToggleButtonProps = SolidColoredToggleButtonPartial &
-  ToggleButtonProps
 
 export const SolidColoredToggleButton = styled(ToggleButton, {
   shouldForwardProp: (prop) =>

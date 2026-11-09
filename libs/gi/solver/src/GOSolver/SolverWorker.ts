@@ -17,7 +17,7 @@ import {
   filterArts,
 } from '../common.js'
 import type { PlotConfig, Setup, SlotFilter, WorkItem } from '../type.js'
-import { linearUB } from './BNBSplitWorker/linearUB.js'
+import { linearUB } from './bounds/linearUB.js'
 import type { Kernel, KernelData, KernelPlot, KernelState } from './kernel.js'
 import { compileKernel, newKernelState } from './kernel.js'
 import { insertTop } from './schedule.js'

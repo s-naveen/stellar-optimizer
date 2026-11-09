@@ -1,6 +1,5 @@
 import { DBLocalStorage } from './DBLocalStorage'
 import type { StorageType } from './DBStorage'
-import { SandboxStorage } from './SandboxStorage'
 
 /**
  * Create a mock localStorage for testing
@@ -31,11 +30,4 @@ export function createMockStorage() {
 export function createTestDBStorage(storageType: StorageType = 'go') {
   const mockStorage = createMockStorage()
   return new DBLocalStorage(mockStorage, storageType)
-}
-
-/**
- * Create a SandboxStorage for testing (in-memory only)
- */
-export function createTestSandboxStorage() {
-  return new SandboxStorage()
 }

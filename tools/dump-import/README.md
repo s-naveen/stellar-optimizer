@@ -42,7 +42,6 @@ tools/dump-import/snapshot.sh            # snapshot all generated outputs (to /t
 # Run each separately and CHECK that it prints "Successfully ran target" (a silent failure happened once in a loop):
 NX_DAEMON=false yarn nx run gi-stats:gen-file           --skip-nx-cache --excludeTaskDependencies
 NX_DAEMON=false yarn nx run gi-dm-localization:gen-file --skip-nx-cache --excludeTaskDependencies
-NX_DAEMON=false yarn nx run gi-mats:gen-file            --skip-nx-cache --excludeTaskDependencies
 NX_DAEMON=false yarn nx run gi-assets-data:gen-file     --skip-nx-cache --excludeTaskDependencies
 # images (placeholders, see §4) — BEFORE cleanup, because loading the dm library rewrites its debug dumps
 tools/dump-import/make_placeholders.sh <Key>
@@ -89,21 +88,17 @@ The dump has **no images**. `api.hakush.in` is blocked by the Claude Code sandbo
   Sources: `https://api.hakush.in/gi/UI/<name>.webp` (convert to png), or enka.network after release.
 - Character card: `libs/gi/char-cards/src/Character_<Key>_Card.webp` + import/entry in `libs/gi/char-cards/src/index.ts`.
 
-## 5. Write the sheets (two calc engines!)
+## 5. Write the sheets
 
-| Engine | Files |
+| What | Files |
 |---|---|
-| Legacy WR (main UI) | `libs/gi/sheets/src/Characters/<Key>/index.tsx`, register in `.../Characters/index.ts` |
-| Pando (new optimizer) | `libs/gi/formula/src/data/char/<Key>.ts` + `index.ts`; UI `libs/gi/formula-ui/src/char/sheets/<Key>.tsx` + `index.ts`; add to `charUiAudit.ts`; cond labels in `charCondI18n.ts` |
+| Sheet (WR, the site's calculation engine) | `libs/gi/sheets/src/Characters/<Key>/index.tsx`, register in `.../Characters/index.ts` |
 | Manual strings | `libs/gi/localization/assets/locales/en/char_<Key>.json` (`ct.ch(...)` keys) |
-
-Then `NX_DAEMON=false yarn nx run gi-formula:gen-file --excludeTaskDependencies` (regenerates `meta.ts`, `formulaCatalog.ts`).
-⚠️ Without `--excludeTaskDependencies` this re-runs gi-stats → run cleanup_after_gen.sh again.
 
 Reference characters:
 - Stellar-Conduct direct DMG + base-DMG bonus: **Sandrone** (`stellarDmgNode(mult, stat, 'stellarconduct', ele)`)
 - Radiance / Polestar Field cond + active-char team buffs: **Alyosha** (`flags.radiance`, `equal(input.activeCharKey, target.charKey, …)`)
-- ATK+EM split scaling: `splitScaleDmgNode` (WR) / `splitScaleDmg` (Pando)
+- ATK+EM split scaling: `splitScaleDmgNode`
 - Stat keys: `<reaction>_baseDmg_` (base DMG increase), `<reaction>_specialDmg_` (= "Elevated"), `<ele>_enemyRes_` (negative = shred)
 - skillParam index order follows the param list in the dump; generated `skillParams` labels may merge entries (e.g. "Low/High Plunge" is one label for 2 params) so label indexes can be offset from param indexes.
 
@@ -111,11 +106,7 @@ Reference characters:
 - **English beta text loses "Elevated"**: check CHS (`TextMapCHS`): 擢升 = Elevated (`*_specialDmg_`), 提升 = increased (`*_dmg_`).
 - **WR `infoMut` mutates the node**: never `infoMut` the same node twice with different paths, and don't spread-copy
   (`{...node}`) for display — the copy loses its label/units. Use a factory (`const mk = () => …`) per use.
-- **Pando has no "destination is source" tag**: for buffs that differ for self vs others, use
-  `teamBuff` = others' value and `ownBuff` = self − others (see Anastasya Accolades).
-- **Pando `cond:`** only accepts threshold nodes (`cmpGE(..., 'infer', '')`), not `cmpNE`/`cmpEq`.
-- **Pando list conditionals are 1-based** (`value` 1 = first state); WR uses the state string.
-- **Team-wide buffs need `buildWrTeamSolo`/`buildWrTeam`** in specs (`buildWrSolo` ignores own teamBuff).
+- **List conditionals** use the state string as their value.
 - Community datamine notes (ICDs, particles, hidden numbers like Sealing meters / Accolades split) are in the
   JSM Faucet Discord (#genshin-updates, #genshin-theorycrafting, off-topic leak discussion). **Read-only.**
   Server search + reading `[id^="message-content"]` innerText via the Chrome extension works well.
@@ -123,14 +114,9 @@ Reference characters:
 ## 6. Verify
 
 ```sh
-NX_DAEMON=false yarn nx run-many -t typecheck -p gi-sheets gi-formula gi-formula-ui frontend --excludeTaskDependencies --parallel=1
-cd libs/gi/pando-parity && CI=true npx vitest run src/<key>.spec.ts   # copy src/danica.spec.ts / anastasya.spec.ts
-# team checks: src/stellar-team.spec.ts (buildWrTeam); shared fixtures in src/fixtures.stellar.ts
-cd ../formula-ui && CI=true npx vitest run src/char/charUiSheets.test.ts
+NX_DAEMON=false yarn nx run-many -t typecheck -p gi-sheets frontend --excludeTaskDependencies --parallel=1
 ```
-`harness.ts` has `buildWrTeamSolo` (WR through `uiDataForTeam`, own team buffs apply), `buildWrTeam`
-(several members, cross-buffs) and `buildWrLayers` (inject a stat layer for engine-level checks).
-Then open the character in the browser (team page + each tab) and check the console — don't stop at tests.
+Then open the character in the browser (team page + each tab, toggle every conditional) and check the console.
 
 ## 6b. Weapons and artifact sets
 
@@ -143,8 +129,7 @@ Done 2026-11-05 for **TorrentsOfSpring** (12517, claymore), **StarsealedEdict** 
 1. Register: `libs/gi/consts/src/{weapon,artifact}.ts` (alphabetical, per weapon type) and
    `libs/gi/dm/src/mapping/{weapon,artifact}.ts` (`<id>: '<Key>'`). Until the sheets exist (step 5) the
    Optimize tab crashes (`getArtSheet(...)` undefined): do steps 1–5 in one go.
-2. `use_dump.sh` → `snapshot.sh` → gen targets one at a time: gi-stats, gi-dm-localization, gi-assets-data
-   (gi-mats is characters only).
+2. `use_dump.sh` → `snapshot.sh` → gen targets one at a time: gi-stats, gi-dm-localization, gi-assets-data.
 3. Images: `fetch_lunaris_art.sh weapon <Key>...` / `artifact <Key>...` downloads the real icons (beta
    builds included) from Lunaris (`https://api.lunaris.moe/data/assets/{weaponicon,artifacts}/<name>.webp`;
    other folders: avataricon, avatarcard, avatarside, namecardicon, namecardpic, skills, items) and installs
@@ -163,28 +148,21 @@ Done 2026-11-05 for **TorrentsOfSpring** (12517, claymore), **StarsealedEdict** 
    of earlier imports that the regeneration rewrote), then `apply_en_overrides.py`
    (`en_overrides.json`: English set/piece names the dump lacks; drops empty or placeholder names in other
    languages so they fall back to English), then `restore_dm.sh`.
-5. Sheets, both engines: WR `libs/gi/sheets/src/Weapons/<Type>/<Key>/index.tsx` (+ type `index.ts`) /
-   `libs/gi/sheets/src/Artifacts/<Key>/index.tsx` (+ `index.ts`); Pando `libs/gi/formula/src/data/{weapon,artifact}/<Key>.ts`
-   (+ `index.ts`); condition labels in `libs/gi/localization/assets/locales/en/{weapon,artifact}_<Key>.json` (Pando
-   finds them by condition name; mappings in `formula-ui/src/{weapon/weaponCondI18n,art/artCondI18n}.ts`); then
-   gi-formula gen-file (`--excludeTaskDependencies`).
-6. Tests: `libs/gi/pando-parity/src/beta73-items.spec.ts` (copy it), plus `weapons.spec.ts` (covers every weapon
-   key) and the `artifacts-*.spec.ts`, `formula-ui` tests. Then check the Weapons/Artifacts pages, a team view
+5. Sheets: `libs/gi/sheets/src/Weapons/<Type>/<Key>/index.tsx` (+ type `index.ts`) /
+   `libs/gi/sheets/src/Artifacts/<Key>/index.tsx` (+ `index.ts`); manual strings in
+   `libs/gi/localization/assets/locales/en/{weapon,artifact}_<Key>.json`.
+6. Check: typecheck `gi-sheets` and `frontend` (§6), then the Weapons/Artifacts pages, a team view
    with the item equipped (toggle every conditional) and the Optimize tab in the browser.
 
 Notes from this batch:
 - The dump spells the set table's affix field `EquipAffixId`; `use_dump.sh` renames it (without that,
   gen-locale and gen-assets-data silently skip every artifact set).
-- WR weapon sheets add `refinementBonus` stats themselves (`allStats.weapon.data[key].refinementBonus`);
-  Pando's `entriesForWeapon` already includes them.
+- Weapon sheets add `refinementBonus` stats themselves (`allStats.weapon.data[key].refinementBonus`).
 - Stellar Glimmer = Stellar-Conduct + Stellar Swirl (HyperLink 11500004). WR Stellar hits sum general +
   `<reaction>_critRate_` + `<element>_critRate_` (wr/reaction/special.ts), so "CRIT Rate of Cryo DMG" is
-  `cryo_critRate_`. Pando tag reads with an element/reaction include the general stat: compare effects as
-  on − off deltas in specs.
-- Radiance: WR weapons read `input.flags.radiance` (set by the wielder's character sheet); Pando weapons use their
-  own `lockStellarRadianceSc` toggle (as WintersHeavyHeart does).
-- "Active character" buffs: WR `equal(input.activeCharKey, target.charKey, …)` in `teamBuff`; Pando `destIsActive`.
-  Test them with `buildWrTeamSolo` (`buildWrSolo` ignores the wielder's own teamBuff).
+  `cryo_critRate_`.
+- Radiance: weapons read `input.flags.radiance` (set by the wielder's character sheet).
+- "Active character" buffs: `equal(input.activeCharKey, target.charKey, …)` in `teamBuff`.
 
 Modelling notes / assumptions (beta text, may change):
 - TorrentsOfSpring: ATK +16–32% always; "Royal Decree" list toggle (Royal Decree / Order Complete). The
@@ -226,7 +204,6 @@ tools/dump-import/restore_dm.sh   # unlink dump + restore official deobf.ts
 - Stellar-Conduct hits (Gradient Detonation per beacon, Steady core consumption/detonation, C4) use EM base, Electro RES.
 - C6 "115% of original DMG" applied to all Steady State core hits (core, consumption, detonation), not C4.
 - C1 energy regen, C6 34% beacon chance, Overloaded beacon generation: not modelled (no stat impact).
-- Pando engine has no Stellar pipeline/baseDmg_/specialDmg_ tags yet → approximated like Sandrone (talent-style hits, dmg_ for bonuses).
 
 ## Danica / Anastasya modelling notes (7.3 beta)
 - Danica: toggles Anchor, Maid Form (Defense/Battle), Burst enhanced (cast in Radiance — community confirmed
@@ -259,7 +236,6 @@ tools/dump-import/restore_dm.sh   # unlink dump + restore official deobf.ts
 - C2: party EM +100 (toggle); "20 excess Impact Momentum" toggle = shield +160% ATK (partial amounts not modelled).
 - C6: Mortar + Thunderburst Shell DMG +100% (DMG bonus, CHS 提升); opponents hit: party `electro_critRate_` +10%,
   `stellarconduct_critDMG_` +40% (toggle). C1 energy and C4 charging efficiency not modelled.
-- Pando: the Stellar flat bonus goes to `formula.base.stellarconduct` (no Stellar pipeline yet, like Qiqi C6).
 - Blazing Lionfang (12438, 4★ claymore, ER): passive text only in CHS; English in `en_overrides.json`
   (passive name fixes the dump's "Convenant"). "Reforged Blade" toggle = ATK +20–40% and the switch-in
   AoE DMG 280–560% ATK (physical, total ATK, like Skyward Harp's proc).
