@@ -16,6 +16,17 @@ BRANCH=${3:-main}
 SITE=$HOME/.cache/${REPO%.github.io}-site
 eval "$(fnm env)" && fnm use 24 >/dev/null
 gh auth setup-git
+
+# every deploy is a release: the changelog's newest version must not be tagged yet (add one first:
+# node tools/site/release.mjs draft > entry.json, edit it, release.mjs add entry.json, commit).
+# REDEPLOY=1 publishes the same release again (say, after a failed Pages run).
+VERSION=$(node -p "require('./libs/gi/ui/src/changelog/changelog.json')[0].version")
+if git rev-parse -q --verify "refs/tags/v$VERSION" >/dev/null && [ "$REDEPLOY" != 1 ]; then
+  echo "ABORT: v$VERSION is already released. Add the next release to the changelog first."; exit 1
+fi
+if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
+  echo "ABORT: commit first (the release is tagged on HEAD)"; exit 1
+fi
 gh repo view $OWNER/$REPO >/dev/null 2>&1 || gh repo create $OWNER/$REPO --public --description "Genshin Optimizer (unofficial build)"
 
 # images are converted to WebP at build time (apps/frontend/vite-plugin-webp.mts); without cwebp
@@ -40,9 +51,11 @@ node tools/site/seo-publish.mjs lastmod dist/apps/frontend $SITE > /tmp/indexnow
 rsync -a dist/apps/frontend/ $SITE/
 cd $SITE
 git add -A
-git -c user.name="$OWNER" -c user.email="$OWNER@users.noreply.github.com" commit -q -m "Deploy $(date '+%F %T')" || echo "nothing changed"
+git -c user.name="$OWNER" -c user.email="$OWNER@users.noreply.github.com" commit -q -m "Deploy v$VERSION $(date '+%F %T')" || echo "nothing changed"
 git push -q origin $BRANCH
 gh api -X POST repos/$OWNER/$REPO/pages -f "source[branch]=$BRANCH" -f "source[path]=/" >/dev/null 2>&1 || true
 echo "Pushed $(git rev-parse --short HEAD). Pages rebuild takes ~1 min: https://$REPO/"
 # tell Bing/Yandex/… about the changed pages (waits until the deploy serves them)
 node $REPO_ROOT/tools/site/seo-publish.mjs indexnow $SITE < /tmp/indexnow-urls.txt || echo "IndexNow submission failed (not fatal)"
+# the release: tag v$VERSION on the source commit and publish its notes on GitHub
+cd $REPO_ROOT && node tools/site/release.mjs publish

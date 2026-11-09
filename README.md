@@ -35,6 +35,10 @@ Install `yarn` ([link](https://yarnpkg.com/getting-started/install)), then run `
 
 Run `yarn run nx serve frontend` for a dev server, then open [http://localhost:4200](http://localhost:4200). The app reloads when you change a source file.
 
+## Releases
+
+Every deploy of the site is a release: [CHANGELOG.md](/CHANGELOG.md) and the [GitHub releases](https://github.com/s-naveen/stellar-optimizer/releases) list what each one brought. The app shows the same notes on its home page and when you click the version in the footer. They come from `libs/gi/ui/src/changelog/changelog.json`; `node tools/site/release.mjs draft` proposes the next release from the commits.
+
 ## Acknowledgments
 
 ✨ The tesseract model for the artifact scanner was trained and provided by the creator of [Inventory Kamera](https://github.com/Andrewthe13th/Inventory_Kamera).
