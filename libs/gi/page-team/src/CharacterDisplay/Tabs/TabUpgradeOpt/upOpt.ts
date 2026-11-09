@@ -27,7 +27,12 @@ import {
   levelUpArtifact,
   makeObjective,
 } from '@genshin-optimizer/gi/upopt'
-import { type OptNode, optimize, precompute } from '@genshin-optimizer/gi/wr'
+import {
+  type Info,
+  type OptNode,
+  optimize,
+  precompute,
+} from '@genshin-optimizer/gi/wr'
 import { removeSetKeys } from './formulaUtils'
 import { erf } from './mathUtil'
 
@@ -113,6 +118,16 @@ export class UpOptCalculatorV2 {
   defineFallbackSlots: ArtifactSlotKey[] = []
   fixedIx = 0
   cache: ElixirSimplifiedCache = new Map()
+  /** The current build's values: the target, then each constraint (in `nodes` order) */
+  baseValues: number[] = []
+  /** Constraints the current build does not meet (set by the caller, which knows their names) */
+  unmetConstraints: {
+    info: Info | undefined
+    minimum: number
+    current: number
+  }[] = []
+  /** Empty slots of the build that no candidate artifact can fill (set by the caller) */
+  unfillableSlots: ArtifactSlotKey[] = []
 
   /** Serializes exact-calc work so candidates are refined one at a time. */
   private exactQueue: Promise<unknown> = Promise.resolve()
@@ -137,7 +152,10 @@ export class UpOptCalculatorV2 {
     const baseBuild = Object.values(artsBySlot.values).map((v) =>
       v.length > 0 ? v[0] : { id: '', values: {} }
     )
-    thresholds[0] = evalFn(baseBuild as ArtifactBuildData[] & { length: 5 })[0]
+    this.baseValues = [
+      ...evalFn(baseBuild as ArtifactBuildData[] & { length: 5 }),
+    ]
+    thresholds[0] = this.baseValues[0]
 
     // Create objective function & set up candidates.
     this.obj = makeObjective(nodes, thresholds)

@@ -16,6 +16,7 @@ import useCompareData from '../../../useCompareData'
 import BonusStatsModal from '../../BonusStatsModal'
 import CompareBtn from '../../CompareBtn'
 import { CustomMultiTargetModal } from '../../CustomMultiTarget/CustomMultiTargetModal'
+import { WhatToFarmStrip } from '../TabUpgradeOpt/WhatToFarmStrip'
 import EquipmentSection from './EquipmentSection'
 
 export default function TabOverview() {
@@ -47,6 +48,7 @@ export default function TabOverview() {
             sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}
           >
             <EquipmentRow onClick={onScroll} />
+            <WhatToFarmStrip />
             <CardThemed
               bgt="light"
               sx={{

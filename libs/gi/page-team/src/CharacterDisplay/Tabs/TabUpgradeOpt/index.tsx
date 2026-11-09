@@ -1,11 +1,5 @@
 import { useForceUpdate } from '@genshin-optimizer/common/react-util'
-import { iconInlineProps } from '@genshin-optimizer/common/svgicons'
-import {
-  CardThemed,
-  ImgIcon,
-  InfoTooltip,
-  SqBadge,
-} from '@genshin-optimizer/common/ui'
+import { CardThemed } from '@genshin-optimizer/common/ui'
 import {
   bulkCatTotal,
   clamp,
@@ -15,7 +9,6 @@ import {
   objPathValue,
   range,
 } from '@genshin-optimizer/common/util'
-import { artifactDefIcon } from '@genshin-optimizer/gi/assets'
 import type {
   ArtifactSetKey,
   ArtifactSlotKey,
@@ -24,11 +17,14 @@ import type {
 import {
   allArtifactSetKeys,
   allArtifactSlotKeys,
-  allSubstatKeys,
   artSlotMainKeys,
   charKeyToLocCharKey,
 } from '@genshin-optimizer/gi/consts'
-import type { ArtSetExclusionKey } from '@genshin-optimizer/gi/db'
+import type {
+  ArtSetExclusionKey,
+  ICachedArtifact,
+  OptConfig,
+} from '@genshin-optimizer/gi/db'
 import {
   TeamCharacterContext,
   useDatabase,
@@ -41,22 +37,14 @@ import {
   type FilterOption,
   initialFilterOption,
 } from '@genshin-optimizer/gi/schema'
-import { SlotIcon, StatIcon } from '@genshin-optimizer/gi/svgicons'
 import type { dataContextObj } from '@genshin-optimizer/gi/ui'
 import {
   AddArtInfo,
   ArtifactEditor,
-  ArtifactSetMultiAutocomplete,
-  ArtifactSetName,
-  ArtifactSetTooltip,
-  ArtifactSlotToggle,
   DataContext,
   getTeamData,
-  HitModeToggle,
   NoArtWarning,
-  ReactionToggle,
   resolveInfo,
-  useTeamData,
 } from '@genshin-optimizer/gi/ui'
 import { uiDataForTeam } from '@genshin-optimizer/gi/uidata'
 import { artifactFilterConfigs } from '@genshin-optimizer/gi/util'
@@ -66,18 +54,12 @@ import AddIcon from '@mui/icons-material/Add'
 import {
   Alert,
   Box,
-  ButtonGroup,
   CardContent,
-  Checkbox,
-  FormControlLabel,
   Grid,
-  Link,
   Pagination,
   Skeleton,
   Typography,
 } from '@mui/material'
-import type { ButtonProps } from '@mui/material/Button'
-import Button from '@mui/material/Button'
 import { Stack } from '@mui/system'
 import {
   Suspense,
@@ -93,36 +75,94 @@ import ArtifactSetConfig from '../TabOptimize/Components/ArtifactSetConfig'
 import BonusStatsCard from '../TabOptimize/Components/BonusStatsCard'
 import MainStatSelectionCard from '../TabOptimize/Components/MainStatSelectionCard'
 import { OptCharacterCard } from '../TabOptimize/Components/OptCharacterCard'
-import OptimizationTargetSelector from '../TabOptimize/Components/OptimizationTargetSelector'
 import { MultiTargetCard } from '../TabOptimize/Components/OptSettingsCards'
+import {
+  SettingsCard,
+  SettingsCardButton,
+} from '../TabOptimize/Components/SettingsCard'
 import StatFilterCard from '../TabOptimize/Components/StatFilterCard'
-import { LevelFilter } from './LevelFilter'
+import {
+  CraftingCard,
+  ImproveToolbar,
+  NoUpgradesAlert,
+  UpgradeSearchCard,
+} from './ImproveSections'
+import { SubstatValueCard } from './SubstatValueCard'
 import UpgradeOptChartCard from './UpgradeOptChartCard'
 import { canReshape, UpOptCalculatorV2 } from './upOpt'
-
-// artifact button gets its own type so multiple translations can be used
-type AddArtifactButtonProps = Omit<ButtonProps, 'onClick'> & {
-  onClick: () => void
-}
-
-function AddArtifactButton({ onClick }: AddArtifactButtonProps) {
-  const { t } = useTranslation(['artifact', 'ui'])
-  return (
-    <Button fullWidth onClick={onClick} color="info" startIcon={<AddIcon />}>
-      {t('addNew')}
-    </Button>
-  )
-}
 
 const filterOptionReducer = (
   state: Partial<FilterOption>,
   action: Partial<FilterOption>
 ) => ({ ...state, ...action })
+/**
+ * Whether swapping an artifact into the build keeps it within the artifact set rules (the
+ * set exclusions of the Artifact sets settings).
+ */
+function setRulesPredicate(
+  equippedArts: Record<ArtifactSlotKey, ICachedArtifact | undefined>,
+  artSetExclusion: OptConfig['artSetExclusion']
+) {
+  const curEquipSetKeys = objKeyMap(
+    allArtifactSlotKeys,
+    (slotKey) => equippedArts[slotKey]?.setKey
+  )
+  function respectSexExclusion({
+    slotKey,
+    setKey,
+  }: {
+    slotKey: ArtifactSlotKey
+    setKey: ArtifactSetKey
+  }) {
+    const newSK = { ...curEquipSetKeys }
+    newSK[slotKey] = setKey
+    const skc: Partial<Record<ArtifactSetKey, number>> = {}
+    allArtifactSlotKeys.forEach((slotKey) => {
+      const setKey = newSK[slotKey]
+      if (!setKey) return
+      if (setKey.startsWith('Prayers')) return
+      skc[setKey] = (skc[setKey] ?? 0) + 1
+    })
+    const pass = Object.entries(skc).every(([setKey, num]) => {
+      const ex = artSetExclusion[setKey as ArtSetExclusionKey]
+      if (!ex) return true
+      switch (num) {
+        case 0:
+        case 1:
+          return true
+        case 2:
+        case 3:
+          return !ex.includes(2)
+        case 4:
+        case 5:
+          return !ex.includes(4)
+        default:
+          throw Error('error in respectSetExclude: num > 5')
+      }
+    })
+    if (!pass) return false
+
+    if (!artSetExclusion['rainbow']) return true
+    const nRainbow = Object.values(skc).reduce((a, b) => a + (b % 2), 0)
+    switch (nRainbow) {
+      case 0:
+      case 1:
+        return true
+      case 2:
+      case 3:
+        return !artSetExclusion['rainbow'].includes(2)
+      case 4:
+      case 5:
+        return !artSetExclusion['rainbow'].includes(4)
+      default:
+        throw Error('error in respectSex: nRainbow > 5')
+    }
+  }
+  return respectSexExclusion
+}
+
 export default function TabUpopt() {
   const { t } = useTranslation('page_character_optimize')
-  const { t: tk } = useTranslation('statKey_gen')
-  const substatLabel = (key: string) =>
-    `${tk(key)}${['atk_', 'def_', 'hp_'].includes(key) ? '%' : ''}`
 
   const {
     teamId,
@@ -153,7 +193,8 @@ export default function TabUpopt() {
     upOptDefine,
     upOptDefineSubstats,
   } = optConfig
-  const teamData = useTeamData()
+  // the team page's data (same team, member and no overrides): not worked out a second time
+  const { teamData } = useContext(DataContext)
   const teammateArtifactIds = useTeammateArtifactIds()
   const { target: data } = teamData?.[characterKey as CharacterKey] ?? {}
 
@@ -273,6 +314,31 @@ export default function TabUpopt() {
 
   const equippedArts = useLoadoutArtifacts(loadoutDatum)
 
+  /** How many artifacts each of the upgrader's own filters keeps: says why a result is empty */
+  const funnel = useMemo(() => {
+    const { mainStatKeys, artSetExclusion } = optConfig
+    const inRange = filteredArts
+      .map((art) => database.arts.get(art.id))
+      .filter(notEmpty)
+    const fiveStar = inRange.filter((art) => art.rarity === 5)
+    const setRules = fiveStar.filter(
+      setRulesPredicate(equippedArts, artSetExclusion)
+    )
+    const mainStats = setRules.filter(
+      (art) =>
+        art.slotKey === 'flower' ||
+        art.slotKey === 'plume' ||
+        !mainStatKeys[art.slotKey]?.length ||
+        mainStatKeys[art.slotKey]?.includes(art.mainStatKey)
+    )
+    return {
+      inRange: inRange.length,
+      fiveStar: fiveStar.length,
+      setRules: setRules.length,
+      mainStats: mainStats.length,
+    }
+  }, [optConfig, filteredArts, database, equippedArts])
+
   const upOptCalc = useMemo(() => {
     const {
       statFilters,
@@ -322,61 +388,7 @@ export default function TabUpopt() {
         })
     )
 
-    const curEquipSetKeys = objKeyMap(
-      allArtifactSlotKeys,
-      (slotKey) => equippedArts[slotKey]?.setKey
-    )
-    function respectSexExclusion({
-      slotKey,
-      setKey,
-    }: {
-      slotKey: ArtifactSlotKey
-      setKey: ArtifactSetKey
-    }) {
-      const newSK = { ...curEquipSetKeys }
-      newSK[slotKey] = setKey
-      const skc: Partial<Record<ArtifactSetKey, number>> = {}
-      allArtifactSlotKeys.forEach((slotKey) => {
-        const setKey = newSK[slotKey]
-        if (!setKey) return
-        if (setKey.startsWith('Prayers')) return
-        skc[setKey] = (skc[setKey] ?? 0) + 1
-      })
-      const pass = Object.entries(skc).every(([setKey, num]) => {
-        const ex = artSetExclusion[setKey as ArtSetExclusionKey]
-        if (!ex) return true
-        switch (num) {
-          case 0:
-          case 1:
-            return true
-          case 2:
-          case 3:
-            return !ex.includes(2)
-          case 4:
-          case 5:
-            return !ex.includes(4)
-          default:
-            throw Error('error in respectSetExclude: num > 5')
-        }
-      })
-      if (!pass) return false
-
-      if (!artSetExclusion['rainbow']) return true
-      const nRainbow = Object.values(skc).reduce((a, b) => a + (b % 2), 0)
-      switch (nRainbow) {
-        case 0:
-        case 1:
-          return true
-        case 2:
-        case 3:
-          return !artSetExclusion['rainbow'].includes(2)
-        case 4:
-        case 5:
-          return !artSetExclusion['rainbow'].includes(4)
-        default:
-          throw Error('error in respectSex: nRainbow > 5')
-      }
-    }
+    const respectSexExclusion = setRulesPredicate(equippedArts, artSetExclusion)
     const artifactsToConsider = filteredArts
       // retrieve the artifacts again, just incase there is an update that is not captured by UpgradeOptChartCard
       .map((art) => database.arts.get(art.id))
@@ -433,7 +445,7 @@ export default function TabUpopt() {
       ({ path: [p] }) => p !== 'dyn'
     )
 
-    return new UpOptCalculatorV2(
+    const calc = new UpOptCalculatorV2(
       nodes,
       [Number.NEGATIVE_INFINITY, ...valueFilter.map((x) => x.minimum)],
       equippedArts,
@@ -441,6 +453,18 @@ export default function TabUpopt() {
       { enabled: upOptReshape, minTotal: upOptReshapeRolls as 2 | 3 | 4 },
       defineConfig
     )
+    // A build that misses a constraint can rarely be fixed by one upgrade: say which, rather
+    // than "no results"
+    calc.unmetConstraints = valueFilter.flatMap(({ value, minimum }, i) => {
+      const current = calc.baseValues[i + 1]
+      return current >= minimum ? [] : [{ info: value.info, minimum, current }]
+    })
+    calc.unfillableSlots = allArtifactSlotKeys.filter(
+      (slotKey) =>
+        !equippedArts[slotKey] &&
+        !artifactsToConsider.some((art) => art.slotKey === slotKey)
+    )
+    return calc
     /**
      * WARNING:
      * Due to the violatile nature of the calculations above,
@@ -577,308 +601,152 @@ export default function TabUpopt() {
     </CardThemed>
   )
 
+  const setTarget = useCallback(
+    (optimizationTarget: string[]) =>
+      database.optConfigs.set(optConfigId, { optimizationTarget }),
+    [database, optConfigId]
+  )
+  const [moreOpen, setMoreOpen] = useState(false)
+  /** Opens "More options" and brings the constraints into view */
+  const showConstraints = useCallback(() => {
+    setMoreOpen(true)
+    // once the panel is rendered
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() =>
+        document
+          .getElementById('improve-constraints')
+          ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      )
+    )
+  }, [])
+  /** How many of the options behind "More options" differ from their defaults */
+  const moreCount = useMemo(() => {
+    const { statFilters, mainStatKeys, artSetExclusion } = optConfig
+    return [
+      upOptReshape,
+      upOptDefine,
+      Object.values(statFilters).some((settings) =>
+        settings.some((setting) => !setting.disabled)
+      ),
+      Object.values(mainStatKeys).some((keys) => keys.length > 0),
+      Object.keys(artSetExclusion).length > 0,
+    ].filter(Boolean).length
+  }, [optConfig, upOptReshape, upOptDefine])
+
   return (
     <Box display="flex" flexDirection="column" gap={1}>
       {noArtifact && <NoArtWarning />}
-      {/* Build Generator Editor */}
       {dataContext && (
         <DataContext.Provider value={dataContext}>
           <Stack spacing={1}>
-            <Box>
-              <Grid container spacing={1}>
-                {/* 1*/}
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                  lg={3}
-                  display="flex"
-                  flexDirection="column"
-                  gap={1}
-                >
-                  {/* character card */}
-                  <OptCharacterCard characterKey={characterKey} />
-                  <BonusStatsCard />
-                  <MultiTargetCard />
-                </Grid>
-
-                {/* 2 */}
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                  lg={4}
-                  display="flex"
-                  flexDirection="column"
-                  gap={1}
-                >
-                  <LevelFilter
-                    levelTotal={levelTotal['in']}
-                    upOptLevelLow={upOptLevelLow}
-                    upOptLevelHigh={upOptLevelHigh}
-                    optConfigId={optConfigId}
-                  />
-                  <ArtifactSlotToggle
-                    onChange={(slotKeys) => {
-                      filterOptionDispatch({ slotKeys })
-                    }}
-                    totals={slotTotal}
-                    value={slotKeys}
-                  />
-                  <ArtifactSetMultiAutocomplete
-                    // Only show 5-star artifacts sets as they are filtered out of this page
-                    allowRarities={[5]}
-                    totals={setTotal}
-                    artSetKeys={artSetKeys}
-                    setArtSetKeys={(artSetKeys) =>
-                      filterOptionDispatch({ artSetKeys })
-                    }
-                  />
-                  <CardThemed bgt="light">
-                    <MainStatSelectionCard
-                      disabled={false}
-                      filteredArtIdMap={filteredArtIdMap}
-                    />
-                  </CardThemed>
-                </Grid>
-                {/* 3 */}
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                  lg={5}
-                  display="flex"
-                  flexDirection="column"
-                  gap={1}
-                >
-                  <ArtifactSetConfig disabled={false} />
-                  <AddArtifactButton
-                    onClick={() => setArtifactIdToEdit('new')}
-                  />
-                  <StatFilterCard disabled={false} />
-                  <CardThemed bgt="light">
-                    <CardContent>
-                      <Stack spacing={1}>
-                        <Box display="flex" alignItems="center">
-                          <FormControlLabel
-                            control={
-                              <Checkbox
-                                checked={upOptReshape}
-                                onChange={(_, upOptReshape) =>
-                                  database.optConfigs.set(optConfigId, {
-                                    upOptReshape,
-                                  })
-                                }
-                              />
-                            }
-                            label={t('upOptReshape.label')}
-                          />
-                          <SqBadge color="info" sx={{ mr: 2 }}>
-                            {reshapeCandidateCount}
-                          </SqBadge>
-                          <InfoTooltip
-                            title={
-                              <Typography>
-                                <Trans t={t} i18nKey="upOptReshape.tooltip">
-                                  Evaluate level 20 artifacts as reshape
-                                  candidates. Each eligible artifact is scored
-                                  once per substat pair, for 6 total
-                                  combinations.
-                                  <br />
-                                  Note: This requires importing your data using{' '}
-                                  <Link href="/#/scanner">Irminsul</Link>
-                                </Trans>
-                              </Typography>
-                            }
-                          />
-                        </Box>
-                        <Box>
-                          <Typography variant="body2" color="text.secondary">
-                            {t('upOptReshape.rolls')}
-                          </Typography>
-                          <ButtonGroup size="small" sx={{ mt: 0.5 }}>
-                            {[2, 3, 4].map((rolls) => (
-                              <Button
-                                key={rolls}
-                                color={
-                                  upOptReshapeRolls === rolls
-                                    ? 'success'
-                                    : 'secondary'
-                                }
-                                variant="contained"
-                                onClick={() =>
-                                  database.optConfigs.set(optConfigId, {
-                                    upOptReshapeRolls: rolls,
-                                  })
-                                }
-                              >
-                                {t('upOptReshape.rollOption', { count: rolls })}
-                              </Button>
-                            ))}
-                          </ButtonGroup>
-                        </Box>
-                      </Stack>
-                    </CardContent>
-                  </CardThemed>
-                  <CardThemed bgt="light">
-                    <CardContent>
-                      <Stack spacing={1}>
-                        <Box display="flex" alignItems="center">
-                          <FormControlLabel
-                            control={
-                              <Checkbox
-                                checked={upOptDefine}
-                                onChange={(_, upOptDefine) =>
-                                  database.optConfigs.set(optConfigId, {
-                                    upOptDefine,
-                                  })
-                                }
-                              />
-                            }
-                            label={t('upOptDefine.label')}
-                          />
-                          <InfoTooltip
-                            title={
-                              <Typography>
-                                {t('upOptDefine.tooltip')}
-                              </Typography>
-                            }
-                          />
-                        </Box>
-                        <Box>
-                          <Typography variant="body2" color="text.secondary">
-                            {t('upOptDefine.substats')}
-                            <SqBadge color="info" sx={{ ml: 1 }}>
-                              {upOptDefineSubstats.length}
-                            </SqBadge>
-                          </Typography>
-                          <Grid container spacing={0.5} sx={{ mt: 0.5 }}>
-                            {allSubstatKeys.map((key) => {
-                              const selected = upOptDefineSubstats.includes(key)
-                              return (
-                                <Grid item key={key}>
-                                  <Button
-                                    size="small"
-                                    color={selected ? 'success' : 'secondary'}
-                                    variant="contained"
-                                    startIcon={<StatIcon statKey={key} />}
-                                    onClick={() => {
-                                      const next = selected
-                                        ? upOptDefineSubstats.filter(
-                                            (k) => k !== key
-                                          )
-                                        : [...upOptDefineSubstats, key]
-                                      database.optConfigs.set(optConfigId, {
-                                        upOptDefineSubstats: next,
-                                      })
-                                    }}
-                                  >
-                                    {substatLabel(key)}
-                                  </Button>
-                                </Grid>
-                              )
-                            })}
-                          </Grid>
-                        </Box>
-                        <Box>
-                          <Typography variant="body2" color="text.secondary">
-                            {t('upOptDefine.sets')}
-                            <SqBadge color="info" sx={{ ml: 1 }}>
-                              {defineSets.length}
-                            </SqBadge>
-                          </Typography>
-                          {defineSets.length ? (
-                            <Box
-                              display="flex"
-                              flexWrap="wrap"
-                              gap={0.5}
-                              sx={{ mt: 0.5 }}
-                            >
-                              {defineSets.map(
-                                ({ setKey, slotKeys, arbitrary }) => (
-                                  <ArtifactSetTooltip
-                                    key={setKey}
-                                    setKey={setKey}
-                                  >
-                                    <SqBadge
-                                      color={arbitrary ? 'warning' : 'primary'}
-                                    >
-                                      <Typography>
-                                        <ImgIcon
-                                          size={1.5}
-                                          src={artifactDefIcon(setKey)}
-                                        />{' '}
-                                        <ArtifactSetName setKey={setKey} />
-                                        {slotKeys.length <
-                                          allArtifactSlotKeys.length && (
-                                          <>
-                                            {' '}
-                                            {slotKeys.map((slotKey) => (
-                                              <SlotIcon
-                                                key={slotKey}
-                                                slotKey={slotKey}
-                                                iconProps={iconInlineProps}
-                                              />
-                                            ))}
-                                          </>
-                                        )}
-                                      </Typography>
-                                    </SqBadge>
-                                  </ArtifactSetTooltip>
-                                )
-                              )}
-                            </Box>
-                          ) : (
-                            <Typography
-                              variant="caption"
-                              color="text.secondary"
-                            >
-                              {t('upOptDefine.setsEmpty')}
-                            </Typography>
-                          )}
-                          {!!defineFallbackSlots.length && (
-                            <Alert severity="warning" sx={{ mt: 1 }}>
-                              {t('upOptDefine.setsArbitrary')}{' '}
-                              {defineFallbackSlots.map((slotKey) => (
-                                <SlotIcon
-                                  key={slotKey}
-                                  slotKey={slotKey}
-                                  iconProps={iconInlineProps}
-                                />
-                              ))}
-                            </Alert>
-                          )}
-                        </Box>
-                      </Stack>
-                    </CardContent>
-                  </CardThemed>
-                </Grid>
-              </Grid>
-            </Box>
-            <ButtonGroup>
-              <OptimizationTargetSelector
-                optimizationTarget={optimizationTarget}
-                setTarget={(target) =>
+            {/* 1. What to improve */}
+            <ImproveToolbar
+              optimizationTarget={optimizationTarget}
+              setTarget={setTarget}
+            />
+            {/* 2. Which substats help it most, and which artifacts to look at */}
+            <Box
+              sx={{
+                display: 'grid',
+                gap: 1,
+                gridTemplateColumns: {
+                  xs: 'minmax(0, 1fr)',
+                  lg: 'minmax(0, 5fr) minmax(0, 6fr)',
+                },
+                alignItems: 'start',
+              }}
+            >
+              <SubstatValueCard />
+              <UpgradeSearchCard
+                levelTotal={levelTotal['in']}
+                levelLow={upOptLevelLow}
+                levelHigh={upOptLevelHigh}
+                setLevel={(upOptLevelLow, upOptLevelHigh) =>
                   database.optConfigs.set(optConfigId, {
-                    optimizationTarget: target,
+                    upOptLevelLow,
+                    upOptLevelHigh,
                   })
                 }
-                disabled={false}
-                targetSelectorModalProps={{
-                  excludeSections: ['character', 'bonusStats', 'teamBuff'],
-                }}
+                slotKeys={slotKeys}
+                slotTotal={slotTotal}
+                setSlotKeys={(slotKeys) => filterOptionDispatch({ slotKeys })}
+                artSetKeys={artSetKeys}
+                setTotal={setTotal}
+                setArtSetKeys={(artSetKeys) =>
+                  filterOptionDispatch({ artSetKeys })
+                }
+                moreOpen={moreOpen}
+                moreCount={moreCount}
+                onToggleMore={() => setMoreOpen((open) => !open)}
+                action={
+                  <SettingsCardButton
+                    startIcon={<AddIcon />}
+                    onClick={() => setArtifactIdToEdit('new')}
+                  >
+                    {t('improve.addArtifact', 'Add')}
+                  </SettingsCardButton>
+                }
               />
-            </ButtonGroup>
-            <Alert severity="info">
-              <Trans t={t} i18nKey={'upOptInfo'}>
-                The Artifact Upgrader identifies artifacts with high potential
-                to boost the Optimization Target's value, guiding you to
-                artifacts worth leveling up.
-                <br />
-                As it only swaps one artifact at a time, for the best overall
-                build across all artifacts, use the main artifact optimizer.
-              </Trans>
-            </Alert>
+            </Box>
+            {/* Everything else, out of the way until asked for */}
+            {moreOpen && (
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                  sx={{ px: 0.5 }}
+                >
+                  {t(
+                    'improve.sharedNote',
+                    "These options are shared with the Optimize tab: changing them here changes them there too. Only the level range above is the Improve tab's own."
+                  )}
+                </Typography>
+                <Box
+                  sx={{
+                    columns: { xs: 1, md: 2, xl: 3 },
+                    columnGap: 1,
+                    '& > *': { breakInside: 'avoid', mb: 1 },
+                  }}
+                >
+                  <Box>
+                    <SettingsCard title={t('settings.mainStats')}>
+                      <MainStatSelectionCard
+                        disabled={false}
+                        filteredArtIdMap={filteredArtIdMap}
+                      />
+                    </SettingsCard>
+                  </Box>
+                  <Box>
+                    <ArtifactSetConfig disabled={false} />
+                  </Box>
+                  <Box id="improve-constraints">
+                    <StatFilterCard disabled={false} />
+                  </Box>
+                  <Box>
+                    <CraftingCard
+                      optConfigId={optConfigId}
+                      upOptReshape={upOptReshape}
+                      upOptReshapeRolls={upOptReshapeRolls}
+                      reshapeCandidateCount={reshapeCandidateCount}
+                      upOptDefine={upOptDefine}
+                      upOptDefineSubstats={upOptDefineSubstats}
+                      defineSets={defineSets}
+                      defineFallbackSlots={defineFallbackSlots}
+                    />
+                  </Box>
+                  <Box>
+                    <OptCharacterCard characterKey={characterKey} />
+                  </Box>
+                  <Box>
+                    <BonusStatsCard />
+                  </Box>
+                  <Box>
+                    <MultiTargetCard />
+                  </Box>
+                </Box>
+              </Box>
+            )}
+            {/* 3. The artifacts worth leveling */}
             {Object.values(equippedArts).some((a) => !a) && (
               <Alert severity="warning">
                 <Trans t={t} i18nKey={'upOptEmptyBuild'}>
@@ -889,19 +757,6 @@ export default function TabUpopt() {
                 </Trans>
               </Alert>
             )}
-            <CardThemed bgt="light">
-              <CardContent>
-                <Grid container spacing={1}>
-                  <Grid item />
-                  <Grid item>
-                    <HitModeToggle size="small" />
-                  </Grid>
-                  <Grid item>
-                    <ReactionToggle size="small" />
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </CardThemed>
             {pagination}
             {noArtifact && <AddArtInfo />}
             <Suspense fallback={false}>
@@ -911,8 +766,14 @@ export default function TabUpopt() {
                 allowUpload
               />
             </Suspense>
-            {!upOptCalc?.candidates.length && (
-              <Alert severity="warning">{t('upOptNoResults')}</Alert>
+            {!!optimizationTarget && !upOptCalc?.candidates.length && (
+              <NoUpgradesAlert
+                unmet={upOptCalc?.unmetConstraints ?? []}
+                unfillable={upOptCalc?.unfillableSlots ?? []}
+                funnel={funnel}
+                onShowConstraints={showConstraints}
+                onShowOptions={() => setMoreOpen(true)}
+              />
             )}
             <Suspense
               fallback={
