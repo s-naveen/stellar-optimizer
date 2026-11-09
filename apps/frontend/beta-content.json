@@ -1,0 +1,15 @@
+{
+  "about": "Unreleased content from beta data. The beta site (gi-beta73.github.io) shows it; the released-only build (GO_RELEASED=1, stellaroptimizer.com) leaves it out entirely: its code, data, text and images. When something is released, delete it here (keys as in libs/gi/consts) and redeploy.",
+  "characters": ["Danica", "Anastasya"],
+  "weapons": ["TorrentsOfSpring", "Silverdawn"],
+  "artifactSets": ["LegacyOfTheFirstChronicle", "PreludeOfTheKingfisherCanopy"],
+  "pageSlugs": ["danica", "tsaritsa", "anastasya"],
+  "leakNames": [
+    "Torrents of Spring",
+    "Legacy of the First Chronicle",
+    "Prelude of the Kingfisher Canopy",
+    "tsaritsa-optimizer",
+    "肇史之遗",
+    "遥天奉翠华引"
+  ]
+}

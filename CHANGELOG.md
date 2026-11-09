@@ -23,7 +23,8 @@ _The first Stellar Optimizer release_
 - Team Optimize: optimize the whole team's artifacts and weapons for one rotation, with energy weapons, member swaps, the closest build when a requirement can't be met, and the next best team builds.
 - Improve tab (formerly the Artifact Upgrader), with a built-in substat value and a what-to-farm strip.
 - One-click theorycraft of any build, with its best roll distribution.
-- The unreleased characters Mitya, Danica, Anastasya and Valeriy, with the upcoming weapons and artifact sets.
+- Mitya and Valeriy, with their weapons, from beta data ahead of their release.
+- The unreleased characters Danica and Anastasya, with the upcoming weapons and artifact sets.
 - A best-build page for every character, and an FAQ.
 - This changelog, links to the source on GitHub and a Buy me a coffee link.
 

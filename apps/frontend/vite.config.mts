@@ -12,8 +12,22 @@ import { viteStaticCopy } from 'vite-plugin-static-copy'
 // biome-ignore lint/style/noRestrictedImports: the build plugin below must run the exact derivation used at runtime
 import { deriveCoreStats } from '../../libs/gi/stats/src/coreStats/derive'
 import pkg from '../../package.json' with { type: 'json' }
+import {
+  betaKeyTest,
+  readBetaContent,
+  releasedOnlyPlugin,
+  stripBetaKeys,
+} from './vite-plugin-released.mts'
 import { seoPagesPlugin } from './vite-plugin-seo-pages.mts'
 import { webpAssets } from './vite-plugin-webp.mts'
+
+/** Unreleased content: on the beta site only (see beta-content.json) */
+const beta = readBetaContent(resolve(__dirname, 'beta-content.json'))
+/**
+ * GO_RELEASED=1: the released-only build, for stellaroptimizer.com (into dist/apps/frontend-released).
+ * The default build is the beta site (gi-beta73.github.io), with everything.
+ */
+const released = process.env.GO_RELEASED === '1'
 
 /**
  * Loading/validating the database needs ~50 kB of the ~1 MB game data file (allStat_gen.json).
@@ -32,7 +46,9 @@ function coreStatsPlugin(): Plugin {
       if (normalizePath(id) !== dataModule) return null
       const jsonFile = resolve(statsDir, 'allStat_gen.json')
       this.addWatchFile(jsonFile)
-      const core = deriveCoreStats(JSON.parse(readFileSync(jsonFile, 'utf8')))
+      const data = JSON.parse(readFileSync(jsonFile, 'utf8'))
+      if (released) stripBetaKeys(data, betaKeyTest(beta))
+      const core = deriveCoreStats(data)
       return `export const coreStats = JSON.parse(${JSON.stringify(JSON.stringify(core))})`
     },
   }
@@ -150,6 +166,8 @@ export default defineConfig(() => ({
   },
 
   plugins: [
+    // the released-only build leaves the beta content out (see vite-plugin-released.mts)
+    released && releasedOnlyPlugin(beta),
     // Production builds ship large PNG art as WebP (see vite-plugin-webp.mts).
     webpAssets({
       cacheDir: resolve(__dirname, '../../node_modules/.cache/go-webp'),
@@ -162,6 +180,11 @@ export default defineConfig(() => ({
       siteUrl: `https://${CF_WEB_ANALYTICS_HOST}/`,
       siteName: 'Stellar Optimizer',
       bodyEndHtml: `<script>${CF_BEACON_INLINE}</script>`,
+      upcoming: new Set(beta.characters),
+      // the released-only build: no beta characters' pages, no beta weapons or sets in rankings
+      exclude: released
+        ? new Set([...beta.characters, ...beta.weapons, ...beta.artifactSets])
+        : undefined,
     }),
     react(),
     nxViteTsPaths(),
@@ -202,11 +225,16 @@ export default defineConfig(() => ({
   // Uncomment this if you are using workers.
   worker: {
     // https://vitejs.dev/guide/migration#worker-plugins-is-now-a-function
-    plugins: () => [nxViteTsPaths()],
+    plugins: () =>
+      released
+        ? [releasedOnlyPlugin(beta, { locales: false }), nxViteTsPaths()]
+        : [nxViteTsPaths()],
   },
 
   build: {
-    outDir: '../../dist/apps/frontend',
+    outDir: released
+      ? '../../dist/apps/frontend-released'
+      : '../../dist/apps/frontend',
     reportCompressedSize: true,
     // The bundled npm packages' licences (they ask for their notices to travel with the
     // code). Not linked from the UI; next to LICENSE.txt (public/) at the site root.

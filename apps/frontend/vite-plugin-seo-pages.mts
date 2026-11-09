@@ -25,6 +25,13 @@ type Options = {
   siteName: string
   /** HTML injected at the end of every page's <body> (e.g. the analytics snippet) */
   bodyEndHtml?: string
+  /** characters not released yet (their pages say the kit follows beta data) */
+  upcoming?: Set<string>
+  /**
+   * keys left out entirely: characters get no page, weapons and artifact sets leave the rankings
+   * (the released-only build, without beta content)
+   */
+  exclude?: Set<string>
 }
 
 const ROOT = resolve(__dirname, '../..')
@@ -180,8 +187,6 @@ const SUPPORT_NOTES: Record<string, (sp: SkillParams) => string> = {
 </section>`
   },
 }
-/** Not released yet: their kits follow the current beta data */
-const UPCOMING = new Set(['Danica', 'Anastasya', 'Valeriy', 'Mitya'])
 /** Not a playable character */
 const EXCLUDED = new Set(['Somnia'])
 /** Placeholder talent names in unreleased data ("C1", "Danica Normal Attack", …) */
@@ -288,7 +293,32 @@ function twoPieceBonuses(sets: Record<string, number>) {
   )
 }
 
-function loadCharacters(builds: Builds): Character[] {
+/**
+ * A character's computed builds without the excluded weapons and artifact sets; the rest re-ranked
+ * against the best one left (`rel`, in %)
+ */
+function withoutExcluded(
+  list: ComputedBuild[],
+  exclude?: Set<string>
+): ComputedBuild[] {
+  if (!exclude?.size) return list
+  const rescale = <T extends { rel: number }>(rows: T[]) => {
+    const top = Math.max(...rows.map((r) => r.rel))
+    return rows.map((r) => ({
+      ...r,
+      rel: top > 0 ? (r.rel / top) * 100 : r.rel,
+    }))
+  }
+  return list.map((b) => ({
+    ...b,
+    sets: rescale(
+      b.sets.filter((s) => !Object.keys(s.sets).some((k) => exclude.has(k)))
+    ),
+    weapons: rescale(b.weapons.filter((w) => !exclude.has(w.key))),
+  }))
+}
+
+function loadCharacters(builds: Builds, opts: Options): Character[] {
   const allStats = readJson('libs/gi/stats/src/allStat_gen.json')
   const stats = allStats.char.data
   const skillParams: Record<string, SkillParams> = allStats.char.skillParam
@@ -318,7 +348,7 @@ function loadCharacters(builds: Builds): Character[] {
   const travelers = new Set<string>(charConsts.allTravelerKeys)
   const chars: Character[] = []
   for (const key of charConsts.allCharacterKeys) {
-    if (EXCLUDED.has(key)) continue
+    if (EXCLUDED.has(key) || opts.exclude?.has(key)) continue
     if (travelers.has(key)) {
       const element = key.slice('Traveler'.length).toLowerCase() as Element
       if (!ELEMENTS.includes(element)) continue
@@ -349,9 +379,9 @@ function loadCharacters(builds: Builds): Character[] {
       element: data.ele,
       weapon: data.weaponType,
       rarity: data.rarity,
-      upcoming: UPCOMING.has(key),
+      upcoming: !!opts.upcoming?.has(key),
       talents: talentNames(key),
-      builds: builds.characters[key] ?? [],
+      builds: withoutExcluded(builds.characters[key] ?? [], opts.exclude),
       support: skillParams[key] && SUPPORT_NOTES[key]?.(skillParams[key]),
     })
   }
@@ -923,9 +953,11 @@ function faqPage(opts: Options, all: Character[]) {
     },
     {
       q: 'Which characters are supported?',
-      a: `Every playable character, including upcoming ones from the current beta data: ${list(
-        upcoming.map(link)
-      )}. Upcoming kits can still change before release.`,
+      a: upcoming.length
+        ? `Every playable character, including upcoming ones from the current beta data: ${list(
+            upcoming.map(link)
+          )}. Upcoming kits can still change before release.`
+        : 'Every playable character.',
     },
     {
       q: 'How does it find the best build?',
@@ -975,9 +1007,15 @@ ${qa.map(({ q, a }) => `<dt>${esc(q)}</dt>\n<dd>${a}</dd>`).join('\n')}
 /** https://llmstxt.org: a short Markdown map of the site for AI tools */
 function llmsTxt(opts: Options, all: Character[]) {
   const computed = all.filter((c) => c.builds.length)
+  const upcoming = all.filter((c) => c.upcoming)
+  const upcomingNote = upcoming.length
+    ? `, and supports upcoming characters such as ${list(
+        upcoming.map((c) => c.name)
+      )} from beta data`
+    : ''
   return `# ${opts.siteName}
 
-> Free Genshin Impact artifact and build optimizer that runs in the browser, with no account. It finds the best artifacts, main stats and weapons for each character from the player's own inventory, using full damage calculations, and supports upcoming characters such as Danica and the Tsaritsa (Anastasya) from beta data.
+> Free Genshin Impact artifact and build optimizer that runs in the browser, with no account. It finds the best artifacts, main stats and weapons for each character from the player's own inventory, using full damage calculations${upcomingNote}.
 
 The app itself needs JavaScript. The pages below are plain HTML.
 
@@ -1020,6 +1058,31 @@ function aliasPage(opts: Options, from: string, to: Character) {
 `
 }
 
+/**
+ * The page for addresses that don't exist (GitHub Pages and Cloudflare Pages both serve 404.html;
+ * without one, Cloudflare answers every unknown address with the app's home page). Served at any
+ * path, so its links are root-relative.
+ */
+function notFoundPage(opts: Options) {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Page not found | ${esc(opts.siteName)}</title>
+<meta name="robots" content="noindex" />
+<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0e1020;color:#ece5d8;font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}main{max-width:34rem;padding:2rem}h1{font:600 2.2rem "Iowan Old Style",Palatino,Georgia,serif;margin:0 0 .5rem}a{color:#d3bc8e}</style>
+</head>
+<body><main>
+<h1>Page not found</h1>
+<p>There's no page at this address. Open <a href="/">${esc(opts.siteName)}</a>, or see the <a href="/optimizers/">character optimizers</a>.</p>
+</main>
+${opts.bodyEndHtml ?? ''}
+</body>
+</html>
+`
+}
+
 export function seoPagesPlugin(opts: Options): Plugin {
   return {
     name: 'seo-pages',
@@ -1029,7 +1092,7 @@ export function seoPagesPlugin(opts: Options): Plugin {
       const builds: Builds = existsSync(buildsFile)
         ? JSON.parse(readFileSync(buildsFile, 'utf8'))
         : { generated: '', characters: {} }
-      const chars = loadCharacters(builds)
+      const chars = loadCharacters(builds, opts)
       const emit = (fileName: string, source: string) =>
         this.emitFile({ type: 'asset', fileName, source })
       for (const c of chars)
@@ -1046,6 +1109,7 @@ export function seoPagesPlugin(opts: Options): Plugin {
       emit('optimizers/index.html', hubPage(opts, chars))
       emit('faq/index.html', faqPage(opts, chars))
       emit('llms.txt', llmsTxt(opts, chars))
+      emit('404.html', notFoundPage(opts))
       // indexed pages only; tools/site/seo-publish.mjs sets each lastmod from real changes
       const today = new Date().toISOString().slice(0, 10)
       const urls = [
