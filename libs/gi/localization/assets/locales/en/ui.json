@@ -3,6 +3,8 @@
   "homeTitle": "Stellar Optimizer: Genshin Impact Artifact & Build Optimizer",
   "characterOptimizers": "Character optimizers",
   "faq": "FAQ",
+  "github": "GitHub",
+  "buyMeACoffee": "Buy me a coffee",
   "tabs": {
     "weapons": "Weapons",
     "artifacts": "Artifacts",
@@ -80,5 +82,17 @@
   "activeDatabase": "Active database",
   "mainNav": "Main",
   "openMenu": "Open menu",
-  "optimizationTarget": "Optimization target"
+  "optimizationTarget": "Optimization target",
+  "changelog": {
+    "title": "Changelog",
+    "open": "Changelog",
+    "whatsNew": "What’s new",
+    "allChanges": "Full changelog",
+    "allReleases": "All releases on GitHub",
+    "close": "Close",
+    "new": "New",
+    "improved": "Improved",
+    "fixed": "Fixed",
+    "onGitHub": "Release on GitHub"
+  }
 }

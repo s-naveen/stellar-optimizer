@@ -105,6 +105,13 @@ function hashLocales() {
  * and the page reloads onto the new build). See src/app/updateCheck.ts.
  */
 const buildId = Date.now().toString(36)
+/** The release this build is: the newest entry of the changelog (tools/site/release.mjs adds them) */
+const releaseVersion: string = JSON.parse(
+  readFileSync(
+    resolve(__dirname, '../../libs/gi/ui/src/changelog/changelog.json'),
+    'utf8'
+  )
+)[0].version
 function buildVersionPlugin(): Plugin {
   return {
     name: 'go-build-version',
@@ -113,7 +120,7 @@ function buildVersionPlugin(): Plugin {
       this.emitFile({
         type: 'asset',
         fileName: 'version.json',
-        source: JSON.stringify({ build: buildId }),
+        source: JSON.stringify({ build: buildId, version: releaseVersion }),
       })
     },
     writeBundle(options) {

@@ -1,8 +1,12 @@
 import { Box } from '@mui/material'
 import GettingStartedCard from './GettingStartedCard'
 import InventoryCard from './InventoryCard'
+import WhatsNewCard from './WhatsNewCard'
 
-/** Home is a dashboard: the setup checklist for new users, then the inventory and recent teams. */
+/**
+ * Home is a dashboard: the setup checklist for new users, then the inventory and recent teams, then
+ * what the latest release brought.
+ */
 export default function PageHome() {
   return (
     <Box
@@ -16,6 +20,7 @@ export default function PageHome() {
     >
       <GettingStartedCard />
       <InventoryCard />
+      <WhatsNewCard />
     </Box>
   )
 }

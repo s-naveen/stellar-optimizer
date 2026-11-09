@@ -1,6 +1,6 @@
 import { Alert, Button, Snackbar } from '@mui/material'
 import { useEffect, useState } from 'react'
-import { newerBuild, onNewerBuild } from './updateCheck'
+import { newerBuild, newerVersion, onNewerBuild } from './updateCheck'
 
 /**
  * "A newer version is published": shown when the live site moved on while this page was open (or
@@ -8,7 +8,15 @@ import { newerBuild, onNewerBuild } from './updateCheck'
  */
 export function UpdateBanner() {
   const [newer, setNewer] = useState(newerBuild())
-  useEffect(() => onNewerBuild(() => setNewer(newerBuild())), [])
+  const [version, setVersion] = useState(newerVersion())
+  useEffect(
+    () =>
+      onNewerBuild(() => {
+        setNewer(newerBuild())
+        setVersion(newerVersion())
+      }),
+    []
+  )
   return (
     <Snackbar
       open={!!newer}
@@ -27,7 +35,9 @@ export function UpdateBanner() {
           </Button>
         }
       >
-        A newer version of Stellar Optimizer is published.
+        {version
+          ? `Stellar Optimizer v${version} is out.`
+          : 'A newer version of Stellar Optimizer is published.'}
       </Alert>
     </Snackbar>
   )

@@ -10,6 +10,8 @@ declare const __GO_BUILD_ID__: string
 
 const RELOADED = 'go-reloaded-for'
 let latest: string | undefined
+/** The release version version.json gave with `latest` (sites deployed before 1.0.0 give none) */
+let latestVersion: string | undefined
 const listeners = new Set<() => void>()
 
 /** The build this page runs */
@@ -19,6 +21,11 @@ export const currentBuild =
 /** The live site's build, if it is newer than this page's (known after a check) */
 export function newerBuild(): string | undefined {
   return latest && latest !== currentBuild ? latest : undefined
+}
+
+/** The live site's release version, when it is newer than this page's build and says it */
+export function newerVersion(): string | undefined {
+  return newerBuild() && latestVersion
 }
 
 /** Reloads the page once for `reason` (a build or the worker): never twice in a row for it */
@@ -34,9 +41,13 @@ async function check(): Promise<void> {
       cache: 'no-store',
     })
     if (!res.ok) return
-    const { build } = (await res.json()) as { build?: string }
+    const { build, version } = (await res.json()) as {
+      build?: string
+      version?: string
+    }
     if (!build || build === latest) return
     latest = build
+    latestVersion = version
     for (const listener of listeners) listener()
   } catch {
     // offline: checked again when the network is back
