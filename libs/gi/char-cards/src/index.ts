@@ -271,3 +271,37 @@ export function charCard(charKey: CharacterKey, gender: GenderKey) {
       return charCards[charKey]
   }
 }
+
+/**
+ * The full splash art (2048×1024, a transparent PNG converted to WebP), one file per character.
+ * Only the URLs are bundled: an image is downloaded when something draws it (the build card).
+ */
+const splashArt = import.meta.glob<string>('./splash/*.webp', {
+  query: '?url',
+  import: 'default',
+  eager: true,
+})
+
+/** The character's splash art URL, or undefined when there is none (e.g. not released yet) */
+export function charSplash(
+  charKey: CharacterKey,
+  gender: GenderKey
+): string | undefined {
+  const key = charKey.startsWith('Traveler') ? `Traveler${gender}` : charKey
+  return splashArt[`./splash/${key}.webp`]
+}
+
+/**
+ * Official art (opaque, already cropped to the character) for characters with no splash art yet:
+ * the unreleased ones, from their reveal. Like the splash art, only the URLs are bundled.
+ */
+const illustrations = import.meta.glob<string>('./art/*.webp', {
+  query: '?url',
+  import: 'default',
+  eager: true,
+})
+
+/** The character's official art URL, if it has some (see `illustrations`) */
+export function charIllustration(charKey: CharacterKey): string | undefined {
+  return illustrations[`./art/${charKey}.webp`]
+}
