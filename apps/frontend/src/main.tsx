@@ -1,4 +1,5 @@
 import { isDev } from '@genshin-optimizer/common/util'
+import { reloadOnce, startUpdateCheck } from './app/updateCheck'
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
@@ -22,10 +23,17 @@ window.addEventListener('load', () =>
   setTimeout(() => sessionStorage.removeItem('go-preload-reload'), 10000)
 )
 // Cache the site in the browser so repeat visits are instant (see public/sw.js). Production only.
-if ('serviceWorker' in navigator && !isDev && location.protocol === 'https:')
+if ('serviceWorker' in navigator && !isDev && location.protocol === 'https:') {
+  // A new deploy's worker took over (it dropped the old cache): reload onto the new build
+  const hadController = !!navigator.serviceWorker.controller
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (hadController) reloadOnce('worker')
+  })
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js').catch(() => undefined)
   })
+}
+if (!isDev) startUpdateCheck()
 let mode: 'main' | 'newtab' = 'main'
 let root = createRoot(document.getElementById('root') as HTMLElement)
 root.render(

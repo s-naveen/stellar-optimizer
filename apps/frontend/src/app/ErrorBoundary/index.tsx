@@ -22,6 +22,7 @@ import type { ErrorInfo, ReactNode } from 'react'
 import { Component, Suspense } from 'react'
 import type { WithTranslation } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
+import { newerBuild } from '../updateCheck'
 import SpaghettiCode from './SpaghettiCode.png'
 
 interface Props extends WithTranslation {
@@ -30,9 +31,9 @@ interface Props extends WithTranslation {
 
 interface State {
   error?: Error
-}
   /** Where in the component tree it happened (minified names with bundle positions in production) */
   componentStack?: string
+}
 
 class ErrorBoundary extends Component<Props, State> {
   public override state: State = {
@@ -47,7 +48,6 @@ class ErrorBoundary extends Component<Props, State> {
 
   public override componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error('Uncaught error:', error, errorInfo)
-  }
     // in the report: the components it happened in (the error's own stack is only React's internals
     // for errors React throws, e.g. #185 "Maximum update depth exceeded")
     if (errorInfo.componentStack)
@@ -58,6 +58,7 @@ class ErrorBoundary extends Component<Props, State> {
           .slice(0, 40)
           .join('\n'),
       })
+  }
 
   public override render() {
     if (this.state.error) {
@@ -102,6 +103,19 @@ class ErrorBoundary extends Component<Props, State> {
                       <ErrorIcon color="error" />
                     </CardContent>
                     <Divider />
+                    {newerBuild() && (
+                      // an error from old code (served by the offline cache): the fix may be live
+                      <CardContent sx={{ pb: 0 }}>
+                        <Button
+                          variant="contained"
+                          color="success"
+                          onClick={() => window.location.reload()}
+                        >
+                          This page runs an older version: reload to get the
+                          latest
+                        </Button>
+                      </CardContent>
+                    )}
                     <Box display="flex">
                       <CardContent sx={{ flexGrow: 1, maxWidth: 600 }}>
                         <Typography>{t`p1.1`}</Typography>

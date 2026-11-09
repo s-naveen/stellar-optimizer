@@ -2,7 +2,7 @@
 // https://vitejs.dev/guide/troubleshooting.html#this-package-is-esm-only
 
 import { createHash } from 'node:crypto'
-import { readdirSync, readFileSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin'
 /// <reference types="vitest" />
@@ -99,6 +99,34 @@ function hashLocales() {
   return hash.digest('hex').slice(0, 10)
 }
 
+/**
+ * This build's id: in the app (__GO_BUILD_ID__), in version.json (what the live site serves, never
+ * cached) and in sw.js (a new id makes a new service worker: it drops the old cache and takes over,
+ * and the page reloads onto the new build). See src/app/updateCheck.ts.
+ */
+const buildId = Date.now().toString(36)
+function buildVersionPlugin(): Plugin {
+  return {
+    name: 'go-build-version',
+    apply: 'build',
+    generateBundle() {
+      this.emitFile({
+        type: 'asset',
+        fileName: 'version.json',
+        source: JSON.stringify({ build: buildId }),
+      })
+    },
+    writeBundle(options) {
+      const sw = resolve(options.dir ?? '', 'sw.js')
+      if (!existsSync(sw)) return
+      writeFileSync(
+        sw,
+        readFileSync(sw, 'utf8').replaceAll('__GO_BUILD_ID__', buildId)
+      )
+    },
+  }
+}
+
 export default defineConfig(() => ({
   base: '',
   root: __dirname,
@@ -120,7 +148,14 @@ export default defineConfig(() => ({
       cacheDir: resolve(__dirname, '../../node_modules/.cache/go-webp'),
     }),
     coreStatsPlugin(),
+    buildVersionPlugin(),
     cloudflareWebAnalyticsPlugin(),
+    // static landing pages (/<name>-optimizer/, /optimizers/), sitemap.xml and robots.txt
+    seoPagesPlugin({
+      siteUrl: `https://${CF_WEB_ANALYTICS_HOST}/`,
+      siteName: 'Stellar Optimizer',
+      bodyEndHtml: `<script>${CF_BEACON_INLINE}</script>`,
+    }),
     react(),
     nxViteTsPaths(),
     // Nx executor for vite does not support `assets` prop for copying files.
@@ -150,16 +185,11 @@ export default defineConfig(() => ({
             k === 'NODE_ENV' ||
             k === 'NX_URLS_GUIDES') &&
           !/PATREON|PAYPAL|TWITCH|TWITTER/.test(k)
-    // static landing pages (/<name>-optimizer/, /optimizers/), sitemap.xml and robots.txt
-    seoPagesPlugin({
-      siteUrl: `https://${CF_WEB_ANALYTICS_HOST}/`,
-      siteName: 'Stellar Optimizer',
-      bodyEndHtml: `<script>${CF_BEACON_INLINE}</script>`,
-    }),
       )
     ),
     __VERSION__: `"${pkg.version}"`,
     __GO_LOCALES_VERSION__: JSON.stringify(hashLocales()),
+    __GO_BUILD_ID__: JSON.stringify(buildId),
   },
 
   // Uncomment this if you are using workers.

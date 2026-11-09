@@ -25,6 +25,7 @@ import ErrorBoundary from './ErrorBoundary'
 import Footer from './Footer'
 import Header from './Header'
 import Snow from './Snow'
+import { UpdateBanner } from './UpdateBanner'
 
 type PageModule = { default: ComponentType<any> }
 /**
@@ -230,6 +231,7 @@ function Content() {
       })}
     >
       <Header anchor="back-to-top-anchor" />
+      <UpdateBanner />
       {/* Main content */}
       <Box display="flex" justifyContent="center" alignItems="flex-start">
         {/* Content: see useContentMaxWidth for the width; the side padding keeps it off the

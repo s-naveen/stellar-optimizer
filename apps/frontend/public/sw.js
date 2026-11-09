@@ -5,7 +5,9 @@
  * Entries are evicted 30 days after they were cached (a file that is still used is simply
  * fetched again), so the files of old deploys do not pile up.
  */
-const CACHE = 'go-cache-v2' // bumping the version deletes the previous cache on activation
+// Named after the build (stamped at build time): each deploy is a new worker, which deletes the
+// previous cache on activation and takes over the open pages (they then reload onto the new build)
+const CACHE = 'go-cache-__GO_BUILD_ID__'
 const HASHED = /-[A-Za-z0-9_-]{8}\.[a-z0-9]+$/i
 const DAY_MS = 24 * 60 * 60 * 1000
 const MAX_AGE_MS = 30 * DAY_MS
@@ -108,6 +110,8 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(req.url)
   if (url.origin !== self.location.origin) return
   if (req.headers.has('range')) return // let the browser handle partial (media) requests
+  // what build the live site is on: always asked of the network (see src/app/updateCheck.ts)
+  if (url.pathname.endsWith('/version.json')) return
   if (req.mode === 'navigate') {
     event.respondWith(networkFirst(req, event))
     event.waitUntil(evictOld().catch(() => undefined))
