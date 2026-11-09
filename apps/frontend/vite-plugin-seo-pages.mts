@@ -392,11 +392,24 @@ dl.faq dd{margin:6px 0 0;color:#cfc8bb}
 footer{margin-top:48px;padding:24px 20px 40px;border-top:1px solid #22222a;color:#8f8a80;font-size:.85rem}
 `
 
+/** Search engines show (and Bing checks) up to 160 characters of a meta description */
+const MAX_DESCRIPTION = 160
+/** `text` as a meta description: whole, or cut at a word with "…" (and a build warning) */
+function fitDescription(text: string, path: string) {
+  if (text.length <= MAX_DESCRIPTION) return text
+  const cut = text.slice(0, MAX_DESCRIPTION - 1)
+  const fitted = `${cut.slice(0, cut.lastIndexOf(' ')).replace(/[\s,;:.]+$/, '')}…`
+  console.warn(
+    `[seo-pages] ${path || '/'}: description cut to ${fitted.length} characters (was ${text.length}): shorten its template`
+  )
+  return fitted
+}
+
 function page({
   opts,
   path,
   title,
-  description,
+  description: fullDescription,
   body,
   breadcrumb,
   index = true,
@@ -415,6 +428,7 @@ function page({
   extraLd?: object[]
 }) {
   const url = opts.siteUrl + path
+  const description = fitDescription(fullDescription, path)
   const depth = path.split('/').filter(Boolean).length
   const up = '../'.repeat(depth)
   const jsonLd = {
@@ -473,7 +487,7 @@ ${index ? '' : '<meta name="robots" content="noindex, follow" />\n'}<link rel="c
 <style>${CSS.trim()}</style>
 </head>
 <body>
-<header><a href="${up}"><img src="${up}favicon.svg" alt="" />${esc(opts.siteName)}</a></header>
+<header><a href="${up}"><img src="${up}favicon.svg" alt="Logo" />${esc(opts.siteName)}</a></header>
 <main>
 ${body}
 </main>
@@ -788,9 +802,9 @@ function characterPage(
       : `${c.name} Optimizer: Best DPS Build, Artifacts & Weapons`
   const description = b
     ? builds.length > 1
-      ? `${cap(c.short)}${c.support ? ' as a support, plus' : ':'} computed DPS builds for ${variantsText(builds)}: the best artifact sets, main stats and weapons for each. Then optimize ${c.short} with your own artifacts, free.`
-      : `${c.support ? `${cap(c.short)} as a support, plus the computed DPS build: ` : `${cap(c.short)}'s best DPS build, computed: `}${setLabel(b.sets[0].sets)}, ${statShort(b.mains[0].sands)}/${statShort(b.mains[0].goblet)}/${statShort(b.mains[0].circlet)} and ${weaponName(b.weapons[0].key)}. Then optimize ${c.short} with your own artifacts, free.`
-    : `Optimize ${named}'s build in Genshin Impact from your own artifacts: the optimizer tries the combinations you own and calculates ${c.short}'s damage. Free, in your browser.`
+      ? `${cap(c.short)}${c.support ? ' as a support, plus' : ':'} computed DPS builds for ${variantsText(builds)}, with the best sets, main stats and weapons. Optimize yours, free.`
+      : `${c.support ? `${cap(c.short)} as a support, plus the computed DPS build: ` : `${cap(c.short)}'s best DPS build: `}${setLabel(b.sets[0].sets)}, ${statShort(b.mains[0].sands)}/${statShort(b.mains[0].goblet)}/${statShort(b.mains[0].circlet)}, ${weaponName(b.weapons[0].key)}. Optimize yours, free.`
+    : `Optimize ${named}'s Genshin Impact build from your own artifacts: it tries the combinations you own and calculates the damage. Free, in your browser.`
   const related = all.filter((o) => o.element === c.element && o.key !== c.key)
   const kit = KIT_NOTES[c.key] ?? []
   const appLink = `../#/characters/${c.key}`
@@ -939,7 +953,7 @@ ${qa.map(({ q, a }) => `<dt>${esc(q)}</dt>\n<dd>${a}</dd>`).join('\n')}
     opts,
     path: 'faq/',
     title: `${opts.siteName} FAQ: Genshin Impact Build Optimizer`,
-    description: `Answers about ${opts.siteName}: a free Genshin Impact build optimizer in your browser, with no account. Your data stays on your device; import artifacts from scanners.`,
+    description: `${opts.siteName} FAQ: a free Genshin Impact build optimizer in your browser, no account. Your data stays on your device; import artifacts from scanners.`,
     body,
     breadcrumb: [
       { name: opts.siteName, path: '' },
