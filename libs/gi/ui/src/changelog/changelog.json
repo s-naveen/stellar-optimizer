@@ -1,5 +1,16 @@
 [
   {
+    "version": "1.1.2",
+    "date": "2026-11-09",
+    "improved": [
+      "Danica and the Tsaritsa follow the latest beta data: the Tsaritsa's Palestar Crown and her burst's Stellar Glimmer bonus are lower.",
+      "The upcoming artifact sets have their official names, Epochal Advent and Empyrean Sojourn."
+    ],
+    "fixed": [
+      "Epochal Advent's 4-piece bonus only counts while the wearer is on the field, as in the latest beta."
+    ]
+  },
+  {
     "version": "1.1.1",
     "date": "2026-11-09"
   },

@@ -4,6 +4,17 @@ Every release of [Stellar Optimizer](https://gi-beta73.github.io/). The app show
 (home page, and the version in the footer). Generated from
 `libs/gi/ui/src/changelog/changelog.json` by `tools/site/release.mjs`: edit that file, not this one.
 
+## [v1.1.2](https://github.com/s-naveen/stellar-optimizer/releases/tag/v1.1.2) (2026-11-09)
+
+### Improved
+
+- Danica and the Tsaritsa follow the latest beta data: the Tsaritsa's Palestar Crown and her burst's Stellar Glimmer bonus are lower.
+- The upcoming artifact sets have their official names, Epochal Advent and Empyrean Sojourn.
+
+### Fixed
+
+- Epochal Advent's 4-piece bonus only counts while the wearer is on the field, as in the latest beta.
+
 ## [v1.1.0](https://github.com/s-naveen/stellar-optimizer/releases/tag/v1.1.0) (2026-11-09)
 
 _Build cards_
