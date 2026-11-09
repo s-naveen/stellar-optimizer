@@ -400,6 +400,16 @@
     "header": {
       "total": "Rotation DMG",
       "dps": "DPS"
+    },
+    "card": {
+      "button": "Team card",
+      "title": "Team card",
+      "alt": "The builds of {{team}}",
+      "share": "of the damage",
+      "memberDps": "{{value}} DPS",
+      "rotation": "Rotation",
+      "seconds": "{{value}} s",
+      "rotationDamage": "Damage per rotation"
     }
   }
 }

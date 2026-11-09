@@ -75,6 +75,7 @@ import { formatGain, formatRate } from './format'
 import { MemberAvatar } from './MemberAvatar'
 import type { ResultDetailsData } from './ResultDetails'
 import { MemberDetails, useResultDetails } from './ResultDetails'
+import { TeamCardButton } from './TeamCardButton'
 
 /** What Team Optimize found: the rotation's damage before and after, and each member's build */
 export function TeamOptResults({
@@ -214,6 +215,12 @@ export function TeamOptResults({
                 {t('teamOpt.result.compare', 'Compare with equipped')}
               </Typography>
             }
+          />
+          <TeamCardButton
+            teamId={teamId}
+            result={result}
+            runTeamOpt={runTeamOpt}
+            rotationTime={rotationTime}
           />
           {applied ? (
             <Typography
