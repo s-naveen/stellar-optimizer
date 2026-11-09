@@ -6,7 +6,7 @@ import {
 } from '@genshin-optimizer/common/ui'
 import type { CharacterKey } from '@genshin-optimizer/gi/consts'
 import type { TeamOpt, TeamOptAttack } from '@genshin-optimizer/gi/db'
-import { useDatabase, useDBMeta, useTeam } from '@genshin-optimizer/gi/db-ui'
+import { useDatabase, useDBGender, useTeam } from '@genshin-optimizer/gi/db-ui'
 import { giCtaSx } from '@genshin-optimizer/gi/theme'
 import type {
   TeamData,
@@ -15,18 +15,23 @@ import type {
   TeamOptResult,
 } from '@genshin-optimizer/gi/ui'
 import {
+  arrangeTimeline,
   CharacterName,
   evaluateTeamRotation,
+  rotationAttacks,
   teamOptBonusStats,
   teamOptCurrentWeapons,
   teamOptMembers,
   teamOptPool,
   teamStatFilters,
+  timelineLength,
 } from '@genshin-optimizer/gi/ui'
 import CloseIcon from '@mui/icons-material/Close'
 import GroupsIcon from '@mui/icons-material/Groups'
+import TimelineIcon from '@mui/icons-material/Timeline'
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined'
 import TrendingUpIcon from '@mui/icons-material/TrendingUp'
+import ViewListIcon from '@mui/icons-material/ViewList'
 import {
   Alert,
   alpha,
@@ -34,14 +39,24 @@ import {
   Button,
   InputBase,
   LinearProgress,
+  Skeleton,
   ToggleButton,
   Tooltip,
   Typography,
 } from '@mui/material'
 import type { ReactNode } from 'react'
-import { useCallback, useEffect, useId, useMemo, useState } from 'react'
+import {
+  memo,
+  Suspense,
+  useDeferredValue,
+  useEffect,
+  useId,
+  useMemo,
+  useState,
+} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
+import type { TeamBuff } from './buffs'
 import { buffsForAttacker, useTeamBuffs } from './buffs'
 import { ExtraBuffs } from './ExtraBuffs'
 import { defaultRotationTime, formatDamage, formatRate } from './format'
@@ -52,6 +67,9 @@ import { RunDialog } from './RunDialog'
 import { TeamOptResults } from './TeamOptResults'
 import { MemberSettings } from './TeamOptSettings'
 import { TeamSensitivity } from './TeamSensitivity'
+import { TimelineEditor } from './Timeline/TimelineEditor'
+import { timedBuffDefaults } from './Timeline/timing'
+import type { TeamOptUpdate } from './useTeamOpt'
 import { teamOptRunKey, useTeamOpt } from './useTeamOpt'
 import type { TeamOptRunState, TeamOptStatus } from './useTeamOptRun'
 import { useTeamOptRun } from './useTeamOptRun'
@@ -74,12 +92,28 @@ export default function TeamOptimize({
   const team = useTeam(teamId)
   const [teamOpt, setTeamOpt] = useTeamOpt(teamId)
   // `teamData` is recomputed whenever a member, a build or a conditional changes
-  const members = useMemo(
+  const freshMembers = useMemo(
     () => teamOptMembers(database, teamId),
     [database, teamId, team, teamData]
   )
+  // (a save of Team Optimize's settings gives the same members: kept as they were, so what
+  // shows them does not redo its work)
+  const membersKey = JSON.stringify(freshMembers)
+  // biome-ignore lint/correctness/useExhaustiveDependencies: the same members while their key is
+  const members = useMemo(() => freshMembers, [membersKey])
   const buffs = useTeamBuffs(teamId, teamData)
   const evaluation = useCurrentEvaluation(teamId, teamOpt, teamData)
+  // with the timeline: what the same rotation would deal with every buff always up
+  const alwaysUp = useCurrentEvaluation(
+    teamId,
+    teamOpt,
+    teamData,
+    teamOpt.timeline?.on ? 'alwaysUp' : 'off'
+  )
+  // the members' lists follow a change a moment later, so an edit (a drag on the timeline) shows
+  // at once
+  const deferredTeamOpt = useDeferredValue(teamOpt)
+  const deferredEvaluation = useDeferredValue(evaluation)
   const { state, status, run, cancel, clear } = useTeamOptRun(teamId)
   const running = state.type === 'running'
   const rotationTitleId = useId()
@@ -100,14 +134,32 @@ export default function TeamOptimize({
   )
   const poolSize = usePoolSize(members, teamOpt)
   const [runDialog, setRunDialog] = useState(false)
-  const setAttacks = useCallback(
-    (characterKey: CharacterKey) =>
-      (update: (attacks: TeamOptAttack[]) => TeamOptAttack[]) =>
-        setTeamOpt((o) => {
-          o.attacks[characterKey] = update(o.attacks[characterKey] ?? [])
-        }),
-    [setTeamOpt]
-  )
+  const timelineOn = !!teamOpt.timeline?.on
+  // the timeline (advanced): the first time, the buffs the game data times, and a first layout
+  const setTimeline = (on: boolean) =>
+    setTeamOpt((o) => {
+      if (!on) {
+        if (o.timeline) o.timeline = { ...o.timeline, on: false }
+        return
+      }
+      o.timeline = {
+        buffs: timedBuffDefaults(buffs.filter((b) => b.inactive !== 'hidden'))
+          .map(({ timing }) => timing)
+          .filter((timing) => timing.trigger !== 'manual'),
+        ...o.timeline,
+        on: true,
+      }
+      const order = members.map((m) => m.characterKey)
+      // a first layout of everything, in the rotation's time; later, only what was added since
+      const timed = Object.values(o.attacks).some((list) =>
+        list?.some((a) => a.at)
+      )
+      o.attacks = arrangeTimeline(order, o.attacks, {
+        length: timelineLength(o),
+        ...(o.onField ? { carry: o.onField } : {}),
+        ...(timed ? { only: 'untimed' as const } : {}),
+      })
+    })
   // a result for another line-up is of no use
   const result =
     state.type === 'done' &&
@@ -205,6 +257,11 @@ export default function TeamOptimize({
               }
             />
           </Box>
+          <RotationView
+            value={timelineOn ? 'timeline' : 'list'}
+            disabled={running}
+            onChange={(view) => setTimeline(view === 'timeline')}
+          />
           <RotationTransfer
             members={members}
             teamOpt={teamOpt}
@@ -269,50 +326,35 @@ export default function TeamOptimize({
             />
           )}
         </Box>
-        {/* one panel for the team: a column per member, with hairlines between them */}
-        <CardThemed bgt="light" sx={{ containerType: 'inline-size' }}>
-          <Box
-            sx={(theme) => ({
-              display: 'grid',
-              gap: '1px',
-              backgroundColor: theme.palette.divider,
-              gridTemplateColumns: 'minmax(0, 1fr)',
-              '@container (min-width: 520px)': {
-                gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-              },
-              '@container (min-width: 1040px)': {
-                gridTemplateColumns: `repeat(${Math.min(4, members.length)}, minmax(0, 1fr))`,
-              },
-            })}
-          >
-            {members.map((member) => (
-              <MemberRotation
-                key={member.characterKey}
-                teamId={teamId}
-                member={member}
-                teamData={teamData}
-                attacks={teamOpt.attacks[member.characterKey] ?? []}
-                setAttacks={setAttacks(member.characterKey)}
-                evaluation={evaluation}
-                buffs={buffsForAttacker(buffs, member.characterKey)}
-                mainStatAssumptionLevel={teamOpt.assumeMaxMain ? 20 : 0}
-                members={members}
-                onField={onField ?? member.characterKey}
-                rotationTime={rotationTime}
-                footer={
-                  <MemberSettings
-                    teamId={teamId}
-                    member={member}
-                    teamData={teamData}
-                    teamOpt={teamOpt}
-                    setTeamOpt={setTeamOpt}
-                    disabled={running}
-                  />
-                }
-              />
-            ))}
-          </Box>
-        </CardThemed>
+        {timelineOn && onField && (
+          <Suspense fallback={<Skeleton variant="rounded" height={320} />}>
+            <TimelineEditor
+              teamId={teamId}
+              teamData={teamData}
+              members={members}
+              teamOpt={teamOpt}
+              setTeamOpt={setTeamOpt}
+              buffs={buffs}
+              onField={onField}
+              mainStatAssumptionLevel={teamOpt.assumeMaxMain ? 20 : 0}
+              disabled={running}
+              evaluation={evaluation}
+              alwaysUpTotal={alwaysUp?.total}
+            />
+          </Suspense>
+        )}
+        <MemberColumns
+          teamId={teamId}
+          teamData={teamData}
+          members={members}
+          teamOpt={deferredTeamOpt}
+          setTeamOpt={setTeamOpt}
+          evaluation={deferredEvaluation}
+          buffs={buffs}
+          onField={onField}
+          rotationTime={rotationTime}
+          running={running}
+        />
       </Box>
 
       {/* buffs the game data does not have: food, an Abyss blessing... */}
@@ -384,6 +426,124 @@ export default function TeamOptimize({
           result={shown}
         />
       )}
+    </Box>
+  )
+}
+
+/** One panel for the team: a column per member (its attacks, its settings), with hairlines between them */
+const MemberColumns = memo(function MemberColumns({
+  teamId,
+  teamData,
+  members,
+  teamOpt,
+  setTeamOpt,
+  evaluation,
+  buffs,
+  onField,
+  rotationTime,
+  running,
+}: {
+  teamId: string
+  teamData: TeamData | undefined
+  members: TeamOptMember[]
+  teamOpt: TeamOpt
+  setTeamOpt: (update: TeamOptUpdate) => void
+  evaluation: TeamOptEvaluation | undefined
+  buffs: TeamBuff[]
+  onField: CharacterKey | undefined
+  rotationTime: number
+  running: boolean
+}) {
+  const setAttacks =
+    (characterKey: CharacterKey) =>
+    (update: (attacks: TeamOptAttack[]) => TeamOptAttack[]) =>
+      setTeamOpt((o) => {
+        o.attacks[characterKey] = update(o.attacks[characterKey] ?? [])
+      })
+  return (
+    <CardThemed bgt="light" sx={{ containerType: 'inline-size' }}>
+      <Box
+        sx={(theme) => ({
+          display: 'grid',
+          gap: '1px',
+          backgroundColor: theme.palette.divider,
+          gridTemplateColumns: 'minmax(0, 1fr)',
+          '@container (min-width: 520px)': {
+            gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+          },
+          '@container (min-width: 1040px)': {
+            gridTemplateColumns: `repeat(${Math.min(4, members.length)}, minmax(0, 1fr))`,
+          },
+        })}
+      >
+        {members.map((member) => (
+          <MemberRotation
+            key={member.characterKey}
+            teamId={teamId}
+            member={member}
+            teamData={teamData}
+            attacks={teamOpt.attacks[member.characterKey] ?? []}
+            setAttacks={setAttacks(member.characterKey)}
+            evaluation={evaluation}
+            buffs={buffsForAttacker(buffs, member.characterKey)}
+            mainStatAssumptionLevel={teamOpt.assumeMaxMain ? 20 : 0}
+            members={members}
+            onField={onField ?? member.characterKey}
+            rotationTime={rotationTime}
+            footer={
+              <MemberSettings
+                teamId={teamId}
+                member={member}
+                teamData={teamData}
+                teamOpt={teamOpt}
+                setTeamOpt={setTeamOpt}
+                disabled={running}
+              />
+            }
+          />
+        ))}
+      </Box>
+    </CardThemed>
+  )
+})
+
+/** The rotation as lists of attacks, or on a timeline (timed buffs count only while up) */
+function RotationView({
+  value,
+  disabled,
+  onChange,
+}: {
+  value: 'list' | 'timeline'
+  disabled?: boolean
+  onChange: (value: 'list' | 'timeline') => void
+}) {
+  const { t } = useTranslation('page_team')
+  return (
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+      <SolidToggleButtonGroup
+        quiet
+        exclusive
+        size="small"
+        value={value}
+        disabled={disabled}
+        onChange={(_, v: 'list' | 'timeline' | null) => v && onChange(v)}
+        aria-label={t('teamOpt.view.label', 'Rotation view')}
+      >
+        <ToggleButton value="list" sx={{ gap: 0.75 }}>
+          <ViewListIcon fontSize="small" />
+          {t('teamOpt.view.list', 'List')}
+        </ToggleButton>
+        <ToggleButton value="timeline" sx={{ gap: 0.75 }}>
+          <TimelineIcon fontSize="small" />
+          {t('teamOpt.view.timeline', 'Timeline')}
+        </ToggleButton>
+      </SolidToggleButtonGroup>
+      <InfoTooltipInline
+        title={t(
+          'teamOpt.view.info',
+          'Timeline (advanced): place each attack in time, and say which buffs run out (Instructor, Noblesse Oblige…). A timed buff then counts only on the hits inside its windows, instead of on every hit. Back to List keeps your timeline for later, and counts every buff on every hit again.'
+        )}
+      />
     </Box>
   )
 }
@@ -541,7 +701,7 @@ function OnFieldPicker({
   disabled?: boolean
 }) {
   const { t } = useTranslation('page_team')
-  const { gender } = useDBMeta()
+  const gender = useDBGender()
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
       <Tooltip
@@ -609,7 +769,7 @@ function RunBar({
   onCancel: () => void
 }) {
   const { t } = useTranslation('page_team')
-  const { gender } = useDBMeta()
+  const gender = useDBGender()
   const running = state.type === 'running'
   const blocked = !attackCount
     ? t('teamOpt.run.noAttacks', 'Add the rotation’s attacks first.')
@@ -775,42 +935,49 @@ function RunProgress({
 function useCurrentEvaluation(
   teamId: string,
   teamOpt: TeamOpt,
-  teamData: TeamData | undefined
+  teamData: TeamData | undefined,
+  /** `alwaysUp`: with every buff up on every hit (the timeline ignored); `off`: not computed */
+  mode: 'rotation' | 'alwaysUp' | 'off' = 'rotation'
 ) {
   const database = useDatabase()
-  const { gender } = useDBMeta()
+  const gender = useDBGender()
   const [evaluation, setEvaluation] = useState<TeamOptEvaluation>()
   useEffect(() => {
-    if (!teamData) return undefined
-    const timer = setTimeout(() => {
-      const members = teamOptMembers(database, teamId)
-      // with what the team's energy weapons save each member
-      const statFilters = teamStatFilters(
-        Object.fromEntries(
-          members.map((m) => [
-            m.characterKey,
-            database.optConfigs.get(m.teamChar.optConfigId)?.statFilters ?? {},
-          ])
-        ),
-        teamOptCurrentWeapons(database, members),
-        teamOpt
-      )
-      setEvaluation(
-        evaluateTeamRotation(database, teamId, gender, {
-          arts: {},
-          attacks: teamOpt.attacks,
-          mainStatAssumptionLevel: teamOpt.assumeMaxMain ? 20 : 0,
-          statFilters,
-          onField: teamOpt.onField,
-          bonusStats: teamOptBonusStats(
-            teamOpt,
-            members.map((m) => m.characterKey)
+    if (!teamData || mode === 'off') return setEvaluation(undefined)
+    const timer = setTimeout(
+      () => {
+        const members = teamOptMembers(database, teamId)
+        // with what the team's energy weapons save each member
+        const statFilters = teamStatFilters(
+          Object.fromEntries(
+            members.map((m) => [
+              m.characterKey,
+              database.optConfigs.get(m.teamChar.optConfigId)?.statFilters ??
+                {},
+            ])
           ),
-        })
-      )
-    }, 120)
+          teamOptCurrentWeapons(database, members),
+          teamOpt
+        )
+        setEvaluation(
+          evaluateTeamRotation(database, teamId, gender, {
+            arts: {},
+            attacks:
+              mode === 'alwaysUp' ? teamOpt.attacks : rotationAttacks(teamOpt),
+            mainStatAssumptionLevel: teamOpt.assumeMaxMain ? 20 : 0,
+            statFilters,
+            onField: teamOpt.onField,
+            bonusStats: teamOptBonusStats(
+              teamOpt,
+              members.map((m) => m.characterKey)
+            ),
+          })
+        )
+      },
+      mode === 'alwaysUp' ? 400 : 120
+    )
     return () => clearTimeout(timer)
-  }, [database, teamId, gender, teamOpt, teamData])
+  }, [database, teamId, gender, teamOpt, teamData, mode])
   return evaluation
 }
 
@@ -872,7 +1039,7 @@ function TeamBuildPicker({
   rotationTime?: number
 }) {
   const { t } = useTranslation('page_team')
-  const { gender } = useDBMeta()
+  const gender = useDBGender()
   const best = builds[0].after.total
   const alternatives = builds[0].alternatives ?? []
   return (

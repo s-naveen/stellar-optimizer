@@ -14,8 +14,8 @@ export function formatDamage(value: number | undefined, precise = false) {
 }
 
 /** Damage per rotation, or per second (DPS) when the rotation's length is known */
-/** A rotation's length when the team has none set (seconds) */
-export const defaultRotationTime = 20
+/** A rotation's length when the team has none set (seconds); the timeline repeats at it too */
+export { defaultRotationTime } from '@genshin-optimizer/gi/ui'
 
 export function formatRate(
   value: number | undefined,

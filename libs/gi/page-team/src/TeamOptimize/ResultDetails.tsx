@@ -1,11 +1,12 @@
 import type { CharacterKey } from '@genshin-optimizer/gi/consts'
 import type { TeamOpt } from '@genshin-optimizer/gi/db'
-import { useDatabase, useDBMeta } from '@genshin-optimizer/gi/db-ui'
+import { useDatabase, useDBGender } from '@genshin-optimizer/gi/db-ui'
 import type { TeamOptHit, TeamOptResult } from '@genshin-optimizer/gi/ui'
 import {
   DataContext,
   FieldDisplayList,
   NodeFieldDisplay,
+  rotationAttacks,
   teamOptBonusStats,
   teamOptMembers,
   teamOptResultGear,
@@ -64,7 +65,7 @@ export function useResultDetails(
   version: unknown
 ) {
   const database = useDatabase()
-  const { gender } = useDBMeta()
+  const gender = useDBGender()
   const key = JSON.stringify([gender, version])
   const [details, setDetails] = useState(() => cache.get(result)?.get(key))
   // biome-ignore lint/correctness/useExhaustiveDependencies: `key` stands for `gender` and `version`
@@ -79,7 +80,7 @@ export function useResultDetails(
       const keys = teamOptMembers(database, teamId).map((m) => m.characterKey)
       const gear = teamOptResultGear(database, teamId, result)
       const rotation = {
-        attacks: teamOpt.attacks,
+        attacks: rotationAttacks(teamOpt),
         mainStatAssumptionLevel: teamOpt.assumeMaxMain ? 20 : 0,
         onField: teamOpt.onField,
         bonusStats: teamOptBonusStats(teamOpt, keys),
