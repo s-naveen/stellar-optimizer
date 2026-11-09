@@ -31,6 +31,8 @@ interface Props extends WithTranslation {
 interface State {
   error?: Error
 }
+  /** Where in the component tree it happened (minified names with bundle positions in production) */
+  componentStack?: string
 
 class ErrorBoundary extends Component<Props, State> {
   public override state: State = {
@@ -46,6 +48,16 @@ class ErrorBoundary extends Component<Props, State> {
   public override componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error('Uncaught error:', error, errorInfo)
   }
+    // in the report: the components it happened in (the error's own stack is only React's internals
+    // for errors React throws, e.g. #185 "Maximum update depth exceeded")
+    if (errorInfo.componentStack)
+      this.setState({
+        componentStack: errorInfo.componentStack
+          .trim()
+          .split('\n')
+          .slice(0, 40)
+          .join('\n'),
+      })
 
   public override render() {
     if (this.state.error) {
@@ -53,7 +65,7 @@ class ErrorBoundary extends Component<Props, State> {
       const t = this.props.t
       const reproStr =
         'Please enter the steps to reproduce this error below:\n1. '
-      const errorStr = `Message: ${this.state.error.message}\nName: ${this.state.error.name}\nStack: ${this.state.error.stack}`
+      const errorStr = `Message: ${this.state.error.message}\nName: ${this.state.error.name}\nStack: ${this.state.error.stack}${this.state.componentStack ? `\nComponents: ${this.state.componentStack}` : ''}`
       const uploadStr = "**Don't forget to upload your JSON file!**"
       const textBoxVal = `${reproStr}\n\n${uploadStr}\n\n\`\`\`\n${errorStr}\n\`\`\``
       const onNuke = () => {
