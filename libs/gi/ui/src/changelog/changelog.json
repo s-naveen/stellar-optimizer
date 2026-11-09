@@ -1,5 +1,15 @@
 [
   {
+    "version": "1.1.0",
+    "date": "2026-11-09",
+    "title": "Build cards",
+    "new": [
+      "Build card: a picture of a character's build to download or copy, from the character page or a team member's page. It shows the character's art, constellation, talents, weapon, artifacts with their Roll Value and Crit Value, the artifacts' totals and the character's own stats.",
+      "Choose which substats count toward a character's Roll Value on its build card; the others are dimmed.",
+      "Team card in Team Optimize results: the team's DPS and rotation, then every member's build card with its share of the damage, in one picture."
+    ]
+  },
+  {
     "version": "1.0.1",
     "date": "2026-11-09"
   },
