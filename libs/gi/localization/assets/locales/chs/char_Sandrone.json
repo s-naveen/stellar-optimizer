@@ -1,0 +1,14 @@
+{
+  "a1DecodingCond": "法洁欧的解算功率超过50点",
+  "prismMult_": "棱晶弹倍率",
+  "a1TacticsCond": "清除的<strong>改进战术</strong>层数",
+  "rayMult_": "负温聚能光束倍率",
+  "c1Cond": "处于解算模式下",
+  "beam_critDMG_": "重击冷凝射线暴击伤害",
+  "c2Cond": "重击冷凝射线发射次数",
+  "c4StellarDmg": "协同攻击星超导伤害",
+  "c4StellarSwirlDmg": "协同攻击星扩散伤害",
+  "c6Dmg": "额外冷凝射线伤害",
+  "c6StellarDmg": "额外冷凝射线星超导伤害",
+  "c6StellarSwirlDmg": "额外冷凝射线星扩散伤害"
+}

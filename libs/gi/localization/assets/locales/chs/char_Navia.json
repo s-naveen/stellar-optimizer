@@ -1,0 +1,10 @@
+{
+  "skillTotalShardDmg": "玫瑰晶弹总伤害",
+  "shot_dmg_": "玫瑰晶弹伤害加成",
+  "shot_mult_": "玫瑰晶弹倍率",
+  "shot_critRate_": "玫瑰晶弹暴击率",
+  "shot_critDMG_": "玫瑰晶弹暴击伤害",
+  "chargesCond": "消耗的「裂晶弹片」数量",
+  "shotsFired": "打出的「玫瑰晶弹」数量",
+  "shotsHitCond": "命中的「玫瑰晶弹」数量"
+}

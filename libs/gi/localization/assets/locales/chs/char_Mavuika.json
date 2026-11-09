@@ -1,0 +1,12 @@
+{
+  "flameNormal_dmgInc": "驰轮车普通攻击伤害提升",
+  "flameCharged_dmgInc": "驰轮车重击伤害提升",
+  "flameBurst_dmgInc": "驰轮车重击伤害提升",
+  "burstCond": "消耗的战意",
+  "a4Cond": "施放元素爆发后经过的时间",
+  "c1Cond": "获取战意后",
+  "c2RingCond": "焚曜之环形态下",
+  "c2FlameCond": "驰轮车形态下",
+  "flamestriderDmg": "驰轮车伤害",
+  "c2Exception": "6命前，敌人防御力降低效果不会作用于驰轮车或元素爆发的攻击"
+}

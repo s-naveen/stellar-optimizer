@@ -1,0 +1,11 @@
+{
+  "codaStellarconductDmg": "破晓终奏星超导伤害",
+  "codaStellarswirlDmg": "破晓终奏星扩散伤害",
+  "plumeStellarconductDmg": "拂羽舞步星超导伤害",
+  "plumeStellarswirlDmg": "拂羽舞步星扩散伤害",
+  "wingStellarconductDmg": "旋翼舞步星超导伤害",
+  "wingStellarswirlDmg": "旋翼舞步星扩散伤害",
+  "a1Cond": "赋予队伍中附近角色的<strong>华彩</strong>层数",
+  "c2Cond": "<strong>独舞倒影</strong>附近的敌人",
+  "glimmerMult_": "星烁反应伤害倍率"
+}

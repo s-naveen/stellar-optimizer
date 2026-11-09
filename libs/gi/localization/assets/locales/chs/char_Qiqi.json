@@ -1,3 +1,5 @@
 {
-  "a1C": "处于<strong>仙法 • 寒病鬼差</strong>状态下的角色触发元素反应"
+  "a1C": "处于<strong>仙法 • 寒病鬼差</strong>状态下的角色触发元素反应",
+  "lockCond": "寒病鬼差持续期间",
+  "c6Cond": "当前场上角色消耗<strong>洞玄</strong>"
 }

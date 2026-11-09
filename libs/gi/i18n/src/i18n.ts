@@ -53,7 +53,7 @@ i18n
     // Namespaces loaded (in parallel) before the first render. Besides 'ui', these are needed by
     // the app shell (the error boundary) or by nearly every page; loading them here avoids an
     // extra network round trip per namespace later. Keep this list small.
-    ns: ['languages', 'ui', 'page_error', 'charNames_gen'],
+    ns: ['languages', 'ui', 'page_error', 'charNames_gen', 'keymap'],
     // Specify the default namespace.
     defaultNS: 'ui',
 

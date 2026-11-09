@@ -6,6 +6,7 @@ import { KeyMap } from '@genshin-optimizer/gi/keymap'
 import { StatIcon } from '@genshin-optimizer/gi/svgicons'
 import type { Info, InfoExtra } from '@genshin-optimizer/gi/wr'
 import { infoManager } from '@genshin-optimizer/gi/wr'
+import { statName } from './statName'
 
 export function resolveInfo(info: Info): Info & InfoExtra {
   // Make sure not to override any `Info` (those should be calculated
@@ -17,7 +18,7 @@ export function resolveInfo(info: Info): Info & InfoExtra {
       extra.name = <Translate ns="artifactNames_gen" key18={path} />
 
     if (KeyMap.getStr(path)) {
-      extra.name = KeyMap.get(path)
+      extra.name = statName(path)
       extra.icon = (
         <StatIcon
           statKey={path}

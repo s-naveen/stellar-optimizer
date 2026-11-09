@@ -5,7 +5,6 @@ import { allElementWithPhyKeys } from '@genshin-optimizer/gi/consts'
 import type { Team } from '@genshin-optimizer/gi/db'
 import { useDatabase, useTeam } from '@genshin-optimizer/gi/db-ui'
 import type { EleEnemyResKey } from '@genshin-optimizer/gi/keymap'
-import { KeyMap } from '@genshin-optimizer/gi/keymap'
 import { ElementIcon } from '@genshin-optimizer/gi/svgicons'
 import CheckBoxIcon from '@mui/icons-material/CheckBox'
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
@@ -23,6 +22,7 @@ import {
 } from '@mui/material'
 import { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { statName } from '../util/statName'
 
 /**
  * Rotating "expand" chevron, sized like a small IconButton. It is not a button itself: it sits
@@ -154,9 +154,9 @@ export function EnemyEditor({
       <Grid item {...bsProps}>
         <StatInput
           sx={{ bgcolor: (t) => t.palette.contentLight.main, width: '100%' }}
-          name={<b>{KeyMap.get('enemyLevel')}</b>}
+          name={<b>{statName('enemyLevel')}</b>}
           value={eLvl}
-          placeholder={KeyMap.getStr('enemyLevel')}
+          placeholder={statName('enemyLevel')}
           defaultValue={100}
           onValueChange={(value) =>
             database.teams.set(teamId, (team) => {
@@ -183,7 +183,7 @@ export function EnemyEditor({
               }}
               name={
                 <ColorText color={eleKey}>
-                  <b>{KeyMap.get(statKey)}</b>
+                  <b>{statName(statKey)}</b>
                 </ColorText>
               }
               value={
@@ -193,7 +193,7 @@ export function EnemyEditor({
                     : val
                   : 10
               }
-              placeholder={elementImmunity ? '∞ ' : KeyMap.getStr(statKey)}
+              placeholder={elementImmunity ? '∞ ' : statName(statKey)}
               defaultValue={defaultVal}
               onValueChange={(value) =>
                 database.teams.set(teamId, (team) => {
@@ -229,9 +229,9 @@ export function EnemyEditor({
       <Grid item {...bsProps}>
         <StatInput
           sx={{ bgcolor: (t) => t.palette.contentLight.main, width: '100%' }}
-          name={<b>{KeyMap.get('enemyDefIgn_')}</b>}
+          name={<b>{statName('enemyDefIgn_')}</b>}
           value={eDefIgn}
-          placeholder={KeyMap.getStr('enemyDefIgn_')}
+          placeholder={statName('enemyDefIgn_')}
           defaultValue={0}
           onValueChange={(value) =>
             database.teams.set(teamId, (team) => {
@@ -244,9 +244,9 @@ export function EnemyEditor({
       <Grid item {...bsProps}>
         <StatInput
           sx={{ bgcolor: (t) => t.palette.contentLight.main, width: '100%' }}
-          name={<b>{KeyMap.get('enemyDefRed_')}</b>}
+          name={<b>{statName('enemyDefRed_')}</b>}
           value={eDefRed}
-          placeholder={KeyMap.getStr('enemyDefRed_')}
+          placeholder={statName('enemyDefRed_')}
           defaultValue={0}
           onValueChange={(value) =>
             database.teams.set(teamId, (team) => {

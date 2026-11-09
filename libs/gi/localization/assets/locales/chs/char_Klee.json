@@ -1,6 +1,12 @@
 {
-  "a1CondName": "赋予一朵爆裂火花",
-  "a1CondName2": "下一次重击不消耗体力",
+  "boomDmg": "嘭嘭轰击伤害",
+  "boomStam": "嘭嘭轰击体力消耗",
+  "boom_dmg_": "嘭嘭轰击伤害加成",
+  "boom_mult_": "嘭嘭轰击倍率",
+  "lockedCond": "拥有的「轰轰勋章」数量",
+  "c1Cond": "召唤火花后",
   "c2CondName": "受到<strong>蹦蹦炸弹</strong>的诡雷攻击的敌人",
-  "c6CondName": "施放轰轰火花"
+  "c6CondName": "施放轰轰火花",
+  "a1CondName": "赋予一朵爆裂火花",
+  "a1CondName2": "下一次重击不消耗体力"
 }

@@ -1,11 +1,12 @@
+import elementalData from './ElementalData'
 import type { EleEnemyResKey, StatKey, Unit } from './KeyMap'
 import {
   allEleDmgKeys,
   allEleEnemyResKeys,
   allEleResKeys,
+  allKeyMapEntries,
   KeyMap,
 } from './KeyMap'
-import elementalData from './ElementalData'
 import type {
   AdditiveReactionsKey,
   AmplifyingReactionsKey,
@@ -33,6 +34,7 @@ export {
   allEleDmgKeys,
   allEleEnemyResKeys,
   allEleResKeys,
+  allKeyMapEntries,
   crittableTransformativeReactions,
   crystallizeLevelMultipliers,
   elementalData,

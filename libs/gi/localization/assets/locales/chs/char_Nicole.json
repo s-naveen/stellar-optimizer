@@ -1,0 +1,13 @@
+{
+  "skillCond": "处于虚己之赐效果下",
+  "guidanceCond": "当前场上角色处于圣祝之引效果下",
+  "nicoleGuidanceCond": "尼可处于圣祝之引效果下",
+  "projectionExplain": "奥迹造影伤害可在各队友的优化目标中查看",
+  "arcaneProjectionDmg": "奥迹造影·合一伤害",
+  "graceEnhanced": "虚己之赐效果获得强化",
+  "guidanceEnhanced": "圣祝之引效果获得强化",
+  "c4Cond": "处于「先导之佑」效果下",
+  "projection_dmgInc": "奥迹造影额外伤害提升",
+  "guidance": "当前场上角色的虚己之赐升变为圣祝之引",
+  "nicoleGuidance": "尼可的虚己之赐升变为圣祝之引"
+}

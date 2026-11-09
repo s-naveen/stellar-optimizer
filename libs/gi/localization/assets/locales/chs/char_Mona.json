@@ -4,5 +4,7 @@
     "affectedByOmen": "队伍中自己的角色攻击命中处于星异状态下的敌人"
   },
   "frozenDuration": "<cryo>冻结反应</cryo>的持续时间延长",
-  "uponSprint": "进入虚实流动状态后"
+  "uponSprint": "进入虚实流动状态后",
+  "lockStacksCond": "<strong>「水星天的辉光」</strong>层数",
+  "ca_mult_": "重击伤害倍率"
 }

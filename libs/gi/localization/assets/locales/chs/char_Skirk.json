@@ -1,0 +1,11 @@
+{
+  "burstSerpentCond": "蛇之狡谋超过50点的部分",
+  "burstVoidCond": "施放<strong>极恶技·尽</strong>时汲取的虚境裂隙数量",
+  "a4Cond": "死河渡断层数",
+  "c2AddlSerpentFactor": "额外计入的蛇之狡谋上限",
+  "c2Cond": "<strong>七相一闪</strong>模式下施放<strong>极恶技·尽</strong>后",
+  "c2Atk_blurb": "上述攻击力增益不会作用于丝柯克的普通攻击、元素爆发及6命元素爆发伤害",
+  "c6BurstDmg": "爆发伤害",
+  "c6NormalDmg": "普通攻击伤害",
+  "c6ChargedDmg": "重击伤害"
+}

@@ -1,0 +1,10 @@
+{
+  "willConsumed": "消耗的<strong>争胜</strong>",
+  "a4Cond": "<strong>奇谋</strong>状态下，队伍中附近的其他角色触发<cryo>冰元素相关反应</cryo>后",
+  "a0Cond": "处于「乘兴」效果下",
+  "lockBuffCond": "施放特殊元素战技或元素爆发时，<strong>争胜</strong>至少为上限的50%",
+  "c1Text": "<strong>争胜</strong>上限提升",
+  "c2Cond": "触发「破邪之刃」",
+  "etch_critDMG_": "镂骨彻心暴击伤害",
+  "c6Cond": "<strong>奇谋</strong>状态下施放元素爆发"
+}

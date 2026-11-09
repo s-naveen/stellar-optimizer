@@ -302,6 +302,14 @@ export type StatKey =
   | AdditiveReactionsDmgIncKey
 
 /**
+ * Every stat key and its English name: the source of the `keymap` locale namespace, which holds
+ * these names in each language (the app shows them through `statName` in gi/ui).
+ */
+export function allKeyMapEntries(): [string, string][] {
+  return Object.entries(statMap)
+}
+
+/**
  * @deprecated This hosts a lot of key-> english string translations, but should not be used beyond Waverider.
  */
 export class KeyMap {
