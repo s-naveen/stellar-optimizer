@@ -1,28 +1,28 @@
 {
-  "setName": "Legacy of the First Chronicle",
+  "setName": "Epochal Advent",
   "setEffects": {
     "2": "ATK +18%.",
-    "4": "The equipping character gains 1 Starspark when they use an Elemental Skill, Elemental Burst, or perform a Normal Attack. Up to 2 Starsparks can be held at once. The equipping character gains Undying Radiance while holding at least 1 Starspark. This effect increases the CRIT Rate of their Cryo DMG by 20%, with an additional 20% CRIT Rate if that DMG is Stellar Glimmer reaction DMG. This effect remains active even when the equipping character is off-field. The equipping character loses 1 Starspark every 3s while on the field. Undying Radiance ends when all Starsparks are extinguished."
+    "4": "The equipping character gains 1 Starspark when they use an Elemental Skill, Elemental Burst, or perform a Normal Attack. Up to 2 Starsparks can be held at once. The equipping character gains Undying Radiance while holding at least 1 Starspark. This effect increases the CRIT Rate of their Cryo DMG by 20%, with an additional 20% CRIT Rate if that DMG is Stellar Glimmer reaction DMG. The equipping character loses 1 Starspark every 3s while on the field. Undying Radiance ends when all Starsparks are extinguished."
   },
   "pieces": {
     "flower": {
-      "name": "First Chronicle Flower",
+      "name": "Flower of the Epochal Advent",
       "desc": "The high heavens bestowed an everlasting flower on their envoy, and greed was born of a life without end."
     },
     "plume": {
-      "name": "First Chronicle Plume",
+      "name": "Plume of the Epochal Advent",
       "desc": "The high heavens bestowed a feather of rebirth on their envoy, with all sin to be forgiven where even fate meets its very end."
     },
     "sands": {
-      "name": "First Chronicle Sands",
+      "name": "Sands of the Epochal Advent",
       "desc": "The high heavens bestowed a sundial of counter-time on their envoy, and an inviolable interdiction became a wellspring of rage."
     },
     "goblet": {
-      "name": "First Chronicle Goblet",
+      "name": "Goblet of the Epochal Advent",
       "desc": "The high heavens bestowed sweet nectar on their envoy, and the unending feast opened wide the doors to desire."
     },
     "circlet": {
-      "name": "First Chronicle Circlet",
+      "name": "Circlet of the Epochal Advent",
       "desc": "The high heavens bestowed a splendid crown on their envoy, and arrogance was born out of power unchecked."
     }
   }

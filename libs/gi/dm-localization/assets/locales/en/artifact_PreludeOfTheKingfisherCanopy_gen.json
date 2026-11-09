@@ -1,28 +1,28 @@
 {
-  "setName": "Prelude of the Kingfisher Canopy",
+  "setName": "Empyrean Sojourn",
   "setEffects": {
     "2": "Energy Recharge +20%.",
     "4": "Increases the equipping character's Elemental Skill and Elemental Burst DMG by 25%. More effects will be revealed in later versions."
   },
   "pieces": {
     "flower": {
-      "name": "Kingfisher Canopy Flower",
+      "name": "Flower of the Empyrean Sojourn",
       "desc": "It was a flower made of silk, gifted to her by a friend whose hands were as cold as ice."
     },
     "plume": {
-      "name": "Kingfisher Canopy Plume",
+      "name": "Plume of the Empyrean Sojourn",
       "desc": "It was a feathered quill given to her followers, once used to pen the most absurd of dreams."
     },
     "sands": {
-      "name": "Kingfisher Canopy Sands",
+      "name": "Sands of the Empyrean Sojourn",
       "desc": "It was a fleeting moment she gave a certain silent alchemist to remind him of every item on his schedule."
     },
     "goblet": {
-      "name": "Kingfisher Canopy Goblet",
+      "name": "Goblet of the Empyrean Sojourn",
       "desc": "It was a goblet of wine she had accepted in celebration from the hands of a colleague."
     },
     "circlet": {
-      "name": "Kingfisher Canopy Circlet",
+      "name": "Circlet of the Empyrean Sojourn",
       "desc": "It was a delicate trinket awarded to her in praise by the hand of her only master."
     }
   }

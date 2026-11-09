@@ -16,18 +16,18 @@
   "evernightSc": "The Evernight Yields to Dawn Stellar-Conduct DMG",
   "evernightSs": "The Evernight Yields to Dawn Stellar Swirl DMG",
   "honorSc": {
-    "0": "Blessed Armament 1-Hit Stellar-Conduct DMG (Radiance)",
-    "1": "Blessed Armament 2-Hit Stellar-Conduct DMG (Radiance)",
-    "2": "Blessed Armament 3-Hit Stellar-Conduct DMG (Radiance)",
-    "3": "Blessed Armament 4-Hit Stellar-Conduct DMG (Radiance)",
-    "4": "Blessed Armament 5-Hit Stellar-Conduct DMG (Radiance)"
+    "0": "Blessed Spear 1-Hit Stellar-Conduct DMG (Radiance)",
+    "1": "Blessed Spear 2-Hit Stellar-Conduct DMG (Radiance)",
+    "2": "Blessed Spear 3-Hit Stellar-Conduct DMG (Radiance)",
+    "3": "Blessed Spear 4-Hit Stellar-Conduct DMG (Radiance)",
+    "4": "Blessed Spear 5-Hit Stellar-Conduct DMG (Radiance)"
   },
   "honorSs": {
-    "0": "Blessed Armament 1-Hit Stellar Swirl DMG (Radiance)",
-    "1": "Blessed Armament 2-Hit Stellar Swirl DMG (Radiance)",
-    "2": "Blessed Armament 3-Hit Stellar Swirl DMG (Radiance)",
-    "3": "Blessed Armament 4-Hit Stellar Swirl DMG (Radiance)",
-    "4": "Blessed Armament 5-Hit Stellar Swirl DMG (Radiance)"
+    "0": "Blessed Spear 1-Hit Stellar Swirl DMG (Radiance)",
+    "1": "Blessed Spear 2-Hit Stellar Swirl DMG (Radiance)",
+    "2": "Blessed Spear 3-Hit Stellar Swirl DMG (Radiance)",
+    "3": "Blessed Spear 4-Hit Stellar Swirl DMG (Radiance)",
+    "4": "Blessed Spear 5-Hit Stellar Swirl DMG (Radiance)"
   },
   "doomSc": {
     "0": "Palestar Edict: Doom 1-Hit Stellar-Conduct DMG",

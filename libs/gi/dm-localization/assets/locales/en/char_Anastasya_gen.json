@@ -77,8 +77,8 @@
       "6": "<br/>",
       "7": "<strong>Hold</strong>",
       "8": "Gains the Blessing of <strong>Honor</strong> and demonstrates the consummate skill at arms passed down by the imperial court.",
-      "9": "In this mode, Anastasya's Normal Attacks are replaced by a sequence of up to 5 attacks with the <strong>Blessed Armament: Dekhomenon</strong>, dealing <cryo>AoE Cryo DMG</cryo> that cannot be overridden by other Elemental Infusions. She cannot perform Charged Attacks in this mode.",
-      "10": "<strong>Radiance: Stellar Glimmer</strong>: The final instance of DMG from each Normal Attack performed with the <strong>Blessed Armament</strong> becomes <cryo>AoE Cryo DMG</cryo> that is considered DMG from the corresponding Stellar Glimmer reaction."
+      "9": "In this mode, Anastasya's Normal Attacks are replaced by a sequence of up to 5 attacks with the <strong>Blessed Spear: Dolgomernoye</strong>, dealing <cryo>AoE Cryo DMG</cryo> that cannot be overridden by other Elemental Infusions. She cannot perform Charged Attacks in this mode.",
+      "10": "<strong>Radiance: Stellar Glimmer</strong>: The final instance of DMG from each Normal Attack performed with the <strong>Blessed Spear</strong> becomes <cryo>AoE Cryo DMG</cryo> that is considered DMG from the corresponding Stellar Glimmer reaction."
     },
     "skillParams": {
       "0": "Instantaneous Tap DMG",
@@ -135,7 +135,7 @@
       "4": "During this time, all nearby party members deal increased Stellar Glimmer reaction DMG, and the Palestar Crown deals 1 additional instance of <cryo>AoE Cryo DMG</cryo> that is considered Stellar-Conduct reaction DMG with each attack. Anastasya also <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Seals</strong></tooltip> herself when she switches off-field during this time. When her <strong>Sealed</strong> state ends, she can use the special unsealing Elemental Skill <tooltip ns=tooltips_gen baseKey18=11490003 values=[]><strong>Palestar Edict: Triumph</strong></tooltip>.",
       "5": "<br/>",
       "6": "<strong>The Evernight Yields to Dawn</strong>",
-      "7": "Can be used while Anastasya holds the Blessing of <strong>Honor</strong>. Unleashes the power of the <strong>Blessed Armament</strong>, dealing <cryo>AoE Cryo DMG</cryo> considered Stellar-Conduct reaction DMG, and <tooltip ns=tooltips_gen baseKey18=11490005 values=[]><strong>freezes</strong></tooltip> the Blessing's duration.",
+      "7": "Can be used while Anastasya holds the Blessing of <strong>Honor</strong>. Unleashes the power of the <strong>Blessed Spear</strong>, dealing <cryo>AoE Cryo DMG</cryo> considered Stellar-Conduct reaction DMG, and <tooltip ns=tooltips_gen baseKey18=11490005 values=[]><strong>freezes</strong></tooltip> the Blessing's duration.",
       "8": "Anastasya also <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Seals</strong></tooltip> up to 3 other party members. When the <strong>Sealed</strong> state ends, Anastasya can use the special unsealing Elemental Skill <tooltip ns=tooltips_gen baseKey18=11490004 values=[]><strong>Palestar Edict: Doom</strong></tooltip>.",
       "9": "<br/>",
       "10": "<strong>Radiance: Stellar Glimmer</strong>: All Stellar-Conduct reaction DMG described above is instead dealt as <cryo>AoE Cryo DMG</cryo> that is considered DMG from the corresponding Stellar Glimmer reaction."
@@ -221,7 +221,7 @@
     "name": "To Years Past, To Hearts Still Alight",
     "description": {
       "0": "The Ascension Passive <tooltip ns=char_Anastasya_gen baseKey18=passive1><strong>The Radiant Reign of Night</strong></tooltip> is enhanced: <strong>Accolades</strong> also increase the ATK of <cryo>Cryo</cryo> characters by 15% and the Elemental Mastery of characters of other Elemental Types by 60.",
-      "1": "Additionally, when a character is <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Sealed</strong></tooltip>, the division of <strong>Accolades</strong> will not cause the sharing character's <strong>Accolades</strong> to be dispelled. When Anastasya is <strong>Sealed</strong>, the <strong>Accolades</strong> she grants to other characters will provide 300% of their original bonuses."
+      "1": "Additionally, when a character is <tooltip ns=tooltips_gen baseKey18=11490002 values=[]><strong>Sealed</strong></tooltip>, the equal division of <strong>Accolades</strong> will not cause the sharing character's <strong>Accolades</strong> to be dispelled. When Anastasya is <strong>Sealed</strong>, the <strong>Accolades</strong> she grants to other characters will provide 300% of their original bonuses."
     }
   },
   "constellation2": {

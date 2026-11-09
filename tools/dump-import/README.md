@@ -178,7 +178,7 @@ Modelling notes / assumptions (beta text, may change):
   different 4pc (Burst-triggered); this follows the dump (CNCBWin7.2.50).
 - PreludeOfTheKingfisherCanopy: only the revealed 4pc part (Skill + Burst DMG +25%); params 0.3 and 10 are
   for effects "revealed in later versions".
-- English set names are provisional translations (en_overrides.json); weapon names are the dump's. Lunaris'
+- English set names: official since Lunaris 7.2.51 (Epochal Advent, Empyrean Sojourn; en_overrides.json), the keys keep the provisional names; weapon names are the dump's. Lunaris'
   data (`https://api.lunaris.moe/data/<version>/{artifactlist,weaponlist}.json`, `<version>/en/<kind>/<id>.json`)
   had no English set names either (7.2.50, checked 2026-11-05); its per-level weapon stats matched ours at all
   90 levels. Icons: Starsealed Edict from Yatta, the rest from Lunaris.

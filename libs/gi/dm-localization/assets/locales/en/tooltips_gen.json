@@ -690,9 +690,9 @@
       "0": "For a limited time after another party member's Sealed state ends, selecting that character for the first time triggers this special Elemental Skill instead of switching them in.",
       "1": "<strong>Palestar Edict: Doom</strong> has 3 stages, performed in sequence by selecting the corresponding characters for the first time or pressing the Elemental Skill.",
       "2": [
-        "Stage 1: Performs a series of slashes with the <strong>Blessed Armament: Dekhomenon</strong>, dealing multiple instances of <cryo>AoE Cryo DMG</cryo> that cannot be overridden by other Elemental Infusions and are considered Elemental Skill DMG, followed by a final instance of <cryo>AoE Cryo DMG</cryo> that is considered Stellar-Conduct reaction DMG;",
+        "Stage 1: Performs a series of slashes with the <strong>Blessed Spear: Dolgomernoye</strong>, dealing multiple instances of <cryo>AoE Cryo DMG</cryo> that cannot be overridden by other Elemental Infusions and are considered Elemental Skill DMG, followed by a final instance of <cryo>AoE Cryo DMG</cryo> that is considered Stellar-Conduct reaction DMG;",
         "Stage 2: Leaps forward and performs a slash, dealing <cryo>AoE Cryo DMG</cryo> that is considered Stellar-Conduct reaction DMG;",
-        "Stage 3: Fires the <strong>Blessed Armament</strong> as an arrow, dealing greater <cryo>AoE Cryo DMG</cryo> considered Stellar-Conduct reaction DMG and ending the effect of <strong>The Evernight Yields to Dawn</strong>."
+        "Stage 3: Fires the <strong>Blessed Spear</strong> as an arrow, dealing greater <cryo>AoE Cryo DMG</cryo> considered Stellar-Conduct reaction DMG and ending the Blessed target's freeze effect."
       ],
       "3": "<br/>",
       "4": "<strong>Radiance: Stellar Glimmer</strong>: The Stellar-Conduct reaction DMG described above is instead dealt as <cryo>AoE Cryo DMG</cryo> considered DMG from the corresponding Stellar Glimmer reaction."
