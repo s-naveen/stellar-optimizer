@@ -3,21 +3,8 @@
 	url = https://gitlab.com/Dimbreath/AnimeGameData2.git
 	shallow = true
 	branch = main
-[submodule "libs/sr/dm/StarRailData"]
-	path = libs/sr/dm/StarRailData
-	url = https://gitlab.com/Dimbreath/turnbasedgamedata.git
-	shallow = true
-[submodule "libs/zzz/dm/ZenlessData"]
-	path = libs/zzz/dm/ZenlessData
-	url = https://git.mero.moe/dimbreath/ZenlessData.git
-	shallow = true
 [submodule "libs/gi/dm/HakushinData"]
 	path = libs/gi/dm/HakushinData
 	url = https://github.com/genshin-optimizer/gi-hakushin-data
-	shallow = true
-	branch = master
-[submodule "libs/zzz/dm/HakushinData"]
-	path = libs/zzz/dm/HakushinData
-	url = https://github.com/genshin-optimizer/zzz-hakushin-data
 	shallow = true
 	branch = master

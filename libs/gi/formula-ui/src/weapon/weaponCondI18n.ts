@@ -12,7 +12,7 @@ type CondSrc =
   | { wep: string }
   | { sheet: string; values?: Record<string, string | number> }
 
-/** Formula cond name → locale, matching WR `name:` / ZZZ `ch()`. */
+/** Formula cond name → locale, matching WR `name:`. */
 const byWeapon: Partial<Record<WeaponKey, Record<string, CondSrc>>> = {
   StaffOfHoma: {
     RecklessCinnabar: { sheet: 'lessPercentHP', values: { percent: 50 } },
@@ -67,7 +67,7 @@ function patternRefs(name: string): CondI18nRef[] {
   return []
 }
 
-/** Unique i18n lookups, ZZZ-style: authored `ch()` then shared `st()`. */
+/** Unique i18n lookups: authored `ch()` then shared `st()`. */
 export function weaponCondI18nCandidates(
   weaponKey: WeaponKey,
   name: string

@@ -24,8 +24,8 @@ export const BootstrapTooltip = styled(
     />
   )
 )(({ theme }) => {
-  // A theme that styles its tooltips (GI: dark panel, hairline border, shadow) keeps that look;
-  // the others (ZZZ, SR) keep the plain black one.
+  // A theme that styles its tooltips (dark panel, hairline border, shadow) keeps that look;
+  // a theme that doesn't keeps the plain black one.
   const themed = !!theme.components?.MuiTooltip?.styleOverrides?.tooltip
   return {
     [`& .${tooltipClasses.arrow}`]: themed

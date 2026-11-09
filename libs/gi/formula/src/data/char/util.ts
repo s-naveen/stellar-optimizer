@@ -43,8 +43,8 @@ export function dataGenToCharInfo(
 
 /**
  * Lookup a 0-indexed skillParam table with a 1-indexed GOOD/UI talent
- * (`own.char.auto` / `skill` / `burst`). Matches WR `total.*Index = talent - 1`
- * and ZZZ `sum(own.char[ability], -1)`. Keep `own.char.*` as the displayed level.
+ * (`own.char.auto` / `skill` / `burst`). Matches WR `total.*Index = talent - 1`.
+ * Keep `own.char.*` as the displayed level.
  */
 export function talentSubscript(talent: NumNode, table: number[]): NumNode {
   return subscript(sum(talent, -1), table)

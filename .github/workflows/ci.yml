@@ -115,7 +115,6 @@ jobs:
       - name: Sparse Checkout
         run: |
           $(cd libs/gi/dm/GenshinData  && git sparse-checkout set TextMap ExcelBinOutput)
-          $(cd libs/sr/dm/StarRailData && git sparse-checkout set TextMap ExcelOutput)
       - uses: actions/setup-node@v6
         with:
           node-version-file: '.nvmrc'

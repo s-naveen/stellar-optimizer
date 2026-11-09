@@ -1,7 +1,0 @@
-{
-  "name": "sr-schema",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/sr/schema/src",
-  "projectType": "library",
-  "tags": []
-}

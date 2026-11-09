@@ -24,7 +24,7 @@ function isElementKey(val: string): val is ElementWithPhyKey {
   return (allElementWithPhyKeys as readonly string[]).includes(val)
 }
 
-/** Bool / slider / list title — same ch() then st() resolution as ZZZ `trans()`. */
+/** Bool / slider / list title, resolved with ch() first, then st(). */
 export function ArtCondName({
   setKey,
   name,

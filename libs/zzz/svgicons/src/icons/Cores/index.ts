@@ -1,6 +1,0 @@
-export * from './ACoreIcon'
-export * from './BCoreIcon'
-export * from './CCoreIcon'
-export * from './DCoreIcon'
-export * from './ECoreIcon'
-export * from './FCoreIcon'

@@ -14,7 +14,7 @@ type CondSrc =
   | { art: string }
   | { sheet: string; values?: Record<string, string | number> }
 
-/** Formula cond name → locale, matching WR `name:` / ZZZ `ch()` authored keys. */
+/** Formula cond name → locale, matching WR `name:` keys. */
 const bySet: Partial<Record<ArtifactSetKey, Record<string, CondSrc>>> = {
   ADayCarvedFromRisingWinds: {
     set4: { sheet: 'hitOp.normalChargedSkillBurst' },
@@ -122,7 +122,7 @@ function patternRefs(name: string): CondI18nRef[] {
   return []
 }
 
-/** Unique i18n lookups, ZZZ-style: authored `ch()` then shared `st()`. */
+/** Unique i18n lookups: authored `ch()` then shared `st()`. */
 export function artCondI18nCandidates(
   setKey: ArtifactSetKey,
   name: string

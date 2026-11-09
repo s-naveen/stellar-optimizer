@@ -3,8 +3,6 @@ import {
   getGOAd,
   getGODrakeAd,
   getGOLootbarAd,
-  getZOBannerAd,
-  getZORectAd,
 } from '@genshin-optimizer/common/ad'
 import { CardThemed } from '@genshin-optimizer/common/ui'
 import {
@@ -48,8 +46,6 @@ function getAdComponents(
     // getGODevAd,
     getGODrakeAd,
     getGOLootbarAd,
-    getZOBannerAd,
-    getZORectAd,
   ]
     .map((c) => c(dims))
     .filter(notEmpty)

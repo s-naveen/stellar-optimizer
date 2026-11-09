@@ -30,19 +30,6 @@
         "uriFormat": "http://localhost:%s",
         "webRoot": "${workspaceFolder}"
       }
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Start SRO dev server and launch Chrome against localhost",
-      "runtimeExecutable": "yarn",
-      "runtimeArgs": ["run", "nx", "serve", "sr-frontend"],
-      "serverReadyAction": {
-        "action": "debugWithChrome",
-        "pattern": "http://localhost:.*1m([0-9]+)",
-        "uriFormat": "http://localhost:%s",
-        "webRoot": "${workspaceFolder}"
-      }
     }
   ]
 }

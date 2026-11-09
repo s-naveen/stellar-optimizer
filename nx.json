@@ -123,8 +123,7 @@
     {
       "plugin": "@nx/vitest",
       "options": {
-        "testTargetName": "test",
-        "exclude": ["somnia-e2e"]
+        "testTargetName": "test"
       }
     },
     {

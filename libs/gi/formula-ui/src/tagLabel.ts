@@ -115,7 +115,7 @@ export function getTagLabel(tag: Tag | undefined | null): string {
 
 /**
  * Log when a tag would render as a raw key. `q: '_'` (percent() dummy) always
- * errors; other unmapped keys only in dev (ZZZ `warnUnresolvedTagLabel`).
+ * errors; other unmapped keys only in dev.
  */
 export function warnUnresolvedTagLabel(tag: Tag, label: string): void {
   if (!label) return

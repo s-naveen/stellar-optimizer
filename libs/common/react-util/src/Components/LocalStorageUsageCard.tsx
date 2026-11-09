@@ -25,11 +25,6 @@ const COLORS = {
   goDb2: '#22ff55',
   goDb3: '#ffaa55',
   goDb4: '#ff6655',
-  activeZo: '#ff2255',
-  zoDb1: '#aa55ff',
-  zoDb2: '#aaff55',
-  zoDb3: '#2255aa',
-  zoDb4: '#22aa55',
 }
 const DISPLAY_PERCENT_THRESH = 1
 const WARNING_PERCENT_THRESH = 75
@@ -43,11 +38,6 @@ export function LocalStorageUsageCard() {
     goDb2: 0,
     goDb3: 0,
     goDb4: 0,
-    activeZo: 0,
-    zoDb1: 0,
-    zoDb2: 0,
-    zoDb3: 0,
-    zoDb4: 0,
   }
 
   for (let i = 0; i < localStorage.length; i++) {
@@ -57,24 +47,7 @@ export function LocalStorageUsageCard() {
     const value = localStorage.getItem(key)
     const size = new Blob(value ? [key, value] : [key]).size
     totalBytes += size
-    if (key.startsWith('zzz_extraDatabase')) {
-      switch (key[key.length - 1]) {
-        case '1':
-          bytesByCategory.zoDb1 += size
-          continue
-        case '2':
-          bytesByCategory.zoDb2 += size
-          continue
-        case '3':
-          bytesByCategory.zoDb3 += size
-          continue
-        case '4':
-          bytesByCategory.zoDb4 += size
-          continue
-      }
-    } else if (key.startsWith('zzz_')) {
-      bytesByCategory.activeZo += size
-    } else if (key.startsWith('extraDatabase')) {
+    if (key.startsWith('extraDatabase')) {
       switch (key[key.length - 1]) {
         case '1':
           bytesByCategory.goDb1 += size

@@ -11,7 +11,7 @@ export function registerEquipment<Tag_ extends Tag>(
   equipmentSheet: Sheet<Tag_>,
   ...data: (TagMapNodeEntry<Tag_> | TagMapNodeEntries<Tag_>)[]
 ): TagMapNodeEntries<Tag_> {
-  /* == Below comment also applies for weapon, disc, wengine, relic, lightcone, etc.
+  /* == Below comment also applies for weapons and other equipment.
    * Unlike character, artifact buff is all-or-nothing, so we can register every
    * buff as `sheet:art` and tag the formula as `sheet:<key>`. This means that `sheet:art`,
    * which is read on each `et:agg`, does not need to reread `sheet:<key>`. This greatly

@@ -5,7 +5,7 @@ on:
   workflow_call:
     inputs:
       frontend_name:
-        description: 'Frontend type to build. Can be `frontend`, `gi-frontend`, `sr-frontend`, or `zzz-frontend`.'
+        description: 'Frontend type to build. Can be `frontend` or `gi-frontend`.'
         type: string
         required: true
       deployment_name:
@@ -47,10 +47,8 @@ jobs:
         run: |
           printf '%s' "$ENVFILE" > apps/frontend/.env.local
           printf '%s' "$ENVFILE" > apps/gi-frontend/.env.local
-          printf '%s' "$ZO_ENVFILE" > apps/zzz-frontend/.env.local
         env:
           ENVFILE: ${{ vars.ENVFILE }}
-          ZO_ENVFILE: ${{ vars.ZO_ENVFILE }}
       - name: Build frontend
         run: |
           echo $NX_SHOW_DEV_COMPONENTS

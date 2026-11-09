@@ -49,7 +49,7 @@ export function ConditionalsDisplay({
     showSrcPicker: showSrcPickerOpt,
     showDstPicker: showDstPickerOpt,
   } = useContext(SrcDstDisplayContext)
-  // Defaults keep GI/SR picker behavior; ZZZ opts out via context flags.
+  // Both pickers show by default; SrcDstDisplayContext can turn them off.
   const showSrcPicker = showSrcPickerOpt ?? true
   const showDstPicker = showDstPickerOpt ?? true
   const setConditional = useContext(SetConditionalContext)

@@ -6,12 +6,12 @@ export type SrcDstDisplayContextObj = {
   dstDisplay: Record<string, ReactNode>
   /**
    * When true (default), empty targeted conditionals can pick src.
-   * When false, src is taken from TagContext (e.g. ZZZ teammate cards).
+   * When false, src is taken from TagContext.
    */
   showSrcPicker?: boolean
   /**
    * When true (default), empty targeted conditionals can pick dst.
-   * When false, hide the dst dropdown (e.g. ZZZ for now).
+   * When false, hide the dst dropdown.
    */
   showDstPicker?: boolean
 }

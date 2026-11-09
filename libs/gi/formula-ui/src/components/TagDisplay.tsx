@@ -32,7 +32,7 @@ export function TagDisplay({
   return <ColorText color={color}>{inner}</ColorText>
 }
 
-/** Tooltip header: title plus move-type and element badges (ZZZ `FullTagDisplay`). */
+/** Tooltip header: title plus move-type and element badges. */
 export function FullTagDisplay({ tag }: { tag: Tag; showPercent?: boolean }) {
   const move = tag.move
   const ele = tag.ele

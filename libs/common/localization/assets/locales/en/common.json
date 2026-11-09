@@ -41,11 +41,6 @@
     "goDb1": "Database 1",
     "goDb2": "Database 2",
     "goDb3": "Database 3",
-    "goDb4": "Database 4",
-    "activeZo": "Active ZO Database",
-    "zoDb1": "ZO Database 1",
-    "zoDb2": "ZO Database 2",
-    "zoDb3": "ZO Database 3",
-    "zoDb4": "ZO Database 4"
+    "goDb4": "Database 4"
   }
 }

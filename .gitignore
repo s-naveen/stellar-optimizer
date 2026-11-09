@@ -61,9 +61,6 @@ Thumbs.db
 vite.config.mts.timestamp-*
 vitest.config.mts.timestamp-*
 
-# discord bot config
-apps/somnia/src/config.json
-
 vite.config.*.timestamp*
 vitest.config.*.timestamp*
 .cursor/rules/nx-rules.mdc
