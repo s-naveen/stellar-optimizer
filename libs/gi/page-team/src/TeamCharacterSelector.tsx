@@ -27,6 +27,7 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material'
+import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import { TeamActions } from './TeamActions'
@@ -35,12 +36,15 @@ export default function TeamCharacterSelector({
   characterKey,
   tab = '',
   teamOpt = false,
+  actions,
 }: {
   teamId: string
   characterKey?: CharacterKey
   tab?: string
   /** Team Optimize is open */
   teamOpt?: boolean
+  /** more header actions, before the team's (e.g. the open member's build card) */
+  actions?: ReactNode
 }) {
   const { t } = useTranslation(['page_team', 'ui'])
   const navigate = useNavigate()
@@ -126,6 +130,7 @@ export default function TeamCharacterSelector({
           </Typography>
         )}
         <Box sx={{ flexGrow: 1 }} />
+        {actions}
         <TeamActions teamId={teamId} />
       </Box>
       {/* members: pills; the open one is gold, like the active nav item */}

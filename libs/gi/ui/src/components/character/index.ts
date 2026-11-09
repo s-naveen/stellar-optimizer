@@ -1,4 +1,5 @@
 export * from './BuildAlert'
+export * from './buildCard'
 export * from './CharacterCard'
 export * from './CharacterCardPico'
 export * from './CharacterLevelSelect'

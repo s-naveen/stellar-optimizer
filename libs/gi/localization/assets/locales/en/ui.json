@@ -94,5 +94,22 @@
     "improved": "Improved",
     "fixed": "Fixed",
     "onGitHub": "Release on GitHub"
+  },
+  "buildCard": {
+    "button": "Build card",
+    "title": "Build card",
+    "close": "Close",
+    "alt": "{{name}}’s build",
+    "copy": "Copy image",
+    "copied": "Copied",
+    "download": "Download PNG",
+    "downloadJpg": "Download JPG",
+    "emptySlot": "Empty",
+    "level": "Lv.",
+    "pieces_one": "{{count}}-piece",
+    "pieces_other": "{{count}}-piece",
+    "rv": "RV",
+    "cv": "CV",
+    "tcBuild": "A theorycraft build has no artifacts to show on a card"
   }
 }

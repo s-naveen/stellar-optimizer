@@ -46,6 +46,7 @@ import {
 import type { BuildTcContexObj, SetBuildTcAction } from './BuildTcContext'
 import { BuildTcContext } from './BuildTcContext'
 import Content from './CharacterDisplay/Content'
+import { TeamBuildCardButton } from './TeamBuildCardButton'
 import TeamCharacterSelector from './TeamCharacterSelector'
 import TeamOptimize from './TeamOptimize'
 import TeamSetting from './TeamSetting'
@@ -222,6 +223,18 @@ function Page({ teamId }: { teamId: string }) {
         characterKey={characterKey}
         tab={tab}
         teamOpt={isTeamOpt}
+        actions={
+          // a member's tab: its build card, among the header's actions
+          !isTeamOpt &&
+          teamCharacterContextValue &&
+          dataContextValue && (
+            <TeamCharacterContext.Provider value={teamCharacterContextValue}>
+              <DataContext.Provider value={dataContextValue}>
+                <TeamBuildCardButton />
+              </DataContext.Provider>
+            </TeamCharacterContext.Provider>
+          )
+        }
       />
       {/* `clip` still clips to the rounded corners but, unlike `hidden`, is not a scroll
           container, so sticky bars inside (the optimizer's generate bar) stick to the window */}

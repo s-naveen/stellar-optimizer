@@ -25,6 +25,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { BuildEditContext, DataContext } from '../../../context'
 import { AddTeamInfo } from '../../AddTeamInfo'
+import { BuildCardButton } from '../buildCard'
 import { CharacterLevelSelect } from '../CharacterLevelSelect'
 import {
   CharacterCompactConstSelector,
@@ -65,12 +66,12 @@ export function Content({ onClose }: { onClose?: () => void }) {
     <Box display="flex" flexDirection="column" gap={1}>
       <Box display="flex" gap={1}>
         <TravelerGenderSelect />
+        <BuildCardButton sx={{ marginLeft: 'auto' }} />
         <Button
           variant="outlined"
           color="error"
           onClick={() => deleteCharacter()}
           startIcon={<DeleteForeverIcon />}
-          sx={{ marginLeft: 'auto' }}
         >
           {t('delete')}
         </Button>
