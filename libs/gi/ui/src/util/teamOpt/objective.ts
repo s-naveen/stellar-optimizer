@@ -25,6 +25,7 @@ import {
 import { statFilterToNumNode } from '../statFilterToNumNode'
 import type { BonusStats, BuffRef, CharacterOverride } from './data'
 import { buffRefKey, getTeamDataWith, teamOptMembers } from './data'
+import type { TimedAttack } from './timeline'
 
 /** A run of an attack's hits that all get the same buffs */
 export interface AttackSegment {
@@ -203,7 +204,9 @@ export function teamRotationNodes(
         def.onField && memberKeys.includes(def.onField)
           ? def.onField
           : defaultActive
-      for (const { hits, excluded } of attackSegments(def)) {
+      // (split by the timeline, see `rotationAttacks`, else by its own limits)
+      const segments = (def as TimedAttack).segments ?? attackSegments(def)
+      for (const { hits, excluded } of segments) {
         const { byActive } = groupFor(excluded, def.states ?? [])
         const items = byActive.get(active) ?? []
         byActive.set(active, items)

@@ -35,6 +35,7 @@ import {
   meetsSetRules,
   optimizeTeam,
   partTerms,
+  rotationAttacks,
   statGains,
   teamOptArtValues,
   teamOptBonusStats,
@@ -260,6 +261,49 @@ describe('team rotation', () => {
     // the quills add Shenhe's ATK-based flat DMG to Cryo hits
     expect(all).toBeGreaterThan(none * 1.05)
     expect(seven).toBeCloseTo((7 / 19) * all + (12 / 19) * none, 6)
+  })
+
+  it('counts a timed buff on the hits in its windows, as a limit does on the first hits', () => {
+    const { database, teamId } = setup()
+    const evaluate = (
+      attacks: Partial<Record<CharacterKey, TeamOptAttack[]>>
+    ) =>
+      evaluateTeamRotation(database, teamId, 'F', { arts: {}, attacks })!.total
+    // the burst's 19 hits from 2 s to 12 s; the quills up from 0 s to 7 s: hits 1-9.5 of 19
+    const cutting = {
+      ...attack(['burst', 'cutting'], 19),
+      at: { start: 2, end: 12 },
+    }
+    const teamOpt = {
+      ...initTeamOpt(),
+      attacks: { [ayaka]: [cutting] },
+      rotationTime: 20,
+      timeline: {
+        on: true,
+        buffs: [
+          {
+            ...quill,
+            trigger: 'manual' as const,
+            duration: 0,
+            windows: [[0, 7]] as [number, number][],
+          },
+        ],
+      },
+    }
+    const timed = evaluate(rotationAttacks(teamOpt))
+    const limited = evaluate({
+      [ayaka]: [attack(['burst', 'cutting'], 19, [{ ...quill, hits: 9.5 }])],
+    })
+    expect(timed).toBeCloseTo(limited, 6)
+    // timeline off: the buff covers every hit, as before
+    expect(
+      evaluate(
+        rotationAttacks({
+          ...teamOpt,
+          timeline: { ...teamOpt.timeline, on: false },
+        })
+      )
+    ).toBeCloseTo(evaluate({ [ayaka]: [attack(['burst', 'cutting'], 19)] }), 6)
   })
 
   it('gives the active character’s buffs to whoever is on the field', () => {

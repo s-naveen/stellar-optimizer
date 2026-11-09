@@ -170,7 +170,12 @@ describe('team.teamOpt (Team Optimize settings)', () => {
             onField: 'Shenhe',
             bonusStats: { burst_dmg_: 30, atk: 100 },
           },
-          { path: ['skill', 'press'], hits: 2.5, hitMode: 'critHit' },
+          {
+            path: ['skill', 'press'],
+            hits: 2.5,
+            hitMode: 'critHit',
+            at: { start: 1.5, end: 2 },
+          },
         ],
       },
       keep: ['Shenhe'],
@@ -186,6 +191,26 @@ describe('team.teamOpt (Team Optimize settings)', () => {
       bonusStats: { team: { atk_: 20 }, Shenhe: { eleMas: 100 } },
       rotationTime: 21.5,
       topN: 3,
+      timeline: {
+        on: true,
+        buffs: [
+          {
+            owner: 'Shenhe',
+            path: ['Instructor', 'set4'],
+            trigger: 'reaction',
+            duration: 8,
+          },
+          {
+            owner: 'team',
+            path: ['resonance', 'x'],
+            trigger: 'manual',
+            duration: 0,
+            cooldown: 20,
+            windows: [[0, 12]],
+          },
+        ],
+        casts: [{ member: 'Shenhe', kind: 'skill', at: 0.5 }],
+      },
     }
     const first = new ArtCharDatabase(1, new SandboxStorage())
     first.importGOOD(good(), false, false, false)
@@ -222,6 +247,50 @@ describe('team.teamOpt (Team Optimize settings)', () => {
     expect('topN' in validateTeamOpt(initTeamOpt())!).toBe(false)
   })
 
+  it('cleans a timeline: bad buffs and casts dropped, times in order', () => {
+    const teamOpt = validateTeamOpt({
+      ...initTeamOpt(),
+      attacks: {
+        Shenhe: [
+          { path: ['skill', 'press'], hits: 1, at: { start: 5, end: 3 } },
+          { path: ['burst', 'dmg'], hits: 1, at: { start: -1, end: 2 } },
+        ],
+      },
+      timeline: {
+        on: 'yes',
+        buffs: [
+          { owner: 'Shenhe', path: ['x'], trigger: 'burst', duration: 12 },
+          { owner: 'Nobody', path: ['x'], trigger: 'burst', duration: 12 },
+          { owner: 'team', path: ['x'], trigger: 'later', duration: 12 },
+          {
+            owner: 'team',
+            path: ['y'],
+            trigger: 'manual',
+            duration: 0,
+            windows: [[9, 3]],
+          },
+        ],
+        casts: [{ member: 'Shenhe', kind: 'dance', at: 1 }],
+      },
+    })!
+    // an end before its start becomes the start; a negative time drops the time
+    expect(teamOpt.attacks.Shenhe?.[0].at).toEqual({ start: 5, end: 5 })
+    expect(teamOpt.attacks.Shenhe?.[1].at).toBeUndefined()
+    expect(teamOpt.timeline).toEqual({
+      on: false,
+      buffs: [
+        { owner: 'Shenhe', path: ['x'], trigger: 'burst', duration: 12 },
+        {
+          owner: 'team',
+          path: ['y'],
+          trigger: 'manual',
+          duration: 0,
+          windows: [[3, 9]],
+        },
+      ],
+    })
+  })
+
   it('loads a save from before the newer settings', () => {
     const old = good()
     // a team saved before per-member energy, on-field, buff states, extra buffs and DPS
@@ -256,5 +325,46 @@ describe('team.teamOpt (Team Optimize settings)', () => {
     // and none of the newer settings is made up
     for (const key of ['onField', 'bonusStats', 'rotationTime'] as const)
       expect(key in loaded).toBe(false)
+  })
+  it('keeps the attacks chosen as what starts a timed buff, empty too, bad ones dropped', () => {
+    const teamOpt = validateTeamOpt({
+      ...initTeamOpt(),
+      timeline: {
+        on: true,
+        buffs: [
+          {
+            owner: 'KaedeharaKazuha',
+            path: ['Instructor', 'set4'],
+            trigger: 'reaction',
+            duration: 8,
+            startedBy: [
+              { member: 'Citlali', path: ['skill', 'frostfallStormDmg'] },
+            ],
+          },
+          {
+            owner: 'Bennett',
+            path: ['x'],
+            trigger: 'burst',
+            duration: 12,
+            startedBy: [],
+          },
+          {
+            owner: 'Bennett',
+            path: ['y'],
+            trigger: 'burst',
+            duration: 12,
+            startedBy: [{ member: 'Nobody', path: [] }],
+          },
+        ],
+      },
+    })!
+    const [a, b, c] = teamOpt.timeline!.buffs
+    expect(a.startedBy).toEqual([
+      { member: 'Citlali', path: ['skill', 'frostfallStormDmg'] },
+    ])
+    // (none chosen: nothing starts it)
+    expect(b.startedBy).toEqual([])
+    // (an invalid list: back to automatic)
+    expect(c.startedBy).toBeUndefined()
   })
 })

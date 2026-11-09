@@ -21,6 +21,7 @@ import { constant, optimize, precompute, sum } from '@genshin-optimizer/gi/wr'
 import type { BonusStats, CharacterOverride, TeamOptMember } from './data'
 import { teamOptBonusStats, teamOptMembers } from './data'
 import { constValue, teamRotationNodes } from './objective'
+import { rotationAttacks } from './timeline'
 import {
   canWield,
   hasEnergyRequirement,
@@ -594,7 +595,8 @@ export async function optimizeTeam({
     ])
   ) as Partial<Record<CharacterKey, StatFilters>>
   const mainStatAssumptionLevel = teamOpt.assumeMaxMain ? 20 : 0
-  const { attacks } = teamOpt
+  // (split by the timeline's timed buffs, when it is on)
+  const attacks = rotationAttacks(teamOpt)
   // the extra buffs (food, an Abyss blessing...) of each member
   const bonusStats = teamOptBonusStats(
     teamOpt,

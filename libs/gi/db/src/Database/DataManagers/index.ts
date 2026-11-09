@@ -76,10 +76,17 @@ import { defLoadoutExportSetting } from './TeamDataManager'
 import type {
   TeamOpt,
   TeamOptAttack,
+  TeamOptAttackTime,
   TeamOptBuffLimit,
   TeamOptBuffOwner,
+  TeamOptBuffSource,
+  TeamOptBuffTrigger,
+  TeamOptTimedBuff,
+  TeamOptTimeline,
+  TeamOptTimelineCast,
 } from './TeamOpt'
 import {
+  allTeamOptBuffTriggers,
   initTeamOpt,
   initTeamOptAttack,
   TEAM_OPT_MAX_ATTACKS,
@@ -138,12 +145,19 @@ export type {
   TeamCharacter,
   TeamOpt,
   TeamOptAttack,
+  TeamOptAttackTime,
   TeamOptBuffLimit,
   TeamOptBuffOwner,
+  TeamOptBuffSource,
+  TeamOptBuffTrigger,
+  TeamOptTimedBuff,
+  TeamOptTimeline,
+  TeamOptTimelineCast,
   TeamRotation,
 }
 export {
   allArtifactSetExclusionKeys,
+  allTeamOptBuffTriggers,
   applyTeamRotation,
   cachedArtifact,
   defaultInitialWeapon,

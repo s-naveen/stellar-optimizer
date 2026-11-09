@@ -19,6 +19,7 @@ import { addBonusStats, teamOptBonusStats, teamOptMembers } from './data'
 import { teamRotationNodes } from './objective'
 import type { TeamOptResult } from './solve'
 import { evaluateTeamRotation, teamOptArtValues } from './solve'
+import { rotationAttacks } from './timeline'
 
 /** The substats whose extra roll is valued */
 export const sensitivitySubstats: readonly SubstatKey[] = [
@@ -88,7 +89,7 @@ export function teamSensitivity(
   ) as Partial<Record<CharacterKey, ICachedWeapon>>
   const bonusStats = teamOptBonusStats(teamOpt, memberKeys)
   const common = {
-    attacks: teamOpt.attacks,
+    attacks: rotationAttacks(teamOpt),
     mainStatAssumptionLevel,
     weapons,
     onField: teamOpt.onField,

@@ -70,6 +70,82 @@ export interface TeamOptAttack {
    */
   onField?: CharacterKey
   description?: string
+  /** When it happens in the timeline (see `TeamOpt.timeline`) */
+  at?: TeamOptAttackTime
+}
+
+/**
+ * When an attack happens in the rotation's timeline, in seconds from its start: its hits are
+ * spread evenly over `[start, end]` (`end === start`: all at once)
+ */
+export interface TeamOptAttackTime {
+  start: number
+  end: number
+}
+
+/** What starts a timed buff: something its owner does (or its windows, set by hand) */
+/**
+ * What starts a timed buff: its owner's cast (`burst`, `skill`, `skillOrBurst`), or each of its
+ * hits of a kind (`burstHit`, `skillHit`, `normal`, `charged`, `plunging`, `hit`: any), or its
+ * reactions; `manual`: its windows are drawn by hand
+ */
+export const allTeamOptBuffTriggers = [
+  'burst',
+  'burstHit',
+  'skill',
+  'skillHit',
+  'skillOrBurst',
+  'hit',
+  'normal',
+  'charged',
+  'plunging',
+  'reaction',
+  'manual',
+] as const
+export type TeamOptBuffTrigger = (typeof allTeamOptBuffTriggers)[number]
+
+/** A buff that lasts a while once triggered (Instructor: 8 s after its wearer's reaction) */
+export interface TeamOptTimedBuff {
+  owner: TeamOptBuffOwner
+  /** The conditional's path, as in `TeamOptBuffLimit` */
+  path: string[]
+  trigger: TeamOptBuffTrigger
+  /** Seconds it lasts */
+  duration: number
+  /** Seconds before it can be triggered again */
+  cooldown?: number
+  /** Its windows, set by hand (`manual`): `[start, end]` seconds */
+  windows?: [number, number][]
+  /**
+   * The attacks that start it, as the user chose them (each of their hits, or their cast for a
+   * cast trigger); absent: the ones its trigger finds (a reaction: the attacks that react...)
+   */
+  startedBy?: TeamOptBuffSource[]
+}
+
+/** An attack of the rotation, as what starts a timed buff: a member's attacks at that path */
+export interface TeamOptBuffSource {
+  member: CharacterKey
+  path: string[]
+}
+
+/** A cast that deals no damage but may start buffs (a shield, a buffing skill) */
+export interface TeamOptTimelineCast {
+  member: CharacterKey
+  kind: 'skill' | 'burst'
+  /** Seconds from the rotation's start */
+  at: number
+}
+
+/**
+ * The rotation as a timeline (the advanced mode): when each attack happens (`TeamOptAttack.at`)
+ * and the buffs that only last a while, so that each hit counts the buffs that are up at its
+ * time. Off: the rotation is the plain list (every buff covers every hit, unless limited).
+ */
+export interface TeamOptTimeline {
+  on: boolean
+  buffs: TeamOptTimedBuff[]
+  casts?: TeamOptTimelineCast[]
 }
 
 /** Team Optimize settings of a team. Absent until the user sets something. */
@@ -114,10 +190,79 @@ export interface TeamOpt {
   rotationTime?: number
   /** How many team builds to find, best first (2 to 5); absent: 1 */
   topN?: number
+  /** The rotation as a timeline (advanced) */
+  timeline?: TeamOptTimeline
 }
 
 const reactionKeys = [...allAmpReactionKeys, ...allAdditiveReactions] as const
 const ownerKeys = [...allCharacterKeys, 'team'] as const
+
+/** Seconds into a rotation (a rotation is at most 600 s, as `rotationTime`) */
+const zodSeconds = z.number().finite().min(0).max(600)
+
+const attackTimeSchema = z
+  .object({ start: zodSeconds, end: zodSeconds })
+  .transform(({ start, end }) => ({ start, end: Math.max(start, end) }))
+
+const timedBuffSchema = z.object({
+  owner: z.enum(ownerKeys as unknown as [string, ...string[]]),
+  path: z.array(z.string()).min(1).max(6),
+  trigger: z.enum(allTeamOptBuffTriggers),
+  duration: zodSeconds,
+  cooldown: zodSeconds.optional().catch(undefined),
+  windows: z
+    .array(z.tuple([zodSeconds, zodSeconds]))
+    .max(50)
+    .optional()
+    .catch(undefined)
+    .transform((windows) =>
+      windows?.length
+        ? windows.map(
+            ([a, b]) => [Math.min(a, b), Math.max(a, b)] as [number, number]
+          )
+        : undefined
+    ),
+  startedBy: z
+    .array(
+      z.object({
+        member: z.enum(allCharacterKeys),
+        path: z.array(z.string()).min(1).max(6),
+      })
+    )
+    .max(100)
+    .optional()
+    .catch(undefined),
+})
+
+const timelineCastSchema = z.object({
+  member: z.enum(allCharacterKeys),
+  kind: z.enum(['skill', 'burst']),
+  at: zodSeconds,
+})
+
+/** Valid entries of an array, the others dropped */
+const validEntries = <T>(schema: z.ZodType<T>, max: number) =>
+  z
+    .array(z.unknown())
+    .catch([])
+    .transform((list) =>
+      list
+        .flatMap((entry) => {
+          const parsed = schema.safeParse(entry)
+          return parsed.success ? [parsed.data] : []
+        })
+        .slice(0, max)
+    )
+
+const timelineSchema = z
+  .object({
+    on: zodBoolean(false),
+    buffs: validEntries(timedBuffSchema, 100),
+    casts: validEntries(timelineCastSchema, 200).transform((casts) =>
+      casts.length ? casts : undefined
+    ),
+  })
+  .transform((timeline) => stripUndefined(timeline) as TeamOptTimeline)
 
 const buffLimitSchema = z.object({
   owner: z.enum(ownerKeys as unknown as [string, ...string[]]),
@@ -183,6 +328,7 @@ const attackSchema = z.object({
     }),
   onField: z.enum(allCharacterKeys).optional().catch(undefined),
   description: z.string().max(500).optional().catch(undefined),
+  at: attackTimeSchema.optional().catch(undefined),
 })
 
 const teamOptSchema = z.object({
@@ -245,6 +391,7 @@ const teamOptSchema = z.object({
     .optional()
     .catch(undefined),
   topN: z.number().int().min(2).max(5).optional().catch(undefined),
+  timeline: timelineSchema.optional().catch(undefined),
   bonusStats: z
     .unknown()
     .optional()
