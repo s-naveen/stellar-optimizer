@@ -237,8 +237,8 @@
     "graphVs": "Target vs.",
     "thresholdLine": "Stat threshold line",
     "gpuUnsupported": "This browser has no WebGPU: the CPU is used.",
-    "gpuOnHint": "Searches use the GPU (WebGPU). Click to use the CPU only: try it if searches feel slower than expected.",
-    "gpuOffHint": "Searches use the CPU only. Click to let them use the GPU (WebGPU).",
+    "gpuOnHint": "Searches use the GPU (WebGPU). Click to go back to the CPU (the default).",
+    "gpuOffHint": "Searches use the CPU. Click to let them use the GPU (WebGPU): faster for some searches, slower for others.",
     "gpuShort": "GPU",
     "cpuShort": "CPU"
   },

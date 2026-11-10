@@ -168,8 +168,8 @@ function createBuildStatusStore(initial: BuildStatus): BuildStatusStore {
 const audio = new Audio('assets/notification.mp3')
 
 /**
- * In the generate bar: whether the search may use the GPU (WebGPU) or runs on the CPU only. One
- * setting for the whole app (Team Optimize's run dialog has it too).
+ * In the generate bar: whether the search may use the GPU (WebGPU) or runs on the CPU only (the
+ * default). Team Optimize always uses the GPU.
  */
 function GpuButton({ disabled }: { disabled: boolean }) {
   const { t } = useTranslation('page_character_optimize')
@@ -183,11 +183,11 @@ function GpuButton({ disabled }: { disabled: boolean }) {
           ? on
             ? t(
                 'settings.gpuOnHint',
-                'Searches use the GPU (WebGPU). Click to use the CPU only: try it if searches feel slower than expected.'
+                'Searches use the GPU (WebGPU). Click to go back to the CPU (the default).'
               )
             : t(
                 'settings.gpuOffHint',
-                'Searches use the CPU only. Click to let them use the GPU (WebGPU).'
+                'Searches use the CPU. Click to let them use the GPU (WebGPU): faster for some searches, slower for others.'
               )
           : t(
               'settings.gpuUnsupported',

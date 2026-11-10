@@ -187,7 +187,11 @@ export function useTeamOptRun(teamId: string) {
           topN,
         }
         Object.assign(status.current, initStatus())
-        const solver = new GOSolver(problem, status.current, maxWorkers)
+        // (Team Optimize always uses the GPU when the browser can: each step has a build to beat, which
+        // the GPU's sweep prunes with; the Optimize tab's GPU setting is for single searches)
+        const solver = new GOSolver(problem, status.current, maxWorkers, {
+          gpu: true,
+        })
         stopSolver = () => solver.cancel(new TeamOptCancelled())
         const t0 = performance.now()
         try {

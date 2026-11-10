@@ -115,9 +115,17 @@ export class GOSolver {
   private rejectSolve: ((e: unknown) => void) | undefined
   private stopTracking: (() => void) | undefined
 
-  constructor(problem: OptProblemInput, status: Status, numWorker: number) {
+  /** Whether this search may use the GPU (default: the user's setting, see `optimizerGpuEnabled`) */
+  private readonly useGpu: boolean | undefined
+  constructor(
+    problem: OptProblemInput,
+    status: Status,
+    numWorker: number,
+    { gpu }: { gpu?: boolean } = {}
+  ) {
     this.problem = problem
     this.status = status
+    this.useGpu = gpu
     // one core is left for the browser (drawing the page, the GPU process): with every core busy
     // computing, the whole tab stutters while the optimizer runs
     const cores = globalThis.navigator?.hardwareConcurrency || 8
@@ -184,7 +192,8 @@ export class GOSolver {
     // The GPU may solve the problem alone: the lead then prepares the CPU's work only once it
     // is needed (`proceed`), and meanwhile stays idle, so it is not stopped when the GPU wins
     // (and goes back to the pool, warm, for the next run)
-    const waitForCPU = gpuAllowed()
+    const waitForCPU =
+      optimizerGpuSupported() && (this.useGpu ?? optimizerGpuEnabled())
     let leadWorker: Worker | undefined
     /** The lead waits for `proceed` */
     let leadWaiting = false
@@ -514,25 +523,24 @@ export function optimizerGpuSupported(): boolean {
 const GPU_SETTING = 'go_opt_gpu'
 /** The event sent when the GPU setting changes (see `setOptimizerGpuEnabled`) */
 export const OPTIMIZER_GPU_EVENT = 'go-opt-gpu'
-/** The user's setting: use the GPU when the browser can (on by default) */
+/**
+ * The user's setting for the Optimize tab: use the GPU when the browser can (off by default: the
+ * CPU's pruned search beats the GPU's full sweep on most single-character searches). Team
+ * Optimize always uses the GPU (`gpu: true`).
+ */
 export function optimizerGpuEnabled(): boolean {
   try {
-    return globalThis.localStorage?.getItem(GPU_SETTING) !== 'off'
+    return globalThis.localStorage?.getItem(GPU_SETTING) === 'on'
   } catch {
-    return true
+    return false
   }
 }
 export function setOptimizerGpuEnabled(on: boolean) {
   try {
-    if (on) globalThis.localStorage?.removeItem(GPU_SETTING)
-    else globalThis.localStorage?.setItem(GPU_SETTING, 'off')
+    if (on) globalThis.localStorage?.setItem(GPU_SETTING, 'on')
+    else globalThis.localStorage?.removeItem(GPU_SETTING)
   } catch {
     // (no storage: the setting lasts for this page only)
   }
   globalThis.dispatchEvent?.(new Event(OPTIMIZER_GPU_EVENT))
-}
-
-/** WebGPU is used when the browser has it and the user has not turned it off */
-function gpuAllowed(): boolean {
-  return optimizerGpuSupported() && optimizerGpuEnabled()
 }

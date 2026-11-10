@@ -59,7 +59,6 @@ import ArtifactSetConfig, {
 import MainStatSelectionCard from '../CharacterDisplay/Tabs/TabOptimize/Components/MainStatSelectionCard'
 import { SettingsCard } from '../CharacterDisplay/Tabs/TabOptimize/Components/SettingsCard'
 import StatFilterCard from '../CharacterDisplay/Tabs/TabOptimize/Components/StatFilterCard'
-import { useOptimizerGpu } from '../CharacterDisplay/Tabs/TabOptimize/Components/useOptimizerGpu'
 import { OptionTile } from './OptionTile'
 import type { TeamOptUpdate } from './useTeamOpt'
 import { WeaponSettings } from './WeaponChooser'
@@ -88,7 +87,6 @@ export function PoolSettings({
   disabled?: boolean
 }) {
   const { t } = useTranslation('page_team')
-  const gpu = useOptimizerGpu()
   const range = levelRanges.find(
     (r) => r.low === teamOpt.levelLow && r.high === teamOpt.levelHigh
   )
@@ -176,29 +174,6 @@ export function PoolSettings({
             })
           }
         />
-        {/* the GPU: one setting for the whole app (the Optimize tab has it too) */}
-        <Tooltip
-          title={
-            gpu.supported
-              ? t(
-                  'teamOpt.pool.gpuHint',
-                  'Off: the CPU only. Try it if runs feel slower than expected.'
-                )
-              : t(
-                  'teamOpt.pool.gpuUnsupported',
-                  'This browser has no WebGPU: the CPU is used.'
-                )
-          }
-        >
-          <Box>
-            <OptionTile
-              label={t('teamOpt.pool.gpu', 'Use the GPU (WebGPU)')}
-              checked={gpu.supported && gpu.enabled}
-              disabled={disabled || !gpu.supported}
-              onChange={() => gpu.setEnabled(!gpu.enabled)}
-            />
-          </Box>
-        </Tooltip>
         {/* weapons: chosen too, if the user wants */}
         <WeaponSettings
           members={members}

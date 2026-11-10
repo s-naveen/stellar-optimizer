@@ -17,7 +17,7 @@ const subscribe = (onChange: () => void) => {
 }
 
 /**
- * The optimizer's GPU setting (one for the whole app: the Optimize tab and Team Optimize):
+ * The Optimize tab's GPU setting (off by default; Team Optimize always uses the GPU):
  * whether the browser can use the GPU, whether the user lets it, and its setter
  */
 export function useOptimizerGpu() {
