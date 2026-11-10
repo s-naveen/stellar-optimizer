@@ -4,6 +4,7 @@ import {
   type CharacterKey,
 } from '@genshin-optimizer/gi/consts'
 import { allStats } from '@genshin-optimizer/gi/stats'
+import type { NumNode } from '@genshin-optimizer/gi/wr'
 import {
   compareEq,
   constant,
@@ -25,7 +26,6 @@ import {
   target,
   unequal,
 } from '@genshin-optimizer/gi/wr'
-import type { NumNode } from '@genshin-optimizer/gi/wr'
 import { cond, st, stg } from '../../SheetUtil'
 import { CharacterSheet } from '../CharacterSheet'
 import { charTemplates } from '../charTemplates'
@@ -408,6 +408,15 @@ const teamStellarObj = (
   mk: () => NumNode,
   suffix: '_dmg_' | '_critDMG_' | '_specialDmg_'
 ) => objKeyValMap(allStellarReactionKeys, (k) => [`${k}${suffix}`, mk()])
+/** A buff that applies to both Stellar Glimmer reactions: one line each (it is the same value) */
+const bothStellarFields = (
+  mk: () => NumNode,
+  suffix: '_critDMG_' | '_specialDmg_',
+  isTeamBuff = true
+) =>
+  allStellarReactionKeys.map((k) => ({
+    node: infoMut(mk(), { path: `${k}${suffix}`, isTeamBuff }),
+  }))
 const mkTeamSpecial = () => sum(mkC2Special(), mkC6LoveSpecial())
 
 /* ---------- Damage ---------- */
@@ -703,13 +712,7 @@ const sheet: TalentSheet = {
       states: {
         love: {
           name: ct.ch('love'),
-          fields: [
-            {
-              node: infoMut(mkC2Love(), {
-                path: 'stellarconduct_critDMG_',
-              }),
-            },
-          ],
+          fields: bothStellarFields(mkC2Love, '_critDMG_', false),
         },
         honor: { name: ct.ch('honor'), fields: [] },
       },
@@ -889,18 +892,8 @@ const sheet: TalentSheet = {
   constellation2: ct.talentTem('constellation2', [
     {
       fields: [
-        {
-          node: infoMut(mkC2Love(), {
-            path: 'stellarconduct_critDMG_',
-            isTeamBuff: true,
-          }),
-        },
-        {
-          node: infoMut(mkC2Special(), {
-            path: 'stellarconduct_specialDmg_',
-            isTeamBuff: true,
-          }),
-        },
+        ...bothStellarFields(mkC2Love, '_critDMG_'),
+        ...bothStellarFields(mkC2Special, '_specialDmg_'),
       ],
     },
   ]),
@@ -928,17 +921,8 @@ const sheet: TalentSheet = {
           ct.ch('c6DoomSc'),
           ct.ch('c6DoomSs')
         ),
-        {
-          node: infoMut(mkC6LoveSpecial(), {
-            path: 'stellarconduct_specialDmg_',
-            isTeamBuff: true,
-          }),
-        },
-        {
-          node: infoMut(mkC6HonorSpecial(), {
-            path: 'stellarconduct_specialDmg_',
-          }),
-        },
+        ...bothStellarFields(mkC6LoveSpecial, '_specialDmg_'),
+        ...bothStellarFields(mkC6HonorSpecial, '_specialDmg_', false),
       ],
     },
   ]),
