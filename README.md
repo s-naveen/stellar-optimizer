@@ -6,6 +6,10 @@
 
 It is based on the open-source [Genshin Optimizer](https://github.com/frzyc/genshin-optimizer) project by frzyc and contributors (see [LICENSE-GENSHIN-OPTIMIZER](/LICENSE-GENSHIN-OPTIMIZER)).
 
+## License
+
+Stellar Optimizer is licensed under the [GNU Affero General Public License v3.0](/LICENSE) or later. The original Genshin Optimizer code's copyright and permission notice is kept in [LICENSE-GENSHIN-OPTIMIZER](/LICENSE-GENSHIN-OPTIMIZER). Anyone using a copy of the site must be able to get its source: this repository, at the tag of the deployed release. The copyright notice is in [NOTICE](/NOTICE).
+
 ## Code structure
 
 The project is an [Nx](https://nx.dev) monorepo.
