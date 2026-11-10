@@ -235,7 +235,12 @@
     "scalesWith": "Target scales with",
     "graph": "Graph",
     "graphVs": "Target vs.",
-    "thresholdLine": "Stat threshold line"
+    "thresholdLine": "Stat threshold line",
+    "gpuUnsupported": "This browser has no WebGPU: the CPU is used.",
+    "gpuOnHint": "Searches use the GPU (WebGPU). Click to use the CPU only: try it if searches feel slower than expected.",
+    "gpuOffHint": "Searches use the CPU only. Click to let them use the GPU (WebGPU).",
+    "gpuShort": "GPU",
+    "cpuShort": "CPU"
   },
   "bonusStats": {
     "title": "Bonus stats"

@@ -507,12 +507,32 @@ export class GOSolver {
   }
 }
 
-/** WebGPU can be turned off with `localStorage.go_opt_gpu = 'off'` */
-function gpuAllowed(): boolean {
+/** The browser can run the optimizer on the GPU (WebGPU) */
+export function optimizerGpuSupported(): boolean {
+  return !!globalThis.navigator?.gpu
+}
+const GPU_SETTING = 'go_opt_gpu'
+/** The event sent when the GPU setting changes (see `setOptimizerGpuEnabled`) */
+export const OPTIMIZER_GPU_EVENT = 'go-opt-gpu'
+/** The user's setting: use the GPU when the browser can (on by default) */
+export function optimizerGpuEnabled(): boolean {
   try {
-    if (!globalThis.navigator?.gpu) return false
-    return globalThis.localStorage?.getItem('go_opt_gpu') !== 'off'
+    return globalThis.localStorage?.getItem(GPU_SETTING) !== 'off'
   } catch {
-    return false
+    return true
   }
+}
+export function setOptimizerGpuEnabled(on: boolean) {
+  try {
+    if (on) globalThis.localStorage?.removeItem(GPU_SETTING)
+    else globalThis.localStorage?.setItem(GPU_SETTING, 'off')
+  } catch {
+    // (no storage: the setting lasts for this page only)
+  }
+  globalThis.dispatchEvent?.(new Event(OPTIMIZER_GPU_EVENT))
+}
+
+/** WebGPU is used when the browser has it and the user has not turned it off */
+function gpuAllowed(): boolean {
+  return optimizerGpuSupported() && optimizerGpuEnabled()
 }

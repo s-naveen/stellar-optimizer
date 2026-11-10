@@ -67,6 +67,7 @@ import { dynamicData, mergeData, optimize } from '@genshin-optimizer/gi/wr'
 import { Close, DeleteForever, Science, TrendingUp } from '@mui/icons-material'
 import CheckroomIcon from '@mui/icons-material/Checkroom'
 import CloseIcon from '@mui/icons-material/Close'
+import MemoryIcon from '@mui/icons-material/Memory'
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive'
 import NotificationsOffIcon from '@mui/icons-material/NotificationsOff'
 import {
@@ -116,6 +117,7 @@ import {
 } from './Components/OptSettingsCards'
 import StatFilterCard from './Components/StatFilterCard'
 import UseEquipped from './Components/UseEquipped'
+import { useOptimizerGpu } from './Components/useOptimizerGpu'
 
 function initBuildStatus(): BuildStatus {
   return {
@@ -164,6 +166,50 @@ function createBuildStatusStore(initial: BuildStatus): BuildStatusStore {
   }
 }
 const audio = new Audio('assets/notification.mp3')
+
+/**
+ * In the generate bar: whether the search may use the GPU (WebGPU) or runs on the CPU only. One
+ * setting for the whole app (Team Optimize's run dialog has it too).
+ */
+function GpuButton({ disabled }: { disabled: boolean }) {
+  const { t } = useTranslation('page_character_optimize')
+  const { supported, enabled, setEnabled } = useOptimizerGpu()
+  const on = supported && enabled
+  return (
+    <BootstrapTooltip
+      placement="top"
+      title={
+        supported
+          ? on
+            ? t(
+                'settings.gpuOnHint',
+                'Searches use the GPU (WebGPU). Click to use the CPU only: try it if searches feel slower than expected.'
+              )
+            : t(
+                'settings.gpuOffHint',
+                'Searches use the CPU only. Click to let them use the GPU (WebGPU).'
+              )
+          : t(
+              'settings.gpuUnsupported',
+              'This browser has no WebGPU: the CPU is used.'
+            )
+      }
+    >
+      <Box>
+        <Button
+          sx={{ borderRadius: 0, gap: 0.75, opacity: on ? 1 : 0.75 }}
+          color="secondary"
+          aria-pressed={on}
+          onClick={() => setEnabled(!enabled)}
+          disabled={disabled || !supported}
+        >
+          <MemoryIcon fontSize="small" />
+          {on ? t('settings.gpuShort', 'GPU') : t('settings.cpuShort', 'CPU')}
+        </Button>
+      </Box>
+    </BootstrapTooltip>
+  )
+}
 export default function TabBuild() {
   const { t } = useTranslation('page_character_optimize')
   const {
@@ -797,6 +843,7 @@ export default function TabBuild() {
                 </MenuItem>
               ))}
           </DropdownButton>
+          <GpuButton disabled={generatingBuilds} />
           <BootstrapTooltip placement="top" title={t('notifyTooltip')}>
             <Box>
               <Button
