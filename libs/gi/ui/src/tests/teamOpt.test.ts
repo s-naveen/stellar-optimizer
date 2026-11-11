@@ -225,6 +225,39 @@ describe('attackSegments', () => {
 })
 
 describe('team rotation', () => {
+  it.each([
+    false,
+    true,
+  ])('removes excluded starting artifacts without relying on a better replacement (use own exclusions: %s)', async (useExcludedArts) => {
+    const { database, teamId, ayakaId, ids } = setup()
+    const optConfigId = database.teamChars.get(ayakaId)!.optConfigId
+    database.optConfigs.set(optConfigId, { artExclusion: [ids.atk.plume] })
+    const result = await optimizeTeam({
+      database,
+      teamId,
+      gender: 'F',
+      teamOpt: {
+        ...initTeamOpt(),
+        attacks: {
+          [ayaka]: [attack(['skill', 'press'], 1)],
+          [shenhe]: [attack(['skill', 'press'], 1)],
+        },
+        excludedArts: [ids.atk.flower, ids.crit.flower],
+        useExcludedArts,
+        keep: [shenhe],
+      },
+      // No search improvement: the incumbent itself must obey the exclusions.
+      maxRounds: 0,
+      solve: async () => undefined,
+    })
+    expect(result).toBeDefined()
+    expect(result!.builds[ayaka]!.flower).toBeUndefined()
+    expect(result!.builds[ayaka]!.plume).toBe(
+      useExcludedArts ? ids.atk.plume : undefined
+    )
+    expect(result!.builds[shenhe]!.flower).toBe(ids.crit.flower)
+  })
+
   it('counts each attack as the app computes it', () => {
     const { database, teamId } = setup()
     const attacks: TeamOpt['attacks'] = {

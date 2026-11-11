@@ -610,7 +610,14 @@ export async function optimizeTeam({
   )
 
   // The starting state: the members' current builds (an artifact in two of them stays with the
-  // first) and weapons
+  // first) and weapons. An optimized member's excluded artifacts (the team's list, and its own
+  // Optimize-tab list unless the team uses those) are left out: kept, they would stay whenever
+  // nothing without them beats the current build. Kept members' builds stay whole.
+  const excludedFrom = (member: TeamOptMember, id: string) =>
+    !teamOpt.keep.includes(member.characterKey) &&
+    (!!teamOpt.excludedArts?.includes(id) ||
+      (!teamOpt.useExcludedArts &&
+        !!optConfigs[member.characterKey]?.artExclusion.includes(id)))
   const state: TeamState = { builds: {}, weaponIds: {} }
   const claimed = new Set<string>()
   for (const member of members) {
@@ -620,6 +627,7 @@ export async function optimizeTeam({
       (slotKey) => {
         const id = member.artifactIds[slotKey]
         if (!id || claimed.has(id) || !database.arts.get(id)) return undefined
+        if (excludedFrom(member, id)) return undefined
         claimed.add(id)
         return id
       }
