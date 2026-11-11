@@ -58,6 +58,7 @@ import ArtifactSetConfig, {
 } from '../CharacterDisplay/Tabs/TabOptimize/Components/ArtifactSetConfig'
 import MainStatSelectionCard from '../CharacterDisplay/Tabs/TabOptimize/Components/MainStatSelectionCard'
 import { SettingsCard } from '../CharacterDisplay/Tabs/TabOptimize/Components/SettingsCard'
+import { ExcludedArtsTile } from './ExcludedArtifacts'
 import StatFilterCard from '../CharacterDisplay/Tabs/TabOptimize/Components/StatFilterCard'
 import { OptionTile } from './OptionTile'
 import type { TeamOptUpdate } from './useTeamOpt'
@@ -164,15 +165,11 @@ export function PoolSettings({
             })
           }
         />
-        <OptionTile
-          label={t('teamOpt.pool.excluded', 'Excluded artifacts')}
-          checked={teamOpt.useExcludedArts}
+        <ExcludedArtsTile
+          members={members}
+          teamOpt={teamOpt}
+          setTeamOpt={setTeamOpt}
           disabled={disabled}
-          onChange={() =>
-            setTeamOpt((o) => {
-              o.useExcludedArts = !o.useExcludedArts
-            })
-          }
         />
         {/* weapons: chosen too, if the user wants */}
         <WeaponSettings

@@ -178,7 +178,21 @@
       "levelAny": "Any",
       "others": "Other characters’ artifacts",
       "title": "Inventory",
-      "effects": "Set effects count only when on (Requirements → Artifact sets)"
+      "effects": "Set effects count only when on (Requirements → Artifact sets)",
+      "excludedTitle": "Excluded artifacts",
+      "excludedHelp": "This team is never optimized with these. Find one below, or press ⊘ on an artifact in a result.",
+      "excludedEmpty": "Nothing is excluded yet.",
+      "excludedClear": "Use all again",
+      "findTitle": "Find artifacts to exclude",
+      "anySlot": "All",
+      "mainStat": "Main stat",
+      "anyMain": "Any",
+      "found_one": "{{count}} artifact",
+      "found_other": "{{count}} artifacts",
+      "findHelp": "Click an artifact to exclude it; click it again to use it again.",
+      "showMore_one": "Show more ({{count}} left)",
+      "showMore_other": "Show more ({{count}} left)",
+      "edit": "Edit"
     },
     "requirements": {
       "mainStats": "Main stats",
@@ -237,7 +251,12 @@
       "belowNowSets_one": "can’t keep their current build: it breaks their allowed sets (Requirements → Artifact sets)",
       "belowNowSets_other": "can’t keep their current builds: they break their allowed sets (Requirements → Artifact sets)",
       "belowNowWeapons_one": "can’t keep their current weapon: it isn’t ticked in Weapons to choose from",
-      "belowNowWeapons_other": "can’t keep their current weapons: they aren’t ticked in Weapons to choose from"
+      "belowNowWeapons_other": "can’t keep their current weapons: they aren’t ticked in Weapons to choose from",
+      "excludedToast": "Excluded from this team. Run again to find builds without it.",
+      "undo": "Undo",
+      "excluded": "Excluded",
+      "include": "Use it again",
+      "exclude": "Exclude from this team's optimization"
     },
     "rotation": {
       "add": "Add attack",

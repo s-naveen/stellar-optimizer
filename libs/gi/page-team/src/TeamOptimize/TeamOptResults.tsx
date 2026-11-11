@@ -36,6 +36,7 @@ import {
   ArtifactSetName,
   ArtifactSetTooltip,
   CharacterName,
+  ExcludeIcon,
   GetCalcDisplay,
   resolveInfo,
   statName,
@@ -56,6 +57,7 @@ import CheckroomIcon from '@mui/icons-material/Checkroom'
 import CloseIcon from '@mui/icons-material/Close'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import SaveIcon from '@mui/icons-material/Save'
+import UndoIcon from '@mui/icons-material/Undo'
 import {
   Alert,
   alpha,
@@ -64,6 +66,7 @@ import {
   ButtonBase,
   FormControlLabel,
   IconButton,
+  Snackbar,
   Switch,
   Tooltip,
   Typography,
@@ -73,6 +76,7 @@ import { useTranslation } from 'react-i18next'
 import { changedMembers, equipTeamResult, saveTeamResult } from './apply'
 import { formatGain, formatRate } from './format'
 import { MemberAvatar } from './MemberAvatar'
+import { useTeamOpt } from './useTeamOpt'
 import type { ResultDetailsData } from './ResultDetails'
 import { MemberDetails, useResultDetails } from './ResultDetails'
 import { TeamCardButton } from './TeamCardButton'
@@ -118,6 +122,22 @@ export function TeamOptResults({
   )
   const [confirm, setConfirm] = useState(false)
   const [applied, setApplied] = useState<'equip' | 'save'>()
+  // artifacts excluded from this team's optimization (from here or the settings)
+  const [liveTeamOpt, setTeamOpt] = useTeamOpt(teamId)
+  const excludedArts = useMemo(
+    () => new Set(liveTeamOpt.excludedArts),
+    [liveTeamOpt.excludedArts]
+  )
+  const [lastExcluded, setLastExcluded] = useState<string>()
+  const toggleExcluded = (id: string) => {
+    const exclude = !excludedArts.has(id)
+    setTeamOpt((o) => {
+      o.excludedArts = exclude
+        ? [...o.excludedArts, id]
+        : o.excludedArts.filter((x) => x !== id)
+    })
+    setLastExcluded(exclude ? id : undefined)
+  }
   const noChange = !changed.length
   // every card opens at once (side by side, the members' stats line up)
   const [showDetails, setShowDetails] = useState(false)
@@ -430,10 +450,54 @@ export function TeamOptResults({
               onToggleDetails={() => setShowDetails((v) => !v)}
               details={details}
               compare={compare}
+              excludedArts={excludedArts}
+              onToggleExcluded={toggleExcluded}
             />
           ))}
         </Box>
       </Box>
+      <Snackbar
+        open={!!lastExcluded}
+        autoHideDuration={8000}
+        onClose={(_, reason) =>
+          reason !== 'clickaway' && setLastExcluded(undefined)
+        }
+      >
+        <Alert
+          severity="info"
+          variant="outlined"
+          icon={<ExcludeIcon fontSize="inherit" />}
+          sx={{ bgcolor: 'background.paper', alignItems: 'center' }}
+          action={
+            <>
+              <Button
+                size="small"
+                color="inherit"
+                onClick={() => lastExcluded && toggleExcluded(lastExcluded)}
+              >
+                {t('teamOpt.result.undo', 'Undo')}
+              </Button>
+              {onRunAgain && (
+                <Button
+                  size="small"
+                  variant="contained"
+                  onClick={() => {
+                    setLastExcluded(undefined)
+                    onRunAgain()
+                  }}
+                >
+                  {t('teamOpt.result.runAgain', 'Run again')}
+                </Button>
+              )}
+            </>
+          }
+        >
+          {t(
+            'teamOpt.result.excludedToast',
+            'Excluded from this team. Run again to find builds without it.'
+          )}
+        </Alert>
+      </Snackbar>
     </CardThemed>
   )
 }
@@ -519,6 +583,8 @@ function MemberResult({
   onToggleDetails,
   details,
   compare,
+  excludedArts,
+  onToggleExcluded,
 }: {
   member: TeamOptMember
   result: TeamOptResult
@@ -531,6 +597,9 @@ function MemberResult({
   details: ResultDetailsData | undefined
   /** Its changes against its equipped build are shown */
   compare: boolean
+  /** Artifacts excluded from the team's optimization, and the toggle */
+  excludedArts: ReadonlySet<string>
+  onToggleExcluded: (id: string) => void
 }) {
   const {
     characterKey,
@@ -693,12 +762,19 @@ function MemberResult({
           {allArtifactSlotKeys.map((slotKey) => {
             const id = build[slotKey]
             const isNew = compare && optimized && id !== artifactIds[slotKey]
+            const excluded = !!id && excludedArts.has(id)
             return (
               <Box
                 key={slotKey}
                 sx={(theme) => ({
                   position: 'relative',
                   minWidth: 0,
+                  // the exclude button: on hover or focus, always on touch screens and once excluded
+                  '& .exclude-art': { opacity: excluded ? 1 : 0 },
+                  '&:hover .exclude-art, &:focus-within .exclude-art': {
+                    opacity: 1,
+                  },
+                  '@media (hover: none)': { '& .exclude-art': { opacity: 1 } },
                   borderRadius: 1.5,
                   outline: isNew
                     ? `2px solid ${alpha(theme.palette.primary.main, 0.8)}`
@@ -712,10 +788,86 @@ function MemberResult({
                   }),
                 })}
               >
-                <ArtifactCardPico
-                  artifactObj={id ? database.arts.get(id) : undefined}
-                  slotKey={slotKey}
-                />
+                <Box
+                  sx={{
+                    opacity: excluded ? 0.35 : 1,
+                    filter: excluded ? 'grayscale(1)' : undefined,
+                    transition: 'opacity 120ms, filter 120ms',
+                  }}
+                >
+                  <ArtifactCardPico
+                    artifactObj={id ? database.arts.get(id) : undefined}
+                    slotKey={slotKey}
+                  />
+                </Box>
+                {excluded && (
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      position: 'absolute',
+                      left: 0,
+                      right: 0,
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      textAlign: 'center',
+                      fontWeight: 600,
+                      lineHeight: 1.1,
+                      pointerEvents: 'none',
+                      textShadow: '0 0 4px rgba(0,0,0,0.9)',
+                    }}
+                  >
+                    {t('teamOpt.result.excluded', 'Excluded')}
+                  </Typography>
+                )}
+                {id && (
+                  <Tooltip
+                    title={
+                      excluded
+                        ? t('teamOpt.result.include', 'Use it again')
+                        : t(
+                            'teamOpt.result.exclude',
+                            "Exclude from this team's optimization"
+                          )
+                    }
+                  >
+                    <IconButton
+                      className="exclude-art"
+                      size="small"
+                      aria-label={
+                        excluded
+                          ? t('teamOpt.result.include', 'Use it again')
+                          : t(
+                              'teamOpt.result.exclude',
+                              "Exclude from this team's optimization"
+                            )
+                      }
+                      aria-pressed={excluded}
+                      onClick={() => onToggleExcluded(id)}
+                      sx={(theme) => ({
+                        position: 'absolute',
+                        top: 2,
+                        right: 2,
+                        p: 0.25,
+                        zIndex: 1,
+                        transition: 'opacity 120ms',
+                        color: excluded ? 'warning.main' : 'text.primary',
+                        backgroundColor: alpha(
+                          theme.palette.background.paper,
+                          0.85
+                        ),
+                        '&:hover': {
+                          backgroundColor: theme.palette.background.paper,
+                        },
+                      })}
+                    >
+                      {excluded ? (
+                        <UndoIcon sx={{ fontSize: 16 }} />
+                      ) : (
+                        <ExcludeIcon sx={{ fontSize: 16 }} />
+                      )}
+                    </IconButton>
+                  </Tooltip>
+                )}
                 {showDetails && id && <ArtifactStats artifactId={id} />}
               </Box>
             )

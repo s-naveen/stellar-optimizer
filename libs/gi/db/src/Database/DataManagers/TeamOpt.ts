@@ -80,8 +80,10 @@ export interface TeamOpt {
   keep: CharacterKey[]
   /** Also take artifacts equipped on characters outside the team */
   useOtherChars: boolean
-  /** Also take artifacts excluded from the optimizer */
+  /** Also take artifacts excluded in the members' own optimizer (Optimize tab) */
   useExcludedArts: boolean
+  /** Artifacts this team's optimization never uses (ids) */
+  excludedArts: string[]
   levelLow: number
   levelHigh: number
   /** Count every main stat at +20 */
@@ -206,6 +208,12 @@ const teamOptSchema = z.object({
   keep: zodFilteredArray(allCharacterKeys, []),
   useOtherChars: zodBoolean(false),
   useExcludedArts: zodBoolean(false),
+  excludedArts: z
+    .array(z.unknown())
+    .catch([])
+    .transform((ids) => [
+      ...new Set(ids.filter((id): id is string => typeof id === 'string')),
+    ]),
   levelLow: zodClampedNumber(0, 20, defaultOptArtifactLevel),
   levelHigh: zodClampedNumber(0, 20, defaultOptArtifactLevel),
   assumeMaxMain: zodBoolean(false),
@@ -274,6 +282,7 @@ export function initTeamOpt(): TeamOpt {
     keep: [],
     useOtherChars: false,
     useExcludedArts: false,
+    excludedArts: [],
     levelLow: defaultOptArtifactLevel,
     levelHigh: defaultOptArtifactLevel,
     assumeMaxMain: false,

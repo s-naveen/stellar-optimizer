@@ -325,6 +325,7 @@ export function teamOptPool(
       optConfig.mainStatKeys as Partial<Record<ArtifactSlotKey, string[]>>
     )[art.slotKey]
     if (mainStats?.length && !mainStats.includes(art.mainStatKey)) return false
+    if (teamOpt.excludedArts?.includes(art.id)) return false
     if (!teamOpt.useExcludedArts && optConfig.artExclusion.includes(art.id))
       return false
     if (
