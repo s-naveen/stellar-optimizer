@@ -4,6 +4,12 @@ Every release of [Stellar Optimizer](https://gi-beta73.github.io/). The app show
 (home page, and the version in the footer). Generated from
 `libs/gi/ui/src/changelog/changelog.json` by `tools/site/release.mjs`: edit that file, not this one.
 
+## [v1.2.0](https://github.com/s-naveen/stellar-optimizer/releases/tag/v1.2.0) (2026-11-11)
+
+### New
+
+- Team Optimize: exclude artifacts from a team's optimization. Press ⊘ on an artifact in a result, or find artifacts by set, slot and main stat under Optimize team → Excluded artifacts, where each can be used again.
+
 ## [v1.1.6](https://github.com/s-naveen/stellar-optimizer/releases/tag/v1.1.6) (2026-11-11)
 
 ### Fixed

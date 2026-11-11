@@ -1,5 +1,12 @@
 [
   {
+    "version": "1.2.0",
+    "date": "2026-11-11",
+    "new": [
+      "Team Optimize: exclude artifacts from a team's optimization. Press ⊘ on an artifact in a result, or find artifacts by set, slot and main stat under Optimize team → Excluded artifacts, where each can be used again."
+    ]
+  },
+  {
     "version": "1.1.6",
     "date": "2026-11-11",
     "fixed": [
