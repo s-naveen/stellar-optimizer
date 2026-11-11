@@ -43,6 +43,7 @@ import {
   GOSolver,
   mergeBuilds,
   mergePlot,
+  nextPaint,
   prewarmSolver,
 } from '@genshin-optimizer/gi/solver'
 import { compactArtifacts } from '@genshin-optimizer/gi/solver-tc'
@@ -129,21 +130,6 @@ function initBuildStatus(): BuildStatus {
     testedPerSecond: 0,
     skippedPerSecond: 0,
   }
-}
-/**
- * Resolves once the browser has had a chance to paint. Falls back to a timer, since
- * `requestAnimationFrame` does not fire in background tabs.
- */
-function nextPaint(): Promise<void> {
-  return new Promise((resolve) => {
-    const timer = setTimeout(resolve, 50)
-    requestAnimationFrame(() =>
-      setTimeout(() => {
-        clearTimeout(timer)
-        resolve()
-      }, 0)
-    )
-  })
 }
 /**
  * Build status, published outside of React state so that the Generate/Cancel

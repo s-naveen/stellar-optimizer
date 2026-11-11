@@ -11,6 +11,7 @@ import { countBuilds, nodeRangeEvaluator } from '../common.js'
 import type { PlotConfig, Setup } from '../type.js'
 import type { ExclusionMasks } from './exclusion.js'
 import { readKeys } from './SolverWorker.js'
+import { yieldTask } from './yieldTask.js'
 
 /**
  * WebGPU brute-force backend: one dense sweep of a whole search space.
@@ -519,7 +520,7 @@ export class GPUSolver {
     const candidates: GPUCandidate[] = []
     for (let c = 0; c < found; c++) {
       // (exact re-evaluation runs on the page's thread: in chunks, so that it keeps drawing)
-      if (c % 20_000 === 19_999) await new Promise((r) => setTimeout(r, 0))
+      if (c % 20_000 === 19_999) await yieldTask()
       let r = pairs[stride * c]
       const i3 = r % n[3]
       r = Math.floor(r / n[3])

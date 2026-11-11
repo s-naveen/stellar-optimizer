@@ -6,6 +6,7 @@ import type { OptProblemInput } from '@genshin-optimizer/gi/solver'
 import {
   GOSolver,
   mergeBuilds,
+  nextPaint,
   prewarmSolver,
 } from '@genshin-optimizer/gi/solver'
 import { compactArtifacts } from '@genshin-optimizer/gi/solver-tc'
@@ -110,19 +111,6 @@ function lastRun(database: ArtCharDatabase, teamId: string): TeamOptRunState {
     if (saved) lastRuns[teamId] = saved
   }
   return lastRuns[teamId] ?? { type: 'idle' }
-}
-
-/** Resolves once the browser has had a chance to paint (also in background tabs) */
-function nextPaint(): Promise<void> {
-  return new Promise((resolve) => {
-    const timer = setTimeout(resolve, 50)
-    requestAnimationFrame(() =>
-      setTimeout(() => {
-        clearTimeout(timer)
-        resolve()
-      }, 0)
-    )
-  })
 }
 
 /** Runs Team Optimize for a team: one solver run per member and round (see `optimizeTeam`) */
