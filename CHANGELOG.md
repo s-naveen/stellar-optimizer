@@ -4,6 +4,13 @@ Every release of [Stellar Optimizer](https://gi-beta73.github.io/). The app show
 (home page, and the version in the footer). Generated from
 `libs/gi/ui/src/changelog/changelog.json` by `tools/site/release.mjs`: edit that file, not this one.
 
+## [v1.1.6](https://github.com/s-naveen/stellar-optimizer/releases/tag/v1.1.6) (2026-11-11)
+
+### Fixed
+
+- Optimize and Team Optimize keep running at full speed when the tab is in the background or the window is minimised.
+- Anastasya: her C2 and C6 bonuses now show their Stellar Swirl lines too (the damage already counted them).
+
 ## [v1.1.2](https://github.com/s-naveen/stellar-optimizer/releases/tag/v1.1.2) (2026-11-09)
 
 ### Improved
