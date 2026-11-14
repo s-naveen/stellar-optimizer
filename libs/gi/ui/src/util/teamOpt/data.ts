@@ -1,4 +1,5 @@
 import {
+  crawlObject,
   deepClone,
   deletePropPath,
   layeredAssignment,
@@ -25,7 +26,8 @@ import type {
 } from '@genshin-optimizer/gi/db'
 import type { ICharacter } from '@genshin-optimizer/gi/good'
 import type { IConditionalValues } from '@genshin-optimizer/gi/sheets'
-import type { Data } from '@genshin-optimizer/gi/wr'
+import type { Data, StrNode } from '@genshin-optimizer/gi/wr'
+import { constant, customRead, threshold } from '@genshin-optimizer/gi/wr'
 import type { InputPremodKey } from '@genshin-optimizer/gi/wr-types'
 
 /** Bonus stats (percent points for `_` stats), as a character's own */
@@ -316,4 +318,191 @@ export function getTeamDataWith(
     if (bundle) teamData[characterKey] = bundle.data
   }
   return teamData
+}
+
+/** A buff context: the conditionals in another state (`states`), and the ones that are off */
+export interface BuffContext {
+  excluded: readonly BuffRef[]
+  states: readonly (BuffRef & { value: string })[]
+}
+export const buffContextKey = ({ excluded, states }: BuffContext) =>
+  `${excluded.map(buffRefKey).sort().join('/')}#${states
+    .map((s) => `${buffRefKey(s)}=${s.value}`)
+    .sort()
+    .join('/')}`
+
+/** The team's calculation data for several buff contexts at once (`getTeamDataSelect`) */
+export interface TeamDataSelect {
+  teamData: Partial<Record<CharacterKey, Data[]>>
+  /**
+   * A context's values of the switches (by `buffContextKey`): each switch's read (`dyn`, then
+   * its key) and the number it reads there; undefined: not one of the contexts given
+   */
+  values: (contextKey: string) => Record<string, number> | undefined
+}
+
+/**
+ * `getTeamDataWith` for many buff contexts in one calculation: a conditional whose state differs
+ * between `contexts` is a switch in the data (a read under `dyn`, with a branch per state)
+ * instead of a constant, so formulas folded once in this data hold every context's version, and
+ * a context's own comes from folding them again with its `values` (cheap). The same numbers as
+ * one `getTeamDataWith` per context, for a fraction of the work.
+ */
+export function getTeamDataSelect(
+  database: ArtCharDatabase,
+  teamId: string,
+  {
+    arts = {},
+    mainStatAssumptionLevel = 0,
+    weapons = {},
+    extraConditionals = {},
+    bonusStats: extraBonusStats = {},
+    characters = {},
+    conditionalOverrides = {},
+  }: Omit<TeamDataOverrides, 'excluded' | 'states'>,
+  contexts: readonly BuffContext[]
+): TeamDataSelect | undefined {
+  const team = database.teams.get(teamId)
+  if (!team || !contexts.length) return undefined
+  const { enemyOverride } = team
+  const contextKeys = contexts.map(buffContextKey)
+  const switches: Record<string, number>[] = contexts.map(() => ({}))
+  const flat = (conditional: object) => {
+    const out = new Map<string, { path: string[]; value: string }>()
+    crawlObject(
+      conditional,
+      [],
+      (x: unknown) => typeof x === 'string',
+      (value: string, path: string[]) =>
+        out.set(JSON.stringify(path), { path, value })
+    )
+    return out
+  }
+  const teamData: Partial<Record<CharacterKey, Data[]>> = {}
+  for (const member of teamOptMembers(database, teamId)) {
+    const { characterKey, teamChar, loadoutDatum, isTc } = member
+    const {
+      infusionAura,
+      customMultiTargets,
+      conditional,
+      bonusStats,
+      hitMode,
+      reaction,
+    } = teamChar
+    const dbChar = database.chars.get(characterKey)
+    if (!dbChar) continue
+    const buildTc = isTc
+      ? database.buildTcs.get(loadoutDatum.buildTcId)
+      : undefined
+    const char: Omit<ICharacter, 'key'> = {
+      ...(buildTc?.character ?? dbChar),
+      ...characters[characterKey],
+    }
+    const { level, constellation, ascension, talent } = char
+    const memberArts =
+      arts[characterKey] ??
+      (buildTc
+        ? getBuildTcArtifactData(buildTc)
+        : (Object.values(
+            database.teams.getLoadoutArtifacts(loadoutDatum)
+          ).filter(notEmpty) as ICachedArtifact[]))
+    // the member's conditionals in each context, as `getTeamDataWith` makes them
+    const base = withOverrides(
+      mergeConditionals(extraConditionals[characterKey], conditional),
+      conditionalOverrides[characterKey]
+    )
+    // (most contexts differ in other members' conditionals only: each distinct one once)
+    const distinctContexts = new Map<string, ReturnType<typeof flat>>()
+    const perContext = contexts.map(({ states, excluded }) => {
+      const own = states.filter((s) => s.owner === characterKey)
+      const ownOff = excluded.filter((e) => e.owner === characterKey)
+      const teams = states.filter((s) => s.owner === 'team')
+      const teamOff = excluded.filter((e) => e.owner === 'team')
+      const id = buffContextKey({
+        states: [...own, ...teams],
+        excluded: [...ownOff, ...teamOff],
+      })
+      let one = distinctContexts.get(id)
+      if (!one) {
+        one = flat({
+          ...withoutPaths(
+            withValues(base, own),
+            ownOff.map((e) => e.path)
+          ),
+          ...withoutPaths(
+            withValues(team.conditional, teams),
+            teamOff.map((e) => e.path)
+          ),
+        })
+        distinctContexts.set(id, one)
+      }
+      return one
+    })
+    // one conditional for all of them: the same state everywhere as it is, else a switch
+    const universal: Record<string, unknown> = {}
+    const switched: { path: string[]; node: StrNode }[] = []
+    const seen = new Set<string>()
+    for (const one of perContext)
+      for (const [id, { path }] of one) {
+        if (seen.has(id)) continue
+        seen.add(id)
+        const values = perContext.map((c) => c.get(id)?.value)
+        if (values.every((v) => v === values[0])) {
+          layeredAssignment(universal, path, values[0]!)
+          continue
+        }
+        const distinct = [
+          ...new Set(values.filter((v): v is string => v !== undefined)),
+        ]
+        const key = `§${characterKey}§${path.join('.')}`
+        const read = customRead(['dyn', key])
+        // 0: no state (the conditional is absent); i: the i-th state
+        let node: StrNode = constant(undefined)
+        distinct.forEach((value, i) => {
+          node = threshold(read, i + 1, constant(value), node)
+        })
+        values.forEach((v, c) => {
+          switches[c][key] = v === undefined ? 0 : distinct.indexOf(v) + 1
+        })
+        // (a placeholder: the data is built with a state there, then given the switch)
+        layeredAssignment(universal, path, distinct[0])
+        switched.push({ path, node })
+      }
+    const bundle = getCharDataBundle(
+      database,
+      false,
+      mainStatAssumptionLevel,
+      {
+        key: characterKey,
+        level,
+        constellation,
+        ascension,
+        talent,
+        infusionAura,
+        customMultiTargets,
+        conditional: universal as unknown as TeamCharacter['conditional'] &
+          typeof team.conditional,
+        bonusStats: extraBonusStats[characterKey]
+          ? addBonusStats(bonusStats, extraBonusStats[characterKey])
+          : bonusStats,
+        enemyOverride,
+        hitMode,
+        reaction,
+      },
+      weapons[characterKey] ?? database.teams.getLoadoutWeapon(loadoutDatum),
+      memberArts
+    )
+    if (!bundle) continue
+    if (switched.length) {
+      // (the character's own data: after its artifacts', before its weapon's)
+      const own = bundle.data[Array.isArray(memberArts) ? memberArts.length : 1]
+      if (!own?.['conditional'])
+        throw new Error('No conditional data to switch')
+      for (const { path, node } of switched)
+        layeredAssignment(own, ['conditional', ...path], node)
+    }
+    teamData[characterKey] = bundle.data
+  }
+  const values = new Map(contextKeys.map((key, c) => [key, switches[c]]))
+  return { teamData, values: (key) => values.get(key) }
 }

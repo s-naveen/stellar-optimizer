@@ -112,6 +112,21 @@ export function customMapFormula<Context, Output, Input extends Base<Input>>(
     map: (node: Input, context: Context) => Output
   ) => Output
 ): Output[] {
+  const mapper = customMapper(map)
+  return formulas.map((formula) => mapper(formula, context))
+}
+
+/**
+ * `customMapFormula`'s mapping as a function that remembers what it mapped: a node mapped again
+ * in the same context (in a later call) is not computed again
+ */
+export function customMapper<Context, Output, Input extends Base<Input>>(
+  map: (
+    formula: Input,
+    context: Context,
+    map: (node: Input, context: Context) => Output
+  ) => Output
+): (formula: Input, context: Context) => Output {
   const contextMapping = new Map<Context, [Set<Input>, Map<Input, Output>]>()
   function internalMap(formula: Input, context: Context): Output {
     let current = contextMapping.get(context)
@@ -132,7 +147,7 @@ export function customMapFormula<Context, Output, Input extends Base<Input>>(
 
     return newFormula
   }
-  return formulas.map((formula) => internalMap(formula, context))
+  return internalMap
 }
 
 function arrayEqual<T>(

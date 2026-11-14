@@ -13,7 +13,9 @@ import type { CalcResult, UIData } from '@genshin-optimizer/gi/uidata'
 import { uiDataForTeam } from '@genshin-optimizer/gi/uidata'
 import type { Data, NumNode, OptNode } from '@genshin-optimizer/gi/wr'
 import {
+  assignReads,
   constant,
+  constantFolder,
   data,
   dynamicData,
   greaterEq,
@@ -23,6 +25,7 @@ import {
   min,
   none,
   optimize,
+  optimizeFolded,
   percent,
   prod,
   resetData,
@@ -31,11 +34,17 @@ import {
 import { statFilterToNumNode } from '../statFilterToNumNode'
 import type {
   BonusStats,
+  BuffContext,
   BuffRef,
   CharacterOverride,
   TeamDataOverrides,
 } from './data'
-import { buffRefKey, getTeamDataWith, teamOptMembers } from './data'
+import {
+  buffContextKey,
+  getTeamDataSelect,
+  getTeamDataWith,
+  teamOptMembers,
+} from './data'
 
 /** A run of an attack's hits that all get the same buffs */
 export interface AttackSegment {
@@ -77,19 +86,229 @@ export function attackSegments(attack: TeamOptAttack): AttackSegment[] {
 const groupKey = (
   excluded: readonly BuffRef[],
   states: readonly (BuffRef & { value: string })[]
-) =>
-  `${excluded.map(buffRefKey).sort().join('/')}#${states
-    .map((s) => `${buffRefKey(s)}=${s.value}`)
-    .sort()
-    .join('/')}`
+) => buffContextKey({ excluded, states })
+
+type Team = ReturnType<typeof uiDataForTeam>
+/** Artifact variables stay in a folded formula; everything else is folded in */
+const shouldFold = ({ path: [p] }: { path: readonly string[] }) => p !== 'dyn'
+/** Attack nodes made once per attack and display (so the same node is folded once) */
+type AttackNodes = WeakMap<object, Map<string, NumNode | undefined>>
+
+/** A team calculation in one buff context */
+interface TeamView {
+  team: Team
+  /**
+   * `nodes`, read in `data` (a member's data in `team`; `{}` for nodes that carry their own),
+   * folded for this context: only the artifact variables stay
+   */
+  fold: (nodes: NumNode[], data: Data) => NumNode[]
+  nodes?: AttackNodes
+}
+/** Where a rotation's team calculations come from */
+interface TeamSource {
+  /** A group of hits' team: its buffs off and in their states, `active` on the field */
+  group: (context: BuffContext, active: CharacterKey) => TeamView | undefined
+  /** A captured context's team: its states, nothing off */
+  captured: (
+    states: BuffContext['states'],
+    active: CharacterKey
+  ) => TeamView | undefined
+  /** The rotation's formulas, once all are folded (absent: each fold's are final) */
+  finish?: (nodes: OptNode[]) => OptNode[]
+}
+
+/** The optimized member's artifact stats become variables, also in the buffs it gives */
+function withDynamic(team: Team, dyn: CharacterKey | undefined): Team {
+  const own = dyn && team[dyn]?.target.data[0]
+  if (own) Object.assign(own, mergeData([own, dynamicData]))
+  return team
+}
+
+/** A team calculated elsewhere, as a view (folded on its own) */
+const viewOf = (team: Team): TeamView => ({
+  team,
+  fold: (nodes, data) => optimize(nodes, data, shouldFold) as NumNode[],
+})
+
+/** One team calculation per buff context (each folded on its own) */
+function contextSource(
+  database: ArtCharDatabase,
+  teamId: string,
+  gender: GenderKey,
+  overrides: TeamDataOverrides,
+  dyn?: CharacterKey
+): TeamSource {
+  const view = (team: Team | undefined): TeamView | undefined =>
+    team && {
+      team: withDynamic(team, dyn),
+      fold: (nodes, data) => optimize(nodes, data, shouldFold) as NumNode[],
+    }
+  const teams = new Map<string, ReturnType<typeof getTeamDataWith>>()
+  const groups = new Map<string, TeamView | undefined>()
+  const captured = new Map<string, TeamView | undefined>()
+  return {
+    group(context, active) {
+      const key = buffContextKey(context)
+      if (!teams.has(key))
+        teams.set(
+          key,
+          getTeamDataWith(database, teamId, { ...overrides, ...context })
+        )
+      const teamData = teams.get(key)
+      const id = `${key}@${active}`
+      if (!groups.has(id))
+        groups.set(
+          id,
+          view(
+            teamData?.[active]
+              ? uiDataForTeam(
+                  // the member on the field first, as in the app (its data is the team's
+                  // "active" one)
+                  { [active]: teamData[active], ...teamData },
+                  gender,
+                  active
+                )
+              : undefined
+          )
+        )
+      return groups.get(id)
+    },
+    captured(states, active) {
+      const key = JSON.stringify([states, active])
+      if (!captured.has(key)) {
+        const team = getTeamDataWith(database, teamId, {
+          ...overrides,
+          states,
+          excluded: [],
+        })
+        captured.set(
+          key,
+          view(
+            team?.[active]
+              ? uiDataForTeam(
+                  { [active]: team[active], ...team },
+                  gender,
+                  active
+                )
+              : undefined
+          )
+        )
+      }
+      return captured.get(key)
+    },
+  }
+}
+
+/**
+ * One team calculation for every buff context (`getTeamDataSelect`: a conditional that differs
+ * between contexts is a switch), folded with one memory, so what the contexts and the attacks
+ * share is computed once; each context's own comes from its switches' values. The same
+ * formulas as `contextSource`, for a fraction of the work when a rotation has many contexts.
+ */
+function sharedSource(
+  database: ArtCharDatabase,
+  teamId: string,
+  gender: GenderKey,
+  overrides: TeamDataOverrides,
+  dyn: CharacterKey | undefined,
+  contexts: readonly BuffContext[]
+): TeamSource | undefined {
+  const select = getTeamDataSelect(database, teamId, overrides, contexts)
+  if (!select) return undefined
+  const fold = constantFolder(shouldFold)
+  const nodes: AttackNodes = new WeakMap()
+  const holds = new WeakMap<OptNode, boolean>()
+  const teams = new Map<CharacterKey, Team | undefined>()
+  const views = new Map<string, TeamView | undefined>()
+  const keys = new WeakMap<object, string>()
+  const keyOf = (context: BuffContext, by: object) => {
+    let key = keys.get(by)
+    if (key === undefined) {
+      key = buffContextKey(context)
+      keys.set(by, key)
+    }
+    return key
+  }
+  const view = (context: BuffContext, active: CharacterKey, by: object) => {
+    const key = keyOf(context, by)
+    const id = `${key}@${active}`
+    if (!views.has(id)) {
+      const values = select.values(key)
+      if (!values) throw new Error(`Buff context not prepared: ${key}`)
+      if (!teams.has(active)) {
+        const { teamData } = select
+        teams.set(
+          active,
+          teamData[active]
+            ? withDynamic(
+                uiDataForTeam(
+                  { [active]: teamData[active], ...teamData },
+                  gender,
+                  active
+                ),
+                dyn
+              )
+            : undefined
+        )
+      }
+      const team = teams.get(active)
+      // a switch's read: under `dyn`, its key marked (see `getTeamDataSelect`)
+      const value = (read: { path: readonly string[] }) =>
+        read.path[0] === 'dyn' && read.path[1].charCodeAt(0) === 0xa7
+          ? values[read.path[1]]
+          : undefined
+      views.set(
+        id,
+        team && {
+          team,
+          nodes,
+          // (folded with every context's version, then this context's taken; simplified at the
+          // end, all the rotation's formulas at once)
+          fold: (ns, data) =>
+            assignReads(fold(ns, data), value, holds) as NumNode[],
+        }
+      )
+    }
+    return views.get(id)
+  }
+  return {
+    group: (context, active) => view(context, active, context),
+    captured: (states, active) =>
+      view({ states, excluded: [] }, active, states),
+    // (simplified, not put in one canonical order: what takes the formulas does its own
+    // sharing: KQM's `mergeIdentical`, Team optimize's `optimize` of their sum)
+    finish: (all) => optimizeFolded(all, {}, false),
+  }
+}
 
 /** An attack's node with its own hit mode, reaction, infusion and bonus stats */
 function attackNode(
   display: Data['display'],
   attack: TeamOptAttack,
   globalHitMode: string,
-  snapshotAdjustments: Partial<Record<string, NumNode>> = {}
+  snapshotAdjustments: Partial<Record<string, NumNode>> = {},
+  cache?: AttackNodes
 ): NumNode | undefined {
+  // (an attack without snapshots is the same node whatever buffs its hits get)
+  if (cache && display && !Object.keys(snapshotAdjustments).length) {
+    let nodes = cache.get(display)
+    if (!nodes) {
+      nodes = new Map()
+      cache.set(display, nodes)
+    }
+    const key = JSON.stringify([
+      attack.path,
+      attack.hitMode === 'global' ? globalHitMode : attack.hitMode,
+      attack.reaction,
+      attack.infusionAura,
+      attack.bonusStats,
+      attack.talentMultiplier,
+      attack.healing,
+    ])
+    if (!nodes.has(key))
+      nodes.set(key, attackNode(display, attack, globalHitMode))
+    return nodes.get(key)
+  }
   let node = objPathValue(display ?? {}, attack.path) as NumNode | undefined
   if (
     attack.path.join('.') === 'artifact:OceanHuedClam.heal' &&
@@ -142,60 +361,28 @@ function attackNode(
   })
 }
 
-/** A cached team calculation for a captured context; artifact variables remain live. */
-function teamContextReader(
-  database: ArtCharDatabase,
-  teamId: string,
-  gender: GenderKey,
-  overrides: TeamDataOverrides,
-  dyn?: CharacterKey
-) {
-  const cache = new Map<string, ReturnType<typeof uiDataForTeam> | undefined>()
-  return (
-    states: NonNullable<TeamOptAttack['states']>,
-    active: CharacterKey
-  ) => {
-    const key = JSON.stringify([states, active])
-    if (!cache.has(key)) {
-      const team = getTeamDataWith(database, teamId, {
-        ...overrides,
-        states,
-        excluded: [],
-      })
-      const ui = team?.[active]
-        ? uiDataForTeam({ [active]: team[active], ...team }, gender, active)
-        : undefined
-      if (dyn && ui?.[dyn]?.target.data[0]) {
-        const dynamic = ui[dyn]!.target.data[0]
-        Object.assign(dynamic, mergeData([dynamic, dynamicData]))
-      }
-      cache.set(key, ui)
-    }
-    return cache.get(key)
-  }
-}
-
 /** Native special reactions rank the rolled contributions, rather than their averages.
  * Enumerate at most 16 independent crit outcomes. Each contributor is folded in its own
  * context first, retaining artifact variables for whichever member is being optimized.
  */
 function reactionAttackNode(
-  team: ReturnType<typeof uiDataForTeam>,
+  view: TeamView,
   characterKey: CharacterKey,
   attack: TeamOptAttack,
   hitMode: string,
   snapshotFor: ReturnType<typeof snapshotReader>,
-  contextFor: ReturnType<typeof teamContextReader>,
+  source: TeamSource,
   collectRoll?: (damage: NumNode, probability: NumNode) => void
 ): NumNode | undefined {
-  const current = team[characterKey]?.target.data[0]
+  const current = view.team[characterKey]?.target.data[0]
   if (!current) return undefined
   if (!attack.reactionContributors?.length)
     return attackNode(
       current.display,
       attack,
       hitMode,
-      snapshotFor(characterKey, attack, current)
+      snapshotFor(characterKey, attack, current, view),
+      view.nodes
     )
   const nodeName = attack.path[1] ?? ''
   const variant = nodeName.startsWith('stellarswirl')
@@ -211,27 +398,28 @@ function reactionAttackNode(
       : variant === 'lunarcrystallize'
         ? 'geo'
         : 'electro'
-  const fold = ({ path: [p] }: { path: readonly string[] }) => p !== 'dyn'
   const contributions = attack.reactionContributors.flatMap((key) => {
     const capturedStates = attack.reactionContributorStates?.[key]
-    const own = (
+    const from =
       capturedStates && attack.onField
-        ? contextFor(capturedStates, attack.onField)?.[key]
-        : team[key]
-    )?.target.data[0]
-    if (!own) return []
-    const adjustment = snapshotFor(key, attack, own)
+        ? source.captured(capturedStates, attack.onField)
+        : view
+    const own = from?.team[key]?.target.data[0]
+    if (!own || !from) return []
+    const adjustment = snapshotFor(key, attack, own, from)
     const normal = attackNode(
       own.display,
       { ...attack, hitMode: 'hit' },
       hitMode,
-      adjustment
+      adjustment,
+      from.nodes
     )
     const critical = attackNode(
       own.display,
       { ...attack, hitMode: 'critHit' },
       hitMode,
-      adjustment
+      adjustment,
+      from.nodes
     )
     if (!normal || !critical) return []
     const cr = max(
@@ -245,11 +433,7 @@ function reactionAttackNode(
         )
       )
     )
-    const [base, crit, chance] = optimize(
-      [normal, critical, cr],
-      own,
-      fold
-    ) as NumNode[]
+    const [base, crit, chance] = from.fold([normal, critical, cr], own)
     return [{ base, crit, chance }]
   })
   if (!contributions.length) return constant(0)
@@ -286,18 +470,17 @@ function reactionAttackNode(
 }
 
 /** Fold the snapshot's context, while retaining artifact variables for the optimized member. */
-function snapshotReader(
-  database: ArtCharDatabase,
-  teamId: string,
-  gender: GenderKey,
-  overrides: TeamDataOverrides,
-  dyn?: CharacterKey
-) {
-  const contextFor = teamContextReader(database, teamId, gender, overrides, dyn)
+function snapshotReader(teams: TeamSource) {
+  const dataOf = (view: TeamView | undefined, member: CharacterKey) => {
+    const data = view?.team[member]?.target.data[0]
+    return view && data ? { view, data } : undefined
+  }
   return (
     characterKey: CharacterKey,
     attack: TeamOptAttack,
-    current: Data
+    /** The member's data in the hit's own team, and that team */
+    current: Data,
+    currentView: TeamView
   ): Partial<Record<string, NumNode>> => {
     const adjustments: Partial<Record<string, NumNode>> = {}
     for (const snapshot of attack.statSnapshots ?? []) {
@@ -314,23 +497,30 @@ function snapshotReader(
           (s.characterKey ?? characterKey) === characterKey &&
           s.path.join('.') === `total.${snapshot.stat}`
       )
-      const captured = contextFor(snapshot.states, snapshot.onField)?.[source]
-        ?.target.data[0]
+      const captured = dataOf(
+        teams.captured(snapshot.states, snapshot.onField),
+        source
+      )
       const currentSource = totalSnapshot
-        ? contextFor(totalSnapshot.states, totalSnapshot.onField)?.[source]
-            ?.target.data[0]
+        ? dataOf(
+            teams.captured(totalSnapshot.states, totalSnapshot.onField),
+            source
+          )
         : source === characterKey
-          ? current
-          : contextFor(
-              attack.states ?? [],
-              attack.onField ?? snapshot.onField
-            )?.[source]?.target.data[0]
+          ? { view: currentView, data: current }
+          : dataOf(
+              teams.captured(
+                attack.states ?? [],
+                attack.onField ?? snapshot.onField
+              ),
+              source
+            )
       const original =
         currentSource &&
-        (objPathValue(currentSource, snapshot.path) as NumNode | undefined)
+        (objPathValue(currentSource.data, snapshot.path) as NumNode | undefined)
       const replacement =
         captured &&
-        (objPathValue(captured, snapshot.path) as NumNode | undefined)
+        (objPathValue(captured.data, snapshot.path) as NumNode | undefined)
       if (
         !original?.operation ||
         !replacement?.operation ||
@@ -338,9 +528,8 @@ function snapshotReader(
         !currentSource
       )
         continue
-      const fold = ({ path: [p] }: { path: readonly string[] }) => p !== 'dyn'
-      const before = optimize([original], currentSource, fold)[0] as NumNode
-      const after = optimize([replacement], captured, fold)[0] as NumNode
+      const before = currentSource.view.fold([original], currentSource.data)[0]
+      const after = captured.view.fold([replacement], captured.data)[0]
       adjustments[snapshot.stat] = sum(
         adjustments[snapshot.stat] ?? constant(0),
         after,
@@ -386,6 +575,56 @@ export function teamRotationNodes(
   database: ArtCharDatabase,
   teamId: string,
   gender: GenderKey,
+  settings: TeamRotationSettings
+): TeamRotationNodes | undefined {
+  if (teamRotationEngine.shared)
+    try {
+      return rotationNodes(database, teamId, gender, settings, true)
+    } catch (e) {
+      // (a formula the shared calculation cannot hold: each context on its own, as before)
+      teamRotationEngine.fallbacks++
+      teamRotationEngine.lastError = e
+    }
+  return rotationNodes(database, teamId, gender, settings, false)
+}
+
+/**
+ * How `teamRotationNodes` computes: `shared` (one team calculation for all buff contexts, see
+ * `sharedSource`) or one per context; `fallbacks` counts the times the shared one could not be
+ * used.
+ */
+export const teamRotationEngine: {
+  shared: boolean
+  fallbacks: number
+  lastError?: unknown
+} = { shared: true, fallbacks: 0 }
+
+export interface TeamRotationSettings {
+  dyn?: CharacterKey
+  /** Builds of the members (missing: their loadout's) */
+  arts: Partial<Record<CharacterKey, ICachedArtifact[] | Data>>
+  attacks: TeamOpt['attacks']
+  mainStatAssumptionLevel?: number
+  /** Constraints per member, as its optimizer stores them */
+  statFilters?: Partial<Record<CharacterKey, StatFilters>>
+  /** Weapons of the members (missing: their loadout's) */
+  weapons?: Partial<Record<CharacterKey, ICachedWeapon>>
+  /** Conditionals under the members' own (e.g. a new weapon's passive) */
+  extraConditionals?: Partial<Record<CharacterKey, IConditionalValues>>
+  /** Who is on the field during the hits, unless an attack says otherwise (default: the first member) */
+  onField?: CharacterKey
+  /** Extra bonus stats per member (`teamOptBonusStats`) */
+  bonusStats?: Partial<Record<CharacterKey, BonusStats>>
+  /** Members with another level, ascension or talent levels */
+  characters?: Partial<Record<CharacterKey, CharacterOverride>>
+  /** Conditionals over the members' own (`TeamDataOverrides.conditionalOverrides`) */
+  conditionalOverrides?: TeamDataOverrides['conditionalOverrides']
+}
+
+function rotationNodes(
+  database: ArtCharDatabase,
+  teamId: string,
+  gender: GenderKey,
   {
     dyn,
     arts,
@@ -398,27 +637,8 @@ export function teamRotationNodes(
     bonusStats,
     characters,
     conditionalOverrides,
-  }: {
-    dyn?: CharacterKey
-    /** Builds of the members (missing: their loadout's) */
-    arts: Partial<Record<CharacterKey, ICachedArtifact[] | Data>>
-    attacks: TeamOpt['attacks']
-    mainStatAssumptionLevel?: number
-    /** Constraints per member, as its optimizer stores them */
-    statFilters?: Partial<Record<CharacterKey, StatFilters>>
-    /** Weapons of the members (missing: their loadout's) */
-    weapons?: Partial<Record<CharacterKey, ICachedWeapon>>
-    /** Conditionals under the members' own (e.g. a new weapon's passive) */
-    extraConditionals?: Partial<Record<CharacterKey, IConditionalValues>>
-    /** Who is on the field during the hits, unless an attack says otherwise (default: the first member) */
-    onField?: CharacterKey
-    /** Extra bonus stats per member (`teamOptBonusStats`) */
-    bonusStats?: Partial<Record<CharacterKey, BonusStats>>
-    /** Members with another level, ascension or talent levels */
-    characters?: Partial<Record<CharacterKey, CharacterOverride>>
-    /** Conditionals over the members' own (`TeamDataOverrides.conditionalOverrides`) */
-    conditionalOverrides?: TeamDataOverrides['conditionalOverrides']
-  }
+  }: TeamRotationSettings,
+  shared: boolean
 ): TeamRotationNodes | undefined {
   const members = teamOptMembers(database, teamId)
   const memberKeys = members.map((m) => m.characterKey)
@@ -470,65 +690,50 @@ export function teamRotationNodes(
       }
     })
 
-  const shouldFold = ({ path: [p] }: { path: readonly string[] }) => p !== 'dyn'
-  const snapshotFor = snapshotReader(
-    database,
-    teamId,
-    gender,
-    {
-      arts: dyn ? { ...arts, [dyn]: [] } : arts,
-      mainStatAssumptionLevel,
-      weapons,
-      extraConditionals,
-      bonusStats,
-      characters,
-      conditionalOverrides,
-    },
-    dyn
-  )
-  const reactionContextFor = teamContextReader(
-    database,
-    teamId,
-    gender,
-    {
-      arts: dyn ? { ...arts, [dyn]: [] } : arts,
-      mainStatAssumptionLevel,
-      weapons,
-      extraConditionals,
-      bonusStats,
-      characters,
-      conditionalOverrides,
-    },
-    dyn
-  )
+  const overrides: TeamDataOverrides = {
+    arts: dyn ? { ...arts, [dyn]: [] } : arts,
+    mainStatAssumptionLevel,
+    weapons,
+    extraConditionals,
+    bonusStats,
+    characters,
+    conditionalOverrides,
+  }
+  let source: TeamSource | undefined
+  if (shared) {
+    // every buff context the rotation is computed in: the groups', and the ones its attacks
+    // captured (snapshots, reaction contributors)
+    const contexts = new Map<string, BuffContext>()
+    const want = (context: BuffContext) =>
+      contexts.set(buffContextKey(context), context)
+    for (const { excluded, states } of groups.values())
+      want({ excluded, states })
+    for (const { characterKey } of members)
+      for (const def of attacks[characterKey] ?? []) {
+        for (const states of Object.values(def.reactionContributorStates ?? {}))
+          if (states) want({ excluded: [], states })
+        if (def.statSnapshots?.length) {
+          want({ excluded: [], states: def.states ?? [] })
+          for (const { states } of def.statSnapshots)
+            want({ excluded: [], states })
+        }
+      }
+    source = sharedSource(database, teamId, gender, overrides, dyn, [
+      ...contexts.values(),
+    ])
+  }
+  source ??= contextSource(database, teamId, gender, overrides, dyn)
+  const snapshotFor = snapshotReader(source)
   const terms: TeamOptTerm[] = []
   const constraints: TeamOptConstraint[] = []
   for (const group of groups.values()) {
-    const teamData = getTeamDataWith(database, teamId, {
-      arts: dyn ? { ...arts, [dyn]: [] } : arts,
-      excluded: group.excluded,
-      states: group.states,
-      mainStatAssumptionLevel,
-      weapons,
-      extraConditionals,
-      bonusStats,
-      characters,
-      conditionalOverrides,
-    })
-    if (!teamData) return undefined
     for (const [active, items] of group.byActive) {
       const withConstraints = group === base && active === defaultActive
       if (!items.length && !withConstraints) continue
-      if (!teamData[active]) continue
-      // the member on the field first, as in the app (its data is the team's "active" one)
-      const ordered = { [active]: teamData[active], ...teamData }
-      const uiData = uiDataForTeam(ordered, gender, active)
-      if (dyn) {
-        const workerData = uiData[dyn]?.target.data[0]
-        if (!workerData) return undefined
-        // the member's artifact stats become variables, also in the buffs it gives
-        Object.assign(workerData, mergeData([workerData, dynamicData]))
-      }
+      const view = source.group(group, active)
+      if (!view) continue
+      const uiData = view.team
+      if (dyn && !uiData[dyn]?.target.data[0]) return undefined
       // Every member's hits and requirements are folded together, each in its own data: the
       // teammates' parts they share (buffs, auras) are folded once, not once per member
       const batch: { node: NumNode; add: (node: OptNode) => void }[] = []
@@ -543,12 +748,12 @@ export function teamRotationNodes(
               prod(
                 constant(hits),
                 reactionAttackNode(
-                  uiData,
+                  view,
                   characterKey,
                   def,
                   teamChar.hitMode,
                   snapshotFor,
-                  reactionContextFor
+                  source
                 ) ?? constant(0)
               ) as NumNode,
               workerData
@@ -576,12 +781,25 @@ export function teamRotationNodes(
         )
       }
       if (batch.length)
-        optimize(
-          batch.map((b) => b.node),
-          {},
-          shouldFold
-        ).forEach((node, i) => batch[i].add(node))
+        view
+          .fold(
+            batch.map((b) => b.node),
+            {}
+          )
+          .forEach((node, i) => batch[i].add(node as OptNode))
     }
+  }
+  if (source.finish) {
+    const all = source.finish([
+      ...terms.map((t) => t.node),
+      ...constraints.map((c) => c.value),
+    ])
+    terms.forEach((t, i) => {
+      t.node = all[i]
+    })
+    constraints.forEach((c, i) => {
+      c.value = all[terms.length + i]
+    })
   }
   return { terms, constraints }
 }
@@ -632,18 +850,13 @@ export function teamRotationHits(
   if (!defaultActive) return undefined
   // one team calculation per group of hits (as `teamRotationNodes`)
   const teams = new Map<string, ReturnType<typeof uiDataForTeam> | undefined>()
-  const snapshotFor = snapshotReader(database, teamId, gender, {
+  const source = contextSource(database, teamId, gender, {
     arts,
     mainStatAssumptionLevel,
     weapons,
     bonusStats,
   })
-  const reactionContextFor = teamContextReader(database, teamId, gender, {
-    arts,
-    mainStatAssumptionLevel,
-    weapons,
-    bonusStats,
-  })
+  const snapshotFor = snapshotReader(source)
   const teamFor = (
     excluded: BuffRef[],
     states: readonly (BuffRef & { value: string })[],
@@ -687,12 +900,12 @@ export function teamRotationHits(
           workerData &&
           team &&
           reactionAttackNode(
-            team,
+            viewOf(team),
             characterKey,
             def,
             teamChar.hitMode,
             snapshotFor,
-            reactionContextFor
+            source
           )
         return {
           hits,
@@ -756,14 +969,17 @@ export function attackHitData(
   )
   const target = ui?.[characterKey]?.target
   if (!target) return undefined
-  const overrides = { mainStatAssumptionLevel, bonusStats }
+  const source = contextSource(database, teamId, gender, {
+    mainStatAssumptionLevel,
+    bonusStats,
+  })
   const node = reactionAttackNode(
-    ui,
+    viewOf(ui),
     characterKey,
     attack,
     member.teamChar.hitMode,
-    snapshotReader(database, teamId, gender, overrides),
-    teamContextReader(database, teamId, gender, overrides)
+    snapshotReader(source),
+    source
   )
 
   return { target, hit: node ? target.get(node) : undefined }
@@ -799,27 +1015,28 @@ export function attackDamageOutcomes(
   )
   const target = ui[characterKey]?.target
   if (!target) return undefined
-  const snapshotFor = snapshotReader(database, teamId, gender, overrides)
-  const contextFor = teamContextReader(database, teamId, gender, overrides)
+  const source = contextSource(database, teamId, gender, overrides)
+  const snapshotFor = snapshotReader(source)
+  const view = viewOf(ui)
   const value = (node: NumNode | undefined) => node && target.get(node)?.value
   const nodeFor = (hitMode: TeamOptAttack['hitMode']) =>
     reactionAttackNode(
-      ui,
+      view,
       characterKey,
       { ...attack, hitMode },
       member.teamChar.hitMode,
       snapshotFor,
-      contextFor
+      source
     )
   const rolls: { damage: number; probability: number }[] = []
   if (attack.reactionContributors?.length) {
     reactionAttackNode(
-      ui,
+      view,
       characterKey,
       { ...attack, hitMode: 'avgHit' },
       member.teamChar.hitMode,
       snapshotFor,
-      contextFor,
+      source,
       (damage, probability) => {
         const d = value(damage),
           p = value(probability)

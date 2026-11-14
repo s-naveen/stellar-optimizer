@@ -1,5 +1,5 @@
 import { assertUnreachable, objPathValue } from '@genshin-optimizer/common/util'
-import { customMapFormula, forEachNodes, mapFormulas } from './internal'
+import { customMapper, forEachNodes, mapFormulas } from './internal'
 import type {
   AnyNode,
   CommutativeMonoidOperation,
@@ -373,6 +373,17 @@ export function constantFold(
   topLevelData: Data,
   shouldFold = (_formula: ReadNode<number | string | undefined>) => false
 ): OptNode[] {
+  return constantFolder(shouldFold)(formulas, topLevelData)
+}
+
+/**
+ * `constantFold` that remembers what it folded: formulas folded later (other calls) reuse the
+ * parts already folded in the same data (the same `Data` objects, which must not change
+ * meanwhile). For many formulas over one team calculation, folded a few at a time.
+ */
+export function constantFolder(
+  shouldFold = (_formula: ReadNode<number | string | undefined>) => false
+): (formulas: NumNode[], topLevelData: Data) => OptNode[] {
   type Context = {
     data: Data[]
     processed: Map<NumNode | StrNode, OptNode | StrNode>
@@ -380,12 +391,7 @@ export function constantFold(
   const origin: Context = { data: [], processed: new Map() }
   const nextContextMap = new Map([[origin, new Map<Data, Context>()]])
 
-  const context = { data: [topLevelData], processed: new Map() }
-  nextContextMap.set(context, new Map())
-  nextContextMap.get(origin)!.set(topLevelData, context)
-  return customMapFormula<typeof context, OptNode | StrNode, AnyNode>(
-    formulas,
-    context,
+  const mapper = customMapper<Context, OptNode | StrNode, AnyNode>(
     (formula, context, map) => {
       const { operation } = formula,
         fold = (x: NumNode, c: typeof context) => map(x, c) as OptNode
@@ -470,13 +476,21 @@ export function constantFold(
           break
         }
         case 'prio': {
-          const first = formula.operands.find((op) => {
+          let first: StrNode | undefined
+          let moved: OptNode | StrNode | undefined
+          for (const op of formula.operands) {
             const folded = foldStr(op, context)
-            if (folded.operation !== 'const')
-              throw new Error(`Unsupported ${operation} node while folding`)
-            return folded.value !== undefined
-          })
-          result = first ? foldStr(first, context) : constant(undefined)
+            if (folded.operation !== 'const') {
+              // (a branch that is not decided yet: the choice is made in each of its outcomes)
+              moved = map(transpose(op, folded, formula), context)
+              break
+            }
+            if (folded.value !== undefined) {
+              first = folded
+              break
+            }
+          }
+          result = moved ?? first ?? constant(undefined)
           break
         }
         case 'small': {
@@ -532,8 +546,15 @@ export function constantFold(
         }
         case 'subscript': {
           const index = fold(formula.operands[0], context)
-          if (index.operation !== 'const')
-            throw new Error('Found non-constant subscript node while folding')
+          if (index.operation !== 'const') {
+            if (index.operation !== 'threshold')
+              throw new Error('Found non-constant subscript node while folding')
+            result = map(
+              transpose(formula.operands[0], index, formula),
+              context
+            )
+            break
+          }
           result = constant(formula.list[index.value])
           break
         }
@@ -588,7 +609,78 @@ export function constantFold(
       }
       return result
     }
-  ) as OptNode[]
+  )
+  return (formulas, topLevelData) => {
+    const topLevel = nextContextMap.get(origin)!
+    let context = topLevel.get(topLevelData)
+    if (!context) {
+      context = { data: [topLevelData], processed: new Map() }
+      nextContextMap.set(context, new Map())
+      topLevel.set(topLevelData, context)
+    }
+    return formulas.map((formula) => mapper(formula, context!)) as OptNode[]
+  }
+}
+
+/**
+ * `formulas` with the reads `value` knows (it gives a number for them) replaced by their values,
+ * and each threshold they decide by the branch taken (the other is not visited). `holds`
+ * remembers which nodes hold such reads, for formulas given again (the same nodes, in other
+ * calls with other values): the parts without any are returned as they are.
+ */
+export function assignReads(
+  formulas: OptNode[],
+  value: (read: ReadNode<number>) => number | undefined,
+  holds: WeakMap<OptNode, boolean>
+): OptNode[] {
+  const has = (n: OptNode): boolean => {
+    let h = holds.get(n)
+    if (h === undefined) {
+      h =
+        n.operation === 'read'
+          ? value(n) !== undefined
+          : n.operation !== 'const' && n.operands.some(has)
+      holds.set(n, h)
+    }
+    return h
+  }
+  const done = new Map<OptNode, OptNode>()
+  const map = (n: OptNode): OptNode => {
+    if (!has(n)) return n
+    let r = done.get(n)
+    if (r) return r
+    if (n.operation === 'read') r = constant(value(n)!)
+    else if (n.operation === 'threshold') {
+      const v = map(n.operands[0])
+      const t = map(n.operands[1])
+      r =
+        v.operation === 'const' && t.operation === 'const'
+          ? map(v.value >= t.value ? n.operands[2] : n.operands[3])
+          : {
+              ...n,
+              operands: [v, t, map(n.operands[2]), map(n.operands[3])],
+            }
+    } else r = { ...n, operands: n.operands.map(map) } as OptNode
+    done.set(n, r)
+    return r
+  }
+  return formulas.map(map)
+}
+
+/**
+ * `optimize` for formulas already folded in their data (by a `constantFolder`), with `values`
+ * for reads left open in them (at their paths)
+ */
+export function optimizeFolded(
+  formulas: OptNode[],
+  values: Data = {},
+  /** Also give equal parts one node and one operand order (`deduplicate`) */
+  canonical = true
+): OptNode[] {
+  let opts = constantFold(formulas as NumNode[], values)
+  opts = flatten(opts)
+  opts = constantFold(opts as NumNode[], {})
+  return canonical ? deduplicate(opts) : opts
 }
 
 /** "Move" branching `br`, which must be inside `parent` and folded to `fold`, to be the "container" of `parent` instead */
@@ -605,13 +697,13 @@ function transpose(br: AnyNode, fold: AnyNode, parent: AnyNode): AnyNode {
     } as AnyNode
   }
 
+  // (whatever its outcomes are: an outcome that is a branch itself is moved out in turn, when
+  // the parent is folded with it)
   if (fold.operation === 'threshold') {
     const [v0, v1, v2, v3] = fold.operands
-    if (v2.operation === 'const' || v3.operation === 'const') {
-      return {
-        operation: 'threshold',
-        operands: [v0, v1, replace(v2) as any, replace(v3) as any],
-      }
+    return {
+      operation: 'threshold',
+      operands: [v0, v1, replace(v2) as any, replace(v3) as any],
     }
   }
   throw new Error(`Unsupported dynamic operand ${fold.operation}`)
