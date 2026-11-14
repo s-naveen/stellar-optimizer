@@ -78,6 +78,16 @@ vi.mock('@genshin-optimizer/gi/assets', () => ({
 vi.mock('@genshin-optimizer/gi/util', () => ({ getMainStatValue: () => 0.466 }))
 vi.mock('@genshin-optimizer/gi/i18n', () => ({ preloadNamespaces: () => {} }))
 vi.mock('@genshin-optimizer/common/ui', () => ({
+  ModalWrapper: ({
+    open,
+    children,
+  }: {
+    open: boolean
+    children: React.ReactNode
+  }) => (open ? <div>{children}</div> : null),
+  CardThemed: ({ children }: { children: React.ReactNode }) => (
+    <div>{children}</div>
+  ),
   InfoTooltipInline: () => <span role="img" aria-label="Info" />,
   SolidToggleButtonGroup: (props: object) => <ToggleButtonGroup {...props} />,
   BootstrapTooltip: (props: object) => <Tooltip {...props} />,
@@ -525,6 +535,62 @@ describe('KQM focused results', () => {
       expect(
         screen.getByRole('combobox', { name: 'Weapon' }).textContent
       ).toContain('AmenomaKageuchi')
+    )
+  })
+  it('shows the first top teams on the page and all of them in a window', async () => {
+    const result = sampleResult()
+    // (8 weapons ranked: the run's team and 7 one-member changes)
+    const ranking = result.rankings.KamisatoAyaka!
+    ranking.weapons = [
+      ranking.weapons[0],
+      ...[
+        'TheBlackSword',
+        'FinaleOfTheDeep',
+        'FavoniusSword',
+        'SacrificialSword',
+        'TheFlute',
+        'IronSting',
+        'PrototypeRancour',
+      ].map((key, i) => ({
+        ...ranking.weapons[0],
+        weapon: { key, refinement: 5 } as KqmBuild['weapon'],
+        total: 990 - i * 10,
+      })),
+    ]
+    mocks.compare.mockImplementation(async ({ weapon, sets }) => ({
+      ...result,
+      builds: { KamisatoAyaka: { ...build, weapon, sets } },
+      after: { ...result.after, total: 930 },
+    }))
+    render(
+      <KqmResults
+        teamId="ui-top50"
+        runSettings={initial()}
+        members={members}
+        result={result}
+        seconds={1}
+        rotationTime={20}
+        onDiscard={vi.fn()}
+      />,
+      { wrapper: wrap }
+    )
+    const list = screen.getByRole('region', { name: 'Top teams' })
+    expect(
+      within(list).getAllByRole('button', { name: /^Team \d/ })
+    ).toHaveLength(5)
+    fireEvent.click(within(list).getByRole('button', { name: 'Show top 8' }))
+    const dialog = screen.getByRole('dialog', { name: 'Top teams' })
+    const rows = within(dialog).getAllByRole('button', { name: /^Team \d/ })
+    expect(rows).toHaveLength(8)
+    // a team picked in the window: shown on the page, the window closed
+    fireEvent.click(rows[7])
+    expect(screen.queryByRole('dialog', { name: 'Top teams' })).toBeNull()
+    await waitFor(() =>
+      expect(mocks.compare).toHaveBeenCalledWith(
+        expect.objectContaining({
+          weapon: { key: 'PrototypeRancour', refinement: 5 },
+        })
+      )
     )
   })
   it('keeps the previous result available while recalculating and clears it on discard', async () => {
