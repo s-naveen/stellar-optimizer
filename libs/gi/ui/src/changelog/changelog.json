@@ -1,5 +1,12 @@
 [
   {
+    "version": "1.3.3",
+    "date": "2026-11-14",
+    "new": [
+      "KQM Theorycrafting: Top teams, under the member inspector: the best team, then the best teams that change one member's weapon or artifact sets, each with its team DPS and how far it is from the best. The member that changes stands out; pick a team to see it. The top 50 open in a window."
+    ]
+  },
+  {
     "version": "1.3.2",
     "date": "2026-11-14",
     "new": [

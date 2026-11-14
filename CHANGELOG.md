@@ -4,6 +4,12 @@ Every release of [Stellar Optimizer](https://gi-beta73.github.io/). The app show
 (home page, and the version in the footer). Generated from
 `libs/gi/ui/src/changelog/changelog.json` by `tools/site/release.mjs`: edit that file, not this one.
 
+## [v1.3.3](https://github.com/s-naveen/stellar-optimizer/releases/tag/v1.3.3) (2026-11-14)
+
+### New
+
+- KQM Theorycrafting: Top teams, under the member inspector: the best team, then the best teams that change one member's weapon or artifact sets, each with its team DPS and how far it is from the best. The member that changes stands out; pick a team to see it. The top 50 open in a window.
+
 ## [v1.3.2](https://github.com/s-naveen/stellar-optimizer/releases/tag/v1.3.2) (2026-11-14)
 
 ### New
