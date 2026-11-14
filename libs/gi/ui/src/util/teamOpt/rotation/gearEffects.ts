@@ -85,6 +85,14 @@ export function gearEffects({
 }): GearEffects {
   const wears = (k: CharacterKey, set: string, n = 4) =>
     (gear[k]?.sets?.[set] ?? 0) >= n
+  // For the effects that only open the set's or weapon's own buff windows: worn, or one of the
+  // member's candidates (`SimGear.candidates`; its sheet counts a window only when it is on).
+  // Effects that change the play (cooldowns, attack speed, heals, extra hits) use the gear worn.
+  const opens = (k: CharacterKey, set: string) =>
+    wears(k, set) || !!gear[k]?.candidates?.sets?.includes(set)
+  const holds = (k: CharacterKey, weapon: string) =>
+    gear[k]?.weapon === weapon ||
+    !!gear[k]?.candidates?.weapons?.includes(weapon)
   const icd = new Map<string, number>()
   /** Once per `frames` per key */
   const ready = (key: string, t: number, frames: number) => {
@@ -95,11 +103,11 @@ export function gearEffects({
   // Golden Troupe: off the field (until 2 s after taking it), from the start for the others
   const offSince = new Map<CharacterKey, number>()
   for (const m of members)
-    if (wears(m, 'GoldenTroupe') && m !== onField) offSince.set(m, 0)
+    if (opens(m, 'GoldenTroupe') && m !== onField) offSince.set(m, 0)
   // Aubade's Lunar bonus applies off field and persists for 3 s after taking the field.
   const aubadeOff = new Map<CharacterKey, number>()
   for (const m of members)
-    if (wears(m, 'AubadeOfMorningstarAndMoon') && m !== onField)
+    if (opens(m, 'AubadeOfMorningstarAndMoon') && m !== onField)
       aubadeOff.set(m, 0)
   // These effects refresh the duration of the whole stack count, rather than expiring each
   // stack separately. Close each old interval when it is refreshed to avoid overlapping values.
@@ -133,7 +141,7 @@ export function gearEffects({
     })
   }
   // Sacrificial Jade: after 5 s off the field, until 10 s on it
-  const jade = (k: CharacterKey) => gear[k]?.weapon === 'SacrificialJade'
+  const jade = (k: CharacterKey) => holds(k, 'SacrificialJade')
   const jadeStates = new Map<
     CharacterKey,
     { offSince?: number; onSince?: number; activeSince?: number }
@@ -171,7 +179,7 @@ export function gearEffects({
   >()
   const hakushin = (ctx: SimContext, hit: SimHit, reaction: string) => {
     const k = hit.characterKey
-    if (gear[k]?.weapon !== 'HakushinRing' || hit.onField !== k) return
+    if (!holds(k, 'HakushinRing') || hit.onField !== k) return
     const other =
       reaction === 'crystallize' && hit.element === 'electro'
         ? 'geo'
@@ -187,13 +195,13 @@ export function gearEffects({
   // Declare the conditional even if no eligible reaction happens, so a saved manual state
   // cannot make the effect active throughout an ineligible rotation.
   for (const k of members)
-    if (gear[k]?.weapon === 'HakushinRing')
+    if (holds(k, 'HakushinRing'))
       window(k, ['HakushinRing', 'SakuraSaiguu'], 'dendro', 0, 0)
   for (const k of members)
     if (wears(k, 'DesertPavilionChronicle'))
       window(k, ['DesertPavilionChronicle', 'set4'], 'on', 0, 0)
   for (const k of members)
-    if (wears(k, 'PaleFlame')) window(k, ['PaleFlame', 'stacks'], '1', 0, 0)
+    if (opens(k, 'PaleFlame')) window(k, ['PaleFlame', 'stacks'], '1', 0, 0)
   const desert = new Map<CharacterKey, { end: number }>()
 
   let initialized = false
@@ -209,7 +217,7 @@ export function gearEffects({
   // holder picks them up, as gcsim's pick_up_crystallize in the holder's turn): 35% DMG of the
   // shard's element for the party, 10 s.
   let active = onField
-  const petra = members.filter((m) => wears(m, 'ArchaicPetra'))
+  const petra = members.filter((m) => opens(m, 'ArchaicPetra'))
   const shards: { element: string; pickable: number; expiry: number }[] = []
   const petraProc = (ctx: SimContext, holder: CharacterKey, element: string) =>
     ctx.buff(holder, ['ArchaicPetra', 'element'], element, 0, 600)
@@ -227,7 +235,7 @@ export function gearEffects({
       const k = hit.characterKey
       const t = hit.t
       if (
-        wears(k, 'PaleFlame') &&
+        opens(k, 'PaleFlame') &&
         hit.tag === 'skill' &&
         !hit.path[0].startsWith('_') &&
         hit.onField === k
@@ -278,7 +286,7 @@ export function gearEffects({
       }
       if (
         hit.path.join('.') === '_marker.hpLoss' &&
-        wears(k, 'VermillionHereafter')
+        opens(k, 'VermillionHereafter')
       ) {
         const active = vermillion.get(k)
         if (active && t < active.end && ready(`vermillion.${k}`, t, 48)) {
@@ -328,7 +336,7 @@ export function gearEffects({
           for (const wearer of members)
             if (
               wearer === hit.onField &&
-              wears(wearer, 'NightOfTheSkysUnveiling')
+              opens(wearer, 'NightOfTheSkysUnveiling')
             )
               ctx.buff(
                 wearer,
@@ -340,7 +348,7 @@ export function gearEffects({
         hakushin(ctx, hit, reaction)
         if (reaction === 'moondrift' || reaction === 'moondriftHarmony') return
         // Viridescent Venerer: the swirled element's RES -40% for 10 s
-        if (wears(k, 'ViridescentVenerer') && hit.onField === k) {
+        if (opens(k, 'ViridescentVenerer') && hit.onField === k) {
           const e =
             reaction === 'stellarSwirl'
               ? 'cryo'
@@ -352,12 +360,16 @@ export function gearEffects({
               hitlag: 'enemy',
             })
         }
+        // Scarlet Proof: the wearer's CRIT Rate +16% and Stellar Swirl DMG +40% for 10 s after it
+        // triggers a Stellar Swirl
+        if (reaction === 'stellarSwirl' && opens(k, 'ScarletProof'))
+          ctx.buff(k, ['ScarletProof', '4Ss'], 'on', 0, 600)
         // Instructor: the party's EM +120 for 8 s after the wearer triggers a reaction
-        if (wears(k, 'Instructor'))
+        if (opens(k, 'Instructor'))
           ctx.buff(k, ['Instructor', 'set4'], 'on', 0, 480)
         // Scroll of the Hero of Cinder City: +12% DMG of the elements of a reaction involving the
         // wearer's element, for 15 s, plus an independent 20 s Nightsoul bonus
-        if (wears(k, 'ScrollOfTheHeroOfCinderCity')) {
+        if (opens(k, 'ScrollOfTheHeroOfCinderCity')) {
           const own = getCharEle(k)
           const elements =
             reaction === 'crystallize'
@@ -388,7 +400,7 @@ export function gearEffects({
         }
         // Flower of Paradise Lost: a stack per Bloom (1 s ICD), 10 s, up to 4
         if (
-          wears(k, 'FlowerOfParadiseLost') &&
+          opens(k, 'FlowerOfParadiseLost') &&
           (reaction === 'bloom' || reaction === 'lunarBloom') &&
           ready(`fopl.${k}`, t, 60)
         )
@@ -415,7 +427,7 @@ export function gearEffects({
         const node = hit.path[1]
         if (node === 'hyperbloom') hakushin(ctx, hit, node)
         if (
-          wears(k, 'FlowerOfParadiseLost') &&
+          opens(k, 'FlowerOfParadiseLost') &&
           (node === 'hyperbloom' || node === 'burgeon') &&
           ready(`fopl.${k}`, t, 60)
         )
@@ -459,14 +471,14 @@ export function gearEffects({
       if (
         hit.path[0] === '_marker' &&
         hit.path[1] === 'bondOfLife' &&
-        wears(k, 'FragmentOfHarmonicWhimsy')
+        opens(k, 'FragmentOfHarmonicWhimsy')
       )
         stack(k, ['FragmentOfHarmonicWhimsy', 'stacks'], t, 360, 3)
       if (
         hit.path[0] === '_marker' &&
         hit.path[1] === 'hpChange' &&
         hit.onField === k &&
-        wears(k, 'MarechausseeHunter')
+        opens(k, 'MarechausseeHunter')
       ) {
         // Native MH refreshes the whole stack count, rather than expiring each gain separately.
         const count = Math.min(
@@ -483,7 +495,7 @@ export function gearEffects({
       if (hit.path[0].startsWith('_')) return
       if (
         ctx.moonsign >= 1 &&
-        wears(k, 'SilkenMoonsSerenade') &&
+        opens(k, 'SilkenMoonsSerenade') &&
         hit.element !== 'physical'
       )
         ctx.buff(k, ['SilkenMoonsSerenade', '4GleamingMoon'], 'on', 1, 480)
@@ -520,11 +532,11 @@ export function gearEffects({
         } else sacCredit.set(k, credit)
       }
       // Deepwood Memories: Dendro RES -30% for 8 s after the wearer's Dendro hit
-      if (wears(k, 'DeepwoodMemories') && hit.element === 'dendro')
+      if (opens(k, 'DeepwoodMemories') && hit.element === 'dendro')
         ctx.buff(k, ['DeepwoodMemories', 'set4'], 'on', 0, 480)
       // Tenacity of the Millelith: the party's ATK +20% for 3 s after a skill hit (0.5 s ICD)
       if (
-        wears(k, 'TenacityOfTheMillelith') &&
+        opens(k, 'TenacityOfTheMillelith') &&
         hit.tag === 'skill' &&
         ready(`totm.${k}`, t, 30)
       )
@@ -547,7 +559,7 @@ export function gearEffects({
       if (!initialized) {
         initialized = true
         for (const member of members) {
-          if (!wears(member, 'UnfinishedReverie')) continue
+          if (!opens(member, 'UnfinishedReverie')) continue
           let count = 5
           let lastBurning = -1
           let readyAt = -1
@@ -574,7 +586,7 @@ export function gearEffects({
         }
       }
 
-      if (action.kind === 'burst' && wears(actor, 'VermillionHereafter')) {
+      if (action.kind === 'burst' && opens(actor, 'VermillionHereafter')) {
         const entry = { start: ctx.now, end: ctx.now + 960, count: 0 }
         vermillion.set(actor, entry)
         ctx.state(actor, ['VermillionHereafter', 'afterBurst'], 'on')
@@ -586,23 +598,23 @@ export function gearEffects({
         })
       }
       // Noblesse Oblige: the party's ATK +20% for 12 s after the burst
-      if (action.kind === 'burst' && wears(actor, 'NoblesseOblige'))
+      if (action.kind === 'burst' && opens(actor, 'NoblesseOblige'))
         ctx.buff(actor, ['NoblesseOblige', 'set4'], 'on', 0, 720)
       // Celestial Gift: after the wearer's skill on the field, 20 s (the sheet applies the
       // Hexerei Secret Rite part and the elements)
       if (
         action.kind === 'skill' &&
-        wears(actor, 'CelestialGift') &&
+        opens(actor, 'CelestialGift') &&
         ctx.onField === actor
       )
         ctx.buff(actor, ['CelestialGift', 'set4'], 'on', 0, 1200)
       // Crimson Witch of Flames: a stack per skill, 10 s, up to 3
-      if (action.kind === 'skill' && wears(actor, 'CrimsonWitchOfFlames'))
+      if (action.kind === 'skill' && opens(actor, 'CrimsonWitchOfFlames'))
         ctx.buff(actor, ['CrimsonWitchOfFlames', 'stack'], '1', 0, 600, 3)
       // Nighttime Whispers in the Echoing Woods: Geo DMG +20% for 10 s after the skill
       if (
         action.kind === 'skill' &&
-        wears(actor, 'NighttimeWhispersInTheEchoingWoods')
+        opens(actor, 'NighttimeWhispersInTheEchoingWoods')
       )
         ctx.buff(
           actor,
@@ -619,7 +631,7 @@ export function gearEffects({
       // its ATK for 10 s (hitlag-extended), once per 20 s (gcsim)
       if (
         ctx &&
-        gear[from]?.weapon === 'ThrillingTalesOfDragonSlayers' &&
+        holds(from, 'ThrillingTalesOfDragonSlayers') &&
         ready(`ttds.${from}`, t, 1200)
       )
         ctx.buff(
@@ -658,8 +670,8 @@ export function gearEffects({
         incoming.offSince = undefined
         incoming.onSince = t
       }
-      if (wears(from, 'GoldenTroupe')) offSince.set(from, t)
-      if (wears(from, 'AubadeOfMorningstarAndMoon')) aubadeOff.set(from, t)
+      if (opens(from, 'GoldenTroupe')) offSince.set(from, t)
+      if (opens(from, 'AubadeOfMorningstarAndMoon')) aubadeOff.set(from, t)
       const aubadeSince = aubadeOff.get(to)
       if (aubadeSince !== undefined) {
         window(

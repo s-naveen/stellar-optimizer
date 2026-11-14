@@ -14,6 +14,14 @@ export interface SimGear {
   sets?: Partial<Record<string, number>>
   weapon?: string
   refinement?: number
+  /**
+   * Sets and weapons played as if worn, but only for the effects that open their own buff windows
+   * (the sheets count such a window only when the set's pieces or the weapon are on): what KQM's
+   * search may give the member, so every option is judged with its effects in the rotation.
+   * Effects that change the play itself (cooldowns, attack speed, heals, extra hits) stay on the
+   * gear worn.
+   */
+  candidates?: { sets?: readonly string[]; weapons?: readonly string[] }
 }
 
 /** How the game tags a damage instance (what buffs and mechanics key on) */

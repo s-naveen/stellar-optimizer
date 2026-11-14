@@ -48,6 +48,7 @@ import { useTranslation } from 'react-i18next'
 import { formatGain, formatRate } from './format'
 import { artifactStatValue, KqmBuildView, SetLines } from './KqmBuildView'
 import { MemberAvatar } from './MemberAvatar'
+import { kqmReplayOf } from './useKqmRun'
 import { WeaponDetails, WeaponThumb } from './TeamOptResults'
 import {
   focusSx,
@@ -95,7 +96,7 @@ export function KqmCompare({
   /** The team as it plays with the equipment picked (undefined: the run's own builds) */
   onView?: (view: KqmResult | undefined) => void
 }) {
-  const { t } = useTranslation('page_team')
+  const { t, i18n } = useTranslation('page_team')
   const database = useDatabase()
   const { gender } = useDBMeta()
   const original = result.builds[characterKey]!
@@ -152,6 +153,8 @@ export function KqmCompare({
       result: base,
       characterKey,
       ...choice,
+      // (played again with the picked gear: what its effects change for the whole team)
+      replay: kqmReplayOf(database, gender, i18n, teamId, runSettings),
       isCancelled: () => cancelled,
     })
       .then((next) => {
@@ -181,6 +184,7 @@ export function KqmCompare({
     choice,
     disabled,
     allOriginal,
+    i18n,
   ])
   // (a team with other members' picks ranks this member's options once compared on it)
   const ranking = view.rankings[characterKey] ?? result.rankings[characterKey]

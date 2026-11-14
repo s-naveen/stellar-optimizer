@@ -167,6 +167,39 @@ function keep(database: ArtCharDatabase, teamId: string, s: KqmRunState) {
 }
 
 /** Runs KQM theorycrafting for a team, in the background of whichever page is shown */
+/**
+ * The written rotation, played by KQM theorycrafting itself (never with the members' own
+ * constellations or gear): at the KQM constellations, with the builds' weapons and sets. For a run
+ * and for the inspector's comparisons. Nothing written (or it can't be read): undefined.
+ */
+export function kqmReplayOf(
+  database: ArtCharDatabase,
+  gender: GenderKey,
+  i18n: i18n,
+  teamId: string,
+  teamOpt: TeamOpt
+) {
+  try {
+    const members = teamOptMembers(database, teamId)
+    return kqmRotationReplay({
+      database,
+      teamId,
+      members,
+      gender,
+      names: members.map(({ characterKey }) => ({
+        characterKey,
+        name: i18n.t(
+          `charNames_gen:${charKeyToLocGenderedCharKey(characterKey, gender)}`
+        ),
+      })),
+      teamOpt,
+    })
+  } catch (e) {
+    console.error(e)
+    return undefined
+  }
+}
+
 async function startKqmRun(
   database: ArtCharDatabase,
   gender: GenderKey,
@@ -193,27 +226,7 @@ async function startKqmRun(
   // (the running state paints before the first problem is built; a hidden page goes on at once)
   await nextPaint()
   try {
-    // the written rotation, played by KQM theorycrafting itself (never with the members' own
-    // constellations or gear): at the KQM constellations, with the builds' weapons and sets
-    let replay: ReturnType<typeof kqmRotationReplay>
-    try {
-      const members = teamOptMembers(database, teamId)
-      replay = kqmRotationReplay({
-        database,
-        teamId,
-        members,
-        gender,
-        names: members.map(({ characterKey }) => ({
-          characterKey,
-          name: i18n.t(
-            `charNames_gen:${charKeyToLocGenderedCharKey(characterKey, gender)}`
-          ),
-        })),
-        teamOpt,
-      })
-    } catch (e) {
-      console.error(e)
-    }
+    const replay = kqmReplayOf(database, gender, i18n, teamId, teamOpt)
     const result = await optimizeTeamKqm({
       database,
       teamId,

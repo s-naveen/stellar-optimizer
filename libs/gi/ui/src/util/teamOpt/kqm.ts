@@ -20,6 +20,7 @@ import type {
   OptConfig,
   StatFilters,
   TeamOpt,
+  TeamOptAttack,
   TeamOptKqm,
 } from '@genshin-optimizer/gi/db'
 import { defaultTeamOptKqm } from '@genshin-optimizer/gi/db'
@@ -753,6 +754,64 @@ function startBuild(space: MemberSpace): KqmBuild {
   }
 }
 
+type TeamOptBuffState = NonNullable<TeamOptAttack['states']>[number]
+const SET_KEYS: ReadonlySet<string> = new Set(allArtifactSetKeys)
+const WEAPON_KEYS: ReadonlySet<string> = new Set(allWeaponKeys)
+
+/**
+ * A problem's attacks, where only `dyn`'s artifacts vary: a buff state of a set or weapon that no
+ * build in it can have (another member's set or weapon not on it, a weapon `dyn` does not hold)
+ * counts nothing there (its sheet needs the pieces or the weapon), so it is dropped, and the
+ * attacks it split are merged again. (A replay's candidate windows split them for every option.)
+ */
+export function kqmProblemAttacks(
+  attacks: TeamOpt['attacks'],
+  dyn: CharacterKey,
+  state: Partial<Record<CharacterKey, KqmBuild>>
+): TeamOpt['attacks'] {
+  const keep = (s: TeamOptBuffState) => {
+    if (s.owner === 'team') return true
+    const build = state[s.owner as CharacterKey]
+    const key = s.path[0]
+    if (!build || !key) return true
+    if (WEAPON_KEYS.has(key)) return build.weapon.key === key
+    if (SET_KEYS.has(key))
+      return s.owner === dyn || !!build.sets[key as ArtifactSetKey]
+    return true
+  }
+  const prune = (list: TeamOptBuffState[]) => list.filter(keep)
+  const out: TeamOpt['attacks'] = {}
+  for (const [ck, list] of Object.entries(attacks) as [
+    CharacterKey,
+    TeamOptAttack[] | undefined,
+  ][]) {
+    if (!list) continue
+    const merged = new Map<string, TeamOptAttack>()
+    for (const a of list) {
+      const next: TeamOptAttack = { ...a }
+      if (a.states) next.states = prune(a.states)
+      if (a.reactionContributorStates)
+        next.reactionContributorStates = Object.fromEntries(
+          Object.entries(a.reactionContributorStates).map(([k, v]) => [
+            k,
+            v && prune(v),
+          ])
+        )
+      if (a.statSnapshots)
+        next.statSnapshots = a.statSnapshots.map((snap) => ({
+          ...snap,
+          states: prune(snap.states),
+        }))
+      const id = JSON.stringify({ ...next, hits: 0 })
+      const same = merged.get(id)
+      if (same) same.hits += a.hits
+      else merged.set(id, next)
+    }
+    out[ck] = [...merged.values()]
+  }
+  return out
+}
+
 /** A build's weapon and sets as the rotation simulation plays them (set and weapon effects) */
 export const kqmSimGear = (build: KqmBuild): SimGear => ({
   sets: { ...build.sets },
@@ -925,6 +984,14 @@ async function runKqm({
       memberSpace(m, optConfigs[m.characterKey], kqm),
     ])
   )
+  /** The sets and weapons a member's search may give it (see `SimGear.candidates`) */
+  const candidatesOf = (ck: CharacterKey) => {
+    const space = spaces.get(ck)
+    return {
+      sets: [...new Set([...(space?.four ?? []), ...(space?.two ?? [])])],
+      weapons: [...new Set((space?.weapons ?? []).map((w) => w.key))],
+    }
+  }
   // the weapon and set effects nobody set up, by rule; the members' own settings win over them,
   // and KQM mode's own (`conditionalOverrides`) over both
   // (from what the members do in the rotation: again when it is played differently)
@@ -1018,7 +1085,7 @@ async function runKqm({
     const built = buildKqmProblem(database, teamId, gender, {
       dyn: ck,
       arts,
-      attacks: attacksNow(),
+      attacks: kqmProblemAttacks(attacksNow(), ck, withWeapon),
       statFilters: calculator
         ? filtersFor(withWeapon)
         : { [ck]: filtersFor(withWeapon)[ck] ?? {} },
@@ -1563,15 +1630,22 @@ async function runKqm({
     state: Partial<Record<CharacterKey, KqmBuild>>,
     withGear: boolean
   ) => {
-    if (!replay || comparison) return false
+    if (!replay) return false
     const { arts, weapons } = gearOf(state)
     const next = replay({
       constellations,
-      gear: withGear
-        ? Object.fromEntries(
-            Object.entries(state).map(([ck, b]) => [ck, kqmSimGear(b!)])
-          )
-        : {},
+      // (every member's allowed sets and weapons as candidates: the effects that only open their
+      // own buff windows are played for each of them, so the search judges every option with
+      // its effects in the rotation, not only the ones already worn)
+      gear: Object.fromEntries(
+        optimized.map(({ characterKey: ck }) => [
+          ck,
+          {
+            ...(withGear && state[ck] ? kqmSimGear(state[ck]!) : {}),
+            candidates: candidatesOf(ck),
+          },
+        ])
+      ),
       overrides: {
         arts,
         weapons,
@@ -1650,6 +1724,15 @@ async function runKqm({
         )
       )
         throw new Error('This artifact set is not allowed by the run settings.')
+      // the rotation played again with the picked weapon and sets on (their effects, and what
+      // they change for the team: a set's debuff, a weapon's buff for the next member)
+      replayFor(
+        {
+          ...builds,
+          [characterKey]: { ...builds[characterKey]!, weapon, sets },
+        },
+        true
+      )
       const [selected] = await searchArtifacts(characterKey, weapon, builds, {
         setsList: [sets],
         setsKept: 1,
