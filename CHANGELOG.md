@@ -4,6 +4,15 @@ Every release of [Stellar Optimizer](https://gi-beta73.github.io/). The app show
 (home page, and the version in the footer). Generated from
 `libs/gi/ui/src/changelog/changelog.json` by `tools/site/release.mjs`: edit that file, not this one.
 
+## [v1.3.1](https://github.com/s-naveen/stellar-optimizer/releases/tag/v1.3.1) (2026-11-14)
+
+### New
+
+- KQM Theorycrafting: picking another weapon or set now updates the team DPS and every member card, and picks for several members add up.
+- KQM Theorycrafting: each member card shows how many rolls went to each substat (hover for fixed, added and total); the same line sits next to Artifact totals.
+- Rotation timeline: each swap now shows as its own block before the next member's actions.
+- Frame data: actions that change in a mode or stance (Zibai's Spirit Steed's Stride, Wanderer's Windfavored attacks, Raiden's Musou Isshin and more) have their own rows, so editing one no longer changes the other.
+
 ## [v1.3.0](https://github.com/s-naveen/stellar-optimizer/releases/tag/v1.3.0) (2026-11-14)
 
 ### New
