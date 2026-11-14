@@ -78,6 +78,8 @@ export function KqmCompare({
   characterKey,
   rotationTime,
   disabled = false,
+  base: baseProp,
+  onView,
 }: {
   teamId: string
   runSettings: TeamOpt
@@ -85,6 +87,13 @@ export function KqmCompare({
   characterKey: CharacterKey
   rotationTime?: number
   disabled?: boolean
+  /**
+   * The team with the other members' picks (from their inspectors): this member's options are
+   * compared on top of it, so picks for several members add up
+   */
+  base?: KqmResult
+  /** The team as it plays with the equipment picked (undefined: the run's own builds) */
+  onView?: (view: KqmResult | undefined) => void
 }) {
   const { t } = useTranslation('page_team')
   const database = useDatabase()
@@ -93,17 +102,40 @@ export function KqmCompare({
   const [choice, setChoice] = useState<Pick<KqmBuild, 'weapon' | 'sets'>>(
     () => choices.get(result)?.[characterKey] ?? original
   )
-  const [view, setView] = useState(result)
+  // the team this member's options are compared on: as it was when this inspector opened (the
+  // other members' picks), not followed while picking here
+  const [base] = useState(() => baseProp ?? result)
+  // every member at the run's own equipment: the run itself, exactly
+  const allOriginal = Object.entries({
+    ...choices.get(result),
+    [characterKey]: choice,
+  }).every(
+    ([ck, c]) =>
+      !c ||
+      choiceId(ck as CharacterKey, c) ===
+        choiceId(ck as CharacterKey, result.builds[ck as CharacterKey]!)
+  )
+  const [view, setView] = useState(base)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
   const [category, setCategory] = useState(0)
   const key = choiceId(characterKey, choice)
+  // the page's figures follow the picks (back to the run's when every pick is the original)
+  useEffect(() => {
+    onView?.(view !== result ? view : undefined)
+  }, [view, result, onView])
   useEffect(() => {
     if (disabled) return
     let cancelled = false
-    const saved = cache.get(result) ?? new Map<string, KqmResult>()
-    cache.set(result, saved)
-    saved.set(choiceId(characterKey, original), result)
+    if (allOriginal) {
+      setView(result)
+      setBusy(false)
+      setError('')
+      return
+    }
+    const saved = cache.get(base) ?? new Map<string, KqmResult>()
+    cache.set(base, saved)
+    if (base === result) saved.set(choiceId(characterKey, original), result)
     const hit = saved.get(key)
     setError('')
     if (hit) {
@@ -117,7 +149,7 @@ export function KqmCompare({
       teamId,
       gender,
       teamOpt: runSettings,
-      result,
+      result: base,
       characterKey,
       ...choice,
       isCancelled: () => cancelled,
@@ -142,13 +174,16 @@ export function KqmCompare({
     gender,
     runSettings,
     result,
+    base,
     characterKey,
     original,
     key,
     choice,
     disabled,
+    allOriginal,
   ])
-  const ranking = view.rankings[characterKey]
+  // (a team with other members' picks ranks this member's options once compared on it)
+  const ranking = view.rankings[characterKey] ?? result.rankings[characterKey]
   const build = view.builds[characterKey]!
   // the rows' tooltips (passives, set bonuses) have their texts before the first hover: no
   // placeholder while they load

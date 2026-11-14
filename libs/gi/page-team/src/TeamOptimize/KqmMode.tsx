@@ -1310,6 +1310,11 @@ export function KqmResults({
   )
   const compared =
     shown && result.optimized.includes(shown) ? shown : result.optimized[0]
+  // other equipment picked in the inspector: the team as it plays with it (the figures above follow)
+  const [comparing, setComparing] = useState<KqmResult>()
+  // (a new run starts from its own builds)
+  useEffect(() => setComparing(undefined), [result])
+  const view = comparing ?? result
   const unit = rotationTime
     ? t('teamOpt.kqm.dpsUnit', 'DPS')
     : t('teamOpt.kqm.dmgUnit', 'DMG')
@@ -1348,13 +1353,39 @@ export function KqmResults({
             }}
           >
             <Typography sx={type.figure}>
-              {formatRate(result.after.total, rotationTime, true)}
+              {formatRate(view.after.total, rotationTime, true)}
             </Typography>
             <Typography sx={type.label}>
               {rotationTime
                 ? t('teamOpt.kqm.teamDps', 'team DPS')
                 : t('teamOpt.kqm.teamDmg', 'team DMG')}
             </Typography>
+            {comparing && (
+              <Tooltip
+                arrow
+                title={t('teamOpt.kqm.vsBestTip', {
+                  defaultValue: 'The run’s best builds: {{total}}',
+                  total: formatRate(result.after.total, rotationTime, true),
+                })}
+              >
+                <Typography
+                  sx={{
+                    ...type.label,
+                    ...numSx,
+                    cursor: 'help',
+                    color:
+                      comparing.after.total >= result.after.total
+                        ? 'success.main'
+                        : 'text.secondary',
+                  }}
+                >
+                  {t('teamOpt.kqm.vsBest', {
+                    defaultValue: '{{diff}} vs best',
+                    diff: `${comparing.after.total >= result.after.total ? '+' : '−'}${Math.abs((comparing.after.total / result.after.total - 1) * 100).toFixed(1)}%`,
+                  })}
+                </Typography>
+              </Tooltip>
+            )}
           </Box>
         </Box>
         <Box
@@ -1446,8 +1477,9 @@ export function KqmResults({
         }}
       >
         {members.map(({ characterKey }) => {
-          const build = result.builds[characterKey]
-          const er = result.energyRecharge[characterKey]
+          // (with the equipment picked in the inspector, when it is not the run's)
+          const build = view.builds[characterKey]
+          const er = view.energyRecharge[characterKey]
           const selected = compared === characterKey
           return (
             <ButtonBase
@@ -1516,7 +1548,7 @@ export function KqmResults({
               >
                 <Typography sx={{ ...type.stat, fontSize: { xs: 16, sm: 18 } }}>
                   {formatRate(
-                    result.after.members[characterKey],
+                    view.after.members[characterKey],
                     rotationTime,
                     true
                   )}
@@ -1563,6 +1595,8 @@ export function KqmResults({
           result={result}
           characterKey={compared}
           rotationTime={rotationTime}
+          base={comparing}
+          onView={setComparing}
         />
       )}
     </Box>
