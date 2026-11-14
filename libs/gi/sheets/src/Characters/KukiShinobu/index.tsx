@@ -154,7 +154,11 @@ const dmgFormulas = {
       customDmgNode(
         prod(percent(dm.constellation4.markDmg), input.total.hp),
         'skill',
-        { hit: { ele: constant(elementKey) } }
+        {
+          hit: { ele: constant(elementKey) },
+          // A4 boosts Sanctifying Ring's own DMG, not the Thundergrass Mark
+          premod: { skill_dmgInc: prod(a4Skill_dmgInc, -1) },
+        }
       )
     ),
   },

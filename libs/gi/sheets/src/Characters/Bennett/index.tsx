@@ -14,6 +14,7 @@ import {
   subscript,
   sum,
   target,
+  unequal,
 } from '@genshin-optimizer/gi/wr'
 import { cond, st, stg } from '../../SheetUtil'
 import { CharacterSheet } from '../CharacterSheet'
@@ -105,10 +106,19 @@ const c1AtkRatio = greaterEq(
 )
 const burstAddlAtk = prod(sum(burstAtkRatio, c1AtkRatio), input.base.atk)
 const [condInAreaPath, condInArea] = cond(key, 'activeInArea')
-const activeInArea = equal(
-  'activeInArea',
-  condInArea,
-  equal(input.activeCharKey, target.charKey, 1)
+const [, condTimeline] = cond(key, 'timeline')
+const [, condFieldRecipient] = cond(key, 'fieldRecipient')
+const activeInArea = sum(
+  equal(condTimeline, 'on', equal(condFieldRecipient, 'on', 1)),
+  unequal(
+    condTimeline,
+    'on',
+    equal(
+      'activeInArea',
+      condInArea,
+      equal(input.activeCharKey, target.charKey, 1)
+    )
+  )
 )
 const activeInAreaAtkDisp = infoMut(burstAddlAtk, { ...{ path: 'atk' } })
 const activeInAreaAtk = equal(activeInArea, 1, activeInAreaAtkDisp)

@@ -207,9 +207,14 @@ export const data = dataObjForCharacterSheet(key, dmgFormulas, {
     skillBoost: nodeC5,
     burstBoost: nodeC3,
     def_,
-    cryo_enemyRes_,
-    physical_enemyRes_,
     physical_dmg_,
+  },
+  // Icetide Vortex's RES decrease is on the enemy: every party member's DMG benefits
+  teamBuff: {
+    premod: {
+      cryo_enemyRes_,
+      physical_enemyRes_,
+    },
   },
 })
 

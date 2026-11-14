@@ -141,8 +141,12 @@ const c1FanfareArr = range(
 )
 const clampedFanfareNum = lookup(
   condBurstFanfare,
-  objKeyMap(c1FanfareArr, (stacks) =>
-    stacks > 450 ? greaterEq(input.constellation, 1, stacks) : constant(stacks)
+  objKeyMap(
+    range(0, dm.burst.maxFanfare + dm.constellation1.fanfareLimitInc),
+    (stacks) =>
+      stacks > 450
+        ? greaterEq(input.constellation, 1, stacks)
+        : constant(stacks)
   ),
   naught
 )
@@ -194,7 +198,7 @@ const c2Overstack_hp_ = greaterEq(
   2,
   lookup(
     condC2Overstack,
-    objKeyMap(c2OverstackArr, (stack) =>
+    objKeyMap(range(0, dm.constellation2.stacks), (stack) =>
       prod(stack, percent(dm.constellation2.hp_, { fixed: 2 }))
     ),
     naught

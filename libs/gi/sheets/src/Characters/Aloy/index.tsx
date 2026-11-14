@@ -105,7 +105,8 @@ const [condA1Path, condA1] = cond(key, 'A1')
 const atk_ = greaterEq(
   input.asc,
   1,
-  equal(condA1, 'on', equal(target.charKey, key, percent(dm.passive1.atkInc)))
+  // (her own premod: `target` is not Aloy here, so a target check never matched)
+  equal(condA1, 'on', percent(dm.passive1.atkInc))
 )
 const teamAtk_disp = greaterEq(
   input.asc,

@@ -1,6 +1,7 @@
 import type { CharacterKey } from '@genshin-optimizer/gi/consts'
 import { allStats } from '@genshin-optimizer/gi/stats'
 import {
+  constant,
   equal,
   greaterEq,
   infoMut,
@@ -173,7 +174,9 @@ const dmgFormulas = {
       6,
       customDmgNode(
         prod(percent(dm.constellation6.dmg), input.total.atk),
-        'burst'
+        'elemental',
+        // (a polearm user's 'elemental' hit would otherwise be inferred Physical)
+        { hit: { ele: constant('dendro') } }
       )
     ),
     heal: greaterEq(

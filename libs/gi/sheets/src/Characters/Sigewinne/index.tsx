@@ -182,17 +182,25 @@ const c6AdjustedHp = prod(input.total.hp, 1 / 1000)
 const c6AfterHeal_burst_critRate_ = greaterEq(
   input.constellation,
   6,
-  min(
-    prod(c6AdjustedHp, percent(dm.constellation6.critRate_)),
-    percent(dm.constellation6.maxCritRate_)
+  equal(
+    condC6AfterHeal,
+    'on',
+    min(
+      prod(c6AdjustedHp, percent(dm.constellation6.critRate_)),
+      percent(dm.constellation6.maxCritRate_)
+    )
   )
 )
 const c6AfterHeal_burst_critDMG_ = greaterEq(
   input.constellation,
   6,
-  min(
-    prod(c6AdjustedHp, percent(dm.constellation6.critDMG_)),
-    percent(dm.constellation6.maxCritDMG_)
+  equal(
+    condC6AfterHeal,
+    'on',
+    min(
+      prod(c6AdjustedHp, percent(dm.constellation6.critDMG_)),
+      percent(dm.constellation6.maxCritDMG_)
+    )
   )
 )
 

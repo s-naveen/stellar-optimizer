@@ -9,7 +9,9 @@ import {
   percent,
   prod,
   subscript,
+  sum,
   target,
+  unequal,
 } from '@genshin-optimizer/gi/wr'
 import { cond, st, stg } from '../../SheetUtil'
 import { CharacterSheet } from '../CharacterSheet'
@@ -87,20 +89,54 @@ const skillTenguAmbush_disp = equal(
   prod(input.base.atk, atkIncRatio),
   { path: 'atk', isTeamBuff: true }
 )
+// The rotation simulator's timeline: the buff is on the member that was on the field when a Tengu
+// Juurai took effect, for its 6 s (off the field too), as in game; otherwise the active character
+const [, condTimeline] = cond(key, 'timeline')
+const [, condTenguRecipient] = cond(key, 'tenguRecipient')
+const tenguOnTarget = sum(
+  equal(condTimeline, 'on', equal(condTenguRecipient, 'on', 1)),
+  unequal(
+    condTimeline,
+    'on',
+    equal(
+      condSkillTenguAmbush,
+      'TenguJuuraiAmbush',
+      equal(input.activeCharKey, target.charKey, 1)
+    )
+  )
+)
 const skillTenguAmbush_ = equal(
-  input.activeCharKey,
-  target.charKey,
-  skillTenguAmbush_disp
+  tenguOnTarget,
+  1,
+  prod(input.base.atk, atkIncRatio),
+  { path: 'atk', isTeamBuff: true }
 )
 
 const [condC6Path, condC6] = cond(key, 'c6')
-const c6ElectroCritDmg_ = greaterEq(
+const c6ElectroCritDmg_disp = greaterEq(
   input.constellation,
   6,
   equal(
     condSkillTenguAmbush,
     'TenguJuuraiAmbush',
     equal('c6', condC6, percent(dm.constellation6.atkInc))
+  )
+)
+// C6: only the characters whose ATK the Tengu Juurai increased
+const c6ElectroCritDmg_ = greaterEq(
+  input.constellation,
+  6,
+  equal(
+    tenguOnTarget,
+    1,
+    sum(
+      equal(condTimeline, 'on', percent(dm.constellation6.atkInc)),
+      unequal(
+        condTimeline,
+        'on',
+        equal('c6', condC6, percent(dm.constellation6.atkInc))
+      )
+    )
   )
 )
 const dmgFormulas = {
@@ -133,12 +169,14 @@ const dmgFormulas = {
     ),
   },
   constellation2: {
+    // 30% of the Ambush's multiplier (flat additions such as Aggravate are not scaled down)
     dmg: greaterEq(
       input.constellation,
       2,
-      prod(
-        dmgNode('atk', dm.skill.dmg, 'skill'),
-        percent(dm.constellation2.crowfeatherDmg)
+      dmgNode(
+        'atk',
+        dm.skill.dmg.map((x) => x * dm.constellation2.crowfeatherDmg),
+        'skill'
       )
     ),
   },
@@ -267,7 +305,7 @@ const sheet: TalentSheet = {
         c6: {
           fields: [
             {
-              node: c6ElectroCritDmg_,
+              node: c6ElectroCritDmg_disp,
             },
           ],
         },

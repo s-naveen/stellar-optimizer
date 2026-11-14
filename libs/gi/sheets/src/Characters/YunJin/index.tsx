@@ -6,6 +6,7 @@ import {
   greaterEq,
   infoMut,
   input,
+  max,
   prod,
   subscript,
   sum,
@@ -108,10 +109,16 @@ const nodeSkill = equal(
   )
 )
 
+// C2 lasts 12 s after the burst, apart from the Formation's 30 hits: on with the Formation, or
+// with its own condition (the rotation simulation sets it for the 12 s)
+const [condC2Path, condC2] = cond(key, 'c2')
 const nodeC2 = greaterEq(
   input.constellation,
   2,
-  equal('on', condBurst, dm.constellation2.normalInc)
+  max(
+    equal('on', condBurst, dm.constellation2.normalInc),
+    equal('on', condC2, dm.constellation2.normalInc)
+  )
 )
 
 const [condC4Path, condC4] = cond(key, 'c4')
@@ -350,6 +357,20 @@ const sheet: TalentSheet = {
   constellation1: ct.talentTem('constellation1'),
   constellation2: ct.talentTem('constellation2', [
     { fields: [{ node: nodeC2 }] },
+    ct.condTem('constellation2', {
+      teamBuff: true,
+      value: condC2,
+      path: condC2Path,
+      name: st('afterUse.burst'),
+      states: {
+        on: {
+          fields: [
+            { node: nodeC2 },
+            { text: stg('duration'), value: 12, unit: 's' },
+          ],
+        },
+      },
+    }),
   ]),
   constellation3: ct.talentTem('constellation3', [
     { fields: [{ node: nodeC3 }] },

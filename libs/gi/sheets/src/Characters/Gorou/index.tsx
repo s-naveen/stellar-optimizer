@@ -6,6 +6,7 @@ import {
   greaterEq,
   infoMut,
   input,
+  min,
   prod,
   subscript,
   sum,
@@ -132,7 +133,7 @@ const c6_geo_critDMG_ = greaterEq(
   equal(
     condAfterSkillBurst,
     'afterSkillBurst',
-    subscript(sum(tally['geo'], -1), dm.constellation6.geo_critDMG_)
+    subscript(sum(min(tally['geo'], 3), -1), dm.constellation6.geo_critDMG_)
   )
 )
 

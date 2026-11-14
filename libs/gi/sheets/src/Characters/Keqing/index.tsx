@@ -112,7 +112,8 @@ const dmgFormulas = {
     dmg: greaterEq(
       input.constellation,
       1,
-      customDmgNode(prod(input.total.atk, dm.constellation1.dmg), 'elemental', {
+      // (Elemental Skill DMG: gcsim's AttackTagElementalArtHold)
+      customDmgNode(prod(input.total.atk, dm.constellation1.dmg), 'skill', {
         hit: { ele: constant(elementKey) },
       })
     ),

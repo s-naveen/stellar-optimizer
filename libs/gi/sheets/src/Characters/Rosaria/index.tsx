@@ -142,6 +142,7 @@ const dmgFormulas = {
     hit2: dmgNode('atk', dm.burst.hit2, 'burst'),
     dotDmg: dmgNode('atk', dm.burst.dotDmg, 'burst'),
   },
+  passive1: { critRate: nodeA1CritInc },
   passive2: {
     nodeA4OptTarget,
   },

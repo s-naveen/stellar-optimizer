@@ -15,6 +15,7 @@ import {
   prod,
   subscript,
   sum,
+  target,
   unequal,
 } from '@genshin-optimizer/gi/wr'
 import type { INodeFieldDisplay } from '../../fieldDisplay'
@@ -120,33 +121,54 @@ const a1Stacks = lookup(
   ),
   0
 )
+// The rotation simulator's timeline: A1's stacks last their 3 s past Niwabi Fire-Dance, and A4
+// counts the stacks she had when the burst was used (its own condition)
+const [, condTimeline] = cond(key, 'timeline')
+const [, condA4Stacks] = cond(key, 'a4Stacks')
+const a4Stacks = sum(
+  equal(
+    condTimeline,
+    'on',
+    lookup(
+      condA4Stacks,
+      Object.fromEntries(
+        range(1, dm.passive1.maxStacks).map((i) => [i, constant(i)])
+      ),
+      0
+    )
+  ),
+  unequal(condTimeline, 'on', a1Stacks)
+)
+const a1Pyro_dmg_ = prod(percent(dm.passive1.pyro_dmg_), a1Stacks)
 const pyro_dmg_ = greaterEq(
   input.asc,
   1,
-  equal(
-    condSkill,
-    'skill',
-    infoMut(prod(percent(dm.passive1.pyro_dmg_), a1Stacks), {
-      path: 'pyro_dmg_',
-    })
+  infoMut(
+    sum(
+      equal(condTimeline, 'on', a1Pyro_dmg_),
+      unequal(condTimeline, 'on', equal(condSkill, 'skill', a1Pyro_dmg_))
+    ),
+    { path: 'pyro_dmg_' }
   )
 )
-const atk_ = greaterEq(
+const atk_disp = greaterEq(
   input.asc,
   4,
   equal(
     condBurst,
     'on',
-    unequal(
-      input.activeCharKey,
-      key,
-      sum(
-        percent(dm.passive2.fixed_atk_),
-        prod(percent(dm.passive2.var_atk_), a1Stacks)
-      )
-    )
+    sum(
+      percent(dm.passive2.fixed_atk_),
+      prod(percent(dm.passive2.var_atk_), a4Stacks)
+    ),
+    { path: 'atk_', isTeamBuff: true }
   )
 )
+// A4: the other party members (not Yoimiya)
+const atk_ = unequal(target.charKey, key, atk_disp, {
+  path: 'atk_',
+  isTeamBuff: true,
+})
 const c1atk_ = greaterEq(
   input.constellation,
   1,
@@ -445,7 +467,7 @@ const sheet: TalentSheet = {
         on: {
           fields: [
             {
-              node: atk_,
+              node: atk_disp,
             },
             {
               text: stg('duration'),

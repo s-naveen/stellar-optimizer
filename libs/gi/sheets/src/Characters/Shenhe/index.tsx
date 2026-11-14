@@ -185,7 +185,7 @@ export const data = dataObjForCharacterSheet(key, dmgFormulas, {
   premod: {
     skillBoost: nodeC3,
     burstBoost: nodeC5,
-    skill_dmg_: c4Inc,
+    // (C4's bonus is on the press and hold hits themselves: hit.dmgBonus above)
   },
   teamBuff: {
     premod: {

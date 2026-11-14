@@ -89,7 +89,7 @@ const dm = {
 const skillHpCost = prod(percent(dm.skill.hpCost), input.total.hp)
 
 const [condA4HpStatePath, condA4HpState] = cond(key, 'a4HpState')
-const a4HpState_heal_ = greaterEq(
+const a4HpState_incHeal_ = greaterEq(
   input.asc,
   4,
   equal(condA4HpState, 'below', dm.passive2.heal_)
@@ -171,7 +171,7 @@ export const data = dataObjForCharacterSheet(key, dmgFormulas, {
   premod: {
     skillBoost: skillC3,
     burstBoost: burstC5,
-    heal_: a4HpState_heal_,
+    incHeal_: a4HpState_incHeal_,
     atk_: c2Overheal_atk_,
   },
 })
@@ -325,7 +325,7 @@ const sheet: TalentSheet = {
           name: st('lessPercentHP', { percent: dm.passive2.threshold * 100 }),
           fields: [
             {
-              node: a4HpState_heal_,
+              node: a4HpState_incHeal_,
             },
           ],
         },

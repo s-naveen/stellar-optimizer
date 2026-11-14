@@ -9,6 +9,7 @@ import {
   percent,
   prod,
   target,
+  unequal,
 } from '@genshin-optimizer/gi/wr'
 import { activeCharBuff, cond, st, stg } from '../../SheetUtil'
 import { CharacterSheet } from '../CharacterSheet'
@@ -114,7 +115,10 @@ const duringPyronado = greaterEq(
     percent(dm.constellation6.pyroDmg)
   )
 )
-const antiC6 = prod(duringPyronado, -1)
+// Pyronado snapshots before C6 starts: the sheet takes C6 back off its hits, unless the rotation
+// simulator's timeline already snapshots them
+const [, condTimeline] = cond(key, 'timeline')
+const antiC6 = unequal(condTimeline, 'on', prod(duringPyronado, -1))
 
 const dmgFormulas = {
   normal: Object.fromEntries(

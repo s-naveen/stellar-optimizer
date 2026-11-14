@@ -149,7 +149,12 @@ const c2BurstHeal = greaterEq(
   2,
   equal(condC2, 'on', prod(percent(dm.c2.nc_heal_), input.total.hp))
 )
-const c4AtkSpd_ = greaterEq(input.constellation, 4, dm.c4.atkSPD_)
+// C4: Normal Attack SPD +10% while she wears the Ceremonial Garment
+const c4AtkSpd_ = greaterEq(
+  input.constellation,
+  4,
+  equal(condBurst, 'on', dm.c4.atkSPD_)
+)
 const c6Hydro_ = greaterEq(
   input.constellation,
   6,

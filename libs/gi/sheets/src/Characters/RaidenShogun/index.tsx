@@ -152,7 +152,7 @@ const [condResolveStackPath, condResolveStack] = cond(key, 'burstResolve')
 const resolveStackNode = infoMut(
   lookup(
     condResolveStack,
-    objKeyMap(resolveStacks, (i) => constant(i)),
+    Object.fromEntries(Array.from({ length: 61 }, (_, i) => [i, constant(i)])),
     0
   ),
   { name: ct.ch('burst.resolves') }
@@ -208,15 +208,19 @@ const a4EnergyRestore_ = infoMut(
 )
 
 const [condC4Path, condC4] = cond(key, 'c4')
-const c4AtkBonus_ = greaterEq(
+const c4AtkBonusDisp = greaterEq(
   input.constellation,
   4,
-  equal(
-    'c4',
-    condC4,
-    unequal(input.activeCharKey, target.charKey, dm.constellation4.atk_bonus)
-  )
+  equal('c4', condC4, dm.constellation4.atk_bonus, {
+    path: 'atk_',
+    isTeamBuff: true,
+  })
 )
+// C4: all party members excluding the Raiden Shogun
+const c4AtkBonus_ = unequal(key, target.charKey, c4AtkBonusDisp, {
+  path: 'atk_',
+  isTeamBuff: true,
+})
 
 const dmgFormulas = {
   normal: Object.fromEntries(
@@ -574,7 +578,7 @@ const sheet: TalentSheet = {
         c4: {
           fields: [
             {
-              node: c4AtkBonus_,
+              node: c4AtkBonusDisp,
             },
             {
               text: ct.chg('skill.skillParams.2'),

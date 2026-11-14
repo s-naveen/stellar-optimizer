@@ -77,7 +77,7 @@ const [condC2Path, condC2] = cond(key, 'LisaC2')
 
 const nodeA4DefShred = greaterEq(
   input.asc,
-  1,
+  4,
   equal(condA4, 'on', dm.passive2.defShred)
 )
 const nodeC2DefIncrease = greaterEq(
@@ -99,9 +99,7 @@ const dmgFormulas = {
     stack1: dmgNode('atk', dm.skill.stack1, 'skill'),
     stack2: dmgNode('atk', dm.skill.stack2, 'skill'),
     stack3: dmgNode('atk', dm.skill.stack3, 'skill'),
-    press: dmgNode('atk', dm.skill.press, 'skill', {
-      hit: { reaction: constant('') },
-    }),
+    press: dmgNode('atk', dm.skill.press, 'skill'),
   },
   burst: {
     summon: customDmgNode(

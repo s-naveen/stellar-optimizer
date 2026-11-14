@@ -2,7 +2,6 @@ import type { CharacterKey, ElementKey } from '@genshin-optimizer/gi/consts'
 import { allElementWithPhyKeys } from '@genshin-optimizer/gi/consts'
 import { allStats } from '@genshin-optimizer/gi/stats'
 import {
-  constant,
   equal,
   equalStr,
   greaterEq,
@@ -170,9 +169,7 @@ const dmgFormulas = {
   },
   plunging: plungingDmgNodes('atk', dm.plunging),
   skill: {
-    dmg: dmgNode('atk', dm.skill.dmg, 'skill', {
-      hit: { reaction: constant('') },
-    }),
+    dmg: dmgNode('atk', dm.skill.dmg, 'skill'),
     atk,
   },
   burst: {

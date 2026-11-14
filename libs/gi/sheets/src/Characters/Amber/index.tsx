@@ -326,7 +326,7 @@ const sheet: TalentSheet = {
             },
             {
               text: stg('duration'),
-              value: dm.passive2.duration,
+              value: dm.constellation6.duration,
               unit: 's',
             },
           ],
