@@ -273,6 +273,26 @@ type CharBundle = {
 }
 
 /** One member's data, as `getTeamData` builds it (also used by Team Optimize, with overrides) */
+/**
+ * A character's and a weapon's sheet data merged with every artifact set's (the same static
+ * sheets each time: merged once per pair, not for every team calculation). Not mutated by its
+ * users (the custom-target path, which writes to it, merges its own).
+ */
+const sheetDataCache = new WeakMap<Data, WeakMap<Data, Data>>()
+function sheetDataOf(characterData: Data, weaponData: Data): Data {
+  let byWeapon = sheetDataCache.get(characterData)
+  if (!byWeapon) {
+    byWeapon = new WeakMap()
+    sheetDataCache.set(characterData, byWeapon)
+  }
+  let merged = byWeapon.get(weaponData)
+  if (!merged) {
+    merged = mergeData([characterData, weaponData, allArtifactData])
+    byWeapon.set(weaponData, merged)
+  }
+  return merged
+}
+
 export function getCharDataBundle(
   database: ArtCharDatabase,
   useCustom = false,
@@ -298,11 +318,9 @@ export function getCharDataBundle(
       })()
     : weaponSheet.data
 
-  const sheetData = mergeData([
-    characterSheet.data,
-    weaponSheetsData,
-    allArtifactData,
-  ])
+  const sheetData = useCustom
+    ? mergeData([characterSheet.data, weaponSheetsData, allArtifactData])
+    : sheetDataOf(characterSheet.data, weaponSheet.data)
   const artifactData = Array.isArray(artifacts)
     ? artifacts.map((a) => dataObjForArtifact(a, mainStatAssumptionLevel))
     : [artifacts]
