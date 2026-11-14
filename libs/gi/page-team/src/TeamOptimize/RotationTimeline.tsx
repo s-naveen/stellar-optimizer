@@ -3,6 +3,7 @@ import { useDBMeta } from '@genshin-optimizer/gi/db-ui'
 import { getCharEle } from '@genshin-optimizer/gi/stats'
 import type { ParsedRotation, SimulationResult } from '@genshin-optimizer/gi/ui'
 import { CharacterName } from '@genshin-optimizer/gi/ui'
+import SwapHorizIcon from '@mui/icons-material/SwapHoriz'
 import { alpha, Box, ButtonBase, Tooltip, Typography } from '@mui/material'
 import type { Theme } from '@mui/material/styles'
 import { useMemo } from 'react'
@@ -31,7 +32,8 @@ export const laneColor = (theme: Theme, characterKey: CharacterKey) => {
 
 /**
  * The rotation as it plays: one lane per member, each action a block as long as its frames (in the
- * member's element colour), every hit a mark under it, on a seconds ruler. A block opens its step's
+ * member's element colour), each swap a neutral block on the incoming member's lane (after any wait
+ * for the swap cooldown), every hit a mark under it, on a seconds ruler. A block opens its step's
  * timing; the edited ones are outlined.
  */
 export function RotationTimeline({
@@ -74,6 +76,15 @@ export function RotationTimeline({
         ...(byMember.get(w.characterKey) ?? []),
         { ...w, wait: true },
       ])
+    return byMember
+  }, [sim])
+  const swaps = useMemo(() => {
+    const byMember = new Map<
+      CharacterKey,
+      NonNullable<SimulationResult['swaps']>
+    >()
+    for (const w of sim.swaps ?? [])
+      byMember.set(w.to, [...(byMember.get(w.to) ?? []), w])
     return byMember
   }, [sim])
   const hits = useMemo(() => {
@@ -161,6 +172,74 @@ export function RotationTimeline({
                     bgcolor: alpha(theme.palette.text.primary, 0.05),
                   })}
                 />
+              ))}
+              {(swaps.get(characterKey) ?? []).map((w) => (
+                <Tooltip
+                  key={`swap-${w.start}`}
+                  arrow
+                  disableInteractive
+                  title={
+                    <Box sx={{ fontVariantNumeric: 'tabular-nums' }}>
+                      <Box sx={{ fontWeight: 700 }}>
+                        {t('teamOpt.timing.swap', 'Swap')}:{' '}
+                        <CharacterName characterKey={w.from} gender={gender} />{' '}
+                        → <CharacterName characterKey={w.to} gender={gender} />
+                      </Box>
+                      {seconds(w.start - start)}–
+                      {seconds(w.start - start + w.frames)} s · {w.frames}{' '}
+                      {t('teamOpt.timing.framesShort', 'f')}
+                      {w.cooldown > 0 && (
+                        <Box sx={{ color: 'text.secondary' }}>
+                          {t('teamOpt.timing.swapCooldown', {
+                            defaultValue:
+                              'Waited {{seconds}} s for the swap cooldown',
+                            seconds: seconds(w.cooldown),
+                          })}
+                        </Box>
+                      )}
+                    </Box>
+                  }
+                >
+                  <Box
+                    aria-label={`${t('teamOpt.timing.swap', 'Swap')} ${seconds(w.start - start)} s`}
+                    sx={(theme) => ({
+                      position: 'absolute',
+                      top: 6,
+                      height: LANE - 16,
+                      // (the wait for the swap cooldown, hatched, then the swap itself)
+                      left: pct(w.start - w.cooldown),
+                      width: `max(4px, calc(${pct(start + w.cooldown + w.frames)} - 1px))`,
+                      display: 'flex',
+                      justifyContent: 'flex-end',
+                      overflow: 'hidden',
+                      borderRadius: 1,
+                      color: 'text.secondary',
+                      background: w.cooldown
+                        ? `linear-gradient(90deg, transparent 0 ${(w.cooldown / (w.cooldown + w.frames)) * 100}%, ${alpha(theme.palette.text.primary, 0.14)} ${(w.cooldown / (w.cooldown + w.frames)) * 100}%), repeating-linear-gradient(135deg, ${alpha(theme.palette.text.primary, 0.12)} 0 4px, transparent 4px 8px)`
+                        : alpha(theme.palette.text.primary, 0.14),
+                      boxShadow: `inset 0 0 0 1px ${alpha(theme.palette.text.primary, 0.18)}`,
+                      zIndex: 1,
+                    })}
+                  >
+                    {/* the icon, centred on the swap itself (not its cooldown wait); hidden when it
+                        would not fit */}
+                    <Box
+                      sx={{
+                        width: `${(w.frames / (w.cooldown + w.frames)) * 100}%`,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        containerType: 'inline-size',
+                        '& svg': { fontSize: 10 },
+                        '@container (max-width: 11px)': {
+                          '& svg': { display: 'none' },
+                        },
+                      }}
+                    >
+                      <SwapHorizIcon />
+                    </Box>
+                  </Box>
+                </Tooltip>
               ))}
               {(blocks.get(characterKey) ?? []).map((a) => {
                 const index = a.index

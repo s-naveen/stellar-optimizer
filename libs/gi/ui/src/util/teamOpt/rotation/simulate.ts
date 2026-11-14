@@ -86,6 +86,19 @@ export interface SimulationResult {
   /** The kept rotation's written waits (W1.5), in the same form as `actions` */
   waits?: SimulationResult['actions']
   /**
+   * The kept rotation's swaps: who to whom, when the swap began (frame), how long it took (swap
+   * time and ping) and how long it first waited for the 1 s swap cooldown
+   */
+  swaps?: {
+    from: CharacterKey
+    to: CharacterKey
+    start: number
+    frames: number
+    cooldown: number
+    /** A kit's own swap (Chiori's Tapestry) */
+    forced?: boolean
+  }[]
+  /**
    * Time spent waiting for an action (or a swap) to be ready, in the kept rotations, frames: by
    * what waited (`<member> <action>`, or `swap <member>`); a rotation that cannot keep its pace
    * shows here
@@ -1024,6 +1037,7 @@ export function simulateRotation({
   if (geoFromMoondrifts) refreshGeoResonance(0)
   const actions: SimulationResult['actions'] = []
   const waits: SimulationResult['actions'] = []
+  const swaps: NonNullable<SimulationResult['swaps']> = []
   /** Waits for readiness: what waited, when it began, how long */
   const stalled: { label: string; t: number; frames: number }[] = []
   const actionData: NonNullable<SimulationResult['actionData']> = {}
@@ -1081,7 +1095,15 @@ export function simulateRotation({
           )
       }
       // Swapping has a 1 s cooldown. The old member stays active until the swap completes.
-      now = Math.max(now, swapReadyAt) + swapFrames + pingFrames
+      const swapStart = Math.max(now, swapReadyAt)
+      swaps.push({
+        from: onField,
+        to: characterKey,
+        start: swapStart,
+        frames: swapFrames + pingFrames,
+        cooldown: swapStart - now,
+      })
+      now = swapStart + swapFrames + pingFrames
       runUntil(now, true)
       const prev = kits[onField]
       prev?.onSwapOut?.(ctxAt(now, onField), states.get(onField))
@@ -1317,6 +1339,14 @@ export function simulateRotation({
     currentAction = { actor: characterKey, start: now }
     now += frames
     if (result.forcedSwap && result.forcedSwap !== onField) {
+      swaps.push({
+        from: onField,
+        to: result.forcedSwap,
+        start: now,
+        frames: swapFrames,
+        cooldown: 0,
+        forced: true,
+      })
       now += swapFrames
       runUntil(now, true)
       kits[onField]?.onSwapOut?.(ctxAt(now, onField), states.get(onField))
@@ -1400,6 +1430,7 @@ export function simulateRotation({
     unsupported,
     actions: actions.filter((a) => a.start >= start && a.start < end),
     waits: waits.filter((a) => a.start >= start && a.start < end),
+    swaps: swaps.filter((w) => w.start >= start && w.start < end),
     stalls: stalled
       .filter((w) => w.t >= start && w.t < end)
       .reduce<Record<string, number>>((out, w) => {
