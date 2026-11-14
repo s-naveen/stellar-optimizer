@@ -78,8 +78,12 @@ import type {
   TeamOptAttack,
   TeamOptBuffLimit,
   TeamOptBuffOwner,
+  TeamOptEnergyCalculator,
+  TeamOptEnergyMember,
+  TeamOptKqm,
 } from './TeamOpt'
 import {
+  defaultTeamOptKqm,
   initTeamOpt,
   initTeamOptAttack,
   TEAM_OPT_MAX_ATTACKS,
@@ -140,6 +144,9 @@ export type {
   TeamOptAttack,
   TeamOptBuffLimit,
   TeamOptBuffOwner,
+  TeamOptEnergyCalculator,
+  TeamOptEnergyMember,
+  TeamOptKqm,
   TeamRotation,
 }
 export {
@@ -148,6 +155,7 @@ export {
   cachedArtifact,
   defaultInitialWeapon,
   defaultInitialWeaponKey,
+  defaultTeamOptKqm,
   defLoadoutExportSetting,
   handleArtSetExclusion,
   initCharTC,

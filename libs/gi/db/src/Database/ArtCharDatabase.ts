@@ -8,9 +8,10 @@ import { DisplayArchiveEntry } from './DataEntries/DisplayArchiveEntry'
 import { DisplayArtifactEntry } from './DataEntries/DisplayArtifactEntry'
 import { DisplayCharacterEntry } from './DataEntries/DisplayCharacterEntry'
 import { DisplayTeamEntry } from './DataEntries/DisplayTeamEntry'
-import { TeamOptResultsEntry } from './DataEntries/TeamOptResultsEntry'
 import { DisplayToolEntry } from './DataEntries/DisplayTool'
 import { DisplayWeaponEntry } from './DataEntries/DisplayWeaponEntry'
+import { TeamKqmResultsEntry } from './DataEntries/TeamKqmResultsEntry'
+import { TeamOptResultsEntry } from './DataEntries/TeamOptResultsEntry'
 import { ArtifactDataManager } from './DataManagers/ArtifactDataManager'
 import { BuildDataManager } from './DataManagers/BuildDataManager'
 import { BuildTcDataManager } from './DataManagers/BuildTcDataManager'
@@ -51,6 +52,8 @@ export class ArtCharDatabase extends Database {
   displayTeam: DisplayTeamEntry
   /** Each team's last Team Optimize result (not exported) */
   teamOptResults: TeamOptResultsEntry
+  /** Each team's last KQM theorycrafting run, for the most recent teams (not exported) */
+  teamKqmResults: TeamKqmResultsEntry
   dbIndex: 1 | 2 | 3 | 4
   dbVer: number
 
@@ -102,6 +105,7 @@ export class ArtCharDatabase extends Database {
     this.displayTool = new DisplayToolEntry(this)
     this.displayTeam = new DisplayTeamEntry(this)
     this.teamOptResults = new TeamOptResultsEntry(this)
+    this.teamKqmResults = new TeamKqmResultsEntry(this)
     this.displayArchive = new DisplayArchiveEntry(this)
 
     // invalidates character when things change.
@@ -156,6 +160,7 @@ export class ArtCharDatabase extends Database {
       this.displayTeam,
       this.displayArchive,
       this.teamOptResults,
+      this.teamKqmResults,
     ] as const
   }
 

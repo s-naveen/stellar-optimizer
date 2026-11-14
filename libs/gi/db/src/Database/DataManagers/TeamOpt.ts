@@ -7,16 +7,20 @@ import {
 import type {
   AdditiveReactionKey,
   AmpReactionKey,
+  ArtifactSetKey,
   CharacterKey,
   InfusionAuraElementKey,
   MultiOptHitModeKey,
+  WeaponKey,
 } from '@genshin-optimizer/gi/consts'
 import {
   allAdditiveReactions,
   allAmpReactionKeys,
+  allArtifactSetKeys,
   allCharacterKeys,
   allInfusionAuraElementKeys,
   allMultiOptHitModeKeys,
+  allWeaponKeys,
   defaultOptArtifactLevel,
 } from '@genshin-optimizer/gi/consts'
 import type { InputPremodKey } from '@genshin-optimizer/gi/wr-types'
@@ -60,6 +64,25 @@ export interface TeamOptAttack {
   reaction?: AmpReactionKey | AdditiveReactionKey
   infusionAura?: InfusionAuraElementKey
   bonusStats?: Partial<Record<InputPremodKey, number>>
+  /** Multiplies a talent's own scaling, before flat damage additions. */
+  talentMultiplier?: number
+  /** Lunar / Stellar reaction contributors, ranked after independent crit rolls. */
+  reactionContributors?: CharacterKey[]
+  reactionContributorStates?: Partial<Record<CharacterKey, TeamOptBuffState[]>>
+  /** Healing accumulated by one Sea-Dyed Foam bubble, before its 30,000 HP cap. */
+  healing?: { path: string[]; count: number }[]
+  /** A stat contribution evaluated with its cast-time buff context, including during optimization. */
+  statSnapshots?: {
+    /** Buff source; omitted for the attacker itself. */
+    characterKey?: CharacterKey
+    /** Restrict a captured buff to one contributor of a shared reaction. */
+    recipient?: CharacterKey
+    stat: InputPremodKey
+    /** Formula path in the character's data, e.g. ['display', 'burst', 'defConv']. */
+    path: string[]
+    onField: CharacterKey
+    states: TeamOptBuffState[]
+  }[]
   /** Buffs that are off for this attack, or cover only its first hits (e.g. Shenhe's quills) */
   limits?: TeamOptBuffLimit[]
   /** Buffs in another state during this attack (e.g. Accolades not Sealed) */
@@ -116,7 +139,84 @@ export interface TeamOpt {
   rotationTime?: number
   /** How many team builds to find, best first (2 to 5); absent: 1 */
   topN?: number
+  /** KQM mode (KQM Standards artifacts, any weapon): its settings; absent: the defaults */
+  kqm?: TeamOptKqm
 }
+
+export interface TeamOptEnergyMember {
+  fieldTime: number
+  burstEvery: number
+  skillMode: number
+  skillUses: number
+  secondaryMode: number
+  secondaryUses: number
+  catchBy?: CharacterKey
+  funnelShare: number
+  favoniusProcs: number
+  weaponEnergyTriggers: number
+  favoniusCatchBy?: CharacterKey
+  flatEnergy: number
+}
+
+export interface TeamOptEnergyCalculator {
+  rotationTime: number
+  clearTime: number
+  enemyParticles: number
+  rng: 'average' | 'safe' | 'worst'
+  /** Zero disables Electro resonance particle generation. */
+  electroInterval: number
+  members: Partial<Record<CharacterKey, TeamOptEnergyMember>>
+}
+
+/** KQM mode's settings */
+export interface TeamOptKqm {
+  /** User-entered total ER% per member, before weapon energy adjustments. Required to run. */
+  energyRecharge?: Partial<Record<CharacterKey, number>>
+  /** A constellation per member over the KQM standard (4★ C6, 5★ C0) */
+  constellations?: Partial<Record<CharacterKey, number>>
+  /** The members' talent levels (all three; absent: 9, as KQM's guides) */
+  talents?: 9 | 10
+  energySource?: 'manual' | 'calculator'
+  energyCalculator?: TeamOptEnergyCalculator
+  /** 5★ event wish weapons' refinement (default 1) */
+  refinement5: number
+  /** 4★ event wish and shop weapons' refinement (default 5); free weapons go by their source */
+  refinement4: number
+  /** 5★ standard wish weapons' refinement (absent: 1) */
+  refinementStandard5?: number
+  /** Battle Pass weapons' refinement (absent: 1) */
+  refinementBp?: number
+  /**
+   * Weapons left out of the choice; absent: the default (event-wish and shop weapons, 4★ and
+   * 5★; the standard wish pool's 4★ are in)
+   */
+  excludedWeapons?: WeaponKey[]
+  /**
+   * What `excludedWeapons` was saved for: 2 since the standard wish pool's 4★ are apart from the
+   * event-wish ones. Absent (an older list): those had to go with the wish ones, and are on again.
+   */
+  weaponList?: 2
+  /** A refinement per weapon, over the default for its source and rarity */
+  refinements?: Partial<Record<WeaponKey, number>>
+  /** Artifact sets left out of the choice */
+  excludedSets?: ArtifactSetKey[]
+  /**
+   * Energy weapons: per weapon and per member, how much lower the member's Energy Recharge
+   * requirement may be while someone in the team wields it (percent points; 0 counts too, over the
+   * values set on the inventory's copies)
+   */
+  weaponEnergy?: Partial<
+    Record<WeaponKey, Partial<Record<CharacterKey, number>>>
+  >
+  /**
+   * Weapon and set effects per member, over its own conditionals and the rule-based ones: the
+   * state at each path (`''`: off)
+   */
+  passives?: Partial<
+    Record<CharacterKey, Record<string, Record<string, string>>>
+  >
+}
+export const defaultTeamOptKqm: TeamOptKqm = { refinement5: 1, refinement4: 5 }
 
 const reactionKeys = [...allAmpReactionKeys, ...allAdditiveReactions] as const
 const ownerKeys = [...allCharacterKeys, 'team'] as const
@@ -149,7 +249,7 @@ const bonusStatsSchema = z.preprocess(
 ) as z.ZodType<Partial<Record<InputPremodKey, number>> | undefined>
 
 const buffStateSchema = z.object({
-  owner: z.enum(ownerKeys as unknown as [string, ...string[]]),
+  owner: z.enum(ownerKeys),
   path: z.array(z.string()).min(1).max(6),
   value: z.string().min(1).max(60),
 })
@@ -161,6 +261,52 @@ const attackSchema = z.object({
   reaction: z.enum(reactionKeys).optional().catch(undefined),
   infusionAura: z.enum(allInfusionAuraElementKeys).optional().catch(undefined),
   bonusStats: bonusStatsSchema.catch(undefined),
+  talentMultiplier: z
+    .number()
+    .finite()
+    .min(0)
+    .max(100)
+    .optional()
+    .catch(undefined),
+  reactionContributors: z
+    .array(z.enum(allCharacterKeys))
+    .min(1)
+    .max(4)
+    .optional()
+    .catch(undefined),
+  reactionContributorStates: z
+    .partialRecord(
+      z.enum(allCharacterKeys),
+      z.array(buffStateSchema.extend({ value: z.string().max(60) })).max(300)
+    )
+    .optional()
+    .catch(undefined),
+  healing: z
+    .array(
+      z.object({
+        path: z.array(z.string()).min(1).max(6),
+        count: z.number().finite().positive().max(100),
+      })
+    )
+    .max(20)
+    .optional()
+    .catch(undefined),
+  statSnapshots: z
+    .array(
+      z.object({
+        stat: z.enum(allInputPremodKeys),
+        characterKey: z.enum(allCharacterKeys).optional(),
+        recipient: z.enum(allCharacterKeys).optional(),
+        path: z.array(z.string()).min(2).max(7),
+        onField: z.enum(allCharacterKeys),
+        states: z
+          .array(buffStateSchema.extend({ value: z.string().max(60) }))
+          .max(300),
+      })
+    )
+    .max(20)
+    .optional()
+    .catch(undefined),
   limits: z
     .array(z.unknown())
     .optional()
@@ -185,6 +331,37 @@ const attackSchema = z.object({
     }),
   onField: z.enum(allCharacterKeys).optional().catch(undefined),
   description: z.string().max(500).optional().catch(undefined),
+})
+
+const energyMemberSchema = z.object({
+  fieldTime: z.number().finite().min(0).max(100),
+  burstEvery: z.number().finite().min(0),
+  skillMode: z.number().int().min(0).max(2),
+  skillUses: z.number().finite().min(0),
+  secondaryMode: z.number().int().min(0).max(2),
+  secondaryUses: z.number().finite().min(0),
+  catchBy: z.enum(allCharacterKeys).optional(),
+  funnelShare: z.number().finite().min(0).max(100),
+  favoniusProcs: z.number().finite().min(0),
+  weaponEnergyTriggers: z.number().finite().min(0).default(0),
+  favoniusCatchBy: z.enum(allCharacterKeys).optional(),
+  flatEnergy: z.number().finite(),
+})
+const energyCalculatorSchema = z.object({
+  rotationTime: z.number().finite().positive(),
+  clearTime: z.number().finite().positive(),
+  enemyParticles: z.number().finite().min(0),
+  rng: z.enum(['average', 'safe', 'worst']),
+  electroInterval: z.number().finite().min(0),
+  members: z.record(z.string(), z.unknown()).transform((record) => {
+    const result: TeamOptEnergyCalculator['members'] = {}
+    for (const [key, value] of Object.entries(record)) {
+      const member = energyMemberSchema.safeParse(value)
+      if (allCharacterKeys.includes(key as CharacterKey) && member.success)
+        result[key as CharacterKey] = member.data
+    }
+    return result
+  }),
 })
 
 const teamOptSchema = z.object({
@@ -253,6 +430,154 @@ const teamOptSchema = z.object({
     .optional()
     .catch(undefined),
   topN: z.number().int().min(2).max(5).optional().catch(undefined),
+  kqm: z
+    .object({
+      refinement5: z.number().int().min(1).max(5).catch(1),
+      refinement4: z.number().int().min(1).max(5).catch(5),
+      refinementBp: z.number().int().min(1).max(5).optional().catch(undefined),
+      refinementStandard5: z
+        .number()
+        .int()
+        .min(1)
+        .max(5)
+        .optional()
+        .catch(undefined),
+      weaponList: z.literal(2).optional().catch(undefined),
+      talents: z
+        .union([z.literal(9), z.literal(10)])
+        .optional()
+        .catch(undefined),
+      energySource: z
+        .enum(['manual', 'calculator'])
+        .optional()
+        .catch(undefined),
+      energyCalculator: energyCalculatorSchema.optional().catch(undefined),
+      energyRecharge: z
+        .unknown()
+        .optional()
+        .transform((record) => {
+          if (typeof record !== 'object' || record === null) return undefined
+          const result: NonNullable<TeamOptKqm['energyRecharge']> = {}
+          for (const [key, value] of Object.entries(record))
+            if (
+              allCharacterKeys.includes(key as CharacterKey) &&
+              typeof value === 'number' &&
+              Number.isFinite(value) &&
+              value >= 100
+            )
+              result[key as CharacterKey] = value
+          return Object.keys(result).length ? result : undefined
+        }),
+      constellations: z
+        .unknown()
+        .optional()
+        .transform((record) => {
+          if (typeof record !== 'object' || record === null) return undefined
+          const result: NonNullable<TeamOptKqm['constellations']> = {}
+          for (const [key, value] of Object.entries(record))
+            if (
+              allCharacterKeys.includes(key as CharacterKey) &&
+              Number.isInteger(value) &&
+              (value as number) >= 0 &&
+              (value as number) <= 6
+            )
+              result[key as CharacterKey] = value as number
+          return Object.keys(result).length ? result : undefined
+        }),
+      excludedWeapons: z
+        .array(z.unknown())
+        .optional()
+        .catch(undefined)
+        .transform((keys) =>
+          keys
+            ? [...new Set(keys)].filter((k): k is WeaponKey =>
+                allWeaponKeys.includes(k as WeaponKey)
+              )
+            : undefined
+        ),
+      excludedSets: z
+        .array(z.unknown())
+        .optional()
+        .catch(undefined)
+        .transform((keys) => {
+          const kept = [...new Set(keys ?? [])].filter(
+            (k): k is ArtifactSetKey =>
+              allArtifactSetKeys.includes(k as ArtifactSetKey)
+          )
+          return kept.length ? kept : undefined
+        }),
+      refinements: z
+        .unknown()
+        .optional()
+        .transform((record) => {
+          if (typeof record !== 'object' || record === null) return undefined
+          const result: NonNullable<TeamOptKqm['refinements']> = {}
+          for (const [key, r] of Object.entries(
+            record as Record<string, unknown>
+          ))
+            if (
+              allWeaponKeys.includes(key as WeaponKey) &&
+              typeof r === 'number' &&
+              Number.isInteger(r) &&
+              r >= 1 &&
+              r <= 5
+            )
+              result[key as WeaponKey] = r
+          return Object.keys(result).length ? result : undefined
+        }),
+      weaponEnergy: z
+        .unknown()
+        .optional()
+        .transform((record) => {
+          if (typeof record !== 'object' || record === null) return undefined
+          const result: NonNullable<TeamOptKqm['weaponEnergy']> = {}
+          for (const [key, perMember] of Object.entries(record)) {
+            if (!allWeaponKeys.includes(key as WeaponKey)) continue
+            if (typeof perMember !== 'object' || perMember === null) continue
+            const values: Partial<Record<CharacterKey, number>> = {}
+            for (const [ck, v] of Object.entries(
+              perMember as Record<string, unknown>
+            ))
+              if (
+                allCharacterKeys.includes(ck as CharacterKey) &&
+                typeof v === 'number' &&
+                Number.isFinite(v) &&
+                v >= 0
+              )
+                values[ck as CharacterKey] = Math.min(v, 500)
+            if (Object.keys(values).length) result[key as WeaponKey] = values
+          }
+          return Object.keys(result).length ? result : undefined
+        }),
+      passives: z
+        .unknown()
+        .optional()
+        .transform((record) => {
+          if (typeof record !== 'object' || record === null) return undefined
+          const result: NonNullable<TeamOptKqm['passives']> = {}
+          for (const [ck, items] of Object.entries(record)) {
+            if (!allCharacterKeys.includes(ck as CharacterKey)) continue
+            if (typeof items !== 'object' || items === null) continue
+            const kept: Record<string, Record<string, string>> = {}
+            for (const [item, conds] of Object.entries(
+              items as Record<string, unknown>
+            )) {
+              if (typeof conds !== 'object' || conds === null) continue
+              const values: Record<string, string> = {}
+              for (const [cond, v] of Object.entries(
+                conds as Record<string, unknown>
+              ))
+                if (typeof v === 'string' && v.length <= 40) values[cond] = v
+              if (Object.keys(values).length) kept[item] = values
+            }
+            if (Object.keys(kept).length) result[ck as CharacterKey] = kept
+          }
+          return Object.keys(result).length ? result : undefined
+        }),
+    })
+    .optional()
+    .catch(undefined)
+    .transform((kqm) => kqm && (stripUndefined(kqm) as TeamOptKqm)),
   bonusStats: z
     .unknown()
     .optional()

@@ -112,6 +112,70 @@ describe('team.teamOpt (Team Optimize settings)', () => {
     })
   })
 
+  it('preserves snapshot and reaction contributor context, including explicitly inactive buffs', () => {
+    const settings = initTeamOpt()
+    settings.attacks = {
+      KamisatoAyaka: [
+        {
+          path: ['reaction', 'stellarswirl'],
+          hits: 1,
+          hitMode: 'avgHit',
+          reactionContributors: ['KamisatoAyaka', 'Shenhe'],
+          talentMultiplier: 1.237,
+          reactionContributorStates: {
+            Shenhe: [{ owner: 'Shenhe', path: ['Shenhe', 'quill'], value: '' }],
+          },
+          statSnapshots: [
+            {
+              stat: 'atk_',
+              characterKey: 'Shenhe',
+              recipient: 'KamisatoAyaka',
+              path: ['premod', 'atk_'],
+              onField: 'KamisatoAyaka',
+              states: [
+                {
+                  owner: 'Shenhe',
+                  path: ['NoblesseOblige', 'set4'],
+                  value: '',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    }
+    const database = new ArtCharDatabase(1, new SandboxStorage())
+    const id = database.teams.new({ teamOpt: settings })
+    expect(database.teams.get(id)!.teamOpt!.attacks).toEqual(settings.attacks)
+    const restored = new ArtCharDatabase(1, new SandboxStorage())
+    restored.importGOOD(database.exportGOOD(), false, false, false)
+    expect(restored.teams.values[0].teamOpt!.attacks).toEqual(settings.attacks)
+  })
+
+  it('keeps KQM constellations of 0 to 6 for known characters only', () => {
+    const kqm = validateTeamOpt({
+      kqm: {
+        refinement5: 1,
+        refinement4: 5,
+        constellations: { Ayaka: 9, KamisatoAyaka: 2, Fischl: 0, Nope: 1 },
+      },
+    })?.kqm
+    expect(kqm?.constellations).toEqual({ KamisatoAyaka: 2, Fischl: 0 })
+    expect(
+      validateTeamOpt({
+        kqm: { refinement5: 1, refinement4: 5, constellations: { Fischl: 7 } },
+      })?.kqm?.constellations
+    ).toBeUndefined()
+  })
+  it('keeps a Battle Pass weapon refinement of R1 to R5 only', () => {
+    const kqm = (refinementBp: unknown) =>
+      validateTeamOpt({ kqm: { refinement5: 1, refinement4: 5, refinementBp } })
+        ?.kqm
+    expect(kqm(3)?.refinementBp).toBe(3)
+    for (const bad of [0, 6, 2.5, 'R3', undefined])
+      expect(kqm(bad)?.refinementBp).toBeUndefined()
+    expect(kqm(9)?.refinement4).toBe(5)
+  })
   it('drops rotation times that are not durations', () => {
     for (const rotationTime of [-3, 0, 'x', Number.NaN, 9999])
       expect(validateTeamOpt({ rotationTime })?.rotationTime).toBeUndefined()
@@ -153,6 +217,49 @@ describe('team.teamOpt (Team Optimize settings)', () => {
     ).toBe(1)
   })
 
+  it('preserves calculator assumptions and ER targets through export and import', () => {
+    const first = new ArtCharDatabase(1, new SandboxStorage())
+    first.importGOOD(good(), false, false, false)
+    const [id] = first.teams.keys
+    const member = {
+      fieldTime: 50,
+      burstEvery: 2,
+      skillMode: 0,
+      skillUses: 1.5,
+      secondaryMode: 0,
+      secondaryUses: 0,
+      funnelShare: 100,
+      favoniusProcs: 1,
+      weaponEnergyTriggers: 2,
+      flatEnergy: -15,
+    }
+    const teamOpt: TeamOpt = {
+      ...initTeamOpt(),
+      kqm: {
+        refinement5: 1,
+        refinement4: 5,
+        energyRecharge: { KamisatoAyaka: 180, Shenhe: 160 },
+        energySource: 'calculator',
+        energyCalculator: {
+          rotationTime: 20,
+          clearTime: 90,
+          enemyParticles: 9,
+          rng: 'safe',
+          electroInterval: 5.5,
+          members: {
+            KamisatoAyaka: { ...member, catchBy: 'Shenhe' },
+            Shenhe: { ...member },
+          },
+        },
+      },
+    }
+    first.teams.set(id, { teamOpt })
+    expect(first.teams.get(id)!.teamOpt).toEqual(teamOpt)
+    const second = new ArtCharDatabase(1, new SandboxStorage())
+    second.importGOOD(first.exportGOOD() as IGOOD & IGO, false, false, false)
+    expect(second.teams.get(id)!.teamOpt).toEqual(teamOpt)
+  })
+
   it('round-trips every setting through a GOOD export and import', () => {
     const teamOpt: TeamOpt = {
       ...initTeamOpt(),
@@ -186,6 +293,11 @@ describe('team.teamOpt (Team Optimize settings)', () => {
       bonusStats: { team: { atk_: 20 }, Shenhe: { eleMas: 100 } },
       rotationTime: 21.5,
       topN: 3,
+      kqm: {
+        refinement5: 1,
+        refinement4: 5,
+        energyRecharge: { KamisatoAyaka: 180, Shenhe: 160 },
+      },
     }
     const first = new ArtCharDatabase(1, new SandboxStorage())
     first.importGOOD(good(), false, false, false)
