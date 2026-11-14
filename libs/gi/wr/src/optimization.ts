@@ -81,6 +81,64 @@ export function precompute<C extends number>(
     length: C
   }
 ) => number[] {
+  return new (Function as any)(
+    'b',
+    precomputeSource(formulas, initial, binding, slotCount)
+  )
+}
+
+/**
+ * The formulas with their identical parts shared: the same constant, the same read, the same
+ * operation on the same operands in the same order. For formulas `optimize`d apart (whose
+ * `deduplicate` only sees its own batch). Operands are never reordered, so every value is bit
+ * for bit what it was; only the work to compute them shrinks.
+ */
+export function mergeIdentical(formulas: OptNode[]): OptNode[] {
+  const merged = new Map<OptNode, OptNode>()
+  const byKey = new Map<string, OptNode>()
+  const ids = new Map<OptNode, number>()
+  forEachNodes(
+    formulas,
+    () => {},
+    (f) => {
+      let key: string
+      let node = f
+      switch (f.operation) {
+        case 'const':
+          key = `c${Object.is(f.value, -0) ? '-0' : f.value}`
+          break
+        case 'read':
+          key = `r${JSON.stringify(f.path)}`
+          break
+        default: {
+          const operands = f.operands.map((x) => merged.get(x)!)
+          key = `${f.operation}(${operands.map((x) => ids.get(x))})`
+          if (operands.some((x, i) => x !== f.operands[i]))
+            node = { ...f, operands } as OptNode
+        }
+      }
+      const seen = byKey.get(key)
+      if (seen) merged.set(f, seen)
+      else {
+        byKey.set(key, node)
+        ids.set(node, ids.size)
+        merged.set(f, node)
+      }
+    }
+  )
+  return formulas.map((f) => merged.get(f)!)
+}
+
+/**
+ * The body of the function `precompute` makes (its argument is `b`), as text: to compile the
+ * same function in another thread (`new Function('b', source)`)
+ */
+export function precomputeSource(
+  formulas: OptNode[],
+  initial: Record<string, number>,
+  binding: (readNode: ReadNode<number>) => string,
+  slotCount: number
+): string {
   // res copied from the code above
   let body = `
 "use strict";
@@ -148,7 +206,7 @@ const x0=0` // making sure `const` has at least one entry
     }
   )
   body += `;\nreturn [${formulas.map((f) => names.get(f)!)}]`
-  return new (Function as any)('b', body)
+  return body
 }
 
 function flatten(formulas: OptNode[]): OptNode[] {
