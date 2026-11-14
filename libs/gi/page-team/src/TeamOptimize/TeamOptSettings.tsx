@@ -1,8 +1,4 @@
-import {
-  CardThemed,
-  ModalWrapper,
-  SolidToggleButtonGroup,
-} from '@genshin-optimizer/common/ui'
+import { CardThemed, ModalWrapper } from '@genshin-optimizer/common/ui'
 import { getUnitStr, objPathValue } from '@genshin-optimizer/common/util'
 import type { ArtifactSetKey, MainStatKey } from '@genshin-optimizer/gi/consts'
 import {
@@ -32,20 +28,15 @@ import {
   teamOptPool,
 } from '@genshin-optimizer/gi/ui'
 import type { CalcResult } from '@genshin-optimizer/gi/uidata'
-import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined'
-import CloseIcon from '@mui/icons-material/Close'
+import ToggleOnOutlinedIcon from '@mui/icons-material/ToggleOnOutlined'
 import TuneIcon from '@mui/icons-material/Tune'
-import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded'
 import {
   alpha,
   Box,
   Button,
   ButtonBase,
-  Divider,
   FormControlLabel,
-  IconButton,
   Switch,
-  ToggleButton,
   Tooltip,
   Typography,
 } from '@mui/material'
@@ -58,9 +49,19 @@ import ArtifactSetConfig, {
 } from '../CharacterDisplay/Tabs/TabOptimize/Components/ArtifactSetConfig'
 import MainStatSelectionCard from '../CharacterDisplay/Tabs/TabOptimize/Components/MainStatSelectionCard'
 import { SettingsCard } from '../CharacterDisplay/Tabs/TabOptimize/Components/SettingsCard'
-import { ExcludedArtsTile } from './ExcludedArtifacts'
 import StatFilterCard from '../CharacterDisplay/Tabs/TabOptimize/Components/StatFilterCard'
-import { OptionTile } from './OptionTile'
+import { ExcludedArtsTile } from './ExcludedArtifacts'
+import { DialogHead, floatSx, OptionTile, stackedBackdrop } from './OptionTile'
+import {
+  FieldLabel,
+  focusSx,
+  numSx,
+  PanelHeader,
+  quickSx,
+  Segmented,
+  tokens,
+  type,
+} from './ui'
 import type { TeamOptUpdate } from './useTeamOpt'
 import { WeaponSettings } from './WeaponChooser'
 
@@ -92,40 +93,36 @@ export function PoolSettings({
     (r) => r.low === teamOpt.levelLow && r.high === teamOpt.levelHigh
   )
   return (
-    <SettingsCard
-      title={t('teamOpt.pool.title', 'Inventory')}
-      summary={t('teamOpt.pool.count', {
-        defaultValue: '{{count}} artifacts to choose from',
-        count: poolSize,
-      })}
-    >
+    <Box component="section">
+      <PanelHeader
+        title={t('teamOpt.pool.title', 'Inventory')}
+        actions={
+          <Typography sx={{ ...type.label, ...numSx }}>
+            {t('teamOpt.pool.count', {
+              defaultValue: '{{count}} artifacts to choose from',
+              count: poolSize,
+            })}
+          </Typography>
+        }
+        sx={{ mb: 1 }}
+      />
       {/* the level: a segmented choice */}
       <Box
         sx={{
           display: 'flex',
           alignItems: 'center',
           flexWrap: 'wrap',
-          gap: 1.5,
+          columnGap: 1.5,
+          rowGap: 0.75,
+          mb: 1.25,
         }}
       >
-        <Typography
-          sx={{
-            fontSize: '0.6875rem',
-            fontWeight: 600,
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-            color: 'text.secondary',
-          }}
-        >
-          {t('teamOpt.pool.level', 'Artifact level')}
-        </Typography>
-        <SolidToggleButtonGroup
-          quiet
-          exclusive
+        <FieldLabel>{t('teamOpt.pool.level', 'Artifact level')}</FieldLabel>
+        <Segmented
           size="small"
-          disabled={disabled}
-          value={range?.key ?? null}
-          onChange={(_, key: string | null) => {
+          aria-label={t('teamOpt.pool.level', 'Artifact level')}
+          value={range?.key}
+          onChange={(key) => {
             const r = levelRanges.find((r) => r.key === key)
             if (r)
               setTeamOpt((o) => {
@@ -133,15 +130,20 @@ export function PoolSettings({
                 o.levelHigh = r.high
               })
           }}
-        >
-          <ToggleButton value="20">+20</ToggleButton>
-          <ToggleButton value="16">
-            {t('teamOpt.pool.level16', '+16 and up')}
-          </ToggleButton>
-          <ToggleButton value="0">
-            {t('teamOpt.pool.levelAny', 'Any')}
-          </ToggleButton>
-        </SolidToggleButtonGroup>
+          options={[
+            { value: '20', label: '+20', disabled },
+            {
+              value: '16',
+              label: t('teamOpt.pool.level16', '+16 and up'),
+              disabled,
+            },
+            {
+              value: '0',
+              label: t('teamOpt.pool.levelAny', 'Any'),
+              disabled,
+            },
+          ]}
+        />
       </Box>
       {/* the options: tiles, the whole tile toggles */}
       <Box
@@ -151,7 +153,7 @@ export function PoolSettings({
           gridTemplateColumns: {
             xs: 'minmax(0, 1fr)',
             sm: 'repeat(2, minmax(0, 1fr))',
-            lg: 'repeat(3, minmax(0, 1fr))',
+            md: 'repeat(3, minmax(0, 1fr))',
           },
         }}
       >
@@ -180,32 +182,14 @@ export function PoolSettings({
           disabled={disabled}
         />
       </Box>
-      {/* a set's conditional effect only counts when it is on: say so before a run */}
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 0.75,
-          color: 'text.secondary',
-        }}
-      >
-        <WarningAmberRoundedIcon
-          sx={{ fontSize: 16, color: 'warning.main', flexShrink: 0 }}
-        />
-        <Typography variant="caption" sx={{ lineHeight: 1.45 }}>
-          {t(
-            'teamOpt.pool.effects',
-            'Set effects count only when on (Requirements → Artifact sets)'
-          )}
-        </Typography>
-      </Box>
-    </SettingsCard>
+    </Box>
   )
 }
 
 /**
- * Under a member's rotation: whether its artifacts are optimized or its build kept, and its
- * requirements (stat constraints, main stats, sets: the ones of its Optimize tab).
+ * A member's settings for a run: whether its artifacts are optimized or its build kept, and its
+ * requirements (stat constraints, sets, set effects: the ones of its Optimize tab) as tags that
+ * open them.
  */
 export function MemberSettings({
   teamId,
@@ -214,6 +198,7 @@ export function MemberSettings({
   teamOpt,
   setTeamOpt,
   disabled,
+  showOptimizeToggle = true,
 }: {
   teamId: string
   member: TeamOptMember
@@ -221,6 +206,8 @@ export function MemberSettings({
   teamOpt: TeamOpt
   setTeamOpt: (update: TeamOptUpdate) => void
   disabled?: boolean
+  /** (the run dialog has its own switch on the member's row) */
+  showOptimizeToggle?: boolean
 }) {
   const { t } = useTranslation('page_team')
   const { characterKey, isTc } = member
@@ -232,19 +219,10 @@ export function MemberSettings({
   const editable = !disabled && !kept
 
   return (
-    <Box
-      sx={(theme) => ({
-        px: 1.5,
-        py: 1,
-        borderTop: `1px solid ${alpha(theme.palette.text.primary, 0.08)}`,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 0.75,
-      })}
-    >
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+      {showOptimizeToggle && (
         <FormControlLabel
-          sx={{ m: 0, flexGrow: 1, gap: 0.5 }}
+          sx={{ m: 0, gap: 0.5 }}
           disabled={disabled || isTc}
           control={
             <Switch
@@ -260,71 +238,64 @@ export function MemberSettings({
             />
           }
           label={
-            <Typography variant="body2">
+            <Typography sx={{ fontSize: 13.5 }}>
               {t('teamOpt.member.optimize', 'Optimize artifacts')}
             </Typography>
           }
         />
+      )}
+      {/* its constraints: tags (a click opens their settings), then the requirements button */}
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: 0.75,
+          minHeight: 32,
+          opacity: kept && !isTc ? 0.45 : 1,
+        }}
+      >
+        <FieldLabel sx={{ mr: 0.25 }}>
+          {t('teamOpt.member.constraints', 'Constraints')}
+        </FieldLabel>
+        {isTc ? (
+          <ReqTag>{t('teamOpt.member.tc', 'TC build: kept as it is')}</ReqTag>
+        ) : (
+          requirements.map((r) => (
+            <RequirementTag
+              key={r.key}
+              req={r}
+              onClick={
+                editable
+                  ? () =>
+                      setOpen(
+                        r.kind === 'sets' || r.kind === 'effects'
+                          ? 'sets'
+                          : 'all'
+                      )
+                  : undefined
+              }
+            />
+          ))
+        )}
         <Button
           size="small"
           color="inherit"
-          startIcon={<TuneIcon />}
+          variant="outlined"
+          startIcon={<TuneIcon sx={{ fontSize: '16px !important' }} />}
           onClick={onShowReq}
           disabled={disabled || kept}
-          sx={{ color: 'text.secondary', flexShrink: 0 }}
+          sx={{
+            ml: 'auto',
+            flexShrink: 0,
+            minHeight: 30,
+            py: 0,
+            color: 'text.secondary',
+            '&:hover': { color: 'text.primary' },
+          }}
         >
           {t('teamOpt.member.requirements', 'Requirements')}
         </Button>
-      </Box>
-      {/* its constraints, a section of their own: the same whether the switch is on or off
-          (dimmed when off), so cards stay aligned */}
-      <Box
-        sx={(theme) => ({
-          mx: -1.5,
-          px: 1.5,
-          pt: 1,
-          mt: 0.25,
-          borderTop: `1px solid ${alpha(theme.palette.text.primary, 0.06)}`,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 0.75,
-          opacity: kept && !isTc ? 0.45 : 1,
-        })}
-      >
-        <Typography
-          sx={{
-            fontSize: '0.6875rem',
-            fontWeight: 600,
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-            color: 'text.secondary',
-            lineHeight: 1.4,
-          }}
-        >
-          {t('teamOpt.member.constraints', 'Constraints')}
-        </Typography>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-          {isTc ? (
-            <ReqTag>{t('teamOpt.member.tc', 'TC build: kept as it is')}</ReqTag>
-          ) : (
-            requirements.map((r) => (
-              <RequirementTag
-                key={r.key}
-                req={r}
-                onClick={
-                  editable
-                    ? () =>
-                        setOpen(
-                          r.kind === 'sets' || r.kind === 'effects'
-                            ? 'sets'
-                            : 'all'
-                        )
-                    : undefined
-                }
-              />
-            ))
-          )}
-        </Box>
       </Box>
       {open && (
         <RequirementsModal
@@ -496,31 +467,27 @@ function ReqTag({
           display: 'inline-flex',
           alignItems: 'center',
           gap: 0.5,
-          height: 22,
-          px: 0.75,
-          borderRadius: '6px',
-          fontSize: '0.75rem',
+          height: 26,
+          px: 1,
+          borderRadius: tokens.radius.control,
+          fontSize: 12.5,
+          fontWeight: 500,
           lineHeight: 1,
           whiteSpace: 'nowrap',
-          fontVariantNumeric: 'tabular-nums',
-          color: accent
-            ? theme.palette.primary.light
-            : theme.palette.text.secondary,
-          backgroundColor: alpha(tone, accent ? 0.12 : 0.06),
-          border: `1px solid ${alpha(tone, accent ? 0.25 : 0.08)}`,
-          transition: theme.transitions.create(
-            ['border-color', 'background-color'],
-            {
-              duration: theme.transitions.duration.shortest,
-            }
-          ),
+          ...numSx,
+          color: accent ? 'primary.light' : 'text.secondary',
+          backgroundColor: alpha(tone, accent ? 0.1 : 0.05),
+          border: `1px solid ${alpha(tone, accent ? 0.22 : 0.08)}`,
+          ...quickSx,
+          ...focusSx,
           '&.Mui-disabled': { pointerEvents: 'auto' },
           ...(onClick
             ? {
                 cursor: 'pointer',
-                '&:hover, &:focus-visible': {
-                  borderColor: alpha(tone, accent ? 0.55 : 0.3),
-                  backgroundColor: alpha(tone, accent ? 0.18 : 0.1),
+                '&:hover': {
+                  color: accent ? 'primary.light' : 'text.primary',
+                  borderColor: alpha(tone, accent ? 0.5 : 0.25),
+                  backgroundColor: alpha(tone, accent ? 0.16 : 0.09),
                 },
               }
             : {}),
@@ -530,10 +497,15 @@ function ReqTag({
       {children}
     </ButtonBase>
   )
-  return title ? <Tooltip title={title}>{tag}</Tooltip> : tag
+  return title ? (
+    <Tooltip arrow title={title}>
+      {tag}
+    </Tooltip>
+  ) : (
+    tag
+  )
 }
 
-/** A hover list: a title and lines */
 /** A hover list: a title, its lines (one line each; the first 12, then how many more), a note */
 function TagList({
   title,
@@ -669,10 +641,10 @@ function RequirementTag({
           )
         }
       >
-        <AutoAwesomeOutlinedIcon
+        <ToggleOnOutlinedIcon
           sx={{
-            fontSize: 13,
-            color: req.sets.length ? 'warning.main' : 'text.disabled',
+            fontSize: 16,
+            color: req.sets.length ? 'text.primary' : 'text.disabled',
           }}
         />
         {req.sets.length
@@ -806,42 +778,34 @@ function RequirementsModal({
       </TeamCharacterContext.Provider>
     )
   return (
-    <ModalWrapper open onClose={onClose} containerProps={{ maxWidth: 'md' }}>
+    <ModalWrapper
+      open
+      onClose={onClose}
+      containerProps={{ maxWidth: 'md' }}
+      slotProps={stackedBackdrop}
+    >
       <TeamCharacterContext.Provider value={teamCharContext}>
         <CharacterContext.Provider value={characterContext}>
           <DataContext.Provider value={dataContext}>
-            <CardThemed>
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                  gap: 1,
-                  px: 2.5,
-                  pt: 2,
-                  pb: 1.5,
-                }}
-              >
-                <Box sx={{ flexGrow: 1 }}>
-                  <Typography variant="h6" component="h2">
+            <CardThemed sx={floatSx}>
+              <DialogHead
+                title={
+                  <span>
                     <CharacterName
                       characterKey={characterKey}
                       gender={gender}
                     />
-                    {' · '}
+                    <Box component="span" sx={{ color: 'text.secondary' }}>
+                      {' · '}
+                    </Box>
                     {t('teamOpt.requirements.title', 'Requirements')}
-                  </Typography>
-                </Box>
-                <IconButton
-                  onClick={onClose}
-                  aria-label={t('teamOpt.editor.close', 'Close')}
-                >
-                  <CloseIcon />
-                </IconButton>
-              </Box>
-              <Divider />
+                  </span>
+                }
+                onClose={onClose}
+              />
               <Box
                 sx={{
-                  p: 2,
+                  p: { xs: 1.5, sm: 2 },
                   display: 'grid',
                   gap: 1.5,
                   gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },

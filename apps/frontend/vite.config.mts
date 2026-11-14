@@ -158,7 +158,7 @@ function buildVersionPlugin(): Plugin {
   }
 }
 
-export default defineConfig(() => ({
+export default defineConfig(({ command }) => ({
   base: '',
   root: __dirname,
   cacheDir: '../../node_modules/.vite/apps/frontend',
@@ -214,6 +214,12 @@ export default defineConfig(() => ({
   ],
 
   define: {
+    // Experimental KQM: local development only by default. Explicit 1/0 enables/disables it.
+    __GO_KQM_THEORYCRAFTING__: JSON.stringify(
+      process.env.GO_KQM_THEORYCRAFTING === undefined
+        ? command === 'serve'
+        : process.env.GO_KQM_THEORYCRAFTING === '1'
+    ),
     // Only expose the app's own NX_* settings (+ NODE_ENV). Passing the whole `process.env`
     // embeds the build machine's environment (user name, paths, session tokens) in the bundle.
     'process.env': Object.fromEntries(

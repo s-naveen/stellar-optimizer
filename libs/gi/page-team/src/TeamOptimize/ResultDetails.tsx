@@ -15,9 +15,10 @@ import {
 import type { CalcResult, UIData } from '@genshin-optimizer/gi/uidata'
 import type { NumNode } from '@genshin-optimizer/gi/wr'
 import { Box, ListItem, Skeleton, Typography } from '@mui/material'
-import { useEffect, useMemo, useState } from 'react'
+import { memo, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { formatGain, formatHits, formatRate } from './format'
+import { numSx, type } from './ui'
 
 /** Each member's final stats and attacks with the result, and with what is equipped now */
 export interface ResultDetailsData {
@@ -113,14 +114,8 @@ export function useResultDetails(
   return open ? details : undefined
 }
 
-const labelSx = {
-  display: 'block',
-  color: 'text.secondary',
-  fontSize: '0.6875rem',
-  fontWeight: 700,
-  letterSpacing: '0.06em',
-  textTransform: 'uppercase',
-} as const
+/** A section's label in an expanded card (sentence case, as every label) */
+const labelSx = { ...type.label, display: 'block', fontWeight: 600 } as const
 
 /** The stat and damage rows: the character page's, a little denser */
 export const listSx = {
@@ -133,8 +128,9 @@ export const listSx = {
  * A member's final stats with the result and the damage of each of its attacks, as its page
  * shows them: every value with its formula (the ? on each row), against what is equipped now.
  * An attack's hits that get different buffs (a buff for its first hits only) are listed apart.
+ * Memoized: its card re-renders on a toggle's press, these rows need not.
  */
-export function MemberDetails({
+export const MemberDetails = memo(function MemberDetails({
   characterKey,
   details,
   teamOpt,
@@ -159,17 +155,21 @@ export function MemberDetails({
   const context = useMemo(() => data && { data, teamData: {} as never }, [data])
   if (!details)
     return (
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-        {Array.from({ length: 6 }, (_, i) => (
+      <Box
+        aria-busy
+        sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}
+      >
+        <Skeleton variant="text" width={72} sx={{ fontSize: 12.5 }} />
+        {Array.from({ length: 10 }, (_, i) => (
           // biome-ignore lint/suspicious/noArrayIndexKey: placeholders, all alike
-          <Skeleton key={i} variant="rounded" height={26} />
+          <Skeleton key={i} variant="rounded" height={22} />
         ))}
       </Box>
     )
   if (!context) return null
   return (
     <DataContext.Provider value={context}>
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.25 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
         <Box>
           <Box
             sx={{
@@ -177,14 +177,14 @@ export function MemberDetails({
               alignItems: 'baseline',
               justifyContent: 'space-between',
               gap: 1,
-              mb: 0.5,
+              mb: 0.75,
             }}
           >
             <Typography component="span" sx={labelSx}>
               {t('teamOpt.result.stats', 'Final stats')}
             </Typography>
             {compare && (
-              <Typography variant="caption" color="text.secondary">
+              <Typography sx={{ ...type.label, fontWeight: 400 }}>
                 {t('teamOpt.result.vsNow', 'change vs equipped now')}
               </Typography>
             )}
@@ -205,11 +205,11 @@ export function MemberDetails({
           </FieldDisplayList>
         </Box>
         <Box>
-          <Typography component="span" sx={{ ...labelSx, mb: 0.5 }}>
+          <Typography component="span" sx={{ ...labelSx, mb: 0.75 }}>
             {t('teamOpt.result.hitsTitle', 'Damage per hit, in the rotation')}
           </Typography>
           {!attacks.length ? (
-            <Typography variant="caption" color="text.secondary">
+            <Typography sx={{ ...type.label, fontWeight: 400 }}>
               {t('teamOpt.result.noAttacks', 'No attacks in the rotation.')}
             </Typography>
           ) : (
@@ -239,9 +239,8 @@ export function MemberDetails({
                         />
                         {runs.length > 1 && (
                           <Typography
-                            variant="caption"
-                            color="text.secondary"
                             component="div"
+                            sx={{ ...type.label, ...numSx, fontWeight: 400 }}
                           >
                             {run.excluded.length
                               ? t('teamOpt.result.runWithout', {
@@ -267,18 +266,16 @@ export function MemberDetails({
                         gap: 1,
                       }}
                     >
-                      <Typography variant="caption" color="text.secondary">
+                      <Typography
+                        sx={{ ...type.label, ...numSx, fontWeight: 400 }}
+                      >
                         {t('teamOpt.result.attackHits', {
                           hits: formatHits(attack.hits),
                           defaultValue: '×{{hits}} per rotation',
                         })}
                       </Typography>
                       <Typography
-                        variant="caption"
-                        sx={{
-                          fontVariantNumeric: 'tabular-nums',
-                          whiteSpace: 'nowrap',
-                        }}
+                        sx={{ ...numSx, fontSize: 12.5, whiteSpace: 'nowrap' }}
                       >
                         <Box component="span" sx={{ fontWeight: 600 }}>
                           {formatRate(total, rotationTime)}
@@ -307,4 +304,4 @@ export function MemberDetails({
       </Box>
     </DataContext.Provider>
   )
-}
+})

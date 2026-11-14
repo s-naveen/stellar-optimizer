@@ -1,3 +1,5 @@
+import { statName } from '@genshin-optimizer/gi/ui'
+
 const compact = new Intl.NumberFormat('en', {
   notation: 'compact',
   maximumFractionDigits: 2,
@@ -41,4 +43,12 @@ export function formatGain(ratio: number) {
 /** Hits per rotation: integers as they are, averages with up to two decimals */
 export function formatHits(hits: number) {
   return Number.isInteger(hits) ? `${hits}` : `${Math.round(hits * 100) / 100}`
+}
+
+/** A main stat's short name; HP%, ATK% and DEF% keep their % (their names alone read as flat) */
+export function mainStatLabel(key: string) {
+  const name = statName(key)
+  return ['hp_', 'atk_', 'def_'].includes(key) && !name.includes('%')
+    ? `${name}%`
+    : name
 }

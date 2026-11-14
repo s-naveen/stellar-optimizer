@@ -11,7 +11,7 @@ import {
 } from '@genshin-optimizer/gi/ui'
 import type { InputPremodKey } from '@genshin-optimizer/gi/wr-types'
 import { allInputPremodKeys } from '@genshin-optimizer/gi/wr-types'
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
+import CloseIcon from '@mui/icons-material/Close'
 import GroupsIcon from '@mui/icons-material/Groups'
 import {
   Box,
@@ -24,8 +24,8 @@ import {
 } from '@mui/material'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { SettingsCard } from '../CharacterDisplay/Tabs/TabOptimize/Components/SettingsCard'
 import { MemberAvatar } from './MemberAvatar'
+import { focusSx, hairline, insetSx, quickSx } from './ui'
 import type { TeamOptUpdate } from './useTeamOpt'
 
 export const extraStatKeys = [...allInputPremodKeys]
@@ -69,11 +69,6 @@ export function ExtraBuffs({
   const all = teamOpt.bonusStats ?? {}
   const targets: Target[] = ['team', ...members.map((m) => m.characterKey)]
   const listed = targets.filter((key) => Object.keys(all[key] ?? {}).length)
-  // (a buff at 0 does nothing: not counted)
-  const total = listed.reduce(
-    (n, key) => n + Object.values(all[key] ?? {}).filter((v) => v).length,
-    0
-  )
   // (a member who left the team: new buffs go to the whole team)
   const addTo = targets.includes(target) ? target : 'team'
   const update = (key: Target, change: (stats: Stats) => Stats) =>
@@ -87,116 +82,104 @@ export function ExtraBuffs({
     })
 
   return (
-    <SettingsCard
-      title={t('teamOpt.extra.title', 'Extra buffs')}
-      info={t(
-        'teamOpt.extra.info',
-        'Buffs the game data does not have, like food, an Abyss blessing or your own numbers. For the whole team or one member: they count on its hits and in its stats and requirements.'
-      )}
-      summary={
-        total
-          ? t('teamOpt.extra.count', {
-              defaultValue: '{{count}} buffs',
-              count: total,
-            })
-          : undefined
-      }
+    // (its title, count and explanation are on the section that opens it)
+    <Box
+      sx={{
+        ...insetSx,
+        p: { xs: 1.25, sm: 1.5 },
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 1.5,
+      }}
     >
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-        {listed.map((key) => {
-          const stats = all[key] ?? {}
-          return (
-            <Box
-              key={key}
-              sx={{ display: 'flex', flexDirection: 'column', gap: 0.75 }}
-            >
-              <TargetName target={key} />
-              {(Object.entries(stats) as [InputPremodKey, number][]).map(
-                ([statKey, value]) => (
-                  <BuffRow
-                    key={statKey}
-                    options={options}
-                    statKey={statKey}
-                    value={value}
-                    taken={stats}
-                    focus={added === `${key}:${statKey}`}
-                    disabled={disabled}
-                    onStat={(next) =>
-                      update(key, (s) =>
-                        Object.fromEntries(
-                          Object.entries(s).map(([k, v]) => [
-                            k === statKey ? next : k,
-                            v,
-                          ])
-                        )
+      {listed.map((key) => {
+        const stats = all[key] ?? {}
+        return (
+          <Box
+            key={key}
+            sx={{ display: 'flex', flexDirection: 'column', gap: 0.75 }}
+          >
+            <TargetName target={key} />
+            {(Object.entries(stats) as [InputPremodKey, number][]).map(
+              ([statKey, value]) => (
+                <BuffRow
+                  key={statKey}
+                  options={options}
+                  statKey={statKey}
+                  value={value}
+                  taken={stats}
+                  focus={added === `${key}:${statKey}`}
+                  disabled={disabled}
+                  onStat={(next) =>
+                    update(key, (s) =>
+                      Object.fromEntries(
+                        Object.entries(s).map(([k, v]) => [
+                          k === statKey ? next : k,
+                          v,
+                        ])
                       )
-                    }
-                    onValue={(next) =>
-                      update(key, (s) => ({ ...s, [statKey]: next }))
-                    }
-                    onRemove={() =>
-                      update(key, (s) => {
-                        delete s[statKey]
-                        return s
-                      })
-                    }
-                  />
-                )
-              )}
-            </Box>
-          )
-        })}
-        <Box
-          sx={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            gap: 1,
-            ...(listed.length
-              ? {
-                  pt: 1.5,
-                  borderTop: 1,
-                  borderColor: 'divider',
-                }
-              : {}),
+                    )
+                  }
+                  onValue={(next) =>
+                    update(key, (s) => ({ ...s, [statKey]: next }))
+                  }
+                  onRemove={() =>
+                    update(key, (s) => {
+                      delete s[statKey]
+                      return s
+                    })
+                  }
+                />
+              )
+            )}
+          </Box>
+        )
+      })}
+      {/* the last line adds one: for whom, then which stat */}
+      <Box
+        sx={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          alignItems: 'center',
+          gap: 1,
+          ...(listed.length ? { pt: 1.5, borderTop: hairline } : {}),
+        }}
+      >
+        <TextField
+          select
+          size="small"
+          label={t('teamOpt.extra.for', 'For')}
+          value={addTo}
+          onChange={(e) => setTarget(e.target.value as Target)}
+          disabled={disabled}
+          sx={{ width: { xs: '100%', sm: 190 } }}
+          SelectProps={{
+            renderValue: (value) => <TargetName target={value as Target} />,
           }}
         >
-          <TextField
-            select
-            size="small"
-            label={t('teamOpt.extra.for', 'For')}
-            value={addTo}
-            onChange={(e) => setTarget(e.target.value as Target)}
-            disabled={disabled}
-            sx={{ width: 190 }}
-            SelectProps={{
-              renderValue: (value) => <TargetName target={value as Target} />,
-            }}
-          >
-            {targets.map((key) => (
-              <MenuItem key={key} value={key}>
-                <TargetName target={key} />
-              </MenuItem>
-            ))}
-          </TextField>
-          <StatKeyAutocomplete
-            // (a fresh, empty field after each buff added)
-            key={`${addTo}:${Object.keys(all[addTo] ?? {}).length}`}
-            options={options}
-            valueKey={null}
-            label={t('teamOpt.extra.addStat', 'Add a stat')}
-            disabled={disabled}
-            getOptionDisabled={(option) => option.key in (all[addTo] ?? {})}
-            onChange={(statKey) => {
-              if (!statKey) return
-              update(addTo, (s) => ({ ...s, [statKey]: 0 }))
-              setAdded(`${addTo}:${statKey}`)
-            }}
-            sx={{ flex: '1 1 240px', maxWidth: 400 }}
-          />
-        </Box>
+          {targets.map((key) => (
+            <MenuItem key={key} value={key}>
+              <TargetName target={key} />
+            </MenuItem>
+          ))}
+        </TextField>
+        <StatKeyAutocomplete
+          // (a fresh, empty field after each buff added)
+          key={`${addTo}:${Object.keys(all[addTo] ?? {}).length}`}
+          options={options}
+          valueKey={null}
+          label={t('teamOpt.extra.addStat', 'Add a stat')}
+          disabled={disabled}
+          getOptionDisabled={(option) => option.key in (all[addTo] ?? {})}
+          onChange={(statKey) => {
+            if (!statKey) return
+            update(addTo, (s) => ({ ...s, [statKey]: 0 }))
+            setAdded(`${addTo}:${statKey}`)
+          }}
+          sx={{ flex: '1 1 240px', maxWidth: { sm: 400 } }}
+        />
       </Box>
-    </SettingsCard>
+    </Box>
   )
 }
 
@@ -214,7 +197,11 @@ function TargetName({ target }: { target: Target }) {
       ) : (
         <MemberAvatar characterKey={target} size={22} />
       )}
-      <Typography component="span" variant="body2" noWrap>
+      <Typography
+        component="span"
+        noWrap
+        sx={{ fontSize: 13.5, fontWeight: 600 }}
+      >
         {target === 'team' ? (
           t('teamOpt.extra.team', 'Whole team')
         ) : (
@@ -311,8 +298,14 @@ function BuffRow({
             onClick={onRemove}
             disabled={disabled}
             aria-label={t('teamOpt.extra.remove', 'Remove')}
+            sx={{
+              color: 'text.secondary',
+              ...quickSx,
+              ...focusSx,
+              '&:hover': { color: 'error.main' },
+            }}
           >
-            <DeleteForeverIcon fontSize="small" />
+            <CloseIcon sx={{ fontSize: 18 }} />
           </IconButton>
         </span>
       </Tooltip>

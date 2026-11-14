@@ -46,9 +46,10 @@ import {
 import type { UIData } from '@genshin-optimizer/gi/uidata'
 import AddIcon from '@mui/icons-material/Add'
 import BoltIcon from '@mui/icons-material/Bolt'
-import CloseIcon from '@mui/icons-material/Close'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
-import TuneIcon from '@mui/icons-material/Tune'
+import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded'
+import type { SxProps, Theme } from '@mui/material'
 import {
   Alert,
   alpha,
@@ -56,11 +57,11 @@ import {
   Button,
   ButtonBase,
   Checkbox,
+  Collapse,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  Divider,
   IconButton,
   InputAdornment,
   Menu,
@@ -71,10 +72,35 @@ import {
   Typography,
 } from '@mui/material'
 import type { ReactNode } from 'react'
-import { Suspense, startTransition, useEffect, useMemo, useState } from 'react'
+import {
+  createContext,
+  Suspense,
+  startTransition,
+  useContext,
+  useEffect,
+  useId,
+  useMemo,
+  useState,
+} from 'react'
 import { useTranslation } from 'react-i18next'
 import { MemberAvatar } from './MemberAvatar'
-import { OptionTile } from './OptionTile'
+import {
+  DialogHead,
+  floatSx,
+  OptionTile,
+  stackedBackdrop,
+  TileAction,
+} from './OptionTile'
+import {
+  FieldLabel,
+  focusSx,
+  hairline,
+  numSx,
+  Pill,
+  quickSx,
+  tokens,
+  type as typo,
+} from './ui'
 import type { TeamOptUpdate } from './useTeamOpt'
 
 /** The inventory's weapons the members can wield, by weapon type (best first) */
@@ -139,25 +165,27 @@ export function WeaponSettings({
         }
         action={
           teamOpt.optimizeWeapons && (
-            <Button
-              size="small"
-              color="inherit"
-              startIcon={<TuneIcon />}
-              onClick={(e) => {
-                // (not the tile's toggle)
-                e.preventDefault()
-                onShow()
-              }}
-              disabled={disabled}
-              sx={{
-                flexShrink: 0,
-                py: 0.25,
-                color: 'text.secondary',
-                fontVariantNumeric: 'tabular-nums',
-              }}
+            <Tooltip
+              arrow
+              title={t('teamOpt.weapons.title', 'Weapons to choose from')}
             >
-              {`${allowed}/${total}`}
-            </Button>
+              <span style={{ display: 'inline-flex' }}>
+                <TileAction
+                  onClick={(e) => {
+                    // (not the tile's toggle)
+                    e.preventDefault()
+                    onShow()
+                  }}
+                  disabled={disabled}
+                  aria-label={t(
+                    'teamOpt.weapons.title',
+                    'Weapons to choose from'
+                  )}
+                >
+                  {`${allowed}/${total}`}
+                </TileAction>
+              </span>
+            </Tooltip>
           )
         }
       />
@@ -211,105 +239,96 @@ function WeaponChooserModal({
     )
     return () => cancelAnimationFrame(id)
   }, [])
+  // the quick picks: lit when the ticks are exactly theirs
+  const sameAs = (ids: string[]) =>
+    ids.length === excluded.size && ids.every((id) => excluded.has(id))
+  const below5 = all
+    .filter((w) => getWeaponStat(w.key).rarity < 5)
+    .map((w) => w.id)
+  const below80 = all.filter((w) => w.level < 80).map((w) => w.id)
+  const picks = [
+    { key: 'all', label: t('teamOpt.weapons.all', 'All'), ids: [] },
+    {
+      key: '5',
+      label: t('teamOpt.weapons.fiveStar', 'Only 5★'),
+      ids: below5,
+    },
+    {
+      key: '80',
+      label: t('teamOpt.weapons.leveled', 'Level 80 and up'),
+      ids: below80,
+    },
+  ]
+  const allowedCount = all.filter((w) => !excluded.has(w.id)).length
   return (
     <ModalWrapper
       open
       onClose={onClose}
       containerProps={{ maxWidth: 'md' }}
       // (over the run dialog, already dimmed: a light backdrop, not a second dark one)
-      slotProps={{
-        backdrop: { sx: { backgroundColor: 'rgba(6, 7, 10, 0.3)' } },
-      }}
+      slotProps={stackedBackdrop}
     >
-      <CardThemed>
+      <CardThemed sx={floatSx}>
+        <DialogHead
+          title={t('teamOpt.weapons.title', 'Weapons to choose from')}
+          info={t(
+            'teamOpt.weapons.desc',
+            'Each member tries the ticked weapons of its type, along with its artifacts. A passive counts only when it is on for that character. An energy weapon in the team lowers each member’s Energy Recharge requirement by what you set for that member: click ⚡ on it.'
+          )}
+          actions={
+            <Typography sx={{ ...typo.label, ...numSx, whiteSpace: 'nowrap' }}>
+              {t('teamOpt.weapons.groupCount', {
+                defaultValue: '{{allowed}} of {{total}}',
+                allowed: allowedCount,
+                total: all.length,
+              })}
+            </Typography>
+          }
+          onClose={onClose}
+        />
         <Box
           sx={{
             display: 'flex',
-            alignItems: 'flex-start',
-            gap: 1,
-            px: 2.5,
-            pt: 2,
-            pb: 1.5,
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: 0.75,
+            px: { xs: 1.5, sm: 2.5 },
+            py: 1.25,
+            borderBottom: hairline,
           }}
         >
-          <Box sx={{ flexGrow: 1 }}>
-            <Typography variant="h6" component="h2">
-              {t('teamOpt.weapons.title', 'Weapons to choose from')}
-            </Typography>
-          </Box>
-          <IconButton
-            onClick={onClose}
-            aria-label={t('teamOpt.editor.close', 'Close')}
-          >
-            <CloseIcon />
-          </IconButton>
+          {picks.map((p) => (
+            <Pill
+              key={p.key}
+              selected={sameAs(p.ids)}
+              onClick={() => setExcluded(p.ids)}
+            >
+              {p.label}
+            </Pill>
+          ))}
         </Box>
-        <Box sx={{ display: 'flex', gap: 1, px: 2.5, pb: 1.5 }}>
-          <Button
-            size="small"
-            variant="contained"
-            color="secondary"
-            onClick={() => setExcluded([])}
-          >
-            {t('teamOpt.weapons.all', 'All')}
-          </Button>
-          <Button
-            size="small"
-            variant="contained"
-            color="secondary"
-            onClick={() =>
-              setExcluded(
-                all
-                  .filter((w) => getWeaponStat(w.key).rarity < 5)
-                  .map((w) => w.id)
-              )
-            }
-          >
-            {t('teamOpt.weapons.fiveStar', 'Only 5★')}
-          </Button>
-          <Button
-            size="small"
-            variant="contained"
-            color="secondary"
-            onClick={() =>
-              setExcluded(all.filter((w) => w.level < 80).map((w) => w.id))
-            }
-          >
-            {t('teamOpt.weapons.leveled', 'Level 80 and up')}
-          </Button>
-        </Box>
-        <Divider />
         <Box
           sx={{
-            p: 2,
+            px: { xs: 1.5, sm: 2.5 },
+            py: 2,
             display: 'flex',
             flexDirection: 'column',
-            gap: 2.5,
-            maxHeight: '70vh',
+            gap: 3,
+            maxHeight: { xs: 'calc(100dvh - 170px)', sm: '70vh' },
             overflowY: 'auto',
           }}
         >
           {!ready &&
             groups.map((group) => (
               <Box key={group.type}>
-                <Skeleton variant="text" width={160} height={32} />
-                <Box
-                  sx={{
-                    mt: 1,
-                    display: 'grid',
-                    gap: 0.75,
-                    gridTemplateColumns: {
-                      xs: 'minmax(0, 1fr)',
-                      sm: 'repeat(2, minmax(0, 1fr))',
-                    },
-                  }}
-                >
+                <Skeleton variant="text" width={180} height={34} />
+                <Box sx={{ mt: 1, ...rowGridSx }}>
                   {group.weapons.slice(0, 6).map((w) => (
                     <Skeleton
                       key={w.id}
                       variant="rounded"
-                      height={92}
-                      sx={{ borderRadius: 2 }}
+                      height={98}
+                      sx={{ borderRadius: tokens.radius.inset }}
                     />
                   ))}
                 </Box>
@@ -344,8 +363,19 @@ function WeaponChooserModal({
   )
 }
 
+/** Weapon cards side by side (one column on phones) */
+const rowGridSx = {
+  display: 'grid',
+  gap: 1,
+  alignItems: 'stretch',
+  gridTemplateColumns: {
+    xs: 'minmax(0, 1fr)',
+    sm: 'repeat(2, minmax(0, 1fr))',
+  },
+} as const
+
 /** A weapon type: its weapons, and (passives being per character) whose passives are shown */
-function WeaponGroup({
+export function WeaponGroup({
   type,
   typeName,
   members,
@@ -356,7 +386,22 @@ function WeaponGroup({
   onToggle,
   weaponEnergy,
   setWeaponEnergy,
+  virtual = false,
+  tooFew,
+  sourceOf,
+  onRefinement,
+  visible,
+  selectionCounts,
 }: {
+  selectionCounts?: { allowed: number; total: number }
+  /** Only the first rows are rendered (the rest come in later batches) */
+  visible?: number
+  /** Weapons that are not the inventory's (KQM mode's): no adding, deleting or wielders */
+  virtual?: boolean
+  sourceOf?: (weapon: ICachedWeapon) => ReactNode
+  onRefinement?: (weapon: ICachedWeapon, refinement: number) => void
+  /** The warning when fewer are ticked than members wield the type (default: Team Optimize's) */
+  tooFew?: string
   type: WeaponTypeKey
   typeName: ReactNode
   /** The members who wield this type */
@@ -374,20 +419,26 @@ function WeaponGroup({
   ) => void
 }) {
   const { t } = useTranslation('page_team')
-  const ticked = weapons.filter((w) => !excluded.has(w.id)).length
+  const ticked =
+    selectionCounts?.allowed ??
+    weapons.filter((w) => !excluded.has(w.id)).length
+  const tooFewTicked = ticked < (virtual ? 1 : members.length)
   return (
-    <Box>
+    <Box component="section">
       <Box
         sx={{
           display: 'flex',
           alignItems: 'center',
           flexWrap: 'wrap',
           gap: 1,
+          minHeight: 32,
           mb: 1,
         }}
       >
         <ImgIcon size={1.5} src={imgAssets.weaponTypes?.[type]} />
-        <Typography sx={{ fontWeight: 600 }}>{typeName}</Typography>
+        <Typography component="h3" sx={typo.title}>
+          {typeName}
+        </Typography>
         {/* the members who wield this type: each weapon's passives are set for each of them */}
         <Box sx={{ display: 'flex', gap: 0.5 }}>
           {members.map((m) => (
@@ -399,60 +450,71 @@ function WeaponGroup({
           ))}
         </Box>
         <Box sx={{ flexGrow: 1 }} />
-        <Typography variant="caption" color="text.secondary">
+        <Typography
+          sx={{
+            ...typo.label,
+            ...numSx,
+            color: tooFewTicked ? 'warning.main' : 'text.secondary',
+          }}
+        >
           {t('teamOpt.weapons.groupCount', {
             defaultValue: '{{allowed}} of {{total}}',
             allowed: ticked,
-            total: weapons.length,
+            total: selectionCounts?.total ?? weapons.length,
           })}
         </Typography>
-        <AddWeaponButton type={type} />
+        {!virtual && <AddWeaponButton type={type} />}
       </Box>
-      {ticked < members.length && (
-        <Typography
-          variant="caption"
-          component="p"
-          color="warning.main"
-          sx={{ mt: -0.5, mb: 1 }}
+      {tooFewTicked && (
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 0.75,
+            mb: 1,
+            fontSize: 13,
+            color: 'warning.main',
+          }}
         >
-          {t(
-            'teamOpt.weapons.tooFewTicked',
-            'Tick one for each member: a member left without one keeps its current weapon.'
-          )}
-        </Typography>
+          <WarningAmberRoundedIcon sx={{ fontSize: 16, flexShrink: 0 }} />
+          {tooFew ??
+            t(
+              'teamOpt.weapons.tooFewTicked',
+              'Tick one for each member: a member left without one keeps its current weapon.'
+            )}
+        </Box>
       )}
-      <Box
-        sx={{
-          display: 'grid',
-          gap: 0.75,
-          alignItems: 'stretch',
-          gridTemplateColumns: {
-            xs: 'minmax(0, 1fr)',
-            sm: 'repeat(2, minmax(0, 1fr))',
-          },
-        }}
-      >
-        {weapons.map((weapon) => (
-          <WeaponRow
-            key={weapon.id}
-            weapon={weapon}
-            allowed={!excluded.has(weapon.id)}
-            onToggle={() => onToggle(weapon)}
-            wielders={members}
-            teamData={teamData}
-            teamMembers={teamMembers}
-            energy={weaponEnergy[weapon.id]}
-            setEnergy={(characterKey, value) =>
-              setWeaponEnergy(weapon.id, characterKey, value)
-            }
-          />
-        ))}
+      <Box sx={rowGridSx}>
+        {(visible === undefined ? weapons : weapons.slice(0, visible)).map(
+          (weapon) => (
+            <WeaponRow
+              key={weapon.id}
+              weapon={weapon}
+              allowed={!excluded.has(weapon.id)}
+              onToggle={() => onToggle(weapon)}
+              wielders={members}
+              teamData={teamData}
+              teamMembers={teamMembers}
+              energy={weaponEnergy[weapon.id]}
+              setEnergy={(characterKey, value) =>
+                setWeaponEnergy(weapon.id, characterKey, value)
+              }
+              virtual={virtual}
+              source={sourceOf?.(weapon)}
+              onRefinement={
+                onRefinement && ((r: number) => onRefinement(weapon, r))
+              }
+            />
+          )
+        )}
       </Box>
     </Box>
   )
 }
 
-const isConditional = (section: unknown): section is DocumentConditional =>
+export const isConditional = (
+  section: unknown
+): section is DocumentConditional =>
   !!section && typeof section === 'object' && 'states' in section
 
 function WeaponRow({
@@ -464,7 +526,15 @@ function WeaponRow({
   teamMembers,
   energy,
   setEnergy,
+  virtual = false,
+  source,
+  onRefinement,
 }: {
+  virtual?: boolean
+  /** Where it comes from (KQM mode's weapons) */
+  source?: ReactNode
+  /** Its refinement can be chosen (KQM mode's weapons) */
+  onRefinement?: (refinement: number) => void
   weapon: ICachedWeapon
   allowed: boolean
   onToggle: () => void
@@ -478,6 +548,7 @@ function WeaponRow({
   setEnergy: (characterKey: CharacterKey, value: number) => void
 }) {
   const { t } = useTranslation('page_team')
+  const nameId = useId()
   const { rarity } = getWeaponStat(weapon.key)
   // what it saves each member's Energy Recharge: opened from its ⚡
   const [energyOpen, setEnergyOpen] = useState(false)
@@ -489,77 +560,147 @@ function WeaponRow({
     ({ characterKey }) => (energy?.[characterKey] ?? 0) > 0
   )
   const isEnergy = isEnergyWeapon(weapon.key) || !!energySet.length
+  const rowIcon = {
+    color: 'text.disabled',
+    ...quickSx,
+    '[data-weapon-id]:hover &, [data-weapon-id]:focus-within &': {
+      color: 'text.secondary',
+    },
+  }
   return (
     <Box
       data-weapon-id={weapon.id}
       sx={(theme) => ({
         display: 'flex',
         flexDirection: 'column',
-        borderRadius: 2,
-        border: `1px solid ${alpha(theme.palette.text.primary, 0.1)}`,
-        opacity: allowed ? 1 : 0.55,
+        minWidth: 0,
+        borderRadius: tokens.radius.inset,
+        bgcolor: tokens.inset,
+        border: hairline,
+        // (not ticked: quiet, readable again under the pointer)
+        opacity: allowed ? 1 : 0.5,
+        transition: 'opacity .12s, border-color .12s',
+        '&:hover': {
+          opacity: allowed ? 1 : 0.85,
+          borderColor: alpha(theme.palette.text.primary, 0.14),
+        },
+        '&:focus-within': { opacity: 1 },
+        '@media (prefers-reduced-motion: reduce)': { transition: 'none' },
       })}
     >
       <Box
-        sx={{ display: 'flex', alignItems: 'center', gap: 1, px: 1, py: 0.5 }}
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 1,
+          pl: 0.75,
+          pr: 0.5,
+          py: 0.75,
+        }}
       >
         <Checkbox
           size="small"
           checked={allowed}
           onChange={onToggle}
           sx={{ p: 0.5 }}
-          inputProps={{ 'aria-label': t('teamOpt.weapons.allow', 'Allow') }}
+          inputProps={{ 'aria-labelledby': nameId }}
         />
+        {/* (its picture and name tick it too) */}
         <Box
           component="img"
           src={weaponAsset(weapon.key, weapon.ascension >= 2)}
           alt=""
+          onClick={onToggle}
           className={`grad-${rarity}star`}
-          sx={{ width: 36, height: 36, borderRadius: 1, flexShrink: 0 }}
+          sx={{
+            width: 38,
+            height: 38,
+            borderRadius: 1.5,
+            flexShrink: 0,
+            cursor: 'pointer',
+          }}
         />
         <Box sx={{ minWidth: 0, flexGrow: 1 }}>
-          <Box
+          <Typography
+            id={nameId}
+            onClick={onToggle}
             sx={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 0.75,
+              fontSize: 14,
+              fontWeight: 600,
+              lineHeight: 1.35,
               minWidth: 0,
+              cursor: 'pointer',
             }}
+            noWrap
           >
-            <Typography
-              variant="body2"
-              sx={{ fontWeight: 600, minWidth: 0 }}
-              noWrap
-            >
-              <WeaponName weaponKey={weapon.key} />
-            </Typography>
-          </Box>
+            <WeaponName weaponKey={weapon.key} />
+          </Typography>
           <Box
             sx={{
               display: 'flex',
               alignItems: 'center',
               gap: 0.75,
+              minHeight: 20,
               color: 'text.secondary',
-              fontSize: '0.75rem',
+              fontSize: 12.5,
               minWidth: 0,
+              ...numSx,
             }}
           >
-            <Box component="span" sx={{ flexShrink: 0 }}>
-              {t('teamOpt.weapons.levelRef', {
-                defaultValue: 'Lv. {{level}} · R{{refinement}}',
-                level: weapon.level,
-                refinement: weapon.refinement,
-              })}
-            </Box>
+            {onRefinement ? (
+              <Box
+                component="span"
+                sx={{
+                  flexShrink: 0,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                }}
+              >
+                <Select
+                  variant="standard"
+                  disableUnderline
+                  value={weapon.refinement}
+                  onChange={(e) => onRefinement(Number(e.target.value))}
+                  inputProps={{
+                    'aria-label': t('teamOpt.kqm.refinement', 'Refinement'),
+                  }}
+                  sx={{
+                    fontSize: 12.5,
+                    color: 'text.secondary',
+                    '&:hover': { color: 'text.primary' },
+                  }}
+                >
+                  {[1, 2, 3, 4, 5].map((r) => (
+                    <MenuItem key={r} value={r}>
+                      R{r}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </Box>
+            ) : (
+              <Box component="span" sx={{ flexShrink: 0 }}>
+                {t('teamOpt.weapons.levelRef', {
+                  defaultValue: 'Lv. {{level}} · R{{refinement}}',
+                  level: weapon.level,
+                  refinement: weapon.refinement,
+                })}
+              </Box>
+            )}
+            {source && (
+              <Box component="span" sx={{ flexShrink: 0 }}>
+                · {source}
+              </Box>
+            )}
             {/* (on this line, so that the name keeps its room) */}
             {isEnergy && (
               <EnergyTag
                 members={energySet}
                 energy={energy}
+                open={energyOpen}
                 onClick={() => setEnergyOpen((o) => !o)}
               />
             )}
-            {weapon.location && (
+            {weapon.location && !virtual && (
               <>
                 <span>·</span>
                 <WielderButton weapon={weapon} />
@@ -567,9 +708,10 @@ function WeaponRow({
             )}
           </Box>
         </Box>
-        <RemoveWeaponButton weapon={weapon} />
+        {!virtual && <RemoveWeaponButton weapon={weapon} iconSx={rowIcon} />}
         {!isEnergy && (
           <Tooltip
+            arrow
             title={t(
               'teamOpt.weapons.energyAdd',
               'Gives energy: set how much less Energy Recharge each member needs'
@@ -581,8 +723,9 @@ function WeaponRow({
               aria-expanded={energyOpen}
               aria-label={t('teamOpt.weapons.energy', 'Energy')}
               sx={{
-                color: energyOpen ? 'warning.main' : 'text.secondary',
-                '&:hover': { color: 'warning.main' },
+                ...rowIcon,
+                ...(energyOpen && { color: 'text.primary' }),
+                '&:hover': { color: 'text.primary' },
               }}
             >
               <BoltIcon sx={{ fontSize: 18 }} />
@@ -592,15 +735,14 @@ function WeaponRow({
       </Box>
       {/* (on every card, so that cards side by side line up) */}
       <Box
-        sx={(theme) => ({
+        sx={{
           flexGrow: 1,
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'center',
           px: 1.5,
-          py: 0.75,
-          borderTop: `1px solid ${alpha(theme.palette.text.primary, 0.08)}`,
-        })}
+          py: 0.5,
+          borderTop: hairline,
+        }}
       >
         <PassiveLines
           weaponKey={weapon.key}
@@ -609,21 +751,15 @@ function WeaponRow({
           data={wielders[0] && teamData?.[wielders[0].characterKey]?.target}
         />
       </Box>
-      {energyOpen && (
-        <Box
-          sx={(theme) => ({
-            px: 1.5,
-            py: 1,
-            borderTop: `1px solid ${alpha(theme.palette.text.primary, 0.08)}`,
-          })}
-        >
+      <Collapse in={energyOpen} timeout={180} unmountOnExit>
+        <Box sx={{ px: 1.5, py: 1, borderTop: hairline }}>
           <TeamEnergy
             members={teamMembers}
             energy={energy}
             setEnergy={setEnergy}
           />
         </Box>
-      )}
+      </Collapse>
     </Box>
   )
 }
@@ -632,16 +768,20 @@ function WeaponRow({
 function EnergyTag({
   members,
   energy,
+  open,
   onClick,
 }: {
   /** The members it saves Energy Recharge */
   members: TeamOptMember[]
   energy: Partial<Record<CharacterKey, number>> | undefined
+  /** Its settings are open */
+  open?: boolean
   onClick: () => void
 }) {
   const { t } = useTranslation('page_team')
   return (
     <Tooltip
+      arrow
       title={
         members.length
           ? t(
@@ -656,22 +796,32 @@ function EnergyTag({
     >
       <ButtonBase
         onClick={onClick}
+        aria-expanded={open}
         sx={(theme) => ({
           display: 'inline-flex',
           alignItems: 'center',
           gap: 0.5,
-          px: 0.5,
-          py: '1px',
+          height: 20,
+          px: 0.75,
           borderRadius: 1,
-          fontSize: '0.6875rem',
+          fontSize: 12,
           fontWeight: 600,
-          fontVariantNumeric: 'tabular-nums',
-          color: theme.palette.warning.main,
-          backgroundColor: alpha(theme.palette.warning.main, 0.12),
+          ...numSx,
+          color: members.length || open ? 'text.primary' : 'text.secondary',
+          backgroundColor: alpha(
+            theme.palette.text.primary,
+            open ? 0.12 : 0.07
+          ),
           flexShrink: 0,
+          ...quickSx,
+          ...focusSx,
+          '&:hover': {
+            color: 'text.primary',
+            backgroundColor: alpha(theme.palette.text.primary, 0.12),
+          },
         })}
       >
-        <BoltIcon sx={{ fontSize: 12 }} />
+        <BoltIcon sx={{ fontSize: 13 }} />
         {members.length
           ? members.map(({ characterKey }) => (
               <Box
@@ -714,27 +864,14 @@ function TeamEnergy({
         rowGap: 0.75,
       }}
     >
-      <Tooltip
-        title={t(
+      <FieldLabel
+        tip={t(
           'teamOpt.weapons.teamEnergyHint',
           'How much less Energy Recharge each member needs while someone in the team wields this weapon.'
         )}
       >
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 0.25,
-            color: 'warning.main',
-            cursor: 'help',
-          }}
-        >
-          <BoltIcon sx={{ fontSize: 16 }} />
-          <Typography variant="caption" sx={{ fontWeight: 600 }}>
-            {t('teamOpt.weapons.teamEnergy', 'ER needed')}
-          </Typography>
-        </Box>
-      </Tooltip>
+        {t('teamOpt.weapons.teamEnergy', 'ER needed')}
+      </FieldLabel>
       {members.map((member) => (
         <MemberEnergy
           key={member.characterKey}
@@ -828,13 +965,14 @@ type PassiveLine = {
  * A weapon's passives, one line each: its name, then for each member who could wield it (each sets
  * it apart: one may trigger it and another not) a toggle on its avatar, or its state.
  */
-function PassiveLines({
+export function PassiveLines({
   weaponKey,
   passives,
   wielders,
   data,
 }: {
-  weaponKey: WeaponKey
+  /** The weapon's (or artifact set's) key: the passives' paths start with it */
+  weaponKey: WeaponKey | string
   passives: DocumentConditional[]
   wielders: TeamOptMember[]
   /** Where states that depend on the character are read */
@@ -875,24 +1013,34 @@ function PassiveLines({
   if (!lines.length || !wielders.length)
     return (
       <Typography
-        variant="body2"
-        color="text.disabled"
-        sx={{ fontSize: '0.8125rem', lineHeight: '32px' }}
+        sx={{ fontSize: 13, lineHeight: '32px', color: 'text.disabled' }}
       >
         {t('teamOpt.weapons.noPassive', 'No passive effects')}
       </Typography>
     )
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.25 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
       {lines.map((line) => (
         <Box
           key={line.path.join('.')}
-          sx={{ display: 'flex', alignItems: 'center', gap: 1, minHeight: 32 }}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            columnGap: 1,
+            rowGap: 0.25,
+            minHeight: 34,
+          }}
         >
           <Typography
-            variant="body2"
-            color="text.secondary"
-            sx={{ flexGrow: 1, minWidth: 0, fontSize: '0.8125rem' }}
+            // (the members' switches go under it when they don't fit beside it)
+            sx={{
+              flex: '1 1 150px',
+              minWidth: 0,
+              fontSize: 13,
+              lineHeight: 1.4,
+              color: 'text.secondary',
+            }}
           >
             {line.label}
           </Typography>
@@ -917,10 +1065,32 @@ function PassiveLines({
   )
 }
 
+/**
+ * Where the passive switches read and write: by default the member's loadout conditionals; KQM
+ * mode's windows give their own (its settings, over the loadout's and the rule-based ones)
+ */
+export interface PassiveStore {
+  get: (member: TeamOptMember, path: readonly string[]) => string | undefined
+  set: (
+    member: TeamOptMember,
+    path: readonly string[],
+    next: string | undefined
+  ) => void
+}
+export const PassiveStoreContext = createContext<PassiveStore | undefined>(
+  undefined
+)
+
 /** A member's value of a passive (its loadout's conditional), and its setter */
 function usePassive(member: TeamOptMember, path: readonly string[]) {
   const database = useDatabase()
   const teamChar = useTeamChar(member.teamCharId)
+  const store = useContext(PassiveStoreContext)
+  if (store)
+    return [
+      store.get(member, path),
+      (next?: string) => store.set(member, path, next),
+    ] as const
   const value = objPathValue(
     (teamChar?.conditional ?? {}) as Record<string, unknown>,
     path as string[]
@@ -947,16 +1117,20 @@ function PassiveAvatarToggle({
   member: TeamOptMember
   line: PassiveLine
 }) {
+  const { t } = useTranslation('page_team')
   const { gender } = useDBMeta()
   const [value, set] = usePassive(member, line.path)
   const stateKey = line.states[0]?.[0]
   const on = !!stateKey && value === stateKey
   return (
     <Tooltip
+      arrow
       title={
         <>
           <CharacterName characterKey={member.characterKey} gender={gender} />
-          {on ? ': on' : ': off'}
+          {on
+            ? t('teamOpt.weapons.passiveOn', ': on')
+            : t('teamOpt.weapons.passiveOff', ': off')}
         </>
       }
     >
@@ -975,11 +1149,13 @@ function PassiveAvatarToggle({
             : 'transparent',
           opacity: on ? 1 : 0.4,
           filter: on ? 'none' : 'grayscale(1)',
-          transition: theme.transitions.create(
-            ['opacity', 'border-color', 'background-color'],
-            { duration: theme.transitions.duration.shortest }
-          ),
-          '&:hover': { opacity: on ? 1 : 0.75 },
+          transition: 'opacity .12s, border-color .12s, background-color .12s',
+          '@media (prefers-reduced-motion: reduce)': { transition: 'none' },
+          '&:hover': { opacity: on ? 1 : 0.8 },
+          '&.Mui-focusVisible': {
+            outline: `2px solid ${tokens.gold}`,
+            outlineOffset: 1,
+          },
         })}
       >
         <MemberAvatar characterKey={member.characterKey} size={22} />
@@ -1019,7 +1195,13 @@ function PassiveAvatarStates({
         displayEmpty
         value={value ?? ''}
         onChange={(e) => set((e.target.value as string) || undefined)}
-        sx={{ fontSize: '0.8125rem', minWidth: 48 }}
+        sx={{
+          fontSize: 13,
+          minWidth: 48,
+          color: value ? 'text.primary' : 'text.secondary',
+          ...quickSx,
+          '&:hover': { color: 'text.primary' },
+        }}
       >
         <MenuItem value="">{t('teamOpt.weapons.off', 'Off')}</MenuItem>
         {line.states.map(([key, name]) => (
@@ -1043,35 +1225,26 @@ function AddWeaponButton({ type }: { type: WeaponTypeKey }) {
   const [editing, setEditing] = useState<string>()
   return (
     <>
-      <ButtonBase
+      <Button
+        size="small"
+        color="inherit"
+        variant="outlined"
         onClick={() => setPicking(true)}
         aria-label={t('teamOpt.weapons.add', 'Add')}
-        sx={(theme) => ({
-          height: 26,
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: 0.25,
-          pl: 0.75,
-          pr: 1,
-          borderRadius: '13px',
-          color: 'primary.main',
-          fontSize: '0.75rem',
-          fontWeight: 600,
-          border: `1px solid ${alpha(theme.palette.primary.main, 0.35)}`,
-          backgroundColor: alpha(theme.palette.primary.main, 0.08),
-          transition: theme.transitions.create(
-            ['border-color', 'background-color'],
-            { duration: theme.transitions.duration.shorter }
-          ),
-          '&:hover, &:focus-visible': {
-            borderColor: alpha(theme.palette.primary.main, 0.6),
-            backgroundColor: alpha(theme.palette.primary.main, 0.16),
-          },
-        })}
+        startIcon={<AddIcon sx={{ fontSize: '16px !important' }} />}
+        sx={{
+          minHeight: 28,
+          py: 0,
+          pl: 1,
+          pr: 1.25,
+          fontSize: 12.5,
+          color: 'text.secondary',
+          '& .MuiButton-startIcon': { mr: 0.5 },
+          '&:hover': { color: 'text.primary' },
+        }}
       >
-        <AddIcon sx={{ fontSize: 16 }} />
         {t('teamOpt.weapons.add', 'Add')}
-      </ButtonBase>
+      </Button>
       <Suspense fallback={false}>
         <WeaponSelectionModal
           show={picking}
@@ -1107,27 +1280,30 @@ function WielderButton({ weapon }: { weapon: ICachedWeapon }) {
   if (!location) return null
   return (
     <>
-      <Tooltip title={t('teamOpt.weapons.swap', 'Change weapon')}>
+      <Tooltip arrow title={t('teamOpt.weapons.swap', 'Change weapon')}>
         <ButtonBase
           onClick={(e) => setAnchor(e.currentTarget)}
           aria-haspopup="menu"
+          aria-expanded={!!anchor}
           sx={(theme) => ({
             minWidth: 0,
-            px: 0.5,
+            gap: 0.25,
+            pl: 0.5,
+            pr: 0.25,
             mx: -0.5,
+            height: 22,
             borderRadius: 1,
             color: 'inherit',
-            transition: theme.transitions.create(
-              ['color', 'background-color'],
-              { duration: theme.transitions.duration.shortest }
-            ),
-            '&:hover, &:focus-visible': {
-              color: 'primary.main',
-              backgroundColor: alpha(theme.palette.primary.main, 0.08),
+            ...quickSx,
+            ...focusSx,
+            '&:hover': {
+              color: 'text.primary',
+              backgroundColor: alpha(theme.palette.text.primary, 0.07),
             },
           })}
         >
           <LocationName location={location} variant="caption" noWrap />
+          <ArrowDropDownIcon sx={{ fontSize: 16, opacity: 0.7 }} />
         </ButtonBase>
       </Tooltip>
       {anchor && (
@@ -1156,6 +1332,7 @@ function SwapMenu({
 }) {
   const { t } = useTranslation('page_team')
   const database = useDatabase()
+  const { gender } = useDBMeta()
   const inventory = useDataManagerValues(database.weapons)
   const type = getWeaponStat(weapon.key).weaponType
   const weapons = useMemo(
@@ -1175,8 +1352,32 @@ function SwapMenu({
       open
       anchorEl={anchor}
       onClose={onClose}
-      slotProps={{ paper: { sx: { maxHeight: 380, minWidth: 280 } } }}
+      slotProps={{ paper: { sx: { maxHeight: 400, minWidth: 280 } } }}
     >
+      {/* (what picking does: whose weapon changes) */}
+      <Box
+        component="li"
+        aria-hidden
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 0.75,
+          px: 1.5,
+          pt: 0.5,
+          pb: 0.75,
+          ...typo.label,
+        }}
+      >
+        {t('teamOpt.weapons.swap', 'Change weapon')}
+        {location && (
+          <Box component="span" sx={{ color: 'text.primary' }}>
+            <CharacterName
+              characterKey={database.chars.LocationToCharacterKey(location)}
+              gender={gender}
+            />
+          </Box>
+        )}
+      </Box>
       {weapons.map((w) => (
         <MenuItem
           key={w.id}
@@ -1199,10 +1400,8 @@ function SwapMenu({
               <WeaponName weaponKey={w.key} />
             </Typography>
             <Typography
-              variant="caption"
-              color="text.secondary"
               component="div"
-              sx={{ fontVariantNumeric: 'tabular-nums' }}
+              sx={{ ...typo.label, ...numSx, fontWeight: 400 }}
             >
               {t('teamOpt.weapons.levelRef', {
                 defaultValue: 'Lv. {{level}} · R{{refinement}}',
@@ -1229,7 +1428,14 @@ function SwapMenu({
  * equipped is replaced on its wielder by its type's basic weapon (the dialog says so), and the
  * basic weapon itself, equipped, cannot be deleted (it would only come back).
  */
-function RemoveWeaponButton({ weapon }: { weapon: ICachedWeapon }) {
+function RemoveWeaponButton({
+  weapon,
+  iconSx,
+}: {
+  weapon: ICachedWeapon
+  /** The row's icon colour (quiet until the row is hovered) */
+  iconSx?: SxProps<Theme>
+}) {
   const { t } = useTranslation('page_team')
   const database = useDatabase()
   const { gender } = useDBMeta()
@@ -1281,7 +1487,10 @@ function RemoveWeaponButton({ weapon }: { weapon: ICachedWeapon }) {
               'teamOpt.weapons.deleteLabel',
               'Delete from inventory'
             )}
-            sx={{ color: 'text.secondary', '&:hover': { color: 'error.main' } }}
+            sx={[
+              ...(Array.isArray(iconSx) ? iconSx : [iconSx]),
+              { '&:hover': { color: 'error.main' } },
+            ]}
           >
             <DeleteOutlineIcon sx={{ fontSize: 18 }} />
           </IconButton>
@@ -1292,25 +1501,38 @@ function RemoveWeaponButton({ weapon }: { weapon: ICachedWeapon }) {
         onClose={() => setAsking(false)}
         maxWidth="xs"
         fullWidth
+        // (over the weapons' dialog: a light backdrop)
+        slotProps={stackedBackdrop}
       >
-        <DialogTitle sx={{ pb: 0.5 }}>
+        <DialogTitle sx={{ ...typo.title, fontSize: 16, pb: 0.5 }}>
           {t('teamOpt.weapons.deleteTitle', 'Delete')}{' '}
           <WeaponName weaponKey={weapon.key} />?
         </DialogTitle>
         <DialogContent>
-          <Typography variant="body2" color="text.secondary" component="div">
-            {t('teamOpt.weapons.levelRef', {
-              defaultValue: 'Lv. {{level}} · R{{refinement}}',
-              level: weapon.level,
-              refinement: weapon.refinement,
-            })}
-            {weapon.lock && (
-              <Box component="span" sx={{ color: 'warning.main' }}>
-                {' · '}
-                {t('teamOpt.weapons.locked', 'Locked')}
-              </Box>
-            )}
-          </Typography>
+          <Box
+            sx={{ display: 'flex', alignItems: 'center', gap: 1.25, mt: 0.5 }}
+          >
+            <Box
+              component="img"
+              src={weaponAsset(weapon.key, weapon.ascension >= 2)}
+              alt=""
+              className={`grad-${getWeaponStat(weapon.key).rarity}star`}
+              sx={{ width: 36, height: 36, borderRadius: 1.5, flexShrink: 0 }}
+            />
+            <Typography component="div" sx={{ ...typo.label, ...numSx }}>
+              {t('teamOpt.weapons.levelRef', {
+                defaultValue: 'Lv. {{level}} · R{{refinement}}',
+                level: weapon.level,
+                refinement: weapon.refinement,
+              })}
+              {weapon.lock && (
+                <Box component="span" sx={{ color: 'warning.main' }}>
+                  {' · '}
+                  {t('teamOpt.weapons.locked', 'Locked')}
+                </Box>
+              )}
+            </Typography>
+          </Box>
           {wielder && (
             <Alert severity="warning" sx={{ mt: 1.5, py: 0.25 }}>
               {t('teamOpt.weapons.deleteEquipped', 'Equipped by')}{' '}
@@ -1323,8 +1545,8 @@ function RemoveWeaponButton({ weapon }: { weapon: ICachedWeapon }) {
             </Alert>
           )}
         </DialogContent>
-        <DialogActions sx={{ px: 3, pb: 2 }}>
-          <Button color="inherit" onClick={() => setAsking(false)}>
+        <DialogActions sx={{ px: 3, pb: 2, gap: 0.5 }}>
+          <Button color="inherit" onClick={() => setAsking(false)} autoFocus>
             {t('teamOpt.weapons.deleteCancel', 'Cancel')}
           </Button>
           <Button variant="contained" color="error" onClick={remove}>

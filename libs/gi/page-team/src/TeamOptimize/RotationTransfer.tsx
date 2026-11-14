@@ -1,5 +1,9 @@
 import { useBoolState } from '@genshin-optimizer/common/react-util'
-import { CardThemed, ModalWrapper } from '@genshin-optimizer/common/ui'
+import {
+  CardThemed,
+  InfoTooltipInline,
+  ModalWrapper,
+} from '@genshin-optimizer/common/ui'
 import type { CharacterKey } from '@genshin-optimizer/gi/consts'
 import type { TeamOpt } from '@genshin-optimizer/gi/db'
 import {
@@ -8,6 +12,7 @@ import {
   teamRotationExport,
 } from '@genshin-optimizer/gi/db'
 import { useDBMeta } from '@genshin-optimizer/gi/db-ui'
+import { giCtaSx } from '@genshin-optimizer/gi/theme'
 import type { TeamOptMember } from '@genshin-optimizer/gi/ui'
 import { CharacterName } from '@genshin-optimizer/gi/ui'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
@@ -16,8 +21,6 @@ import {
   Box,
   Button,
   CardContent,
-  CardHeader,
-  Divider,
   TextField,
   Tooltip,
   Typography,
@@ -25,6 +28,7 @@ import {
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { MemberAvatar } from './MemberAvatar'
+import { focusSx, quickSx, tokens, type } from './ui'
 import type { TeamOptUpdate } from './useTeamOpt'
 
 /**
@@ -34,8 +38,11 @@ import type { TeamOptUpdate } from './useTeamOpt'
 const transferSx = {
   color: 'text.secondary',
   borderColor: 'divider',
-  height: 32,
+  whiteSpace: 'nowrap',
   px: 1.25,
+  ...quickSx,
+  ...focusSx,
+  '&:hover': { color: 'text.primary', borderColor: tokens.hairlineStrong },
   '& .MuiButton-startIcon': { mr: 0.5 },
   '& .MuiButton-startIcon svg': { fontSize: 16 },
 } as const
@@ -76,7 +83,7 @@ export function RotationTransfer({
       )
 
   return (
-    <Box sx={{ display: 'flex', gap: 0.5 }}>
+    <Box sx={{ display: 'flex', gap: 0.75 }}>
       <Tooltip
         open={!!note}
         title={note ?? ''}
@@ -162,16 +169,23 @@ function ImportModal({
   return (
     <ModalWrapper open onClose={onClose}>
       <CardThemed>
-        <CardHeader
-          title={t('teamOpt.transfer.title', 'Import a team rotation')}
-        />
-        <Divider />
         <CardContent sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <Typography variant="body2" color="text.secondary">
-            {t(
-              'teamOpt.transfer.desc',
-              'Paste a rotation exported from Team optimize. The members in it get its attacks; the others keep theirs.'
-            )}
+          <Typography
+            component="h2"
+            sx={{
+              ...type.title,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 0.5,
+            }}
+          >
+            {t('teamOpt.transfer.title', 'Import a team rotation')}
+            <InfoTooltipInline
+              title={t(
+                'teamOpt.transfer.desc',
+                'Paste a rotation exported from Team optimize. The members in it get its attacks; the others keep theirs.'
+              )}
+            />
           </Typography>
           <TextField
             fullWidth
@@ -233,13 +247,14 @@ function ImportModal({
             </Box>
           )}
           <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1 }}>
-            <Button color="inherit" onClick={onClose}>
+            <Button variant="text" color="inherit" onClick={onClose}>
               {t('teamOpt.transfer.cancel', 'Cancel')}
             </Button>
             <Button
               variant="contained"
               startIcon={<FileDownloadIcon />}
               disabled={!usable}
+              sx={usable ? giCtaSx : undefined}
               onClick={() => {
                 if (!rotation) return
                 onImport(rotation)

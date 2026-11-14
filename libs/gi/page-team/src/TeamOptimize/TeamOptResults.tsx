@@ -1,6 +1,5 @@
 import {
   BootstrapTooltip,
-  CardThemed,
   ImgIcon,
   StarsDisplay,
 } from '@genshin-optimizer/common/ui'
@@ -12,6 +11,7 @@ import {
 } from '@genshin-optimizer/gi/assets'
 import type {
   ArtifactSetKey,
+  CharacterKey,
   MainStatKey,
   SubstatKey,
 } from '@genshin-optimizer/gi/consts'
@@ -23,8 +23,13 @@ import type { ICachedWeapon, TeamOpt } from '@genshin-optimizer/gi/db'
 import { useDatabase, useDBMeta, useTeam } from '@genshin-optimizer/gi/db-ui'
 import { KeyMap } from '@genshin-optimizer/gi/keymap'
 import { getWeaponSheet } from '@genshin-optimizer/gi/sheets'
-import { getWeaponStat, weaponHasRefinement } from '@genshin-optimizer/gi/stats'
+import {
+  getCharEle,
+  getWeaponStat,
+  weaponHasRefinement,
+} from '@genshin-optimizer/gi/stats'
 import { StatIcon } from '@genshin-optimizer/gi/svgicons'
+import { giTokens } from '@genshin-optimizer/gi/theme'
 import type {
   TeamData,
   TeamOptMember,
@@ -58,12 +63,13 @@ import CloseIcon from '@mui/icons-material/Close'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import SaveIcon from '@mui/icons-material/Save'
 import UndoIcon from '@mui/icons-material/Undo'
+import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded'
 import {
-  Alert,
   alpha,
   Box,
   Button,
   ButtonBase,
+  Collapse,
   FormControlLabel,
   IconButton,
   Snackbar,
@@ -71,15 +77,31 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material'
-import { Fragment, useMemo, useState } from 'react'
+import type { SxProps, Theme } from '@mui/material/styles'
+import type { ReactNode } from 'react'
+import { Fragment, memo, useDeferredValue, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { changedMembers, equipTeamResult, saveTeamResult } from './apply'
 import { formatGain, formatRate } from './format'
 import { MemberAvatar } from './MemberAvatar'
-import { useTeamOpt } from './useTeamOpt'
 import type { ResultDetailsData } from './ResultDetails'
 import { MemberDetails, useResultDetails } from './ResultDetails'
 import { TeamCardButton } from './TeamCardButton'
+import {
+  FieldLabel,
+  focusSx,
+  hairline,
+  insetSx,
+  numSx,
+  Panel,
+  quickSx,
+  tokens,
+  type,
+} from './ui'
+import { useTeamOpt } from './useTeamOpt'
+
+/** Open and close: the design's quick Collapse */
+const COLLAPSE_MS = 180
 
 /** What Team Optimize found: the rotation's damage before and after, and each member's build */
 export function TeamOptResults({
@@ -141,6 +163,8 @@ export function TeamOptResults({
   const noChange = !changed.length
   // every card opens at once (side by side, the members' stats line up)
   const [showDetails, setShowDetails] = useState(false)
+  // the toggles answer at once; the cards' stats and damage render after, in the background
+  const detailsShown = useDeferredValue(showDetails)
   // the members' changes against their equipped builds: off by default (less to read)
   const [compare, setCompare] = useState(false)
   const details = useResultDetails(
@@ -150,52 +174,58 @@ export function TeamOptResults({
     showDetails,
     applied
   )
+  // a result below the current builds: says so (even when not comparing), and why
+  const belowNow = after.total < before.total * (1 - 1e-4)
+  const discardLabel = t('teamOpt.result.discard', 'Discard')
 
   return (
-    <CardThemed
-      bgt="light"
-      sx={(theme) => ({
-        p: { xs: 1.5, md: 2 },
-        border: `1px solid ${alpha(theme.palette.primary.main, 0.35)}`,
-      })}
-    >
-      {/* the headline: the rotation's damage */}
+    <Panel>
+      {/* the headline (the rotation's damage), the actions, and discard in the corner */}
       <Box
-        sx={{
-          display: 'flex',
-          flexWrap: 'wrap',
+        sx={(theme) => ({
+          display: 'grid',
           alignItems: 'center',
-          columnGap: 3,
-          rowGap: 1,
-        }}
+          columnGap: 2,
+          rowGap: 1.5,
+          gridTemplateColumns: 'minmax(0, 1fr) auto',
+          gridTemplateAreas: '"head close" "actions actions"',
+          [theme.breakpoints.up('md')]: {
+            gridTemplateColumns: 'minmax(0, 1fr) auto auto',
+            gridTemplateAreas: '"head actions close"',
+          },
+        })}
       >
-        <Box>
-          <Typography variant="body2" color="text.secondary">
+        <Box sx={{ gridArea: 'head', minWidth: 0 }}>
+          <FieldLabel>
             {rotationTime
               ? t('teamOpt.result.dps', 'Team DPS')
               : t('teamOpt.result.total', 'Rotation damage')}
-          </Typography>
-          <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 1 }}>
-            <Typography
-              sx={{
-                fontSize: '1.5rem',
-                fontWeight: 700,
-                fontVariantNumeric: 'tabular-nums',
-              }}
-            >
+          </FieldLabel>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'baseline',
+              flexWrap: 'wrap',
+              columnGap: 1,
+            }}
+          >
+            <Typography component="p" sx={type.figure}>
               {formatRate(after.total, rotationTime, true)}
             </Typography>
             {compare && (
               <>
                 <Typography
+                  component="span"
                   sx={{
-                    fontWeight: 700,
+                    ...numSx,
+                    fontSize: 15,
+                    fontWeight: 650,
                     color: gain > 0.0005 ? 'success.main' : 'text.secondary',
                   }}
                 >
                   {formatGain(gain)}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography component="span" sx={{ ...type.label, ...numSx }}>
                   {t('teamOpt.result.from', {
                     defaultValue: 'from {{value}}',
                     value: formatRate(before.total, rotationTime, true),
@@ -204,7 +234,9 @@ export function TeamOptResults({
               </>
             )}
           </Box>
-          <Typography variant="caption" color="text.secondary">
+          <Typography
+            sx={{ ...type.label, ...numSx, fontWeight: 400, mt: 0.25 }}
+          >
             {t('teamOpt.result.meta', {
               defaultValue: 'Found in {{seconds}} s, {{count}} rounds',
               seconds: seconds < 10 ? seconds.toFixed(1) : Math.round(seconds),
@@ -212,17 +244,24 @@ export function TeamOptResults({
             })}
           </Typography>
         </Box>
-        <Box sx={{ flexGrow: 1 }} />
+
         <Box
           sx={{
+            gridArea: 'actions',
             display: 'flex',
             alignItems: 'center',
-            gap: 1,
             flexWrap: 'wrap',
+            columnGap: 1.5,
+            rowGap: 1,
           }}
         >
           <FormControlLabel
-            sx={{ m: 0, mr: 0.5, gap: 0.5 }}
+            sx={{
+              m: 0,
+              gap: 0.75,
+              flexBasis: { xs: '100%', md: 'auto' },
+              '& .MuiSwitch-root': { ml: -0.75 },
+            }}
             control={
               <Switch
                 size="small"
@@ -231,90 +270,144 @@ export function TeamOptResults({
               />
             }
             label={
-              <Typography variant="body2" color="text.secondary">
+              <Typography
+                component="span"
+                sx={{
+                  fontSize: 13.5,
+                  fontWeight: 500,
+                  color: compare ? 'text.primary' : 'text.secondary',
+                  ...quickSx,
+                }}
+              >
                 {t('teamOpt.result.compare', 'Compare with equipped')}
               </Typography>
             }
           />
-          <TeamCardButton
-            teamId={teamId}
-            result={result}
-            runTeamOpt={runTeamOpt}
-            rotationTime={rotationTime}
+          <Box
+            aria-hidden
+            sx={{
+              display: { xs: 'none', md: 'block' },
+              width: '1px',
+              height: 24,
+              bgcolor: tokens.hairlineStrong,
+            }}
           />
-          {applied ? (
-            <Typography
-              color="success.main"
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 0.5,
-                fontWeight: 600,
-              }}
-            >
-              <CheckIcon fontSize="small" />
-              {applied === 'equip'
-                ? t('teamOpt.result.equipped', 'Equipped')
-                : t('teamOpt.result.saved', 'Saved as builds')}
-            </Typography>
-          ) : (
-            <>
-              <Tooltip
-                title={t(
-                  'teamOpt.result.saveHint',
-                  'A new build per member, used by this team. Nothing moves between characters.'
-                )}
+          {/* on phones: one row, the buttons sharing it (their icons dropped to fit) */}
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1,
+              flex: { xs: '1 1 100%', md: '0 0 auto' },
+              '& > *': { flex: { xs: '1 1 auto', md: '0 0 auto' } },
+              '& .MuiButton-root': {
+                whiteSpace: 'nowrap',
+                px: { xs: 1.25, sm: 2 },
+              },
+              // (the tooltip's wrapper takes the room; its button fills it)
+              '& > span > .MuiButton-root': { width: '100%' },
+              '& .MuiButton-startIcon': {
+                display: { xs: 'none', sm: 'inherit' },
+              },
+            }}
+          >
+            <TeamCardButton
+              teamId={teamId}
+              result={result}
+              runTeamOpt={runTeamOpt}
+              rotationTime={rotationTime}
+            />
+            {applied ? (
+              <Typography
+                role="status"
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 0.5,
+                  minHeight: 36,
+                  px: 1,
+                  fontSize: 14,
+                  fontWeight: 600,
+                  color: 'success.main',
+                }}
               >
-                <span>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    startIcon={<SaveIcon />}
-                    disabled={noChange}
-                    onClick={() => {
-                      saveTeamResult(
-                        database,
-                        teamId,
-                        result,
-                        t('teamOpt.result.buildName', {
-                          defaultValue: '{{team}} (team optimized)',
-                          team: team?.name ?? '',
-                        })
-                      )
-                      setApplied('save')
-                    }}
-                  >
-                    {t('teamOpt.result.save', 'Save as builds')}
-                  </Button>
-                </span>
-              </Tooltip>
-              <Button
-                variant="contained"
-                color="secondary"
-                startIcon={<CheckroomIcon />}
-                disabled={noChange}
-                onClick={() => setConfirm(true)}
-              >
-                {t('teamOpt.result.equip', 'Equip')}
-              </Button>
-            </>
-          )}
-          <Tooltip title={t('teamOpt.result.discard', 'Discard')}>
-            <IconButton
-              onClick={onDiscard}
-              aria-label={t('teamOpt.result.discard', 'Discard')}
-            >
-              <CloseIcon />
-            </IconButton>
-          </Tooltip>
+                <CheckIcon sx={{ fontSize: 18 }} />
+                {applied === 'equip'
+                  ? t('teamOpt.result.equipped', 'Equipped')
+                  : t('teamOpt.result.saved', 'Saved as builds')}
+              </Typography>
+            ) : (
+              <>
+                <Tooltip
+                  arrow
+                  title={t(
+                    'teamOpt.result.saveHint',
+                    'A new build per member, used by this team. Nothing moves between characters.'
+                  )}
+                >
+                  <span>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      startIcon={<SaveIcon />}
+                      disabled={noChange}
+                      onClick={() => {
+                        saveTeamResult(
+                          database,
+                          teamId,
+                          result,
+                          t('teamOpt.result.buildName', {
+                            defaultValue: '{{team}} (team optimized)',
+                            team: team?.name ?? '',
+                          })
+                        )
+                        setApplied('save')
+                      }}
+                    >
+                      {t('teamOpt.result.save', 'Save as builds')}
+                    </Button>
+                  </span>
+                </Tooltip>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  startIcon={<CheckroomIcon />}
+                  disabled={noChange}
+                  aria-expanded={confirm}
+                  onClick={() => setConfirm((c) => !c)}
+                >
+                  {t('teamOpt.result.equip', 'Equip')}
+                </Button>
+              </>
+            )}
+          </Box>
         </Box>
+
+        <Tooltip arrow title={discardLabel}>
+          <IconButton
+            onClick={onDiscard}
+            aria-label={discardLabel}
+            sx={{
+              gridArea: 'close',
+              alignSelf: { xs: 'start', md: 'center' },
+              justifySelf: 'end',
+              mr: -0.5,
+              color: 'text.secondary',
+              ...quickSx,
+              '&:hover': { color: 'text.primary' },
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </Tooltip>
       </Box>
 
-      {stale && (
-        <Alert
-          severity="warning"
-          sx={{ mt: 1.5 }}
-          action={
+      {/* what to know before using it (each opens and closes smoothly) */}
+      <Collapse in={!!stale} timeout={COLLAPSE_MS} unmountOnExit>
+        <Notice
+          tone="warning"
+          actions={
             onRunAgain && (
               <Button size="small" color="inherit" onClick={onRunAgain}>
                 {t('teamOpt.result.runAgain', 'Run again')}
@@ -326,11 +419,10 @@ export function TeamOptResults({
             'teamOpt.result.stale',
             'Found with an earlier rotation or settings: what changed since is not in it.'
           )}
-        </Alert>
-      )}
-      {/* a result below the current builds: says so (even when not comparing), and why */}
-      {after.total < before.total * (1 - 1e-4) && (
-        <Alert severity="warning" sx={{ mt: 1.5 }}>
+        </Notice>
+      </Collapse>
+      {belowNow && (
+        <Notice tone="warning">
           {t('teamOpt.result.belowNow', {
             defaultValue: 'Below your current builds ({{value}})',
             value: formatRate(before.total, rotationTime, true),
@@ -338,14 +430,7 @@ export function TeamOptResults({
           {!!result.startBreaksSetRules?.length && (
             <>
               {': '}
-              {result.startBreaksSetRules.map((ck, i) => (
-                <Fragment key={ck}>
-                  {i > 0 && ', '}
-                  <strong>
-                    <CharacterName characterKey={ck} gender={gender} />
-                  </strong>
-                </Fragment>
-              ))}{' '}
+              <Names keys={result.startBreaksSetRules} gender={gender} />{' '}
               {t('teamOpt.result.belowNowSets', {
                 count: result.startBreaksSetRules.length,
                 defaultValue:
@@ -356,14 +441,7 @@ export function TeamOptResults({
           {!!result.startUntickedWeapons?.length && (
             <>
               {result.startBreaksSetRules?.length ? '; ' : ': '}
-              {result.startUntickedWeapons.map((ck, i) => (
-                <Fragment key={ck}>
-                  {i > 0 && ', '}
-                  <strong>
-                    <CharacterName characterKey={ck} gender={gender} />
-                  </strong>
-                </Fragment>
-              ))}{' '}
+              <Names keys={result.startUntickedWeapons} gender={gender} />{' '}
               {t('teamOpt.result.belowNowWeapons', {
                 count: result.startUntickedWeapons.length,
                 defaultValue:
@@ -371,16 +449,16 @@ export function TeamOptResults({
               })}
             </>
           )}
-        </Alert>
+        </Notice>
       )}
-      {confirm && !applied && (
-        <Alert
-          severity="info"
-          sx={{ mt: 1.5 }}
-          action={
-            <Box sx={{ display: 'flex', gap: 1 }}>
+      <Collapse in={confirm && !applied} timeout={COLLAPSE_MS} unmountOnExit>
+        <Notice
+          icon={<CheckroomIcon />}
+          actions={
+            <>
               <Button
                 size="small"
+                variant="text"
                 color="inherit"
                 onClick={() => setConfirm(false)}
               >
@@ -398,7 +476,7 @@ export function TeamOptResults({
               >
                 {t('teamOpt.result.equipConfirm', 'Equip')}
               </Button>
-            </Box>
+            </>
           }
         >
           {t('teamOpt.result.equipWarn', {
@@ -406,10 +484,27 @@ export function TeamOptResults({
               'Equips the new builds on {{count}} members (saved builds are updated instead). Artifacts move from whoever wears them now.',
             count: changed.length,
           })}
-        </Alert>
-      )}
+        </Notice>
+      </Collapse>
       {noChange && !applied && (
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+        <Typography
+          sx={{
+            ...type.label,
+            fontWeight: 400,
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: 0.75,
+            mt: 1.25,
+          }}
+        >
+          <CheckIcon
+            sx={{
+              fontSize: 16,
+              mt: '1px',
+              flexShrink: 0,
+              color: 'success.main',
+            }}
+          />
           {t(
             'teamOpt.result.noChange',
             'The current builds are already the best ones found for this rotation.'
@@ -428,10 +523,10 @@ export function TeamOptResults({
               gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
             },
             '@container (min-width: 1040px)': {
-              gridTemplateColumns: `repeat(${showDetails ? 2 : 4}, minmax(0, 1fr))`,
+              gridTemplateColumns: `repeat(${detailsShown ? 2 : 4}, minmax(0, 1fr))`,
             },
             // expanded: four in a row only where each artifact's stats stay readable
-            ...(showDetails && {
+            ...(detailsShown && {
               '@container (min-width: 1600px)': {
                 gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
               },
@@ -446,7 +541,8 @@ export function TeamOptResults({
               teamData={teamData}
               rotationTime={rotationTime}
               runTeamOpt={runTeamOpt}
-              showDetails={showDetails}
+              showDetails={detailsShown}
+              detailsToggled={showDetails}
               onToggleDetails={() => setShowDetails((v) => !v)}
               details={details}
               compare={compare}
@@ -459,46 +555,159 @@ export function TeamOptResults({
       <Snackbar
         open={!!lastExcluded}
         autoHideDuration={8000}
+        // above the page's run bar (it sticks to the bottom)
+        sx={{ bottom: { xs: 132, sm: 96 } }}
         onClose={(_, reason) =>
           reason !== 'clickaway' && setLastExcluded(undefined)
         }
       >
-        <Alert
-          severity="info"
-          variant="outlined"
-          icon={<ExcludeIcon fontSize="inherit" />}
-          sx={{ bgcolor: 'background.paper', alignItems: 'center' }}
-          action={
-            <>
+        {/* a toast floats: raised, with a shadow */}
+        <Box
+          role="status"
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            columnGap: 1.25,
+            rowGap: 0.5,
+            maxWidth: 560,
+            minHeight: 44,
+            pl: 1.5,
+            pr: 1,
+            py: 0.75,
+            borderRadius: 2.5,
+            bgcolor: tokens.raised,
+            border: `1px solid ${tokens.hairlineStrong}`,
+            boxShadow: '0 12px 32px rgba(0, 0, 0, 0.55)',
+            fontSize: 13.5,
+          }}
+        >
+          <ExcludeIcon sx={{ fontSize: 18, color: 'text.secondary' }} />
+          <Box component="span" sx={{ flex: '1 1 220px', minWidth: 0 }}>
+            {t(
+              'teamOpt.result.excludedToast',
+              'Excluded from this team. Run again to find builds without it.'
+            )}
+          </Box>
+          <Box sx={{ display: 'flex', gap: 0.75, ml: 'auto' }}>
+            <Button
+              size="small"
+              variant="text"
+              color="inherit"
+              onClick={() => lastExcluded && toggleExcluded(lastExcluded)}
+            >
+              {t('teamOpt.result.undo', 'Undo')}
+            </Button>
+            {onRunAgain && (
               <Button
                 size="small"
-                color="inherit"
-                onClick={() => lastExcluded && toggleExcluded(lastExcluded)}
+                variant="contained"
+                color="secondary"
+                onClick={() => {
+                  setLastExcluded(undefined)
+                  onRunAgain()
+                }}
               >
-                {t('teamOpt.result.undo', 'Undo')}
+                {t('teamOpt.result.runAgain', 'Run again')}
               </Button>
-              {onRunAgain && (
-                <Button
-                  size="small"
-                  variant="contained"
-                  onClick={() => {
-                    setLastExcluded(undefined)
-                    onRunAgain()
-                  }}
-                >
-                  {t('teamOpt.result.runAgain', 'Run again')}
-                </Button>
-              )}
-            </>
-          }
-        >
-          {t(
-            'teamOpt.result.excludedToast',
-            'Excluded from this team. Run again to find builds without it.'
-          )}
-        </Alert>
+            )}
+          </Box>
+        </Box>
       </Snackbar>
-    </CardThemed>
+    </Panel>
+  )
+}
+
+/** Characters' names, bold, separated by commas */
+function Names({
+  keys,
+  gender,
+}: {
+  keys: readonly CharacterKey[]
+  gender: 'F' | 'M'
+}) {
+  return (
+    <>
+      {keys.map((ck, i) => (
+        <Fragment key={ck}>
+          {i > 0 && ', '}
+          <strong>
+            <CharacterName characterKey={ck} gender={gender} />
+          </strong>
+        </Fragment>
+      ))}
+    </>
+  )
+}
+
+/**
+ * A line to read before using the result: an icon, the words, and its actions on the right.
+ * Warning: something to fix or know (amber); otherwise a neutral raised strip (a confirmation).
+ */
+function Notice({
+  tone = 'neutral',
+  icon,
+  actions,
+  children,
+}: {
+  tone?: 'warning' | 'neutral'
+  icon?: ReactNode
+  actions?: ReactNode
+  children: ReactNode
+}) {
+  return (
+    // (the top space is inside: a Collapse opens it with the line, without a jump)
+    <Box sx={{ pt: 1.25 }}>
+      <Box
+        role={tone === 'warning' ? 'alert' : undefined}
+        sx={(theme) => ({
+          display: 'flex',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          columnGap: 1.5,
+          rowGap: 0.75,
+          minHeight: 40,
+          px: 1.5,
+          py: 0.875,
+          borderRadius: tokens.radius.inset,
+          fontSize: 13.5,
+          lineHeight: 1.45,
+          ...(tone === 'warning'
+            ? {
+                bgcolor: alpha(theme.palette.warning.main, 0.07),
+                border: `1px solid ${alpha(theme.palette.warning.main, 0.28)}`,
+              }
+            : {
+                bgcolor: tokens.raised,
+                border: `1px solid ${tokens.hairlineStrong}`,
+              }),
+        })}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: 1,
+            flex: '1 1 280px',
+            minWidth: 0,
+            '& > svg': {
+              fontSize: 18,
+              mt: '1px',
+              flexShrink: 0,
+              color: tone === 'warning' ? 'warning.main' : 'text.secondary',
+            },
+          }}
+        >
+          {icon ?? <WarningAmberRoundedIcon />}
+          <Box component="span" sx={{ minWidth: 0 }}>
+            {children}
+          </Box>
+        </Box>
+        {actions && (
+          <Box sx={{ display: 'flex', gap: 0.75, ml: 'auto' }}>{actions}</Box>
+        )}
+      </Box>
+    </Box>
   )
 }
 
@@ -507,22 +716,27 @@ export function TeamOptResults({
  * what it needs. Why, on hover: no build of the member gets there with its settings (this is the
  * closest one), or it was kept as it is.
  */
-function Shortfalls({
+export function Shortfalls({
   shortfalls,
   data,
   optimized,
+  why,
 }: {
   shortfalls: TeamOptShortfall[]
   /** The member's data: what names its requirements */
   data: UIData | undefined
   optimized: boolean
+  /** Why no build reaches them (default: Team Optimize's reasons) */
+  why?: string
 }) {
   const { t } = useTranslation('page_team')
   return (
     <Tooltip
+      arrow
       placement="top"
       title={
-        optimized
+        why ??
+        (optimized
           ? t(
               'teamOpt.result.unmetWhy',
               'No build reaches it with this member’s settings: its main stats, the sets it may use, the artifact levels and the weapons ticked. This build gets the closest. Lower the requirement, or allow more.'
@@ -530,47 +744,72 @@ function Shortfalls({
           : t(
               'teamOpt.result.unmetKept',
               'Kept as it is: its build does not reach it.'
-            )
+            ))
       }
     >
       <Box
         sx={{
           display: 'flex',
-          flexDirection: 'column',
+          alignItems: 'flex-start',
+          gap: 0.75,
           alignSelf: 'flex-start',
+          maxWidth: '100%',
           cursor: 'help',
+          color: 'warning.main',
         }}
       >
-        {shortfalls.map(({ path, value, min }) => {
-          const node =
-            data &&
-            (objPathValue(data.getDisplay(), path) as CalcResult | undefined)
-          const info = node?.info && resolveInfo(node.info)
-          const percent = info?.unit === '%'
-          // (the user's own figures: 130%, not 130.0000001%)
-          const format = (x: number) =>
-            percent
-              ? `${+(x * 100).toFixed(1)}%`
-              : `${+x.toFixed(Math.abs(x) >= 100 ? 0 : 1)}`
-          return (
-            <Typography
-              key={path.join('.')}
-              variant="caption"
-              color="warning.main"
-              sx={{ fontVariantNumeric: 'tabular-nums' }}
-            >
-              {info?.name ?? path.at(-1)}{' '}
-              {t('teamOpt.result.reachesNeeds', {
-                defaultValue: '{{value}}, needs {{min}}',
-                value: format(value),
-                min: format(min),
-              })}
-            </Typography>
-          )
-        })}
+        <WarningAmberRoundedIcon
+          sx={{ fontSize: 16, mt: '1px', flexShrink: 0 }}
+        />
+        <Box sx={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+          {shortfalls.map(({ path, value, min }) => {
+            const node =
+              data &&
+              (objPathValue(data.getDisplay(), path) as CalcResult | undefined)
+            const info = node?.info && resolveInfo(node.info)
+            const percent = info?.unit === '%'
+            // (the user's own figures: 130%, not 130.0000001%)
+            const format = (x: number) =>
+              percent
+                ? `${+(x * 100).toFixed(1)}%`
+                : `${+x.toFixed(Math.abs(x) >= 100 ? 0 : 1)}`
+            return (
+              <Typography
+                key={path.join('.')}
+                sx={{ ...numSx, fontSize: 12.5, lineHeight: 1.5 }}
+              >
+                {info?.name ?? path.at(-1)}{' '}
+                {t('teamOpt.result.reachesNeeds', {
+                  defaultValue: '{{value}}, needs {{min}}',
+                  value: format(value),
+                  min: format(min),
+                })}
+              </Typography>
+            )
+          })}
+        </Box>
       </Box>
     </Tooltip>
   )
+}
+
+/** A member's colour: its element's, from the theme */
+const elementColor = (theme: Theme, characterKey: CharacterKey) =>
+  (theme.palette as unknown as Record<string, { main?: string } | undefined>)[
+    getCharEle(characterKey)
+  ]?.main ?? theme.palette.text.secondary
+
+/** A small neutral tag next to a name (constellation, "Kept") */
+const tagSx: SxProps<Theme> = {
+  flexShrink: 0,
+  px: 0.625,
+  borderRadius: 1,
+  fontSize: 11.5,
+  fontWeight: 650,
+  lineHeight: 1.6,
+  color: 'text.secondary',
+  bgcolor: alpha(giTokens.parchment, 0.07),
+  ...numSx,
 }
 
 function MemberResult({
@@ -580,6 +819,7 @@ function MemberResult({
   rotationTime,
   runTeamOpt,
   showDetails,
+  detailsToggled,
   onToggleDetails,
   details,
   compare,
@@ -593,6 +833,8 @@ function MemberResult({
   runTeamOpt: TeamOpt
   /** Its final stats and each attack's damage are shown */
   showDetails: boolean
+  /** ...or are about to be (its toggle's state, at once) */
+  detailsToggled: boolean
   onToggleDetails: () => void
   details: ResultDetailsData | undefined
   /** Its changes against its equipped build are shown */
@@ -641,116 +883,136 @@ function MemberResult({
   const energy = result.energy?.[characterKey]
   /** Its part of the team's damage */
   const share = result.after.total > 0 ? after / result.after.total : 0
+  const ownChange = before > 0 ? after / before - 1 : 0
 
   return (
     <Box
-      sx={(theme) => ({
+      sx={{
+        ...insetSx,
         p: 1.25,
-        borderRadius: 2,
-        backgroundColor: alpha(theme.palette.text.primary, 0.03),
-        border: `1px solid ${alpha(theme.palette.text.primary, 0.08)}`,
         display: 'flex',
         flexDirection: 'column',
-        gap: 1,
-      })}
+        gap: 1.25,
+        minWidth: 0,
+      }}
     >
+      {/* who, its own damage, and its share of the team's (the bar, in its element's colour) */}
       <Box>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <MemberAvatar characterKey={characterKey} />
-          <Typography sx={{ fontWeight: 600, minWidth: 0 }} noWrap>
-            <CharacterName characterKey={characterKey} gender={gender} />
-          </Typography>
-          {constellation !== undefined && (
-            <Tooltip
-              title={t('teamOpt.result.constellation', {
-                defaultValue: 'Constellation {{value}}',
-                value: constellation,
-              })}
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25 }}>
+          <MemberAvatar characterKey={characterKey} size={36} />
+          <Box sx={{ flex: 1, minWidth: 0 }}>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 0.75,
+                minWidth: 0,
+              }}
             >
-              <Box
+              <Typography sx={{ ...type.title, minWidth: 0 }} noWrap>
+                <CharacterName characterKey={characterKey} gender={gender} />
+              </Typography>
+              {constellation !== undefined && (
+                <Tooltip
+                  arrow
+                  title={t('teamOpt.result.constellation', {
+                    defaultValue: 'Constellation {{value}}',
+                    value: constellation,
+                  })}
+                >
+                  <Box component="span" sx={tagSx}>
+                    C{constellation}
+                  </Box>
+                </Tooltip>
+              )}
+              {!optimized && (
+                <Box component="span" sx={tagSx}>
+                  {isTc
+                    ? t('teamOpt.result.tc', 'TC build, kept')
+                    : t('teamOpt.result.kept', 'Kept')}
+                </Box>
+              )}
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'baseline',
+                flexWrap: 'wrap',
+                columnGap: 0.75,
+                ...numSx,
+              }}
+            >
+              <Typography
                 component="span"
-                sx={(theme) => ({
-                  flexShrink: 0,
-                  px: 0.625,
-                  borderRadius: 1,
-                  fontSize: '0.6875rem',
-                  fontWeight: 700,
-                  lineHeight: 1.6,
-                  color: theme.palette.primary.light,
-                  backgroundColor: alpha(theme.palette.primary.main, 0.14),
-                })}
+                sx={{ ...numSx, fontSize: 13.5, fontWeight: 650 }}
               >
-                C{constellation}
-              </Box>
-            </Tooltip>
-          )}
-          <Box sx={{ flexGrow: 1 }} />
-          {!optimized && (
-            <Typography variant="caption" color="text.secondary">
-              {isTc
-                ? t('teamOpt.result.tc', 'TC build, kept')
-                : t('teamOpt.result.kept', 'Kept')}
-            </Typography>
-          )}
+                {formatRate(after, rotationTime)}
+              </Typography>
+              {compare && before > 0 && Math.abs(ownChange) >= 0.0005 && (
+                <Typography
+                  component="span"
+                  sx={{
+                    ...numSx,
+                    fontSize: 12.5,
+                    fontWeight: 600,
+                    color: after > before ? 'success.main' : 'warning.main',
+                  }}
+                >
+                  {formatGain(ownChange)}
+                </Typography>
+              )}
+              <Typography component="span" sx={type.label}>
+                {rotationTime
+                  ? t('teamOpt.result.ownDps', 'own DPS')
+                  : t('teamOpt.result.own', 'own damage')}
+              </Typography>
+            </Box>
+          </Box>
           <Tooltip
+            arrow
             title={
               rotationTime
                 ? t('teamOpt.result.shareDps', 'Its share of the team’s DPS')
                 : t('teamOpt.result.share', 'Its share of the team’s damage')
             }
           >
-            <Typography
-              variant="body2"
-              sx={{ fontWeight: 600, fontVariantNumeric: 'tabular-nums' }}
-            >
-              {Math.round(share * 100)}%
-            </Typography>
+            <Box sx={{ flexShrink: 0, textAlign: 'right', cursor: 'default' }}>
+              <Typography
+                sx={{
+                  ...numSx,
+                  fontSize: 15,
+                  fontWeight: 650,
+                  lineHeight: 1.3,
+                }}
+              >
+                {Math.round(share * 100)}%
+              </Typography>
+              <Typography sx={{ ...type.label, lineHeight: 1.3 }}>
+                {t('teamOpt.result.shareLabel', 'of team')}
+              </Typography>
+            </Box>
           </Tooltip>
         </Box>
-        {/* its part of the team, as in the rotation's columns */}
         <Box
-          sx={(theme) => ({
-            mt: 0.75,
+          sx={{
+            mt: 1,
             height: 3,
             borderRadius: 2,
             overflow: 'hidden',
-            backgroundColor: alpha(theme.palette.text.primary, 0.08),
-          })}
+            bgcolor: alpha(giTokens.parchment, 0.07),
+          }}
         >
           <Box
             sx={(theme) => ({
               height: '100%',
-              width: `${Math.max(0, Math.min(1, share)) * 100}%`,
+              width: `${clamp(share, 0, 1) * 100}%`,
               borderRadius: 2,
-              backgroundColor: alpha(theme.palette.primary.main, 0.7),
+              bgcolor: alpha(elementColor(theme, characterKey), 0.85),
             })}
           />
         </Box>
       </Box>
-      <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 0.75 }}>
-        <Typography
-          variant="body2"
-          sx={{ fontWeight: 600, fontVariantNumeric: 'tabular-nums' }}
-        >
-          {formatRate(after, rotationTime)}
-        </Typography>
-        {compare && before > 0 && Math.abs(after / before - 1) >= 0.0005 && (
-          <Typography
-            variant="body2"
-            sx={{
-              color: after > before ? 'success.main' : 'warning.main',
-              fontVariantNumeric: 'tabular-nums',
-            }}
-          >
-            {formatGain(after / before - 1)}
-          </Typography>
-        )}
-        <Typography variant="caption" color="text.secondary">
-          {rotationTime
-            ? t('teamOpt.result.ownDps', 'own DPS')
-            : t('teamOpt.result.own', 'own damage')}
-        </Typography>
-      </Box>
+
       {build && (
         <Box
           sx={{
@@ -763,6 +1025,12 @@ function MemberResult({
             const id = build[slotKey]
             const isNew = compare && optimized && id !== artifactIds[slotKey]
             const excluded = !!id && excludedArts.has(id)
+            const excludeLabel = excluded
+              ? t('teamOpt.result.include', 'Use it again')
+              : t(
+                  'teamOpt.result.exclude',
+                  "Exclude from this team's optimization"
+                )
             return (
               <Box
                 key={slotKey}
@@ -776,6 +1044,7 @@ function MemberResult({
                   },
                   '@media (hover: none)': { '& .exclude-art': { opacity: 1 } },
                   borderRadius: 1.5,
+                  // new to the member (comparing): a gold ring
                   outline: isNew
                     ? `2px solid ${alpha(theme.palette.primary.main, 0.8)}`
                     : undefined,
@@ -783,82 +1052,68 @@ function MemberResult({
                   // expanded: one tile, the icon over its stats
                   ...(showDetails && {
                     overflow: 'hidden',
-                    border: `1px solid ${theme.palette.divider}`,
-                    backgroundColor: alpha(theme.palette.text.primary, 0.03),
+                    border: hairline,
+                    bgcolor: alpha(giTokens.parchment, 0.025),
                   }),
                 })}
               >
-                <Box
-                  sx={{
-                    opacity: excluded ? 0.35 : 1,
-                    filter: excluded ? 'grayscale(1)' : undefined,
-                    transition: 'opacity 120ms, filter 120ms',
-                  }}
-                >
-                  <ArtifactCardPico
-                    artifactObj={id ? database.arts.get(id) : undefined}
-                    slotKey={slotKey}
-                  />
-                </Box>
-                {excluded && (
-                  <Typography
-                    variant="caption"
+                <Box sx={{ position: 'relative' }}>
+                  <Box
                     sx={{
-                      position: 'absolute',
-                      left: 0,
-                      right: 0,
-                      top: '50%',
-                      transform: 'translateY(-50%)',
-                      textAlign: 'center',
-                      fontWeight: 600,
-                      lineHeight: 1.1,
-                      pointerEvents: 'none',
-                      textShadow: '0 0 4px rgba(0,0,0,0.9)',
+                      opacity: excluded ? 0.35 : 1,
+                      filter: excluded ? 'grayscale(1)' : undefined,
+                      transition: 'opacity .12s, filter .12s',
                     }}
                   >
-                    {t('teamOpt.result.excluded', 'Excluded')}
-                  </Typography>
-                )}
+                    <ArtifactCardPico
+                      artifactObj={id ? database.arts.get(id) : undefined}
+                      slotKey={slotKey}
+                    />
+                  </Box>
+                  {excluded && (
+                    <Typography
+                      sx={{
+                        position: 'absolute',
+                        left: 0,
+                        right: 0,
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        textAlign: 'center',
+                        fontSize: 12,
+                        fontWeight: 650,
+                        lineHeight: 1.1,
+                        pointerEvents: 'none',
+                        textShadow: '0 0 4px rgba(0,0,0,0.9)',
+                      }}
+                    >
+                      {t('teamOpt.result.excluded', 'Excluded')}
+                    </Typography>
+                  )}
+                </Box>
                 {id && (
-                  <Tooltip
-                    title={
-                      excluded
-                        ? t('teamOpt.result.include', 'Use it again')
-                        : t(
-                            'teamOpt.result.exclude',
-                            "Exclude from this team's optimization"
-                          )
-                    }
-                  >
+                  <Tooltip arrow title={excludeLabel}>
                     <IconButton
                       className="exclude-art"
                       size="small"
-                      aria-label={
-                        excluded
-                          ? t('teamOpt.result.include', 'Use it again')
-                          : t(
-                              'teamOpt.result.exclude',
-                              "Exclude from this team's optimization"
-                            )
-                      }
+                      aria-label={excludeLabel}
                       aria-pressed={excluded}
                       onClick={() => onToggleExcluded(id)}
-                      sx={(theme) => ({
+                      sx={{
                         position: 'absolute',
                         top: 2,
                         right: 2,
                         p: 0.25,
                         zIndex: 1,
-                        transition: 'opacity 120ms',
+                        transition:
+                          'opacity .12s, color .12s, background-color .12s',
                         color: excluded ? 'warning.main' : 'text.primary',
-                        backgroundColor: alpha(
-                          theme.palette.background.paper,
-                          0.85
-                        ),
-                        '&:hover': {
-                          backgroundColor: theme.palette.background.paper,
+                        bgcolor: alpha(tokens.raised, 0.88),
+                        '&:hover': { bgcolor: tokens.hover },
+                        ...focusSx,
+                        '@media (prefers-reduced-motion: reduce)': {
+                          transition: 'none',
                         },
-                      })}
+                      }}
                     >
                       {excluded ? (
                         <UndoIcon sx={{ fontSize: 16 }} />
@@ -868,58 +1123,76 @@ function MemberResult({
                     </IconButton>
                   </Tooltip>
                 )}
-                {showDetails && id && <ArtifactStats artifactId={id} />}
+                {id && (
+                  <Collapse
+                    in={showDetails}
+                    timeout={COLLAPSE_MS}
+                    unmountOnExit
+                  >
+                    <ArtifactStats artifactId={id} />
+                  </Collapse>
+                )}
               </Box>
             )
           })}
         </Box>
       )}
-      {weapon && (
-        <BootstrapTooltip
-          placement="top"
-          disableInteractive
-          title={<WeaponDetails weapon={weapon} />}
-        >
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 1,
-              alignSelf: 'flex-start',
-              maxWidth: '100%',
-              cursor: 'default',
-            }}
-          >
-            <WeaponThumb weapon={weapon} highlight={newWeapon} />
-            <Box sx={{ minWidth: 0 }}>
-              <Typography variant="body2" sx={{ fontWeight: 600 }} noWrap>
-                <WeaponName weaponKey={weapon.key} />
-              </Typography>
-              <Typography
-                variant="caption"
-                color={unticked ? 'warning.main' : 'text.secondary'}
+
+      {/* the weapon (details on hover), the sets, the energy weapons' help */}
+      {(weapon || !!sets.length || energy) && (
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.75 }}>
+          {weapon && (
+            <BootstrapTooltip
+              placement="top"
+              disableInteractive
+              title={<WeaponDetails weapon={weapon} />}
+            >
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1,
+                  alignSelf: 'flex-start',
+                  maxWidth: '100%',
+                  cursor: 'default',
+                }}
               >
-                {unticked
-                  ? t(
-                      'teamOpt.result.untickedWeapon',
-                      'Not ticked: kept, no ticked weapon was free'
-                    )
-                  : !compare
-                    ? t('teamOpt.weapons.levelRef', {
-                        defaultValue: 'Lv. {{level}} · R{{refinement}}',
-                        level: weapon.level,
-                        refinement: weapon.refinement,
-                      })
-                    : newWeapon
-                      ? t('teamOpt.result.newWeapon', 'New weapon')
-                      : t('teamOpt.result.sameWeapon', 'Same weapon')}
-              </Typography>
-            </Box>
-          </Box>
-        </BootstrapTooltip>
-      )}
-      {!!sets.length && (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.25 }}>
+                <WeaponThumb weapon={weapon} highlight={newWeapon} />
+                <Box sx={{ minWidth: 0 }}>
+                  <Typography
+                    sx={{ fontSize: 13.5, fontWeight: 600, lineHeight: 1.35 }}
+                    noWrap
+                  >
+                    <WeaponName weaponKey={weapon.key} />
+                  </Typography>
+                  <Typography
+                    sx={{
+                      ...type.label,
+                      ...numSx,
+                      fontWeight: 400,
+                      lineHeight: 1.35,
+                      color: unticked ? 'warning.main' : 'text.secondary',
+                    }}
+                  >
+                    {unticked
+                      ? t(
+                          'teamOpt.result.untickedWeapon',
+                          'Not ticked: kept, no ticked weapon was free'
+                        )
+                      : !compare
+                        ? t('teamOpt.weapons.levelRef', {
+                            defaultValue: 'Lv. {{level}} · R{{refinement}}',
+                            level: weapon.level,
+                            refinement: weapon.refinement,
+                          })
+                        : newWeapon
+                          ? t('teamOpt.result.newWeapon', 'New weapon')
+                          : t('teamOpt.result.sameWeapon', 'Same weapon')}
+                  </Typography>
+                </Box>
+              </Box>
+            </BootstrapTooltip>
+          )}
           {sets.map(([setKey, n]) => (
             <ArtifactSetTooltip key={setKey} setKey={setKey} numInSet={n}>
               <Box
@@ -938,50 +1211,58 @@ function MemberResult({
                   alt=""
                   sx={{ width: 18, height: 18, flexShrink: 0 }}
                 />
-                <Typography variant="caption" color="text.secondary" noWrap>
+                <Typography
+                  sx={{ ...type.label, fontWeight: 400, ...numSx }}
+                  noWrap
+                >
                   {n >= 4 ? 4 : 2}× <ArtifactSetName setKey={setKey} />
                 </Typography>
               </Box>
             </ArtifactSetTooltip>
           ))}
+          {energy && (
+            <Typography
+              sx={{
+                ...type.label,
+                fontWeight: 400,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 0.75,
+                minWidth: 0,
+              }}
+            >
+              <BoltIcon
+                sx={{ fontSize: 16, color: 'text.secondary', flexShrink: 0 }}
+              />
+              <Box
+                component="span"
+                sx={{
+                  minWidth: 0,
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {t('teamOpt.result.energy', {
+                  defaultValue: 'ER requirement −{{value}}%',
+                  value: energy.relief,
+                })}
+                {' · '}
+                {energy.weaponIds.map((id, j) => {
+                  const energyWeapon = database.weapons.get(id)
+                  return (
+                    energyWeapon && (
+                      <Fragment key={id}>
+                        {j ? ', ' : ''}
+                        <WeaponName weaponKey={energyWeapon.key} />
+                      </Fragment>
+                    )
+                  )
+                })}
+              </Box>
+            </Typography>
+          )}
         </Box>
-      )}
-      {energy && (
-        <Typography
-          variant="caption"
-          color="text.secondary"
-          sx={{ display: 'flex', alignItems: 'center', gap: 0.5, minWidth: 0 }}
-        >
-          <BoltIcon
-            sx={{ fontSize: 14, color: 'warning.main', flexShrink: 0 }}
-          />
-          <Box
-            component="span"
-            sx={{
-              minWidth: 0,
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            {t('teamOpt.result.energy', {
-              defaultValue: 'ER requirement −{{value}}%',
-              value: energy.relief,
-            })}
-            {' · '}
-            {energy.weaponIds.map((id, j) => {
-              const energyWeapon = database.weapons.get(id)
-              return (
-                energyWeapon && (
-                  <Fragment key={id}>
-                    {j ? ', ' : ''}
-                    <WeaponName weaponKey={energyWeapon.key} />
-                  </Fragment>
-                )
-              )
-            })}
-          </Box>
-        </Typography>
       )}
       {shortfalls?.length ? (
         <Shortfalls
@@ -992,7 +1273,16 @@ function MemberResult({
       ) : (
         // (a result saved before the requirements were detailed)
         !!unmet?.length && (
-          <Typography variant="caption" color="warning.main">
+          <Typography
+            sx={{
+              fontSize: 12.5,
+              color: 'warning.main',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 0.75,
+            }}
+          >
+            <WarningAmberRoundedIcon sx={{ fontSize: 16 }} />
             {t('teamOpt.result.unmet', {
               defaultValue: '{{count}} requirement not met',
               count: unmet.length,
@@ -1000,48 +1290,53 @@ function MemberResult({
           </Typography>
         )
       )}
-      {showDetails && (
-        <MemberDetails
-          characterKey={characterKey}
-          details={details}
-          teamOpt={runTeamOpt}
-          rotationTime={rotationTime}
-          compare={compare}
-        />
-      )}
+      <Collapse in={showDetails} timeout={COLLAPSE_MS} unmountOnExit>
+        <Box sx={{ pt: 1.25, borderTop: hairline }}>
+          <MemberDetails
+            characterKey={characterKey}
+            details={details}
+            teamOpt={runTeamOpt}
+            rotationTime={rotationTime}
+            compare={compare}
+          />
+        </Box>
+      </Collapse>
       {/* pushed to the card's foot: the cards' toggles line up */}
-      <Box sx={{ flexGrow: 1 }} />
+      <Box sx={{ flexGrow: 1, mt: -1.25 }} />
       <ButtonBase
         onClick={onToggleDetails}
-        aria-expanded={showDetails}
-        sx={(theme) => ({
+        aria-expanded={detailsToggled}
+        sx={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           gap: 0.5,
           mx: -1.25,
           mb: -1.25,
-          py: 0.75,
-          borderTop: `1px solid ${theme.palette.divider}`,
+          minHeight: 36,
+          borderTop: hairline,
           borderBottomLeftRadius: 'inherit',
           borderBottomRightRadius: 'inherit',
-          color: 'text.secondary',
-          fontSize: '0.75rem',
+          color: detailsToggled ? 'text.primary' : 'text.secondary',
+          fontSize: 12.5,
           fontWeight: 600,
+          ...quickSx,
           '&:hover': {
             color: 'text.primary',
-            backgroundColor: alpha(theme.palette.text.primary, 0.05),
+            bgcolor: alpha(giTokens.parchment, 0.04),
           },
-        })}
+          ...focusSx,
+        }}
       >
-        {showDetails
+        {detailsToggled
           ? t('teamOpt.result.hideDetails', 'Hide stats and damage')
           : t('teamOpt.result.showDetails', 'Stats and damage')}
         <ExpandMoreIcon
           sx={{
             fontSize: 18,
-            transform: showDetails ? 'rotate(180deg)' : 'none',
-            transition: 'transform 150ms',
+            transform: detailsToggled ? 'rotate(180deg)' : 'none',
+            transition: `transform .18s ${tokens.ease}`,
+            '@media (prefers-reduced-motion: reduce)': { transition: 'none' },
           }}
         />
       </ButtonBase>
@@ -1054,7 +1349,11 @@ function MemberResult({
  * colors), icons left and values right so the five tiles read as one table. A line's stat is named
  * on hover.
  */
-function ArtifactStats({ artifactId }: { artifactId: string }) {
+const ArtifactStats = memo(function ArtifactStats({
+  artifactId,
+}: {
+  artifactId: string
+}) {
   const database = useDatabase()
   const art = database.arts.get(artifactId)
   if (!art) return null
@@ -1105,7 +1404,7 @@ function ArtifactStats({ artifactId }: { artifactId: string }) {
       )}
     </Box>
   )
-}
+})
 
 /**
  * A stat line of an artifact tile, styled as in the artifact's tooltip: icon and value in the
@@ -1154,7 +1453,7 @@ function StatLine({
 }
 
 /** A weapon's icon, with its refinement (outlined when it is new to the member) */
-function WeaponThumb({
+export function WeaponThumb({
   weapon,
   highlight,
 }: {
@@ -1204,71 +1503,124 @@ function WeaponThumb({
   )
 }
 
-/** A weapon at a glance: name, rarity, level and refinement, stats, passive at its refinement */
-function WeaponDetails({ weapon }: { weapon: ICachedWeapon }) {
+/**
+ * A weapon at a glance (its tooltip): art and name, rarity, type, level and refinement, its two
+ * stats, then its passive at that refinement
+ */
+export function WeaponDetails({ weapon }: { weapon: ICachedWeapon }) {
   const sheet = getWeaponSheet(weapon.key)
   const uiData = useMemo(
     () => sheet && computeUIData([sheet.data, dataObjForWeapon(weapon)]),
     [sheet, weapon]
   )
   const { rarity, weaponType } = getWeaponStat(weapon.key)
-  const stat = (node: CalcResult) => {
-    const { icon } = resolveInfo(node.info)
-    return (
-      <Typography
-        sx={{
-          fontSize: '0.8125rem',
-          fontVariantNumeric: 'tabular-nums',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 0.5,
-        }}
-      >
-        {icon} {GetCalcDisplay(node).valueString}
-      </Typography>
-    )
-  }
+  const stats = uiData
+    ? [uiData.get(input.weapon.main), uiData.get(input.weapon.sub)].filter(
+        (node) => !node.isEmpty && !!node.value
+      )
+    : []
   return (
     <Box
       sx={{
-        maxWidth: 300,
+        width: 320,
+        maxWidth: '100%',
         py: 0.5,
         display: 'flex',
         flexDirection: 'column',
-        gap: 0.75,
+        gap: 1.25,
       }}
     >
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
-        <ImgIcon src={imgAssets.weaponTypes[weaponType]} size={1.25} />
-        <Typography
-          sx={{ fontSize: '0.875rem', fontWeight: 600, lineHeight: 1.3 }}
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25 }}>
+        <Box
+          className={`grad-${rarity}star`}
+          sx={{
+            width: 52,
+            height: 52,
+            flexShrink: 0,
+            borderRadius: 1.5,
+            overflow: 'hidden',
+          }}
         >
-          <WeaponName weaponKey={weapon.key} />
-        </Typography>
+          <Box
+            component="img"
+            src={weaponAsset(weapon.key, weapon.ascension >= 2)}
+            alt=""
+            sx={{ width: '100%', height: '100%', display: 'block' }}
+          />
+        </Box>
+        <Box sx={{ minWidth: 0 }}>
+          <Typography
+            sx={{ fontSize: '0.9375rem', fontWeight: 600, lineHeight: 1.3 }}
+          >
+            <WeaponName weaponKey={weapon.key} />
+          </Typography>
+          <Box
+            sx={{
+              mt: 0.375,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 0.75,
+              color: 'text.secondary',
+              fontSize: '0.75rem',
+              ...numSx,
+            }}
+          >
+            <StarsDisplay stars={rarity} colored />
+            <ImgIcon src={imgAssets.weaponTypes[weaponType]} size={1.1} />
+            <span>
+              Lv. {getLevelString(weapon.level, weapon.ascension)}
+              {weaponHasRefinement(weapon.key) && ` · R${weapon.refinement}`}
+            </span>
+          </Box>
+        </Box>
       </Box>
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 1,
-          color: 'text.secondary',
-          fontSize: '0.75rem',
-        }}
-      >
-        <StarsDisplay stars={rarity} colored />
-        <span>
-          Lv. {getLevelString(weapon.level, weapon.ascension)}
-          {weaponHasRefinement(weapon.key) && ` · R${weapon.refinement}`}
-        </span>
-      </Box>
-      {uiData && (
-        <Box sx={{ display: 'flex', gap: 2, color: 'text.secondary' }}>
-          {stat(uiData.get(input.weapon.main))}
-          {stat(uiData.get(input.weapon.sub))}
+      {!!stats.length && (
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: `repeat(${stats.length}, minmax(0, 1fr))`,
+            gap: 1.5,
+          }}
+        >
+          {stats.map((node, i) => {
+            const { name, icon } = resolveInfo(node.info)
+            return (
+              <Box key={i} sx={{ minWidth: 0 }}>
+                <Typography
+                  component="div"
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 0.5,
+                    fontSize: '0.75rem',
+                    color: 'text.secondary',
+                    '& svg': { fontSize: '1.05em' },
+                  }}
+                >
+                  {icon}
+                  <Box
+                    component="span"
+                    sx={{
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    {name}
+                  </Box>
+                </Typography>
+                <Typography
+                  sx={{ fontSize: '0.9375rem', fontWeight: 600, ...numSx }}
+                >
+                  {GetCalcDisplay(node).valueString}
+                </Typography>
+              </Box>
+            )
+          })}
         </Box>
       )}
       {weaponHasRefinement(weapon.key) && (
-        <Box>
+        <Box sx={{ pt: 1.25, borderTop: hairline }}>
           <Typography
             component="div"
             sx={{
@@ -1281,7 +1633,16 @@ function WeaponDetails({ weapon }: { weapon: ICachedWeapon }) {
           </Typography>
           <Typography
             component="div"
-            sx={{ mt: 0.25, fontSize: '0.8125rem', lineHeight: 1.5 }}
+            sx={{
+              mt: 0.375,
+              fontSize: '0.8125rem',
+              lineHeight: 1.55,
+              // (the translated text's own Typography would reset it to the body size)
+              '& .MuiTypography-root': {
+                fontSize: 'inherit',
+                lineHeight: 'inherit',
+              },
+            }}
           >
             <WeaponPassiveDesc
               weaponKey={weapon.key}

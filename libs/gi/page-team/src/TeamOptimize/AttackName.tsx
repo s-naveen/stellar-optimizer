@@ -99,19 +99,25 @@ export function AttackName({
                 display: 'grid',
                 placeItems: 'center',
                 flexShrink: 0,
-                width: 22,
-                height: 22,
-                '& img': { width: 22, height: 'auto' },
-                '& .MuiSvgIcon-root': { fontSize: 18 },
+                width: 20,
+                height: 20,
+                opacity: 0.9,
+                '& img': { width: 20, height: 'auto' },
+                '& .MuiSvgIcon-root': { fontSize: 17 },
               }}
             >
               {header.icon}
             </Box>
           )}
           <Typography
-            variant="body2"
             noWrap
-            sx={{ fontWeight: 600, color: variantColor(element), minWidth: 0 }}
+            sx={{
+              fontSize: 13.5,
+              fontWeight: 600,
+              lineHeight: 1.45,
+              color: variantColor(element),
+              minWidth: 0,
+            }}
           >
             {name}
             {textSuffix && <span> {textSuffix}</span>}

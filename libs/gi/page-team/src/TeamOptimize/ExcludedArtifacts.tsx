@@ -1,6 +1,10 @@
 import { useDataManagerValues } from '@genshin-optimizer/common/database-ui'
 import { useBoolState } from '@genshin-optimizer/common/react-util'
-import { CardThemed, ModalWrapper } from '@genshin-optimizer/common/ui'
+import {
+  CardThemed,
+  InfoTooltipInline,
+  ModalWrapper,
+} from '@genshin-optimizer/common/ui'
 import type {
   ArtifactSetKey,
   ArtifactSlotKey,
@@ -20,25 +24,25 @@ import {
   ExcludeIcon,
   statName,
 } from '@genshin-optimizer/gi/ui'
-import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import CloseIcon from '@mui/icons-material/Close'
 import {
   alpha,
   Box,
   Button,
   ButtonBase,
-  CardContent,
-  CardHeader,
-  Divider,
-  IconButton,
   MenuItem,
   TextField,
-  ToggleButton,
-  ToggleButtonGroup,
   Typography,
 } from '@mui/material'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import {
+  DialogHead,
+  floatSx,
+  stackedBackdrop,
+  TileAction,
+  tileSx,
+} from './OptionTile'
+import { EmptyLine, numSx, quickSx, Segmented, type } from './ui'
 import type { TeamOptUpdate } from './useTeamOpt'
 
 /**
@@ -100,140 +104,244 @@ export function ExcludedArtsTile({
         onClick={onOpen}
         disabled={disabled}
         aria-haspopup="dialog"
-        sx={(theme) => ({
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'flex-start',
-          textAlign: 'left',
-          gap: 1,
-          minWidth: 0,
-          minHeight: 48,
-          px: 1.5,
-          borderRadius: 2,
-          opacity: disabled ? 0.6 : 1,
-          border: `1px solid ${
-            excluded.length
-              ? alpha(theme.palette.warning.main, 0.45)
-              : alpha(theme.palette.text.primary, 0.1)
-          }`,
-          backgroundColor: excluded.length
-            ? alpha(theme.palette.warning.main, 0.06)
-            : alpha(theme.palette.text.primary, 0.02),
-          '&:hover': { borderColor: alpha(theme.palette.text.primary, 0.3) },
-        })}
+        sx={[
+          tileSx,
+          { justifyContent: 'flex-start', opacity: disabled ? 0.55 : 1 },
+        ]}
       >
-        <ExcludeIcon
-          fontSize="small"
-          sx={{ color: excluded.length ? 'warning.main' : 'text.secondary' }}
-        />
-        <Typography
-          variant="body2"
-          sx={{ flexGrow: 1, fontWeight: 600, lineHeight: 1.3 }}
-        >
-          {t('teamOpt.pool.excluded', 'Excluded artifacts')}
-        </Typography>
-        {/* the count, and what a click does: it reads as a button */}
         <Box
           component="span"
-          sx={(theme) => ({
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 0.25,
-            pl: 1,
-            pr: 0.5,
-            py: 0.25,
-            borderRadius: 1.5,
-            fontSize: theme.typography.body2.fontSize,
+          sx={{
+            flexGrow: 1,
+            minWidth: 0,
+            fontSize: 13.5,
             fontWeight: 600,
-            color: excluded.length ? 'warning.main' : 'text.secondary',
-            border: `1px solid ${alpha(theme.palette.text.primary, 0.16)}`,
-            '.MuiButtonBase-root:hover &': {
-              borderColor: alpha(theme.palette.text.primary, 0.4),
-              color: 'text.primary',
-            },
-          })}
+            lineHeight: 1.3,
+          }}
         >
-          {excluded.length || null}
-          {excluded.length ? ' · ' : null}
-          {t('teamOpt.pool.edit', 'Edit')}
-          <ChevronRightIcon sx={{ fontSize: 18 }} />
+          {t('teamOpt.pool.excluded', 'Excluded artifacts')}
         </Box>
+        {/* the count, and what a click does: it reads as a button */}
+        <TileAction as="span" tone={excluded.length ? 'warning' : undefined}>
+          {excluded.length ? `${excluded.length} · ` : null}
+          {t('teamOpt.pool.edit', 'Edit')}
+        </TileAction>
       </ButtonBase>
 
       <ModalWrapper
         open={show}
         onClose={onClose}
         containerProps={{ maxWidth: 'lg' }}
+        slotProps={stackedBackdrop}
       >
-        <CardThemed>
-          <CardHeader
+        <CardThemed sx={floatSx}>
+          <DialogHead
             title={t('teamOpt.pool.excludedTitle', 'Excluded artifacts')}
-            subheader={t(
+            info={t(
               'teamOpt.pool.excludedHelp',
               'This team is never optimized with these. Find one below, or press ⊘ on an artifact in a result.'
             )}
-            action={
-              <IconButton onClick={onClose} aria-label={t('close', 'Close')}>
-                <CloseIcon />
-              </IconButton>
-            }
+            onClose={onClose}
           />
-          <Divider />
-          <CardContent>
-            {excluded.length ? (
-              <Box
-                sx={{
-                  display: 'grid',
-                  gap: 1,
-                  gridTemplateColumns: 'repeat(auto-fill, minmax(175px, 1fr))',
-                }}
-              >
-                {excluded.map((id) => (
-                  <Box
-                    key={id}
-                    sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}
-                  >
-                    <ArtifactCardNano
-                      artifactId={id}
-                      slotKey={database.arts.get(id)!.slotKey}
-                      showLocation
-                    />
-                    <Button size="small" onClick={() => putBack([id])}>
-                      {t('teamOpt.result.include', 'Use it again')}
-                    </Button>
-                  </Box>
-                ))}
-              </Box>
-            ) : (
-              <Typography variant="body2" color="text.secondary">
-                {t('teamOpt.pool.excludedEmpty', 'Nothing is excluded yet.')}
-              </Typography>
-            )}
-            {excluded.length > 1 && (
-              <Button
-                size="small"
-                color="warning"
-                onClick={() => putBack(excluded)}
-                sx={{ mt: 1.5 }}
-              >
-                {t('teamOpt.pool.excludedClear', 'Use all again')}
-              </Button>
-            )}
-            <Divider sx={{ my: 2 }} />
-            {show && (
-              <FindToExclude
-                excluded={excludedSet}
-                onToggle={(id) =>
-                  excludedSet.has(id) ? putBack([id]) : exclude(id)
-                }
-              />
-            )}
-          </CardContent>
+          {show && (
+            <ExcludedBody
+              excluded={excluded}
+              excludedSet={excludedSet}
+              putBack={putBack}
+              exclude={exclude}
+            />
+          )}
         </CardThemed>
       </ModalWrapper>
     </>
   )
 }
+
+/**
+ * The dialog's two views: the excluded artifacts (each can be put back), and finding more (a click
+ * excludes one or puts it back). Opens on the list when there is one, else on finding.
+ */
+function ExcludedBody({
+  excluded,
+  excludedSet,
+  putBack,
+  exclude,
+}: {
+  excluded: string[]
+  excludedSet: ReadonlySet<string>
+  putBack: (ids: string[]) => void
+  exclude: (id: string) => void
+}) {
+  const { t } = useTranslation('page_team')
+  const database = useDatabase()
+  const [view, setView] = useState<'excluded' | 'find'>(() =>
+    excluded.length ? 'excluded' : 'find'
+  )
+  return (
+    <Box
+      sx={{
+        px: { xs: 1.5, sm: 2.5 },
+        py: 2,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 1.5,
+        // (the title bar stays; the cards scroll)
+        maxHeight: { xs: 'calc(100dvh - 90px)', sm: 'calc(100dvh - 140px)' },
+        overflowY: 'auto',
+        '& > *': { flexShrink: 0 },
+      }}
+    >
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: 1,
+        }}
+      >
+        <Segmented
+          aria-label={t('teamOpt.pool.excludedTitle', 'Excluded artifacts')}
+          value={view}
+          onChange={setView}
+          options={[
+            {
+              value: 'excluded',
+              label: (
+                <Box
+                  component="span"
+                  sx={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 0.75,
+                  }}
+                >
+                  {t('teamOpt.pool.excludedView', 'Excluded')}
+                  <Box
+                    component="span"
+                    sx={(theme) => ({
+                      minWidth: 20,
+                      px: 0.5,
+                      borderRadius: 1,
+                      fontSize: 12,
+                      lineHeight: 1.6,
+                      textAlign: 'center',
+                      ...numSx,
+                      color: excluded.length
+                        ? 'warning.main'
+                        : 'text.secondary',
+                      bgcolor: alpha(
+                        excluded.length
+                          ? theme.palette.warning.main
+                          : theme.palette.text.primary,
+                        0.12
+                      ),
+                    })}
+                  >
+                    {excluded.length}
+                  </Box>
+                </Box>
+              ),
+            },
+            {
+              value: 'find',
+              label: t('teamOpt.pool.findView', 'Find artifacts'),
+            },
+          ]}
+        />
+        {view === 'excluded' && excluded.length > 1 && (
+          <Button
+            size="small"
+            color="inherit"
+            variant="outlined"
+            onClick={() => putBack(excluded)}
+            sx={{ ml: 'auto', minHeight: 30, py: 0, color: 'text.secondary' }}
+          >
+            {t('teamOpt.pool.excludedClear', 'Use all again')}
+          </Button>
+        )}
+      </Box>
+      {view === 'excluded' &&
+        (excluded.length ? (
+          <Box sx={cardGridSx}>
+            {excluded.map((id) => (
+              <Box
+                key={id}
+                sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}
+              >
+                <ArtifactCardNano
+                  artifactId={id}
+                  slotKey={database.arts.get(id)!.slotKey}
+                  showLocation
+                />
+                <Button
+                  size="small"
+                  color="inherit"
+                  onClick={() => putBack([id])}
+                  sx={{
+                    color: 'text.secondary',
+                    '&:hover': { color: 'text.primary' },
+                  }}
+                >
+                  {t('teamOpt.result.include', 'Use it again')}
+                </Button>
+              </Box>
+            ))}
+          </Box>
+        ) : (
+          <EmptyLine
+            sx={{ minHeight: 56 }}
+            action={
+              <Button
+                size="small"
+                color="inherit"
+                variant="outlined"
+                onClick={() => setView('find')}
+                sx={{ ml: 1, minHeight: 28, py: 0 }}
+              >
+                {t('teamOpt.pool.findView', 'Find artifacts')}
+              </Button>
+            }
+          >
+            {t('teamOpt.pool.excludedEmpty', 'Nothing is excluded yet.')}
+          </EmptyLine>
+        ))}
+      {view === 'find' && (
+        <FindToExclude
+          excluded={excludedSet}
+          onToggle={(id) => (excludedSet.has(id) ? putBack([id]) : exclude(id))}
+        />
+      )}
+    </Box>
+  )
+}
+
+/** Text for screen readers only */
+const srOnly = {
+  position: 'absolute',
+  width: '1px',
+  height: '1px',
+  overflow: 'hidden',
+  clip: 'rect(0 0 0 0)',
+  whiteSpace: 'nowrap',
+} as const
+const slotNames: Record<ArtifactSlotKey, string> = {
+  flower: 'Flower',
+  plume: 'Plume',
+  sands: 'Sands',
+  goblet: 'Goblet',
+  circlet: 'Circlet',
+}
+
+/** The artifact cards' grid */
+const cardGridSx = {
+  display: 'grid',
+  gap: 1,
+  // (two side by side on phones)
+  gridTemplateColumns: {
+    xs: 'repeat(2, minmax(0, 1fr))',
+    sm: 'repeat(auto-fill, minmax(175px, 1fr))',
+  },
+} as const
 
 const PAGE = 40
 
@@ -269,9 +377,6 @@ function FindToExclude({
   )
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-      <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
-        {t('teamOpt.pool.findTitle', 'Find artifacts to exclude')}
-      </Typography>
       <Box
         sx={{
           display: 'flex',
@@ -287,26 +392,30 @@ function FindToExclude({
             setSetKey(k)
             setShown(PAGE)
           }}
-          sx={{ minWidth: 240, flexGrow: 1, maxWidth: 360 }}
+          sx={{ minWidth: 220, flex: '1 1 220px', maxWidth: { sm: 340 } }}
         />
-        <ToggleButtonGroup
-          size="small"
-          exclusive
+        <Segmented
+          aria-label={t('teamOpt.pool.slot', 'Slot')}
           value={slotKey}
-          onChange={(_, v: ArtifactSlotKey | '' | null) => {
-            setSlotKey(v ?? '')
+          onChange={(v) => {
+            setSlotKey(v)
             setShown(PAGE)
           }}
-        >
-          <ToggleButton value="">
-            {t('teamOpt.pool.anySlot', 'All')}
-          </ToggleButton>
-          {allArtifactSlotKeys.map((k) => (
-            <ToggleButton key={k} value={k} aria-label={k}>
-              <SlotIcon slotKey={k} />
-            </ToggleButton>
-          ))}
-        </ToggleButtonGroup>
+          options={[
+            { value: '' as const, label: t('teamOpt.pool.anySlot', 'All') },
+            ...allArtifactSlotKeys.map((k) => ({
+              value: k,
+              label: (
+                <>
+                  <SlotIcon slotKey={k} iconProps={{ sx: { fontSize: 18 } }} />
+                  <Box component="span" sx={srOnly}>
+                    {t(`teamOpt.slot.${k}`, slotNames[k])}
+                  </Box>
+                </>
+              ),
+            })),
+          ]}
+        />
         <TextField
           select
           size="small"
@@ -316,7 +425,7 @@ function FindToExclude({
             setMainStat(e.target.value as MainStatKey | '')
             setShown(PAGE)
           }}
-          sx={{ minWidth: 170 }}
+          sx={{ minWidth: 160 }}
         >
           <MenuItem value="">{t('teamOpt.pool.anyMain', 'Any')}</MenuItem>
           {allMainStatKeys.map((k) => (
@@ -325,26 +434,29 @@ function FindToExclude({
             </MenuItem>
           ))}
         </TextField>
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          sx={{
+            ...type.label,
+            ...numSx,
+            ml: 'auto',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 0.5,
+          }}
+        >
           {t('teamOpt.pool.found', {
             defaultValue: '{{count}} artifacts',
             count: found.length,
           })}
+          <InfoTooltipInline
+            title={t(
+              'teamOpt.pool.findHelp',
+              'Click an artifact to exclude it; click it again to use it again.'
+            )}
+          />
         </Typography>
       </Box>
-      <Typography variant="caption" color="text.secondary">
-        {t(
-          'teamOpt.pool.findHelp',
-          'Click an artifact to exclude it; click it again to use it again.'
-        )}
-      </Typography>
-      <Box
-        sx={{
-          display: 'grid',
-          gap: 1,
-          gridTemplateColumns: 'repeat(auto-fill, minmax(175px, 1fr))',
-        }}
-      >
+      <Box sx={cardGridSx}>
         {found.slice(0, shown).map((a) => {
           const off = excluded.has(a.id)
           return (
@@ -352,13 +464,28 @@ function FindToExclude({
               key={a.id}
               sx={(theme) => ({
                 position: 'relative',
-                borderRadius: 1,
-                outline: off
-                  ? `2px solid ${theme.palette.warning.main}`
-                  : undefined,
+                borderRadius: '12px',
+                // (a ring over the card, inside its edge)
+                '&::after': {
+                  content: '""',
+                  position: 'absolute',
+                  inset: 0,
+                  borderRadius: '12px',
+                  pointerEvents: 'none',
+                  boxShadow: off
+                    ? `inset 0 0 0 2px ${theme.palette.warning.main}`
+                    : 'none',
+                  ...quickSx,
+                },
               })}
             >
-              <Box sx={{ opacity: off ? 0.45 : 1 }}>
+              <Box
+                sx={{
+                  opacity: off ? 0.4 : 1,
+                  ...quickSx,
+                  transition: 'opacity .12s',
+                }}
+              >
                 <ArtifactCardNano
                   artifactId={a.id}
                   slotKey={a.slotKey}
@@ -367,16 +494,20 @@ function FindToExclude({
                 />
               </Box>
               {off && (
-                <ExcludeIcon
-                  fontSize="small"
+                <Box
                   sx={{
                     position: 'absolute',
-                    top: 4,
-                    right: 4,
-                    color: 'warning.main',
+                    top: 6,
+                    right: 6,
+                    display: 'flex',
+                    p: 0.25,
+                    borderRadius: '50%',
+                    bgcolor: alpha('#000', 0.7),
                     pointerEvents: 'none',
                   }}
-                />
+                >
+                  <ExcludeIcon sx={{ fontSize: 18, color: 'warning.main' }} />
+                </Box>
               )}
             </Box>
           )
@@ -384,8 +515,10 @@ function FindToExclude({
       </Box>
       {shown < found.length && (
         <Button
+          color="inherit"
+          variant="outlined"
           onClick={() => setShown((n) => n + PAGE)}
-          sx={{ alignSelf: 'center' }}
+          sx={{ alignSelf: 'center', color: 'text.secondary', ...numSx }}
         >
           {t('teamOpt.pool.showMore', {
             defaultValue: 'Show more ({{count}} left)',

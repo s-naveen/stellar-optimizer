@@ -46,17 +46,20 @@ import {
 import type { BuildTcContexObj, SetBuildTcAction } from './BuildTcContext'
 import { BuildTcContext } from './BuildTcContext'
 import Content from './CharacterDisplay/Content'
+import { kqmTheorycraftingEnabled } from './featureFlags'
 import { TeamBuildCardButton } from './TeamBuildCardButton'
 import TeamCharacterSelector from './TeamCharacterSelector'
-import TeamOptimize from './TeamOptimize'
+import TeamBuildWorkspace from './TeamOptimize'
 import TeamSetting from './TeamSetting'
 
 /** `/teams/:teamId/optimize`: Team Optimize (no character key is lowercase) */
 const TEAM_OPT_PATH = 'optimize'
+const KQM_PATH = 'kqm'
 
 export default function PageTeam() {
   const database = useDatabase()
   const { teamId } = useParams<{ teamId?: string }>()
+  const kqmRoute = useMatch({ path: '/teams/:teamId/kqm', end: false })
   const invalidKey = !teamId || !database.teams.keys.includes(teamId)
 
   // An edit is triggered whenever a team gets opened even if no edits are done
@@ -66,6 +69,8 @@ export default function PageTeam() {
   }, [teamId, database.teams, invalidKey])
 
   if (invalidKey) return <Navigate to="/teams" />
+  if (kqmRoute && !kqmTheorycraftingEnabled)
+    return <Navigate to={`/teams/${teamId}/optimize`} replace />
 
   return (
     <Box display="flex" flexDirection="column" gap={1}>
@@ -117,9 +122,11 @@ function Page({ teamId }: { teamId: string }) {
     window.scrollTo({ top: 0 })
   }, [])
   const isTeamOpt = characterKeyRaw === TEAM_OPT_PATH
+  const isKqm = kqmTheorycraftingEnabled && characterKeyRaw === KQM_PATH
+  const isTeamBuild = isTeamOpt || isKqm
   useEffect(() => {
-    if (!loadoutDatum && !isTeamOpt) navigate('', { replace: true })
-  }, [loadoutDatum, navigate, isTeamOpt])
+    if (!loadoutDatum && !isTeamBuild) navigate('', { replace: true })
+  }, [loadoutDatum, navigate, isTeamBuild])
 
   const teamCharId = loadoutDatum?.teamCharId
   const characterKey = database.teamChars.get(teamCharId)?.key
@@ -172,6 +179,7 @@ function Page({ teamId }: { teamId: string }) {
 
   useTitle(
     useMemo(() => {
+      if (isKqm) return `${team.name} - ${t('page_team:teamOpt.kqm.tab')}`
       if (isTeamOpt) return `${team.name} - ${t('page_team:teamOpt.title')}`
       const charName = characterKey
         ? t(
@@ -186,7 +194,7 @@ function Page({ teamId }: { teamId: string }) {
       return tabName
         ? `${team.name} - ${charName} - ${tabName}`
         : `${team.name} - ${charName}`
-    }, [t, team.name, characterKey, gender, tab, isTeamOpt])
+    }, [t, team.name, characterKey, gender, tab, isTeamOpt, isKqm])
   )
 
   const teamCharacterContextValue: TeamCharacterContextObj | undefined =
@@ -222,10 +230,10 @@ function Page({ teamId }: { teamId: string }) {
         teamId={teamId}
         characterKey={characterKey}
         tab={tab}
-        teamOpt={isTeamOpt}
+        teamBuildMode={isKqm ? 'kqm' : isTeamOpt ? 'inventory' : undefined}
         actions={
           // a member's tab: its build card, among the header's actions
-          !isTeamOpt &&
+          !isTeamBuild &&
           teamCharacterContextValue &&
           dataContextValue && (
             <TeamCharacterContext.Provider value={teamCharacterContextValue}>
@@ -238,23 +246,31 @@ function Page({ teamId }: { teamId: string }) {
       />
       {/* `clip` still clips to the rounded corners but, unlike `hidden`, is not a scroll
           container, so sticky bars inside (the optimizer's generate bar) stick to the window */}
-      <CardThemed sx={{ '@supports (overflow: clip)': { overflow: 'clip' } }}>
-        {isTeamOpt ? (
-          <TeamOptimize teamId={teamId} teamData={teamData} />
-        ) : teamCharacterContextValue ? (
-          dataContextValue ? (
-            <TeamCharacterContext.Provider value={teamCharacterContextValue}>
-              <DataContext.Provider value={dataContextValue}>
-                <InnerContent tab={tab} />
-              </DataContext.Provider>
-            </TeamCharacterContext.Provider>
+      {/* Team optimize and KQM: their sections are panels of their own, straight on the page */}
+      {isTeamBuild ? (
+        <TeamBuildWorkspace
+          key={teamId}
+          teamId={teamId}
+          teamData={teamData}
+          mode={isKqm ? 'kqm' : 'inventory'}
+        />
+      ) : (
+        <CardThemed sx={{ '@supports (overflow: clip)': { overflow: 'clip' } }}>
+          {teamCharacterContextValue ? (
+            dataContextValue ? (
+              <TeamCharacterContext.Provider value={teamCharacterContextValue}>
+                <DataContext.Provider value={dataContextValue}>
+                  <InnerContent tab={tab} />
+                </DataContext.Provider>
+              </TeamCharacterContext.Provider>
+            ) : (
+              fallback
+            )
           ) : (
-            fallback
-          )
-        ) : (
-          <TeamSetting teamId={teamId} teamData={teamData} />
-        )}
-      </CardThemed>
+            <TeamSetting teamId={teamId} teamData={teamData} />
+          )}
+        </CardThemed>
+      )}
     </Box>
   )
 }

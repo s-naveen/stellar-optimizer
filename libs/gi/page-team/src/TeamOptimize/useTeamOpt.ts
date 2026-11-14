@@ -37,8 +37,19 @@ export function useTeamOpt(teamId: string) {
  * rotation time), as JSON with the keys sorted. A result found with another key is out of date.
  */
 export function teamOptRunKey(teamOpt: TeamOpt): string {
-  const { rotationTime: _shownOnly, ...rest } = teamOpt
-  return JSON.stringify(rest, (_, value) =>
+  const { rotationTime: _shownOnly, kqm: _kqmOnly, ...rest } = teamOpt
+  return sortedJson(rest)
+}
+
+/** `teamOptRunKey` for a KQM mode run: the settings it uses (the inventory's are not) */
+export function kqmRunKey(teamOpt: TeamOpt): string {
+  // (not `keep`: KQM builds every member)
+  const { attacks, onField, bonusStats, weaponEnergy, kqm } = teamOpt
+  return sortedJson({ attacks, onField, bonusStats, weaponEnergy, kqm })
+}
+
+function sortedJson(value: unknown): string {
+  return JSON.stringify(value, (_, value) =>
     value && typeof value === 'object' && !Array.isArray(value)
       ? Object.fromEntries(
           Object.entries(value).sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0))

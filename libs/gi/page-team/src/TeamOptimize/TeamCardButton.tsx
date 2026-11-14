@@ -16,7 +16,7 @@ import {
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined'
 import { Button, useTheme } from '@mui/material'
 import type { TFunction } from 'i18next'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { formatDamage, formatRate } from './format'
 
@@ -31,8 +31,9 @@ export function TeamCardButton(props: TeamCardProps) {
     <>
       <Button
         variant="outlined"
-        color="neutral400"
+        color="inherit"
         startIcon={<ImageOutlinedIcon />}
+        aria-haspopup="dialog"
         onClick={() => setOpen(true)}
       >
         {t('teamOpt.card.button', 'Team card')}
@@ -71,8 +72,21 @@ function TeamCardDialog({
   const theme = useTheme()
   const team = useTeam(teamId)
   const teamName = team?.name ?? ''
+  // the dialog opens at once (its placeholder), the members' data is built after that frame
+  const [opened, setOpened] = useState(false)
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout> | undefined
+    const frame = requestAnimationFrame(() => {
+      timer = setTimeout(() => setOpened(true))
+    })
+    return () => {
+      cancelAnimationFrame(frame)
+      clearTimeout(timer)
+    }
+  }, [])
 
   const data = useMemo((): TeamCardData | undefined => {
+    if (!opened) return undefined
     const uiData = teamOptUIData(database, teamId, gender, runTeamOpt, result)
     if (!uiData) return undefined
     const rollColors = rollColorsOf(theme)
@@ -142,6 +156,7 @@ function TeamCardDialog({
       },
     }
   }, [
+    opened,
     database,
     teamId,
     gender,

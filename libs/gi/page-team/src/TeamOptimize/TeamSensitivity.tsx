@@ -1,4 +1,4 @@
-import { CardThemed, InfoTooltipInline } from '@genshin-optimizer/common/ui'
+import { InfoTooltipInline } from '@genshin-optimizer/common/ui'
 import type { CharacterKey, SubstatKey } from '@genshin-optimizer/gi/consts'
 import type { TeamOpt } from '@genshin-optimizer/gi/db'
 import { useDatabase, useDBMeta } from '@genshin-optimizer/gi/db-ui'
@@ -16,12 +16,22 @@ import {
   teamOptMembers,
   teamSensitivity,
 } from '@genshin-optimizer/gi/ui'
-import type { Theme } from '@mui/material'
-import { alpha, Box, Button, Skeleton, Typography } from '@mui/material'
+import { giTokens } from '@genshin-optimizer/gi/theme'
+import { alpha, Box, ButtonBase, Skeleton, Typography } from '@mui/material'
 import type { ReactNode } from 'react'
 import { Fragment, useEffect, useMemo, useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { MemberAvatar } from './MemberAvatar'
+import {
+  focusSx,
+  hairline,
+  insetSx,
+  numSx,
+  Panel,
+  quickSx,
+  tokens,
+  type,
+} from './ui'
 
 type RowId =
   | `sub:${SubstatKey}`
@@ -36,7 +46,11 @@ interface Sensitivity {
   done: boolean
 }
 
-// computed once per result and rotation (results are new objects per run)
+/**
+ * Per result (team build) shown: its cells as far as they are computed, so that they are there at
+ * once when it is shown again (another tab, another page), and a computation stopped half way goes
+ * on from where it was. Also saved with the team's last result, for after a reload.
+ */
 const cache = new WeakMap<TeamOptResult, { key: string; value: Sensitivity }>()
 
 /** Runs `fn` when the page is idle (a timeout where idle callbacks are missing) */
@@ -52,11 +66,15 @@ function whenIdle(fn: () => void): () => void {
 /**
  * What each change to each member is worth to the team (see `teamSensitivity`): computed after the
  * result arrives, one change at a time while the page is idle, so the cells fill in as they come.
+ * For the result as it was found (`teamOpt`: the run's settings); kept with it (see `cache`) and in
+ * the saved result (`savedAt`: which one; `index`: which of its team builds).
  */
 function useTeamSensitivity(
   teamId: string,
   teamOpt: TeamOpt,
-  result: TeamOptResult
+  result: TeamOptResult,
+  savedAt: number | undefined,
+  index: number
 ) {
   const database = useDatabase()
   const { gender } = useDBMeta()
@@ -67,21 +85,46 @@ function useTeamSensitivity(
     teamOpt.bonusStats ?? {},
     teamOpt.assumeMaxMain,
   ])
-  const [value, setValue] = useState<Sensitivity>(() => {
+  /** What is known for this result: of this visit, else the saved result's */
+  const known = (): Sensitivity | undefined => {
     const hit = cache.get(result)
-    return hit?.key === key ? hit.value : { cells: {}, done: false }
-  })
+    if (hit?.key === key) return hit.value
+    const run = database.teamOptResults.get().runs[teamId]
+    const saved =
+      savedAt !== undefined && run?.savedAt === savedAt
+        ? run.sensitivity?.[index]
+        : undefined
+    if (saved?.key !== key) return undefined
+    const value = { cells: saved.cells as Cells, done: saved.done }
+    cache.set(result, { key, value })
+    return value
+  }
+  const [value, setValue] = useState<Sensitivity>(
+    () => known() ?? { cells: {}, done: false }
+  )
   // biome-ignore lint/correctness/useExhaustiveDependencies: `key` stands for the parts of `teamOpt` read
   useEffect(() => {
-    const hit = cache.get(result)
-    if (hit?.key === key && hit.value.done) {
-      setValue(hit.value)
+    const start = known()
+    if (start?.done) {
+      setValue(start)
       return undefined
     }
     let cancelled = false
     let cancel = () => undefined as void
-    const cells: Cells = {}
+    // (on from what is known: the cells computed before stay)
+    const cells: Cells = structuredClone(start?.cells ?? {})
+    let computed = false
+    const save = (done: boolean) => {
+      if (savedAt === undefined || !computed) return
+      database.teamOptResults.setSensitivity(teamId, savedAt, index, {
+        key,
+        cells: cells as Record<string, Record<string, number | null>>,
+        done,
+      })
+    }
     let sensitivity: ReturnType<typeof teamSensitivity> | undefined
+    const has = (member: TeamOptMember, row: RowId) =>
+      cells[member.characterKey]?.[row] !== undefined
     const set = (
       member: TeamOptMember,
       row: RowId,
@@ -94,54 +137,78 @@ function useTeamSensitivity(
       }
     }
     const members = teamOptMembers(database, teamId)
-    const tasks: (() => void)[] = [
-      () => {
-        sensitivity = teamSensitivity(database, teamId, gender, teamOpt, result)
-      },
+    // the cells still to compute (the team's calculation first, when any is)
+    const todo: (() => void)[] = [
       // the substat rolls first: one compiled problem per member, all ten rolls at once
-      ...members.map((member) => () => {
-        const totals = sensitivity?.substats(member) ?? {}
-        for (const key of sensitivitySubstats)
-          set(member, `sub:${key}`, totals[key])
-      }),
-      ...members.flatMap((member) =>
-        sensitivityTalents.map(
-          (talent) => () =>
-            set(
-              member,
-              `talent:${talent}`,
-              sensitivity?.character(member, { talent })
-            )
+      ...members
+        .filter((member) =>
+          sensitivitySubstats.some((key) => !has(member, `sub:${key}`))
         )
+        .map((member) => () => {
+          const totals = sensitivity?.substats(member) ?? {}
+          for (const key of sensitivitySubstats)
+            set(member, `sub:${key}`, totals[key])
+        }),
+      ...members.flatMap((member) =>
+        sensitivityTalents
+          .filter((talent) => !has(member, `talent:${talent}`))
+          .map(
+            (talent) => () =>
+              set(
+                member,
+                `talent:${talent}`,
+                sensitivity?.character(member, { talent })
+              )
+          )
       ),
       ...members.flatMap((member) =>
-        sensitivityLevels.map(
-          (level) => () =>
-            set(
-              member,
-              `level:${level}`,
-              sensitivity?.character(member, { level })
-            )
-        )
+        sensitivityLevels
+          .filter((level) => !has(member, `level:${level}`))
+          .map(
+            (level) => () =>
+              set(
+                member,
+                `level:${level}`,
+                sensitivity?.character(member, { level })
+              )
+          )
       ),
     ]
+    const tasks: (() => void)[] = todo.length
+      ? [
+          () => {
+            sensitivity = teamSensitivity(
+              database,
+              teamId,
+              gender,
+              teamOpt,
+              result
+            )
+          },
+          ...todo,
+        ]
+      : []
     let i = 0
     const next = () => {
       if (cancelled) return
-      tasks[i++]()
+      tasks[i++]?.()
+      if (i > 1) computed = true
       const done = i >= tasks.length
       const value = { cells: { ...cells }, done }
-      if (done) cache.set(result, { key, value })
+      cache.set(result, { key, value })
+      if (done) save(true)
       setValue(value)
       if (!done) cancel = whenIdle(next)
     }
-    setValue({ cells: {}, done: false })
+    setValue({ cells: { ...cells }, done: false })
     cancel = whenIdle(next)
     return () => {
       cancelled = true
       cancel()
+      // (stopped half way: what is computed is saved, and goes on from there next time)
+      if (i < tasks.length) save(false)
     }
-  }, [database, teamId, gender, key, result])
+  }, [database, teamId, gender, key, result, savedAt, index])
   return value
 }
 
@@ -158,15 +225,28 @@ export function TeamSensitivity({
   members,
   teamOpt,
   result,
+  savedAt,
+  index,
 }: {
   teamId: string
   members: TeamOptMember[]
+  /** The settings the result was found with */
   teamOpt: TeamOpt
   result: TeamOptResult
+  /** When the result was found (which saved result it is) */
+  savedAt?: number
+  /** Which of the result's team builds it is (0: the best) */
+  index: number
 }) {
   const { t } = useTranslation(['page_team', 'statKey_gen'])
   const { gender } = useDBMeta()
-  const { cells, done } = useTeamSensitivity(teamId, teamOpt, result)
+  const { cells, done } = useTeamSensitivity(
+    teamId,
+    teamOpt,
+    result,
+    savedAt,
+    index
+  )
 
   const groups: {
     label: ReactNode
@@ -266,63 +346,91 @@ export function TeamSensitivity({
     .filter((row) => noGain.has(row.id))
     .map((row) => row.label)
 
-  const stickySx = (theme: Theme) => ({
+  // the first column stays put when the table scrolls sideways (phones): opaque, as the inset
+  const stickySx = {
     position: 'sticky' as const,
     left: 0,
     zIndex: 1,
-    backgroundColor: theme.palette.contentNormal.main,
-  })
+    bgcolor: tokens.inset,
+  }
+  const info = (
+    <>
+      {t(
+        'teamOpt.sens.info',
+        'Each cell: the team’s rotation damage with that one change on that member, against the result above (same rotation, buffs, artifacts and weapons). A roll is an average 5★ roll, as in the Improve tab’s Substat value.'
+      )}
+      {done && best && best.value > 0.00005 && (
+        <Box component="span" sx={{ display: 'block', mt: 1 }}>
+          <HowToRead best={best} gender={gender} />
+        </Box>
+      )}
+    </>
+  )
 
   return (
-    // the card hugs the table (compact columns read faster than ones stretched across the page)
-    <CardThemed
-      sx={{ p: { xs: 1.5, md: 2 }, width: 'fit-content', maxWidth: '100%' }}
+    // half the page's width on large screens (as the user prefers), the whole width below that
+    <Panel
+      component="section"
+      sx={{
+        minWidth: 0,
+        width: { xs: '100%', lg: 'calc(50% - 8px)' },
+        alignSelf: 'flex-start',
+      }}
     >
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1.5 }}>
-        <Typography component="h2" sx={{ fontSize: '1rem', fontWeight: 600 }}>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          minHeight: 32,
+          mb: 1.25,
+        }}
+      >
+        <Typography
+          component="h2"
+          sx={{
+            ...type.title,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 0.75,
+          }}
+        >
           {t('teamOpt.sens.title', 'What raises team damage')}
+          <InfoTooltipInline title={info} />
         </Typography>
-        <InfoTooltipInline
-          title={t(
-            'teamOpt.sens.info',
-            'Each cell: the team’s rotation damage with that one change on that member, against the result above (same rotation, buffs, artifacts and weapons). A roll is an average 5★ roll, as in the Improve tab’s Substat value.'
-          )}
-        />
       </Box>
-      <Box sx={{ overflowX: 'auto' }}>
+      <Box sx={{ ...insetSx, overflowX: 'auto', overflowY: 'hidden' }}>
         <Box
           component="table"
-          sx={{
+          sx={(theme) => ({
+            width: '100%',
+            // past this, the table scrolls inside its inset (phones)
+            minWidth: { xs: 148 + members.length * 96, sm: 0 },
             tableLayout: 'fixed',
             borderCollapse: 'separate',
             borderSpacing: 0,
-            fontVariantNumeric: 'tabular-nums',
+            ...numSx,
             '& th, & td': {
-              borderTop: (theme) => `1px solid ${theme.palette.divider}`,
-              px: 1.25,
-              py: 0.5,
+              borderTop: hairline,
+              px: { xs: 1, sm: 1.5 },
+              py: 0.75,
+              fontSize: 13.5,
+              lineHeight: 1.45,
             },
-          }}
+            // a row's hover, across its sticky label too
+            '& tbody tr.row': quickSx,
+            '& tbody tr.row:hover > *': {
+              backgroundImage: `linear-gradient(${alpha(theme.palette.text.primary, 0.04)}, ${alpha(theme.palette.text.primary, 0.04)})`,
+            },
+          })}
         >
           <colgroup>
-            <col style={{ width: 188 }} />
+            <Box component="col" sx={{ width: { xs: 148, sm: 164 } }} />
             {members.map(({ characterKey }) => (
-              <col key={characterKey} style={{ width: 132 }} />
+              <col key={characterKey} />
             ))}
           </colgroup>
           <thead>
-            <Box
-              component="tr"
-              sx={(theme) => ({
-                '& th': {
-                  borderTop: 'none',
-                  // raised: a tint over the card's colour (opaque, for the sticky cell)
-                  backgroundColor: theme.palette.contentNormal.main,
-                  backgroundImage: `linear-gradient(${alpha(theme.palette.text.primary, 0.04)}, ${alpha(theme.palette.text.primary, 0.04)})`,
-                  py: 0.75,
-                },
-              })}
-            >
+            <Box component="tr" sx={{ '& th': { borderTop: 'none', py: 1 } }}>
               <Box component="th" sx={stickySx} />
               {members.map(({ characterKey }) => (
                 <Box
@@ -331,19 +439,26 @@ export function TeamSensitivity({
                   scope="col"
                   sx={{ textAlign: 'center' }}
                 >
+                  {/* (phones: the name under its portrait, to fit a narrow column) */}
                   <Box
                     sx={{
                       display: 'flex',
+                      flexDirection: { xs: 'column', sm: 'row' },
                       alignItems: 'center',
                       justifyContent: 'center',
-                      gap: 0.75,
+                      gap: { xs: 0.25, sm: 0.75 },
                       minWidth: 0,
                     }}
                   >
-                    <MemberAvatar characterKey={characterKey} size={22} />
+                    <MemberAvatar characterKey={characterKey} size={24} />
                     <Typography
-                      variant="body2"
-                      sx={{ fontWeight: 600, minWidth: 0 }}
+                      component="span"
+                      sx={{
+                        fontSize: { xs: 12.5, sm: 13.5 },
+                        fontWeight: 600,
+                        minWidth: 0,
+                        maxWidth: '100%',
+                      }}
                       noWrap
                     >
                       <CharacterName
@@ -365,33 +480,25 @@ export function TeamSensitivity({
                 {/* the group's label in the sticky first column: a cell spanning the table would scroll away */}
                 <Box
                   component="tr"
-                  sx={(theme) => ({
+                  sx={{
                     // a stronger line between groups than between rows
-                    '& > th, & > td': g
-                      ? {
-                          borderTopColor: alpha(
-                            theme.palette.text.primary,
-                            0.16
-                          ),
-                        }
-                      : {},
-                  })}
+                    '& > th, & > td': {
+                      borderTopColor: tokens.hairlineStrong,
+                      pt: 1.25,
+                      pb: 0.5,
+                    },
+                  }}
                 >
                   <Box
                     component="th"
                     scope="rowgroup"
-                    sx={(theme) => ({
-                      ...stickySx(theme),
-                      pt: g ? 1.75 : 1,
-                      pb: 0.5,
-                      textAlign: 'left',
-                      color: 'text.secondary',
-                      fontSize: '0.6875rem',
+                    sx={{
+                      ...stickySx,
+                      ...type.label,
                       fontWeight: 600,
-                      letterSpacing: '0.08em',
-                      textTransform: 'uppercase',
+                      textAlign: 'left',
                       whiteSpace: 'nowrap',
-                    })}
+                    }}
                   >
                     {group.label}
                   </Box>
@@ -400,18 +507,19 @@ export function TeamSensitivity({
                   ))}
                 </Box>
                 {group.rows.map((row) => (
-                  <tr key={row.id}>
+                  <tr key={row.id} className="row">
                     <Box
                       component="th"
                       scope="row"
-                      sx={(theme) => ({
-                        ...stickySx(theme),
+                      sx={{
+                        ...stickySx,
                         textAlign: 'left',
                         fontWeight: 400,
-                        fontSize: '0.875rem',
                         color: 'text.secondary',
                         whiteSpace: 'nowrap',
-                      })}
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                      }}
                     >
                       {row.label}
                     </Box>
@@ -430,12 +538,11 @@ export function TeamSensitivity({
           </tbody>
         </Box>
       </Box>
+      {/* the rows worth nothing here, in one muted line, and the switch to list them */}
       {!!noGainLabels.length && (
         <Typography
-          variant="caption"
-          color="text.secondary"
           component="p"
-          sx={{ mt: 1.25, maxWidth: 'min(100%, 720px)' }}
+          sx={{ ...type.label, fontWeight: 400, mt: 1.25, lineHeight: 1.6 }}
         >
           {t('teamOpt.sens.noGain', 'No gain for this team:')}{' '}
           {noGainLabels.map((label, i) => (
@@ -448,40 +555,31 @@ export function TeamSensitivity({
             </Fragment>
           ))}
           {' · '}
-          <Button
-            size="small"
-            variant="text"
+          <ButtonBase
             onClick={() => setShowAll((show) => !show)}
+            aria-pressed={showAll}
             sx={{
-              minWidth: 0,
-              p: 0,
               verticalAlign: 'baseline',
               fontSize: 'inherit',
+              fontWeight: 600,
               lineHeight: 'inherit',
-              color: 'primary.light',
-              '&:hover': {
-                backgroundColor: 'transparent',
-                textDecoration: 'underline',
-              },
+              color: 'text.primary',
+              borderRadius: 0.5,
+              textDecoration: 'underline',
+              textDecorationColor: alpha(giTokens.parchment, 0.3),
+              textUnderlineOffset: 3,
+              ...quickSx,
+              ...focusSx,
+              '&:hover': { textDecorationColor: 'currentColor' },
             }}
           >
             {showAll
               ? t('teamOpt.sens.hideNoGain', 'Hide these rows')
               : t('teamOpt.sens.showNoGain', 'Show these rows')}
-          </Button>
+          </ButtonBase>
         </Typography>
       )}
-      {done && best && best.value > 0.00005 && (
-        <Typography
-          variant="caption"
-          color="text.secondary"
-          component="p"
-          sx={{ mt: noGainLabels.length ? 0.5 : 1.25 }}
-        >
-          <HowToRead best={best} gender={gender} />
-        </Typography>
-      )}
-    </CardThemed>
+    </Panel>
   )
 }
 
@@ -505,7 +603,7 @@ function SensitivityCell({
   if (value === undefined)
     return (
       <Box component="td" sx={{ textAlign: 'center' }}>
-        <Skeleton variant="text" width={52} sx={{ mx: 'auto' }} />
+        <Skeleton variant="text" width={48} sx={{ mx: 'auto' }} />
       </Box>
     )
   const zero = value === null || Math.abs(value) < 0.00005
@@ -514,22 +612,22 @@ function SensitivityCell({
       component="td"
       sx={(theme) => ({
         textAlign: 'center',
-        fontSize: '0.875rem',
         whiteSpace: 'nowrap',
         color: zero
           ? 'text.disabled'
           : highlight
-            ? theme.palette.primary.light
+            ? theme.palette.success.light
             : 'text.primary',
         fontWeight: highlight ? 700 : 400,
-        backgroundColor:
+        // a gain's shade grows with it (the table's largest, the strongest)
+        bgcolor:
           value === null || zero
             ? undefined
             : value < 0
               ? alpha(theme.palette.error.main, 0.1)
               : alpha(
-                  theme.palette.primary.main,
-                  0.06 + 0.3 * (max > 0 ? value / max : 0)
+                  theme.palette.success.main,
+                  0.04 + 0.26 * (max > 0 ? value / max : 0)
                 ),
       })}
     >

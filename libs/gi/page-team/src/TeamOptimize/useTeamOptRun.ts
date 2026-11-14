@@ -33,6 +33,8 @@ export type TeamOptRunState =
       seconds: number
       /** The settings it was found with (the rotation its damage is for) */
       teamOpt: TeamOpt
+      /** When it was found: which saved result it is (`database.teamOptResults`) */
+      savedAt?: number
     }
   | {
       type: 'error'
@@ -95,12 +97,13 @@ function savedRun(
     return undefined
   }
   // (the database keeps its copy frozen)
-  const { result, seconds, teamOpt } = structuredClone(saved)
+  const { result, seconds, teamOpt, savedAt } = structuredClone(saved)
   return {
     type: 'done',
     result: result as unknown as TeamOptResult,
     seconds,
     teamOpt,
+    savedAt,
   }
 }
 
@@ -122,13 +125,22 @@ export function useTeamOptRun(teamId: string) {
     lastRun(database, teamId)
   )
   const setState = useCallback(
-    (next: TeamOptRunState) => {
+    (state: TeamOptRunState) => {
+      // (a new result: when it was found says which saved one it is)
+      const next: TeamOptRunState =
+        state.type === 'done' && state.savedAt === undefined
+          ? { ...state, savedAt: Date.now() }
+          : state
       // a run in progress is not worth keeping: leaving the page cancels it
       if (next.type !== 'running') lastRuns[teamId] = next
-      // a new result replaces the saved one (an error keeps it)
-      if (next.type === 'done')
+      // a new result replaces the saved one (an error keeps it; the saved one shown again after
+      // a cancel stays as it is, with what was computed for it since)
+      if (
+        next.type === 'done' &&
+        database.teamOptResults.get().runs[teamId]?.savedAt !== next.savedAt
+      )
         database.teamOptResults.setRun(teamId, {
-          savedAt: Date.now(),
+          savedAt: next.savedAt!,
           seconds: next.seconds,
           teamOpt: next.teamOpt,
           result: structuredClone(next.result) as never,

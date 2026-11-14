@@ -12,13 +12,13 @@ import BorderColorIcon from '@mui/icons-material/BorderColor'
 import CloseIcon from '@mui/icons-material/Close'
 import GroupsIcon from '@mui/icons-material/Groups'
 import PersonIcon from '@mui/icons-material/Person'
-import TrendingUpIcon from '@mui/icons-material/TrendingUp'
 import type { Theme } from '@mui/material'
 import {
   alpha,
   Box,
   CardContent,
   CardHeader,
+  CircularProgress,
   Divider,
   IconButton,
   Link,
@@ -26,27 +26,33 @@ import {
   Tabs,
   Tooltip,
   Typography,
+  useMediaQuery,
 } from '@mui/material'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
+import { kqmTheorycraftingEnabled } from './featureFlags'
 import { TeamActions } from './TeamActions'
+import { TeamOptimizeIcon, TheorycraftIcon } from './TeamOptimize/icons'
+import { BetaBadge } from './TeamOptimize/ui'
+import { useKqmProgress, useKqmRunning } from './TeamOptimize/useKqmRun'
 export default function TeamCharacterSelector({
   teamId,
   characterKey,
   tab = '',
-  teamOpt = false,
+  teamBuildMode,
   actions,
 }: {
   teamId: string
   characterKey?: CharacterKey
   tab?: string
-  /** Team Optimize is open */
-  teamOpt?: boolean
+  /** The open team build workflow. */
+  teamBuildMode?: 'inventory' | 'kqm'
   /** more header actions, before the team's (e.g. the open member's build card) */
   actions?: ReactNode
 }) {
   const { t } = useTranslation(['page_team', 'ui'])
+  const compact = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'))
   const navigate = useNavigate()
   const database = useDatabase()
 
@@ -55,7 +61,11 @@ export default function TeamCharacterSelector({
   const { loadoutData } = team
   const [showEditor, onShowEditor, onHideEditor] = useBoolState()
   const [selected, select] = useOptimisticValue<string | number>(
-    teamOpt ? 'teamOpt' : (characterKey ?? 'team')
+    teamBuildMode === 'kqm'
+      ? 'kqm'
+      : teamBuildMode === 'inventory'
+        ? 'teamOpt'
+        : (characterKey ?? 'team')
   )
 
   return (
@@ -140,7 +150,6 @@ export default function TeamCharacterSelector({
         onChange={(_e, clicked: string | number) => select(clicked)}
         variant="scrollable"
         scrollButtons="auto"
-        allowScrollButtonsMobile
         TabIndicatorProps={{ sx: { display: 'none' } }}
         sx={{
           minHeight: 0,
@@ -190,7 +199,7 @@ export default function TeamCharacterSelector({
         })}
         {/* the whole team at once: set apart from the members */}
         <Tab
-          icon={<TrendingUpIcon />}
+          icon={<TeamOptimizeIcon />}
           iconPosition="start"
           value="teamOpt"
           label={t('teamOpt.tab')}
@@ -198,7 +207,80 @@ export default function TeamCharacterSelector({
           onClick={() => navigate(`/teams/${teamId}/optimize`)}
           sx={(theme) => ({ ...memberTabSx(theme), ml: { xs: 0, sm: 1.5 } })}
         />
+        {kqmTheorycraftingEnabled && (
+          <Tab
+            icon={<KqmTabIcon teamId={teamId} />}
+            iconPosition="start"
+            value="kqm"
+            label={
+              <>
+                {compact
+                  ? t('teamOpt.kqm.shortTab', 'KQM')
+                  : t('teamOpt.kqm.tab', 'KQM Theorycrafting')}
+                <BetaBadge
+                  label={t('teamOpt.kqm.beta', 'Beta')}
+                  tip={t(
+                    'teamOpt.kqm.betaTip',
+                    'New and still being refined: results may change between versions.'
+                  )}
+                />
+              </>
+            }
+            aria-label={t('teamOpt.kqm.tabBeta', 'KQM Theorycrafting (beta)')}
+            disabled={loadoutData.every((datum) => !datum)}
+            onClick={() => navigate(`/teams/${teamId}/kqm`)}
+            sx={memberTabSx}
+          />
+        )}
       </Tabs>
+    </Box>
+  )
+}
+
+/**
+ * The KQM tab's icon, or while a KQM run of the team is in progress (it goes on on other pages
+ * and tabs) a ring with how far it is
+ */
+function KqmTabIcon({ teamId }: { teamId: string }) {
+  const { t } = useTranslation('page_team')
+  const running = useKqmRunning(teamId)
+  const step = useKqmProgress(teamId)
+  if (!running) return <TheorycraftIcon />
+  const percent = Math.round((step?.progress ?? 0) * 100)
+  return (
+    <Box
+      component="span"
+      sx={{
+        position: 'relative',
+        display: 'inline-flex',
+        width: 18,
+        height: 18,
+        flexShrink: 0,
+      }}
+    >
+      {/* (the ring's track) */}
+      <CircularProgress
+        variant="determinate"
+        value={100}
+        size={18}
+        thickness={5}
+        aria-hidden
+        sx={(theme) => ({
+          position: 'absolute',
+          color: alpha(theme.palette.text.primary, 0.14),
+        })}
+      />
+      <CircularProgress
+        variant={step ? 'determinate' : 'indeterminate'}
+        value={percent}
+        size={18}
+        thickness={5}
+        aria-label={t('teamOpt.kqm.runningTab', {
+          defaultValue: 'KQM builds running: {{percent}}%',
+          percent,
+        })}
+        sx={{ color: 'primary.main' }}
+      />
     </Box>
   )
 }
