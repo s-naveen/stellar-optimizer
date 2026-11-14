@@ -6,6 +6,7 @@ import { useDBMeta } from '@genshin-optimizer/gi/db-ui'
 import { giCtaSx } from '@genshin-optimizer/gi/theme'
 import type {
   KqmResult,
+  KqmTeamOption,
   TeamData,
   TeamOptMember,
 } from '@genshin-optimizer/gi/ui'
@@ -59,8 +60,9 @@ import {
   kqmChooserCounts,
 } from './KqmChoosers'
 import { KqmGearIcons, KqmRollLine } from './KqmBuildView'
-import { KqmCompare } from './KqmComparison'
+import { KqmCompare, setKqmPicks } from './KqmComparison'
 import { KqmEnergyCalculator, kqmEnergyEstimate } from './KqmEnergyCalculator'
+import { KqmTopTeams } from './KqmTopTeams'
 import { MemberAvatar } from './MemberAvatar'
 import {
   FieldLabel,
@@ -1347,6 +1349,18 @@ export function KqmResults({
   // (a new run starts from its own builds)
   useEffect(() => setComparing(undefined), [result])
   const view = comparing ?? result
+  // a top team picked: its member's equipment, as picked in the inspector (the others the run's)
+  const [picked, setPicked] = useState(0)
+  const pickTeam = (option: KqmTeamOption) => {
+    setKqmPicks(
+      result,
+      option.changed ? { [option.changed]: option.builds[option.changed]! } : {}
+    )
+    setComparing(undefined)
+    if (option.changed) setShown(option.changed)
+    // (the inspector reads the picks when it opens: open it again)
+    setPicked((n) => n + 1)
+  }
   const unit = rotationTime
     ? t('teamOpt.kqm.dpsUnit', 'DPS')
     : t('teamOpt.kqm.dmgUnit', 'DMG')
@@ -1638,9 +1652,16 @@ export function KqmResults({
           )
         })}
       </Box>
+      <KqmTopTeams
+        result={result}
+        view={view}
+        rotationTime={rotationTime}
+        disabled={stale || running}
+        onPick={pickTeam}
+      />
       {compared && (
         <KqmCompare
-          key={`${compared}-${seconds}`}
+          key={`${compared}-${seconds}-${picked}`}
           teamId={teamId}
           runSettings={runSettings}
           disabled={stale || running}

@@ -12,7 +12,13 @@ import { ArtCharDatabase, initTeamOpt } from '@genshin-optimizer/gi/db'
 import { getCharEle } from '@genshin-optimizer/gi/stats'
 import { describe, expect, it } from 'vitest'
 import type { KqmBuild } from '../'
-import { KQM_ONE_COPY, kqmProblemAttacks, kqmSets, optimizeTeamKqm } from '../'
+import {
+  KQM_ONE_COPY,
+  kqmProblemAttacks,
+  kqmSets,
+  kqmTopTeams,
+  optimizeTeamKqm,
+} from '../'
 import { parseRotation } from '../util/teamOpt/rotation/parse'
 import {
   rotationAttacks,
@@ -202,5 +208,101 @@ describe('one-copy weapons', () => {
           result.rankings[k]?.weapons.map((o) => o.weapon.key)
         ).not.toContain('ExaiphanesBlade')
     }
+  }, 300_000)
+})
+
+describe('top teams', () => {
+  it('lists the run’s team, then the best one-member changes by team damage, each a whole team’s score', async () => {
+    const database = new ArtCharDatabase(1, new SandboxStorage({}))
+    const members = ['KamisatoAyaka', 'Shenhe'] as const
+    for (const key of members)
+      database.chars.set(key, {
+        key,
+        level: 90,
+        ascension: 6,
+        talent: { auto: 9, skill: 9, burst: 9 },
+        constellation: 0,
+      })
+    const ids = members.map((k) => database.teamChars.new(k))
+    const teamId = database.teams.new({
+      loadoutData: ids.map((teamCharId) => ({ teamCharId })) as LoadoutDatum[],
+    })
+    for (const id of ids)
+      database.optConfigs.set(database.teamChars.get(id)!.optConfigId, {
+        mainStatKeys: {
+          sands: ['atk_'],
+          goblet: ['cryo_dmg_', 'atk_'],
+          circlet: ['critDMG_'],
+        },
+        artSetExclusion: Object.fromEntries(
+          kqmSets().map((key) => [
+            key,
+            ['BlizzardStrayer', 'NoblesseOblige', 'GladiatorsFinale'].includes(
+              key
+            )
+              ? [2]
+              : [2, 4],
+          ])
+        ),
+      })
+    const teamOpt = initTeamOpt()
+    teamOpt.kqm = {
+      refinement4: 5,
+      refinement5: 1,
+      energyRecharge: { KamisatoAyaka: 100, Shenhe: 100 },
+      excludedWeapons: allWeaponKeys.filter(
+        (k) =>
+          ![
+            'AmenomaKageuchi',
+            'TheBlackSword',
+            'FavoniusLance',
+            'CalamityQueller',
+          ].includes(k)
+      ),
+      weaponList: 2,
+    }
+    teamOpt.attacks = {
+      KamisatoAyaka: [
+        { path: ['burst', 'cutting'], hits: 19, hitMode: 'avgHit' },
+        { path: ['skill', 'press'], hits: 2, hitMode: 'avgHit' },
+      ],
+      Shenhe: [{ path: ['skill', 'press'], hits: 2, hitMode: 'avgHit' }],
+    }
+    const result = (await optimizeTeamKqm({
+      database,
+      teamId,
+      gender: 'F',
+      teamOpt,
+      maxRounds: 2,
+    }))!
+    const top = kqmTopTeams(result, 10)
+    const id = (b: Pick<KqmBuild, 'weapon' | 'sets'>) =>
+      `${b.weapon.key}|${Object.entries(b.sets).sort().join()}`
+    // first: the run's own team, its total
+    expect(top[0].changed).toBeUndefined()
+    expect(top[0].total).toBe(result.after.total)
+    for (const k of members)
+      expect(id(top[0].builds[k]!)).toBe(id(result.builds[k]!))
+    // then by team damage, each one member changed from the run's team
+    expect(top.length).toBeGreaterThan(2)
+    expect(top.length).toBeLessThanOrEqual(10)
+    for (let i = 2; i < top.length; i++)
+      expect(top[i].total).toBeLessThanOrEqual(top[i - 1].total)
+    for (const option of top.slice(1)) {
+      const changed = members.filter(
+        (k) => id(option.builds[k]!) !== id(result.builds[k]!)
+      )
+      expect(changed).toEqual([option.changed])
+    }
+    // (a ranking's totals are the team's damage, as the run's: its own build's is the run's)
+    for (const k of members) {
+      const same = [
+        ...result.rankings[k]!.sets,
+        ...result.rankings[k]!.weapons,
+      ].find((o) => id(o) === id(result.builds[k]!))
+      if (same)
+        expect(Math.abs(same.total / result.after.total - 1)).toBeLessThan(1e-6)
+    }
+    expect(kqmTopTeams(result, 3)).toHaveLength(3)
   }, 300_000)
 })

@@ -816,6 +816,65 @@ export function kqmProblemAttacks(
   return out
 }
 
+/** A team's equipment at a glance: one of `kqmTopTeams` */
+export interface KqmTeamOption {
+  /** The member whose weapon or sets differ from the run's (absent: the run's own builds) */
+  changed?: CharacterKey
+  /** Every optimized member's weapon and sets */
+  builds: Partial<Record<CharacterKey, Pick<KqmBuild, 'weapon' | 'sets'>>>
+  /** The team's damage per rotation */
+  total: number
+}
+
+/**
+ * The run's team, then the best teams that change one member's weapon or sets (the others at
+ * their best), by team damage: from the members' rankings, each a whole team's score. Options
+ * that miss a requirement, or would give a one-copy weapon to a second member, are left out.
+ */
+export function kqmTopTeams(result: KqmResult, count = 10): KqmTeamOption[] {
+  const own = Object.fromEntries(
+    result.optimized.flatMap((ck) => {
+      const b = result.builds[ck]
+      return b ? [[ck, { weapon: b.weapon, sets: b.sets }]] : []
+    })
+  ) as KqmTeamOption['builds']
+  const id = (b: Pick<KqmBuild, 'weapon' | 'sets'>) =>
+    `${b.weapon.key}@${b.weapon.refinement}|${kqmSetsId(b.sets)}`
+  const best = new Map<string, KqmTeamOption>()
+  for (const ck of result.optimized) {
+    const ranking = result.rankings[ck]
+    const current = own[ck]
+    if (!ranking || !current) continue
+    const taken = new Set(
+      Object.entries(own)
+        .filter(([k]) => k !== ck)
+        .map(([, b]) => b!.weapon.key)
+        .filter((key) => KQM_ONE_COPY.includes(key))
+    )
+    for (const option of [...ranking.sets, ...ranking.weapons]) {
+      if (option.unmet || taken.has(option.weapon.key)) continue
+      if (id(option) === id(current)) continue
+      const key = `${ck}|${id(option)}`
+      const seen = best.get(key)
+      if (seen && seen.total >= option.total) continue
+      best.set(key, {
+        changed: ck,
+        builds: {
+          ...own,
+          [ck]: { weapon: option.weapon, sets: option.sets },
+        },
+        total: option.total,
+      })
+    }
+  }
+  return [
+    { builds: own, total: result.after.total },
+    ...[...best.values()]
+      .sort((a, b) => b.total - a.total)
+      .slice(0, Math.max(0, count - 1)),
+  ]
+}
+
 /** A build's weapon and sets as the rotation simulation plays them (set and weapon effects) */
 export const kqmSimGear = (build: KqmBuild): SimGear => ({
   sets: { ...build.sets },

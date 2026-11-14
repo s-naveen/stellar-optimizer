@@ -71,6 +71,17 @@ const weaponId = (build: Pick<KqmBuild, 'weapon'>) =>
 const choiceId = (ck: CharacterKey, build: Pick<KqmBuild, 'weapon' | 'sets'>) =>
   `${ck}|${weaponId(build)}|${kqmSetsId(build.sets)}`
 
+/**
+ * Sets a run's picks as if made in the inspectors (a member without one: the run's own). An
+ * inspector reads them when it opens: give it a new key to apply them to one already open.
+ */
+export function setKqmPicks(
+  result: KqmResult,
+  picks: Partial<Record<CharacterKey, Pick<KqmBuild, 'weapon' | 'sets'>>>
+) {
+  choices.set(result, picks)
+}
+
 /** Both lists hold the opposite selection fixed; only this member's main stats/rolls are searched. */
 export function KqmCompare({
   teamId,

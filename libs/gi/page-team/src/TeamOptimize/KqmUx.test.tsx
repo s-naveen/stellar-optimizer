@@ -20,6 +20,7 @@ import {
   renderHook,
   screen,
   waitFor,
+  within,
 } from '@testing-library/react'
 import { useState } from 'react'
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
@@ -163,6 +164,23 @@ vi.mock('@genshin-optimizer/gi/ui', () => ({
       rotationTime,
       members: Object.fromEntries(keys.map((key) => [key, { fieldTime: 25 }])),
     },
+  kqmTopTeams: (result: {
+    builds: Record<string, { weapon: object; sets: object }>
+    after: { total: number }
+    rankings: Record<
+      string,
+      { weapons: { weapon: object; sets: object; total: number }[] }
+    >
+  }) => [
+    { builds: result.builds, total: result.after.total },
+    ...Object.entries(result.rankings).flatMap(([ck, r]) =>
+      r.weapons.slice(1).map((o) => ({
+        changed: ck,
+        builds: { ...result.builds, [ck]: { weapon: o.weapon, sets: o.sets } },
+        total: o.total,
+      }))
+    ),
+  ],
   compareTeamKqm: mocks.compare,
   optimizeTeamKqm: mocks.optimize,
   TeamOptCancelled: class extends Error {},
@@ -450,6 +468,64 @@ describe('KQM focused results', () => {
     // (the setup above runs again: the results only offer to discard them)
     expect(screen.queryByRole('button', { name: 'Run again' })).toBeNull()
     expect(screen.getByRole('button', { name: 'Discard' })).toBeTruthy()
+  })
+  it('lists the top teams, and picking one shows that team', async () => {
+    const result = sampleResult()
+    mocks.compare.mockImplementation(async ({ weapon, sets }) => ({
+      ...result,
+      builds: { KamisatoAyaka: { ...build, weapon, sets } },
+      after: { ...result.after, total: 900 },
+    }))
+    render(
+      <KqmResults
+        teamId="ui-top"
+        runSettings={initial()}
+        members={members}
+        result={result}
+        seconds={1}
+        rotationTime={20}
+        onDiscard={vi.fn()}
+      />,
+      { wrapper: wrap }
+    )
+    const list = screen.getByRole('region', { name: 'Top teams' })
+    const rows = within(list).getAllByRole('button', { name: /^Team \d/ })
+    expect(rows).toHaveLength(2)
+    // the run's own team first, and shown now
+    expect(rows[0].getAttribute('aria-pressed')).toBe('true')
+    expect(rows[1].textContent).toContain('−10.0%')
+    fireEvent.click(rows[1])
+    await waitFor(() =>
+      expect(mocks.compare).toHaveBeenCalledWith(
+        expect.objectContaining({
+          characterKey: 'KamisatoAyaka',
+          weapon: { key: 'TheBlackSword', refinement: 1 },
+        })
+      )
+    )
+    await waitFor(() =>
+      expect(
+        within(screen.getByRole('region', { name: 'Top teams' }))
+          .getAllByRole('button', { name: /^Team \d/ })[1]
+          .getAttribute('aria-pressed')
+      ).toBe('true')
+    )
+    // (the inspector follows: the picked weapon)
+    expect(
+      screen.getByRole('combobox', { name: 'Weapon' }).textContent
+    ).toContain('TheBlackSword')
+    // back to the best team
+    fireEvent.click(
+      within(screen.getByRole('region', { name: 'Top teams' })).getAllByRole(
+        'button',
+        { name: /^Team \d/ }
+      )[0]
+    )
+    await waitFor(() =>
+      expect(
+        screen.getByRole('combobox', { name: 'Weapon' }).textContent
+      ).toContain('AmenomaKageuchi')
+    )
   })
   it('keeps the previous result available while recalculating and clears it on discard', async () => {
     const first = sampleResult()

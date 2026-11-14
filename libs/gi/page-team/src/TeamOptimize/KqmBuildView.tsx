@@ -363,7 +363,7 @@ export function KqmGearIcons({
   size = 34,
 }: {
   characterKey: CharacterKey
-  build: KqmBuild
+  build: Pick<KqmBuild, 'weapon' | 'sets'>
   size?: number
 }) {
   const { t } = useTranslation('page_team')
