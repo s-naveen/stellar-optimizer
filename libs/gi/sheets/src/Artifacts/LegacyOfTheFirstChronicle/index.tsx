@@ -18,17 +18,13 @@ const [, trm] = trans('artifact', key)
 const set2_atk_ = greaterEq(input.artSet[key], 2, percent(0.18))
 
 // 4pc: while holding a Starspark (Undying Radiance), CRIT Rate of Cryo DMG +20%, and +20% more when
-// that Cryo DMG is Stellar Glimmer (Stellar-Conduct / Stellar Swirl) reaction DMG. Only while the
-// wearer is on the field: the 7.2.51 beta dropped the 7.2.50 line "This effect remains active even
-// when the equipping character is off-field", and players report it doesn't apply off-field. So it
-// counts when the wearer is the active character (its own page; Team Optimize's on-field member).
+// that Cryo DMG is Stellar Glimmer (Stellar-Conduct / Stellar Swirl) reaction DMG. Works off-field:
+// confirmed in game (2026-11-14), although the 7.2.51 beta text dropped the line saying so.
 const [condRadiancePath, condRadiance] = cond(key, 'undyingRadiance')
-const onField = (node: Parameters<typeof equal>[2]) =>
-  equal(input.activeCharKey, input.charKey, node)
 const set4_cryo_critRate_ = greaterEq(
   input.artSet[key],
   4,
-  onField(equal(condRadiance, 'on', percent(0.2)))
+  equal(condRadiance, 'on', percent(0.2))
 )
 // Stellar reaction CRIT Rate also reaches the wearer's non-Cryo Stellar hits (e.g. Electro
 // Stellar-Conduct), so the extra 20% is only given to Cryo wearers, whose Stellar hits are Cryo.
@@ -37,9 +33,7 @@ const set4_stellar_critRate_obj = objKeyValMap(allStellarReactionKeys, (k) => [
   greaterEq(
     input.artSet[key],
     4,
-    onField(
-      equal(condRadiance, 'on', equal(input.charEle, 'cryo', percent(0.2)))
-    )
+    equal(condRadiance, 'on', equal(input.charEle, 'cryo', percent(0.2)))
   ),
 ])
 
