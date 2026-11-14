@@ -69,7 +69,7 @@ import type { ItemConditionalCtx } from './itemConditionals'
 import { itemConditionals } from './itemConditionals'
 import type { KqmBuiltProblem } from './kqmBuild'
 import { buildKqmProblem } from './kqmBuild'
-import { kqmWeaponSource } from './kqmWeaponSources'
+import { KQM_THREE_STARS, kqmWeaponSource } from './kqmWeaponSources'
 import { constValue, teamRotationNodes } from './objective'
 import type { SimGear } from './rotation/types'
 import type { TeamOptEvaluation } from './solve'
@@ -401,7 +401,10 @@ export function kqmWeaponData(
   }
 }
 
-/** The weapons a member may get: every 4★ and 5★ of its type, at the settings' refinement */
+/**
+ * The weapons a member may get: every 4★ and 5★ of its type, plus the 3★ Harbinger of Dawn,
+ * Slingshot and Thrilling Tales of Dragon Slayers (`KQM_THREE_STARS`), at the settings' refinement
+ */
 export function kqmWeapons(
   characterKey: CharacterKey,
   kqm: TeamOptKqm = defaultTeamOptKqm,
@@ -410,13 +413,17 @@ export function kqmWeapons(
   const type = getCharWeaponType(characterKey)
   const ofType = (allWeaponKeys as readonly WeaponKey[]).filter((key) => {
     const stat = getWeaponStat(key)
-    return stat?.weaponType === type && (stat?.rarity ?? 0) >= 4
+    return (
+      stat?.weaponType === type &&
+      ((stat?.rarity ?? 0) >= 4 || KQM_THREE_STARS.includes(key))
+    )
   })
   const excluded = kqmExcludedWeapons(kqm)
   const allowed = ofType.filter((key) => !excluded.has(key))
   return (
     (all ? ofType : allowed)
-      // free weapons first, then 4★ wish and shop ones, then 5★ standard, then 5★ event wish
+      // free weapons (and the 3★) first, then 4★ wish and shop ones, then 5★ standard, then 5★
+      // event wish
       .sort((a, b) => weaponOrder(a) - weaponOrder(b))
       .map((key) => ({ key, refinement: kqmRefinement(key, kqm) }))
   )

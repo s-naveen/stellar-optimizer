@@ -32,6 +32,7 @@ import {
   KQM_SUBSTAT_ROLLS,
   kqmArtData,
   kqmConstellation,
+  KQM_THREE_STARS,
   kqmDefaultExcludedWeapons,
   kqmExcludedWeapons,
   kqmMemberConstellation,
@@ -323,7 +324,7 @@ describe('KQM Standards builds', () => {
     expect(result.rankings[shenhe]).toBeDefined()
   }, 300_000)
 
-  it('uses only free weapons by default (4★, and the free 5★ Exaiphanes Blade), at their source’s refinement', async () => {
+  it('uses only free weapons by default (4★, the three 3★ and the free 5★ Exaiphanes Blade), at their source’s refinement', async () => {
     const { database, teamId, teamOpt } = setup()
     const result = (await run(database, teamId, teamOpt))!
     for (const ck of [ayaka, shenhe])
@@ -332,7 +333,11 @@ describe('KQM Standards builds', () => {
         ...result.rankings[ck]!.weapons.map((o) => o.weapon),
       ]) {
         expect(getWeaponStat(w.key)?.rarity).toBe(
-          w.key === 'ExaiphanesBlade' ? 5 : 4
+          w.key === 'ExaiphanesBlade'
+            ? 5
+            : KQM_THREE_STARS.includes(w.key)
+              ? 3
+              : 4
         )
         const source = kqmWeaponSource(w.key)
         expect(['gacha', 'starglitter']).not.toContain(source)
@@ -378,6 +383,21 @@ describe('KQM Standards builds', () => {
     expect(kqmWeaponSource('TheCatch')).toBe('fishing')
     expect(kqmRefinement('TheBlackSword')).toBe(1)
     expect(kqmRefinement('PrototypeRancour')).toBe(5)
+    // the only 3★: Harbinger of Dawn, Slingshot, Thrilling Tales of Dragon Slayers, in at R5
+    for (const [character, weapon] of [
+      ['Bennett', 'HarbingerOfDawn'],
+      ['Fischl', 'Slingshot'],
+      ['Sucrose', 'ThrillingTalesOfDragonSlayers'],
+    ] as const) {
+      const offered = kqmWeapons(character)
+      expect(offered.find((w) => w.key === weapon)?.refinement).toBe(5)
+      expect(kqmDefaultExcludedWeapons()).not.toContain(weapon)
+      expect(
+        offered
+          .filter((w) => getWeaponStat(w.key)?.rarity === 3)
+          .map((w) => w.key)
+      ).toEqual([weapon])
+    }
     // the free 5★: in by default (a sword user gets it), at R1
     expect(kqmWeaponSource('ExaiphanesBlade')).toBe('quest')
     expect(kqmRefinement('ExaiphanesBlade')).toBe(1)

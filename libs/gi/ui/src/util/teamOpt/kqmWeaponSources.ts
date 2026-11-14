@@ -1,7 +1,8 @@
 import type { WeaponKey } from '@genshin-optimizer/gi/consts'
 
 /**
- * Where each 4★ and 5★ weapon comes from, as the official HoYoLAB wiki's "Source" field gives it
+ * Where each 4★ and 5★ weapon (and the three 3★ KQM counts) comes from, as the official HoYoLAB
+ * wiki's "Source" field gives it
  * (fetched 2026-11-09, 143 4★; checked again 2026-11-13 with every 4★ and 5★: only Exaiphanes
  * Blade, a free 5★, was new). KQM mode's default weapons and refinements follow it: free ones
  * (forged, event, fishing) and the standard wish pool's 4★ (any banner's 4★ drops: "Wish") at
@@ -155,6 +156,10 @@ const sources: Record<
     'TheFlute',
     'TheStringless',
     'TheWidsith',
+    // 3★: the only 3★ KQM counts (KQM_THREE_STARS), R5 like the 4★
+    'HarbingerOfDawn',
+    'Slingshot',
+    'ThrillingTalesOfDragonSlayers',
   ],
   starglitter: [
     'BlackcliffAgate',
@@ -169,6 +174,13 @@ const sources: Record<
     'RoyalSpear',
   ],
 }
+
+/** The 3★ weapons KQM mode offers besides every 4★ and 5★ (standard wish pool, at R5) */
+export const KQM_THREE_STARS: readonly WeaponKey[] = [
+  'HarbingerOfDawn',
+  'Slingshot',
+  'ThrillingTalesOfDragonSlayers',
+]
 
 const byKey = new Map<string, KqmWeaponSource>(
   Object.entries(sources).flatMap(([source, keys]) =>

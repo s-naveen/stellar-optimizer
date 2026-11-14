@@ -520,7 +520,8 @@ export function KqmWeaponChooser({
             [
               'four',
               t('teamOpt.kqm.allFour', 'All 4★'),
-              all.filter((k) => rarity(k) === 5),
+              // (exactly the 4★: the 5★ and the three 3★ off)
+              all.filter((k) => rarity(k) !== 4),
             ],
             ['all', t('teamOpt.kqm.allWeapons', 'All weapons'), []],
             ['none', t('teamOpt.kqm.clearSelection', 'Clear selection'), all],
