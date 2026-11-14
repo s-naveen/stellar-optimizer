@@ -303,6 +303,24 @@ export const kit: KitModel = {
   // C1: Normal Attack SPD +20% while already in a normal attack (gcsim's NormalAttackState check)
   normalAttackSpeed: (ctx, s: CynoState, actor, alreadyNormal) =>
     actor === 'Cyno' && alreadyNormal && clock(ctx) < s.c1End ? 0.2 : 0,
+  // In Pactsworn Pathclearer his normal, charged and plunging attacks and his E (Mortuary Rite)
+  // have frames of their own
+  variant(_ctx, s: CynoState, action) {
+    if (!s.pactActive) return undefined
+    const mode = 'Pactsworn Pathclearer'
+    switch (action.kind) {
+      case 'normal':
+        return { key: 'pactsworn', label: 'Normal Attack', mode }
+      case 'charged':
+        return { key: 'pactsworn', label: 'Charged Attack', mode }
+      case 'plunge':
+        return { key: 'pactsworn', label: 'Plunging Attack', mode }
+      case 'skill':
+        return { key: 'pactsworn', label: 'Mortuary Rite', mode }
+      default:
+        return undefined
+    }
+  },
   act(ctx, s: CynoState, action, previous) {
     const c = ctx.constellation('Cyno')
     const pact = s.pactActive

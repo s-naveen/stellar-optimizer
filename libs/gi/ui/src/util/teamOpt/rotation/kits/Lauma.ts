@@ -140,6 +140,14 @@ export const kit: KitModel = {
       return
     spendHymn(ctx, s)
   },
+  // Her charged attack is Spirit Envoy Metamorphosis; in the Spirit Envoy state or while the
+  // Metamorphosis is on cooldown it is Spiritcall Prayer instead (its own frames)
+  variant(ctx, s: LaumaState, action) {
+    return action.kind === 'charged' &&
+      (deerActive(s, ctx.now) || !deerReady(s, ctx.now))
+      ? { key: 'prayer', label: 'Spiritcall Prayer' }
+      : undefined
+  },
   act(ctx, s: LaumaState, action, previous) {
     const c = ctx.constellation('Lauma')
     const now = ctx.now

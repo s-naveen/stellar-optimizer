@@ -36,6 +36,14 @@ export const kit: KitModel = {
   element: 'dendro',
   source: `${GCSIM}/tighnari`,
   init: (): TighnariState => ({ suffusionUntil: -1, arrows: 0, burstHit: -1 }),
+  // In Vijnana Suffusion his charged attack is the Wreath Arrow (its own frames, a shorter charge)
+  variant(ctx, s: TighnariState, action) {
+    return action.kind === 'charged' &&
+      ctx.now < s.suffusionUntil &&
+      s.arrows > 0
+      ? { key: 'suffusion', label: 'Wreath Arrow', mode: 'Vijnana Suffusion' }
+      : undefined
+  },
   act(ctx, s: TighnariState, action, previous) {
     switch (action.kind) {
       case 'normal':

@@ -48,6 +48,19 @@ export const kit: KitModel = {
     // Revelation is unlocked (gcsim's default): C6's Max HP and Stellar Glimmer need it
     ctx.state('Diona', ['Diona', 'lockRevelation'], 'on')
   },
+  // C4: inside Signature Mix her Fully-Charged Aimed Shot charges 60% faster (gcsim's own
+  // aimedC4Frames)
+  variant(ctx, s: DionaState, action) {
+    return action.kind === 'charged' &&
+      ctx.constellation('Diona') >= 4 &&
+      ctx.now < s.fieldUntil
+      ? {
+          key: 'c4',
+          label: 'Fully-Charged Aimed Shot (C4)',
+          mode: 'Signature Mix',
+        }
+      : undefined
+  },
   act(ctx, s: DionaState, action, previous) {
     switch (action.kind) {
       case 'normal':

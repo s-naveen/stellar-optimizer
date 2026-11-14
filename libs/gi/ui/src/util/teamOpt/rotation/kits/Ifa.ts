@@ -1,3 +1,4 @@
+import type { RotationAction } from '../parse'
 import type { ActionResult, KitModel, SimContext } from '../types'
 import {
   atkSpdAdjust,
@@ -91,6 +92,14 @@ function scheduleNsEnd(ctx: SimContext, s: IfaState) {
   })
 }
 
+/** His moves while hovering in the blessing (E aside): the buttons with their own frames there */
+const NIGHTSOUL_MOVES: Partial<Record<RotationAction['kind'], string>> = {
+  normal: 'Tonic Shot',
+  charged: 'Tonic Shot (hold)',
+  burst: 'Compound Sedation Field (hovering)',
+  dash: 'Hovering Dash',
+}
+
 export const kit: KitModel = {
   characterKey: 'Ifa',
   element: 'anemo',
@@ -143,6 +152,20 @@ export const kit: KitModel = {
       weight: ctx.members.length,
       label: 'Tonic Shot (Heal)',
     })
+  },
+  // Hovering in the blessing his normal and charged attacks are Tonic Shots, E ends the blessing (a
+  // held E plunges), and his burst and dash have their own frames
+  variant(_ctx, s: IfaState, action) {
+    if (!s.ns) return undefined
+    const label =
+      action.kind === 'skill'
+        ? action.hold
+          ? 'Nightsoul Plunging Attack'
+          : "End Nightsoul's Blessing"
+        : NIGHTSOUL_MOVES[action.kind]
+    return label
+      ? { key: 'nightsoul', label, mode: "Nightsoul's Blessing" }
+      : undefined
   },
   act(ctx, s: IfaState, action, previous) {
     const c = ctx.constellation('Ifa')

@@ -134,6 +134,20 @@ export const kit: KitModel = {
     zibaiSettle(s, ctx.now)
     return s.modeEnd !== undefined && s.radiance < 70 ? ctx.now + 1 : ctx.now
   },
+  // In Lunar Phase Shift her E is Spirit Steed's Stride (its own frames); her normal and charged
+  // attacks keep their frames there
+  variant(ctx, state: ZibaiState, action) {
+    if (action.kind !== 'skill') return undefined
+    const s = { ...state }
+    zibaiSettle(s, ctx.now)
+    return s.modeEnd !== undefined
+      ? {
+          key: 'stride',
+          label: "Spirit Steed's Stride",
+          mode: 'Lunar Phase Shift',
+        }
+      : undefined
+  },
   act(ctx, s: ZibaiState, action, previous) {
     zibaiSettle(s, ctx.now)
     const inMode = s.modeEnd !== undefined

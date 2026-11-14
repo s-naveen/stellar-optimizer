@@ -51,6 +51,16 @@ type Absorbed = 'pyro' | 'hydro' | 'electro' | 'cryo'
 /** A1's elements, in gcsim's AbsorbCheck order */
 const A1_ELES: readonly Absorbed[] = ['pyro', 'hydro', 'electro', 'cryo']
 
+/** His moves in Windfavored: the buttons with their own frames there */
+const WINDFAVORED_MOVES: Partial<Record<RotationAction['kind'], string>> = {
+  normal: 'Kuugo: Fushoudan',
+  charged: 'Kuugo: Toufukai',
+  skill: 'End Windfavored',
+  burst: 'Kyougen: Five Ceremonial Plays',
+  dash: 'Windfavored Dash',
+  jump: 'Windfavored Jump',
+}
+
 interface WandererState {
   /** Windfavored's points run out at this frame: undefined when it is not on */
   wfEnd?: number
@@ -241,6 +251,15 @@ export const kit: KitModel = {
     descent: false,
     a4IcdEnd: -1,
   }),
+  // In Windfavored his normal attacks (Kuugo: Fushoudan), charged attack (Kuugo: Toufukai), E
+  // (which ends it), Q, dash and jump have frames of their own
+  variant(ctx, s: WandererState, action) {
+    if (!inWf(s, ctx.now)) return undefined
+    const label = WINDFAVORED_MOVES[action.kind]
+    return label
+      ? { key: 'windfavored', label, mode: 'Windfavored' }
+      : undefined
+  },
   act(ctx, s: WandererState, action, previous) {
     const now = ctx.now
     // Windfavored ran out since the last check: it ends now (with the fall)

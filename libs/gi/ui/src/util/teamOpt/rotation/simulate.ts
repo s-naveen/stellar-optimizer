@@ -16,6 +16,7 @@ import {
 } from './reactions'
 import type {
   ActionResult,
+  ActionVariant,
   HitElement,
   HpChange,
   KitModel,
@@ -82,6 +83,10 @@ export interface SimulationResult {
     index?: number
     /** The kit's own frame count, before a `frameOverrides` edit */
     defaultFrames?: number
+    /** Its frame-data key (`actionFrameKey`, with the version its kit played) */
+    frameKey?: string
+    /** The version its kit played (a mode or stance's), if not the ordinary one */
+    variant?: ActionVariant
   }[]
   /** The kept rotation's written waits (W1.5), in the same form as `actions` */
   waits?: SimulationResult['actions']
@@ -110,7 +115,14 @@ export interface SimulationResult {
       CharacterKey,
       Record<
         string,
-        { frames: number; framesInto: Partial<Record<FrameKind, number>> }
+        {
+          frames: number
+          framesInto: Partial<Record<FrameKind, number>>
+          /** The action (for a version's row: its button) */
+          action?: Pick<RotationAction, 'kind' | 'count' | 'hold' | 'text'>
+          /** The version, for a mode or stance's own version of the action */
+          variant?: ActionVariant
+        }
       >
     >
   >
@@ -133,15 +145,21 @@ export type FrameData = Partial<
   Record<CharacterKey, Record<string, ActionFrameEdit>>
 >
 
-/** The frame-data key of an action: skill / skillHold / burst / normal1…normal6 / charged / … */
-export const actionFrameKey = (a: RotationAction) =>
-  a.kind === 'skill'
+/**
+ * The frame-data key of an action: skill / skillHold / burst / normal1…normal6 / charged / …, and
+ * `<key>@<version>` for a mode or stance's version of it (`skill@stride`)
+ */
+export const actionFrameKey = (
+  a: RotationAction,
+  variant?: Pick<ActionVariant, 'key'>
+) =>
+  (a.kind === 'skill'
     ? a.hold
       ? 'skillHold'
       : 'skill'
     : a.kind === 'normal'
       ? `normal${a.count ?? 1}`
-      : a.kind
+      : a.kind) + (variant ? `@${variant.key}` : '')
 
 /**
  * Members whose kits need the team's stats while the rotation plays (`calculate`): HP drains and
@@ -1203,9 +1221,11 @@ export function simulateRotation({
           `Waited ${((now - waitStart) / FPS).toFixed(1)} s for ${characterKey}'s ${action.text}.`
         )
     }
-    const frameKey = actionFrameKey(action)
-    const edit = frameData[characterKey]?.[frameKey]
     const actCtx = ctxAt(now, characterKey)
+    // a mode or stance's version of the action has its own frame data and edits
+    const variant = kit.variant?.(actCtx, states.get(characterKey), action)
+    const frameKey = actionFrameKey(action, variant)
+    const edit = frameData[characterKey]?.[frameKey]
     const kitResult = kit.act(
       edit?.hitDelay
         ? {
@@ -1222,6 +1242,13 @@ export function simulateRotation({
       data[frameKey] ??= {
         frames: kitResult.frames,
         framesInto: { ...kitResult.framesInto },
+        action: {
+          kind: action.kind,
+          count: action.count,
+          hold: action.hold,
+          text: action.text,
+        },
+        ...(variant && { variant }),
       }
     }
     // An edited length shifts the action's own cancels by as much (unless a cancel is edited)
@@ -1335,6 +1362,8 @@ export function simulateRotation({
       frames,
       index: opener ? undefined : i,
       defaultFrames,
+      frameKey,
+      ...(variant && { variant }),
     })
     currentAction = { actor: characterKey, start: now }
     now += frames

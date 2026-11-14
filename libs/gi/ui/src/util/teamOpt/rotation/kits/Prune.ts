@@ -259,6 +259,12 @@ export const kit: KitModel = {
       })
     }
   },
+  // For 6 s after her E swirls an element, E is Clang Clang! Witch-tribution Comes! (its own frames)
+  variant(ctx, s: PruneState, action) {
+    return action.kind === 'skill' && ctx.now < s.recastUntil && s.convertEle
+      ? { key: 'clang', label: 'Clang Clang! Witch-tribution Comes!' }
+      : undefined
+  },
   act(ctx, s: PruneState, action, previous) {
     const swapped = s.away
     s.away = false

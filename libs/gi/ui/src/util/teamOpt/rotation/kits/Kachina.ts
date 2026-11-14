@@ -193,6 +193,20 @@ export const kit: KitModel = {
       : action.kind === 'skill' || action.kind === 'burst'
         ? action.kind
         : undefined,
+  // With Turbo Twirly out her E mounts or dismounts it, and riding it her normal attacks are its
+  // slams: each with its own frames
+  variant(ctx, state: KachinaState, action) {
+    const s = { ...state }
+    settle(ctx, s)
+    const mode = "Nightsoul's Blessing"
+    if (action.kind === 'skill' && s.twirly)
+      return s.riding
+        ? { key: 'dismount', label: 'Dismount Turbo Twirly', mode }
+        : { key: 'mount', label: 'Mount Turbo Twirly', mode }
+    if (action.kind === 'normal' && s.riding)
+      return { key: 'riding', label: 'Turbo Twirly Slam', mode }
+    return undefined
+  },
   act(ctx, s: KachinaState, action, previous) {
     settle(ctx, s)
     switch (action.kind) {

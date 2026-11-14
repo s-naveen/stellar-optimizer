@@ -391,6 +391,44 @@ export const kit: KitModel = {
     c4Until: -1,
     charges: 2,
   }),
+  // In Fiery Passion (the blessing) her normal and charged attacks, Rush and plunges have frames
+  // of their own; after a Rush her normal or charged attack is the quick Follow-Up Strike; in Apex
+  // Drive her Q is the Volcanic Kablam
+  variant(ctx, s: VaresaState, action) {
+    // (act ends the blessing first at the action after a Fiery Passion plunge, a burst excepted)
+    const fiery = s.blessed && !(s.exitNS && action.kind !== 'burst')
+    const mode = 'Fiery Passion'
+    switch (action.kind) {
+      case 'normal':
+      case 'charged':
+        if (ctx.now < s.followUntil)
+          return fiery
+            ? {
+                key: 'fieryFollowUp',
+                label: 'Fiery Passion Follow-Up Strike',
+                mode,
+              }
+            : { key: 'followUp', label: 'Follow-Up Strike' }
+        if (!fiery) return undefined
+        return action.kind === 'normal'
+          ? { key: 'fiery', label: 'Fiery Passion Normal Attack', mode }
+          : { key: 'fiery', label: 'Fiery Passion Charged Attack', mode }
+      case 'skill':
+        return fiery
+          ? { key: 'fiery', label: 'Fiery Passion Rush', mode }
+          : undefined
+      case 'plunge':
+        return fiery
+          ? { key: 'fiery', label: 'Fiery Passion Plunging Attack', mode }
+          : undefined
+      case 'burst':
+        return s.apex
+          ? { key: 'apex', label: 'Volcanic Kablam', mode: 'Apex Drive' }
+          : undefined
+      default:
+        return undefined
+    }
+  },
   act(ctx, s: VaresaState, action, previous) {
     // the blessing ends at the next action after a Fiery Passion plunge (a burst keeps it)
     if (s.exitNS && action.kind !== 'burst') exitBlessing(s)

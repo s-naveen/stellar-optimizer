@@ -135,6 +135,19 @@ export const kit: KitModel = {
   init: (): LanYanState => ({ leapOn: false, leapGen: 0 }),
   // C6: Swallow-Wisp Pinion Dance gains 1 additional charge
   charges: (cons) => ({ skill: cons >= 6 ? 2 : 1 }),
+  // In mid-air after her E (the Leap Back), Normal Attack or E hurls the Feathermoon Rings (their own
+  // frames)
+  variant(ctx, s: LanYanState, action) {
+    return (action.kind === 'normal' || action.kind === 'skill') &&
+      s.leapEnd !== undefined &&
+      ctx.now < s.leapEnd
+      ? {
+          key: 'rings',
+          label: 'Feathermoon Rings',
+          mode: 'Swallow-Wisp Pinion Dance',
+        }
+      : undefined
+  },
   act(ctx, s: LanYanState, action, previous) {
     switch (action.kind) {
       case 'normal': {

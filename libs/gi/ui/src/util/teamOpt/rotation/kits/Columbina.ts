@@ -487,6 +487,12 @@ export const kit: KitModel = {
     moonIcd: -1,
     lastEnd: -1,
   }),
+  // With Verdant or Moonridge Dew her charged attack is Moondew Cleanse (frames of its own)
+  variant(ctx, _s: ColumbinaState, action) {
+    return action.kind === 'charged' && ctx.dew > 0
+      ? { key: 'moondew', label: 'Moondew Cleanse' }
+      : undefined
+  },
   act(ctx, s: ColumbinaState, action, previous) {
     const r = columbinaAct(ctx, s, action, previous)
     s.lastKind = action.kind

@@ -330,6 +330,27 @@ export const kit: KitModel = {
         'Anastasya C6: the Love Triumph on the next switch and the Honor Doom strike follow the game text (the reference never triggers them).'
       )
   },
+  // Her E is Triumph after the Love Sealing, or Palestar Edict: Doom's next attack after the Honor
+  // Sealing; with the Blessing of Honor her normal attacks are the Blessed Spear and her Q is The
+  // Evernight Yields to Dawn (each with frames of its own, estimates)
+  variant(ctx, s: State, action) {
+    if (action.kind === 'skill') {
+      if (ctx.now < s.triumphUntil) return { key: 'triumph', label: 'Triumph' }
+      if (doomReady(ctx, s))
+        return {
+          key: `doom${s.doomStage}`,
+          label: `Palestar Edict: Doom ${s.doomStage}-Hit`,
+        }
+      return undefined
+    }
+    if (!honorActive(ctx, s)) return undefined
+    const mode = 'Blessing of Honor'
+    if (action.kind === 'normal')
+      return { key: 'honor', label: 'Blessed Spear', mode }
+    if (action.kind === 'burst')
+      return { key: 'honor', label: 'The Evernight Yields to Dawn', mode }
+    return undefined
+  },
   act(ctx, s: State, action, previous) {
     sync(ctx, s)
     switch (action.kind) {

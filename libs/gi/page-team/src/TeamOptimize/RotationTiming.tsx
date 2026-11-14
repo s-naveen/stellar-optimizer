@@ -263,7 +263,7 @@ export function StepTiming({
                         >
                           {action.text}
                         </Box>
-                        {actionName(t, action)}
+                        {a.variant?.label ?? actionName(t, action)}
                       </>
                     ) : (
                       <Tooltip
@@ -301,7 +301,7 @@ export function StepTiming({
                             v === (a.defaultFrames ?? a.frames) ? undefined : v
                           )
                         }
-                        label={`${action ? actionName(t, action) : ''} ${t('teamOpt.timing.frames', 'Frames')}`}
+                        label={`${action ? (a.variant?.label ?? actionName(t, action)) : ''} ${t('teamOpt.timing.frames', 'Frames')}`}
                       />
                     </Box>
                   ) : (
@@ -355,7 +355,7 @@ export function StepTiming({
                           onClick={() =>
                             onEditCharacter(
                               a.characterKey,
-                              actionFrameKey(action)
+                              a.frameKey ?? actionFrameKey(action)
                             )
                           }
                           sx={{

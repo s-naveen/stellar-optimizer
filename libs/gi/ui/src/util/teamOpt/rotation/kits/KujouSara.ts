@@ -83,6 +83,17 @@ export const kit: KitModel = {
     ctx.state('KujouSara', ['KujouSara', 'timeline'], 'on')
     ctx.state('KujouSara', ['KujouSara', 'tenguRecipient'], '')
   },
+  // In Crowfeather Cover her Fully-Charged Aimed Shot charges 60% faster and leaves a Crowfeather
+  // (its own frames)
+  variant(ctx, s: SaraState, action) {
+    return action.kind === 'charged' && ctx.now < s.coverEnd
+      ? {
+          key: 'crowfeather',
+          label: 'Fully-Charged Aimed Shot (Crowfeather)',
+          mode: 'Crowfeather Cover',
+        }
+      : undefined
+  },
   act(ctx, s: SaraState, action, previous) {
     const c = ctx.constellation('KujouSara')
     const { radius, distance } = ctx.target

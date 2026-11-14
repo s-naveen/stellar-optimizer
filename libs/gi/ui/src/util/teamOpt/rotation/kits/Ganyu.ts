@@ -82,6 +82,12 @@ export const kit: KitModel = {
     a1Until: -1,
     c6Until: -1,
   }),
+  // C6: the Frostflake Arrow after Celestial Shower needs no charging (frames of its own)
+  variant(ctx, s: GanyuState, action) {
+    return action.kind === 'charged' && s.c6Until > ctx.now
+      ? { key: 'c6', label: 'Frostflake Arrow (C6, no charging)' }
+      : undefined
+  },
   act(ctx, s: GanyuState, action, previous) {
     const c = ctx.constellation('Ganyu')
     switch (action.kind) {

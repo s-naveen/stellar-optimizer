@@ -1,3 +1,4 @@
+import type { RotationAction } from '../parse'
 import type { KitModel, SimContext } from '../types'
 import {
   GCSIM,
@@ -131,6 +132,8 @@ interface MavuikaState {
   c2On: boolean
   /** A4: only the latest burst's 20 s buff */
   a4Token: number
+  /** Her last action was a jump (the Flamestrider plunge follows one): for `variant` */
+  lastJump: boolean
 }
 
 const maxPoints = (c: number) => (c >= 1 ? 120 : 80)
@@ -259,6 +262,16 @@ function enterRing(c: SimContext, s: MavuikaState) {
   s.bike = false
   s.ringSrc = c.now
   c.at(RADIANCE_INTERVAL, radianceTick(s, c.now))
+}
+
+/** Her moves on the Flamestrider (in the blessing): the buttons with their own frames there */
+const FLAMESTRIDER_MOVES: Partial<Record<RotationAction['kind'], string>> = {
+  normal: 'Flamestrider Normal Attack',
+  charged: 'Flamestrider Charged Attack',
+  skill: 'The Named Moment (Flamestrider)',
+  plunge: 'Flamestrider Plunging Attack',
+  dash: 'Flamestrider Sprint',
+  jump: 'Flamestrider Jump',
 }
 
 /** The sheet's burstSpirit state for the Spirit the burst spent (100 to 200, by 10) */
@@ -391,12 +404,26 @@ export const kit: KitModel = {
     c1On: false,
     c2On: false,
     a4Token: 0,
+    lastJump: false,
   }),
+  // On the Flamestrider (in the blessing) her normal and charged attacks, E, dash, jump and the
+  // plunge after that jump are the Flamestrider's own moves, with their own frames
+  variant(ctx, state: MavuikaState, action) {
+    const s = { ...state }
+    settle(s, ctx.now, ctx.constellation('Mavuika'))
+    if (!s.bike || !s.blessing) return undefined
+    if (action.kind === 'plunge' && !s.lastJump) return undefined
+    const label = FLAMESTRIDER_MOVES[action.kind]
+    return label
+      ? { key: 'flamestrider', label, mode: 'Flamestrider' }
+      : undefined
+  },
   act(ctx, s: MavuikaState, action, previous) {
     const cons = ctx.constellation('Mavuika')
     settle(s, ctx.now, cons)
     consUpdate(ctx, s)
     const flame = s.bike && s.blessing
+    s.lastJump = action.kind === 'jump'
     switch (action.kind) {
       case 'normal': {
         const count = action.count ?? 1

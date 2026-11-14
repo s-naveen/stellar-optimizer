@@ -85,6 +85,22 @@ export const kit: KitModel = {
   }),
   // Lemniscatic Wind Cycling: 2 charges (3 at C1), recharged one after another
   charges: (cons) => ({ skill: cons >= 1 ? 3 : 2 }),
+  // In Bane of All Evil his jump is the Yaksha's high jump; under Xianyun's Adeptal Assistance his
+  // plunge is the assisted one (gcsim's tables from Xianyun): each with frames of its own
+  variant(ctx, s: XiaoState, action) {
+    if (action.kind === 'jump' && s.inQ)
+      return { key: 'bane', label: 'High Jump', mode: 'Bane of All Evil' }
+    if (
+      action.kind === 'plunge' &&
+      ctx.hasBuff('Xianyun', ['Xianyun', '_airborne'])
+    )
+      return {
+        key: 'airborne',
+        label: 'Low Plunge',
+        mode: 'Adeptal Assistance',
+      }
+    return undefined
+  },
   act(ctx, s: XiaoState, action, previous) {
     const inQ = s.inQ
     // Bane of All Evil makes normal, charged and plunging attacks Anemo (the sheet's inBurst)

@@ -163,6 +163,12 @@ export const kit: KitModel = {
         : { owner: 'Linnea', path: ['Linnea', 'c1TeamStacks'], value: 'on' },
     ]
   },
+  // E tapped again within the window after it feeds Lumi (Continuous Tapping): its own frames
+  variant(ctx, s: LinneaState, action) {
+    return action.kind === 'skill' && ctx.now < s.recastEnd
+      ? { key: 'feed', label: 'Continuous Tapping (feed Lumi)' }
+      : undefined
+  },
   act(ctx, s: LinneaState, action, previous) {
     switch (action.kind) {
       case 'normal':

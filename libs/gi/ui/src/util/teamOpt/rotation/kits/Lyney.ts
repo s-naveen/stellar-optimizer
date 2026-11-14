@@ -145,6 +145,12 @@ export const kit: KitModel = {
     away: false,
     c2Stacks: 0,
   }),
+  // E during Miracle Parade sets off its Explosive Firework early (its own frames)
+  variant(_ctx, s: LyneyState, action) {
+    return action.kind === 'skill' && s.burstOn
+      ? { key: 'parade', label: 'Explosive Firework', mode: 'Miracle Parade' }
+      : undefined
+  },
   act(ctx, s: LyneyState, action, previous) {
     // C2: the Crisp Focus stacks run while he is on the field (from the swap-in, or from the start
     // when he starts on it: gcsim only starts them on a swap)

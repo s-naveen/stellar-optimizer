@@ -158,6 +158,14 @@ export const kit: KitModel = {
     ctx.constellation('KamisatoAyato') >= 4 && ctx.now < (s.c4End ?? -1)
       ? 0.15
       : 0,
+  // In Takimeguri Kanka his normal attacks are Shunsuiken slashes (their own frames)
+  variant(ctx, s: AyatoState, action) {
+    return action.kind === 'normal' &&
+      s.kyoukaEnd !== undefined &&
+      ctx.now < s.kyoukaEnd
+      ? { key: 'shunsuiken', label: 'Shunsuiken', mode: 'Takimeguri Kanka' }
+      : undefined
+  },
   act(ctx, s: AyatoState, action, previous) {
     const inKyouka = s.kyoukaEnd !== undefined && ctx.now < s.kyoukaEnd
     switch (action.kind) {

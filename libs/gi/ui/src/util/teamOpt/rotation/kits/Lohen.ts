@@ -240,6 +240,16 @@ export const kit: KitModel = {
         ? 'burst'
         : undefined
   },
+  // In Masterstroke his E is Etched Into Bone and Soul (its own frames)
+  variant(c, s: State, action) {
+    return action.kind === 'skill' && active(c, s)
+      ? {
+          key: 'etch',
+          label: 'Etched Into Bone and Soul',
+          mode: 'Masterstroke',
+        }
+      : undefined
+  },
   act(c, s: State, action, previous) {
     switch (action.kind) {
       case 'skill':

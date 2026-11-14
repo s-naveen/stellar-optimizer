@@ -282,6 +282,29 @@ export const kit: KitModel = {
     fatalIcdUntil: -1,
     nsBurstIcdUntil: -1,
   }),
+  // In Nightsoul's Blessing her normal and charged attacks are Multitarget Fire (tap and hold),
+  // her E ends the blessing and her Q is cast in the air, each with frames of its own
+  variant(ctx, s: ChascaState, action) {
+    if (s.blessingEnd === undefined || ctx.now >= s.blessingEnd)
+      return undefined
+    const mode = "Nightsoul's Blessing"
+    switch (action.kind) {
+      case 'normal':
+        return { key: 'nightsoul', label: 'Multitarget Fire (Tap)', mode }
+      case 'charged':
+        return { key: 'nightsoul', label: 'Multitarget Fire (Hold)', mode }
+      case 'skill':
+        return {
+          key: 'nightsoul',
+          label: "Spirit Reins, Shadow Hunt (ends Nightsoul's Blessing)",
+          mode,
+        }
+      case 'burst':
+        return { key: 'nightsoul', label: "Soul Reaper's Fatal Round", mode }
+      default:
+        return undefined
+    }
+  },
   act(ctx, s: ChascaState, action, previous) {
     const now = ctx.now
     const kind = previous?.kind

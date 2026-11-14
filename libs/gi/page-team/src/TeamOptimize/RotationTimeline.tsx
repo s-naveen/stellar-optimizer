@@ -252,7 +252,7 @@ export function RotationTimeline({
                 const name = a.wait
                   ? t('teamOpt.timing.kind.wait', 'Wait')
                   : action
-                    ? actionName(t, action)
+                    ? (a.variant?.label ?? actionName(t, action))
                     : t('teamOpt.timing.entry', 'Entry (automatic)')
                 return (
                   <Tooltip

@@ -587,6 +587,21 @@ export const kit: KitModel = {
     for (const key of ['sturm', 'c6Ca', 'c6Skill'] as const)
       if (s.timed[key] !== undefined) s.timed[key]! += frames
   },
+  // In Sturm und Drang (with a conversion element) his E is Four Winds' Ascension and his charged
+  // attack, with a Four Winds charge, is Azure Devour: each with frames of its own
+  variant(ctx, s: VarkaState, action) {
+    if (s.timed.sturm === undefined || convOf(ctx) === 'physical')
+      return undefined
+    const mode = 'Sturm und Drang'
+    if (action.kind === 'skill')
+      return { key: 'sturm', label: "Four Winds' Ascension", mode }
+    if (
+      action.kind === 'charged' &&
+      (s.timed.c6Ca !== undefined || ctx.cooldownReadyAt('special') <= ctx.now)
+    )
+      return { key: 'sturm', label: 'Azure Devour', mode }
+    return undefined
+  },
   act(ctx, s: VarkaState, action, previous) {
     const r = varkaAct(ctx, s, action, previous)
     // gcsim's state stays the action's until its animation (default frames) ends, then Idle

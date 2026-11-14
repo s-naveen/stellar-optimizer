@@ -247,6 +247,28 @@ export const kit: KitModel = {
   onHpChange(ctx, s: HuTaoState, change) {
     if (change.characterKey === 'HuTao') onHp(ctx, s)
   },
+  // In Paramita Papilio her normal attack string (5th and 6th hits), charged attack and plunge
+  // have frames of their own. (A Paramita charged attack's extension is taken back first, as act
+  // does, unless the action is the burst)
+  variant(ctx, s: HuTaoState, action) {
+    if (
+      action.kind !== 'normal' &&
+      action.kind !== 'charged' &&
+      action.kind !== 'plunge'
+    )
+      return undefined
+    const end =
+      s.slide && s.paramitaEnd !== undefined
+        ? s.paramitaEnd - PARAMITA_CA_EXTENSION
+        : s.paramitaEnd
+    if (end === undefined || ctx.now >= end) return undefined
+    const mode = 'Paramita Papilio'
+    return action.kind === 'normal'
+      ? { key: 'paramita', label: 'Normal Attack', mode }
+      : action.kind === 'charged'
+        ? { key: 'paramita', label: 'Charged Attack', mode }
+        : { key: 'paramita', label: 'Plunging Attack', mode }
+  },
   act(ctx, s: HuTaoState, action, previous) {
     const cons = ctx.constellation('HuTao')
     // the next action ends a Paramita charged attack: its extension stays only into the burst

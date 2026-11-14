@@ -164,6 +164,21 @@ export const kit: KitModel = {
     c6Icd: -1,
     c6Count: 0,
   }),
+  // In Musou Isshin her normal, charged and plunging attacks are the tachi's (their own frames)
+  variant(ctx, s: RaidenState, action) {
+    if (!inMusou(s, ctx)) return undefined
+    const mode = 'Musou Isshin'
+    switch (action.kind) {
+      case 'normal':
+        return { key: 'musou', label: 'Musou Isshin Normal Attack', mode }
+      case 'charged':
+        return { key: 'musou', label: 'Musou Isshin Charged Attack', mode }
+      case 'plunge':
+        return { key: 'musou', label: 'Musou Isshin Plunging Attack', mode }
+      default:
+        return undefined
+    }
+  },
   act(ctx, s: RaidenState, action, previous) {
     switch (action.kind) {
       case 'normal':

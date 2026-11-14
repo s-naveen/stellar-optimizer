@@ -112,6 +112,15 @@ export const kit: KitModel = {
         hitlag: 'recipient',
       })
   },
+  // A plunge right after Bestial Ascent is Charmed Cloudstrider (frames of its own)
+  variant(_ctx, s: GamingState, action) {
+    return action.kind === 'plunge' && s.afterSkill
+      ? {
+          key: 'cloudstrider',
+          label: 'Plunging Attack: Charmed Cloudstrider',
+        }
+      : undefined
+  },
   act(ctx, s: GamingState, action, previous) {
     if (action.kind === 'charged')
       return {

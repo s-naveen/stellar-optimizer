@@ -363,6 +363,22 @@ export const kit: KitModel = {
     c6Until: -1,
     a1Until: [],
   }),
+  // In Night Vigil her normal attacks are Swift Hunt and her E is Impale the Night, and her Q has
+  // cancels of its own (gcsim's burstSkillStateFrames)
+  variant(_ctx, s: ClorindeState, action) {
+    if (!s.vigilOn) return undefined
+    const mode = 'Night Vigil'
+    switch (action.kind) {
+      case 'normal':
+        return { key: 'nightVigil', label: 'Swift Hunt', mode }
+      case 'skill':
+        return { key: 'nightVigil', label: 'Impale the Night', mode }
+      case 'burst':
+        return { key: 'nightVigil', label: 'Last Lightfall', mode }
+      default:
+        return undefined
+    }
+  },
   act(ctx, s: ClorindeState, action, previous) {
     const c = ctx.constellation('Clorinde')
     switch (action.kind) {

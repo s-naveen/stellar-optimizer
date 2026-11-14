@@ -77,6 +77,19 @@ export const kit: KitModel = {
     lcUntil: -1,
     plungeNoted: false,
   }),
+  // In Manifest Flame his E is Northland Spearstorm, and after it his Q is Thunderous Symphony,
+  // each with frames of its own (his normal and charged attacks keep theirs)
+  variant(_ctx, s: FlinsState, action) {
+    if (action.kind === 'skill' && s.flame)
+      return {
+        key: 'manifestFlame',
+        label: 'Northland Spearstorm',
+        mode: 'Manifest Flame',
+      }
+    if (action.kind === 'burst' && s.symphony)
+      return { key: 'symphony', label: 'Thunderous Symphony' }
+    return undefined
+  },
   act(ctx, s: FlinsState, action, previous) {
     const c = ctx.constellation('Flins')
     switch (action.kind) {

@@ -165,6 +165,16 @@ export const kit: KitModel = {
         'Jahoda: C1 bounce probability is accumulated for reproducible single-target hits. Energy refunds and multiple enemies are not validated.'
       )
   },
+  // E again during Shadow Pursuit drains the Treasure Flask early (its own frames)
+  variant(_ctx, s: JahodaState, action) {
+    return action.kind === 'skill' && s.pursuit >= 0
+      ? {
+          key: 'drain',
+          label: 'Drain the Treasure Flask',
+          mode: 'Shadow Pursuit',
+        }
+      : undefined
+  },
   act(ctx, s: JahodaState, action, previous) {
     switch (action.kind) {
       case 'normal':

@@ -214,6 +214,24 @@ export const kit: KitModel = {
     mlBurst: false,
     critAcc: 0.5,
   }),
+  // In the Melee Stance his normal and charged attacks are the Hydro blades', his E returns to the
+  // Ranged Stance and his Q is Light of Obliteration: each with frames of its own
+  variant(_ctx, s: TartagliaState, action) {
+    if (!s.melee) return undefined
+    const mode = 'Melee Stance'
+    switch (action.kind) {
+      case 'normal':
+        return { key: 'melee', label: 'Melee Stance Normal Attack', mode }
+      case 'charged':
+        return { key: 'melee', label: 'Melee Stance Charged Attack', mode }
+      case 'skill':
+        return { key: 'melee', label: 'Return to Ranged Stance', mode }
+      case 'burst':
+        return { key: 'melee', label: 'Light of Obliteration', mode }
+      default:
+        return undefined
+    }
+  },
   act(ctx, s: TartagliaState, action, previous) {
     const c = ctx.constellation('Tartaglia')
     const afterDash = previous?.kind === 'dash'

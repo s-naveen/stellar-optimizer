@@ -171,6 +171,17 @@ export const kit: KitModel = {
       'Valeriy: shell timing cycles the six native random rhythms. Energy refunds, shield damage and shield growth from excess Momentum are not validated. Plunges are unsupported.'
     )
   },
+  // With 40+ Impact Momentum his charged attack (and a normal attack within 0.8 s after his E or Q)
+  // is Direct-Fire Mortar, with frames of its own
+  variant(c, s: State, action) {
+    const mortar =
+      action.kind === 'charged'
+        ? s.momentum >= 40
+        : action.kind === 'normal' &&
+          c.now <= s.convertUntil &&
+          s.momentum >= 40
+    return mortar ? { key: 'mortar', label: 'Direct-Fire Mortar' } : undefined
+  },
   act(c, s: State, action) {
     switch (action.kind) {
       case 'skill':

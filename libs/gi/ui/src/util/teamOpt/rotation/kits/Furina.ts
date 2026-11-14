@@ -422,6 +422,12 @@ export const kit: KitModel = {
   onHitlag(ctx, s: FurinaState, frames) {
     if (ctx.now < s.fanfareEnd && frames > 0) s.fanfareEnd += frames
   },
+  // In Pneuma her E summons the Singer of Many Waters (frames of its own)
+  variant(_ctx, s: FurinaState, action) {
+    return action.kind === 'skill' && s.arkhe === 'pneuma'
+      ? { key: 'pneuma', label: 'Singer of Many Waters', mode: 'Pneuma' }
+      : undefined
+  },
   act(ctx, s: FurinaState, action, previous) {
     const c = ctx.constellation('Furina')
     switch (action.kind) {

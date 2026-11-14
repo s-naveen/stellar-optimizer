@@ -146,6 +146,16 @@ export const kit: KitModel = {
   },
   normalAttackSpeed: (ctx, s: RazorState, actor) =>
     actor === 'Razor' && wolfAt(s, ctx.now) ? 0.4 : 0,
+  // With the Wolf Within (Lightning Fang) his tap and held E have frames of their own; his normal
+  // attacks keep theirs (only faster)
+  variant(ctx, s: RazorState, action) {
+    if (action.kind !== 'skill' || !wolfAt(s, ctx.now)) return undefined
+    return {
+      key: 'lightningFang',
+      label: action.hold ? 'Claw and Thunder (Hold)' : 'Claw and Thunder',
+      mode: 'Lightning Fang',
+    }
+  },
   act(ctx, s: RazorState, action, previous) {
     const c = ctx.constellation('Razor')
     if (!s.noted) {

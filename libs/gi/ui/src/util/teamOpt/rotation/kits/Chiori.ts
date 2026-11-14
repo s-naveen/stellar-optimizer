@@ -185,6 +185,12 @@ export const kit: KitModel = {
     }
     ctx.at(0, poll)
   },
+  // A press in the A1 window after Fluttering Hasode is Tapestry (a swap, frames of its own)
+  variant(_ctx, s: ChioriState, action) {
+    return action.kind === 'skill' && s.window !== undefined
+      ? { key: 'tapestry', label: 'Tapestry' }
+      : undefined
+  },
   act(ctx, s: ChioriState, action, previous) {
     const armed = s.holdArmed
     s.holdArmed = false

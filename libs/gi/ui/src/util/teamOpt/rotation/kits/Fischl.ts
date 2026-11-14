@@ -176,6 +176,12 @@ export const kit: KitModel = {
       stateFrames
     )
   },
+  // While Oz is out (or being summoned) her E calls him back to her side (frames of its own)
+  variant(ctx, s: FischlState, action) {
+    return action.kind === 'skill' && recastMode(s, ctx.now)
+      ? { key: 'recast', label: 'Nightrider (recall Oz)' }
+      : undefined
+  },
   act(ctx, s: FischlState, action, previous) {
     const oz = ozFrames(ctx.constellation('Fischl'))
     switch (action.kind) {

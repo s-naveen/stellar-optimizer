@@ -254,6 +254,30 @@ export const kit: KitModel = {
     c6Ready: -1,
     c6Chance: 0,
   }),
+  // In Blazing Lioness her normal attack and E are Roaring Barrage, her dash can be jump-cancelled
+  // and a jump in that window is Incineration Drive; with her field up, her E is Ranging Flame.
+  // Each has frames of its own
+  variant(ctx, s: DehyaState, action) {
+    if (ctx.now <= s.burstUntil) {
+      const mode = 'Blazing Lioness'
+      switch (action.kind) {
+        case 'normal':
+        case 'skill':
+          return { key: 'lioness', label: 'Roaring Barrage', mode }
+        case 'dash':
+          return { key: 'lioness', label: 'Dash', mode }
+        case 'jump':
+          return ctx.now <= s.kickWindowUntil
+            ? { key: 'lioness', label: 'Incineration Drive', mode }
+            : undefined
+        default:
+          return undefined
+      }
+    }
+    return action.kind === 'skill' && s.field && !s.recast
+      ? { key: 'rangingFlame', label: 'Ranging Flame' }
+      : undefined
+  },
   act(ctx, s: DehyaState, action, previous) {
     const c = ctx.constellation('Dehya')
     switch (action.kind) {

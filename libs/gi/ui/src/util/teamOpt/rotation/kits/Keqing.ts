@@ -114,6 +114,16 @@ export const kit: KitModel = {
       : action.kind === 'burst'
         ? 'burst'
         : undefined,
+  // E while the Lightning Stiletto is up is the recast: she blinks to it and slashes (its own frames)
+  variant(_ctx, s: KeqingState, action) {
+    return action.kind === 'skill' && s.stiletto
+      ? {
+          key: 'slash',
+          label: 'Stellar Restoration (blink slash)',
+          mode: 'Lightning Stiletto',
+        }
+      : undefined
+  },
   act(ctx, s: KeqingState, action, previous) {
     const c = ctx.constellation('Keqing')
     switch (action.kind) {

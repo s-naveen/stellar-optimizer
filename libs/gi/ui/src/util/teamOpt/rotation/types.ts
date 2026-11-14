@@ -371,6 +371,20 @@ export interface HpChange {
 }
 
 /** A character's kit: what its actions do, and what it reacts to */
+/**
+ * A version of an action that a member's state makes it: a mode or stance doing something else with
+ * the same button (Zibai's E in Lunar Phase Shift is Spirit Steed's Stride). Its frame data and
+ * frame edits are its own (`actionFrameKey(action, variant)`).
+ */
+export interface ActionVariant {
+  /** Short id, unique for the kit: the frame-data key's suffix (`skill@stride`) */
+  key: string
+  /** What the action is in this version ("Spirit Steed's Stride") */
+  label: string
+  /** The mode or stance it belongs to ("Lunar Phase Shift") */
+  mode?: string
+}
+
 export interface KitModel {
   characterKey: CharacterKey
   /**
@@ -406,6 +420,15 @@ export interface KitModel {
     action: RotationAction,
     previous: RotationAction | undefined
   ): ActionResult
+  /**
+   * The version an action is in the member's current state, asked just before it is played (no
+   * side effects): undefined for the ordinary one
+   */
+  variant?: (
+    ctx: SimContext,
+    state: any,
+    action: RotationAction
+  ) => ActionVariant | undefined
   /** Next possible frame for a resource-gated action; rechecked as queued events land. */
   actionReadyAt?: (
     ctx: SimContext,

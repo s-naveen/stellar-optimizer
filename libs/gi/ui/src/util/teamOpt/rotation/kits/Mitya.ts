@@ -172,6 +172,19 @@ export const kit: KitModel = {
         'Mitya C4: counts Gradient Beacons consumed by the Detection Core (game text; the reference counts Beacons gained).'
       )
   },
+  // E tapped again within 6 s switches the Detection Core's state, and with an Overload core his
+  // charged attack is Gradient Detonation: each with its own frames
+  variant(ctx, s: State, action) {
+    if (action.kind === 'skill' && !action.hold && ctx.now < s.recastEnd)
+      return { key: 'switch', label: 'Switch the Detection Core' }
+    if (action.kind === 'charged' && s.mode === 'overloaded' && ctx.now < s.end)
+      return {
+        key: 'overload',
+        label: 'Gradient Detonation',
+        mode: 'Detection Core: Overload',
+      }
+    return undefined
+  },
   act(ctx, s: State, action, previous) {
     sync(ctx, s)
     switch (action.kind) {

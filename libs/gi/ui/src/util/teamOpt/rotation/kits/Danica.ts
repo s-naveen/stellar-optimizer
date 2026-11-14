@@ -246,6 +246,17 @@ export const kit: KitModel = {
         'Danica C4: energy regeneration and the Battle Maid shield are not modelled (energy and shields are outside the damage simulation).'
       )
   },
+  // With the Anchor out her normal attacks are the Anchor's (estimated frames of their own), and
+  // at full Excitement her E is On-Field Skill E2 (Battle Maid; estimated frames of its own)
+  variant(ctx, s: State, action) {
+    if (action.kind === 'skill')
+      return onFieldReady(s, ctx.now)
+        ? { key: 'battleMaid', label: 'On-Field Skill E2', mode: 'Battle Maid' }
+        : undefined
+    if (action.kind === 'normal' && ctx.now < s.anchorEnd)
+      return { key: 'anchor', label: 'Anchor Normal Attack', mode: 'Anchor' }
+    return undefined
+  },
   act(ctx, s: State, action, previous) {
     radiance(ctx)
     switch (action.kind) {

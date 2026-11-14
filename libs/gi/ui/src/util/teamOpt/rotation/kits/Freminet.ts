@@ -323,6 +323,21 @@ export const kit: KitModel = {
     c46Stacks: 0,
     c46End: -1,
   }),
+  // In Pers Timer his E is Shattering Pressure (Level 4 has frames of its own), and at 4 stacks a
+  // normal attack is the Level 4 Shattering Pressure
+  variant(_ctx, s: FreminetState, action) {
+    const mode = 'Pers Timer'
+    const lv4 = {
+      key: 'shatteringLv4',
+      label: 'Shattering Pressure (Level 4)',
+      mode,
+    }
+    if (action.kind === 'normal') return s.stacks >= 4 ? lv4 : undefined
+    if (action.kind !== 'skill' || !s.persOn) return undefined
+    return s.stacks === 4
+      ? lv4
+      : { key: 'shattering', label: 'Shattering Pressure', mode }
+  },
   act(ctx, s: FreminetState, action, previous) {
     switch (action.kind) {
       case 'normal':

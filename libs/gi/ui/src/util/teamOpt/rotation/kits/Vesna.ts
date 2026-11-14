@@ -234,6 +234,21 @@ export const kit: KitModel = {
     s.essence <= 0
       ? s.end
       : c.now,
+  // In Armed for Action her E is Windborne Blade Lv. 1, 2 or 3 (each with frames of its own); in
+  // C6's window after a Lv. 3 her E or normal attack is Windborne Sword: Transpose
+  variant(c, s: State, action) {
+    if (action.kind !== 'skill' && action.kind !== 'normal') return undefined
+    if (transposeReady(c, s))
+      return { key: 'transpose', label: 'Windborne Sword: Transpose' }
+    if (action.kind !== 'skill' || !active(c, s) || s.essence <= 0)
+      return undefined
+    const level = Math.min(3, s.level)
+    return {
+      key: `blade${level}`,
+      label: `Windborne Blade Lv. ${level}`,
+      mode: 'Armed for Action',
+    }
+  },
   act(c, s: State, action) {
     sync(c, s)
     switch (action.kind) {

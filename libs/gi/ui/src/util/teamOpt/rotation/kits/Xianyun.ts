@@ -160,6 +160,37 @@ export const kit: KitModel = {
   }),
   // C1: two charges of White Clouds at Dawn
   charges: (cons) => ({ skill: cons >= 1 ? 2 : 1 }),
+  // In Cloud Transmogrification her 2nd and 3rd E (Skyladder leaps) and the plunge (Driftcloud
+  // Wave, by the leaps used) have frames of their own; under Adeptal Assistance so does her jump
+  variant(ctx, s: XianyunState, action) {
+    const mode = 'Cloud Transmogrification'
+    const cycle = s.presses > 0 && ctx.now < s.cycleEnd
+    switch (action.kind) {
+      case 'skill':
+        // (as act: a press right after her E continues the cycle)
+        return s.lastE && cycle && s.presses < 3
+          ? {
+              key: `leap${s.presses + 1}`,
+              label: `Skyladder (leap ${s.presses + 1})`,
+              mode,
+            }
+          : undefined
+      case 'plunge':
+        return cycle
+          ? {
+              key: `driftcloud${s.presses}`,
+              label: `Driftcloud Wave (${s.presses} leap${s.presses > 1 ? 's' : ''})`,
+              mode,
+            }
+          : undefined
+      case 'jump':
+        return ctx.now < s.airEnd && s.stacks > 0
+          ? { key: 'airborne', label: 'High Jump', mode: 'Adeptal Assistance' }
+          : undefined
+      default:
+        return undefined
+    }
+  },
   act(ctx, s: XianyunState, action, previous) {
     const afterE = s.lastE
     const swapped = s.away

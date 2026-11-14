@@ -241,6 +241,28 @@ export const kit: KitModel = {
         "Itto C6: Kesagiri's 50% chance to keep its stack is taken as every other Charged Attack."
       )
   },
+  // With Superlative Superstrength stacks his charged attack is Arataki Kesagiri: its left and
+  // right combo slashes and its final slash each have frames of their own (Saichimonji Slash is
+  // the ordinary one). His normal attacks keep their frames in the Raging Oni King state
+  variant(_ctx, s: IttoState, action) {
+    if (action.kind !== 'charged') return undefined
+    switch (nextSlash(s.slash, s.sss, s.c6Proc)) {
+      case LEFT:
+        return {
+          key: 'kesagiriLeft',
+          label: 'Arataki Kesagiri Combo Slash (left)',
+        }
+      case RIGHT:
+        return {
+          key: 'kesagiriRight',
+          label: 'Arataki Kesagiri Combo Slash (right)',
+        }
+      case FINAL:
+        return { key: 'kesagiriFinal', label: 'Arataki Kesagiri Final Slash' }
+      default:
+        return undefined
+    }
+  },
   act(ctx, s: IttoState, action, previous) {
     const prevSlash = s.slash
     if (action.kind !== 'charged') {

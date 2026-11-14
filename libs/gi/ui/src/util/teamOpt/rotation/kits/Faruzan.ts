@@ -57,6 +57,15 @@ export const kit: KitModel = {
     c6Ready: -1,
     a4Ready: -1,
   }),
+  // In Manifest Gale her charged attack is the Hurricane Arrow (gcsim's own aimedEFrames)
+  variant(ctx, s: FaruzanState, action) {
+    return action.kind === 'charged' &&
+      s.galeEnd !== undefined &&
+      ctx.now < s.galeEnd &&
+      s.hurricanes > 0
+      ? { key: 'gale', label: 'Hurricane Arrow', mode: 'Manifest Gale' }
+      : undefined
+  },
   act(ctx, s: FaruzanState, action, previous) {
     switch (action.kind) {
       case 'normal':

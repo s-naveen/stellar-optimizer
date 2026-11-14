@@ -160,6 +160,34 @@ function biteTiming(stacks: number): {
       }
 }
 
+/**
+ * The last bite of a `count`-bite string played now (as `bites` plays it) is a Surging Bite: its
+ * frames are the action's
+ */
+function lastBiteSurging(
+  ctx: SimContext,
+  s: MualaniState,
+  count: number
+): boolean {
+  const c = ctx.constellation('Mualani')
+  let momentum = s.momentum
+  let a1Count = s.a1Count
+  let start = 0
+  let surging = false
+  for (let i = 0; i < count; i++) {
+    if (i > 0 && s.points - (ctx.now + start - s.at) / DRAIN <= 0) break
+    const stacks = momentum
+    momentum = 0
+    if (stacks >= 3 && a1Count < 2) {
+      a1Count++
+      if (c >= 2) momentum = Math.min(3, momentum + 1)
+    }
+    surging = stacks >= 3
+    start += biteTiming(stacks).into.normal ?? 0
+  }
+  return surging
+}
+
 /** Bring the blessing's points up to frame `t` */
 function settle(s: MualaniState, t: number) {
   if (!s.blessing || t <= s.at) return
@@ -299,6 +327,28 @@ export const kit: KitModel = {
   }),
   onPartySwap(_ctx, s: MualaniState, _from, to) {
     s.swappedIn = to === 'Mualani'
+  },
+  // In the blessing she surfs on Sharky: her normal attacks are Sharky's Bites (a Surging Bite at
+  // 3 Wave Momentum: its own frames), E ends the blessing, and dash and jump are surfing moves
+  variant(ctx, state: MualaniState, action) {
+    const s = { ...state }
+    settle(s, ctx.now)
+    if (!s.blessing) return undefined
+    const mode = "Nightsoul's Blessing"
+    switch (action.kind) {
+      case 'normal':
+        return lastBiteSurging(ctx, s, action.count ?? 1)
+          ? { key: 'surging', label: "Sharky's Surging Bite", mode }
+          : { key: 'sharky', label: "Sharky's Bite", mode }
+      case 'skill':
+        return { key: 'sharky', label: "End Nightsoul's Blessing", mode }
+      case 'dash':
+        return { key: 'sharky', label: 'Sharky Surfing Dash', mode }
+      case 'jump':
+        return { key: 'sharky', label: 'Sharky Surfing Jump', mode }
+      default:
+        return undefined
+    }
   },
   act(ctx, s: MualaniState, action, previous) {
     settle(s, ctx.now)

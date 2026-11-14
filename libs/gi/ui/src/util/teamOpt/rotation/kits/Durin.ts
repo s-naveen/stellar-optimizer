@@ -153,6 +153,25 @@ export const kit: KitModel = {
     ctx.buff('Durin', ['Durin', cond], value, 0, 360)
     if (c2) ctx.buff('Durin', ['Durin', 'c2AfterBurst'], 'on', 0, 360)
   },
+  // In Essential Transmutation (the window after his E) his normal attack is Denial of Darkness
+  // and his E is Confirmation of Purity, each with frames of its own (his Dark Q keeps the Q's)
+  variant(_ctx, s: DurinState, action) {
+    if (!s.window) return undefined
+    const mode = 'Essential Transmutation'
+    if (action.kind === 'normal')
+      return {
+        key: 'darkness',
+        label: 'Transmutation: Denial of Darkness',
+        mode,
+      }
+    if (action.kind === 'skill')
+      return {
+        key: 'purity',
+        label: 'Transmutation: Confirmation of Purity',
+        mode,
+      }
+    return undefined
+  },
   act(ctx, s: DurinState, action, previous) {
     switch (action.kind) {
       case 'normal': {

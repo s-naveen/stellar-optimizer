@@ -858,6 +858,21 @@ function WriterModal({
       teamId,
     ]
   )
+  // a mode or stance's version of an action (Zibai's Spirit Steed's Stride) has its own frame data:
+  // the versions this rotation played join each member's defaults
+  const frameDefaultsWithVersions = useMemo(() => {
+    const played = result?.sim?.actionData
+    if (!played) return frameDefaults
+    const out = { ...frameDefaults }
+    for (const [member, data] of Object.entries(played))
+      for (const [key, d] of Object.entries(data ?? {}))
+        if (d.variant && out[member as CharacterKey])
+          out[member as CharacterKey] = {
+            ...out[member as CharacterKey],
+            [key]: d,
+          }
+    return out
+  }, [frameDefaults, result])
   const timingEdited =
     pingMs > 0 ||
     timing.swapFrames !== undefined ||
@@ -1217,7 +1232,7 @@ function WriterModal({
                 members={keys}
                 rotation={result?.rotation}
                 sim={result?.sim}
-                defaults={frameDefaults}
+                defaults={frameDefaultsWithVersions}
                 frameData={frameData}
                 setFrameData={setFrameData}
                 pingMs={pingMs}

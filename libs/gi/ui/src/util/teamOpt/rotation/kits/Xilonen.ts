@@ -1,5 +1,6 @@
 import type { CharacterKey } from '@genshin-optimizer/gi/consts'
 import { getCharEle } from '@genshin-optimizer/gi/stats'
+import type { RotationAction } from '../parse'
 import type { KitModel, SimContext } from '../types'
 import { GCSIM, type NormalHit, normalString } from './common'
 
@@ -80,6 +81,13 @@ const nsStartPoints = 45
 const nsDrain = 5
 const nsMul = (c: number) => (c >= 1 ? 0.7 : 1)
 const nsTimer = (c: number) => (c >= 1 ? 783 : 540)
+
+/** Her moves in Nightsoul's Blessing: the buttons with their own frames there */
+const NIGHTSOUL_MOVES: Partial<Record<RotationAction['kind'], string>> = {
+  normal: 'Blade Roller',
+  skill: "End Nightsoul's Blessing",
+  plunge: 'High Plunge (Nightsoul)',
+}
 
 interface Nightsoul {
   /** Points at frame `at` */
@@ -316,6 +324,15 @@ export const kit: KitModel = {
     c6On: false,
     c6Token: 0,
   }),
+  // In Nightsoul's Blessing her normal attacks are Blade Roller, her E ends the blessing and her
+  // plunge is the Nightsoul high plunge: each with frames of its own
+  variant(ctx, s: XilonenState, action) {
+    if (!nsActive(s, ctx.now, ctx.constellation('Xilonen'))) return undefined
+    const label = NIGHTSOUL_MOVES[action.kind]
+    return label
+      ? { key: 'nightsoul', label, mode: "Nightsoul's Blessing" }
+      : undefined
+  },
   act(ctx, s: XilonenState, action, previous) {
     const c = ctx.constellation('Xilonen')
     // Nightsoul ran out (timer or points) before this action: its exit already started the cooldown

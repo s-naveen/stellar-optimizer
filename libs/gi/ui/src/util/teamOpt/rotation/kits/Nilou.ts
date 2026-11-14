@@ -272,6 +272,20 @@ export const kit: KitModel = {
   element: 'hydro',
   source: `${GCSIM}/nilou`,
   init: (): NilouState => ({ step: 0, timed: {}, aura: 0 }),
+  // In Pirouette (and Lunar Prayer after it) her normal attacks are Sword Dance steps, and in
+  // Pirouette her E is a Whirling Steps step: each with its own frames
+  variant(_ctx, s: NilouState, action) {
+    const pirouette = s.timed.pirouette !== undefined
+    if (action.kind === 'normal' && (pirouette || s.timed.lunar !== undefined))
+      return {
+        key: 'dance',
+        label: 'Sword Dance',
+        mode: 'Pirouette or Lunar Prayer',
+      }
+    if (action.kind === 'skill' && pirouette)
+      return { key: 'whirl', label: 'Whirling Steps', mode: 'Pirouette' }
+    return undefined
+  },
   act(ctx, s: NilouState, action, previous) {
     switch (action.kind) {
       case 'normal':

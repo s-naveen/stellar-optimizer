@@ -176,6 +176,17 @@ export const kit: KitModel = {
       ? ctx.now + 1
       : ctx.now
   },
+  // In the blessing his normal attacks are Loop Shots and his E is the Scalespiker Cannon (their own
+  // frames)
+  variant(_ctx, s: KinichState, action) {
+    if (s.blessingEnd === undefined) return undefined
+    const mode = "Nightsoul's Blessing"
+    return action.kind === 'normal'
+      ? { key: 'nightsoul', label: 'Loop Shot', mode }
+      : action.kind === 'skill'
+        ? { key: 'nightsoul', label: 'Scalespiker Cannon', mode }
+        : undefined
+  },
   act(ctx, s: KinichState, action, previous) {
     const c = ctx.constellation('Kinich')
     switch (action.kind) {

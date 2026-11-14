@@ -289,6 +289,12 @@ export const kit: KitModel = {
     upgradeEnd: -1,
     c4Ready: -1,
   }),
+  // For 6 s after her E, E is the special Skill Coda at Dawn's Tolling (its own frames)
+  variant(_ctx, s: OdetteState, action) {
+    return action.kind === 'skill' && s.codaOpen
+      ? { key: 'coda', label: "Adagio: Coda at Dawn's Tolling" }
+      : undefined
+  },
   act(ctx, s: OdetteState, action, previous) {
     switch (action.kind) {
       case 'normal': {

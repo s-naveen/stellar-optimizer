@@ -113,6 +113,19 @@ export const kit: KitModel = {
     )
       s.seeds++
   },
+  // In Shadow Dance with Verdant Dew her charged attack is Phantasm Performance (its own frames)
+  variant(ctx, s: NeferState, action) {
+    return action.kind === 'charged' &&
+      ctx.now < s.shadowEnd &&
+      s.performances < PERFORMANCES &&
+      ctx.dew >= 1
+      ? {
+          key: 'phantasm',
+          label: 'Phantasm Performance',
+          mode: 'Shadow Dance',
+        }
+      : undefined
+  },
   act(ctx, s: NeferState, action, previous) {
     const c = ctx.constellation('Nefer')
     const shadow = ctx.now < s.shadowEnd && s.performances < PERFORMANCES

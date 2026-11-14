@@ -148,6 +148,13 @@ export const kit: KitModel = {
     s.c6Before <= 1
       ? 0.3
       : 0,
+  // The 2nd and 3rd presses of Searing Onslaught's combo are other slashes, with frames of their own
+  variant(_ctx, s: DilucState, action) {
+    if (action.kind !== 'skill' || s.casts === 0) return undefined
+    return s.casts === 1
+      ? { key: 'onslaught2', label: 'Searing Onslaught 2-Hit' }
+      : { key: 'onslaught3', label: 'Searing Onslaught 3-Hit' }
+  },
   act(ctx, s: DilucState, action, previous) {
     const c = ctx.constellation('Diluc')
     switch (action.kind) {

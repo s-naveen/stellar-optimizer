@@ -152,6 +152,8 @@ interface SkirkState {
   /** The last normal attack was in the flash, and its last step's index */
   prevNASkill: boolean
   prevNAIndex: number
+  /** The party's last played action was a normal attack (act's `previous`, for `variant`) */
+  lastNormal: boolean
   /** A4: each party member's stack runs until this frame */
   a4Until: Record<string, number>
   /** A1: the Void Rifts on the field (their creation frames), and the creation ICD */
@@ -375,6 +377,7 @@ export const kit: KitModel = {
     flashGen: 0,
     prevNASkill: false,
     prevNAIndex: 0,
+    lastNormal: false,
     a4Until: {},
     rifts: [],
     riftIcdUntil: -1e9,
@@ -387,6 +390,36 @@ export const kit: KitModel = {
     sever: [],
     severIcdUntil: -1e9,
   }),
+  // In the Seven-Phase Flash her normal and charged attacks (also a charged attack right after a
+  // flash N1-N4), Q (Havoc: Extinction) and dash have frames of their own
+  variant(ctx, s: SkirkState, action) {
+    const flash = inFlash(s, ctx.now)
+    const mode = 'Seven-Phase Flash'
+    switch (action.kind) {
+      case 'normal':
+        return flash
+          ? { key: 'sevenPhase', label: 'Seven-Phase Flash', mode }
+          : undefined
+      case 'charged':
+        return flash || (s.lastNormal && s.prevNASkill && s.prevNAIndex < 4)
+          ? {
+              key: 'sevenPhase',
+              label: 'Seven-Phase Flash Charged Attack',
+              mode,
+            }
+          : undefined
+      case 'burst':
+        return flash
+          ? { key: 'sevenPhase', label: 'Havoc: Extinction', mode }
+          : undefined
+      case 'dash':
+        return flash
+          ? { key: 'sevenPhase', label: 'Seven-Phase Flash Dash', mode }
+          : undefined
+      default:
+        return undefined
+    }
+  },
   act(ctx, s: SkirkState, action, previous) {
     const now = ctx.now
     const c = ctx.constellation('Skirk')
@@ -662,5 +695,8 @@ export const kit: KitModel = {
   onSwapOut(ctx: SimContext, s: SkirkState) {
     // leaving the field ends the flash (its Subtlety is drained)
     exitFlash(ctx, s)
+  },
+  onPartyAction(_ctx, s: SkirkState, _actor, action) {
+    s.lastNormal = action.kind === 'normal'
   },
 }

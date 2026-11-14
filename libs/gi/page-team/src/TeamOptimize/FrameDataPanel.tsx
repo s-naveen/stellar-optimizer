@@ -423,11 +423,15 @@ export function FrameDataPanel({
               open={openAction}
               setOpen={setOpenAction}
               used={
-                new Set(
-                  (rotation?.steps ?? [])
+                new Set([
+                  ...(rotation?.steps ?? [])
                     .filter((s) => s.characterKey === member)
-                    .flatMap((s) => s.actions.map(actionFrameKey))
-                )
+                    .flatMap((s) => s.actions.map((a) => actionFrameKey(a))),
+                  // (with the versions its kit played: Spirit Steed's Stride…)
+                  ...(sim?.actions ?? [])
+                    .filter((a) => a.characterKey === member && a.frameKey)
+                    .map((a) => a.frameKey!),
+                ])
               }
               setEdits={(edits) =>
                 setFrameData({
@@ -492,10 +496,17 @@ function CharacterFrames({
   setOpen: (key: string | undefined) => void
 }) {
   const { t } = useTranslation('page_team')
-  const rows = FRAME_ACTIONS.map((action) => ({
-    action,
-    key: actionFrameKey(action),
-  })).filter(({ key }) => defaults?.[key])
+  // each action, then the versions a mode or stance makes of it (Spirit Steed's Stride after E)
+  const rows = FRAME_ACTIONS.flatMap((action) => {
+    const key = actionFrameKey(action)
+    const versions = Object.entries(defaults ?? {})
+      .filter(([k, d]) => k.startsWith(`${key}@`) && d.variant)
+      .map(([k, d]) => ({ action, key: k, variant: d.variant }))
+    return [
+      ...(defaults?.[key] ? [{ action, key, variant: undefined }] : []),
+      ...versions,
+    ]
+  })
   // an action opened from a step: bring it into view
   useEffect(() => {
     if (!open) return
@@ -558,8 +569,9 @@ function CharacterFrames({
         </Label>
         <span />
       </Box>
-      {rows.map(({ action, key }) => {
+      {rows.map(({ action, key, variant }) => {
         const d = defaults[key]!
+        const name = variant?.label ?? actionName(t, action)
         const e = edits[key] ?? {}
         const cancelEdits = Object.keys(e.framesInto ?? {}).length
         const isOpen = open === key
@@ -607,7 +619,14 @@ function CharacterFrames({
                 </Box>
                 <Box
                   component="span"
-                  title={actionName(t, action)}
+                  title={
+                    variant?.mode
+                      ? `${name} (${t('teamOpt.frames.inMode', {
+                          defaultValue: 'in {{mode}}',
+                          mode: variant.mode,
+                        })})`
+                      : name
+                  }
                   sx={{
                     minWidth: 0,
                     overflow: 'hidden',
@@ -615,7 +634,18 @@ function CharacterFrames({
                     whiteSpace: 'nowrap',
                   }}
                 >
-                  {actionName(t, action)}
+                  {name}
+                  {variant?.mode && (
+                    <Box
+                      component="span"
+                      sx={{ ml: 0.75, fontSize: 12, color: 'text.secondary' }}
+                    >
+                      {t('teamOpt.frames.inMode', {
+                        defaultValue: 'in {{mode}}',
+                        mode: variant.mode,
+                      })}
+                    </Box>
+                  )}
                 </Box>
                 {used.has(key) && (
                   <Box
@@ -637,14 +667,14 @@ function CharacterFrames({
                 defaultValue={d.frames}
                 min={1}
                 onChange={(v) => update(key, { ...e, frames: v })}
-                label={`${actionName(t, action)} ${t('teamOpt.frames.length', 'Length')}`}
+                label={`${name} ${t('teamOpt.frames.length', 'Length')}`}
               />
               <FramesInput
                 value={e.hitDelay ?? 0}
                 defaultValue={0}
                 min={0}
                 onChange={(v) => update(key, { ...e, hitDelay: v })}
-                label={`${actionName(t, action)} ${t('teamOpt.frames.hitDelay', 'Hit delay')}`}
+                label={`${name} ${t('teamOpt.frames.hitDelay', 'Hit delay')}`}
               />
               <Tooltip
                 arrow
@@ -656,7 +686,7 @@ function CharacterFrames({
                   size="small"
                   onClick={() => setOpen(isOpen ? undefined : key)}
                   aria-expanded={isOpen}
-                  aria-label={`${actionName(t, action)} ${t('teamOpt.frames.cancels', 'Cancels')}`}
+                  aria-label={`${name} ${t('teamOpt.frames.cancels', 'Cancels')}`}
                   sx={{
                     p: 0.25,
                     position: 'relative',
@@ -738,7 +768,7 @@ function CharacterFrames({
                               framesInto: { ...e.framesInto, [k]: v },
                             })
                           }
-                          label={`${actionName(t, action)} → ${cancelName(t, k)}`}
+                          label={`${name} → ${cancelName(t, k)}`}
                         />
                       </Box>
                     )
@@ -758,7 +788,7 @@ function CharacterFrames({
                   >
                     {t('teamOpt.frames.resetAction', {
                       defaultValue: 'Reset {{action}}',
-                      action: actionName(t, action),
+                      action: name,
                     })}
                   </Button>
                 )}

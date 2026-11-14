@@ -316,6 +316,21 @@ export const kit: KitModel = {
       s.c4Generated = true
     }
   },
+  // Her charged attack in the blessing, and her first normal attack within 5 s of her E, is a Swift
+  // Stormflight (its own frames)
+  variant(ctx, s: IansanState, action) {
+    const swift =
+      action.kind === 'charged'
+        ? s.blessing || ctx.now < s.fastUntil
+        : action.kind === 'normal' && ctx.now < s.fastUntil
+    return swift
+      ? {
+          key: 'swift',
+          label: 'Swift Stormflight',
+          mode: "Nightsoul's Blessing",
+        }
+      : undefined
+  },
   act(ctx, s: IansanState, action, previous) {
     ctx.note(
       "Iansan: Nightsoul points from the active member's movement are not modelled; A1 is assumed (Ascension 1+)."
