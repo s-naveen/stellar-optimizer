@@ -27,6 +27,30 @@ describe('Natlan team queue and snapshot boundaries', () => {
     expect(burst.t).toBe(178)
   })
 
+  it('lets Mualani surf and bite in every rotation: the blessing’s moves set her Skill cooldown, they do not queue more', () => {
+    const members: CharacterKey[] = ['Mualani', 'Furina', 'Xilonen', 'Xiangling']
+    const sim = simulateRotation({
+      rotation: parseRotation(
+        'Furina E Q -> Xilonen E N2 -> Xiangling E Q -> Mualani Q E J J N1 J J N1 J J N1 -> Furina',
+        members.map((characterKey) => ({ characterKey, name: characterKey }))
+      ),
+      members,
+      elements: {
+        Mualani: 'hydro',
+        Furina: 'hydro',
+        Xilonen: 'geo',
+        Xiangling: 'pyro',
+      },
+      constellations: {},
+    })
+    expect(sim.warnings.join(' ')).not.toMatch(/could not become ready/)
+    // the counted rotation: three Surging Bites (two jumps, 3 Wave Momentum, before each)
+    expect(
+      sim.hits.filter((h) => h.label === "Sharky's Surging Bite")
+    ).toHaveLength(3)
+    expect(sim.frames / 60).toBeLessThan(25)
+  })
+
   it('keeps Xilonen’s first crystallizing hit from gaining its own Scroll buff', () => {
     const members: CharacterKey[] = ['Xilonen', 'SangonomiyaKokomi']
     const hydro: KitModel = {

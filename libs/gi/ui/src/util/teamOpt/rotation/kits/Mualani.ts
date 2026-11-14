@@ -211,6 +211,14 @@ function skillCd(s: MualaniState, now: number, swapAt: number) {
   return { key: 'skill', frames: end + 6 * 60 - now }
 }
 
+/**
+ * The blessing's actions move that cooldown's start (to when the blessing now ends): it is set
+ * again, not spent again (a returned `cooldown` would queue one more 6 s+ cooldown each time)
+ */
+function resetSkillCd(ctx: SimContext, cd: { key: string; frames: number }) {
+  ctx.setCooldown(cd.key, cd.frames)
+}
+
 /** Wave Momentum: while she surfs (dash, jump in the blessing), +1 stack per 0.7 s, max 3 */
 function surf(s: MualaniState, from: number, to: number) {
   let t = from
@@ -290,12 +298,12 @@ function bites(ctx: SimContext, s: MualaniState, count: number): ActionResult {
   s.momentum = momentum
   settle(s, ctx.now + lastStart)
   const ls = lastStart
+  if (s.blessing) resetSkillCd(ctx, skillCd(s, ctx.now, ls + last.frames))
   return {
     frames: ls + last.frames,
     framesInto: Object.fromEntries(
       Object.entries(last.into).map(([k, v]) => [k, ls + (v as number)])
     ),
-    cooldown: s.blessing ? skillCd(s, ctx.now, ls + last.frames) : undefined,
   }
 }
 
@@ -407,10 +415,10 @@ export const kit: KitModel = {
         if (s.blessing) {
           // E in the blessing ends it: the 6 s Skill cooldown starts now
           endBlessing(s)
+          resetSkillCd(ctx, { key: 'skill', frames: 6 * 60 })
           return {
             frames: 17,
             framesInto: { normal: 7, burst: 4, dash: 13, jump: 12, swap: 11 },
-            cooldown: { key: 'skill', frames: 6 * 60 },
           }
         }
         // E starts the blessing with 60 points, 2 frames after the cast (C2: 2 Wave Momentum)
@@ -470,18 +478,12 @@ export const kit: KitModel = {
         const framesInto = { normal: 3, skill: 2, burst: 4, jump: 2, swap: 1 }
         if (s.points <= 0) {
           endBlessing(s)
-          return {
-            frames: 24,
-            framesInto,
-            cooldown: { key: 'skill', frames: 6 * 60 },
-          }
+          resetSkillCd(ctx, { key: 'skill', frames: 6 * 60 })
+          return { frames: 24, framesInto }
         }
         surf(s, ctx.now, ctx.now + 24)
-        return {
-          frames: 24,
-          framesInto,
-          cooldown: skillCd(s, ctx.now, 1),
-        }
+        resetSkillCd(ctx, skillCd(s, ctx.now, 1))
+        return { frames: 24, framesInto }
       }
       case 'jump': {
         if (!s.blessing)
@@ -498,18 +500,12 @@ export const kit: KitModel = {
         }
         if (s.points <= 0) {
           endBlessing(s)
-          return {
-            frames: 54,
-            framesInto,
-            cooldown: { key: 'skill', frames: 6 * 60 },
-          }
+          resetSkillCd(ctx, { key: 'skill', frames: 6 * 60 })
+          return { frames: 54, framesInto }
         }
         surf(s, ctx.now, ctx.now + 54)
-        return {
-          frames: 54,
-          framesInto,
-          cooldown: skillCd(s, ctx.now, 48),
-        }
+        resetSkillCd(ctx, skillCd(s, ctx.now, 48))
+        return { frames: 54, framesInto }
       }
       case 'plunge':
         // gcsim has no plunge frames for Mualani (no plunge.go): not modelled
