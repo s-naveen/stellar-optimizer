@@ -1652,13 +1652,6 @@ export function KqmResults({
           )
         })}
       </Box>
-      <KqmTopTeams
-        result={result}
-        view={view}
-        rotationTime={rotationTime}
-        disabled={stale || running}
-        onPick={pickTeam}
-      />
       {compared && (
         <KqmCompare
           key={`${compared}-${seconds}-${picked}`}
@@ -1672,6 +1665,14 @@ export function KqmResults({
           onView={setComparing}
         />
       )}
+      {/* (supplemental: the best teams that change one member, below the inspector) */}
+      <KqmTopTeams
+        result={result}
+        view={view}
+        rotationTime={rotationTime}
+        disabled={stale || running}
+        onPick={pickTeam}
+      />
     </Box>
   )
 }

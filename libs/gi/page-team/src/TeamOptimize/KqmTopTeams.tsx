@@ -1,7 +1,15 @@
 import type { CharacterKey } from '@genshin-optimizer/gi/consts'
 import type { KqmResult, KqmTeamOption } from '@genshin-optimizer/gi/ui'
 import { kqmSetsId, kqmTopTeams } from '@genshin-optimizer/gi/ui'
-import { alpha, Box, Button, ButtonBase, Typography } from '@mui/material'
+import {
+  alpha,
+  Box,
+  Button,
+  ButtonBase,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { formatGain, formatRate } from './format'
@@ -12,6 +20,13 @@ import { FieldLabel, focusSx, numSx, quickSx, tokens } from './ui'
 /** Rows shown at first, and at most */
 const SHOWN = 5
 const MAX = 10
+
+/** How far a team is from the best: −0.4%; under 0.1%, two decimals (−0.04%) */
+function gap(ratio: number) {
+  const pct = ratio * 100
+  if (Math.abs(pct) >= 0.1 || pct === 0) return formatGain(ratio)
+  return `${pct > 0 ? '+' : '−'}${Math.abs(pct).toFixed(2)}%`
+}
 
 const gearId = (
   b: KqmTeamOption['builds'][CharacterKey] | undefined
@@ -38,6 +53,10 @@ export function KqmTopTeams({
   onPick: (option: KqmTeamOption) => void
 }) {
   const { t } = useTranslation('page_team')
+  const theme = useTheme()
+  // (icons a size apart: the changed member's weapon and sets readable at a glance)
+  const narrow = useMediaQuery(theme.breakpoints.down('sm'))
+  const icon = narrow ? 30 : 40
   const [more, setMore] = useState(false)
   const options = useMemo(() => kqmTopTeams(result, MAX), [result])
   if (options.length < 2) return null
@@ -54,7 +73,7 @@ export function KqmTopTeams({
     <Box
       component="section"
       aria-label={t('teamOpt.kqm.topTeams', 'Top teams')}
-      sx={{ mb: 2 }}
+      sx={{ mt: 3 }}
     >
       <FieldLabel
         tip={t(
@@ -95,11 +114,11 @@ export function KqmTopTeams({
               onClick={() => onPick(option)}
               sx={(theme) => ({
                 display: 'grid',
-                gridTemplateColumns: '28px minmax(0, 1fr) auto',
+                gridTemplateColumns: '32px minmax(0, 1fr) auto',
                 alignItems: 'center',
-                columnGap: 1.25,
-                px: 1.25,
-                py: 0.75,
+                columnGap: 1.5,
+                px: 1.5,
+                py: 1,
                 textAlign: 'left',
                 borderTop: i ? `1px solid ${tokens.hairline}` : undefined,
                 bgcolor: selected
@@ -129,8 +148,8 @@ export function KqmTopTeams({
                 sx={{
                   display: 'flex',
                   flexWrap: 'wrap',
-                  columnGap: 1,
-                  rowGap: 0.5,
+                  columnGap: 1.5,
+                  rowGap: 0.75,
                   minWidth: 0,
                 }}
               >
@@ -145,27 +164,37 @@ export function KqmTopTeams({
                       sx={(theme) => ({
                         display: 'flex',
                         alignItems: 'center',
-                        gap: 0.5,
-                        p: 0.25,
-                        pr: 0.5,
+                        gap: 0.75,
+                        p: 0.5,
+                        pr: 0.75,
                         borderRadius: tokens.radius.inset,
-                        // (the member this team changes, against the best one)
+                        ...quickSx,
+                        // the member this team changes, against the best one: in full, outlined;
+                        // the others as in the best team, much fainter
                         ...(changed && {
                           bgcolor: alpha(theme.palette.primary.main, 0.14),
-                          boxShadow: `inset 0 0 0 1px ${alpha(theme.palette.primary.main, 0.55)}`,
+                          boxShadow: `inset 0 0 0 1.5px ${alpha(theme.palette.primary.main, 0.7)}`,
                         }),
-                        opacity: option.changed && !changed ? 0.75 : 1,
+                        ...(option.changed &&
+                          !changed && {
+                            opacity: 0.3,
+                            filter: 'grayscale(0.6)',
+                          }),
                       })}
                     >
-                      <MemberAvatar characterKey={ck} size={20} />
-                      <KqmGearIcons characterKey={ck} build={build} size={24} />
+                      <MemberAvatar characterKey={ck} size={icon - 8} />
+                      <KqmGearIcons
+                        characterKey={ck}
+                        build={build}
+                        size={icon}
+                      />
                     </Box>
                   )
                 })}
               </Box>
               <Box sx={{ textAlign: 'right', ...numSx }}>
                 <Typography
-                  sx={{ fontSize: 14, fontWeight: 650, lineHeight: 1.3 }}
+                  sx={{ fontSize: 15, fontWeight: 650, lineHeight: 1.3 }}
                 >
                   {value}
                 </Typography>
@@ -177,7 +206,7 @@ export function KqmTopTeams({
                       color: 'text.secondary',
                     }}
                   >
-                    {formatGain(option.total / best - 1)}
+                    {gap(option.total / best - 1)}
                   </Typography>
                 )}
               </Box>
