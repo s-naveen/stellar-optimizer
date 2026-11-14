@@ -63,9 +63,9 @@ const PRESETS = [
     swap: 8,
     delay: 5,
     labelKey: 'teamOpt.frames.presetHuman',
-    label: 'gcsim human',
+    label: 'Human',
     tipKey: 'teamOpt.frames.presetHumanTip',
-    tip: 'gcsim’s “human” frame defaults: an 8-frame swap and 5 frames (about 83 ms) added before every action, for real-player inputs and ping.',
+    tip: 'Real-player inputs: an 8-frame swap and 5 frames (about 83 ms) added before every action, for reaction time and ping.',
   },
 ] as const
 
@@ -242,7 +242,7 @@ export function FrameDataPanel({
             label={t('teamOpt.frames.ping', 'Ping')}
             tip={t(
               'teamOpt.frames.pingTip',
-              'Your input delay or ping. Every action and swap starts this much later (60 ms ≈ 4 frames). gcsim assumes none by default (0), as KQM’s standard does; gcsim’s “human” preset uses 5 frames (83 ms).'
+              'Your input delay or ping. Every action and swap starts this much later (60 ms ≈ 4 frames). KQM standard assumes none (0); Human uses 5 frames (83 ms).'
             )}
           >
             <FramesInput
