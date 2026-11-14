@@ -673,9 +673,8 @@ export function RotationConfigureButton({
   disabled?: boolean
 }) {
   const { t } = useTranslation('page_team')
-  const { text } = useRotationText(teamId)
   const { edited } = useRotationSettings(teamId)
-  if (!text.trim()) return null
+  // (shown before a rotation is written too: the writer is where one is written)
   return (
     <Tooltip
       arrow
