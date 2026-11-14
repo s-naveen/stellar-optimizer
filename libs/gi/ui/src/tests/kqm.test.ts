@@ -604,21 +604,15 @@ describe('KQM Standards builds', () => {
       expect(build!.sets).toEqual({})
   }, 300_000)
 
-  it('requires ER targets for every member, including kept members', async () => {
+  it('uses 100% (no requirement) for a member without a valid ER target', async () => {
     const { database, teamId, teamOpt } = setup()
-    for (const value of [
-      undefined,
-      0,
-      99,
-      Number.NaN,
-      Number.POSITIVE_INFINITY,
-    ]) {
-      teamOpt.kqm!.energyRecharge = { [ayaka]: 100, [shenhe]: value as number }
-      await expect(
-        run(database, teamId, { ...teamOpt, keep: [shenhe] })
-      ).rejects.toThrow('Enter an ER requirement')
+    for (const value of [undefined, 99]) {
+      teamOpt.kqm!.energyRecharge = { [ayaka]: 130, [shenhe]: value as number }
+      const result = (await run(database, teamId, teamOpt))!
+      expect(result.energyRecharge[shenhe]!.target).toBe(100)
+      expect(result.energyRecharge[ayaka]!.target).toBe(130)
     }
-  })
+  }, 300_000)
 
   it('allocates rolls to an explicit ER target and reports impossible targets', async () => {
     const { database, teamId, ayakaId, teamOpt } = setup()

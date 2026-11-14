@@ -13,6 +13,8 @@ import {
   CharacterName,
   KQM_TALENT_DEFAULT,
   kqmConstellation,
+  KQM_ER_DEFAULT,
+  kqmEnergyRequirement,
   kqmHasEnergyRequirement,
   kqmMemberConstellation,
   kqmTalentLevel,
@@ -196,20 +198,21 @@ export function KqmSettings({
   const missingWeapons = optimized.filter(
     (m) => !kqmWeapons(m.characterKey, kqm).length
   )
-  const missingEr = members.filter(
-    (m) => !kqmHasEnergyRequirement(kqm.energyRecharge?.[m.characterKey])
-  )
-  const blocked =
-    !optimized.length || !!missingWeapons.length || !!missingEr.length
   const [erText, setErText] = useState<Partial<Record<CharacterKey, string>>>(
     () =>
       Object.fromEntries(
         members.map(({ characterKey }) => [
           characterKey,
-          teamOpt.kqm?.energyRecharge?.[characterKey]?.toString() ?? '',
+          kqmEnergyRequirement(teamOpt.kqm, characterKey).toString(),
         ])
       )
   )
+  // a target typed below 100% (an empty field is the 100% default, no requirement)
+  const erTextInvalid = (text = '') =>
+    !!text.trim() && !kqmHasEnergyRequirement(Number(text.replace(',', '.')))
+  const missingEr = members.filter((m) => erTextInvalid(erText[m.characterKey]))
+  const blocked =
+    !optimized.length || !!missingWeapons.length || !!missingEr.length
   const setEr = (characterKey: CharacterKey, text: string) => {
     setErText((previous) => ({ ...previous, [characterKey]: text }))
     const value = text.trim() ? Number(text.replace(',', '.')) : undefined
@@ -227,7 +230,7 @@ export function KqmSettings({
         Object.fromEntries(
           members.map(({ characterKey }) => [
             characterKey,
-            teamOpt.kqm?.energyRecharge?.[characterKey]?.toString() ?? '',
+            kqmEnergyRequirement(teamOpt.kqm, characterKey).toString(),
           ])
         )
       )
@@ -268,12 +271,12 @@ export function KqmSettings({
         : calculatorDirty
           ? t('teamOpt.kqm.calc.review', 'Apply ER changes')
           : missingEr.length
-            ? t('teamOpt.kqm.erMissingShort', {
-                defaultValue: '{{count}} ER targets missing',
+            ? t('teamOpt.kqm.erInvalidShort', {
+                defaultValue: '{{count}} ER targets below 100%',
                 count: missingEr.length,
               })
             : ''
-  // the first problem is the missing ER targets: one click fills them with 100% (no requirement)
+  // the first problem is ER targets below 100%: one click sets them to 100% (no requirement)
   const problemIsEr =
     !!canRun &&
     !!optimized.length &&
@@ -508,7 +511,7 @@ export function KqmSettings({
             sx={{ gridArea: 'er', justifySelf: 'end' }}
             tip={t(
               'teamOpt.kqm.erHelp',
-              'Enter total ER% for every member, or calculate it for this rotation. Use 100% if no extra ER is needed. The optimizer meets ER first, then uses the remaining rolls for damage.'
+              'Total ER% each member needs, or calculate it for this rotation. 100% (the default) means no extra ER. The optimizer meets ER first, then uses the remaining rolls for damage.'
             )}
           >
             {t('teamOpt.kqm.minEr', 'Min ER')}
@@ -516,13 +519,10 @@ export function KqmSettings({
         </Box>
         {members.map(({ characterKey }, index) => {
           const text = erText[characterKey] ?? ''
-          const invalid =
-            !!text &&
-            !kqmHasEnergyRequirement(kqm.energyRecharge?.[characterKey])
-          // (marked only when the missing targets are what blocks Generate)
+          const invalid = erTextInvalid(text)
+          // (marked only when the invalid targets are what blocks Generate)
           const missing =
             problemIsEr &&
-            !text &&
             missingEr.some((m) => m.characterKey === characterKey)
           const cons = kqmMemberConstellation(characterKey, kqm)
           const standard = kqmConstellation(characterKey)
@@ -582,7 +582,7 @@ export function KqmSettings({
                     fullWidth
                     value={text}
                     error={invalid}
-                    placeholder="—"
+                    placeholder={`${KQM_ER_DEFAULT}`}
                     onChange={(e) => setEr(characterKey, e.target.value)}
                     inputProps={{
                       inputMode: 'decimal',
@@ -889,8 +889,8 @@ export function KqmSetupSummary({
       {members.map(({ characterKey }) => {
         const cons = kqmMemberConstellation(characterKey, kqm)
         const nowCons = nowKqm && kqmMemberConstellation(characterKey, nowKqm)
-        const er = kqm.energyRecharge?.[characterKey]
-        const nowEr = nowKqm?.energyRecharge?.[characterKey]
+        const er = kqmEnergyRequirement(kqm, characterKey)
+        const nowEr = nowKqm && kqmEnergyRequirement(nowKqm, characterKey)
         return (
           <Tooltip
             key={characterKey}
@@ -898,7 +898,7 @@ export function KqmSetupSummary({
             title={
               <>
                 <CharacterName characterKey={characterKey} gender={gender} />
-                {`: C${cons}, ${t('teamOpt.kqm.minEr', 'Min ER')} ${er ?? '—'}%`}
+                {`: C${cons}, ${t('teamOpt.kqm.minEr', 'Min ER')} ${er}%`}
               </>
             }
           >
@@ -911,9 +911,9 @@ export function KqmSetupSummary({
                 nowCons !== cons &&
                 nowIs(`C${nowCons}`)}
               <Box component="span">
-                {t('teamOpt.kqm.erShort', 'ER')} {er ?? '—'}%
+                {t('teamOpt.kqm.erShort', 'ER')} {er}%
               </Box>
-              {nowKqm && nowEr !== er && nowIs(`${nowEr ?? '—'}%`)}
+              {nowKqm && nowEr !== er && nowIs(`${nowEr}%`)}
             </Box>
           </Tooltip>
         )

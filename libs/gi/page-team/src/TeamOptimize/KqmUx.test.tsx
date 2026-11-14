@@ -117,6 +117,16 @@ vi.mock('@genshin-optimizer/gi/ui', () => ({
   ) => kqm?.constellations?.[key] ?? (key === 'Bennett' ? 6 : 0),
   kqmHasEnergyRequirement: (value: unknown) =>
     typeof value === 'number' && Number.isFinite(value) && value >= 100,
+  KQM_ER_DEFAULT: 100,
+  kqmEnergyRequirement: (
+    kqm: { energyRecharge?: Record<string, number> } | undefined,
+    key: string
+  ) => {
+    const value = kqm?.energyRecharge?.[key]
+    return typeof value === 'number' && Number.isFinite(value) && value >= 100
+      ? value
+      : 100
+  },
   kqmWeapons: () => [{ key: 'AmenomaKageuchi', refinement: 5 }],
   kqmSetsId: (sets: object) =>
     Object.entries(sets)
@@ -287,20 +297,21 @@ afterEach(() => {
 })
 
 describe('KQM first-time setup', () => {
-  it('keeps four ER inputs and the primary action together, requiring every target', () => {
+  it('starts every ER target at 100%, blocks one typed below it, and runs with the targets typed', () => {
     const start = vi.fn()
     render(<Setup start={start} />, { wrapper: wrap })
     const generate = screen.getByRole('button', {
       name: 'Generate builds',
     }) as HTMLButtonElement
-    expect(generate.disabled).toBe(true)
+    const input = (key: string) =>
+      screen.getByLabelText(`${key} minimum ER (%)`) as HTMLInputElement
+    for (const key of keys) expect(input(key).value).toBe('100')
+    expect(generate.disabled).toBe(false)
     expect(screen.queryByRole('tab')).toBeNull()
-    for (const [index, key] of keys.entries()) {
-      fireEvent.change(screen.getByLabelText(`${key} minimum ER (%)`), {
-        target: { value: '140' },
-      })
-      if (index < 3) expect(generate.disabled).toBe(true)
-    }
+    fireEvent.change(input(keys[0]), { target: { value: '90' } })
+    expect(generate.disabled).toBe(true)
+    for (const key of keys)
+      fireEvent.change(input(key), { target: { value: '140' } })
     expect(generate.disabled).toBe(false)
     fireEvent.click(generate)
     expect(start).toHaveBeenCalledWith(

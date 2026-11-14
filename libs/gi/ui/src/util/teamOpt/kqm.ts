@@ -107,9 +107,20 @@ export const kqmTalentLevel = (
   kqm: Pick<TeamOptKqm, 'talents'> | undefined
 ): 9 | 10 => kqm?.talents ?? KQM_TALENT_DEFAULT
 
-/** Every member needs an explicit, finite total ER target, including kept members. */
+/** A valid total ER target: finite and at least 100%. */
 export const kqmHasEnergyRequirement = (value: unknown): value is number =>
   typeof value === 'number' && Number.isFinite(value) && value >= 100
+
+/** A member's total ER target until one is set in KQM Setup: 100%, i.e. no requirement */
+export const KQM_ER_DEFAULT = 100
+/** A member's total ER target: the one set in KQM Setup, else `KQM_ER_DEFAULT` */
+export const kqmEnergyRequirement = (
+  kqm: Pick<TeamOptKqm, 'energyRecharge'> | undefined,
+  characterKey: CharacterKey
+): number => {
+  const value = kqm?.energyRecharge?.[characterKey]
+  return kqmHasEnergyRequirement(value) ? value : KQM_ER_DEFAULT
+}
 
 export const kqmSandsKeys = [
   'atk_',
@@ -850,11 +861,6 @@ async function runKqm({
   // (Team optimize's kept members are a setting of that tab only)
   const optimized = members
   if (!optimized.length) return undefined
-  for (const { characterKey } of members)
-    if (!kqmHasEnergyRequirement(kqm.energyRecharge?.[characterKey]))
-      throw new Error(
-        `Enter an ER requirement of at least 100% for ${characterKey} in KQM Setup.`
-      )
   for (const m of optimized)
     if (!kqmWeapons(m.characterKey, kqm).length)
       throw new Error(
@@ -900,7 +906,7 @@ async function runKqm({
         }
       }
       filters[JSON.stringify(['basic', 'enerRech_'])] = [
-        { value: kqm.energyRecharge![characterKey]!, disabled: false },
+        { value: kqmEnergyRequirement(kqm, characterKey), disabled: false },
       ]
       return [characterKey, filters]
     })
@@ -1683,7 +1689,9 @@ async function runKqm({
     [])
     if (path.at(-1) === 'enerRech_')
       energyRecharge[characterKey] = {
-        target: calculator ? min * 100 : kqm.energyRecharge![characterKey]!,
+        target: calculator
+          ? min * 100
+          : kqmEnergyRequirement(kqm, characterKey),
         minimum: min * 100,
         value: constValue(value) * 100,
       }

@@ -606,11 +606,10 @@
       },
       "talentRule": "Base talents 10/10/10",
       "erTitle": "Energy Recharge requirements",
-      "erHelp": "Enter total ER% for every member, or calculate it for this rotation. Use 100% if no extra ER is needed. The optimizer meets ER first, then uses the remaining rolls for damage.",
+      "erHelp": "Total ER% each member needs, or calculate it for this rotation. 100% (the default) means no extra ER. The optimizer meets ER first, then uses the remaining rolls for damage.",
       "erAllocate": "Rolls allocated to meet this target",
       "erLabel": "ER target",
       "erInvalid": "Enter 100 or more",
-      "erMissing": "Enter an ER requirement of at least 100% for every member in Setup.",
       "erInput": "{{character}} minimum ER (%)",
       "erResult": "ER {{value}}% / {{minimum}}% required",
       "erRelief": "{{target}}% target, reduced by weapon energy",
@@ -620,9 +619,9 @@
       "manual": "Manual",
       "noMembersShort": "Select a KQM member",
       "noWeaponsShort": "Select weapons",
-      "erMissingShort": "{{count}} ER targets missing",
-      "erMissingShort_one": "{{count}} ER target missing",
-      "erMissingShort_other": "{{count}} ER targets missing"
+      "erInvalidShort": "{{count}} ER targets below 100%",
+      "erInvalidShort_one": "{{count}} ER target below 100%",
+      "erInvalidShort_other": "{{count}} ER targets below 100%"
     }
   }
 }
