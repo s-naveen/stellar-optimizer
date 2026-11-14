@@ -4,6 +4,25 @@ Every release of [Stellar Optimizer](https://gi-beta73.github.io/). The app show
 (home page, and the version in the footer). Generated from
 `libs/gi/ui/src/changelog/changelog.json` by `tools/site/release.mjs`: edit that file, not this one.
 
+## [v1.3.2](https://github.com/s-naveen/stellar-optimizer/releases/tag/v1.3.2) (2026-11-14)
+
+### New
+
+- Rotation writer: a wait while Mualani surfs in Nightsoul's Blessing builds Wave Momentum, as walking does in game, so "E W90f N1" plays a Surging Bite. Waits can now be written in frames: W90f is 90 frames.
+- KQM Theorycrafting: member cards show the weapon and artifact sets of each build, and the constellation as a badge.
+
+### Improved
+
+- KQM Theorycrafting generates builds about 4 times faster, with the same results.
+
+### Fixed
+
+- KQM Theorycrafting now counts what a set or weapon does in the rotation before it is picked, so sets like Viridescent Venerer are chosen when their effect helps the team (Stellar Swirl teams no longer stay on Blizzard Strayer).
+- KQM Theorycrafting: picking another weapon or set in a result plays the rotation again with it, so the buffs and debuffs it gives the team are counted.
+- KQM Theorycrafting gives a weapon the game has one copy of (Exaiphanes' Blade and other quest rewards) to one member at most.
+- Rotation writer: Mualani's surfing jumps, dashes and bites no longer delay her next Skill, so every rotation plays its Surging Bites.
+- Epochal Advent's 4-piece bonus counts while the wearer is off the field again.
+
 ## [v1.3.1](https://github.com/s-naveen/stellar-optimizer/releases/tag/v1.3.1) (2026-11-14)
 
 ### New
