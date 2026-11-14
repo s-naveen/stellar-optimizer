@@ -58,6 +58,7 @@ import {
   KqmWeaponChooser,
   kqmChooserCounts,
 } from './KqmChoosers'
+import { KqmRollLine } from './KqmBuildView'
 import { KqmCompare } from './KqmComparison'
 import { KqmEnergyCalculator, kqmEnergyEstimate } from './KqmEnergyCalculator'
 import { MemberAvatar } from './MemberAvatar'
@@ -1547,6 +1548,8 @@ export function KqmResults({
                   </Typography>
                 )}
               </Box>
+              {/* where its substat rolls went (fixed + distributed) */}
+              {build && <KqmRollLine build={build} />}
             </ButtonBase>
           )
         })}

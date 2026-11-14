@@ -118,6 +118,7 @@ vi.mock('@genshin-optimizer/gi/ui', () => ({
   kqmHasEnergyRequirement: (value: unknown) =>
     typeof value === 'number' && Number.isFinite(value) && value >= 100,
   KQM_ER_DEFAULT: 100,
+  KQM_FIXED_ROLLS: 2,
   kqmEnergyRequirement: (
     kqm: { energyRecharge?: Record<string, number> } | undefined,
     key: string

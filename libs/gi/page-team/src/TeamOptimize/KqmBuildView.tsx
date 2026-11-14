@@ -5,10 +5,13 @@ import {
 import { artifactAsset } from '@genshin-optimizer/gi/assets'
 import type { ArtifactSetKey, CharacterKey } from '@genshin-optimizer/gi/consts'
 import type { KqmBuild } from '@genshin-optimizer/gi/ui'
+import { StatIcon } from '@genshin-optimizer/gi/svgicons'
 import {
   ArtifactSetName,
   ArtifactSetTooltip,
+  KQM_FIXED_ROLLS,
   kqmArtifactStats,
+  quickTooltipProps,
   kqmWeaponData,
   statName,
   WeaponName,
@@ -17,6 +20,7 @@ import { getMainStatValue } from '@genshin-optimizer/gi/util'
 import type { TooltipProps } from '@mui/material'
 import { Box, Tooltip, Typography } from '@mui/material'
 import type { ReactNode } from 'react'
+import { Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
 import { mainStatLabel } from './format'
 import { WeaponDetails, WeaponThumb } from './TeamOptResults'
@@ -125,6 +129,10 @@ export function KqmBuildView({
               'Main stats, fixed and distributed rolls from all five artifacts. Excludes weapon, character and set bonuses.'
             )}
           />
+          {/* where this build's added rolls went (redistributed for another weapon or set) */}
+          <Box sx={{ ml: 'auto' }}>
+            <KqmRollLine build={build} />
+          </Box>
         </Box>
         <Box
           sx={{
@@ -198,6 +206,138 @@ export function KqmBuildView({
         </Box>
       </Box>
     </Box>
+  )
+}
+
+/**
+ * Where a build's distributed rolls went, compactly: each substat given any, as its icon and count
+ * (most first). The hover card adds the fixed rolls every substat has.
+ */
+export function KqmRollLine({ build }: { build: Pick<KqmBuild, 'rolls'> }) {
+  const { t } = useTranslation('page_team')
+  const given = (
+    Object.entries(build.rolls) as [keyof KqmBuild['rolls'], number][]
+  )
+    .filter(([, n]) => n > 0)
+    .sort(([, a], [, b]) => b - a)
+  if (!given.length) return null
+  const name = (key: string) =>
+    `${statName(key)}${['hp_', 'atk_', 'def_'].includes(key) ? '%' : ''}`
+  const head = { fontSize: 11, color: 'text.secondary', textAlign: 'right' }
+  return (
+    <BootstrapTooltip
+      placement="bottom"
+      disableInteractive
+      {...quickTooltipProps}
+      title={
+        <Box sx={{ width: 256, py: 0.25, ...numSx }}>
+          <Typography sx={{ fontSize: 13, fontWeight: 600, mb: 0.75 }}>
+            {t('teamOpt.kqm.rollsTitle', 'Substat rolls')}
+          </Typography>
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: 'minmax(0, 1fr) auto auto auto',
+              columnGap: 1.5,
+              alignItems: 'center',
+              fontSize: 12.5,
+            }}
+          >
+            <span />
+            <Box sx={head}>{t('teamOpt.kqm.rollsFixed', 'Fixed')}</Box>
+            <Box sx={head}>{t('teamOpt.kqm.rollsAdded', 'Added')}</Box>
+            <Box sx={head}>{t('teamOpt.kqm.rollsTotal', 'Total')}</Box>
+            {given.map(([key, n]) => (
+              <Fragment key={key}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 0.75,
+                    minWidth: 0,
+                    py: 0.5,
+                    borderTop: hairline,
+                    '& svg': { fontSize: 14, flexShrink: 0 },
+                  }}
+                >
+                  <StatIcon statKey={key} />
+                  <Box
+                    component="span"
+                    sx={{
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    {name(key)}
+                  </Box>
+                </Box>
+                <Box
+                  sx={{
+                    textAlign: 'right',
+                    py: 0.5,
+                    borderTop: hairline,
+                    color: 'text.secondary',
+                  }}
+                >
+                  {KQM_FIXED_ROLLS}
+                </Box>
+                <Box sx={{ textAlign: 'right', py: 0.5, borderTop: hairline }}>
+                  {n}
+                </Box>
+                <Box
+                  sx={{
+                    textAlign: 'right',
+                    py: 0.5,
+                    borderTop: hairline,
+                    fontWeight: 600,
+                  }}
+                >
+                  {KQM_FIXED_ROLLS + n}
+                </Box>
+              </Fragment>
+            ))}
+          </Box>
+        </Box>
+      }
+    >
+      <Box
+        component="span"
+        aria-label={t('teamOpt.kqm.rollsLabel', {
+          defaultValue: 'Rolls added: {{rolls}}',
+          rolls: given.map(([key, n]) => `${name(key)} ${n}`).join(', '),
+        })}
+        sx={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          alignItems: 'center',
+          columnGap: 1.25,
+          rowGap: 0.25,
+          fontSize: 12.5,
+          fontWeight: 600,
+          color: 'text.primary',
+          cursor: 'help',
+          ...numSx,
+        }}
+      >
+        {given.map(([key, n]) => (
+          <Box
+            key={key}
+            component="span"
+            sx={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 0.5,
+              whiteSpace: 'nowrap',
+              '& svg': { fontSize: 13, color: 'text.secondary' },
+            }}
+          >
+            <StatIcon statKey={key} />
+            {n}
+          </Box>
+        ))}
+      </Box>
+    </BootstrapTooltip>
   )
 }
 
