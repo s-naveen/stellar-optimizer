@@ -1456,17 +1456,19 @@ function StatLine({
 export function WeaponThumb({
   weapon,
   highlight,
+  size = 44,
 }: {
   weapon: ICachedWeapon
   highlight: boolean
+  size?: number
 }) {
   const { rarity } = getWeaponStat(weapon.key)
   return (
     <Box
       sx={(theme) => ({
         position: 'relative',
-        width: 44,
-        height: 44,
+        width: size,
+        height: size,
         flexShrink: 0,
         borderRadius: 1.5,
         overflow: 'hidden',

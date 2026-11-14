@@ -16,6 +16,7 @@ import {
   statName,
   WeaponName,
 } from '@genshin-optimizer/gi/ui'
+import { getArtSetStat } from '@genshin-optimizer/gi/stats'
 import { getMainStatValue } from '@genshin-optimizer/gi/util'
 import type { TooltipProps } from '@mui/material'
 import { Box, Tooltip, Typography } from '@mui/material'
@@ -338,6 +339,77 @@ export function KqmRollLine({ build }: { build: Pick<KqmBuild, 'rolls'> }) {
         ))}
       </Box>
     </BootstrapTooltip>
+  )
+}
+
+/** A corner number on an equipment tile (refinement, pieces in a set) */
+const cornerSx = {
+  position: 'absolute',
+  right: 2,
+  bottom: 0,
+  fontSize: '0.625rem',
+  fontWeight: 700,
+  lineHeight: 1.5,
+  textShadow: '0 0 3px rgba(0, 0, 0, 0.9), 0 1px 2px rgba(0, 0, 0, 0.8)',
+} as const
+
+/**
+ * A member card's equipment at a glance: the weapon, then each set's flower with its piece count
+ * (details in their tooltips)
+ */
+export function KqmGearIcons({
+  characterKey,
+  build,
+  size = 34,
+}: {
+  characterKey: CharacterKey
+  build: KqmBuild
+  size?: number
+}) {
+  const { t } = useTranslation('page_team')
+  const weapon = kqmWeaponData(build.weapon, characterKey)
+  const sets = Object.entries(build.sets) as [ArtifactSetKey, number][]
+  return (
+    <Box
+      role="group"
+      aria-label={t('teamOpt.kqm.equipment', 'Equipment')}
+      sx={{ display: 'flex', alignItems: 'center', gap: 0.5, flexShrink: 0 }}
+    >
+      <BootstrapTooltip
+        title={<WeaponDetails weapon={weapon} />}
+        {...quickTooltipProps}
+      >
+        <Box data-weapon={weapon.key}>
+          <WeaponThumb weapon={weapon} highlight={false} size={size} />
+        </Box>
+      </BootstrapTooltip>
+      {sets.map(([setKey, n]) => (
+        <ArtifactSetTooltip key={setKey} setKey={setKey} numInSet={n}>
+          <Box
+            data-set={setKey}
+            className={`grad-${Math.max(...(getArtSetStat(setKey)?.rarities ?? [5]))}star`}
+            sx={{
+              position: 'relative',
+              width: size,
+              height: size,
+              flexShrink: 0,
+              borderRadius: 1.5,
+              overflow: 'hidden',
+            }}
+          >
+            <Box
+              component="img"
+              src={artifactAsset(setKey, 'flower')}
+              alt=""
+              sx={{ width: '100%', height: '100%', display: 'block' }}
+            />
+            <Typography component="span" sx={cornerSx}>
+              {n}
+            </Typography>
+          </Box>
+        </ArtifactSetTooltip>
+      ))}
+    </Box>
   )
 }
 

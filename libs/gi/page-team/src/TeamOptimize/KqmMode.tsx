@@ -58,7 +58,7 @@ import {
   KqmWeaponChooser,
   kqmChooserCounts,
 } from './KqmChoosers'
-import { KqmRollLine } from './KqmBuildView'
+import { KqmGearIcons, KqmRollLine } from './KqmBuildView'
 import { KqmCompare } from './KqmComparison'
 import { KqmEnergyCalculator, kqmEnergyEstimate } from './KqmEnergyCalculator'
 import { MemberAvatar } from './MemberAvatar'
@@ -1270,6 +1270,38 @@ function useInterval(fn: () => void, ms: number) {
 }
 
 /** A compact team overview; the selected member is explored in a single inspector. */
+/** A member's constellation as a pill: gold from C1, quiet at C0 */
+function ConstellationPill({ value }: { value: number }) {
+  return (
+    <Box
+      component="span"
+      sx={(theme) => ({
+        display: 'inline-flex',
+        alignItems: 'center',
+        height: 18,
+        px: 0.75,
+        borderRadius: 999,
+        fontSize: 11.5,
+        fontWeight: 700,
+        letterSpacing: 0.2,
+        ...numSx,
+        ...(value > 0
+          ? {
+              color: theme.palette.primary.main,
+              bgcolor: alpha(theme.palette.primary.main, 0.16),
+              boxShadow: `inset 0 0 0 1px ${alpha(theme.palette.primary.main, 0.5)}`,
+            }
+          : {
+              color: 'text.secondary',
+              bgcolor: alpha(theme.palette.text.primary, 0.07),
+            }),
+      })}
+    >
+      C{value}
+    </Box>
+  )
+}
+
 export function KqmResults({
   teamId,
   runSettings,
@@ -1514,12 +1546,14 @@ export function KqmResults({
                 sx={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: 1,
+                  flexWrap: 'wrap',
+                  columnGap: 1,
+                  rowGap: 0.75,
                   minWidth: 0,
                 }}
               >
                 <MemberAvatar characterKey={characterKey} size={32} />
-                <Box sx={{ minWidth: 0, flex: 1 }}>
+                <Box sx={{ minWidth: 0, flex: '1 1 0' }}>
                   <Typography
                     noWrap
                     sx={{ fontSize: 13.5, fontWeight: 600, lineHeight: 1.35 }}
@@ -1529,13 +1563,31 @@ export function KqmResults({
                       gender={gender}
                     />
                   </Typography>
-                  <Typography
-                    sx={{ ...type.label, fontSize: 12, lineHeight: 1.4 }}
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 0.75,
+                      mt: 0.25,
+                    }}
                   >
-                    C{result.constellations[characterKey] ?? 0}
-                    {!build ? ` · ${t('teamOpt.result.kept', 'Kept')}` : ''}
-                  </Typography>
+                    <ConstellationPill
+                      value={result.constellations[characterKey] ?? 0}
+                    />
+                    {!build && (
+                      <Typography
+                        sx={{ ...type.label, fontSize: 12, lineHeight: 1.4 }}
+                      >
+                        {t('teamOpt.result.kept', 'Kept')}
+                      </Typography>
+                    )}
+                  </Box>
                 </Box>
+                {build && (
+                  <Box sx={{ ml: 'auto' }}>
+                    <KqmGearIcons characterKey={characterKey} build={build} />
+                  </Box>
+                )}
               </Box>
               <Box
                 sx={{
