@@ -99,6 +99,17 @@ export function releasedOnlyPlugin(
   // (or `'Danica',` in the key lists)
   const importLine = /^import\s+(\w+)\s+from\s+['"][^'"]+['"];?\s*$/
   const entryLine = /^\s*['"]?(\w+)['"]?,\s*$/
+  // data tables keyed by item, one complete entry per line: `  Danica: [24, 18],`,
+  // `  AnastasyaSkill: { reset: 96, apply: [1, 0] },` (a key naming beta content)
+  const keyedLine = /^\s*['"]?(\w+)['"]?\s*:\s*(.+),\s*$/
+  const balanced = (s: string) => {
+    let depth = 0
+    for (const ch of s.replace(/(['"`])(?:\\.|(?!\1).)*\1/g, '')) {
+      if ('([{'.includes(ch)) depth++
+      else if (')]}'.includes(ch) && --depth < 0) return false
+    }
+    return depth === 0
+  }
   const pageLink = new RegExp(
     `<a href="(?:${beta.pageSlugs.join('|')})-optimizer/">[^<]*</a>\\s*·\\s*`,
     'g'
@@ -131,7 +142,9 @@ export function releasedOnlyPlugin(
         .split('\n')
         .filter((line) => {
           const m = importLine.exec(line) ?? entryLine.exec(line)
-          return !(m && keys.has(m[1]))
+          if (m && keys.has(m[1])) return false
+          const k = keyedLine.exec(line)
+          return !(k && isBeta(k[1]) && balanced(k[2]))
         })
         .join('\n')
       // the char-cards art globs: without the beta characters' files
