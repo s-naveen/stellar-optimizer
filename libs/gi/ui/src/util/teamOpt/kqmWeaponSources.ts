@@ -176,6 +176,15 @@ const sources: Record<
 }
 
 /** The 3★ weapons KQM mode offers besides every 4★ and 5★ (standard wish pool, at R5) */
+/**
+ * Weapons the game gives one copy of (quest and console-mail rewards; Moonweaver's Dawn is also an
+ * event-wish weapon): KQM gives each to one member of a team at most
+ */
+export const KQM_ONE_COPY: readonly WeaponKey[] = [
+  ...sources.quest,
+  ...sources.console,
+].filter((key) => key !== 'MoonweaversDawn')
+
 export const KQM_THREE_STARS: readonly WeaponKey[] = [
   'HarbingerOfDawn',
   'Slingshot',

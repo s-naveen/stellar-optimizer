@@ -136,3 +136,71 @@ describe("a problem's attacks", () => {
     ).toHaveLength(2)
   })
 })
+
+describe('one-copy weapons', () => {
+  it('gives a quest weapon like Exaiphanes’ Blade to one member at most', async () => {
+    expect(KQM_ONE_COPY).toContain('ExaiphanesBlade')
+    expect(KQM_ONE_COPY).not.toContain('MoonweaversDawn')
+    const database = new ArtCharDatabase(1, new SandboxStorage({}))
+    const members = ['KamisatoAyaka', 'Keqing'] as const
+    for (const key of members)
+      database.chars.set(key, {
+        key,
+        level: 90,
+        ascension: 6,
+        talent: { auto: 9, skill: 9, burst: 9 },
+        constellation: 0,
+      })
+    const ids = members.map((k) => database.teamChars.new(k))
+    const teamId = database.teams.new({
+      loadoutData: ids.map((teamCharId) => ({ teamCharId })) as LoadoutDatum[],
+    })
+    for (const id of ids)
+      database.optConfigs.set(database.teamChars.get(id)!.optConfigId, {
+        mainStatKeys: {
+          sands: ['atk_'],
+          goblet: ['atk_'],
+          circlet: ['critDMG_'],
+        },
+        artSetExclusion: Object.fromEntries(
+          kqmSets().map((key) => [
+            key,
+            key === 'GladiatorsFinale' ? [2] : [2, 4],
+          ])
+        ),
+      })
+    const teamOpt = initTeamOpt()
+    teamOpt.kqm = {
+      refinement4: 1,
+      refinement5: 1,
+      energyRecharge: { KamisatoAyaka: 100, Keqing: 100 },
+      excludedWeapons: allWeaponKeys.filter(
+        (k) => !['ExaiphanesBlade', 'FavoniusSword'].includes(k)
+      ),
+      weaponList: 2,
+    }
+    teamOpt.attacks = {
+      KamisatoAyaka: [{ path: ['skill', 'press'], hits: 4, hitMode: 'avgHit' }],
+      Keqing: [{ path: ['skill', 'stiletto'], hits: 4, hitMode: 'avgHit' }],
+    }
+    const result = (await optimizeTeamKqm({
+      database,
+      teamId,
+      gender: 'F',
+      teamOpt,
+      maxRounds: 2,
+    }))!
+    const holders = members.filter(
+      (k) => result.builds[k]?.weapon.key === 'ExaiphanesBlade'
+    )
+    expect(holders.length).toBeLessThanOrEqual(1)
+    // (and each one's weapon ranking leaves it out while the other has it)
+    for (const k of members) {
+      const other = members.find((m) => m !== k)!
+      if (result.builds[other]?.weapon.key === 'ExaiphanesBlade')
+        expect(
+          result.rankings[k]?.weapons.map((o) => o.weapon.key)
+        ).not.toContain('ExaiphanesBlade')
+    }
+  }, 300_000)
+})

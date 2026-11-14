@@ -70,7 +70,11 @@ import type { ItemConditionalCtx } from './itemConditionals'
 import { itemConditionals } from './itemConditionals'
 import type { KqmBuiltProblem } from './kqmBuild'
 import { buildKqmProblem } from './kqmBuild'
-import { KQM_THREE_STARS, kqmWeaponSource } from './kqmWeaponSources'
+import {
+  KQM_ONE_COPY,
+  KQM_THREE_STARS,
+  kqmWeaponSource,
+} from './kqmWeaponSources'
 import { constValue, teamRotationNodes } from './objective'
 import type { SimGear } from './rotation/types'
 import type { TeamOptEvaluation } from './solve'
@@ -984,6 +988,24 @@ async function runKqm({
       memberSpace(m, optConfigs[m.characterKey], kqm),
     ])
   )
+  /**
+   * The weapons a member may take with the others' builds in `state`: not a one-copy weapon
+   * (`KQM_ONE_COPY`: a quest reward like Exaiphanes' Blade) another member already has
+   */
+  const weaponsFor = (
+    ck: CharacterKey,
+    state: Partial<Record<CharacterKey, KqmBuild>>
+  ) => {
+    const all = spaces.get(ck)?.weapons ?? []
+    const taken = new Set(
+      Object.entries(state)
+        .filter(
+          ([k, b]) => k !== ck && b && KQM_ONE_COPY.includes(b.weapon.key)
+        )
+        .map(([, b]) => b!.weapon.key)
+    )
+    return taken.size ? all.filter((w) => !taken.has(w.key)) : all
+  }
   /** The sets and weapons a member's search may give it (see `SimGear.candidates`) */
   const candidatesOf = (ck: CharacterKey) => {
     const space = spaces.get(ck)
@@ -1291,16 +1313,18 @@ async function runKqm({
       }
       return found
     }
-    search(current.weapon).catch(() => undefined)
+    if (weaponsFor(ck, state).some((w) => w.key === current.weapon.key))
+      search(current.weapon).catch(() => undefined)
     // The workers are free while the weapons are tried here: each weapon's search with the current
     // sets starts as soon as it is tried (so that at the end no weapon in the member's ranking,
     // each weapon with the chosen sets, beats the chosen build), and a weapon's full search as
     // soon as it is among the best few so far (most of them stay)
     const withCurrentSets: ReturnType<typeof searchArtifacts>[] = []
     const screened: { weapon: KqmWeapon; score: Score }[] = []
-    for (const [i, weapon] of space.weapons.entries()) {
+    const allowed = weaponsFor(ck, state)
+    for (const [i, weapon] of allowed.entries()) {
       await tick()
-      report('weapons', i, space.weapons.length)
+      report('weapons', i, allowed.length)
       const problem = problemFor(ck, weapon, state)
       if (!problem) continue
       const score = scoreOf(problem, kqmValues(current))
@@ -1317,10 +1341,13 @@ async function runKqm({
       )
         search(weapon).catch(() => undefined)
     }
-    tried += space.weapons.length
+    tried += allowed.length
     screened.sort((a, b) => compareScores(a.score, b.score))
     const weapons = screened.slice(0, WEAPONS_SEARCHED).map((s) => s.weapon)
-    if (!weapons.some((w) => w.key === current.weapon.key))
+    if (
+      allowed.some((w) => w.key === current.weapon.key) &&
+      !weapons.some((w) => w.key === current.weapon.key)
+    )
       weapons.push(current.weapon)
     const found = weapons.map(search)
     counter.onDone = () => report('artifacts', counter.done, counter.total)
@@ -1387,12 +1414,19 @@ async function runKqm({
             ({ characterKey: other }) =>
               other === ck || (lastChange[other] ?? 0) <= settled[ck]!
           )
-        if (known) continue
+        if (
+          known &&
+          weaponsFor(ck, builds).some((w) => w.key === builds[ck]!.weapon.key)
+        )
+          continue
         const before = builds[ck]!
         const problem = problemFor(ck, before.weapon, builds)
-        const beforeScore = problem
-          ? scoreOf(problem, kqmValues(before))
-          : undefined
+        // (a one-copy weapon another member has: any allowed build replaces it)
+        const conflict = !weaponsFor(ck, builds).some(
+          (w) => w.key === before.weapon.key
+        )
+        const beforeScore =
+          problem && !conflict ? scoreOf(problem, kqmValues(before)) : undefined
         // (from the second round, when builds mostly stay: see `prebuild`)
         const next = optimized[(i + 1) % steps].characterKey
         const best = await memberStep(
@@ -1507,7 +1541,7 @@ async function runKqm({
       const byWeaponFound: Promise<
         { build: KqmBuild; score: Score } | undefined
       >[] = []
-      for (const weapon of space.weapons) {
+      for (const weapon of weaponsFor(ck, builds)) {
         await tick()
         const found = searchArtifacts(ck, weapon, builds, {
           setsList: [best.sets],
@@ -1570,9 +1604,11 @@ async function runKqm({
       const ranking = rankings[ck]
       if (!problem || !ranking) continue
       const score = scoreOf(problem, kqmValues(own))
+      const allowed = weaponsFor(ck, builds)
       for (const option of [...ranking.sets, ...ranking.weapons]) {
         // (unmet: it misses a requirement this build meets)
         if (option.unmet) continue
+        if (!allowed.some((w) => w.key === option.weapon.key)) continue
         const gain = option.total / score.total - 1
         if (gain > 1e-9 && (!found || gain > found.gain)) {
           const { weapon, sets, mains, rolls } = option
