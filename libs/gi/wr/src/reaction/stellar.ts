@@ -28,7 +28,10 @@ export function stellarDmgNode<Variant extends StellarReactionKey>(
     additional,
     stellarDmgMultiplier(base, variant),
     specialMultiplier,
-    eleVariant
+    eleVariant,
+    base === 'reaction' && variant === 'stellarswirl'
+      ? prod(multiplier, sum(one, input.total.stellarswirl_mult_))
+      : one
   )
   if (eleVariant === 'cryo') {
     return infoMut(node, { subVariant: 'cryo' })

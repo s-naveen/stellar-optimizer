@@ -171,10 +171,15 @@ const c1Decoding_stellar_dmg_obj = objKeyValMap(allStellarReactionKeys, (k) => [
 
 const [condC2StacksPath, condC2Stacks] = cond(key, 'c2Stacks')
 const c2StacksArr = range(1, 3)
+// Both parts need Radiance: Stellar Glimmer (game text; kqmsim's c2 mod is off without radiance)
 const c2Stacks_beam_critDMG1_ = greaterEq(
   input.constellation,
   2,
-  percent(dm.constellation2.beam_critDMG_)
+  unequal(
+    condA0StellarRadiance,
+    undefined,
+    percent(dm.constellation2.beam_critDMG_)
+  )
 )
 const c2Stacks_beam_critDMG2_ = greaterEq(
   input.constellation,

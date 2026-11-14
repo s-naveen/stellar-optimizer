@@ -106,7 +106,8 @@ const dm = {
   },
 } as const
 
-const BASE_MAX_BEACONS = 3
+// kqmsim 7bdf45f: four prisms at C0, five at C1.
+const BASE_MAX_BEACONS = 4
 const C1_MAX_BEACONS = 5
 
 /* ---------- Conditionals ---------- */
@@ -138,11 +139,7 @@ const a1Steady_eleMasDisp = infoMut(
   greaterEq(
     input.asc,
     1,
-    equal(
-      condCore,
-      'steady',
-      prod(dm.passive1.eleMasPerBeacon, beaconCount)
-    )
+    equal(condCore, 'steady', prod(dm.passive1.eleMasPerBeacon, beaconCount))
   ),
   { path: 'eleMas', isTeamBuff: true }
 )
@@ -199,7 +196,11 @@ const c2Overload_eleMas = equal(
   target.charKey,
   c2Overload_eleMasDisp
 )
-const teamEleMas = sum(a1Steady_eleMasDisp, c2Steady_eleMasDisp, c2Overload_eleMas)
+const teamEleMas = sum(
+  a1Steady_eleMasDisp,
+  c2Steady_eleMasDisp,
+  c2Overload_eleMas
+)
 
 // C6: Stellar-Conduct DMG Elevated for all party members
 const c6_stellarconduct_specialDmg_ = greaterEq(
@@ -210,11 +211,7 @@ const c6_stellarconduct_specialDmg_ = greaterEq(
 // C6: Steady State core deals 115% of its original DMG
 const c6SteadyMult = sum(
   percent(1),
-  greaterEq(
-    input.constellation,
-    6,
-    percent(dm.constellation6.steadyDmgInc)
-  )
+  greaterEq(input.constellation, 6, percent(dm.constellation6.steadyDmgInc))
 )
 
 /* ---------- Damage ---------- */

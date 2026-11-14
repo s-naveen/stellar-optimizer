@@ -160,7 +160,7 @@ const nodeC2Atk_ = greaterEq(
   equal(
     condLockRevelation,
     'on',
-    unequal(condLockStellarRadiance, 'undefined', dm.constellation2.atk_)
+    unequal(condLockStellarRadiance, undefined, dm.constellation2.atk_)
   )
 )
 
@@ -503,7 +503,7 @@ const sheet: TalentSheet = {
       canShow: equal(
         condLockRevelation,
         'on',
-        unequal(condLockStellarRadiance, 'undefined', 1)
+        unequal(condLockStellarRadiance, undefined, 1)
       ),
       name: ct.ch('lockCond'),
       states: {

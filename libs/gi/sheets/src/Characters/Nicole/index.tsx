@@ -308,8 +308,6 @@ export const data = dataObjForCharacterSheet(
     premod: {
       skillBoost: skillC3,
       burstBoost: burstC5,
-    },
-    total: {
       atk: a4NicoleGuidanceActive_atk,
     },
     teamBuff: {
@@ -330,14 +328,14 @@ export const data = dataObjForCharacterSheet(
   },
   {
     teamBuff: {
-      total: {
+      premod: {
         atk: a1GuidanceActive_atk,
       },
     },
   },
   {
     teamBuff: {
-      total: {
+      premod: {
         atk: c2GraceActive_atk,
       },
     },

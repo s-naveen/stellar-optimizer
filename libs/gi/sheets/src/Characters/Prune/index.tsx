@@ -138,6 +138,10 @@ const a4Rally_dmg_obj = objKeyMap(rallyBuffs, (k) =>
   unequal(target.charKey, key, a4Rally_dmg_dispObj[k])
 )
 
+const [, condTimeline] = cond(key, 'timeline')
+const [, condHexRecipient] = cond(key, 'hexRecipient')
+const [, condC6Recipient] = cond(key, 'c6Recipient')
+
 const [condLockRallyReactionPath, condLockRallyReaction] = cond(
   key,
   'lockRallyReaction'
@@ -164,9 +168,11 @@ const lockRallyReaction_teamAtk_disp = greaterEq(
     greaterEq(
       input.asc,
       4,
-      equal(
-        condLockRallyReaction,
-        'swirl',
+      prod(
+        sum(
+          equal(condTimeline, 'on', equal(condHexRecipient, 'on', 1)),
+          unequal(condTimeline, 'on', equal(condLockRallyReaction, 'swirl', 1))
+        ),
         equal(target.flags.isHexerei, 1, dm.lockedPassive.teamAtk_)
       )
     )
@@ -188,14 +194,18 @@ const c2StackArr = range(
 const c2StackAtk_ = greaterEq(
   input.constellation,
   2,
-  sum(
-    percent(dm.constellation2.atk_),
-    prod(
-      percent(dm.constellation2.moreAtk_),
-      lookup(
-        condC2Stack,
-        objKeyMap(c2StackArr, (s) => constant(s)),
-        naught
+  unequal(
+    condC2Stack,
+    undefined,
+    sum(
+      percent(dm.constellation2.atk_),
+      prod(
+        percent(dm.constellation2.moreAtk_),
+        lookup(
+          condC2Stack,
+          objKeyMap(c2StackArr, (s) => constant(s)),
+          naught
+        )
       )
     )
   )
@@ -211,13 +221,28 @@ const c6RallyReaction_atk = greaterEq(
   greaterEq(
     input.asc,
     4,
-    equal(
-      condC6RallyReaction,
-      'on',
-      any(
-        dm.constellation6.atk,
-        equal(target.charKey, key, 1),
-        equal(active.charKey, target.charKey, 1)
+    sum(
+      equal(
+        condTimeline,
+        'on',
+        any(
+          dm.constellation6.atk,
+          equal(target.charKey, key, equal(condC6RallyReaction, 'on', 1)),
+          unequal(target.charKey, key, equal(condC6Recipient, 'on', 1))
+        )
+      ),
+      unequal(
+        condTimeline,
+        'on',
+        equal(
+          condC6RallyReaction,
+          'on',
+          any(
+            dm.constellation6.atk,
+            equal(target.charKey, key, 1),
+            equal(active.charKey, target.charKey, 1)
+          )
+        )
       )
     )
   )

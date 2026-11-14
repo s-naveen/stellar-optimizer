@@ -51,8 +51,9 @@ const dm = {
   skill: {
     shotDmg: skillParam_gen.skill[s++],
     cannonDmg: skillParam_gen.skill[s++],
-    pointLimit: skillParam_gen.skill[s++][0],
+    // (the data lists the CD before the point limit)
     cd: skillParam_gen.skill[s++][0],
+    pointLimit: skillParam_gen.skill[s++][0],
   },
   burst: {
     skillDmg: skillParam_gen.burst[b++],

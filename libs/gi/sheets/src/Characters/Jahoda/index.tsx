@@ -260,10 +260,12 @@ const a4Heal_eleMasDisp = greaterEq(
   4,
   equal(condA4Heal, 'on', dm.passive2.eleMas)
 )
-const a4Heal_eleMas = equal(
-  input.activeCharKey,
-  target.charKey,
-  a4Heal_eleMasDisp
+const [, condA4Recipient] = cond(key, 'a4Recipient')
+const a4Heal_eleMas = compareEq(
+  condA4Recipient,
+  'on',
+  a4Heal_eleMasDisp,
+  equal(input.activeCharKey, target.charKey, a4Heal_eleMasDisp)
 )
 
 const [condC6FlaskFullPath, condC6FlaskFull] = cond(key, 'c6FlaskFull')

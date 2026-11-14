@@ -94,17 +94,14 @@ const dm = {
 } as const
 
 const [condA1EssentialsPath, condA1Essentials] = cond(key, 'a1Essentials')
-const a1EssentialsArr = range(
-  10,
-  dm.passive1.maxEssentials + dm.constellation2.essentialsLimitInc,
-  10
-)
 const a1Essentials = lookup(
   condA1Essentials,
-  objKeyMap(a1EssentialsArr, (ess) =>
-    ess > dm.passive1.maxEssentials
-      ? greaterEq(input.constellation, 2, constant(ess))
-      : constant(ess)
+  objKeyMap(
+    range(1, dm.passive1.maxEssentials + dm.constellation2.essentialsLimitInc),
+    (ess) =>
+      ess > dm.passive1.maxEssentials
+        ? greaterEq(input.constellation, 2, constant(ess))
+        : constant(ess)
   ),
   naught
 )

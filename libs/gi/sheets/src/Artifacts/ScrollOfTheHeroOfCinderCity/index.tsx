@@ -67,9 +67,7 @@ const condNightsouls = objKeyMap(allElementKeys, (ele) =>
   condReadNode(condNightsoulPaths[ele])
 )
 const reactAndNightsoulOnCount = sum(
-  ...allElementKeys.map((ele) =>
-    equal(condReacts[ele], ele, equal(condNightsouls[ele], ele, 1))
-  )
+  ...allElementKeys.map((ele) => equal(condNightsouls[ele], ele, 1))
 )
 
 // If one of following is true, the element is buffed
@@ -79,7 +77,7 @@ const isNsEleBuffed = objKeyMap(allElementKeys, (ele) =>
       // buffing self elemental damage; check if any reactions are enabled
       equal(input.charEle, ele, greaterEq(reactAndNightsoulOnCount, 1, 1)),
       // buffing other elemental damage; check if that conditional is enabled
-      equal(condNightsouls[ele], ele, equal(condReacts[ele], ele, 1))
+      equal(condNightsouls[ele], ele, 1)
     ),
     1,
     1

@@ -15,6 +15,7 @@ import {
   subscript,
   target,
   threshold,
+  unequal,
 } from '@genshin-optimizer/gi/wr'
 import { cond, st, stg } from '../../SheetUtil'
 import { CharacterSheet } from '../CharacterSheet'
@@ -135,10 +136,11 @@ const c2OffFieldPrecise_atk_disp = greaterEq(
     isTeamBuff: true,
   })
 )
+// C2: only while Iansan is off-field, i.e. for an active member other than her
 const c2OffFieldPrecise_atk_ = equal(
   input.activeCharKey,
   target.charKey,
-  c2OffFieldPrecise_atk_disp
+  unequal(target.charKey, key, c2OffFieldPrecise_atk_disp)
 )
 
 const [condC6ExtremePath, condC6Extreme] = cond(key, 'c6Extreme')

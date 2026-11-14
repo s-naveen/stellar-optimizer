@@ -140,10 +140,13 @@ const c1WillConsumedArr = range(
 )
 const willConsumed = lookup(
   condWillConsumed,
-  objKeyMap(c1WillConsumedArr, (will) => {
-    if (will <= dm.skill.maxWill) return constant(will)
-    else return greaterEq(input.constellation, 1, will)
-  }),
+  objKeyMap(
+    range(1, dm.skill.maxWill * (1 + dm.constellation1.addlWillLimit)),
+    (will) => {
+      if (will <= dm.skill.maxWill) return constant(will)
+      else return greaterEq(input.constellation, 1, will)
+    }
+  ),
   naught
 )
 
@@ -219,6 +222,8 @@ const dmgFormulas = {
   },
   plunging: plungingDmgNodes('atk', dm.plunging),
   skill: {
+    // The stance cast is a real zero-damage hit (e.g. Primordial Jade Winged-Spear).
+    castDmg: constant(0),
     ...(Object.fromEntries(
       dm.skill.hitArr.map((arr, i) => [
         i,

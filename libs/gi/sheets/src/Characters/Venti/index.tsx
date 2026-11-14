@@ -186,10 +186,13 @@ const lockBurstSwirl_all_dmg_disp = greaterEq(
     equal(condLockBurstSwirl, 'on', dm.lockedPassive.dmg_)
   )
 )
-const lockBurstSwirl_all_dmg_ = equal(
-  input.activeCharKey,
-  target.charKey,
-  lockBurstSwirl_all_dmg_disp
+// The rotation engine tracks the original recipient separately from the burst's
+// multiplier, since both effects keep running after that recipient leaves the field.
+const [, condHexSwirlRecipient] = cond(key, 'hexSwirlRecipient')
+const [, condBurstHexBuff] = cond(key, 'burstHexBuff')
+const lockBurstSwirl_all_dmg_ = sum(
+  equal(input.activeCharKey, target.charKey, lockBurstSwirl_all_dmg_disp),
+  equal(condHexSwirlRecipient, 'on', dm.lockedPassive.dmg_)
 )
 const lockBurstSwirl_burst_mult_ = sum(
   one,
@@ -199,7 +202,18 @@ const lockBurstSwirl_burst_mult_ = sum(
     equal(
       condLockHomework,
       'on',
-      equal(condLockBurstSwirl, 'on', percent(dm.lockedPassive.burst_mult_ - 1))
+      lookup(
+        condBurstHexBuff,
+        {
+          on: percent(dm.lockedPassive.burst_mult_ - 1),
+          off: constant(0),
+        },
+        equal(
+          condLockBurstSwirl,
+          'on',
+          percent(dm.lockedPassive.burst_mult_ - 1)
+        )
+      )
     )
   )
 )

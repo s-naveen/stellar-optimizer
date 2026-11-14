@@ -174,6 +174,12 @@ const a4TimeSinceBurst = lookup(
   objKeyMap(a4TimeSinceBurstArr, (time) => constant(time)),
   naught
 )
+const [, condA4Spirit] = cond(key, 'a4Spirit')
+const a4Spirit = lookup(
+  condA4Spirit,
+  objKeyMap(burstSpiritArr, (spirit) => constant(spirit)),
+  burstSpirit
+)
 const a4TimeSinceBurst_dmg_disp = greaterEq(
   input.asc,
   4,
@@ -182,7 +188,7 @@ const a4TimeSinceBurst_dmg_disp = greaterEq(
     undefined,
     prod(
       percent(dm.passive2.dmg_),
-      burstSpirit,
+      a4Spirit,
       1 / dm.passive2.duration,
       sum(
         dm.passive2.duration,

@@ -153,15 +153,16 @@ const dmgFormulas = {
       'atk',
       dm.skill.pressDmg,
       'normal',
-      { ...hitEle[ele], ...multiFireAddl },
+      hitEle[ele],
       undefined,
       'skill'
     ),
+    // C6 Fatal Rounds: +120% CRIT DMG on the Multitarget Fire's Shadowhunt and Shining shells
     shellDmg: dmgNode(
       'atk',
       dm.skill.shellDmg,
       'charged',
-      hitEle[ele],
+      { ...hitEle[ele], ...multiFireAddl },
       undefined,
       'skill'
     ),

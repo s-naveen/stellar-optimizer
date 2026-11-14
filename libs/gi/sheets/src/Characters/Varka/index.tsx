@@ -268,19 +268,41 @@ const anemoSturmData: Data = {
 
 const dmgFormulas = {
   normal: {
-    na1: dmgNode('atk', dm.normal.hitArr[0], 'normal'),
-    na21: dmgNode('atk', dm.normal.hitArr[2], 'normal'),
-    na22: dmgNode('atk', dm.normal.hitArr[1], 'normal'),
-    na31: dmgNode('atk', dm.normal.hitArr[4], 'normal'),
-    na32: dmgNode('atk', dm.normal.hitArr[3], 'normal'),
-    na41: dmgNode('atk', dm.normal.hitArr[5], 'normal'),
-    na42: dmgNode('atk', dm.normal.hitArr[6], 'normal'),
-    na51: dmgNode('atk', dm.normal.hitArr[7], 'normal'),
-    na52: dmgNode('atk', dm.normal.hitArr[8], 'normal'),
+    na1: dmgNode('atk', dm.normal.hitArr[0], 'normal', {
+      premod: { all_dmg_: a4Stacks_sturm_dmg_ },
+    }),
+    na21: dmgNode('atk', dm.normal.hitArr[2], 'normal', {
+      premod: { all_dmg_: a4Stacks_sturm_dmg_ },
+    }),
+    na22: dmgNode('atk', dm.normal.hitArr[1], 'normal', {
+      premod: { all_dmg_: a4Stacks_sturm_dmg_ },
+    }),
+    na31: dmgNode('atk', dm.normal.hitArr[4], 'normal', {
+      premod: { all_dmg_: a4Stacks_sturm_dmg_ },
+    }),
+    na32: dmgNode('atk', dm.normal.hitArr[3], 'normal', {
+      premod: { all_dmg_: a4Stacks_sturm_dmg_ },
+    }),
+    na41: dmgNode('atk', dm.normal.hitArr[5], 'normal', {
+      premod: { all_dmg_: a4Stacks_sturm_dmg_ },
+    }),
+    na42: dmgNode('atk', dm.normal.hitArr[6], 'normal', {
+      premod: { all_dmg_: a4Stacks_sturm_dmg_ },
+    }),
+    na51: dmgNode('atk', dm.normal.hitArr[7], 'normal', {
+      premod: { all_dmg_: a4Stacks_sturm_dmg_ },
+    }),
+    na52: dmgNode('atk', dm.normal.hitArr[8], 'normal', {
+      premod: { all_dmg_: a4Stacks_sturm_dmg_ },
+    }),
   },
   charged: {
-    dmg1: dmgNode('atk', dm.charged.dmg1, 'charged'),
-    dmg2: dmgNode('atk', dm.charged.dmg2, 'charged'),
+    dmg1: dmgNode('atk', dm.charged.dmg1, 'charged', {
+      premod: { all_dmg_: a4Stacks_sturm_dmg_ },
+    }),
+    dmg2: dmgNode('atk', dm.charged.dmg2, 'charged', {
+      premod: { all_dmg_: a4Stacks_sturm_dmg_ },
+    }),
   },
   plunging: plungingDmgNodes('atk', dm.plunging),
   skill: {

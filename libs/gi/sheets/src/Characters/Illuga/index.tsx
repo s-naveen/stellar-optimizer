@@ -6,6 +6,7 @@ import {
   greaterEq,
   infoMut,
   input,
+  min,
   percent,
   prod,
   subscript,
@@ -220,7 +221,7 @@ const a1AfterSkillBurstGleam_eleMas = unequal(
   a1AfterSkillBurstGleam_eleMasDisp
 )
 
-const hydroGeoCount = sum(tally.geo, tally.hydro)
+const hydroGeoCount = min(3, sum(tally.geo, tally.hydro))
 const a4Song_geo_dmgIncDisp = greaterEq(
   input.asc,
   4,
@@ -274,10 +275,14 @@ const c4BurstActive_defDisp = greaterEq(
   4,
   equal(condC4BurstActive, 'on', dm.constellation4.def)
 )
-const c4BurstActive_def = equal(
-  input.activeCharKey,
-  target.charKey,
-  c4BurstActive_defDisp
+const [, condC4Recipient] = cond(key, 'c4Recipient')
+const c4BurstActive_def = sum(
+  equal(input.activeCharKey, target.charKey, c4BurstActive_defDisp),
+  greaterEq(
+    input.constellation,
+    4,
+    equal(condC4Recipient, 'on', dm.constellation4.def)
+  )
 )
 
 const dmgFormulas = {

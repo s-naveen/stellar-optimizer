@@ -151,6 +151,16 @@ const radianceSc = equal(condRadiance, 'on', 1)
 const radianceSs = equal(condRadiance, 'ss', 1)
 // Accolades (A1): normal / Anastasya Sealed (Love burst) / teammates Sealed (Honor burst)
 const [condAccoladesPath, condAccolades] = cond(key, 'accolades')
+/* Kit-only ('on' | 'off'): the rotation times C2 (Love 30 s, Honor 15 s after the Skill) and C6
+ * (30 s) itself. Unset, as in the UI, each effect follows the current Blessing. */
+const [, condC2LoveWindow] = cond(key, 'c2LoveWindow')
+const [, condC2HonorWindow] = cond(key, 'c2HonorWindow')
+const [, condC6LoveWindow] = cond(key, 'c6LoveWindow')
+const [, condC6HonorWindow] = cond(key, 'c6HonorWindow')
+const windowOn = (
+  window: typeof condC2LoveWindow,
+  blessing: typeof love
+): NumNode => lookup(window, { on: constant(1), off: constant(0) }, blessing)
 
 /* ---------- A1 Accolades ---------- */
 const c1On = greaterEq(input.constellation, 1, 1)
@@ -376,14 +386,22 @@ const mkC2Love = () =>
   greaterEq(
     input.constellation,
     2,
-    equal(love, 1, percent(dm.constellation2.stellar_critDMG_))
+    equal(
+      windowOn(condC2LoveWindow, love),
+      1,
+      percent(dm.constellation2.stellar_critDMG_)
+    )
   )
 const c2Honor_mult = sum(
   one,
   greaterEq(
     input.constellation,
     2,
-    equal(honor, 1, percent(dm.constellation2.honorMult - 1))
+    equal(
+      windowOn(condC2HonorWindow, honor),
+      1,
+      percent(dm.constellation2.honorMult - 1)
+    )
   )
 )
 const mkC2Special = () =>
@@ -396,13 +414,21 @@ const mkC6LoveSpecial = () =>
   greaterEq(
     input.constellation,
     6,
-    equal(love, 1, percent(dm.constellation6.love_specialDmg_))
+    equal(
+      windowOn(condC6LoveWindow, love),
+      1,
+      percent(dm.constellation6.love_specialDmg_)
+    )
   )
 const mkC6HonorSpecial = () =>
   greaterEq(
     input.constellation,
     6,
-    equal(honor, 1, percent(dm.constellation6.honor_specialDmg_))
+    equal(
+      windowOn(condC6HonorWindow, honor),
+      1,
+      percent(dm.constellation6.honor_specialDmg_)
+    )
   )
 const teamStellarObj = (
   mk: () => NumNode,

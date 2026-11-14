@@ -121,7 +121,12 @@ const a4Momentum = greaterEq(
   min(
     lookup(
       condMomentum,
-      objKeyMap(momentumArr, (n) => constant(n)),
+      // C4's 30% gain bonus produces half-points (e.g. 78 + 6.5).
+      // The simulator supplies the exact consumed amount; the UI keeps its ten-point presets.
+      objKeyMap(
+        range(0, 260).map((n) => n / 2),
+        (n) => constant(n)
+      ),
       naught
     ),
     sum(maxMomentum, greaterEq(input.constellation, 4, c4MaxMomentum))
@@ -215,7 +220,13 @@ const c6_electro_critRate_ = greaterEq(
 const c6_stellarconduct_critDMG_ = greaterEq(
   input.constellation,
   6,
-  equal(condC6Hit, 'on', percent(dm.constellation6.stellarconduct_critDMG_)),
+  equal(
+    // Direct Stellar Conduct variants use their owner's element; hit-local reads do
+    // not cross the team-buff snapshot boundary.
+    target.charEle,
+    'electro',
+    equal(condC6Hit, 'on', percent(dm.constellation6.stellarconduct_critDMG_))
+  ),
   { path: 'stellarconduct_critDMG_', isTeamBuff: true }
 )
 

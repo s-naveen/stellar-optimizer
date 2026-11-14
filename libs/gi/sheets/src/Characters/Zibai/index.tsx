@@ -236,6 +236,8 @@ const dmgFormulas = {
   },
   plunging: plungingDmgNodes('atk', dm.plunging),
   skill: {
+    // The mode's cast is a real zero-damage hit (gcsim's "Lunar Phase Shift (0 dmg)")
+    castDmg: constant(0),
     shift1Dmg: dmgNode(
       'def',
       dm.skill.shift1Dmg,

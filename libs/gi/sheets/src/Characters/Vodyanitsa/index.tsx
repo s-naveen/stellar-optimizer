@@ -26,6 +26,7 @@ import {
 import { CharacterSheet } from '../CharacterSheet'
 import { charTemplates } from '../charTemplates'
 import {
+  customDmgNode,
   dataObjForCharacterSheet,
   dmgNode,
   healNodeTalent,
@@ -135,6 +136,27 @@ const a1Vortex_anemo_enemyRes_ = greaterEq(
 )
 
 const [condA4LeadVocalPath, condA4LeadVocal] = cond(key, 'a4LeadVocal')
+// Rotation-managed eligibility is attached to the damage instance. Shared reactions
+// use their owner's pool, so the same bonus must reach every contributor.
+const [, condA4Hit] = cond(key, 'a4Hit')
+const a4Hit_elemental = equal(
+  condA4Hit,
+  'elemental',
+  greaterEq(
+    input.asc,
+    4,
+    min(3500, max(0, prod(sum(input.total.hp, -40000), 0.14)))
+  )
+)
+const a4Hit_stellar = equal(
+  condA4Hit,
+  'stellar',
+  greaterEq(
+    input.asc,
+    4,
+    min(6500, max(0, prod(sum(input.total.hp, -40000), 0.26)))
+  )
+)
 // Technically incorrect, should only apply to specific moves
 // But we don't have a way to support that atm
 const [a4LeadVocal_hydro_dmgIncDisp, a4LeadVocal_hydro_dmgInc] = activeCharBuff(
@@ -343,12 +365,16 @@ const dmgFormulas = {
     ),
   },
   burst: {
-    skillDmg: dmgNode(
-      'hp',
-      dm.burst.skillDmg,
-      'burst',
-      undefined,
-      sum(one, skillSong_burst_mult_)
+    // The Song bonus adds to the HP coefficient (native burst.go), before flat additions.
+    skillDmg: customDmgNode(
+      prod(
+        input.total.hp,
+        sum(
+          subscript(input.total.burstIndex, dm.burst.skillDmg),
+          skillSong_burst_mult_
+        )
+      ),
+      'burst'
     ),
   },
   passive2: {
@@ -378,11 +404,20 @@ export const data = dataObjForCharacterSheet(key, dmgFormulas, {
       hydro_enemyRes_: skillHit_hydro_enemyRes_,
       cryo_enemyRes_: skillHit_cryo_enemyRes_,
       anemo_enemyRes_: a1Vortex_anemo_enemyRes_,
-      hydro_dmgInc: sum(a4LeadVocal_hydro_dmgInc, a4Chorus_hydro_dmgInc),
-      cryo_dmgInc: sum(a4LeadVocal_cryo_dmgInc, a4Chorus_cryo_dmgInc),
+      hydro_dmgInc: sum(
+        a4LeadVocal_hydro_dmgInc,
+        a4Chorus_hydro_dmgInc,
+        a4Hit_elemental
+      ),
+      cryo_dmgInc: sum(
+        a4LeadVocal_cryo_dmgInc,
+        a4Chorus_cryo_dmgInc,
+        a4Hit_elemental
+      ),
       stellarswirl_dmgInc: sum(
         a4LeadVocal_stellarswirl_dmgInc,
-        a4Chorus_stellarswirl_dmgInc
+        a4Chorus_stellarswirl_dmgInc,
+        a4Hit_stellar
       ),
       hydro_critDMG_: c2State_hydro_critDMG_,
       cryo_critDMG_: c2State_cryo_critDMG_,
