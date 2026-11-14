@@ -475,6 +475,11 @@ export interface KitModel {
   /** Called when the member swaps out */
   onSwapOut?: (ctx: SimContext, state: any) => void
   /**
+   * Called when the member waits (a W step), before its `frames` pass: what the time does for the
+   * kit (e.g. Mualani walking on Sharky in her blessing, gcsim's walk)
+   */
+  onWait?: (ctx: SimContext, state: any, frames: number) => void
+  /**
    * First frame this (on-field) character can be swapped out, e.g. not while airborne; the swap
    * waits for it and it is rechecked as queued events land
    */

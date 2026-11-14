@@ -10,7 +10,7 @@ import type { CharacterKey } from '@genshin-optimizer/gi/consts'
  *   Q       Elemental Burst                  N1–N6  a Normal Attack string of that many hits
  *   CA / C  Charged Attack                   P    Plunging Attack
  *   D       dash                             J    jump
- *   W1.5    wait 1.5 s
+ *   W1.5    wait 1.5 s (W90f: 90 frames; Mualani in her blessing walks on Sharky meanwhile)
  *   E? / Q?  only when ready (left out, not waited for, when it is not: "Sucrose N1 E? D")
  * A trailing step with no actions ("-> bina") marks the swap back to that member: where the
  * rotation loops. "A/B" alternatives take the first one; "(…)" comments are ignored.
@@ -109,7 +109,7 @@ export function matchMember(
   return prefix.length === 1 ? prefix[0].characterKey : undefined
 }
 
-/** One step's actions: "EQ", "E N1 E N4", "tE CA", "N1E", "W1.5" */
+/** One step's actions: "EQ", "E N1 E N4", "tE CA", "N1E", "W1.5" (seconds), "W90f" (frames) */
 function parseActions(
   text: string,
   warnings: string[],
@@ -123,7 +123,7 @@ function parseActions(
     .map((word) => word.split('/')[0])
     .join(' ')
   const token =
-    /\s*(?:(w)\s*([\d.]+)|(h|t)?(e)(\?)?|(q)(\?)?|(n)\s*([1-6])|(ca|c)|(p)|(d)|(j))/iy
+    /\s*(?:(w)\s*([\d.]+f?)|(h|t)?(e)(\?)?|(q)(\?)?|(n)\s*([1-6])|(ca|c)|(p)|(d)|(j))/iy
   let i = 0
   const s = cleaned.trim()
   while (i < s.length) {
@@ -139,7 +139,13 @@ function parseActions(
     }
     i = token.lastIndex
     const raw = m[0].trim()
-    if (m[1]) actions.push({ kind: 'wait', count: Number(m[2]), text: raw })
+    if (m[1])
+      actions.push({
+        kind: 'wait',
+        // seconds, or frames with an "f" (W1.5 = W90f)
+        count: /f$/i.test(m[2]) ? Number(m[2].slice(0, -1)) / 60 : Number(m[2]),
+        text: raw,
+      })
     else if (m[4])
       actions.push({
         kind: 'skill',

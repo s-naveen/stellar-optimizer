@@ -515,6 +515,14 @@ export const kit: KitModel = {
         return { frames: 30 }
     }
   },
+  // gcsim: walking (as dashing and jumping) in the blessing surfs, +1 Wave Momentum per 0.7 s (its
+  // walk[f=…]). The writer has no walk: a wait in the blessing is her walking on Sharky.
+  onWait(ctx, s: MualaniState, frames) {
+    settle(s, ctx.now)
+    if (!s.blessing) return
+    surf(s, ctx.now, Math.min(ctx.now + frames, s.at + s.points * DRAIN))
+    resetSkillCd(ctx, skillCd(s, ctx.now, frames))
+  },
   onSwapOut(ctx, s: MualaniState) {
     // swapping out ends the blessing (its 6 s Skill cooldown is set by the last action)
     settle(s, ctx.now)

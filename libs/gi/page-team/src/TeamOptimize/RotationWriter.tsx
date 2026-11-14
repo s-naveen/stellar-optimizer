@@ -100,7 +100,7 @@ const TOKENS: { text: string; key: string; label: string }[] = [
   { text: 'P', key: 'plunge', label: 'Plunging Attack' },
   { text: 'D', key: 'dash', label: 'Dash' },
   { text: 'J', key: 'jump', label: 'Jump' },
-  { text: 'W1', key: 'wait', label: 'Wait: W1.5 is 1.5 s' },
+  { text: 'W1', key: 'wait', label: 'Wait: W1.5 is 1.5 s, W90f is 90 frames' },
   { text: '->', key: 'next', label: 'Next step or another member' },
 ]
 
@@ -934,7 +934,7 @@ function WriterModal({
                 <Box sx={{ whiteSpace: 'pre-line' }}>
                   {t(
                     'teamOpt.writer.help',
-                    'Who acts, then their actions, steps separated by ->:\nE / tE skill (tap) · hE skill (hold) · Q burst · N1–N6 normal attacks · CA charged · P plunge · D dash · J jump · W1.5 wait 1.5 s · E? Q? only when ready (left out, not waited for)\nEnd with the first member ("-> bina") where the rotation loops.\nFrame data: gcsim and kqmsim (AGPLv3). Mitya: E again within 6 s switches cores. Automatic entry skills are included. Unimplemented actions are listed below.'
+                    'Who acts, then their actions, steps separated by ->:\nE / tE skill (tap) · hE skill (hold) · Q burst · N1–N6 normal attacks · CA charged · P plunge · D dash · J jump · W1.5 wait 1.5 s (W90f: 90 frames) · E? Q? only when ready (left out, not waited for)\nEnd with the first member ("-> bina") where the rotation loops.\nFrame data: gcsim and kqmsim (AGPLv3). Mitya: E again within 6 s switches cores. Automatic entry skills are included. Unimplemented actions are listed below.'
                   )}
                 </Box>
               }

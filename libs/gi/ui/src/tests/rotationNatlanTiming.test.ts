@@ -28,7 +28,12 @@ describe('Natlan team queue and snapshot boundaries', () => {
   })
 
   it('lets Mualani surf and bite in every rotation: the blessing’s moves set her Skill cooldown, they do not queue more', () => {
-    const members: CharacterKey[] = ['Mualani', 'Furina', 'Xilonen', 'Xiangling']
+    const members: CharacterKey[] = [
+      'Mualani',
+      'Furina',
+      'Xilonen',
+      'Xiangling',
+    ]
     const sim = simulateRotation({
       rotation: parseRotation(
         'Furina E Q -> Xilonen E N2 -> Xiangling E Q -> Mualani Q E J J N1 J J N1 J J N1 -> Furina',
@@ -49,6 +54,36 @@ describe('Natlan team queue and snapshot boundaries', () => {
       sim.hits.filter((h) => h.label === "Sharky's Surging Bite")
     ).toHaveLength(3)
     expect(sim.frames / 60).toBeLessThan(25)
+  })
+
+  it('lets Mualani walk on Sharky in her blessing for a wait (gcsim’s walk): 90 frames make a Surging Bite', () => {
+    const play = (text: string) =>
+      simulateRotation({
+        rotation: parseRotation(text, [
+          { characterKey: 'Mualani', name: 'Mualani' },
+        ]),
+        members: ['Mualani'],
+        elements: { Mualani: 'hydro' },
+        constellations: {},
+        repeats: 1,
+        keep: 'all',
+      }).hits.filter((h) => h.label?.startsWith("Sharky's"))
+    expect(play('Mualani E W90f N1').map((h) => h.label)).toEqual([
+      "Sharky's Surging Bite",
+    ])
+    expect(play('Mualani E W1.5 N1').map((h) => h.label)).toEqual([
+      "Sharky's Surging Bite",
+    ])
+    // (0.7 s between stacks: half a second of walking makes 1)
+    expect(play('Mualani E W0.5 N1').map((h) => h.label)).toEqual([
+      "Sharky's Bite (1 momentum)",
+    ])
+    // (W90f is 90 frames)
+    expect(
+      parseRotation('Mualani W90f', [
+        { characterKey: 'Mualani', name: 'Mualani' },
+      ]).steps[0].actions[0].count
+    ).toBe(1.5)
   })
 
   it('keeps Xilonen’s first crystallizing hit from gaining its own Scroll buff', () => {

@@ -1170,6 +1170,7 @@ export function simulateRotation({
         index: opener ? undefined : i,
         defaultFrames,
       })
+      kit.onWait?.(ctxAt(now, characterKey), states.get(characterKey), frames)
       now += frames
       return
     }
