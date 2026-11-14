@@ -154,6 +154,20 @@ export function mergeConditionals(
   return result as IConditionalValues
 }
 
+/** `conditional` with `overrides` on top: a state per path, `''` deletes it */
+function withOverrides<T extends object>(
+  conditional: T,
+  overrides: Record<string, Record<string, string>> | undefined
+): T {
+  if (!overrides) return conditional
+  const result = deepClone(conditional) as unknown as Record<string, unknown>
+  for (const [item, conds] of Object.entries(overrides))
+    for (const [cond, value] of Object.entries(conds))
+      if (value) layeredAssignment(result, [item, cond], value)
+      else deletePropPath(result, [item, cond])
+  return result as unknown as T
+}
+
 /** `conditional` with the conditionals at `values`' paths in those states */
 function withValues<T extends object>(
   conditional: T,
@@ -192,13 +206,20 @@ export interface TeamDataOverrides {
   extraConditionals?: Partial<Record<CharacterKey, IConditionalValues>>
   /** Bonus stats per member, on top of its own (extra buffs: food, an Abyss blessing...) */
   bonusStats?: Partial<Record<CharacterKey, BonusStats>>
-  /** A member's level, ascension or talents other than its own (e.g. one talent level more) */
+  /** A member's character assumptions (e.g. one talent level more, or a standard constellation). */
   characters?: Partial<Record<CharacterKey, CharacterOverride>>
+  /**
+   * Conditionals per member over its own (they win; before `states`/`excluded`): a state at each
+   * path, `''` for off (e.g. KQM mode's weapon and set effects)
+   */
+  conditionalOverrides?: Partial<
+    Record<CharacterKey, Record<string, Record<string, string>>>
+  >
 }
 
-/** What may differ from a member's character: its level, ascension and talent levels */
+/** Character assumptions for a calculation, without changing the saved character. */
 export type CharacterOverride = Partial<
-  Pick<ICharacter, 'level' | 'ascension' | 'talent'>
+  Pick<ICharacter, 'level' | 'ascension' | 'talent' | 'constellation'>
 >
 
 /**
@@ -217,6 +238,7 @@ export function getTeamDataWith(
     extraConditionals = {},
     bonusStats: extraBonusStats = {},
     characters = {},
+    conditionalOverrides = {},
   }: TeamDataOverrides
 ): Partial<Record<CharacterKey, Data[]>> | undefined {
   const team = database.teams.get(teamId)
@@ -260,7 +282,10 @@ export function getTeamDataWith(
           ).filter(notEmpty) as ICachedArtifact[]))
     const ownConditional = withoutPaths(
       withValues(
-        mergeConditionals(extraConditionals[characterKey], conditional),
+        withOverrides(
+          mergeConditionals(extraConditionals[characterKey], conditional),
+          conditionalOverrides[characterKey]
+        ),
         states.filter((s) => s.owner === characterKey)
       ),
       excluded.filter((e) => e.owner === characterKey).map((e) => e.path)

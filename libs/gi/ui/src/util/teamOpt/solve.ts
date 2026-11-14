@@ -16,7 +16,7 @@ import type {
 } from '@genshin-optimizer/gi/db'
 import type { IConditionalValues } from '@genshin-optimizer/gi/sheets'
 import { getMainStatValue } from '@genshin-optimizer/gi/util'
-import type { OptNode } from '@genshin-optimizer/gi/wr'
+import type { Data, OptNode } from '@genshin-optimizer/gi/wr'
 import { constant, optimize, precompute, sum } from '@genshin-optimizer/gi/wr'
 import type { BonusStats, CharacterOverride, TeamOptMember } from './data'
 import { teamOptBonusStats, teamOptMembers } from './data'
@@ -219,8 +219,10 @@ export function evaluateTeamRotation(
     onField,
     bonusStats,
     characters,
+    conditionalOverrides,
   }: {
-    arts: Partial<Record<CharacterKey, ICachedArtifact[]>>
+    /** Builds of the members: real artifacts or data (missing: their loadout's) */
+    arts: Partial<Record<CharacterKey, ICachedArtifact[] | Data>>
     attacks: TeamOpt['attacks']
     mainStatAssumptionLevel?: number
     statFilters?: Partial<Record<CharacterKey, StatFilters>>
@@ -232,9 +234,14 @@ export function evaluateTeamRotation(
     bonusStats?: Partial<Record<CharacterKey, BonusStats>>
     /** Members with another level, ascension or talent levels */
     characters?: Partial<Record<CharacterKey, CharacterOverride>>
+    /** Conditionals over the members' own (`TeamDataOverrides.conditionalOverrides`) */
+    conditionalOverrides?: Partial<
+      Record<CharacterKey, Record<string, Record<string, string>>>
+    >
   }
 ): TeamOptEvaluation | undefined {
   const nodes = teamRotationNodes(database, teamId, gender, {
+    conditionalOverrides,
     arts,
     attacks,
     mainStatAssumptionLevel,
@@ -277,7 +284,7 @@ export function evaluateTeamRotation(
 }
 
 /** The piece counts set exclusion `rule` allows (as the solver reads it: 2 = 2–3 pieces, 4 = 4–5) */
-const allowedCounts = (rule: readonly number[] | undefined) =>
+export const allowedCounts = (rule: readonly number[] | undefined) =>
   rule?.includes(2)
     ? rule.includes(4)
       ? [0, 1]

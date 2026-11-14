@@ -1,0 +1,44 @@
+{
+  "reference": "7bdf45f2e299c6bf782f81dc60d6cb19fd0bfb4c",
+  "patch": "anastasya-crown-freeze.patch",
+  "patchSha256": "a26e21897aa83e8554619f781f7096bae4be26f55bbdfa87cbdaba271e07ba0d",
+  "measuredAt": "2026-11-13",
+  "iterations": 200,
+  "teams": {
+    "stellar_sandrone": {
+      "appDps": 58536.33306092844,
+      "canonicalDps": 54195.25451128615,
+      "canonicalGapPercent": 8.01,
+      "patchedDps": 56501.514729285285,
+      "patchedGapPercent": 3.6
+    },
+    "stellar_danica": {
+      "appDps": 39122.26300708815,
+      "canonicalDps": 35136.04660315082,
+      "canonicalGapPercent": 11.35,
+      "patchedDps": 39722.62231961271,
+      "patchedGapPercent": -1.51
+    },
+    "stellar_swirl": {
+      "appDps": 24445.703772543773,
+      "canonicalDps": 23452.52474850922,
+      "canonicalGapPercent": 4.23,
+      "patchedDps": 24555.972416974837,
+      "patchedGapPercent": -0.45
+    },
+    "stellar_traveler_onfield": {
+      "appDps": 38032.076082705156,
+      "canonicalDps": 35490.550008839746,
+      "canonicalGapPercent": 7.16,
+      "patchedDps": 37698.71688400409,
+      "patchedGapPercent": 0.88
+    },
+    "stellar_clorinde": {
+      "appDps": 38642.79596311011,
+      "canonicalDps": 35649.46690305992,
+      "canonicalGapPercent": 8.4,
+      "patchedDps": 38431.17969811832,
+      "patchedGapPercent": 0.55
+    }
+  }
+}

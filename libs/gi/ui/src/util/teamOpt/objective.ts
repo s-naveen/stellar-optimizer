@@ -1,4 +1,4 @@
-import { objMap, objPathValue } from '@genshin-optimizer/common/util'
+import { objPathValue } from '@genshin-optimizer/common/util'
 import type { CharacterKey, GenderKey } from '@genshin-optimizer/gi/consts'
 import type {
   ArtCharDatabase,
@@ -16,14 +16,25 @@ import {
   constant,
   data,
   dynamicData,
+  greaterEq,
+  input,
+  max,
   mergeData,
+  min,
   none,
   optimize,
   percent,
   prod,
+  resetData,
+  sum,
 } from '@genshin-optimizer/gi/wr'
 import { statFilterToNumNode } from '../statFilterToNumNode'
-import type { BonusStats, BuffRef, CharacterOverride } from './data'
+import type {
+  BonusStats,
+  BuffRef,
+  CharacterOverride,
+  TeamDataOverrides,
+} from './data'
 import { buffRefKey, getTeamDataWith, teamOptMembers } from './data'
 
 /** A run of an attack's hits that all get the same buffs */
@@ -76,23 +87,268 @@ const groupKey = (
 function attackNode(
   display: Data['display'],
   attack: TeamOptAttack,
-  globalHitMode: string
+  globalHitMode: string,
+  snapshotAdjustments: Partial<Record<string, NumNode>> = {}
 ): NumNode | undefined {
-  const node = objPathValue(display ?? {}, attack.path) as NumNode | undefined
+  let node = objPathValue(display ?? {}, attack.path) as NumNode | undefined
+  if (
+    attack.path.join('.') === 'artifact:OceanHuedClam.heal' &&
+    attack.healing?.length
+  ) {
+    const healing = attack.healing.map(({ path, count }) => {
+      const heal = objPathValue(display ?? {}, path) as NumNode | undefined
+      return heal?.operation ? prod(heal, count) : constant(0)
+    })
+    node = greaterEq(
+      input.artSet.OceanHuedClam,
+      4,
+      prod(0.9, min(30000, sum(...healing)), input.enemy.physical_resMulti_)
+    )
+  }
   if (!node?.operation) return undefined
   const hitMode = attack.hitMode === 'global' ? globalHitMode : attack.hitMode
   return data(node, {
-    premod: objMap(attack.bonusStats ?? {}, (v, k) =>
-      k.endsWith('_') ? percent(v / 100) : constant(v)
+    premod: Object.fromEntries(
+      [
+        ...new Set([
+          ...Object.keys(attack.bonusStats ?? {}),
+          ...Object.keys(snapshotAdjustments),
+        ]),
+      ].map((key) => [
+        key,
+        sum(
+          key.endsWith('_')
+            ? percent(
+                (attack.bonusStats?.[key as keyof typeof attack.bonusStats] ??
+                  0) / 100
+              )
+            : constant(
+                attack.bonusStats?.[key as keyof typeof attack.bonusStats] ?? 0
+              ),
+          snapshotAdjustments[key] ?? constant(0)
+        ),
+      ])
     ),
     hit: {
       hitMode: constant(hitMode),
-      reaction: attack.reaction ? constant(attack.reaction) : none,
+      talentMulti: constant(attack.talentMultiplier ?? 1),
+      simReaction: attack.reaction ? constant(attack.reaction) : none,
     },
+    // undefined, not `none`: team infusions read the smallest string, and 'none' < 'pyro' would
+    // wipe a Pyro team infusion (Bennett C6)
     infusion: {
-      team: attack.infusionAura ? constant(attack.infusionAura) : none,
+      team: attack.infusionAura ? constant(attack.infusionAura) : undefined,
     },
   })
+}
+
+/** A cached team calculation for a captured context; artifact variables remain live. */
+function teamContextReader(
+  database: ArtCharDatabase,
+  teamId: string,
+  gender: GenderKey,
+  overrides: TeamDataOverrides,
+  dyn?: CharacterKey
+) {
+  const cache = new Map<string, ReturnType<typeof uiDataForTeam> | undefined>()
+  return (
+    states: NonNullable<TeamOptAttack['states']>,
+    active: CharacterKey
+  ) => {
+    const key = JSON.stringify([states, active])
+    if (!cache.has(key)) {
+      const team = getTeamDataWith(database, teamId, {
+        ...overrides,
+        states,
+        excluded: [],
+      })
+      const ui = team?.[active]
+        ? uiDataForTeam({ [active]: team[active], ...team }, gender, active)
+        : undefined
+      if (dyn && ui?.[dyn]?.target.data[0]) {
+        const dynamic = ui[dyn]!.target.data[0]
+        Object.assign(dynamic, mergeData([dynamic, dynamicData]))
+      }
+      cache.set(key, ui)
+    }
+    return cache.get(key)
+  }
+}
+
+/** Native special reactions rank the rolled contributions, rather than their averages.
+ * Enumerate at most 16 independent crit outcomes. Each contributor is folded in its own
+ * context first, retaining artifact variables for whichever member is being optimized.
+ */
+function reactionAttackNode(
+  team: ReturnType<typeof uiDataForTeam>,
+  characterKey: CharacterKey,
+  attack: TeamOptAttack,
+  hitMode: string,
+  snapshotFor: ReturnType<typeof snapshotReader>,
+  contextFor: ReturnType<typeof teamContextReader>,
+  collectRoll?: (damage: NumNode, probability: NumNode) => void
+): NumNode | undefined {
+  const current = team[characterKey]?.target.data[0]
+  if (!current) return undefined
+  if (!attack.reactionContributors?.length)
+    return attackNode(
+      current.display,
+      attack,
+      hitMode,
+      snapshotFor(characterKey, attack, current)
+    )
+  const nodeName = attack.path[1] ?? ''
+  const variant = nodeName.startsWith('stellarswirl')
+    ? 'stellarswirl'
+    : nodeName === 'lunarcrystallize'
+      ? 'lunarcrystallize'
+      : 'lunarcharged'
+  const element =
+    variant === 'stellarswirl'
+      ? nodeName.includes('vortex')
+        ? 'cryo'
+        : 'anemo'
+      : variant === 'lunarcrystallize'
+        ? 'geo'
+        : 'electro'
+  const fold = ({ path: [p] }: { path: readonly string[] }) => p !== 'dyn'
+  const contributions = attack.reactionContributors.flatMap((key) => {
+    const capturedStates = attack.reactionContributorStates?.[key]
+    const own = (
+      capturedStates && attack.onField
+        ? contextFor(capturedStates, attack.onField)?.[key]
+        : team[key]
+    )?.target.data[0]
+    if (!own) return []
+    const adjustment = snapshotFor(key, attack, own)
+    const normal = attackNode(
+      own.display,
+      { ...attack, hitMode: 'hit' },
+      hitMode,
+      adjustment
+    )
+    const critical = attackNode(
+      own.display,
+      { ...attack, hitMode: 'critHit' },
+      hitMode,
+      adjustment
+    )
+    if (!normal || !critical) return []
+    const cr = max(
+      0,
+      min(
+        1,
+        sum(
+          input.total.critRate_,
+          input.total[`${variant}_critRate_`],
+          input.total[`${element}_critRate_`]
+        )
+      )
+    )
+    const [base, crit, chance] = optimize(
+      [normal, critical, cr],
+      own,
+      fold
+    ) as NumNode[]
+    return [{ base, crit, chance }]
+  })
+  if (!contributions.length) return constant(0)
+  const ranked = (values: NumNode[]) => {
+    const highest = max(...values)
+    const pairs = values.flatMap((a, i) =>
+      values.slice(i + 1).map((b) => min(a, b))
+    )
+    const second = pairs.length ? max(...pairs) : constant(0)
+    return sum(
+      prod(0.05, sum(...values)),
+      prod(0.55, highest),
+      prod(0.25, second)
+    )
+  }
+  const mode = attack.hitMode === 'global' ? hitMode : attack.hitMode
+  if (mode === 'hit') return ranked(contributions.map((c) => c.base))
+  if (mode === 'critHit') return ranked(contributions.map((c) => c.crit))
+  return sum(
+    ...Array.from({ length: 1 << contributions.length }, (_, mask) => {
+      const values = contributions.map((c, i) =>
+        mask & (1 << i) ? c.crit : c.base
+      )
+      const probability = prod(
+        ...contributions.map((c, i) =>
+          mask & (1 << i) ? c.chance : sum(1, prod(-1, c.chance))
+        )
+      )
+      const damage = ranked(values)
+      collectRoll?.(damage, probability)
+      return prod(probability, damage)
+    })
+  )
+}
+
+/** Fold the snapshot's context, while retaining artifact variables for the optimized member. */
+function snapshotReader(
+  database: ArtCharDatabase,
+  teamId: string,
+  gender: GenderKey,
+  overrides: TeamDataOverrides,
+  dyn?: CharacterKey
+) {
+  const contextFor = teamContextReader(database, teamId, gender, overrides, dyn)
+  return (
+    characterKey: CharacterKey,
+    attack: TeamOptAttack,
+    current: Data
+  ): Partial<Record<string, NumNode>> => {
+    const adjustments: Partial<Record<string, NumNode>> = {}
+    for (const snapshot of attack.statSnapshots ?? []) {
+      if (snapshot.recipient && snapshot.recipient !== characterKey) continue
+      const source = snapshot.characterKey ?? characterKey
+      // A captured total already contains the buff as it was at that earlier time.
+      // Replace a captured component relative to that total's context, not the hit's
+      // current context, or later source buffs can be counted twice.
+      const totalSnapshot = attack.statSnapshots?.find(
+        (s) =>
+          s !== snapshot &&
+          (!s.recipient || s.recipient === characterKey) &&
+          s.stat === snapshot.stat &&
+          (s.characterKey ?? characterKey) === characterKey &&
+          s.path.join('.') === `total.${snapshot.stat}`
+      )
+      const captured = contextFor(snapshot.states, snapshot.onField)?.[source]
+        ?.target.data[0]
+      const currentSource = totalSnapshot
+        ? contextFor(totalSnapshot.states, totalSnapshot.onField)?.[source]
+            ?.target.data[0]
+        : source === characterKey
+          ? current
+          : contextFor(
+              attack.states ?? [],
+              attack.onField ?? snapshot.onField
+            )?.[source]?.target.data[0]
+      const original =
+        currentSource &&
+        (objPathValue(currentSource, snapshot.path) as NumNode | undefined)
+      const replacement =
+        captured &&
+        (objPathValue(captured, snapshot.path) as NumNode | undefined)
+      if (
+        !original?.operation ||
+        !replacement?.operation ||
+        !captured ||
+        !currentSource
+      )
+        continue
+      const fold = ({ path: [p] }: { path: readonly string[] }) => p !== 'dyn'
+      const before = optimize([original], currentSource, fold)[0] as NumNode
+      const after = optimize([replacement], captured, fold)[0] as NumNode
+      adjustments[snapshot.stat] = sum(
+        adjustments[snapshot.stat] ?? constant(0),
+        after,
+        prod(-1, before)
+      )
+    }
+    return adjustments
+  }
 }
 
 /** One attack's (or part of one attack's) damage per rotation */
@@ -141,6 +397,7 @@ export function teamRotationNodes(
     onField,
     bonusStats,
     characters,
+    conditionalOverrides,
   }: {
     dyn?: CharacterKey
     /** Builds of the members (missing: their loadout's) */
@@ -159,6 +416,8 @@ export function teamRotationNodes(
     bonusStats?: Partial<Record<CharacterKey, BonusStats>>
     /** Members with another level, ascension or talent levels */
     characters?: Partial<Record<CharacterKey, CharacterOverride>>
+    /** Conditionals over the members' own (`TeamDataOverrides.conditionalOverrides`) */
+    conditionalOverrides?: TeamDataOverrides['conditionalOverrides']
   }
 ): TeamRotationNodes | undefined {
   const members = teamOptMembers(database, teamId)
@@ -212,6 +471,36 @@ export function teamRotationNodes(
     })
 
   const shouldFold = ({ path: [p] }: { path: readonly string[] }) => p !== 'dyn'
+  const snapshotFor = snapshotReader(
+    database,
+    teamId,
+    gender,
+    {
+      arts: dyn ? { ...arts, [dyn]: [] } : arts,
+      mainStatAssumptionLevel,
+      weapons,
+      extraConditionals,
+      bonusStats,
+      characters,
+      conditionalOverrides,
+    },
+    dyn
+  )
+  const reactionContextFor = teamContextReader(
+    database,
+    teamId,
+    gender,
+    {
+      arts: dyn ? { ...arts, [dyn]: [] } : arts,
+      mainStatAssumptionLevel,
+      weapons,
+      extraConditionals,
+      bonusStats,
+      characters,
+      conditionalOverrides,
+    },
+    dyn
+  )
   const terms: TeamOptTerm[] = []
   const constraints: TeamOptConstraint[] = []
   for (const group of groups.values()) {
@@ -224,6 +513,7 @@ export function teamRotationNodes(
       extraConditionals,
       bonusStats,
       characters,
+      conditionalOverrides,
     })
     if (!teamData) return undefined
     for (const [active, items] of group.byActive) {
@@ -239,43 +529,58 @@ export function teamRotationNodes(
         // the member's artifact stats become variables, also in the buffs it gives
         Object.assign(workerData, mergeData([workerData, dynamicData]))
       }
+      // Every member's hits and requirements are folded together, each in its own data: the
+      // teammates' parts they share (buffs, auras) are folded once, not once per member
+      const batch: { node: NumNode; add: (node: OptNode) => void }[] = []
       for (const { characterKey, teamChar } of members) {
         const workerData = uiData[characterKey]?.target.data[0]
         if (!workerData) continue
-        const own = items.filter((item) => item.characterKey === characterKey)
-        if (own.length) {
-          const nodes = own.map(
-            ({ hits, def }) =>
+        items.forEach((item) => {
+          if (item.characterKey !== characterKey) return
+          const { hits, def, attack } = item
+          batch.push({
+            node: resetData(
               prod(
                 constant(hits),
-                attackNode(workerData.display, def, teamChar.hitMode) ??
-                  constant(0)
-              ) as NumNode
-          )
-          optimize(nodes, workerData, shouldFold).forEach((node, i) =>
-            terms.push({ characterKey, attack: own[i].attack, node })
-          )
-        }
+                reactionAttackNode(
+                  uiData,
+                  characterKey,
+                  def,
+                  teamChar.hitMode,
+                  snapshotFor,
+                  reactionContextFor
+                ) ?? constant(0)
+              ) as NumNode,
+              workerData
+            ),
+            add: (node) => terms.push({ characterKey, attack, node }),
+          })
+        })
         if (!withConstraints) continue
         const filters = statFilterToNumNode(
           workerData,
           statFilters[characterKey] ?? {}
         )
-        if (filters.length)
-          optimize(
-            filters.map(({ value }) => value),
-            workerData,
-            shouldFold
-          ).forEach((value, index) =>
-            constraints.push({
-              characterKey,
-              index,
-              path: filters[index].path,
-              value,
-              min: filters[index].minimum,
-            })
-          )
+        filters.forEach(({ value, path, minimum }, index) =>
+          batch.push({
+            node: resetData(value, workerData),
+            add: (node) =>
+              constraints.push({
+                characterKey,
+                index,
+                path,
+                value: node,
+                min: minimum,
+              }),
+          })
+        )
       }
+      if (batch.length)
+        optimize(
+          batch.map((b) => b.node),
+          {},
+          shouldFold
+        ).forEach((node, i) => batch[i].add(node))
     }
   }
   return { terms, constraints }
@@ -327,6 +632,18 @@ export function teamRotationHits(
   if (!defaultActive) return undefined
   // one team calculation per group of hits (as `teamRotationNodes`)
   const teams = new Map<string, ReturnType<typeof uiDataForTeam> | undefined>()
+  const snapshotFor = snapshotReader(database, teamId, gender, {
+    arts,
+    mainStatAssumptionLevel,
+    weapons,
+    bonusStats,
+  })
+  const reactionContextFor = teamContextReader(database, teamId, gender, {
+    arts,
+    mainStatAssumptionLevel,
+    weapons,
+    bonusStats,
+  })
   const teamFor = (
     excluded: BuffRef[],
     states: readonly (BuffRef & { value: string })[],
@@ -363,12 +680,20 @@ export function teamRotationHits(
           ? def.onField
           : defaultActive
       return attackSegments(def).map(({ hits, excluded }) => {
-        const target = teamFor(excluded, def.states ?? [], active)?.[
-          characterKey
-        ]?.target
+        const team = teamFor(excluded, def.states ?? [], active)
+        const target = team?.[characterKey]?.target
         const workerData = target?.data[0]
         const node =
-          workerData && attackNode(workerData.display, def, teamChar.hitMode)
+          workerData &&
+          team &&
+          reactionAttackNode(
+            team,
+            characterKey,
+            def,
+            teamChar.hitMode,
+            snapshotFor,
+            reactionContextFor
+          )
         return {
           hits,
           excluded,
@@ -424,16 +749,105 @@ export function attackHitData(
     bonusStats,
   })
   if (!teamData?.[active]) return undefined
-  const target = uiDataForTeam(
+  const ui = uiDataForTeam(
     { [active]: teamData[active], ...teamData },
     gender,
     active
-  )?.[characterKey]?.target
-  if (!target) return undefined
-  const node = attackNode(
-    target.data[0].display,
-    attack,
-    member.teamChar.hitMode
   )
+  const target = ui?.[characterKey]?.target
+  if (!target) return undefined
+  const overrides = { mainStatAssumptionLevel, bonusStats }
+  const node = reactionAttackNode(
+    ui,
+    characterKey,
+    attack,
+    member.teamChar.hitMode,
+    snapshotReader(database, teamId, gender, overrides),
+    teamContextReader(database, teamId, gender, overrides)
+  )
+
   return { target, hit: node ? target.get(node) : undefined }
+}
+
+/** Damage rolls for mechanics with damage thresholds. Shared reactions roll each
+ * contributor independently, exactly as the rotation objective does. */
+export function attackDamageOutcomes(
+  database: ArtCharDatabase,
+  teamId: string,
+  gender: GenderKey,
+  characterKey: CharacterKey,
+  attack: TeamOptAttack,
+  overrides: TeamDataOverrides = {}
+): { damage: number; probability: number }[] | undefined {
+  const member = teamOptMembers(database, teamId).find(
+    (m) => m.characterKey === characterKey
+  )
+  const active = attack.onField ?? characterKey
+  const teamData = getTeamDataWith(database, teamId, {
+    ...overrides,
+    excluded: [
+      ...(overrides.excluded ?? []),
+      ...attackSegments({ ...attack, hits: 1 })[0].excluded,
+    ],
+    states: [...(overrides.states ?? []), ...(attack.states ?? [])],
+  })
+  if (!member || !teamData?.[active]) return undefined
+  const ui = uiDataForTeam(
+    { [active]: teamData[active], ...teamData },
+    gender,
+    active
+  )
+  const target = ui[characterKey]?.target
+  if (!target) return undefined
+  const snapshotFor = snapshotReader(database, teamId, gender, overrides)
+  const contextFor = teamContextReader(database, teamId, gender, overrides)
+  const value = (node: NumNode | undefined) => node && target.get(node)?.value
+  const nodeFor = (hitMode: TeamOptAttack['hitMode']) =>
+    reactionAttackNode(
+      ui,
+      characterKey,
+      { ...attack, hitMode },
+      member.teamChar.hitMode,
+      snapshotFor,
+      contextFor
+    )
+  const rolls: { damage: number; probability: number }[] = []
+  if (attack.reactionContributors?.length) {
+    reactionAttackNode(
+      ui,
+      characterKey,
+      { ...attack, hitMode: 'avgHit' },
+      member.teamChar.hitMode,
+      snapshotFor,
+      contextFor,
+      (damage, probability) => {
+        const d = value(damage),
+          p = value(probability)
+        if (typeof d === 'number' && typeof p === 'number' && p > 0)
+          rolls.push({ damage: d, probability: p })
+      }
+    )
+  } else {
+    const base = value(nodeFor('hit')),
+      crit = value(nodeFor('critHit')),
+      average = value(nodeFor('avgHit'))
+    if (
+      typeof base !== 'number' ||
+      typeof crit !== 'number' ||
+      typeof average !== 'number'
+    )
+      return undefined
+    const chance =
+      crit === base
+        ? 0
+        : Math.max(0, Math.min(1, (average - base) / (crit - base)))
+    if (chance < 1) rolls.push({ damage: base, probability: 1 - chance })
+    if (chance > 0) rolls.push({ damage: crit, probability: chance })
+  }
+  return rolls.length &&
+    rolls.every(
+      (r) => Number.isFinite(r.damage) && Number.isFinite(r.probability)
+    )
+    ? rolls
+    : undefined
 }

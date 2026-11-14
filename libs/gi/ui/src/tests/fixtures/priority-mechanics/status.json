@@ -1,0 +1,914 @@
+{
+  "reference": {
+    "repository": "https://github.com/KQM-git/kqmsim",
+    "commit": "7bdf45f2e299c6bf782f81dc60d6cb19fd0bfb4c"
+  },
+  "binarySha256": "2c77043fef38aef3815c7866a77b36bedd78751e68f598c0fb743e89104becc5",
+  "fixtureSha256": "d2423b5fe8cd9073c271350b29f9aa6b41aa288a945394c658f22e36958eba7a",
+  "loops": 4,
+  "iterations": 200,
+  "rotationSourceSha256": "5f51ef919585362875484e5ab6f8a20f90d3ba98548f0987e51bbc64fac15c33",
+  "measuredAt": "2026-11-11T19:33:20.674806+00:00",
+  "teams": [
+    {
+      "id": "stellar_sandrone",
+      "members": ["Sandrone", "Odette", "Anastasya", "Mitya"],
+      "dps": {
+        "ours": 54837.48779247719,
+        "reference": 54195.25451128615,
+        "differencePercent": 1.1850360091164358,
+        "referenceSd": 2182.6167811713685
+      },
+      "seconds": {
+        "ours": 25.291666666666668,
+        "reference": 25.133333333333333,
+        "differencePercent": 0.629973474801071
+      },
+      "warnings": [],
+      "notes": [],
+      "accuracy": {
+        "dpsTolerancePercent": 5,
+        "durationTolerancePercent": 5,
+        "passed": true
+      },
+      "appSamples": 1
+    },
+    {
+      "id": "stellar_danica",
+      "members": ["Danica", "Anastasya", "Mitya", "Odette"],
+      "dps": {
+        "ours": 35839.75678653682,
+        "reference": 35136.04660315082,
+        "differencePercent": 2.002815488418941,
+        "referenceSd": 1166.126695463624
+      },
+      "seconds": {
+        "ours": 28.891666666666666,
+        "reference": 28.883333333333333,
+        "differencePercent": 0.028851702250420885
+      },
+      "warnings": [],
+      "notes": [],
+      "accuracy": {
+        "dpsTolerancePercent": 5,
+        "durationTolerancePercent": 5,
+        "passed": true
+      },
+      "appSamples": 1
+    },
+    {
+      "id": "stellar_swirl",
+      "members": ["Venti", "Sucrose", "Odette", "Anastasya"],
+      "dps": {
+        "ours": 23559.25831130862,
+        "reference": 23452.52474850922,
+        "differencePercent": 0.45510478698540524,
+        "referenceSd": 464.2933314104297
+      },
+      "seconds": {
+        "ours": 27.520833333333332,
+        "reference": 27.520833333333332,
+        "differencePercent": 0.0
+      },
+      "warnings": [],
+      "notes": [
+        "Sucrose: C4 cooldown reduction uses the native 1\u20136 s distribution\u2019s 3.5 s mean; random timing is not exact.",
+        "Waited 5.8 s for Odette's E.",
+        "Waited 0.9 s for Odette's E."
+      ],
+      "accuracy": {
+        "dpsTolerancePercent": 5,
+        "durationTolerancePercent": 5,
+        "passed": true
+      },
+      "appSamples": 1
+    },
+    {
+      "id": "lunar_charged",
+      "members": ["Flins", "Ineffa", "Columbina", "Sucrose"],
+      "dps": {
+        "ours": 74183.56961515475,
+        "reference": 77175.42333090812,
+        "differencePercent": -3.876692328495668,
+        "referenceSd": 2384.792800922583
+      },
+      "seconds": {
+        "ours": 20.75,
+        "reference": 20.758333333333333,
+        "differencePercent": -0.04014452027297777
+      },
+      "warnings": [],
+      "notes": [
+        "Sucrose: C4 cooldown reduction uses the native 1\u20136 s distribution\u2019s 3.5 s mean; random timing is not exact."
+      ],
+      "accuracy": {
+        "dpsTolerancePercent": 5,
+        "durationTolerancePercent": 5,
+        "passed": true
+      },
+      "appSamples": 1
+    },
+    {
+      "id": "lunar_bloom",
+      "members": ["Lauma", "Nahida", "Columbina", "Aino"],
+      "dps": {
+        "ours": 40960.416079454764,
+        "reference": 41485.30528455013,
+        "differencePercent": -1.2652412739767027,
+        "referenceSd": 673.6245061884819
+      },
+      "seconds": {
+        "ours": 28.65,
+        "reference": 28.525,
+        "differencePercent": 0.4382120946538226
+      },
+      "warnings": [],
+      "notes": [
+        "Aino: A1 (faster Water Balls) assumed unlocked",
+        "Aino: untargeted Water Balls use expected hit frequency for the target\u2019s size and distance; reaction timing is approximate.",
+        "Waited 6.8 s for Lauma's hE."
+      ],
+      "accuracy": {
+        "dpsTolerancePercent": 5,
+        "durationTolerancePercent": 5,
+        "passed": true
+      },
+      "appSamples": 1
+    },
+    {
+      "id": "lunar_crystallize",
+      "members": ["Zibai", "Linnea", "Illuga", "Columbina"],
+      "dps": {
+        "ours": 100618.44275581448,
+        "reference": 99415.76588406938,
+        "differencePercent": 1.209744612486885,
+        "referenceSd": 1204.2869455303214
+      },
+      "seconds": {
+        "ours": 23.025,
+        "reference": 22.716666666666665,
+        "differencePercent": 1.3573000733675622
+      },
+      "warnings": [],
+      "notes": ["Waited 1.0 s for Zibai's E."],
+      "accuracy": {
+        "dpsTolerancePercent": 5,
+        "durationTolerancePercent": 5,
+        "passed": true
+      },
+      "appSamples": 1
+    },
+    {
+      "id": "hexerei_klee",
+      "members": ["Klee", "Durin", "Nicole", "Bennett"],
+      "dps": {
+        "ours": 25106.524911470297,
+        "reference": 25077.404006365956,
+        "differencePercent": 0.11612408165115884,
+        "referenceSd": 1106.1133066151494
+      },
+      "seconds": {
+        "ours": 33.55833333333333,
+        "reference": 33.395833333333336,
+        "differencePercent": 0.48658764815967537
+      },
+      "warnings": [],
+      "notes": ["Waited 6.2 s for Klee's E.", "64 seeded rotation samples."],
+      "accuracy": {
+        "dpsTolerancePercent": 5,
+        "durationTolerancePercent": 5,
+        "passed": true
+      },
+      "appSamples": 64
+    },
+    {
+      "id": "hexerei_razor",
+      "members": ["Razor", "Fischl", "Mona", "Dahlia"],
+      "dps": {
+        "ours": 15594.602738025924,
+        "reference": 16034.520512987472,
+        "differencePercent": -2.7435667602609515,
+        "referenceSd": 494.5305016461513
+      },
+      "seconds": {
+        "ours": 23.979166666666668,
+        "reference": 23.85,
+        "differencePercent": 0.541579315164209
+      },
+      "warnings": [],
+      "notes": [
+        "Fischl: the Oz recast is not modelled",
+        "Razor: charged attack (no gcsim frame data), C1, C2, A4 and the Electro Sigil ER not modelled; Claw and Thunder CD assumes A1; Lightning Fang does not reset its CD; plunge is the Low Plunge; Hexerei assumed",
+        "Waited 5.1 s for Fischl's E."
+      ],
+      "accuracy": {
+        "dpsTolerancePercent": 5,
+        "durationTolerancePercent": 5,
+        "passed": true
+      },
+      "appSamples": 1
+    },
+    {
+      "id": "freeze_escoffier",
+      "members": ["Wriothesley", "Escoffier", "Furina", "Shenhe"],
+      "dps": {
+        "ours": 58648.946667590084,
+        "reference": 58486.8113826276,
+        "differencePercent": 0.2772168308198042,
+        "referenceSd": 1112.9220101311316
+      },
+      "seconds": {
+        "ours": 22.583333333333332,
+        "reference": 22.608333333333334,
+        "differencePercent": -0.11057869517140384
+      },
+      "warnings": [],
+      "notes": [
+        "Shenhe: the burst field is assumed to cover the active member (A1, C2 and the RES shred)."
+      ],
+      "accuracy": {
+        "dpsTolerancePercent": 5,
+        "durationTolerancePercent": 5,
+        "passed": true
+      },
+      "appSamples": 1
+    },
+    {
+      "id": "natlan_mavuika",
+      "members": ["Mavuika", "Citlali", "Xilonen", "Bennett"],
+      "dps": {
+        "ours": 54032.23219664826,
+        "reference": 53579.19210561144,
+        "differencePercent": 0.8455522997506737,
+        "referenceSd": 4457.824797690759
+      },
+      "seconds": {
+        "ours": 19.333333333333332,
+        "reference": 19.341666666666665,
+        "differencePercent": -0.04308487720809939
+      },
+      "warnings": [],
+      "notes": [
+        "Xilonen: A1 and A4 are assumed unlocked; the C2 Electro energy refund is not modelled.",
+        "64 seeded rotation samples."
+      ],
+      "accuracy": {
+        "dpsTolerancePercent": 5,
+        "durationTolerancePercent": 5,
+        "passed": true
+      },
+      "appSamples": 64
+    },
+    {
+      "id": "natlan_kinich",
+      "members": ["Kinich", "Emilie", "Dehya", "Bennett"],
+      "dps": {
+        "ours": 33984.605168578826,
+        "reference": 33674.272859516546,
+        "differencePercent": 0.9215709285154805,
+        "referenceSd": 1287.2551802726066
+      },
+      "seconds": {
+        "ours": 24.758333333333333,
+        "reference": 23.916666666666668,
+        "differencePercent": 3.519163763066202
+      },
+      "warnings": [],
+      "notes": [],
+      "accuracy": {
+        "dpsTolerancePercent": 5,
+        "durationTolerancePercent": 5,
+        "passed": true
+      },
+      "appSamples": 1
+    },
+    {
+      "id": "natlan_mualani",
+      "members": ["Mualani", "Furina", "Xiangling", "Xilonen"],
+      "dps": {
+        "ours": 20183.27903369345,
+        "reference": 20436.60121094212,
+        "differencePercent": -1.239551404041872,
+        "referenceSd": 439.0942299249506
+      },
+      "seconds": {
+        "ours": 22.216666666666665,
+        "reference": 22.225,
+        "differencePercent": -0.037495313085877946
+      },
+      "warnings": [],
+      "notes": [
+        "Xilonen: A1 and A4 are assumed unlocked; the C2 Electro energy refund is not modelled.",
+        "Mualani: single target; the surfing enemy is assumed in front of her."
+      ],
+      "accuracy": {
+        "dpsTolerancePercent": 5,
+        "durationTolerancePercent": 5,
+        "passed": true
+      },
+      "appSamples": 1
+    },
+    {
+      "id": "natlan_chasca",
+      "members": ["Chasca", "Ororon", "Furina", "Bennett"],
+      "dps": {
+        "ours": 42704.43540693098,
+        "reference": 42120.52752637949,
+        "differencePercent": 1.386278650441386,
+        "referenceSd": 684.3785681538576
+      },
+      "seconds": {
+        "ours": 21.083333333333332,
+        "reference": 21.075,
+        "differencePercent": 0.03954132068011429
+      },
+      "warnings": [],
+      "notes": [
+        "Chasca: the Shadowhunt bullets are random in game; modelled as the party PHEC members in turn"
+      ],
+      "accuracy": {
+        "dpsTolerancePercent": 5,
+        "durationTolerancePercent": 5,
+        "passed": true
+      },
+      "appSamples": 1
+    },
+    {
+      "id": "natlan_varesa",
+      "members": ["Varesa", "Iansan", "Chevreuse", "Xiangling"],
+      "dps": {
+        "ours": 34393.25913566991,
+        "reference": 34575.51529793128,
+        "differencePercent": -0.5271249341937345,
+        "referenceSd": 1086.5218344778832
+      },
+      "seconds": {
+        "ours": 19.6125,
+        "reference": 19.704166666666666,
+        "differencePercent": -0.4652146331148188
+      },
+      "warnings": [],
+      "notes": [
+        "Iansan: Nightsoul points from movement and C4 are not modelled; A1 is assumed (Ascension 1+).",
+        "Waited 2.5 s for Xiangling's Q."
+      ],
+      "accuracy": {
+        "dpsTolerancePercent": 5,
+        "durationTolerancePercent": 5,
+        "passed": true
+      },
+      "appSamples": 1
+    }
+  ],
+  "combinedCoverage": {
+    "teamCount": 14,
+    "passingTeamCount": 14,
+    "distinctCharacters": 41,
+    "directDamageWithinFivePercentEveryAppearance": 33,
+    "directDamageOutsideFivePercentAtLeastOnce": 8,
+    "characterCertification": false
+  },
+  "characterDirectDamageDiagnostics": {
+    "Aino": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "lunar_bloom",
+          "ours": 13687.241147091574,
+          "reference": 13746.515455313162,
+          "differencePercent": -0.43119515206798686
+        }
+      ]
+    },
+    "Anastasya": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "stellar_sandrone",
+          "ours": 288663.0386290413,
+          "reference": 276230.22071499337,
+          "differencePercent": 4.50088983090513
+        },
+        {
+          "team": "stellar_danica",
+          "ours": 321331.64782388264,
+          "reference": 311633.7542561402,
+          "differencePercent": 3.111952230877879
+        },
+        {
+          "team": "stellar_swirl",
+          "ours": 222025.1135100305,
+          "reference": 218009.64964204995,
+          "differencePercent": 1.8418743732552922
+        }
+      ]
+    },
+    "Bennett": {
+      "withinFivePercentEveryAppearance": false,
+      "appearances": [
+        {
+          "team": "hexerei_klee",
+          "ours": 15238.921199629773,
+          "reference": 15304.009172008478,
+          "differencePercent": -0.4253001396376188
+        },
+        {
+          "team": "natlan_mavuika",
+          "ours": 28510.40516406115,
+          "reference": 28526.324344557404,
+          "differencePercent": -0.055805228546002006
+        },
+        {
+          "team": "natlan_kinich",
+          "ours": 15238.921199629773,
+          "reference": 15088.049974464573,
+          "differencePercent": 0.9999385302974062
+        },
+        {
+          "team": "natlan_chasca",
+          "ours": 22831.582631781628,
+          "reference": 20154.59709048299,
+          "differencePercent": 13.28225778605474
+        }
+      ]
+    },
+    "Chasca": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "natlan_chasca",
+          "ours": 568882.8332515821,
+          "reference": 560108.7139075919,
+          "differencePercent": 1.5665029174028788
+        }
+      ]
+    },
+    "Chevreuse": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "natlan_varesa",
+          "ours": 39523.463075751046,
+          "reference": 40640.75621902614,
+          "differencePercent": -2.74919378284606
+        }
+      ]
+    },
+    "Citlali": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "natlan_mavuika",
+          "ours": 117563.61877627249,
+          "reference": 118824.11744420882,
+          "differencePercent": -1.0608104609135194
+        }
+      ]
+    },
+    "Columbina": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "lunar_charged",
+          "ours": 276635.32915106014,
+          "reference": 285473.4211851256,
+          "differencePercent": -3.09594217120972
+        },
+        {
+          "team": "lunar_bloom",
+          "ours": 404377.5473266519,
+          "reference": 398504.0340619283,
+          "differencePercent": 1.4738905412964742
+        },
+        {
+          "team": "lunar_crystallize",
+          "ours": 284651.88065122225,
+          "reference": 285860.01614482666,
+          "differencePercent": -0.4226318566330489
+        }
+      ]
+    },
+    "Dahlia": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "hexerei_razor",
+          "ours": 14045.862732199816,
+          "reference": 13906.913228776975,
+          "differencePercent": 0.9991397885140918
+        }
+      ]
+    },
+    "Danica": {
+      "withinFivePercentEveryAppearance": false,
+      "appearances": [
+        {
+          "team": "stellar_danica",
+          "ours": 144481.50742759532,
+          "reference": 133961.9467524642,
+          "differencePercent": 7.852648405124518
+        }
+      ]
+    },
+    "Dehya": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "natlan_kinich",
+          "ours": 7470.712348594039,
+          "reference": 7204.393084395326,
+          "differencePercent": 3.6966231725412024
+        }
+      ]
+    },
+    "Durin": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "hexerei_klee",
+          "ours": 322491.58270044124,
+          "reference": 327677.59362471756,
+          "differencePercent": -1.5826565579017737
+        }
+      ]
+    },
+    "Emilie": {
+      "withinFivePercentEveryAppearance": false,
+      "appearances": [
+        {
+          "team": "natlan_kinich",
+          "ours": 352286.55809551367,
+          "reference": 309251.0835721934,
+          "differencePercent": 13.916030309809347
+        }
+      ]
+    },
+    "Escoffier": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "freeze_escoffier",
+          "ours": 444097.641901298,
+          "reference": 439702.5952694239,
+          "differencePercent": 0.999549850093806
+        }
+      ]
+    },
+    "Fischl": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "hexerei_razor",
+          "ours": 115892.82858903613,
+          "reference": 113828.76127497657,
+          "differencePercent": 1.8133091241091304
+        }
+      ]
+    },
+    "Flins": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "lunar_charged",
+          "ours": 354733.32958381454,
+          "reference": 369654.7991939411,
+          "differencePercent": -4.0365956678133035
+        }
+      ]
+    },
+    "Furina": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "freeze_escoffier",
+          "ours": 259500.7054113973,
+          "reference": 247275.5663306325,
+          "differencePercent": 4.943933305734927
+        },
+        {
+          "team": "natlan_mualani",
+          "ours": 196517.75171705082,
+          "reference": 189357.84731424498,
+          "differencePercent": 3.781150084011986
+        },
+        {
+          "team": "natlan_chasca",
+          "ours": 149206.0656099064,
+          "reference": 149661.1966058216,
+          "differencePercent": -0.3041075484074507
+        }
+      ]
+    },
+    "Iansan": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "natlan_varesa",
+          "ours": 62683.062805368965,
+          "reference": 59825.86584480642,
+          "differencePercent": 4.775855593923817
+        }
+      ]
+    },
+    "Illuga": {
+      "withinFivePercentEveryAppearance": false,
+      "appearances": [
+        {
+          "team": "lunar_crystallize",
+          "ours": 38732.999938769244,
+          "reference": 28334.938680415078,
+          "differencePercent": 36.696960510951236
+        }
+      ]
+    },
+    "Ineffa": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "lunar_charged",
+          "ours": 370352.8762783783,
+          "reference": 389585.17636812944,
+          "differencePercent": -4.936609824080684
+        }
+      ]
+    },
+    "Kinich": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "natlan_kinich",
+          "ours": 413923.75690958445,
+          "reference": 425089.8194648981,
+          "differencePercent": -2.626753698634665
+        }
+      ]
+    },
+    "Klee": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "hexerei_klee",
+          "ours": 472365.44650239655,
+          "reference": 460438.90924536774,
+          "differencePercent": 2.5902539984241857
+        }
+      ]
+    },
+    "Lauma": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "lunar_bloom",
+          "ours": 187008.4001985582,
+          "reference": 193147.73614329664,
+          "differencePercent": -3.1785699730819794
+        }
+      ]
+    },
+    "Linnea": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "lunar_crystallize",
+          "ours": 359765.3407487596,
+          "reference": 342906.40366239875,
+          "differencePercent": 4.916483596194077
+        }
+      ]
+    },
+    "Mavuika": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "natlan_mavuika",
+          "ours": 879357.0339750104,
+          "reference": 869640.5453363039,
+          "differencePercent": 1.1172994050028917
+        }
+      ]
+    },
+    "Mitya": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "stellar_sandrone",
+          "ours": 340292.21049319784,
+          "reference": 348277.0940709114,
+          "differencePercent": -2.2926812338935454
+        },
+        {
+          "team": "stellar_danica",
+          "ours": 485365.48961165297,
+          "reference": 485564.32486470917,
+          "differencePercent": -0.04094931255742562
+        }
+      ]
+    },
+    "Mona": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "hexerei_razor",
+          "ours": 21788.979956430823,
+          "reference": 22593.11416036909,
+          "differencePercent": -3.5592003750806955
+        }
+      ]
+    },
+    "Mualani": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "natlan_mualani",
+          "ours": 121954.64691470414,
+          "reference": 127532.9061634293,
+          "differencePercent": -4.373976424231096
+        }
+      ]
+    },
+    "Nahida": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "lunar_bloom",
+          "ours": 76932.15134058533,
+          "reference": 77983.86137243894,
+          "differencePercent": -1.3486252326373127
+        }
+      ]
+    },
+    "Nicole": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "hexerei_klee",
+          "ours": 32437.18141828973,
+          "reference": 34060.292587170465,
+          "differencePercent": -4.765405830636094
+        }
+      ]
+    },
+    "Odette": {
+      "withinFivePercentEveryAppearance": false,
+      "appearances": [
+        {
+          "team": "stellar_sandrone",
+          "ours": 54640.00964248723,
+          "reference": 57562.019903378285,
+          "differencePercent": -5.076281662450077
+        },
+        {
+          "team": "stellar_danica",
+          "ours": 84291.66162789593,
+          "reference": 83686.12018102786,
+          "differencePercent": 0.7235864747441756
+        },
+        {
+          "team": "stellar_swirl",
+          "ours": 84603.53075317867,
+          "reference": 82533.05133111466,
+          "differencePercent": 2.5086669990637356
+        }
+      ]
+    },
+    "Ororon": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "natlan_chasca",
+          "ours": 97736.33946513454,
+          "reference": 94388.99125046738,
+          "differencePercent": 3.546333285610337
+        }
+      ]
+    },
+    "Razor": {
+      "withinFivePercentEveryAppearance": false,
+      "appearances": [
+        {
+          "team": "hexerei_razor",
+          "ours": 184166.93397804673,
+          "reference": 194043.18416995188,
+          "differencePercent": -5.089717649270842
+        }
+      ]
+    },
+    "Sandrone": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "stellar_sandrone",
+          "ours": 703336.2033200086,
+          "reference": 680038.0620277091,
+          "differencePercent": 3.4260054831092956
+        }
+      ]
+    },
+    "Shenhe": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "freeze_escoffier",
+          "ours": 62037.69576960976,
+          "reference": 62537.26363818015,
+          "differencePercent": -0.7988323113411577
+        }
+      ]
+    },
+    "Sucrose": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "stellar_swirl",
+          "ours": 42578.35374980917,
+          "reference": 41517.10546817859,
+          "differencePercent": 2.5561711724917613
+        },
+        {
+          "team": "lunar_charged",
+          "ours": 18379.583682695124,
+          "reference": 17813.019911618732,
+          "differencePercent": 3.180616054366192
+        }
+      ]
+    },
+    "Varesa": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "natlan_varesa",
+          "ours": 334282.1908901372,
+          "reference": 337886.33101077535,
+          "differencePercent": -1.0666723657794863
+        }
+      ]
+    },
+    "Venti": {
+      "withinFivePercentEveryAppearance": false,
+      "appearances": [
+        {
+          "team": "stellar_swirl",
+          "ours": 25699.6033438633,
+          "reference": 28232.169262284682,
+          "differencePercent": -8.970497076909478
+        }
+      ]
+    },
+    "Wriothesley": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "freeze_escoffier",
+          "ours": 545729.5749429399,
+          "reference": 561633.7379843666,
+          "differencePercent": -2.8317677457384893
+        }
+      ]
+    },
+    "Xiangling": {
+      "withinFivePercentEveryAppearance": false,
+      "appearances": [
+        {
+          "team": "natlan_mualani",
+          "ours": 113319.52472205892,
+          "reference": 120707.49557866578,
+          "differencePercent": -6.120556823078216
+        },
+        {
+          "team": "natlan_varesa",
+          "ours": 177974.52650680844,
+          "reference": 185615.52176709689,
+          "differencePercent": -4.116571280001069
+        }
+      ]
+    },
+    "Xilonen": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "natlan_mavuika",
+          "ours": 19192.097886522362,
+          "reference": 19319.88685096314,
+          "differencePercent": -0.6614374371162857
+        },
+        {
+          "team": "natlan_mualani",
+          "ours": 16613.25917807563,
+          "reference": 16605.212856848753,
+          "differencePercent": 0.0484565979144147
+        }
+      ]
+    },
+    "Zibai": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "lunar_crystallize",
+          "ours": 1075750.8530504883,
+          "reference": 1063878.96865599,
+          "differencePercent": 1.1159055441707144
+        }
+      ]
+    }
+  }
+}

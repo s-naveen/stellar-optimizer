@@ -1,0 +1,457 @@
+{
+  "priorityOrder": [
+    "Remaining Stellar/Lunar/Hexerei/Freeze/Natlan characters and mechanics",
+    "Fontaine archetypes",
+    "Sumeru archetypes"
+  ],
+  "groups": {
+    "stellar_core": [
+      {
+        "character": "Sandrone",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Danica",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Anastasya",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true,
+        "supportStatus": "Only Love/off-field mode is compared with this pin. Honor/hold skill, Honor burst and Doom are explicitly unsupported in both the app timeline and pinned native implementation; manual formula nodes do not certify their timing."
+      },
+      {
+        "character": "Mitya",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Odette",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "TravelerCryo",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true,
+        "supportStatus": "C0 off-field and on-field Conduct/Swirl cases pass; full kit limits recorded in priority-cryo-traveler"
+      },
+      {
+        "character": "Qiqi",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      }
+    ],
+    "stellar_adapted": [
+      {
+        "character": "Cyno",
+        "inCurrentMatrix": false,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Clorinde",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true,
+        "supportStatus": "C0 Stellar Conduct team passes with all direct components within 5%; normal/Arkhe hitlag and expiry clocks remain targeted follow-ups"
+      },
+      {
+        "character": "YumemizukiMizuki",
+        "inCurrentMatrix": false,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      }
+    ],
+    "lunar_dedicated": [
+      {
+        "character": "Flins",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Ineffa",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Columbina",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Lauma",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Nefer",
+        "inCurrentMatrix": false,
+        "hasAppKit": false,
+        "hasPinnedNativeImplementation": false
+      },
+      {
+        "character": "Aino",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Jahoda",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Zibai",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Linnea",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Illuga",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      }
+    ],
+    "hexerei": [
+      {
+        "character": "Albedo",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Durin",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Fischl",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Klee",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Lohen",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true,
+        "supportStatus": "C0 provisional; five-hit native burst discrepancy unresolved"
+      },
+      {
+        "character": "Mona",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Nicole",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Prune",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true,
+        "supportStatus": "Conversion, recipient-specific Hexerei/C6 and captured A4 source context checked; multiple targets/energy refunds unvalidated"
+      },
+      {
+        "character": "Razor",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Sucrose",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Varka",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true,
+        "supportStatus": "C0 recharge, Azure Devour, A4 and A1 clocks checked in three cases; C1-C6/plunges unvalidated"
+      },
+      {
+        "character": "Venti",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      }
+    ],
+    "natlan_nightsoul": [
+      {
+        "character": "Kachina",
+        "inCurrentMatrix": false,
+        "hasAppKit": false,
+        "hasPinnedNativeImplementation": false
+      },
+      {
+        "character": "Kinich",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Mualani",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Xilonen",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Chasca",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Ororon",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Mavuika",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Citlali",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Iansan",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Varesa",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Ifa",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "TravelerPyro",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true,
+        "supportStatus": "C0 tap/hold Burning teams checked, with Nightsoul state/consumption/tags; higher constellations and energy refunds unverified"
+      }
+    ],
+    "freeze_carries": [
+      {
+        "character": "Wriothesley",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Skirk",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "KamisatoAyaka",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Ganyu",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Lohen",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true,
+        "supportStatus": "C0 provisional; five-hit native burst discrepancy unresolved"
+      },
+      {
+        "character": "Kaeya",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Chongyun",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true,
+        "supportStatus": "C6 Freeze and cooldown-stress cases pass; A1/C2 field and linger, HP-dependent C6, A4 ATK snapshot and burst Shatter checked; energy refunds and other modes unverified"
+      },
+      {
+        "character": "Rosaria",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Aloy",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      }
+    ],
+    "freeze_supports": [
+      {
+        "character": "Escoffier",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Shenhe",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Qiqi",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Diona",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Layla",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true,
+        "supportStatus": "C6 Freeze and cooldown-stress cases pass; party-skill Night Stars and recipient-specific C4 consumption/expiry checked; shield break, A1 shield strength and energy refunds unverified"
+      },
+      {
+        "character": "Charlotte",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "SangonomiyaKokomi",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Mona",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      },
+      {
+        "character": "Furina",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true
+      }
+    ],
+    "new_stellar_lunar_native_kits": [
+      {
+        "character": "Lohen",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true,
+        "supportStatus": "C0 provisional; five-hit native burst discrepancy unresolved"
+      },
+      {
+        "character": "Vodyanitsa",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true,
+        "supportStatus": "C0 fixed-build Freeze and Stellar Swirl cases; native passive scope discrepancy remains"
+      },
+      {
+        "character": "Vesna",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true,
+        "supportStatus": "C0 fixed-build Stellar Swirl and non-Stellar cases; native Wind Pinion scope noted; higher constellations/plunges unsupported"
+      },
+      {
+        "character": "Valeriy",
+        "inCurrentMatrix": true,
+        "hasAppKit": true,
+        "hasPinnedNativeImplementation": true,
+        "supportStatus": "C6 fixed-build Electro and Stellar cases checked; current Stellar canonical gate is -6.9%, isolated reference means give -1.2% with current app code; shield growth and energy refunds unverified"
+      }
+    ]
+  },
+  "remainingMechanics": [
+    "Reference discrepancies: Illuga delayed FlatDmg mutation, Danica fifth burst multiplier, Polestar expiry event listener",
+    "Lohen: resolve five-versus-six burst hits and source discrepancies; C1-C6 and plunge are unsupported; C0 result remains provisional",
+    "Vodyanitsa: C1-C6, held skill and plunges unsupported; resolve native passive scope and Cryo Freeze source discrepancy; fixed-build checks do not certify all conditions",
+    "Venti: pinned native Skyward Sonnet forces weak-point crits; app keeps ordinary crit expectation, with a remaining direct-damage gap",
+    "Vesna: higher constellations/plunges; resolve native Wind Pinion description scope",
+    "Valeriy: shield growth and energy refunds; six-rhythm deterministic approximation; Stellar case remains outside canonical gate; isolated Polestar expiry / Sandrone passive reference means give -1.2% with current app code",
+    "Pyro Traveler: C1-C6 mechanics and A4 energy refunds; current KQM C0 tap/hold checks do not certify them",
+    "Emilie: burst collateral targeting uses a deterministic annulus probability; random multi-target/position mechanics remain approximate",
+    "Stellar-adapted Cyno/Mizuki: pinned native implementations omit newer Stellar/Revelation mechanics despite updated sheet data; do not certify those variants from this binary",
+    "Varka: C1-C6, plunges, no-PHEC party and exact boundary edge cases outside the three C0 rotations",
+    "Cryo Traveler: C0 conversion, Icepoint and Freezing Ice checked in Conduct/Swirl on-field cases; C1-C6, plunges, grouped-normal mode boundaries and the native omission of Icepoint expiry remain unvalidated",
+    "Clorinde: validate normal/Arkhe hitlag, character-clock status expiry and additional stance inputs beyond the passing C0 Stellar rotation",
+    "Freeze: Kaeya defeat extensions, Aloy coil scenarios, Charlotte C6 heals, shatter/impulse edge cases, multiple targets and shield breaks",
+    "Klee: C0 Spark/burst randomness now uses 64 seeded complete timelines; C1-C6, energy, more archetypes and sample convergence remain unverified",
+    "Razor/Dahlia: burst/HP-based normal attack speed, Pale Flame and C6 clock checked; Razor direct component remains -5.1%, C1 particles, stance/sigil clocks, energy and shields need further audit",
+    "Tracked HP: regenerate candidate-dependent HP/Fanfare, Lohen Will, Chongyun enemy-HP and Dahlia HP-based speed histories during KQM search; expected HP is not a joint HP/crit distribution",
+    "Timing: audit remaining enemy-time effects and attacks that snapshot before landing; upstream Nilou duration still differs by 7.3%",
+    "Jahoda: Ascendant Gleam team, aura-dependent flask/robot absorption, snapshots and ICDs checked; native default robot multiplier defect recorded; C1 uses deterministic probability, multiple enemies and energy refunds unverified",
+    "Anastasya: Honor/on-field mode, its enhanced normals and Doom lack native frame support; Love-only comparisons do not certify Honor"
+  ],
+  "latestCheckpoint": "../priority-validation/status.json"
+}

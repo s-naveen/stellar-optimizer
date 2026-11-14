@@ -1,0 +1,28 @@
+{
+  "measuredAt": "2026-11-11T08:22:53.587775+00:00",
+  "sourceCommit": "7bdf45f2e299c6bf782f81dc60d6cb19fd0bfb4c",
+  "patchSha256": "2f14a9e2d787a92b6f67a916ab2952f78327fd4c9ec155c0a8f26e3836bba013",
+  "originalBinarySha256": "2c77043fef38aef3815c7866a77b36bedd78751e68f598c0fb743e89104becc5",
+  "auditBinarySha256": "5a853aaa0e0fcd9145d340c46a568934decfcf85070a330a4164200e502642df",
+  "loops": 4,
+  "iterations": 200,
+  "cases": [
+    {
+      "id": "stellar_traveler_onfield",
+      "canonicalNative": 35490.550008839746,
+      "auditNative": 35571.13663892024,
+      "app": 35513.76671015123,
+      "canonicalGapPercent": 0.06541657231486919,
+      "auditGapPercent": -0.16128224788363177
+    },
+    {
+      "id": "stellar_swirl_traveler_onfield",
+      "canonicalNative": 18636.440998723174,
+      "auditNative": 18318.894843844464,
+      "app": 17828.798712232427,
+      "canonicalGapPercent": -4.333672328027016,
+      "auditGapPercent": -2.6753586162798437
+    }
+  ],
+  "note": "Only the Blizzard Strayer shared-reaction handler was restricted to the wearer. Independent 200-trial means; this is supporting source-defect evidence and does not replace canonical gates."
+}

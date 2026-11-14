@@ -1,0 +1,16 @@
+diff --git a/internal/characters/anastasya/burst.go b/internal/characters/anastasya/burst.go
+index 1b973048e..ef9da508c 100644
+--- a/internal/characters/anastasya/burst.go
++++ b/internal/characters/anastasya/burst.go
+@@ -61,6 +61,11 @@ func (c *char) burstLove(_ map[string]int) (action.Info, error) {
+ 
+ 		c.Core.QueueAttack(ai, ap, 0, 0)
+ 		c.AddStatus(burstLoveKey, 20*60, true)
++		// AUDIT: the game text says To the New World "freezes the Palestar Crown's duration"
++		// while it lasts: the crown's remaining time resumes after the 20 s
++		if c.StatusIsActive(skillTapKey) {
++			c.ExtendStatus(skillTapKey, 20*60)
++		}
+ 
+ 		c.burstLoveToSeal = true
+ 	}, burstHitmark)

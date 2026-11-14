@@ -1,0 +1,33 @@
+{
+  "sourceCommit": "7bdf45f2e299c6bf782f81dc60d6cb19fd0bfb4c",
+  "canonicalBinarySha256": "2c77043fef38aef3815c7866a77b36bedd78751e68f598c0fb743e89104becc5",
+  "auditBinarySha256": "0c836bd4d26cfcea158af8247f7c72c66842ab157f892c9513ae6563db054130",
+  "patchSha256": "91dd13ed133d5527752a0b539d8c03ff428829ec4ba2c43400ae628f0d26ecb5",
+  "configSha256": "8a9f56835389e05c629fa3928740ab02f78b158020022732e0d0f804c34bde93",
+  "iterations": 200,
+  "loops": 4,
+  "pairedSeeds": false,
+  "patchScope": [
+    "Repeat N3 multiplier for all three defined hitmarks in ordinary and Masterstroke attacks",
+    "Consume Joy and increment special-skill use counter on skillPierce entry"
+  ],
+  "originalReference": {
+    "dps": 14999.010091885784,
+    "secondsPerLoop": 54.67916666666667
+  },
+  "patchedReference": {
+    "dps": 38882.83391924076,
+    "secondsPerLoop": 24.8125
+  },
+  "app": {
+    "dps": 38452.95962854448,
+    "secondsPerLoop": 24.8
+  },
+  "officialBenchmarkUsesPatchedBinary": false,
+  "remaining": [
+    "Native burst has five hitmarks; sheet describes six",
+    "Native Will gain listener omits the described per-member 0.1 second ICD",
+    "Pinned native snapshot order and A4 stance requirement differ from descriptions",
+    "App does not regenerate Will history for each KQM candidate build"
+  ]
+}

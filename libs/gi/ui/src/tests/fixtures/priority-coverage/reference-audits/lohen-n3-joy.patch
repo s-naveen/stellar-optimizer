@@ -1,0 +1,43 @@
+diff --git a/internal/characters/lohen/attack.go b/internal/characters/lohen/attack.go
+index 09036cd..35ff869 100644
+--- a/internal/characters/lohen/attack.go
++++ b/internal/characters/lohen/attack.go
+@@ -55,7 +55,11 @@ func (c *char) Attack(p map[string]int) (action.Info, error) {
+ 	if c.StatusIsActive(skillKey) {
+ 		return c.skillAttack(), nil
+ 	}
+-	for i, mult := range attack[c.NormalCounter] {
++	multipliers := attack[c.NormalCounter]
++	if c.NormalCounter == 2 {
++		multipliers = [][]float64{multipliers[0], multipliers[0], multipliers[0]}
++	}
++	for i, mult := range multipliers {
+ 		ai := info.AttackInfo{
+ 			ActorIndex:         c.Index(),
+ 			Abil:               fmt.Sprintf("Normal %v", c.NormalCounter),
+@@ -93,7 +97,11 @@ func (c *char) Attack(p map[string]int) (action.Info, error) {
+ }
+ 
+ func (c *char) skillAttack() action.Info {
+-	for i, mult := range skillAttack[c.NormalCounter] {
++	multipliers := skillAttack[c.NormalCounter]
++	if c.NormalCounter == 2 {
++		multipliers = [][]float64{multipliers[0], multipliers[0], multipliers[0]}
++	}
++	for i, mult := range multipliers {
+ 		ai := info.AttackInfo{
+ 			ActorIndex:         c.Index(),
+ 			Abil:               fmt.Sprintf("Normal %v (Masterstroke)", c.NormalCounter),
+diff --git a/internal/characters/lohen/skill.go b/internal/characters/lohen/skill.go
+index 3087fac..455f6e8 100644
+--- a/internal/characters/lohen/skill.go
++++ b/internal/characters/lohen/skill.go
+@@ -161,6 +161,8 @@ func (c *char) gainWillToWin(amt float64, src string) {
+ }
+ 
+ func (c *char) skillPierce() action.Info {
++	c.joy = 0
++	c.skillsUsed++
+ 	// c6 duration extension happens immediately on skill use
+ 	// to ensure that the skill doesn't expire during the animation,
+ 	// causing the extension to fail

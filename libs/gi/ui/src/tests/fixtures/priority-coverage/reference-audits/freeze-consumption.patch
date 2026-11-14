@@ -1,0 +1,13 @@
+diff --git a/pkg/reactable/freeze.go b/pkg/reactable/freeze.go
+index 7400f49..39cf57a 100644
+--- a/pkg/reactable/freeze.go
++++ b/pkg/reactable/freeze.go
+@@ -29,7 +29,7 @@ func (r *Reactable) TryFreeze(a *info.AttackEvent) bool {
+ 		if r.GetAuraDurability(info.ReactionModKeyHydro) < info.ZeroDur {
+ 			return false
+ 		}
+-		consumed := r.triggerFreeze(r.GetAuraDurability(info.ReactionModKeyHydro), a.Info.Durability, a.Info.ActorIndex)
++		consumed = r.triggerFreeze(r.GetAuraDurability(info.ReactionModKeyHydro), a.Info.Durability, a.Info.ActorIndex)
+ 		r.reduceMod(info.ReactionModKeyHydro, consumed)
+ 	default:
+ 		// should be here

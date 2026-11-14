@@ -1,0 +1,142 @@
+{
+  "measuredAt": "2026-11-11T18:30:08.816838+00:00",
+  "sourceCommit": "7bdf45f2e299c6bf782f81dc60d6cb19fd0bfb4c",
+  "binarySha256": "2c77043fef38aef3815c7866a77b36bedd78751e68f598c0fb743e89104becc5",
+  "sampleSha256": "10efba3f51d46e741f7533c06a5f9c8d2083816391d6884dd0e758e20f1faf8d",
+  "sampleSeed": "5568171689835937537",
+  "fixture": "hexerei_prune_albedo",
+  "canonicalBenchmarkUnchanged": true,
+  "auditKind": "Source and recorded calc inspection; no patched native execution",
+  "finding": "C4 copies the parent Snapshot after ApplyAttackMods has added DMG bonuses; those modifiers are applied again to the ricochet. The sample records roughly doubled DMG bonuses.",
+  "analysisLimit": "The arithmetic removes the copied parent bonus in this fixture, whose parent base all-DMG bonus is zero. It is a diagnostic calculation, not a replacement reference gate or full-kit result.",
+  "pairs": [
+    {
+      "parentFrame": 590,
+      "ricochetFrame": 653,
+      "parentDamageBonus": 0.91155028724274,
+      "ricochetDamageBonus": 1.8231005744854798,
+      "nativeExpectedRicochet": 2564.2313487295005,
+      "withoutCopiedParentAttackMods": 1736.2672855231378
+    },
+    {
+      "parentFrame": 707,
+      "ricochetFrame": 770,
+      "parentDamageBonus": 0.31155028724274003,
+      "ricochetDamageBonus": 0.6231005744854801,
+      "nativeExpectedRicochet": 2207.772187875735,
+      "withoutCopiedParentAttackMods": 1783.9955777804182
+    },
+    {
+      "parentFrame": 824,
+      "ricochetFrame": 887,
+      "parentDamageBonus": 0.31155028724274003,
+      "ricochetDamageBonus": 0.6231005744854801,
+      "nativeExpectedRicochet": 2269.128905329925,
+      "withoutCopiedParentAttackMods": 1833.5750195391795
+    },
+    {
+      "parentFrame": 941,
+      "ricochetFrame": 1004,
+      "parentDamageBonus": 0.31155028724274003,
+      "ricochetDamageBonus": 0.6231005744854801,
+      "nativeExpectedRicochet": 2269.128905329925,
+      "withoutCopiedParentAttackMods": 1833.5750195391795
+    },
+    {
+      "parentFrame": 2090,
+      "ricochetFrame": 2153,
+      "parentDamageBonus": 0.91155028724274,
+      "ricochetDamageBonus": 1.82310057448548,
+      "nativeExpectedRicochet": 2564.2313487295005,
+      "withoutCopiedParentAttackMods": 1736.2672855231378
+    },
+    {
+      "parentFrame": 2324,
+      "ricochetFrame": 2387,
+      "parentDamageBonus": 0.31155028724274003,
+      "ricochetDamageBonus": 0.6231005744854801,
+      "nativeExpectedRicochet": 2238.4505466028304,
+      "withoutCopiedParentAttackMods": 1808.785298659799
+    },
+    {
+      "parentFrame": 2441,
+      "ricochetFrame": 2504,
+      "parentDamageBonus": 0.31155028724274003,
+      "ricochetDamageBonus": 0.6231005744854801,
+      "nativeExpectedRicochet": 2269.128905329925,
+      "withoutCopiedParentAttackMods": 1833.5750195391795
+    },
+    {
+      "parentFrame": 2558,
+      "ricochetFrame": 2621,
+      "parentDamageBonus": 0.31155028724274003,
+      "ricochetDamageBonus": 0.6231005744854801,
+      "nativeExpectedRicochet": 2146.415470421545,
+      "withoutCopiedParentAttackMods": 1734.416136021657
+    },
+    {
+      "parentFrame": 3608,
+      "ricochetFrame": 3671,
+      "parentDamageBonus": 0.91155028724274,
+      "ricochetDamageBonus": 1.82310057448548,
+      "nativeExpectedRicochet": 2564.2313487295005,
+      "withoutCopiedParentAttackMods": 1736.2672855231378
+    },
+    {
+      "parentFrame": 3842,
+      "ricochetFrame": 3905,
+      "parentDamageBonus": 0.31155028724274003,
+      "ricochetDamageBonus": 0.6231005744854801,
+      "nativeExpectedRicochet": 2238.4505466028304,
+      "withoutCopiedParentAttackMods": 1808.785298659799
+    },
+    {
+      "parentFrame": 3959,
+      "ricochetFrame": 4022,
+      "parentDamageBonus": 0.31155028724274003,
+      "ricochetDamageBonus": 0.6231005744854801,
+      "nativeExpectedRicochet": 2269.128905329925,
+      "withoutCopiedParentAttackMods": 1833.5750195391795
+    },
+    {
+      "parentFrame": 4076,
+      "ricochetFrame": 4139,
+      "parentDamageBonus": 0.31155028724274003,
+      "ricochetDamageBonus": 0.53408620670184,
+      "nativeExpectedRicochet": 2028.7013748787197,
+      "withoutCopiedParentAttackMods": 1616.7020404788318
+    },
+    {
+      "parentFrame": 5126,
+      "ricochetFrame": 5189,
+      "parentDamageBonus": 0.91155028724274,
+      "ricochetDamageBonus": 1.82310057448548,
+      "nativeExpectedRicochet": 2564.2313487295005,
+      "withoutCopiedParentAttackMods": 1736.2672855231378
+    },
+    {
+      "parentFrame": 5360,
+      "ricochetFrame": 5423,
+      "parentDamageBonus": 0.31155028724274003,
+      "ricochetDamageBonus": 0.6231005744854801,
+      "nativeExpectedRicochet": 2238.4505466028304,
+      "withoutCopiedParentAttackMods": 1808.785298659799
+    },
+    {
+      "parentFrame": 5477,
+      "ricochetFrame": 5540,
+      "parentDamageBonus": 0.31155028724274003,
+      "ricochetDamageBonus": 0.6231005744854801,
+      "nativeExpectedRicochet": 2269.128905329925,
+      "withoutCopiedParentAttackMods": 1833.5750195391795
+    },
+    {
+      "parentFrame": 5594,
+      "ricochetFrame": 5657,
+      "parentDamageBonus": 0.31155028724274003,
+      "ricochetDamageBonus": 0.53408620670184,
+      "nativeExpectedRicochet": 2028.7013748787197,
+      "withoutCopiedParentAttackMods": 1616.7020404788318
+    }
+  ]
+}

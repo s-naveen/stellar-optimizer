@@ -1,0 +1,1049 @@
+{
+  "reference": {
+    "repository": "https://github.com/KQM-git/kqmsim",
+    "commit": "7bdf45f2e299c6bf782f81dc60d6cb19fd0bfb4c"
+  },
+  "loops": 4,
+  "iterations": 200,
+  "teams": [
+    {
+      "id": "ayaka_freeze",
+      "archetype": "Freeze",
+      "members": [
+        {
+          "key": "KamisatoAyaka",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["AmenomaKageuchi", 5],
+          "sets": {
+            "BlizzardStrayer": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "cryo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Shenhe",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusLance", 3],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "atk_",
+            "circlet": "atk_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 39.72
+          },
+          "params": "",
+          "liquidRolls": {
+            "enerRech_": 8,
+            "atk_": 4,
+            "critRate_": 4,
+            "critDMG_": 4
+          }
+        },
+        {
+          "key": "SangonomiyaKokomi",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["PrototypeAmber", 5],
+          "sets": {
+            "TenacityOfTheMillelith": 4
+          },
+          "mains": {
+            "sands": "hp_",
+            "goblet": "hp_",
+            "circlet": "heal_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 39.68,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 79.28,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "hp_": 6,
+            "enerRech_": 8,
+            "critRate_": 4,
+            "eleMas": 2
+          }
+        },
+        {
+          "key": "KaedeharaKazuha",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["IronSting", 1],
+          "sets": {
+            "ViridescentVenerer": 4
+          },
+          "mains": {
+            "sands": "eleMas",
+            "goblet": "eleMas",
+            "circlet": "eleMas"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 118.92,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "eleMas": 4,
+            "enerRech_": 8,
+            "atk_": 4,
+            "critRate_": 4
+          }
+        }
+      ],
+      "text": "Shenhe E Q -> Kazuha E P Q -> Kokomi E -> Ayaka D E N1 Q N2 CA N2 CA -> Kazuha E P -> Ayaka N2 CA N2 CA -> Shenhe",
+      "native": "shenhe skill, burst; kazuha skill, high_plunge, burst; kokomi skill; ayaka dash, skill, attack, burst, attack:2, charge, attack:2, charge; kazuha skill, high_plunge; ayaka attack:2, charge, attack:2, charge;",
+      "checks": {
+        "reaction": "frozen",
+        "nodes": {
+          "KamisatoAyaka": "burst.cutting",
+          "Shenhe": "skill.press"
+        }
+      }
+    },
+    {
+      "id": "alhaitham_spread",
+      "archetype": "Spread",
+      "members": [
+        {
+          "key": "Alhaitham",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["IronSting", 1],
+          "sets": {
+            "GildedDreams": 4
+          },
+          "mains": {
+            "sands": "eleMas",
+            "goblet": "dendro_dmg_",
+            "circlet": "critRate_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "YaeMiko",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["OathswornEye", 5],
+          "sets": {
+            "GoldenTroupe": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "electro_dmg_",
+            "circlet": "critRate_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Yaoyao",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["BlackTassel", 5],
+          "sets": {
+            "DeepwoodMemories": 4
+          },
+          "mains": {
+            "sands": "hp_",
+            "goblet": "hp_",
+            "circlet": "heal_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 39.68,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 79.28,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "hp_": 6,
+            "enerRech_": 8,
+            "critRate_": 4,
+            "eleMas": 2
+          }
+        },
+        {
+          "key": "Kirara",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 3],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "hp_",
+            "goblet": "hp_",
+            "circlet": "critRate_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 39.68,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 79.28,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "hp_": 6,
+            "enerRech_": 8,
+            "critRate_": 4,
+            "eleMas": 2
+          }
+        }
+      ],
+      "text": "YaeMiko E E E -> Yaoyao E -> Kirara E Q -> Alhaitham Q N3 N3 E N3 CA N3 N3 -> YaeMiko Q E E E -> Alhaitham",
+      "native": "yaemiko skill:3; yaoyao skill; kirara skill, burst; alhaitham burst, attack:3, attack:3, skill, attack:3, charge, attack:3, attack:3; yaemiko burst, skill:3;",
+      "checks": {
+        "reaction": "spread",
+        "nodes": {
+          "YaeMiko": "skill.dmg3",
+          "Alhaitham": "burst.instanceDmg"
+        }
+      }
+    },
+    {
+      "id": "ayato_burgeon",
+      "archetype": "Burgeon",
+      "members": [
+        {
+          "key": "KamisatoAyato",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["AmenomaKageuchi", 5],
+          "sets": {
+            "GladiatorsFinale": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "hydro_dmg_",
+            "circlet": "critRate_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Thoma",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["KitainCrossSpear", 1],
+          "sets": {
+            "FlowerOfParadiseLost": 4
+          },
+          "mains": {
+            "sands": "eleMas",
+            "goblet": "eleMas",
+            "circlet": "eleMas"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 49.6,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 118.92,
+            "enerRech_": 55.1,
+            "critRate_": 6.62,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "eleMas": 4,
+            "enerRech_": 8,
+            "hp_": 8
+          }
+        },
+        {
+          "key": "Collei",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusWarbow", 3],
+          "sets": {
+            "DeepwoodMemories": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "dendro_dmg_",
+            "circlet": "critRate_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "TravelerDendro",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 3],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "enerRech_",
+            "goblet": "dendro_dmg_",
+            "circlet": "critRate_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 39.72
+          },
+          "params": "",
+          "liquidRolls": {
+            "enerRech_": 8,
+            "atk_": 4,
+            "critRate_": 4,
+            "critDMG_": 4
+          }
+        }
+      ],
+      "text": "Ayato Q -> Collei E Q -> TravelerDendro E Q -> Thoma E Q -> Ayato E N3 N3 N3 N3 N3 -> Collei E -> TravelerDendro E -> Ayato",
+      "native": "ayato burst; collei skill, burst; travelerdendro skill, burst; thoma skill, burst; ayato skill, attack:15; collei skill; travelerdendro skill;",
+      "checks": {
+        "reaction": "burgeon",
+        "nodes": {
+          "Thoma": "burst.collapseDmg",
+          "KamisatoAyato": "skill.dmg1"
+        }
+      }
+    },
+    {
+      "id": "clorinde_overload",
+      "archetype": "Overload",
+      "members": [
+        {
+          "key": "Clorinde",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["IronSting", 1],
+          "sets": {
+            "FragmentOfHarmonicWhimsy": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "electro_dmg_",
+            "circlet": "critRate_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Chevreuse",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusLance", 3],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "hp_",
+            "goblet": "hp_",
+            "circlet": "heal_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 39.68,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 79.28,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "hp_": 6,
+            "enerRech_": 8,
+            "critRate_": 4,
+            "eleMas": 2
+          }
+        },
+        {
+          "key": "Beidou",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusGreatsword", 3],
+          "sets": {
+            "EmblemOfSeveredFate": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "electro_dmg_",
+            "circlet": "critRate_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Xiangling",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["TheCatch", 5],
+          "sets": {
+            "EmblemOfSeveredFate": 4
+          },
+          "mains": {
+            "sands": "enerRech_",
+            "goblet": "pyro_dmg_",
+            "circlet": "critRate_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        }
+      ],
+      "text": "Beidou E Q -> Xiangling E Q -> Chevreuse Q hE -> Clorinde Q E N3 E N3 E N3 E N3 E N3 E -> Beidou",
+      "native": "beidou skill, burst; xiangling skill, burst; chevreuse burst, skill[hold=1]; clorinde burst, skill, attack:3, skill, attack:3, skill, attack:3, skill, attack:3, skill, attack:3, skill;",
+      "checks": {
+        "reaction": "overloaded",
+        "nodes": {
+          "Clorinde": "skill.piercingDmg",
+          "Xiangling": "burst.dmgNado"
+        }
+      }
+    },
+    {
+      "id": "eula_physical",
+      "archetype": "Physical / Superconduct",
+      "members": [
+        {
+          "key": "Eula",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusGreatsword", 3],
+          "sets": {
+            "PaleFlame": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "physical_dmg_",
+            "circlet": "critRate_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "RaidenShogun",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["TheCatch", 5],
+          "sets": {
+            "EmblemOfSeveredFate": 4
+          },
+          "mains": {
+            "sands": "enerRech_",
+            "goblet": "electro_dmg_",
+            "circlet": "critRate_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Rosaria",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusLance", 3],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "cryo_dmg_",
+            "circlet": "critRate_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Mika",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusLance", 3],
+          "sets": {
+            "OceanHuedClam": 4
+          },
+          "mains": {
+            "sands": "hp_",
+            "goblet": "hp_",
+            "circlet": "heal_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 39.68,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 79.28,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "hp_": 6,
+            "enerRech_": 8,
+            "critRate_": 4,
+            "eleMas": 2
+          }
+        }
+      ],
+      "text": "Raiden E -> Rosaria E Q -> Mika E Q -> Eula E Q N4 hE N4 -> Raiden Q N3 CA N3 CA N3 CA -> Rosaria",
+      "native": "raiden skill; rosaria skill, burst; mika skill, burst; eula skill, burst, attack:4, skill[hold=1], attack:4; raiden burst, attack:3, charge, attack:3, charge, attack:3, charge;",
+      "checks": {
+        "reaction": "superconduct",
+        "nodes": {
+          "Eula": "burst.lightFallSwordNew",
+          "RaidenShogun": "burst.dmg"
+        }
+      }
+    },
+    {
+      "id": "itto_mono_geo",
+      "archetype": "Mono Geo / DEF carry",
+      "members": [
+        {
+          "key": "AratakiItto",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusGreatsword", 3],
+          "sets": {
+            "HuskOfOpulentDreams": 4
+          },
+          "mains": {
+            "sands": "def_",
+            "goblet": "geo_dmg_",
+            "circlet": "critRate_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 9.92,
+            "def_": 37.2,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "def_": 4
+          }
+        },
+        {
+          "key": "Gorou",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusWarbow", 3],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "def_",
+            "goblet": "geo_dmg_",
+            "circlet": "critRate_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 39.72
+          },
+          "params": "",
+          "liquidRolls": {
+            "enerRech_": 8,
+            "atk_": 4,
+            "critRate_": 4,
+            "critDMG_": 4
+          }
+        },
+        {
+          "key": "Albedo",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["CinnabarSpindle", 5],
+          "sets": {
+            "HuskOfOpulentDreams": 4
+          },
+          "mains": {
+            "sands": "def_",
+            "goblet": "geo_dmg_",
+            "circlet": "critRate_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 9.92,
+            "def_": 37.2,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "def_": 4
+          }
+        },
+        {
+          "key": "Chiori",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["HarbingerOfDawn", 5],
+          "sets": {
+            "HuskOfOpulentDreams": 4
+          },
+          "mains": {
+            "sands": "def_",
+            "goblet": "geo_dmg_",
+            "circlet": "critRate_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 9.92,
+            "def_": 37.2,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "def_": 4
+          }
+        }
+      ],
+      "text": "Gorou E -> Albedo E -> Chiori E E -> Gorou Q -> Itto Q E N4 CA CA CA CA CA N4 CA CA CA CA CA E -> Gorou",
+      "native": "gorou skill; albedo skill; chiori skill, skill; gorou burst; itto burst, skill, attack:4, charge:5, attack:4, charge:5, skill;",
+      "checks": {
+        "nodes": {
+          "AratakiItto": "charged.akSlash",
+          "Chiori": "skill.turretDmg"
+        }
+      }
+    },
+    {
+      "id": "xiao_anemo_plunge",
+      "archetype": "Anemo plunge hypercarry",
+      "members": [
+        {
+          "key": "Xiao",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusLance", 3],
+          "sets": {
+            "VermillionHereafter": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "anemo_dmg_",
+            "circlet": "critRate_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Faruzan",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusWarbow", 3],
+          "sets": {
+            "TenacityOfTheMillelith": 4
+          },
+          "mains": {
+            "sands": "enerRech_",
+            "goblet": "anemo_dmg_",
+            "circlet": "critRate_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 39.72
+          },
+          "params": "",
+          "liquidRolls": {
+            "enerRech_": 8,
+            "atk_": 4,
+            "critRate_": 4,
+            "critDMG_": 4
+          }
+        },
+        {
+          "key": "Xianyun",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["OathswornEye", 5],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "atk_",
+            "circlet": "atk_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 39.72
+          },
+          "params": "",
+          "liquidRolls": {
+            "enerRech_": 8,
+            "atk_": 4,
+            "critRate_": 4,
+            "critDMG_": 4
+          }
+        },
+        {
+          "key": "Jean",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 3],
+          "sets": {
+            "OceanHuedClam": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "anemo_dmg_",
+            "circlet": "heal_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 39.72
+          },
+          "params": "",
+          "liquidRolls": {
+            "enerRech_": 8,
+            "atk_": 4,
+            "critRate_": 4,
+            "critDMG_": 4
+          }
+        }
+      ],
+      "text": "Faruzan E CA Q -> Jean E Q -> Xianyun E P Q -> Xiao E E Q J P J P J P J P J P J P J P J P -> Faruzan",
+      "native": "faruzan skill, aim, burst; jean skill, burst; xianyun skill, low_plunge, burst; xiao skill:2, burst, jump, low_plunge, jump, low_plunge, jump, low_plunge, jump, low_plunge, jump, low_plunge, jump, low_plunge, jump, low_plunge, jump, low_plunge;",
+      "checks": {
+        "nodes": {
+          "Xiao": "plunging.low",
+          "Xianyun": "burst.coordinatedDmg"
+        }
+      }
+    }
+  ]
+}

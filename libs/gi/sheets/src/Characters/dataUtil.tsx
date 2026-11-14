@@ -129,7 +129,7 @@ export function customDmgNode(
     mergeData([
       {
         hit: {
-          base,
+          base: prod(base, input.hit.talentMulti),
           move: constant(move),
           ele: additional?.hit?.ele ? undefined : inferredHitEle,
         },

@@ -1,0 +1,32 @@
+{
+  "sourceCommit": "7bdf45f2e299c6bf782f81dc60d6cb19fd0bfb4c",
+  "canonicalBinarySha256": "2c77043fef38aef3815c7866a77b36bedd78751e68f598c0fb743e89104becc5",
+  "fixtureSha256": "bef94d3cfcb6d9a861a910fc88ccede3a3948255d07c4dc1a281d3600da9fc79",
+  "configSha256": "29ec66a16f5430ead50dbd7b135768639c274dffd4840bcfe176b09121423614",
+  "sampleSeed": "11364351080145852762",
+  "nativeVentiSkill": {
+    "frame": 612,
+    "cr": 0.2662,
+    "cd": 0.7924,
+    "is_crit": true,
+    "avg_crit_dmg": 5383.162994832469,
+    "damage": 7968.029970263782,
+    "pre_crit_dmg": 4445.45300728843
+  },
+  "appVentiSkillDamagePerHit": 5383.162994832468,
+  "referenceWasPatched": false,
+  "knownSourceDifferences": [
+    "Venti skill HitWeakPoint=true forces crit independent of its snapshot CR",
+    "Vodyanitsa +4s radiance and A1 RES reduction activate at party initialization, unlike the Song-only scope in descriptions",
+    "Native Cryo-triggered Freeze shadows consumed, leaving the incoming Cryo durability unconsumed; app retains normal gauge consumption"
+  ],
+  "appFixes": [
+    "Stellar Swirl outer multiplier also scales flat damage additions",
+    "Vodyanitsa burst Song coefficient is additive",
+    "A4 eligibility uses one active/off-field owner pool per shared hit, captured before impact",
+    "Skirk normal hitlag and wait cancellation boundary",
+    "Prototype Amber recipient-clock healing",
+    "Electro-Charged ReactionB damage ICD, queued owner and stat snapshots",
+    "Cryo/Frozen contribution ownership and separate Conduct/Swirl enablers"
+  ]
+}

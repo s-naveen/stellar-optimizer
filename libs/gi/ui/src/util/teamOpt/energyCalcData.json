@@ -1,0 +1,2701 @@
+{
+  "Aino": {
+    "skills": [
+      {
+        "label": "Constellation 0",
+        "particles": 3,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 10
+      },
+      {
+        "label": "Constellation 4",
+        "particles": 3,
+        "flatEnergy": 10,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 10
+      }
+    ],
+    "burstCost": 50,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Albedo": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0.3,
+        "duration": 30,
+        "cooldown": 4
+      }
+    ],
+    "burstCost": 40,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Alhaitham": {
+    "skills": [
+      {
+        "label": "Projection Attack",
+        "particles": 1,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 18
+      }
+    ],
+    "burstCost": 70,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Aloy": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 5,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 20
+      }
+    ],
+    "burstCost": 40,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Alyosha": {
+    "skills": [
+      {
+        "label": "Constellation 0",
+        "particles": 5,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 15
+      },
+      {
+        "label": "Constellation 1",
+        "particles": 5,
+        "flatEnergy": 15,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 15
+      }
+    ],
+    "burstCost": 70,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Amber": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 15
+      }
+    ],
+    "burstCost": 40,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Arlecchino": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 5,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 30
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "KamisatoAyaka": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 4.5,
+        "flatEnergy": 0,
+        "variance": 0.11111111111111116,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 10
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "KamisatoAyato": {
+    "skills": [
+      {
+        "label": "On field",
+        "particles": 4.5,
+        "flatEnergy": 0,
+        "variance": 0.11111111111111116,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 12
+      },
+      {
+        "label": "Off field",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 12
+      },
+      {
+        "label": "Hybrid",
+        "particles": 1.5,
+        "flatEnergy": 0,
+        "variance": 0.3333333333333333,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 12
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Baizhu": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 3.5,
+        "flatEnergy": 0,
+        "variance": 0.1428571428571429,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 10
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Barbara": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 32
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Beidou": {
+    "skills": [
+      {
+        "label": "0 stacks",
+        "particles": 2,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 7.5
+      },
+      {
+        "label": "1 stack",
+        "particles": 3,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 7.5
+      },
+      {
+        "label": "Perfect",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 7.5
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Bennett": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 2.25,
+        "flatEnergy": 0,
+        "variance": 0.11111111111111116,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 4
+      },
+      {
+        "label": "Hold",
+        "particles": 3,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 6
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Candace": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 2,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 6
+      },
+      {
+        "label": "Hold",
+        "particles": 3,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 9
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Charlotte": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 3,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 12
+      },
+      {
+        "label": "Full Hold",
+        "particles": 5,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 18
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Chasca": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 5,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 6
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Chevreuse": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 15
+      },
+      {
+        "label": "Hold",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 15
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Tartaglia": {
+    "skills": [
+      {
+        "label": "7-9s melee",
+        "particles": 3,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 13
+      },
+      {
+        "label": "11s melee",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 17
+      },
+      {
+        "label": "Aimed Shot",
+        "particles": 1,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 3
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Chiori": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.2,
+        "perSecond": 0.33,
+        "duration": 17,
+        "cooldown": 16
+      },
+      {
+        "label": "Hold",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.2,
+        "perSecond": 0.33,
+        "duration": 17,
+        "cooldown": 16
+      }
+    ],
+    "burstCost": 50,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Chongyun": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 15
+      }
+    ],
+    "burstCost": 40,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Citlali": {
+    "skills": [
+      {
+        "label": "Constellation 0",
+        "particles": 5,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 16
+      },
+      {
+        "label": "Constellation 4",
+        "particles": 5,
+        "flatEnergy": 16,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 16
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Clorinde": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 16
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Collei": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 3,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 12
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Columbina": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0.33,
+        "duration": 25,
+        "cooldown": 17
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Cyno": {
+    "skills": [
+      {
+        "label": "Press (no burst)",
+        "particles": 3,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 7.5
+      },
+      {
+        "label": "Press (in burst)",
+        "particles": 1.33,
+        "flatEnergy": 0,
+        "variance": 0.24812030075187974,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 3
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Dahlia": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 3,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 9
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Dehya": {
+    "skills": [
+      {
+        "label": "Constellation 0",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0.33,
+        "duration": 12,
+        "cooldown": 20
+      },
+      {
+        "label": "Constellation 2",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0.33,
+        "duration": 18,
+        "cooldown": 0
+      }
+    ],
+    "burstCost": 70,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Diluc": {
+    "skills": [
+      {
+        "label": "3-skill combo",
+        "particles": 3.75,
+        "flatEnergy": 0,
+        "variance": 0.19999999999999996,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 10
+      }
+    ],
+    "burstCost": 40,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Diona": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 1.6,
+        "flatEnergy": 0,
+        "variance": 0.375,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 6
+      },
+      {
+        "label": "Hold",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0.25,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 15
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Dori": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 2,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 9
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Durin": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 12
+      }
+    ],
+    "burstCost": 70,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Emilie": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0.33,
+        "duration": 22,
+        "cooldown": 14
+      },
+      {
+        "label": "Burst",
+        "particles": -1,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 13.5
+      }
+    ],
+    "burstCost": 50,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Escoffier": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 15
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Eula": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 1.5,
+        "flatEnergy": 0,
+        "variance": 0.33333333333333337,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 4
+      },
+      {
+        "label": "Hold",
+        "particles": 2.5,
+        "flatEnergy": 0,
+        "variance": 0.19999999999999996,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 10
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Faruzan": {
+    "skills": [
+      {
+        "label": "Aimed Shot",
+        "particles": 2,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 6
+      },
+      {
+        "label": "No Aimed Shot",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 6
+      },
+      {
+        "label": "C6 triggers",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0.5,
+        "duration": 4,
+        "cooldown": 0
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Fischl": {
+    "skills": [
+      {
+        "label": "Constellation 0",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0.67,
+        "duration": 10,
+        "cooldown": 25
+      },
+      {
+        "label": "Constellation 6",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0.67,
+        "duration": 12,
+        "cooldown": 25
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Flins": {
+    "skills": [
+      {
+        "label": "Constellation 0",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 16
+      },
+      {
+        "label": "Constellation 1",
+        "particles": 4,
+        "flatEnergy": -6,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 16
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Freminet": {
+    "skills": [
+      {
+        "label": "Level 0 (no burst)",
+        "particles": 2,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 10
+      },
+      {
+        "label": "Level 0 (burst)",
+        "particles": 1,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 0
+      },
+      {
+        "label": "Level 4",
+        "particles": 1,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 0
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Furina": {
+    "skills": [
+      {
+        "label": "Salon Members",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0.3,
+        "duration": 30,
+        "cooldown": 20
+      },
+      {
+        "label": "Singer",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 30,
+        "cooldown": 20
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Gaming": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 2,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 6
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Ganyu": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 10
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Gorou": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 2,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 10
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "ShikanoinHeizou": {
+    "skills": [
+      {
+        "label": "0-1 stacks",
+        "particles": 2,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 10
+      },
+      {
+        "label": "2-3 stacks",
+        "particles": 2.5,
+        "flatEnergy": 0,
+        "variance": 0.19999999999999996,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 10
+      },
+      {
+        "label": "Full stacks",
+        "particles": 3,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 10
+      }
+    ],
+    "burstCost": 40,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "HuTao": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 4.8,
+        "flatEnergy": 0,
+        "variance": 0.16666666666666663,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 16
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Iansan": {
+    "skills": [
+      {
+        "label": "Constellation 0",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 16
+      },
+      {
+        "label": "Constellation 1",
+        "particles": 4,
+        "flatEnergy": 15,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 16
+      }
+    ],
+    "burstCost": 70,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Ifa": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 4.3,
+        "flatEnergy": 0,
+        "variance": 0.06976744186046513,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 7.5
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Illuga": {
+    "skills": [
+      {
+        "label": "Constellation 0",
+        "particles": 4.5,
+        "flatEnergy": 0,
+        "variance": 0.1111111111,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 15
+      },
+      {
+        "label": "Constellation 1",
+        "particles": 4.5,
+        "flatEnergy": 12,
+        "variance": 0.11,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 15
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Ineffa": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0.33,
+        "duration": 20,
+        "cooldown": 16
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "AratakiItto": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 3.5,
+        "flatEnergy": 0,
+        "variance": 0.1428571428571429,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 10
+      }
+    ],
+    "burstCost": 70,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Jahoda": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 15
+      }
+    ],
+    "burstCost": 70,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Jean": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 2.67,
+        "flatEnergy": 0,
+        "variance": 0.25093632958801493,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 6
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 16,
+    "erDiscount": 0
+  },
+  "Kachina": {
+    "skills": [
+      {
+        "label": "Independent",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0.33,
+        "duration": 12,
+        "cooldown": 20
+      },
+      {
+        "label": "Mounted",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 0
+      }
+    ],
+    "burstCost": 70,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Kaeya": {
+    "skills": [
+      {
+        "label": "0 freezes",
+        "particles": 2.67,
+        "flatEnergy": 0,
+        "variance": 0.25093632958801493,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 6
+      },
+      {
+        "label": "1 freeze",
+        "particles": 3.67,
+        "flatEnergy": 0,
+        "variance": 0.1825613079019074,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 6
+      },
+      {
+        "label": "2+ freezes",
+        "particles": 4.67,
+        "flatEnergy": 0,
+        "variance": 0.14346895074946467,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 6
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Kaveh": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 2,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 6
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "KaedeharaKazuha": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 3,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 6
+      },
+      {
+        "label": "Hold",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 9
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Keqing": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 2.5,
+        "flatEnergy": 0,
+        "variance": 0.19999999999999996,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 7.5
+      },
+      {
+        "label": "C2 proc",
+        "particles": 1,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 0
+      }
+    ],
+    "burstCost": 40,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Kinich": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 5,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 18
+      }
+    ],
+    "burstCost": 70,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Kirara": {
+    "skills": [
+      {
+        "label": "Final Kick",
+        "particles": 3,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 8
+      },
+      {
+        "label": "Collision",
+        "particles": 1,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 4
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Klee": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 20
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "SangonomiyaKokomi": {
+    "skills": [
+      {
+        "label": "Refresh",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0.33,
+        "duration": 12,
+        "cooldown": 20
+      },
+      {
+        "label": "No refresh",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0.33,
+        "duration": 12,
+        "cooldown": 20
+      }
+    ],
+    "burstCost": 70,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "KukiShinobu": {
+    "skills": [
+      {
+        "label": "Constellation 0",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0.3,
+        "duration": 12,
+        "cooldown": 15
+      },
+      {
+        "label": "Constellation 2",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0.3,
+        "duration": 15,
+        "cooldown": 15
+      },
+      {
+        "label": "Constellation 4",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0.39,
+        "duration": 15,
+        "cooldown": 15
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "LanYan": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 3,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 16
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Lauma": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0.33,
+        "duration": 15,
+        "cooldown": 12
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Layla": {
+    "skills": [
+      {
+        "label": "1 volley",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0.11,
+        "duration": 12,
+        "cooldown": 12
+      },
+      {
+        "label": "2 volleys",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0.22,
+        "duration": 12,
+        "cooldown": 12
+      },
+      {
+        "label": "3 volleys",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0.33,
+        "duration": 12,
+        "cooldown": 12
+      }
+    ],
+    "burstCost": 40,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Linnea": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0.33,
+        "duration": 25,
+        "cooldown": 18
+      },
+      {
+        "label": "Lumi Hit",
+        "particles": 3,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 18
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Lisa": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 1
+      },
+      {
+        "label": "Hold",
+        "particles": 5,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 16
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Lohen": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 5,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 18
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Lynette": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 12
+      },
+      {
+        "label": "Hold",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 12
+      }
+    ],
+    "burstCost": 70,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Lyney": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 5,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 15
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Mavuika": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 5,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 15
+      }
+    ],
+    "burstCost": 0,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Mika": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 15
+      },
+      {
+        "label": "Hold",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 15
+      }
+    ],
+    "burstCost": 70,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Mona": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 3.33,
+        "flatEnergy": 0,
+        "variance": 0.09909909909909909,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 12
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Mualani": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 4.5,
+        "flatEnergy": 0,
+        "variance": 0.11111111111111116,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 6
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Nahida": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0.36,
+        "duration": 25,
+        "cooldown": 5
+      },
+      {
+        "label": "Hold",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0.36,
+        "duration": 25,
+        "cooldown": 6
+      }
+    ],
+    "burstCost": 50,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Navia": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 3.5,
+        "flatEnergy": 0,
+        "variance": 0.1428571428571429,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 9
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Nefer": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 2.67,
+        "flatEnergy": 0,
+        "variance": 0.25093632958801493,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 9
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Neuvillette": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 12
+      }
+    ],
+    "burstCost": 70,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Nicole": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 5,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 16
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Nilou": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 4.5,
+        "flatEnergy": 0,
+        "variance": 0.11111111111111116,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 18
+      }
+    ],
+    "burstCost": 70,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Ningguang": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 3.4,
+        "flatEnergy": 0,
+        "variance": 0.11764705882352944,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 12
+      }
+    ],
+    "burstCost": 40,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Noelle": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 24
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Odette": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 5,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 15
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Ororon": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 3,
+        "flatEnergy": 9,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 15
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Prune": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 5,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 15
+      }
+    ],
+    "burstCost": 70,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Qiqi": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0.33,
+        "duration": 18,
+        "cooldown": 15
+      },
+      {
+        "label": "Herald of Frost",
+        "particles": 2,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 15
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "RaidenShogun": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0.45,
+        "duration": 25,
+        "cooldown": 10
+      }
+    ],
+    "burstCost": 90,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Razor": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 3,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 6
+      },
+      {
+        "label": "Hold",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 10
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 5,
+    "erDiscount": 0.45
+  },
+  "Rosaria": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 3,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 6
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Sandrone": {
+    "skills": [
+      {
+        "label": "Hit On-Field",
+        "particles": 1,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 4
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "KujouSara": {
+    "skills": [
+      {
+        "label": "Aimed Shot",
+        "particles": 3,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 10
+      },
+      {
+        "label": "No Aimed Shot",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 10
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Sayu": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 2,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 6
+      },
+      {
+        "label": "Short Hold",
+        "particles": 3,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 6.5
+      },
+      {
+        "label": "Full Hold",
+        "particles": 6,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 11
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Sethos": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 2,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 8
+      },
+      {
+        "label": "Full CA",
+        "particles": 0,
+        "flatEnergy": -20,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 0
+      },
+      {
+        "label": "Partial CA",
+        "particles": 0,
+        "flatEnergy": -10,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 0
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Shenhe": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 3,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 10
+      },
+      {
+        "label": "Hold",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 15
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Sigewinne": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 18
+      },
+      {
+        "label": "Hold",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 18
+      }
+    ],
+    "burstCost": 70,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Skirk": {
+    "skills": [
+      {
+        "label": "Attack",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 15
+      }
+    ],
+    "burstCost": 0,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Sucrose": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 15
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Thoma": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 3.4,
+        "flatEnergy": 0,
+        "variance": 0.11764705882352944,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 15
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Tighnari": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 3.5,
+        "flatEnergy": 0,
+        "variance": 0.1428571428571429,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 12
+      }
+    ],
+    "burstCost": 40,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "TravelerAnemo": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 2,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 5
+      },
+      {
+        "label": "Hold",
+        "particles": 3.33,
+        "flatEnergy": 0,
+        "variance": 0.09909909909909909,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 8
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "TravelerDendro": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 2.5,
+        "flatEnergy": 0,
+        "variance": 0.19999999999999996,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 8
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "TravelerElectro": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 1,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 13.5
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "TravelerGeo": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 3.33,
+        "flatEnergy": 0,
+        "variance": 0.09909909909909909,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 6
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "TravelerHydro": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 3.33,
+        "flatEnergy": 0,
+        "variance": 0.09909909909909909,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 10
+      },
+      {
+        "label": "Hold",
+        "particles": 3.33,
+        "flatEnergy": 0,
+        "variance": 0.09909909909909909,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 10
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "TravelerPyro": {
+    "skills": [
+      {
+        "label": "Blazing Threshold",
+        "particles": 1,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 2.9
+      }
+    ],
+    "burstCost": 70,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "TravelerCryo": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 3,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 15
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Varesa": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 2.5,
+        "flatEnergy": 0,
+        "variance": 0.2,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 9
+      },
+      {
+        "label": "Kablam",
+        "particles": 0,
+        "flatEnergy": -30,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 0
+      }
+    ],
+    "burstCost": 70,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Varka": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 6,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 16
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Venti": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 3,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 6
+      },
+      {
+        "label": "Hold",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 15
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 15,
+    "erDiscount": 0
+  },
+  "Vesna": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 5,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 18
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Vodyanitsa": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0.33,
+        "duration": 15,
+        "cooldown": 16
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Wanderer": {
+    "skills": [
+      {
+        "label": "8-10s uptime",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 6
+      },
+      {
+        "label": "6-8s uptime",
+        "particles": 3,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 0
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Wriothesley": {
+    "skills": [
+      {
+        "label": "NA during skill",
+        "particles": 1,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 2
+      },
+      {
+        "label": "Vaulting Fist",
+        "particles": 1,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 5
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Xiangling": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0.5,
+        "duration": 8,
+        "cooldown": 12
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Xianyun": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 5,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 12
+      }
+    ],
+    "burstCost": 70,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Xiao": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 3,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 10
+      }
+    ],
+    "burstCost": 70,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Xilonen": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 7
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Xingqiu": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 5,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 21
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Xinyan": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 18
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "YaeMiko": {
+    "skills": [
+      {
+        "label": "3 totems",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0.36,
+        "duration": 24,
+        "cooldown": 4
+      }
+    ],
+    "burstCost": 90,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Yanfei": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 3,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 9
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Yaoyao": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0.5,
+        "duration": 10,
+        "cooldown": 15
+      },
+      {
+        "label": "Hold",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0.5,
+        "duration": 10,
+        "cooldown": 15
+      }
+    ],
+    "burstCost": 80,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Yelan": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 10
+      }
+    ],
+    "burstCost": 70,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Yoimiya": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 18
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "YumemizukiMizuki": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 4,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 15
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "YunJin": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 2,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 9
+      },
+      {
+        "label": "Level 1",
+        "particles": 2.5,
+        "flatEnergy": 0,
+        "variance": 0.19999999999999996,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 9
+      },
+      {
+        "label": "Level 2",
+        "particles": 3,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 9
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Zhongli": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0.25,
+        "duration": 30,
+        "cooldown": 4
+      },
+      {
+        "label": "Hold",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0.25,
+        "duration": 30,
+        "cooldown": 12
+      },
+      {
+        "label": "Miss pillar",
+        "particles": 0,
+        "flatEnergy": 0,
+        "variance": 0.5,
+        "perSecond": 0.25,
+        "duration": 0,
+        "cooldown": 12
+      }
+    ],
+    "burstCost": 40,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Zibai": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 4.7,
+        "flatEnergy": 0,
+        "variance": 0.06,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 18
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Mitya": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 5,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 18
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Valeriy": {
+    "skills": [
+      {
+        "label": "Constellation 0",
+        "particles": 3,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 10
+      },
+      {
+        "label": "Constellation 1",
+        "particles": 3,
+        "flatEnergy": 15,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 0
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Anastasya": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 5,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 15
+      }
+    ],
+    "burstCost": 50,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  },
+  "Danica": {
+    "skills": [
+      {
+        "label": "Press",
+        "particles": 5,
+        "flatEnergy": 0,
+        "variance": 0,
+        "perSecond": 0,
+        "duration": 0,
+        "cooldown": 14
+      }
+    ],
+    "burstCost": 60,
+    "burstDiscount": 0,
+    "erDiscount": 0
+  }
+}

@@ -1,0 +1,615 @@
+{
+  "measuredAt": "2026-11-11T06:12:23.093672+00:00",
+  "sourceCommit": "7bdf45f2e299c6bf782f81dc60d6cb19fd0bfb4c",
+  "originalBinarySha256": "2c77043fef38aef3815c7866a77b36bedd78751e68f598c0fb743e89104becc5",
+  "auditBinarySha256": "65ef95ca7e397f63b7087f7c4ec9507df709d845287767806a1be6164b4f0ce6",
+  "patch": "polestar-expiry.patch",
+  "fixture": "stellar_valeriy",
+  "loops": 4,
+  "iterations": 200,
+  "original": {
+    "id": "stellar_valeriy",
+    "archetype": "Stellar Conduct / Valeriy C6",
+    "members": ["Valeriy", "Odette", "Mitya", "Sandrone"],
+    "dps": {
+      "ours": 25737.69814803859,
+      "reference": 27124.560412604922,
+      "differencePercent": -5.112939135123639,
+      "referenceSd": 1411.100907000464
+    },
+    "seconds": {
+      "ours": 32.05,
+      "reference": 32.108333333333334,
+      "differencePercent": -0.18167661562420445
+    },
+    "rotationDamage": {
+      "ours": 824893.2256446368,
+      "reference": 870924.4272480564
+    },
+    "warnings": [],
+    "notes": [
+      "Valeriy: shell timing cycles the six native random rhythms. Energy refunds, shield damage and shield growth from excess Momentum are not validated. Plunges are unsupported."
+    ],
+    "accuracy": {
+      "dpsTolerancePercent": 5,
+      "durationTolerancePercent": 5,
+      "passed": false
+    },
+    "referenceSampleSeed": "14447056786240136023",
+    "referenceReactions": {
+      "stellar-conduct": 10.647499999999999
+    },
+    "oursReactions": {
+      "stellarConduct": 44
+    },
+    "characters": {
+      "Valeriy": {
+        "dps": {
+          "ours": 3288.7883267454463,
+          "reference": 3335.9484037153475,
+          "differencePercent": -1.413693236903113
+        },
+        "directDamagePerLoop": {
+          "ours": 105405.66587219156,
+          "reference": 107111.74332929357,
+          "differencePercent": -1.5928015024991415
+        },
+        "oursAbilities": {
+          "Skill": {
+            "hits": 1.0,
+            "dmg": 7719.992428639167
+          },
+          "Burst": {
+            "hits": 1.0,
+            "dmg": 6433.744179912136
+          },
+          "Burst (Tick)": {
+            "hits": 25.5,
+            "dmg": 72592.00383016223
+          },
+          "Special Charge": {
+            "hits": 1.0,
+            "dmg": 18659.92543347801
+          }
+        },
+        "referenceAbilities": {
+          "Burst": {
+            "hits": 1.0,
+            "damage": 6452.542358012792
+          },
+          "Burst (Tick)": {
+            "hits": 26.10625000000001,
+            "damage": 74545.26528958202
+          },
+          "Skill": {
+            "hits": 1.0,
+            "damage": 7651.083381213622
+          },
+          "Special Charge": {
+            "hits": 1.0,
+            "damage": 18462.852300485145
+          }
+        }
+      },
+      "Odette": {
+        "dps": {
+          "ours": 7923.590723970163,
+          "reference": 9052.934665077917,
+          "differencePercent": -12.474893312377999
+        },
+        "directDamagePerLoop": {
+          "ours": 253951.0827032437,
+          "reference": 290674.64387121005,
+          "differencePercent": -12.633905964029513
+        },
+        "oursAbilities": {
+          "Adagio: Phantom Night Dancers": {
+            "hits": 1.0,
+            "dmg": 6979.043801850208
+          },
+          "Presto: Bluebird Finale (Slash)": {
+            "hits": 3.0,
+            "dmg": 15474.70294067902
+          },
+          "Coda at Dawn's Tolling (DoT)": {
+            "hits": 3.0,
+            "dmg": 17097.11335774241
+          },
+          "Presto: Bluebird Finale (Final)": {
+            "hits": 1.0,
+            "dmg": 7742.016312768977
+          },
+          "Coda at Dawn's Tolling (Stellar-Conduct)": {
+            "hits": 1.0,
+            "dmg": 90170.32948907092
+          },
+          "\"Plume\" Dance Move": {
+            "hits": 5.0,
+            "dmg": 15951.623921467946
+          },
+          "\"Plume\" Dance Move (Stellar-Conduct)": {
+            "hits": 5.0,
+            "dmg": 41334.58081533717
+          },
+          "\"Wing\" Dance Move": {
+            "hits": 4.0,
+            "dmg": 15505.731429916581
+          },
+          "\"Wing\" Dance Move (Stellar-Conduct)": {
+            "hits": 4.0,
+            "dmg": 43695.94063441049
+          }
+        },
+        "referenceAbilities": {
+          "\"Plume\" Dance Move": {
+            "hits": 5.0,
+            "damage": 14688.760643164671
+          },
+          "\"Plume\" Dance Move (Stellar-Conduct)": {
+            "hits": 5.0,
+            "damage": 39962.35252727904
+          },
+          "\"Wing\" Dance Move": {
+            "hits": 4.0,
+            "damage": 13751.34589195986
+          },
+          "\"Wing\" Dance Move (Stellar-Conduct)": {
+            "hits": 4.0,
+            "damage": 35958.30776119213
+          },
+          "Adagio: Phantom Night Dancers": {
+            "hits": 1.0,
+            "damage": 6409.960106376507
+          },
+          "Coda at Dawn's Tolling": {
+            "hits": 3.0,
+            "damage": 18952.95643928603
+          },
+          "Coda at Dawn's Tolling (Stellar-Conduct)": {
+            "hits": 1.0,
+            "damage": 135061.1467045051
+          },
+          "Presto: Bluebird Finale (Final)": {
+            "hits": 1.0,
+            "damage": 8834.486495938796
+          },
+          "Presto: Bluebird Finale (Slash)": {
+            "hits": 3.0,
+            "damage": 17055.327301507914
+          }
+        }
+      },
+      "Mitya": {
+        "dps": {
+          "ours": 9310.28858698429,
+          "reference": 9387.826536171147,
+          "differencePercent": -0.8259414347730476
+        },
+        "directDamagePerLoop": {
+          "ours": 298394.7492128464,
+          "reference": 301427.4636988955,
+          "differencePercent": -1.0061175079516094
+        },
+        "oursAbilities": {
+          "Skill (Press)": {
+            "hits": 1.0,
+            "dmg": 2564.9417575557122
+          },
+          "Skill Pulse": {
+            "hits": 16.0,
+            "dmg": 27537.315018925747
+          },
+          "Burst": {
+            "hits": 1.0,
+            "dmg": 14451.02454240118
+          },
+          "Prism Surge (Stellar-Conduct)": {
+            "hits": 14.75,
+            "dmg": 210110.9639626583
+          },
+          "Prism Shatter (Stellar-Conduct)": {
+            "hits": 4.0,
+            "dmg": 43730.50393130544
+          }
+        },
+        "referenceAbilities": {
+          "Burst": {
+            "hits": 1.0,
+            "damage": 14487.142945273632
+          },
+          "Prism Shatter (Stellar-Conduct)": {
+            "hits": 1.0,
+            "damage": 41094.466703322636
+          },
+          "Prism Surge (Stellar-Conduct)": {
+            "hits": 14.75,
+            "damage": 215215.30516094487
+          },
+          "Skill (Press)": {
+            "hits": 1.0,
+            "damage": 2517.2365043069685
+          },
+          "Skill Pulse": {
+            "hits": 16.0,
+            "damage": 28113.31238504736
+          }
+        }
+      },
+      "Sandrone": {
+        "dps": {
+          "ours": 5215.030510338703,
+          "reference": 5347.850807640516,
+          "differencePercent": -2.48362009486226
+        },
+        "directDamagePerLoop": {
+          "ours": 167141.72785635537,
+          "reference": 171710.57634865763,
+          "differencePercent": -2.660784553553208
+        },
+        "oursAbilities": {
+          "Prism Shot": {
+            "hits": 1.0,
+            "dmg": 2181.1235466177654
+          },
+          "Prism Shot (Stellar-Conduct)": {
+            "hits": 1.0,
+            "dmg": 8899.92156853665
+          },
+          "Bombardment": {
+            "hits": 3.0,
+            "dmg": 17121.731251837373
+          },
+          "N1": {
+            "hits": 5.0,
+            "dmg": 17717.231860692365
+          },
+          "N2": {
+            "hits": 5.0,
+            "dmg": 15261.209814035663
+          },
+          "Convective Inhibition Ray (Stellar-Conduct)": {
+            "hits": 1.0,
+            "dmg": 82451.45691822922
+          },
+          "N3": {
+            "hits": 5.0,
+            "dmg": 23509.05289640634
+          }
+        },
+        "referenceAbilities": {
+          "Bombardment": {
+            "hits": 3.0,
+            "damage": 16974.95908770725
+          },
+          "Convective Inhibition Ray (Stellar-Conduct)": {
+            "hits": 1.0,
+            "damage": 87447.51718947879
+          },
+          "Normal 0": {
+            "hits": 5.0,
+            "damage": 17937.04120484218
+          },
+          "Normal 1": {
+            "hits": 5.0,
+            "damage": 15366.479151851296
+          },
+          "Normal 2": {
+            "hits": 5.0,
+            "damage": 23749.192017861318
+          },
+          "Prism Shot": {
+            "hits": 1.0,
+            "damage": 2155.4124470973857
+          },
+          "Prism Shot (Stellar-Conduct)": {
+            "hits": 1.0,
+            "damage": 8079.975249819412
+          }
+        }
+      }
+    }
+  },
+  "expiryListenerFixed": {
+    "id": "stellar_valeriy",
+    "archetype": "Stellar Conduct / Valeriy C6",
+    "members": ["Valeriy", "Odette", "Mitya", "Sandrone"],
+    "dps": {
+      "ours": 25737.69814803859,
+      "reference": 24849.83812784844,
+      "differencePercent": 3.572900618596586,
+      "referenceSd": 974.6533620122215
+    },
+    "seconds": {
+      "ours": 32.05,
+      "reference": 32.108333333333334,
+      "differencePercent": -0.18167661562420445
+    },
+    "rotationDamage": {
+      "ours": 824893.2256446368,
+      "reference": 797886.8858883338
+    },
+    "warnings": [],
+    "notes": [
+      "Valeriy: shell timing cycles the six native random rhythms. Energy refunds, shield damage and shield growth from excess Momentum are not validated. Plunges are unsupported."
+    ],
+    "accuracy": {
+      "dpsTolerancePercent": 5,
+      "durationTolerancePercent": 5,
+      "passed": true
+    },
+    "referenceSampleSeed": "5810462733604770314",
+    "referenceReactions": {
+      "stellar-conduct": 10.637499999999998
+    },
+    "oursReactions": {
+      "stellarConduct": 44
+    },
+    "characters": {
+      "Valeriy": {
+        "dps": {
+          "ours": 3288.7883267454463,
+          "reference": 3291.4860369203407,
+          "differencePercent": -0.08196024970589244
+        },
+        "directDamagePerLoop": {
+          "ours": 105405.66587219156,
+          "reference": 105684.1308354506,
+          "differencePercent": -0.26348796272225306
+        },
+        "oursAbilities": {
+          "Skill": {
+            "hits": 1.0,
+            "dmg": 7719.992428639167
+          },
+          "Burst": {
+            "hits": 1.0,
+            "dmg": 6433.744179912136
+          },
+          "Burst (Tick)": {
+            "hits": 25.5,
+            "dmg": 72592.00383016223
+          },
+          "Special Charge": {
+            "hits": 1.0,
+            "dmg": 18659.92543347801
+          }
+        },
+        "referenceAbilities": {
+          "Burst": {
+            "hits": 1.0,
+            "damage": 6225.859512664057
+          },
+          "Burst (Tick)": {
+            "hits": 26.074999999999996,
+            "damage": 73089.88793361225
+          },
+          "Skill": {
+            "hits": 1.0,
+            "damage": 7681.5843466518245
+          },
+          "Special Charge": {
+            "hits": 1.0,
+            "damage": 18686.79904252248
+          }
+        }
+      },
+      "Odette": {
+        "dps": {
+          "ours": 7923.590723970163,
+          "reference": 7248.043401043853,
+          "differencePercent": 9.320409461524726
+        },
+        "directDamagePerLoop": {
+          "ours": 253951.0827032437,
+          "reference": 232722.59353518294,
+          "differencePercent": 9.121799841428558
+        },
+        "oursAbilities": {
+          "Adagio: Phantom Night Dancers": {
+            "hits": 1.0,
+            "dmg": 6979.043801850208
+          },
+          "Presto: Bluebird Finale (Slash)": {
+            "hits": 3.0,
+            "dmg": 15474.70294067902
+          },
+          "Coda at Dawn's Tolling (DoT)": {
+            "hits": 3.0,
+            "dmg": 17097.11335774241
+          },
+          "Presto: Bluebird Finale (Final)": {
+            "hits": 1.0,
+            "dmg": 7742.016312768977
+          },
+          "Coda at Dawn's Tolling (Stellar-Conduct)": {
+            "hits": 1.0,
+            "dmg": 90170.32948907092
+          },
+          "\"Plume\" Dance Move": {
+            "hits": 5.0,
+            "dmg": 15951.623921467946
+          },
+          "\"Plume\" Dance Move (Stellar-Conduct)": {
+            "hits": 5.0,
+            "dmg": 41334.58081533717
+          },
+          "\"Wing\" Dance Move": {
+            "hits": 4.0,
+            "dmg": 15505.731429916581
+          },
+          "\"Wing\" Dance Move (Stellar-Conduct)": {
+            "hits": 4.0,
+            "dmg": 43695.94063441049
+          }
+        },
+        "referenceAbilities": {
+          "\"Plume\" Dance Move": {
+            "hits": 5.0,
+            "damage": 14459.189733399311
+          },
+          "\"Plume\" Dance Move (Stellar-Conduct)": {
+            "hits": 5.0,
+            "damage": 35500.53428719899
+          },
+          "\"Wing\" Dance Move": {
+            "hits": 4.0,
+            "damage": 13649.634043713972
+          },
+          "\"Wing\" Dance Move (Stellar-Conduct)": {
+            "hits": 4.0,
+            "damage": 36631.406879978385
+          },
+          "Adagio: Phantom Night Dancers": {
+            "hits": 1.0,
+            "damage": 6561.67431032771
+          },
+          "Coda at Dawn's Tolling": {
+            "hits": 3.0,
+            "damage": 17759.177725018144
+          },
+          "Coda at Dawn's Tolling (Stellar-Conduct)": {
+            "hits": 1.0,
+            "damage": 83349.14442531428
+          },
+          "Presto: Bluebird Finale (Final)": {
+            "hits": 1.0,
+            "damage": 8537.136855220482
+          },
+          "Presto: Bluebird Finale (Slash)": {
+            "hits": 3.0,
+            "damage": 16274.695275011658
+          }
+        }
+      },
+      "Mitya": {
+        "dps": {
+          "ours": 9310.28858698429,
+          "reference": 9023.018244541701,
+          "differencePercent": 3.1837499898259347
+        },
+        "directDamagePerLoop": {
+          "ours": 298394.7492128464,
+          "reference": 289714.07746849325,
+          "differencePercent": 2.9962892449702183
+        },
+        "oursAbilities": {
+          "Skill (Press)": {
+            "hits": 1.0,
+            "dmg": 2564.9417575557122
+          },
+          "Skill Pulse": {
+            "hits": 16.0,
+            "dmg": 27537.315018925747
+          },
+          "Burst": {
+            "hits": 1.0,
+            "dmg": 14451.02454240118
+          },
+          "Prism Surge (Stellar-Conduct)": {
+            "hits": 14.75,
+            "dmg": 210110.9639626583
+          },
+          "Prism Shatter (Stellar-Conduct)": {
+            "hits": 4.0,
+            "dmg": 43730.50393130544
+          }
+        },
+        "referenceAbilities": {
+          "Burst": {
+            "hits": 1.0,
+            "damage": 14013.251718632377
+          },
+          "Prism Shatter (Stellar-Conduct)": {
+            "hits": 1.0,
+            "damage": 42336.001424383605
+          },
+          "Prism Surge (Stellar-Conduct)": {
+            "hits": 14.75,
+            "damage": 203237.30439711435
+          },
+          "Skill (Press)": {
+            "hits": 1.0,
+            "damage": 2667.793710413674
+          },
+          "Skill Pulse": {
+            "hits": 16.0,
+            "damage": 27459.726217949235
+          }
+        }
+      },
+      "Sandrone": {
+        "dps": {
+          "ours": 5215.030510338703,
+          "reference": 5287.290445342549,
+          "differencePercent": -1.3666723201767428
+        },
+        "directDamagePerLoop": {
+          "ours": 167141.72785635537,
+          "reference": 169766.08404920707,
+          "differencePercent": -1.5458660117830259
+        },
+        "oursAbilities": {
+          "Prism Shot": {
+            "hits": 1.0,
+            "dmg": 2181.1235466177654
+          },
+          "Prism Shot (Stellar-Conduct)": {
+            "hits": 1.0,
+            "dmg": 8899.92156853665
+          },
+          "Bombardment": {
+            "hits": 3.0,
+            "dmg": 17121.731251837373
+          },
+          "N1": {
+            "hits": 5.0,
+            "dmg": 17717.231860692365
+          },
+          "N2": {
+            "hits": 5.0,
+            "dmg": 15261.209814035663
+          },
+          "Convective Inhibition Ray (Stellar-Conduct)": {
+            "hits": 1.0,
+            "dmg": 82451.45691822922
+          },
+          "N3": {
+            "hits": 5.0,
+            "dmg": 23509.05289640634
+          }
+        },
+        "referenceAbilities": {
+          "Bombardment": {
+            "hits": 3.0,
+            "damage": 16949.494882166895
+          },
+          "Convective Inhibition Ray (Stellar-Conduct)": {
+            "hits": 1.0,
+            "damage": 86237.01637112093
+          },
+          "Normal 0": {
+            "hits": 5.0,
+            "damage": 17729.02730431776
+          },
+          "Normal 1": {
+            "hits": 5.0,
+            "damage": 15249.01800963908
+          },
+          "Normal 2": {
+            "hits": 5.0,
+            "damage": 23504.21397538587
+          },
+          "Prism Shot": {
+            "hits": 1.0,
+            "damage": 1990.4417257107118
+          },
+          "Prism Shot (Stellar-Conduct)": {
+            "hits": 1.0,
+            "damage": 8106.871780865814
+          }
+        }
+      }
+    }
+  },
+  "note": "Only the previously recorded Polestar OnExpiry unsubscribe patch is applied. Independent, unpaired native trials. The official result retains the original reference and its failing gate."
+}

@@ -1,0 +1,2031 @@
+{
+  "reference": {
+    "repository": "https://github.com/KQM-git/kqmsim",
+    "commit": "7bdf45f2e299c6bf782f81dc60d6cb19fd0bfb4c"
+  },
+  "loops": 4,
+  "iterations": 200,
+  "teams": [
+    {
+      "id": "stellar_sandrone",
+      "archetype": "Stellar-Conduct",
+      "members": [
+        {
+          "key": "Sandrone",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusGreatsword", 5],
+          "sets": {
+            "FragmentOfHarmonicWhimsy": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "cryo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Odette",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "cryo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Anastasya",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusWarbow", 5],
+          "sets": {
+            "GoldenTroupe": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "cryo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Mitya",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["OathswornEye", 5],
+          "sets": {
+            "ViridescentVenerer": 4
+          },
+          "mains": {
+            "sands": "eleMas",
+            "goblet": "eleMas",
+            "circlet": "eleMas"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 49.6,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 118.92,
+            "enerRech_": 55.1,
+            "critRate_": 6.62,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "eleMas": 4,
+            "enerRech_": 8,
+            "hp_": 8
+          }
+        }
+      ],
+      "text": "Odette E Q -> Anastasya E Q -> Mitya E Q -> Sandrone CA E Q CA -> Mitya N3 CA W4 -> Odette",
+      "native": "odette skill,burst; anastasya skill,burst; mitya skill,burst; sandrone charge,skill,burst,charge; mitya attack:3,charge; wait(240);",
+      "checks": {
+        "nodes": {}
+      }
+    },
+    {
+      "id": "stellar_danica",
+      "archetype": "Stellar-Conduct",
+      "members": [
+        {
+          "key": "Danica",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusGreatsword", 5],
+          "sets": {
+            "HuskOfOpulentDreams": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "electro_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Anastasya",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusWarbow", 5],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "cryo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Mitya",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["OathswornEye", 5],
+          "sets": {
+            "ViridescentVenerer": 4
+          },
+          "mains": {
+            "sands": "eleMas",
+            "goblet": "eleMas",
+            "circlet": "eleMas"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 49.6,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 118.92,
+            "enerRech_": 55.1,
+            "critRate_": 6.62,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "eleMas": 4,
+            "enerRech_": 8,
+            "hp_": 8
+          }
+        },
+        {
+          "key": "Odette",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "GoldenTroupe": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "cryo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        }
+      ],
+      "text": "Danica E -> Anastasya E Q -> Mitya E Q N3 CA N3 W3 -> Danica Q -> Odette E Q N3 W5 -> Mitya N3 CA -> Danica",
+      "native": "danica skill; anastasya skill,burst; mitya skill,burst,attack:3,charge,attack:3; wait(180); danica burst; odette skill,burst,attack:3; wait(300); mitya attack:3,charge;",
+      "checks": {
+        "nodes": {}
+      }
+    },
+    {
+      "id": "stellar_swirl",
+      "archetype": "Stellar Swirl + Hexerei",
+      "members": [
+        {
+          "key": "Venti",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusWarbow", 5],
+          "sets": {
+            "ViridescentVenerer": 4
+          },
+          "mains": {
+            "sands": "eleMas",
+            "goblet": "eleMas",
+            "circlet": "eleMas"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 49.6,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 118.92,
+            "enerRech_": 55.1,
+            "critRate_": 6.62,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "eleMas": 4,
+            "enerRech_": 8,
+            "hp_": 8
+          }
+        },
+        {
+          "key": "Sucrose",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["OathswornEye", 5],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "eleMas",
+            "goblet": "eleMas",
+            "circlet": "eleMas"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 49.6,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 118.92,
+            "enerRech_": 55.1,
+            "critRate_": 6.62,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "eleMas": 4,
+            "enerRech_": 8,
+            "hp_": 8
+          }
+        },
+        {
+          "key": "Odette",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "GoldenTroupe": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "cryo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Anastasya",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusWarbow", 5],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "cryo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        }
+      ],
+      "text": "Odette E Q -> Anastasya E Q -> Sucrose E Q -> Venti E Q -> Sucrose N3 N3 E -> Odette E W8 -> Venti",
+      "native": "odette skill,burst; anastasya skill,burst; sucrose skill,burst; venti skill,burst; sucrose attack:6,skill; odette skill; wait(480);",
+      "checks": {
+        "nodes": {}
+      }
+    },
+    {
+      "id": "lunar_charged",
+      "archetype": "Lunar-Charged",
+      "members": [
+        {
+          "key": "Flins",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusLance", 5],
+          "sets": {
+            "NightOfTheSkysUnveiling": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "electro_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Ineffa",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusLance", 5],
+          "sets": {
+            "SilkenMoonsSerenade": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "electro_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Columbina",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["OathswornEye", 5],
+          "sets": {
+            "AubadeOfMorningstarAndMoon": 4
+          },
+          "mains": {
+            "sands": "hp_",
+            "goblet": "hp_",
+            "circlet": "heal_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 39.68,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 79.28,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "hp_": 6,
+            "enerRech_": 8,
+            "critRate_": 4,
+            "eleMas": 2
+          }
+        },
+        {
+          "key": "Sucrose",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["OathswornEye", 5],
+          "sets": {
+            "ViridescentVenerer": 4
+          },
+          "mains": {
+            "sands": "eleMas",
+            "goblet": "eleMas",
+            "circlet": "eleMas"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 49.6,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 118.92,
+            "enerRech_": 55.1,
+            "critRate_": 6.62,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "eleMas": 4,
+            "enerRech_": 8,
+            "hp_": 8
+          }
+        }
+      ],
+      "text": "Ineffa E Q -> Columbina E Q -> Sucrose E Q -> Flins E N3 N3 Q N3 E N3 N3 W3 -> Ineffa",
+      "native": "ineffa skill,burst; columbina skill,burst; sucrose skill,burst; flins skill,attack:6,burst,attack:3,skill,attack:6; wait(180);",
+      "checks": {
+        "nodes": {}
+      }
+    },
+    {
+      "id": "lunar_bloom",
+      "archetype": "Lunar-Bloom",
+      "members": [
+        {
+          "key": "Lauma",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["OathswornEye", 5],
+          "sets": {
+            "SilkenMoonsSerenade": 4
+          },
+          "mains": {
+            "sands": "eleMas",
+            "goblet": "eleMas",
+            "circlet": "eleMas"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 49.6,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 118.92,
+            "enerRech_": 55.1,
+            "critRate_": 6.62,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "eleMas": 4,
+            "enerRech_": 8,
+            "hp_": 8
+          }
+        },
+        {
+          "key": "Nahida",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["OathswornEye", 5],
+          "sets": {
+            "DeepwoodMemories": 4
+          },
+          "mains": {
+            "sands": "eleMas",
+            "goblet": "eleMas",
+            "circlet": "eleMas"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 49.6,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 118.92,
+            "enerRech_": 55.1,
+            "critRate_": 6.62,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "eleMas": 4,
+            "enerRech_": 8,
+            "hp_": 8
+          }
+        },
+        {
+          "key": "Columbina",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["OathswornEye", 5],
+          "sets": {
+            "AubadeOfMorningstarAndMoon": 4
+          },
+          "mains": {
+            "sands": "hp_",
+            "goblet": "hp_",
+            "circlet": "heal_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 39.68,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 79.28,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "hp_": 6,
+            "enerRech_": 8,
+            "critRate_": 4,
+            "eleMas": 2
+          }
+        },
+        {
+          "key": "Aino",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusGreatsword", 5],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "hp_",
+            "goblet": "hp_",
+            "circlet": "heal_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 39.68,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 79.28,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "hp_": 6,
+            "enerRech_": 8,
+            "critRate_": 4,
+            "eleMas": 2
+          }
+        }
+      ],
+      "text": "Nahida E Q -> Aino E Q -> Columbina E Q -> Lauma E Q N3 N3 hE W8 -> Nahida",
+      "native": "nahida skill,burst; aino skill,burst; columbina skill,burst; lauma skill,burst,attack:6,skill[hold=1]; wait(480);",
+      "checks": {
+        "nodes": {}
+      }
+    },
+    {
+      "id": "lunar_crystallize",
+      "archetype": "Lunar-Crystallize",
+      "members": [
+        {
+          "key": "Zibai",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "NightOfTheSkysUnveiling": 4
+          },
+          "mains": {
+            "sands": "def_",
+            "goblet": "geo_dmg_",
+            "circlet": "critRate_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 9.92,
+            "def_": 37.2,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "def_": 4
+          }
+        },
+        {
+          "key": "Linnea",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusWarbow", 5],
+          "sets": {
+            "AubadeOfMorningstarAndMoon": 4
+          },
+          "mains": {
+            "sands": "def_",
+            "goblet": "geo_dmg_",
+            "circlet": "critRate_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 9.92,
+            "def_": 37.2,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "def_": 4
+          }
+        },
+        {
+          "key": "Illuga",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusLance", 5],
+          "sets": {
+            "SilkenMoonsSerenade": 4
+          },
+          "mains": {
+            "sands": "eleMas",
+            "goblet": "eleMas",
+            "circlet": "eleMas"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 49.6,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 118.92,
+            "enerRech_": 55.1,
+            "critRate_": 6.62,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "eleMas": 4,
+            "enerRech_": 8,
+            "hp_": 8
+          }
+        },
+        {
+          "key": "Columbina",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["OathswornEye", 5],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "hp_",
+            "goblet": "hp_",
+            "circlet": "heal_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 39.68,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 79.28,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "hp_": 6,
+            "enerRech_": 8,
+            "critRate_": 4,
+            "eleMas": 2
+          }
+        }
+      ],
+      "text": "Columbina E Q -> Illuga E Q -> Linnea E -> Zibai E N1 E N4 E N4 Q E N2 E W5 -> Columbina",
+      "native": "columbina skill,burst; illuga skill,burst; linnea skill; zibai skill,attack,skill,attack:4,skill,attack:4,burst,skill,attack:2,skill; wait(300);",
+      "checks": {
+        "nodes": {}
+      }
+    },
+    {
+      "id": "hexerei_klee",
+      "archetype": "Hexerei",
+      "members": [
+        {
+          "key": "Klee",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["OathswornEye", 5],
+          "sets": {
+            "CrimsonWitchOfFlames": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "pyro_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Durin",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "pyro_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Nicole",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["OathswornEye", 5],
+          "sets": {
+            "CelestialGift": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "atk_",
+            "circlet": "atk_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 39.72
+          },
+          "params": "",
+          "liquidRolls": {
+            "enerRech_": 8,
+            "atk_": 4,
+            "critRate_": 4,
+            "critDMG_": 4
+          }
+        },
+        {
+          "key": "Bennett",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "atk_",
+            "circlet": "atk_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 39.72
+          },
+          "params": "",
+          "liquidRolls": {
+            "enerRech_": 8,
+            "atk_": 4,
+            "critRate_": 4,
+            "critDMG_": 4
+          }
+        }
+      ],
+      "text": "Bennett E Q -> Nicole E Q -> Durin E N1 Q -> Klee E Q N2 CA N2 CA N2 CA N2 CA E W5 -> Bennett",
+      "native": "bennett skill,burst; nicole skill,burst; durin skill,attack,burst; klee skill,burst,attack:2,charge,attack:2,charge,attack:2,charge,attack:2,charge,skill; wait(300);",
+      "checks": {
+        "nodes": {}
+      }
+    },
+    {
+      "id": "hexerei_razor",
+      "archetype": "Hexerei",
+      "members": [
+        {
+          "key": "Razor",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusGreatsword", 5],
+          "sets": {
+            "PaleFlame": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "electro_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Fischl",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusWarbow", 5],
+          "sets": {
+            "GoldenTroupe": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "electro_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Mona",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["OathswornEye", 5],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "hp_",
+            "goblet": "hp_",
+            "circlet": "heal_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 39.68,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 79.28,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "hp_": 6,
+            "enerRech_": 8,
+            "critRate_": 4,
+            "eleMas": 2
+          }
+        },
+        {
+          "key": "Dahlia",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "hp_",
+            "goblet": "hp_",
+            "circlet": "heal_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 39.68,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 79.28,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "hp_": 6,
+            "enerRech_": 8,
+            "critRate_": 4,
+            "eleMas": 2
+          }
+        }
+      ],
+      "text": "Fischl E -> Mona E Q -> Dahlia E Q -> Razor E Q N4 N4 N4 N4 E -> Fischl",
+      "native": "fischl skill; mona skill,burst; dahlia skill,burst; razor skill,burst,attack:16,skill;",
+      "checks": {
+        "nodes": {}
+      }
+    },
+    {
+      "id": "freeze_escoffier",
+      "archetype": "Freeze",
+      "members": [
+        {
+          "key": "Wriothesley",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["OathswornEye", 5],
+          "sets": {
+            "MarechausseeHunter": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "cryo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Escoffier",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusLance", 5],
+          "sets": {
+            "GoldenTroupe": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "cryo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Furina",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "GoldenTroupe": 4
+          },
+          "mains": {
+            "sands": "hp_",
+            "goblet": "hp_",
+            "circlet": "heal_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 39.68,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 79.28,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "hp_": 6,
+            "enerRech_": 8,
+            "critRate_": 4,
+            "eleMas": 2
+          }
+        },
+        {
+          "key": "Shenhe",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusLance", 5],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "atk_",
+            "circlet": "atk_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 39.72
+          },
+          "params": "",
+          "liquidRolls": {
+            "enerRech_": 8,
+            "atk_": 4,
+            "critRate_": 4,
+            "critDMG_": 4
+          }
+        }
+      ],
+      "text": "Furina E Q -> Shenhe E Q -> Escoffier E Q -> Wriothesley E N3 CA N3 CA N3 CA N3 CA Q W5 -> Furina",
+      "native": "furina skill,burst; shenhe skill,burst; escoffier skill,burst; wriothesley skill,attack:3,charge,attack:3,charge,attack:3,charge,attack:3,charge,burst; wait(300);",
+      "checks": {
+        "nodes": {}
+      }
+    },
+    {
+      "id": "natlan_mavuika",
+      "archetype": "Natlan / Nightsoul",
+      "members": [
+        {
+          "key": "Mavuika",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusGreatsword", 5],
+          "sets": {
+            "ObsidianCodex": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "pyro_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Citlali",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["OathswornEye", 5],
+          "sets": {
+            "ScrollOfTheHeroOfCinderCity": 4
+          },
+          "mains": {
+            "sands": "eleMas",
+            "goblet": "eleMas",
+            "circlet": "eleMas"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 49.6,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 118.92,
+            "enerRech_": 55.1,
+            "critRate_": 6.62,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "eleMas": 4,
+            "enerRech_": 8,
+            "hp_": 8
+          }
+        },
+        {
+          "key": "Xilonen",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "ScrollOfTheHeroOfCinderCity": 4
+          },
+          "mains": {
+            "sands": "def_",
+            "goblet": "geo_dmg_",
+            "circlet": "critRate_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 9.92,
+            "def_": 37.2,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "def_": 4
+          }
+        },
+        {
+          "key": "Bennett",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "atk_",
+            "circlet": "atk_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 39.72
+          },
+          "params": "",
+          "liquidRolls": {
+            "enerRech_": 8,
+            "atk_": 4,
+            "critRate_": 4,
+            "critDMG_": 4
+          }
+        }
+      ],
+      "text": "Mavuika E -> Xilonen E N2 -> Bennett E Q -> Citlali E Q -> Mavuika Q N3 CA N3 CA W5 -> Mavuika",
+      "native": "mavuika skill; xilonen skill,attack:2; bennett skill,burst; citlali skill,burst; mavuika burst,attack:3,charge,attack:3,charge; wait(300);",
+      "checks": {
+        "nodes": {}
+      }
+    },
+    {
+      "id": "natlan_kinich",
+      "archetype": "Natlan / Nightsoul",
+      "members": [
+        {
+          "key": "Kinich",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusGreatsword", 5],
+          "sets": {
+            "ObsidianCodex": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "dendro_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Emilie",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusLance", 5],
+          "sets": {
+            "UnfinishedReverie": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "dendro_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Dehya",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusGreatsword", 5],
+          "sets": {
+            "DeepwoodMemories": 4
+          },
+          "mains": {
+            "sands": "hp_",
+            "goblet": "hp_",
+            "circlet": "heal_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 39.68,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 79.28,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "hp_": 6,
+            "enerRech_": 8,
+            "critRate_": 4,
+            "eleMas": 2
+          }
+        },
+        {
+          "key": "Bennett",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "atk_",
+            "circlet": "atk_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 39.72
+          },
+          "params": "",
+          "liquidRolls": {
+            "enerRech_": 8,
+            "atk_": 4,
+            "critRate_": 4,
+            "critDMG_": 4
+          }
+        }
+      ],
+      "text": "Emilie E -> Dehya E -> Bennett E Q -> Kinich E N2 W1 E N2 W1 E Q N2 W1 E W8 -> Emilie",
+      "native": "emilie skill; dehya skill; bennett skill,burst; kinich skill,attack:2; wait(60); kinich skill,attack:2; wait(60); kinich skill,burst,attack:2; wait(60); kinich skill; wait(480);",
+      "checks": {
+        "nodes": {}
+      }
+    },
+    {
+      "id": "natlan_mualani",
+      "archetype": "Natlan / Nightsoul",
+      "members": [
+        {
+          "key": "Mualani",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["OathswornEye", 5],
+          "sets": {
+            "ObsidianCodex": 4
+          },
+          "mains": {
+            "sands": "hp_",
+            "goblet": "hp_",
+            "circlet": "heal_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 39.68,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 79.28,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "hp_": 6,
+            "enerRech_": 8,
+            "critRate_": 4,
+            "eleMas": 2
+          }
+        },
+        {
+          "key": "Furina",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "GoldenTroupe": 4
+          },
+          "mains": {
+            "sands": "hp_",
+            "goblet": "hp_",
+            "circlet": "heal_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 39.68,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 79.28,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "hp_": 6,
+            "enerRech_": 8,
+            "critRate_": 4,
+            "eleMas": 2
+          }
+        },
+        {
+          "key": "Xiangling",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusLance", 5],
+          "sets": {
+            "EmblemOfSeveredFate": 4
+          },
+          "mains": {
+            "sands": "eleMas",
+            "goblet": "eleMas",
+            "circlet": "eleMas"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 49.6,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 118.92,
+            "enerRech_": 55.1,
+            "critRate_": 6.62,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "eleMas": 4,
+            "enerRech_": 8,
+            "hp_": 8
+          }
+        },
+        {
+          "key": "Xilonen",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "ScrollOfTheHeroOfCinderCity": 4
+          },
+          "mains": {
+            "sands": "def_",
+            "goblet": "geo_dmg_",
+            "circlet": "critRate_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 9.92,
+            "def_": 37.2,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "def_": 4
+          }
+        }
+      ],
+      "text": "Furina E Q -> Xilonen E N2 -> Xiangling E Q -> Mualani E N3 Q W9 -> Furina",
+      "native": "furina skill,burst; xilonen skill,attack:2; xiangling skill,burst; mualani skill,attack:3,burst; wait(540);",
+      "checks": {
+        "nodes": {}
+      }
+    },
+    {
+      "id": "natlan_chasca",
+      "archetype": "Natlan / Nightsoul",
+      "members": [
+        {
+          "key": "Chasca",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusWarbow", 5],
+          "sets": {
+            "ObsidianCodex": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "anemo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Ororon",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusWarbow", 5],
+          "sets": {
+            "ScrollOfTheHeroOfCinderCity": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "electro_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Furina",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "GoldenTroupe": 4
+          },
+          "mains": {
+            "sands": "hp_",
+            "goblet": "hp_",
+            "circlet": "heal_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 39.68,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 79.28,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "hp_": 6,
+            "enerRech_": 8,
+            "critRate_": 4,
+            "eleMas": 2
+          }
+        },
+        {
+          "key": "Bennett",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "atk_",
+            "circlet": "atk_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 39.72
+          },
+          "params": "",
+          "liquidRolls": {
+            "enerRech_": 8,
+            "atk_": 4,
+            "critRate_": 4,
+            "critDMG_": 4
+          }
+        }
+      ],
+      "text": "Furina E Q -> Ororon E Q -> Bennett E Q -> Chasca E CA CA CA Q W6 -> Furina",
+      "native": "furina skill,burst; ororon skill,burst; bennett skill,burst; chasca skill,aim,aim,aim,burst; wait(360);",
+      "checks": {
+        "nodes": {}
+      }
+    },
+    {
+      "id": "natlan_varesa",
+      "archetype": "Natlan / Nightsoul",
+      "members": [
+        {
+          "key": "Varesa",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["OathswornEye", 5],
+          "sets": {
+            "ObsidianCodex": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "electro_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Iansan",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusLance", 5],
+          "sets": {
+            "ScrollOfTheHeroOfCinderCity": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "atk_",
+            "circlet": "atk_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 39.72
+          },
+          "params": "",
+          "liquidRolls": {
+            "enerRech_": 8,
+            "atk_": 4,
+            "critRate_": 4,
+            "critDMG_": 4
+          }
+        },
+        {
+          "key": "Chevreuse",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusLance", 5],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "hp_",
+            "goblet": "hp_",
+            "circlet": "heal_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 39.68,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 79.28,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "hp_": 6,
+            "enerRech_": 8,
+            "critRate_": 4,
+            "eleMas": 2
+          }
+        },
+        {
+          "key": "Xiangling",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusLance", 5],
+          "sets": {
+            "EmblemOfSeveredFate": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "pyro_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        }
+      ],
+      "text": "Xiangling E Q -> Chevreuse Q hE -> Iansan E N1 Q -> Varesa E CA P E CA P Q W8 -> Xiangling",
+      "native": "xiangling skill,burst; chevreuse burst,skill[hold=1]; iansan skill,attack,burst; varesa skill,charge,high_plunge,skill,charge,high_plunge,burst; wait(480);",
+      "checks": {
+        "nodes": {}
+      }
+    }
+  ]
+}

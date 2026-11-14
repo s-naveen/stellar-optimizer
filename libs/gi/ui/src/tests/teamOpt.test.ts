@@ -26,6 +26,7 @@ import {
 } from '@genshin-optimizer/gi/wr'
 import type { TeamOptResult, TeamOptSolver } from '../'
 import {
+  attackDamageOutcomes,
   attackHitData,
   attackSegments,
   clearTeamOptSolveMemo,
@@ -46,6 +47,7 @@ import {
   teamRotationNodes,
   teamSensitivity,
 } from '../'
+import { rotationCalculation } from '../util/teamOpt/rotationCalculation'
 
 const ayaka: CharacterKey = 'KamisatoAyaka'
 const shenhe: CharacterKey = 'Shenhe'
@@ -453,6 +455,208 @@ describe('team rotation', () => {
     expect(
       sensitivity.character(member(ayaka), { level: 100 })!
     ).toBeGreaterThan(base)
+  })
+
+  it('ranks independent crit outcomes for special reactions and keeps both builds dynamic', () => {
+    const { database, teamId } = setup()
+    const path = ['reaction', 'lunarcharged']
+    const definition: TeamOptAttack = {
+      ...attack(path, 1),
+      onField: ayaka,
+      reactionContributors: [ayaka, shenhe],
+    }
+    const individual = [ayaka, shenhe].map((characterKey) => {
+      const hit = attackHitData(database, teamId, 'F', {
+        characterKey,
+        attack: { ...attack(path, 1), hitMode: 'hit' },
+      })!
+      const crit = attackHitData(database, teamId, 'F', {
+        characterKey,
+        attack: { ...attack(path, 1), hitMode: 'critHit' },
+      })!
+      return {
+        hit: hit.hit!.value,
+        crit: crit.hit!.value,
+        chance: Math.max(
+          0,
+          Math.min(1, hit.target.get(uiInput.total.critRate_).value)
+        ),
+      }
+    })
+    let expected = 0
+    for (let mask = 0; mask < 4; mask++) {
+      let probability = 1
+      const rolled = individual
+        .map((c, i) => {
+          const isCrit = !!(mask & (1 << i))
+          probability *= isCrit ? c.chance : 1 - c.chance
+          return isCrit ? c.crit : c.hit
+        })
+        .sort((a, b) => b - a)
+      expected += probability * (0.6 * rolled[0] + 0.3 * rolled[1])
+    }
+    const concrete = evaluateTeamRotation(database, teamId, 'F', {
+      arts: {},
+      attacks: { [ayaka]: [definition] },
+    })!.total
+    expect(concrete).toBeCloseTo(expected, 6)
+    const rolls = attackDamageOutcomes(
+      database,
+      teamId,
+      'F',
+      ayaka,
+      definition
+    )!
+    expect(rolls.reduce((sum, r) => sum + r.probability, 0)).toBeCloseTo(1, 10)
+    expect(
+      rolls.reduce((sum, r) => sum + r.damage * r.probability, 0)
+    ).toBeCloseTo(expected, 6)
+    expect(rolls.length).toBeGreaterThan(2)
+    expect(
+      attackHitData(database, teamId, 'F', {
+        characterKey: ayaka,
+        attack: definition,
+      })!.hit!.value
+    ).toBeCloseTo(expected, 6)
+    for (const dyn of [ayaka, shenhe]) {
+      const nodes = teamRotationNodes(database, teamId, 'F', {
+        dyn,
+        arts: {},
+        attacks: { [ayaka]: [definition] },
+      })!
+      const objective = sum(...nodes.terms.map((t) => t.node))
+      for (const set of ['BlizzardStrayer', 'NoblesseOblige'] as const) {
+        const arts = database.arts.values.filter((a) => a.setKey === set)
+        const override = arts
+        const fixed = evaluateTeamRotation(database, teamId, 'F', {
+          arts: { [dyn]: override },
+          attacks: { [ayaka]: [definition] },
+        })!.total
+        expect(evalAt([objective], arts)[0]).toBeCloseTo(fixed, 6)
+      }
+    }
+  })
+
+  it('evaluates timeline stats in their buff context and with the supplied candidate build', () => {
+    const { database, teamId } = setup()
+    const evaluate = rotationCalculation(database, teamId, 'F')
+    const nob = { owner: ayaka, path: ['NoblesseOblige', 'set4'] }
+    const off = [{ ...nob, value: '' }]
+    const on = [{ ...nob, value: 'on' }]
+    const base = evaluate(ayaka, ['total', 'atk'], off, ayaka)!
+    expect(base).toBeGreaterThan(0)
+    expect(evaluate(ayaka, ['total', 'atk'], on, ayaka)).toBeGreaterThan(base)
+    const critArts = database.arts.values.filter(
+      (a) => a.setKey === 'BlizzardStrayer'
+    )
+    const candidate = rotationCalculation(database, teamId, 'F', {
+      arts: { [ayaka]: critArts },
+    })
+    expect(candidate(ayaka, ['total', 'atk'], off, ayaka)).not.toBeCloseTo(
+      base,
+      2
+    )
+    expect(evaluate(ayaka, ['missing', 'formula'], off, ayaka)).toBeUndefined()
+  })
+
+  it('evaluates threshold-mechanic damage rolls with snapshots, disabled buffs and candidate builds', () => {
+    const { database, teamId } = setup()
+    const definition: TeamOptAttack = {
+      path: ['skill', 'press'],
+      hits: 1,
+      hitMode: 'avgHit',
+      onField: ayaka,
+      limits: [{ owner: ayaka, path: ['NoblesseOblige', 'set4'], hits: 0 }],
+      reaction: 'melt',
+    }
+    const rolls = rotationCalculation(database, teamId, 'F').damage!(
+      ayaka,
+      definition
+    )!
+    const expected = attackHitData(database, teamId, 'F', {
+      characterKey: ayaka,
+      attack: definition,
+    })!.hit!.value
+    expect(
+      rolls.reduce((sum, r) => sum + r.damage * r.probability, 0)
+    ).toBeCloseTo(expected, 6)
+    expect(rolls.reduce((sum, r) => sum + r.probability, 0)).toBeCloseTo(1, 10)
+    const arts = database.arts.values.filter(
+      (a) => a.setKey === 'BlizzardStrayer'
+    )
+    const candidate = rotationCalculation(database, teamId, 'F', {
+      arts: { [ayaka]: arts },
+    }).damage!(ayaka, definition)!
+    const evaluated = evaluateTeamRotation(database, teamId, 'F', {
+      arts: { [ayaka]: arts },
+      attacks: { [ayaka]: [definition] },
+    })!.total
+    expect(
+      candidate.reduce((sum, r) => sum + r.damage * r.probability, 0)
+    ).toBeCloseTo(evaluated, 6)
+    expect(evaluated).not.toBeCloseTo(expected, 2)
+  })
+
+  it('retains snapshot buff context while allowing candidate artifacts to change the captured stat', () => {
+    const { database, teamId } = setup()
+    const nob = { owner: ayaka, path: ['NoblesseOblige', 'set4'] }
+    const live: TeamOptAttack = {
+      ...attack(['skill', 'press'], 1),
+      states: [
+        { ...nob, value: 'on' },
+        { ...quill, value: '' },
+      ],
+    }
+    const off: TeamOptAttack = {
+      ...live,
+      states: [
+        { ...nob, value: '' },
+        { ...quill, value: '' },
+      ],
+    }
+    const captured: TeamOptAttack = {
+      ...live,
+      statSnapshots: [
+        {
+          stat: 'atk_',
+          path: ['premod', 'atk_'],
+          onField: ayaka,
+          states: [
+            { ...nob, value: '' },
+            { ...quill, value: '' },
+          ],
+        },
+      ],
+    }
+    const evaluate = (a: TeamOptAttack, arts = {}) =>
+      evaluateTeamRotation(database, teamId, 'F', {
+        arts,
+        attacks: { [ayaka]: [a] },
+      })!.total
+    expect(evaluate(live)).toBeGreaterThan(evaluate(off))
+    expect(evaluate(captured)).toBeCloseTo(evaluate(off), 6)
+    const data = attackHitData(database, teamId, 'F', {
+      attack: captured,
+      characterKey: ayaka,
+    })!
+    expect(data.hit!.value).toBeCloseTo(evaluate(captured), 6)
+    const nodes = teamRotationNodes(database, teamId, 'F', {
+      dyn: ayaka,
+      arts: {},
+      attacks: { [ayaka]: [captured] },
+    })!
+    const objective = sum(...nodes.terms.map((t) => t.node))
+    const bySet = (set: ArtifactSetKey) =>
+      database.arts.values.filter((a) => a.setKey === set)
+    const values: number[] = []
+    for (const set of ['BlizzardStrayer', 'GladiatorsFinale'] as const) {
+      const arts = bySet(set)
+      const [dynamic] = evalAt([objective], arts)
+      const override = arts
+      expect(dynamic).toBeCloseTo(evaluate(captured, { [ayaka]: override }), 6)
+      values.push(dynamic)
+    }
+    expect(values[0]).not.toBeCloseTo(values[1], 2)
   })
 
   it('makes the rotation a function of one member’s artifacts, buffs to others included', () => {

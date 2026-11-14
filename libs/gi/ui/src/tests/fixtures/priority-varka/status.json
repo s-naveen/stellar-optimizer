@@ -1,0 +1,1279 @@
+{
+  "reference": {
+    "repository": "https://github.com/KQM-git/kqmsim",
+    "commit": "7bdf45f2e299c6bf782f81dc60d6cb19fd0bfb4c"
+  },
+  "binarySha256": "2c77043fef38aef3815c7866a77b36bedd78751e68f598c0fb743e89104becc5",
+  "fixtureSha256": "a6b3d3ab087c3fd54bc9db0c4f196fab8c6d6f47f136aed408614e138682a391",
+  "loops": 4,
+  "iterations": 200,
+  "rotationSourceSha256": "5f51ef919585362875484e5ab6f8a20f90d3ba98548f0987e51bbc64fac15c33",
+  "measuredAt": "2026-11-11T19:33:20.681714+00:00",
+  "teams": [
+    {
+      "id": "hexerei_varka_azure",
+      "members": ["Varka", "Venti", "Nicole", "Bennett"],
+      "dps": {
+        "ours": 36480.8484547661,
+        "reference": 36429.88772105759,
+        "differencePercent": 0.13988715556501052,
+        "referenceSd": 1778.3627648623506
+      },
+      "seconds": {
+        "ours": 28.333333333333332,
+        "reference": 28.108333333333334,
+        "differencePercent": 0.8004743551734306
+      },
+      "warnings": [],
+      "notes": [],
+      "accuracy": {
+        "dpsTolerancePercent": 5,
+        "durationTolerancePercent": 5,
+        "passed": true
+      },
+      "appSamples": 1
+    },
+    {
+      "id": "anemo_varka_recharge",
+      "members": ["Varka", "Xingqiu", "Fischl", "Bennett"],
+      "dps": {
+        "ours": 21142.59110954869,
+        "reference": 22209.70441072186,
+        "differencePercent": -4.804716359295691,
+        "referenceSd": 764.8513025748924
+      },
+      "seconds": {
+        "ours": 25.658333333333335,
+        "reference": 25.4,
+        "differencePercent": 1.0170603674540812
+      },
+      "warnings": [],
+      "notes": ["Fischl: the Oz recast is not modelled"],
+      "accuracy": {
+        "dpsTolerancePercent": 5,
+        "durationTolerancePercent": 5,
+        "passed": true
+      },
+      "appSamples": 1
+    }
+  ],
+  "combinedCoverage": {
+    "teamCount": 36,
+    "passingTeamCount": 35,
+    "distinctCharacters": 69,
+    "directDamageWithinFivePercentEveryAppearance": 54,
+    "directDamageOutsideFivePercentAtLeastOnce": 15,
+    "characterCertification": false
+  },
+  "characterDirectDamageDiagnostics": {
+    "Aino": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "lunar_bloom",
+          "ours": 13687.241147091574,
+          "reference": 13746.515455313162,
+          "differencePercent": -0.43119515206798686
+        }
+      ]
+    },
+    "Albedo": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "hexerei_prune_albedo",
+          "ours": 220990.47207053608,
+          "reference": 219391.18487418338,
+          "differencePercent": 0.7289660235300088
+        }
+      ]
+    },
+    "Aloy": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "freeze_aloy_charlotte",
+          "ours": 104178.74491102461,
+          "reference": 105544.70036194925,
+          "differencePercent": -1.2941961521898304
+        }
+      ]
+    },
+    "Anastasya": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "stellar_sandrone",
+          "ours": 288663.0386290413,
+          "reference": 276230.22071499337,
+          "differencePercent": 4.50088983090513
+        },
+        {
+          "team": "stellar_danica",
+          "ours": 321331.64782388264,
+          "reference": 311633.7542561402,
+          "differencePercent": 3.111952230877879
+        },
+        {
+          "team": "stellar_swirl",
+          "ours": 222025.1135100305,
+          "reference": 218009.64964204995,
+          "differencePercent": 1.8418743732552922
+        },
+        {
+          "team": "stellar_vodyanitsa",
+          "ours": 370096.77661886933,
+          "reference": 355954.1109638897,
+          "differencePercent": 3.973171040694723
+        },
+        {
+          "team": "stellar_vesna",
+          "ours": 302733.37774841243,
+          "reference": 298982.69528249704,
+          "differencePercent": 1.2544814549790395
+        }
+      ]
+    },
+    "Bennett": {
+      "withinFivePercentEveryAppearance": false,
+      "appearances": [
+        {
+          "team": "hexerei_klee",
+          "ours": 15238.921199629773,
+          "reference": 15304.009172008478,
+          "differencePercent": -0.4253001396376188
+        },
+        {
+          "team": "natlan_mavuika",
+          "ours": 28510.40516406115,
+          "reference": 28526.324344557404,
+          "differencePercent": -0.055805228546002006
+        },
+        {
+          "team": "natlan_kinich",
+          "ours": 15238.921199629773,
+          "reference": 15088.049974464573,
+          "differencePercent": 0.9999385302974062
+        },
+        {
+          "team": "natlan_chasca",
+          "ours": 22831.582631781628,
+          "reference": 20154.59709048299,
+          "differencePercent": 13.28225778605474
+        },
+        {
+          "team": "hexerei_varka",
+          "ours": 15238.921199629773,
+          "reference": 15288.92467627714,
+          "differencePercent": -0.3270568578636168
+        },
+        {
+          "team": "natlan_pyro_traveler_tap",
+          "ours": 16459.01597238607,
+          "reference": 16393.32996702558,
+          "differencePercent": 0.40068738622729416
+        },
+        {
+          "team": "natlan_pyro_traveler_hold",
+          "ours": 16459.01597238607,
+          "reference": 15480.385359718824,
+          "differencePercent": 6.321745808820234
+        },
+        {
+          "team": "anemo_vesna",
+          "ours": 26720.05657891622,
+          "reference": 26881.80218903081,
+          "differencePercent": -0.6016918396214765
+        },
+        {
+          "team": "electro_valeriy",
+          "ours": 19742.78654204299,
+          "reference": 19541.000642037743,
+          "differencePercent": 1.0326282860415814
+        },
+        {
+          "team": "hexerei_varka_azure",
+          "ours": 15238.921199629773,
+          "reference": 15378.009769583186,
+          "differencePercent": -0.9044640498832468
+        },
+        {
+          "team": "anemo_varka_recharge",
+          "ours": 28085.75375134719,
+          "reference": 27611.52859658301,
+          "differencePercent": 1.7174896822730323
+        }
+      ]
+    },
+    "Charlotte": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "freeze_aloy_charlotte",
+          "ours": 36537.38754665554,
+          "reference": 36801.91885909219,
+          "differencePercent": -0.7187976079440106
+        }
+      ]
+    },
+    "Chasca": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "natlan_chasca",
+          "ours": 568882.8332515821,
+          "reference": 560108.7139075919,
+          "differencePercent": 1.5665029174028788
+        }
+      ]
+    },
+    "Chevreuse": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "natlan_varesa",
+          "ours": 39523.463075751046,
+          "reference": 40640.75621902614,
+          "differencePercent": -2.74919378284606
+        }
+      ]
+    },
+    "Chongyun": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "freeze_kaeya_chongyun_layla",
+          "ours": 50126.603749485526,
+          "reference": 51187.983802489915,
+          "differencePercent": -2.0734945472745125
+        }
+      ]
+    },
+    "Citlali": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "natlan_mavuika",
+          "ours": 117563.61877627249,
+          "reference": 118824.11744420882,
+          "differencePercent": -1.0608104609135194
+        }
+      ]
+    },
+    "Columbina": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "lunar_charged",
+          "ours": 276635.32915106014,
+          "reference": 285473.4211851256,
+          "differencePercent": -3.09594217120972
+        },
+        {
+          "team": "lunar_bloom",
+          "ours": 404377.5473266519,
+          "reference": 398504.0340619283,
+          "differencePercent": 1.4738905412964742
+        },
+        {
+          "team": "lunar_crystallize",
+          "ours": 284651.88065122225,
+          "reference": 285860.01614482666,
+          "differencePercent": -0.4226318566330489
+        },
+        {
+          "team": "lunar_jahoda_ascendant",
+          "ours": 226031.42355294162,
+          "reference": 224936.71124262118,
+          "differencePercent": 0.48667569836551294
+        }
+      ]
+    },
+    "Dahlia": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "hexerei_razor",
+          "ours": 14045.862732199816,
+          "reference": 13906.913228776975,
+          "differencePercent": 0.9991397885140918
+        }
+      ]
+    },
+    "Danica": {
+      "withinFivePercentEveryAppearance": false,
+      "appearances": [
+        {
+          "team": "stellar_danica",
+          "ours": 144481.50742759532,
+          "reference": 133961.9467524642,
+          "differencePercent": 7.852648405124518
+        }
+      ]
+    },
+    "Dehya": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "natlan_kinich",
+          "ours": 7470.712348594039,
+          "reference": 7204.393084395326,
+          "differencePercent": 3.6966231725412024
+        }
+      ]
+    },
+    "Diona": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "freeze_ganyu_rosaria_diona",
+          "ours": 15270.722835988008,
+          "reference": 15253.538513846688,
+          "differencePercent": 0.1126579391773408
+        }
+      ]
+    },
+    "Dori": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "stellar_traveler",
+          "ours": 17352.79778860354,
+          "reference": 17334.827061081145,
+          "differencePercent": 0.10366834038246786
+        }
+      ]
+    },
+    "Durin": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "hexerei_klee",
+          "ours": 322491.58270044124,
+          "reference": 327677.59362471756,
+          "differencePercent": -1.5826565579017737
+        }
+      ]
+    },
+    "Emilie": {
+      "withinFivePercentEveryAppearance": false,
+      "appearances": [
+        {
+          "team": "natlan_kinich",
+          "ours": 352286.55809551367,
+          "reference": 309251.0835721934,
+          "differencePercent": 13.916030309809347
+        },
+        {
+          "team": "natlan_pyro_traveler_tap",
+          "ours": 383987.9183883918,
+          "reference": 355392.2830520469,
+          "differencePercent": 8.04621729283781
+        },
+        {
+          "team": "natlan_pyro_traveler_hold",
+          "ours": 385057.09833455627,
+          "reference": 349098.6482429634,
+          "differencePercent": 10.30036932900602
+        }
+      ]
+    },
+    "Escoffier": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "freeze_escoffier",
+          "ours": 444097.641901298,
+          "reference": 439702.5952694239,
+          "differencePercent": 0.999549850093806
+        },
+        {
+          "team": "freeze_skirk",
+          "ours": 463339.2095128189,
+          "reference": 459475.91675379407,
+          "differencePercent": 0.8408041897645102
+        },
+        {
+          "team": "freeze_lohen",
+          "ours": 320049.3513687179,
+          "reference": 314928.64814380667,
+          "differencePercent": 1.625988380254606
+        },
+        {
+          "team": "freeze_vodyanitsa",
+          "ours": 493156.32834002934,
+          "reference": 474581.0550835093,
+          "differencePercent": 3.914035981324937
+        }
+      ]
+    },
+    "Fischl": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "hexerei_razor",
+          "ours": 115892.82858903613,
+          "reference": 113828.76127497657,
+          "differencePercent": 1.8133091241091304
+        },
+        {
+          "team": "hexerei_prune_albedo",
+          "ours": 138921.33331884583,
+          "reference": 140574.2224597037,
+          "differencePercent": -1.1758124014035976
+        },
+        {
+          "team": "hexerei_prune_convert",
+          "ours": 150247.454578202,
+          "reference": 143262.72405944866,
+          "differencePercent": 4.875469571453173
+        },
+        {
+          "team": "freeze_lohen",
+          "ours": 125230.53881271774,
+          "reference": 130200.25143407735,
+          "differencePercent": -3.8169762090481507
+        },
+        {
+          "team": "anemo_varka_recharge",
+          "ours": 98110.6972083603,
+          "reference": 102320.46927418935,
+          "differencePercent": -4.114300975837082
+        }
+      ]
+    },
+    "Flins": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "lunar_charged",
+          "ours": 354733.32958381454,
+          "reference": 369654.7991939411,
+          "differencePercent": -4.0365956678133035
+        },
+        {
+          "team": "lunar_jahoda_ascendant",
+          "ours": 343280.1218826881,
+          "reference": 341746.3636373977,
+          "differencePercent": 0.44880016541088974
+        }
+      ]
+    },
+    "Furina": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "freeze_escoffier",
+          "ours": 259500.7054113973,
+          "reference": 247275.5663306325,
+          "differencePercent": 4.943933305734927
+        },
+        {
+          "team": "natlan_mualani",
+          "ours": 196517.75171705082,
+          "reference": 189357.84731424498,
+          "differencePercent": 3.781150084011986
+        },
+        {
+          "team": "natlan_chasca",
+          "ours": 149206.0656099064,
+          "reference": 149661.1966058216,
+          "differencePercent": -0.3041075484074507
+        },
+        {
+          "team": "natlan_ifa_jahoda",
+          "ours": 261992.06038695804,
+          "reference": 259808.0280886906,
+          "differencePercent": 0.840633106811417
+        },
+        {
+          "team": "freeze_skirk",
+          "ours": 277819.1735991818,
+          "reference": 276978.137320095,
+          "differencePercent": 0.3036471712981825
+        },
+        {
+          "team": "freeze_lohen",
+          "ours": 231803.4131122107,
+          "reference": 227000.28414973602,
+          "differencePercent": 2.115913193882335
+        },
+        {
+          "team": "freeze_vodyanitsa",
+          "ours": 392534.03791049856,
+          "reference": 376462.86107524164,
+          "differencePercent": 4.268993969114221
+        },
+        {
+          "team": "anemo_vesna",
+          "ours": 287550.6718408921,
+          "reference": 286534.68754555937,
+          "differencePercent": 0.3545763705035565
+        }
+      ]
+    },
+    "Ganyu": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "freeze_ganyu_rosaria_diona",
+          "ours": 268710.09057446313,
+          "reference": 274039.98701755697,
+          "differencePercent": -1.9449338401670402
+        }
+      ]
+    },
+    "Iansan": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "natlan_varesa",
+          "ours": 62683.062805368965,
+          "reference": 59825.86584480642,
+          "differencePercent": 4.775855593923817
+        }
+      ]
+    },
+    "Ifa": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "natlan_ifa_jahoda",
+          "ours": 51900.79721210925,
+          "reference": 51847.65367162038,
+          "differencePercent": 0.10249941265512152
+        }
+      ]
+    },
+    "Illuga": {
+      "withinFivePercentEveryAppearance": false,
+      "appearances": [
+        {
+          "team": "lunar_crystallize",
+          "ours": 38732.999938769244,
+          "reference": 28334.938680415078,
+          "differencePercent": 36.696960510951236
+        }
+      ]
+    },
+    "Ineffa": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "lunar_charged",
+          "ours": 370352.8762783783,
+          "reference": 389585.17636812944,
+          "differencePercent": -4.936609824080684
+        },
+        {
+          "team": "lunar_jahoda_ascendant",
+          "ours": 363376.5650204654,
+          "reference": 365072.91347981954,
+          "differencePercent": -0.4646601806704287
+        }
+      ]
+    },
+    "Jahoda": {
+      "withinFivePercentEveryAppearance": false,
+      "appearances": [
+        {
+          "team": "natlan_ifa_jahoda",
+          "ours": 14342.003776507217,
+          "reference": 14803.217584800645,
+          "differencePercent": -3.115632163422244
+        },
+        {
+          "team": "lunar_jahoda_ascendant",
+          "ours": 71067.0296012765,
+          "reference": 65047.449918291444,
+          "differencePercent": 9.254136312102123
+        }
+      ]
+    },
+    "KaedeharaKazuha": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "freeze_ayaka_shenhe_kokomi",
+          "ours": 58936.3396200236,
+          "reference": 56732.16885964024,
+          "differencePercent": 3.885222096543939
+        }
+      ]
+    },
+    "Kaeya": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "freeze_kaeya_chongyun_layla",
+          "ours": 156929.87358431186,
+          "reference": 159406.80719385762,
+          "differencePercent": -1.553844313896524
+        }
+      ]
+    },
+    "KamisatoAyaka": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "freeze_ayaka_shenhe_kokomi",
+          "ours": 610455.1673227735,
+          "reference": 612848.4869929404,
+          "differencePercent": -0.390523876775839
+        }
+      ]
+    },
+    "Keqing": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "stellar_traveler",
+          "ours": 91747.1215554952,
+          "reference": 92051.5423640188,
+          "differencePercent": -0.33070690691933136
+        }
+      ]
+    },
+    "Kinich": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "natlan_kinich",
+          "ours": 413923.75690958445,
+          "reference": 425089.8194648981,
+          "differencePercent": -2.626753698634665
+        },
+        {
+          "team": "natlan_pyro_traveler_tap",
+          "ours": 403258.8589425658,
+          "reference": 418136.9573953139,
+          "differencePercent": -3.558187859171247
+        },
+        {
+          "team": "natlan_pyro_traveler_hold",
+          "ours": 403491.0714074193,
+          "reference": 402492.42294901307,
+          "differencePercent": 0.24811608901584847
+        }
+      ]
+    },
+    "Klee": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "hexerei_klee",
+          "ours": 472365.44650239655,
+          "reference": 460438.90924536774,
+          "differencePercent": 2.5902539984241857
+        }
+      ]
+    },
+    "Lauma": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "lunar_bloom",
+          "ours": 187008.4001985582,
+          "reference": 193147.73614329664,
+          "differencePercent": -3.1785699730819794
+        }
+      ]
+    },
+    "Layla": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "freeze_kaeya_chongyun_layla",
+          "ours": 37530.43327150281,
+          "reference": 37386.562294452815,
+          "differencePercent": 0.38482002147424144
+        }
+      ]
+    },
+    "Linnea": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "lunar_crystallize",
+          "ours": 359765.3407487596,
+          "reference": 342906.40366239875,
+          "differencePercent": 4.916483596194077
+        }
+      ]
+    },
+    "Lohen": {
+      "withinFivePercentEveryAppearance": false,
+      "appearances": [
+        {
+          "team": "freeze_lohen",
+          "ours": 330372.0293989419,
+          "reference": 299313.9834991408,
+          "differencePercent": 10.376409928034725
+        }
+      ]
+    },
+    "Mavuika": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "natlan_mavuika",
+          "ours": 879357.0339750104,
+          "reference": 869640.5453363039,
+          "differencePercent": 1.1172994050028917
+        }
+      ]
+    },
+    "Mitya": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "stellar_sandrone",
+          "ours": 340292.21049319784,
+          "reference": 348277.0940709114,
+          "differencePercent": -2.2926812338935454
+        },
+        {
+          "team": "stellar_danica",
+          "ours": 485365.48961165297,
+          "reference": 485564.32486470917,
+          "differencePercent": -0.04094931255742562
+        },
+        {
+          "team": "stellar_valeriy",
+          "ours": 297368.69532752404,
+          "reference": 301427.4636988955,
+          "differencePercent": -1.346515782458979
+        }
+      ]
+    },
+    "Mona": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "hexerei_razor",
+          "ours": 21788.979956430823,
+          "reference": 22593.11416036909,
+          "differencePercent": -3.5592003750806955
+        },
+        {
+          "team": "hexerei_prune_albedo",
+          "ours": 51067.4671966719,
+          "reference": 52699.51693230838,
+          "differencePercent": -3.0968969558730852
+        },
+        {
+          "team": "hexerei_prune_convert",
+          "ours": 23800.241626028415,
+          "reference": 24704.027462941944,
+          "differencePercent": -3.658455441199948
+        },
+        {
+          "team": "freeze_ganyu_rosaria_diona",
+          "ours": 24987.69659474137,
+          "reference": 25712.476062573674,
+          "differencePercent": -2.818785192326434
+        }
+      ]
+    },
+    "Mualani": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "natlan_mualani",
+          "ours": 121954.64691470414,
+          "reference": 127532.9061634293,
+          "differencePercent": -4.373976424231096
+        }
+      ]
+    },
+    "Nahida": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "lunar_bloom",
+          "ours": 76932.15134058533,
+          "reference": 77983.86137243894,
+          "differencePercent": -1.3486252326373127
+        }
+      ]
+    },
+    "Nicole": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "hexerei_klee",
+          "ours": 32437.18141828973,
+          "reference": 34060.292587170465,
+          "differencePercent": -4.765405830636094
+        },
+        {
+          "team": "hexerei_varka",
+          "ours": 32437.18141828973,
+          "reference": 33707.616091878255,
+          "differencePercent": -3.768984048369517
+        },
+        {
+          "team": "hexerei_varka_azure",
+          "ours": 32437.18141828973,
+          "reference": 33672.85181078828,
+          "differencePercent": -3.669633921836879
+        }
+      ]
+    },
+    "Odette": {
+      "withinFivePercentEveryAppearance": false,
+      "appearances": [
+        {
+          "team": "stellar_sandrone",
+          "ours": 54640.00964248723,
+          "reference": 57562.019903378285,
+          "differencePercent": -5.076281662450077
+        },
+        {
+          "team": "stellar_danica",
+          "ours": 84291.66162789593,
+          "reference": 83686.12018102786,
+          "differencePercent": 0.7235864747441756
+        },
+        {
+          "team": "stellar_swirl",
+          "ours": 84603.53075317867,
+          "reference": 82533.05133111466,
+          "differencePercent": 2.5086669990637356
+        },
+        {
+          "team": "stellar_vodyanitsa",
+          "ours": 378782.73615927174,
+          "reference": 381512.1052863606,
+          "differencePercent": -0.7154082633997194
+        },
+        {
+          "team": "stellar_vesna",
+          "ours": 376075.23990191286,
+          "reference": 381826.11041160737,
+          "differencePercent": -1.506149095852849
+        },
+        {
+          "team": "stellar_valeriy",
+          "ours": 242024.48456685513,
+          "reference": 290674.64387121005,
+          "differencePercent": -16.73698078939093
+        }
+      ]
+    },
+    "Ororon": {
+      "withinFivePercentEveryAppearance": false,
+      "appearances": [
+        {
+          "team": "natlan_chasca",
+          "ours": 97736.33946513454,
+          "reference": 94388.99125046738,
+          "differencePercent": 3.546333285610337
+        },
+        {
+          "team": "natlan_ifa_jahoda",
+          "ours": 109909.68818942067,
+          "reference": 101430.19706720648,
+          "differencePercent": 8.35992768169007
+        }
+      ]
+    },
+    "Prune": {
+      "withinFivePercentEveryAppearance": false,
+      "appearances": [
+        {
+          "team": "hexerei_prune_albedo",
+          "ours": 68421.95139732448,
+          "reference": 72708.12378180008,
+          "differencePercent": -5.895039180681616
+        },
+        {
+          "team": "hexerei_prune_convert",
+          "ours": 70891.61436729478,
+          "reference": 70661.29891472624,
+          "differencePercent": 0.32594285147020674
+        }
+      ]
+    },
+    "Qiqi": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "stellar_traveler",
+          "ours": 58206.60968837194,
+          "reference": 58165.57868872045,
+          "differencePercent": 0.0705417199939884
+        }
+      ]
+    },
+    "RaidenShogun": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "electro_valeriy",
+          "ours": 453730.2187090019,
+          "reference": 447623.8531704467,
+          "differencePercent": 1.3641734003460249
+        }
+      ]
+    },
+    "Razor": {
+      "withinFivePercentEveryAppearance": false,
+      "appearances": [
+        {
+          "team": "hexerei_razor",
+          "ours": 184166.93397804673,
+          "reference": 194043.18416995188,
+          "differencePercent": -5.089717649270842
+        }
+      ]
+    },
+    "Rosaria": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "freeze_ganyu_rosaria_diona",
+          "ours": 125143.83138830402,
+          "reference": 124801.1513003932,
+          "differencePercent": 0.2745808707212971
+        }
+      ]
+    },
+    "Sandrone": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "stellar_sandrone",
+          "ours": 703336.2033200086,
+          "reference": 680038.0620277091,
+          "differencePercent": 3.4260054831092956
+        },
+        {
+          "team": "stellar_valeriy",
+          "ours": 166937.48126050536,
+          "reference": 171710.57634865763,
+          "differencePercent": -2.7797327279715844
+        }
+      ]
+    },
+    "SangonomiyaKokomi": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "freeze_ayaka_shenhe_kokomi",
+          "ours": 10564.797186101918,
+          "reference": 10564.81331205905,
+          "differencePercent": -0.0001526383539007803
+        },
+        {
+          "team": "freeze_aloy_charlotte",
+          "ours": 9027.462830846494,
+          "reference": 9027.476610238193,
+          "differencePercent": -0.00015263835392298475
+        }
+      ]
+    },
+    "Shenhe": {
+      "withinFivePercentEveryAppearance": false,
+      "appearances": [
+        {
+          "team": "freeze_escoffier",
+          "ours": 62037.69576960976,
+          "reference": 62537.26363818015,
+          "differencePercent": -0.7988323113411577
+        },
+        {
+          "team": "freeze_skirk",
+          "ours": 61601.683955257606,
+          "reference": 61209.77851238099,
+          "differencePercent": 0.6402660692479856
+        },
+        {
+          "team": "freeze_ayaka_shenhe_kokomi",
+          "ours": 62767.20703066191,
+          "reference": 59363.37834954988,
+          "differencePercent": 5.733886405637567
+        }
+      ]
+    },
+    "Skirk": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "freeze_skirk",
+          "ours": 687548.8991788521,
+          "reference": 700075.6898437291,
+          "differencePercent": -1.7893480443055054
+        },
+        {
+          "team": "freeze_vodyanitsa",
+          "ours": 806991.6135425785,
+          "reference": 818695.5206906595,
+          "differencePercent": -1.4295799662135011
+        }
+      ]
+    },
+    "Sucrose": {
+      "withinFivePercentEveryAppearance": false,
+      "appearances": [
+        {
+          "team": "stellar_swirl",
+          "ours": 42578.35374980917,
+          "reference": 41517.10546817859,
+          "differencePercent": 2.5561711724917613
+        },
+        {
+          "team": "lunar_charged",
+          "ours": 18379.583682695124,
+          "reference": 17813.019911618732,
+          "differencePercent": 3.180616054366192
+        },
+        {
+          "team": "hexerei_prune_convert",
+          "ours": 47916.42203077542,
+          "reference": 48178.69417581811,
+          "differencePercent": -0.5443737102661661
+        },
+        {
+          "team": "freeze_aloy_charlotte",
+          "ours": 23352.805624716562,
+          "reference": 21967.080701519768,
+          "differencePercent": 6.308188794066405
+        }
+      ]
+    },
+    "TravelerCryo": {
+      "withinFivePercentEveryAppearance": false,
+      "appearances": [
+        {
+          "team": "stellar_traveler",
+          "ours": 16991.088526637785,
+          "reference": 21989.164084464315,
+          "differencePercent": -22.729720596144666
+        }
+      ]
+    },
+    "TravelerPyro": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "natlan_pyro_traveler_tap",
+          "ours": 34922.8906557251,
+          "reference": 34458.85298071346,
+          "differencePercent": 1.3466428359393268
+        },
+        {
+          "team": "natlan_pyro_traveler_hold",
+          "ours": 42039.67161184409,
+          "reference": 40387.644074149466,
+          "differencePercent": 4.090428089000664
+        }
+      ]
+    },
+    "Valeriy": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "stellar_valeriy",
+          "ours": 104458.01601645835,
+          "reference": 107111.74332929357,
+          "differencePercent": -2.477531622911666
+        },
+        {
+          "team": "electro_valeriy",
+          "ours": 124426.31897826106,
+          "reference": 124660.80644988845,
+          "differencePercent": -0.18810039683294644
+        }
+      ]
+    },
+    "Varesa": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "natlan_varesa",
+          "ours": 334282.1908901372,
+          "reference": 337886.33101077535,
+          "differencePercent": -1.0666723657794863
+        }
+      ]
+    },
+    "Varka": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "hexerei_varka",
+          "ours": 748647.7195024508,
+          "reference": 732217.454343436,
+          "differencePercent": 2.2439051488805983
+        },
+        {
+          "team": "hexerei_varka_azure",
+          "ours": 863674.2347820787,
+          "reference": 849376.5248710668,
+          "differencePercent": 1.683318233121911
+        },
+        {
+          "team": "anemo_varka_recharge",
+          "ours": 205300.30960401517,
+          "reference": 209865.41765827665,
+          "differencePercent": -2.1752550301997964
+        }
+      ]
+    },
+    "Venti": {
+      "withinFivePercentEveryAppearance": false,
+      "appearances": [
+        {
+          "team": "stellar_swirl",
+          "ours": 25699.6033438633,
+          "reference": 28232.169262284682,
+          "differencePercent": -8.970497076909478
+        },
+        {
+          "team": "hexerei_varka",
+          "ours": 80846.34880278277,
+          "reference": 84596.27639194831,
+          "differencePercent": -4.432733625049313
+        },
+        {
+          "team": "stellar_vodyanitsa",
+          "ours": 27994.558174036978,
+          "reference": 30562.4346186451,
+          "differencePercent": -8.402067690777315
+        },
+        {
+          "team": "hexerei_varka_azure",
+          "ours": 80846.34880278277,
+          "reference": 84413.18771386445,
+          "differencePercent": -4.225452216272418
+        }
+      ]
+    },
+    "Vesna": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "stellar_vesna",
+          "ours": 888331.5135640393,
+          "reference": 918889.812886105,
+          "differencePercent": -3.325567319773237
+        },
+        {
+          "team": "anemo_vesna",
+          "ours": 252317.48530716318,
+          "reference": 254839.85531603804,
+          "differencePercent": -0.9897863133483398
+        }
+      ]
+    },
+    "Vodyanitsa": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "stellar_vodyanitsa",
+          "ours": 92289.1203546609,
+          "reference": 91599.51769891243,
+          "differencePercent": 0.752845291189419
+        },
+        {
+          "team": "freeze_vodyanitsa",
+          "ours": 117080.48537607134,
+          "reference": 117699.57393475823,
+          "differencePercent": -0.5259904840692498
+        },
+        {
+          "team": "stellar_vesna",
+          "ours": 88423.4272177528,
+          "reference": 87543.21018400702,
+          "differencePercent": 1.005465794429572
+        }
+      ]
+    },
+    "Wriothesley": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "freeze_escoffier",
+          "ours": 545729.5749429399,
+          "reference": 561633.7379843666,
+          "differencePercent": -2.8317677457384893
+        }
+      ]
+    },
+    "Xiangling": {
+      "withinFivePercentEveryAppearance": false,
+      "appearances": [
+        {
+          "team": "natlan_mualani",
+          "ours": 113319.52472205892,
+          "reference": 120707.49557866578,
+          "differencePercent": -6.120556823078216
+        },
+        {
+          "team": "natlan_varesa",
+          "ours": 177974.52650680844,
+          "reference": 185615.52176709689,
+          "differencePercent": -4.116571280001069
+        }
+      ]
+    },
+    "Xilonen": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "natlan_mavuika",
+          "ours": 19192.097886522362,
+          "reference": 19319.88685096314,
+          "differencePercent": -0.6614374371162857
+        },
+        {
+          "team": "natlan_mualani",
+          "ours": 16613.25917807563,
+          "reference": 16605.212856848753,
+          "differencePercent": 0.0484565979144147
+        },
+        {
+          "team": "anemo_vesna",
+          "ours": 43341.482532516544,
+          "reference": 43599.60039310649,
+          "differencePercent": -0.5920188677480565
+        },
+        {
+          "team": "electro_valeriy",
+          "ours": 35661.85882887424,
+          "reference": 35733.932245456825,
+          "differencePercent": -0.20169461364484276
+        }
+      ]
+    },
+    "Xingqiu": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "freeze_kaeya_chongyun_layla",
+          "ours": 126096.90720911353,
+          "reference": 125285.5545739248,
+          "differencePercent": 0.647602700844474
+        },
+        {
+          "team": "anemo_varka_recharge",
+          "ours": 108459.23607478284,
+          "reference": 107308.0287679888,
+          "differencePercent": 1.0728063128277787
+        }
+      ]
+    },
+    "Zibai": {
+      "withinFivePercentEveryAppearance": true,
+      "appearances": [
+        {
+          "team": "lunar_crystallize",
+          "ours": 1075750.8530504883,
+          "reference": 1063878.96865599,
+          "differencePercent": 1.1159055441707144
+        }
+      ]
+    }
+  }
+}

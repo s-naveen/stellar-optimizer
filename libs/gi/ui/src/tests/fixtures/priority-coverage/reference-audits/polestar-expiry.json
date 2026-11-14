@@ -1,0 +1,32 @@
+{
+  "measuredAt": "2026-11-10T20:10:03.229880+00:00",
+  "sourceCommit": "7bdf45f2e299c6bf782f81dc60d6cb19fd0bfb4c",
+  "patchSha256": "c0ce42477520fea1474d5552b13a1652f13c01ab663e24cfa77476aacf1607f2",
+  "originalBinarySha256": "2c77043fef38aef3815c7866a77b36bedd78751e68f598c0fb743e89104becc5",
+  "auditBinarySha256": "65ef95ca7e397f63b7087f7c4ec9507df709d845287767806a1be6164b4f0ce6",
+  "fixture": "stellar_traveler",
+  "loops": 4,
+  "iterations": 200,
+  "originalNativeDps": {
+    "min": 7315.237273591159,
+    "max": 9563.748746303647,
+    "mean": 8420.930567861607,
+    "sd": 409.1045231824016,
+    "q1": 8144.601661246454,
+    "q2": 8402.961329047324,
+    "q3": 8680.680127500234,
+    "histogram": [4, 5, 20, 34, 46, 40, 24, 16, 8, 3]
+  },
+  "expiryFixedNativeDps": {
+    "min": 7139.188582110036,
+    "max": 9395.033368038297,
+    "mean": 8230.13177617065,
+    "sd": 419.3425462485471,
+    "q1": 7937.049851614225,
+    "q2": 8197.54615955873,
+    "q3": 8524.46976481433,
+    "histogram": [3, 6, 21, 42, 39, 35, 29, 15, 6, 4]
+  },
+  "appDps": 8071.906605684405,
+  "note": "Separate reference-only experiment: adds unsubscribe on Polestar natural expiry. Monte Carlo runs are not paired by seed. Official matrix keeps the original, clean pinned source and binary."
+}

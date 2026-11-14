@@ -1,0 +1,1034 @@
+{
+  "reference": {
+    "repository": "https://github.com/KQM-git/kqmsim",
+    "commit": "7bdf45f2e299c6bf782f81dc60d6cb19fd0bfb4c"
+  },
+  "loops": 4,
+  "iterations": 200,
+  "teams": [
+    {
+      "id": "freeze_lohen",
+      "archetype": "Freeze / Hexerei",
+      "members": [
+        {
+          "key": "Lohen",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusLance", 5],
+          "sets": {
+            "BlizzardStrayer": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "cryo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Escoffier",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusLance", 5],
+          "sets": {
+            "GoldenTroupe": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "cryo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Fischl",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusWarbow", 5],
+          "sets": {
+            "GoldenTroupe": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "electro_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Furina",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "GoldenTroupe": 4
+          },
+          "mains": {
+            "sands": "hp_",
+            "goblet": "hp_",
+            "circlet": "heal_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 39.68,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 79.28,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "hp_": 6,
+            "enerRech_": 8,
+            "critRate_": 4,
+            "eleMas": 2
+          }
+        }
+      ],
+      "text": "Furina E Q -> Escoffier E Q -> Fischl E -> Lohen E N5 E N5 E Q W8 -> Furina",
+      "native": "furina skill,burst; escoffier skill,burst; fischl skill; lohen skill,attack:5,skill,attack:5,skill,burst; wait(480);",
+      "checks": {
+        "nodes": {
+          "Lohen": "skill.etchDmg"
+        }
+      }
+    },
+    {
+      "id": "stellar_vodyanitsa",
+      "archetype": "Stellar Swirl / Vodyanitsa",
+      "members": [
+        {
+          "key": "Vodyanitsa",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["PrototypeAmber", 5],
+          "sets": {
+            "TenacityOfTheMillelith": 4
+          },
+          "mains": {
+            "sands": "hp_",
+            "goblet": "hp_",
+            "circlet": "hp_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 29.76,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 55.1,
+            "critRate_": 33.1,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "hp_": 4,
+            "enerRech_": 8,
+            "critRate_": 8
+          }
+        },
+        {
+          "key": "Anastasya",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusWarbow", 5],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "cryo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Odette",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "GoldenTroupe": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "cryo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Venti",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusWarbow", 5],
+          "sets": {
+            "ViridescentVenerer": 4
+          },
+          "mains": {
+            "sands": "eleMas",
+            "goblet": "eleMas",
+            "circlet": "eleMas"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 49.6,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 118.92,
+            "enerRech_": 55.1,
+            "critRate_": 6.62,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "eleMas": 4,
+            "enerRech_": 8,
+            "hp_": 8
+          }
+        }
+      ],
+      "text": "Vodyanitsa E Q -> Anastasya E Q -> Odette E Q E -> Venti E Q N3 W10 -> Vodyanitsa",
+      "native": "vodyanitsa skill,burst; anastasya skill,burst; odette skill,burst,skill; venti skill,burst,attack:3; wait(600);",
+      "checks": {
+        "nodes": {
+          "Vodyanitsa": "skill.hornDmg"
+        },
+        "reaction": "stellarSwirl"
+      }
+    },
+    {
+      "id": "freeze_vodyanitsa",
+      "archetype": "Freeze / Vodyanitsa",
+      "members": [
+        {
+          "key": "Vodyanitsa",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["PrototypeAmber", 5],
+          "sets": {
+            "TenacityOfTheMillelith": 4
+          },
+          "mains": {
+            "sands": "hp_",
+            "goblet": "hp_",
+            "circlet": "hp_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 29.76,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 55.1,
+            "critRate_": 33.1,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "hp_": 4,
+            "enerRech_": 8,
+            "critRate_": 8
+          }
+        },
+        {
+          "key": "Escoffier",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusLance", 5],
+          "sets": {
+            "GoldenTroupe": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "cryo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Furina",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "GoldenTroupe": 4
+          },
+          "mains": {
+            "sands": "hp_",
+            "goblet": "hp_",
+            "circlet": "heal_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 39.68,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 79.28,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "hp_": 6,
+            "enerRech_": 8,
+            "critRate_": 4,
+            "eleMas": 2
+          }
+        },
+        {
+          "key": "Skirk",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "FinaleOfTheDeepGalleries": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "cryo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        }
+      ],
+      "text": "Vodyanitsa E Q -> Furina E Q -> Escoffier E Q -> Skirk E Q N5 N5 N5 W8 -> Vodyanitsa",
+      "native": "vodyanitsa skill,burst; furina skill,burst; escoffier skill,burst; skirk skill,burst,attack:15; wait(480);",
+      "checks": {
+        "nodes": {
+          "Vodyanitsa": "burst.skillDmg"
+        },
+        "reaction": "frozen"
+      }
+    },
+    {
+      "id": "stellar_vesna",
+      "archetype": "Stellar Swirl / Vesna",
+      "members": [
+        {
+          "key": "Vesna",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "ViridescentVenerer": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "anemo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Vodyanitsa",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["PrototypeAmber", 5],
+          "sets": {
+            "TenacityOfTheMillelith": 4
+          },
+          "mains": {
+            "sands": "hp_",
+            "goblet": "hp_",
+            "circlet": "hp_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 29.76,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 55.1,
+            "critRate_": 33.1,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "hp_": 4,
+            "enerRech_": 8,
+            "critRate_": 8
+          }
+        },
+        {
+          "key": "Odette",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "GoldenTroupe": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "cryo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Anastasya",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusWarbow", 5],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "cryo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        }
+      ],
+      "text": "Vodyanitsa E Q -> Anastasya E Q -> Odette E Q E -> Vesna E E E Q E N6 E N6 E W8 -> Vodyanitsa",
+      "native": "vodyanitsa skill,burst; anastasya skill,burst; odette skill,burst,skill; vesna skill,skill,skill,burst,skill,attack:6,skill,attack:6,skill; wait(480);",
+      "checks": {
+        "nodes": {
+          "Vesna": "skill.sword3SpiritFinalStellarswirlDmg"
+        },
+        "reaction": "stellarSwirl"
+      }
+    },
+    {
+      "id": "anemo_vesna",
+      "archetype": "Vesna without Stellar Swirl",
+      "members": [
+        {
+          "key": "Vesna",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "ViridescentVenerer": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "anemo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Furina",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "GoldenTroupe": 4
+          },
+          "mains": {
+            "sands": "hp_",
+            "goblet": "hp_",
+            "circlet": "heal_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 39.68,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 79.28,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "hp_": 6,
+            "enerRech_": 8,
+            "critRate_": 4,
+            "eleMas": 2
+          }
+        },
+        {
+          "key": "Bennett",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "atk_",
+            "circlet": "atk_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 39.72
+          },
+          "params": "",
+          "liquidRolls": {
+            "enerRech_": 8,
+            "atk_": 4,
+            "critRate_": 4,
+            "critDMG_": 4
+          }
+        },
+        {
+          "key": "Xilonen",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "ScrollOfTheHeroOfCinderCity": 4
+          },
+          "mains": {
+            "sands": "def_",
+            "goblet": "geo_dmg_",
+            "circlet": "critRate_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 9.92,
+            "def_": 37.2,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "def_": 4
+          }
+        }
+      ],
+      "text": "Furina E Q -> Xilonen E N2 Q -> Bennett E Q -> Vesna E E E Q E N6 E N6 E W8 -> Furina",
+      "native": "furina skill,burst; xilonen skill,attack:2,burst; bennett skill,burst; vesna skill,skill,skill,burst,skill,attack:6,skill,attack:6,skill; wait(480);",
+      "checks": {
+        "nodes": {
+          "Vesna": "skill.sword3SpiritFinalDmg"
+        }
+      }
+    },
+    {
+      "id": "stellar_valeriy",
+      "archetype": "Stellar Conduct / Valeriy C6",
+      "members": [
+        {
+          "key": "Valeriy",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "electro_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Odette",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "GoldenTroupe": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "cryo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Mitya",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["OathswornEye", 5],
+          "sets": {
+            "ViridescentVenerer": 4
+          },
+          "mains": {
+            "sands": "eleMas",
+            "goblet": "eleMas",
+            "circlet": "eleMas"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 49.6,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 118.92,
+            "enerRech_": 55.1,
+            "critRate_": 6.62,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "eleMas": 4,
+            "enerRech_": 8,
+            "hp_": 8
+          }
+        },
+        {
+          "key": "Sandrone",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusGreatsword", 5],
+          "sets": {
+            "FragmentOfHarmonicWhimsy": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "cryo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        }
+      ],
+      "text": "Valeriy E Q C -> Mitya E Q -> Odette E Q E -> Sandrone E Q N5 N5 N5 W8 -> Valeriy",
+      "native": "valeriy skill,burst,charge; mitya skill,burst; odette skill,burst,skill; sandrone skill,burst,attack:15; wait(480);",
+      "checks": {
+        "nodes": {
+          "Valeriy": "charged.mortarDmg"
+        },
+        "reaction": "stellarConduct"
+      }
+    },
+    {
+      "id": "electro_valeriy",
+      "archetype": "Electro / Valeriy C6",
+      "members": [
+        {
+          "key": "Valeriy",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "electro_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "RaidenShogun",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusLance", 5],
+          "sets": {
+            "EmblemOfSeveredFate": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "electro_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Xilonen",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "ScrollOfTheHeroOfCinderCity": 4
+          },
+          "mains": {
+            "sands": "def_",
+            "goblet": "geo_dmg_",
+            "circlet": "critRate_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 9.92,
+            "def_": 37.2,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "def_": 4
+          }
+        },
+        {
+          "key": "Bennett",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "atk_",
+            "circlet": "atk_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 39.72
+          },
+          "params": "",
+          "liquidRolls": {
+            "enerRech_": 8,
+            "atk_": 4,
+            "critRate_": 4,
+            "critDMG_": 4
+          }
+        }
+      ],
+      "text": "Valeriy E Q C -> Xilonen E N2 Q -> Bennett E Q -> RaidenShogun E Q N3 C N3 C N3 C W8 -> Valeriy",
+      "native": "valeriy skill,burst,charge; xilonen skill,attack:2,burst; bennett skill,burst; raiden skill,burst,attack:3,charge,attack:3,charge,attack:3,charge; wait(480);",
+      "checks": {
+        "nodes": {
+          "Valeriy": "burst.shellDmg"
+        }
+      }
+    }
+  ]
+}

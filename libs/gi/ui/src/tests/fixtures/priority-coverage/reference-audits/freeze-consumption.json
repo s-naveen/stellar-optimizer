@@ -1,0 +1,35 @@
+{
+  "measuredAt": "2026-11-11T08:22:53.492955+00:00",
+  "sourceCommit": "7bdf45f2e299c6bf782f81dc60d6cb19fd0bfb4c",
+  "patchSha256": "465accb73e1fa054416cc5b6cdd1886437e0125ebd052f9b809a0b025bff521a",
+  "originalBinarySha256": "2c77043fef38aef3815c7866a77b36bedd78751e68f598c0fb743e89104becc5",
+  "auditBinarySha256": "1e7788a50353da6e85dcad49a8877f19ff930c666e5ad0dbf8908aea46248d47",
+  "loops": 4,
+  "iterations": 200,
+  "cases": [
+    {
+      "id": "stellar_traveler_onfield",
+      "canonicalNative": 35490.550008839746,
+      "auditNative": 35401.70797702598,
+      "app": 35513.76671015123,
+      "canonicalGapPercent": 0.06541657231486919,
+      "auditGapPercent": 0.31653482142151024
+    },
+    {
+      "id": "stellar_swirl_traveler_onfield",
+      "canonicalNative": 18636.440998723174,
+      "auditNative": 18630.283417222607,
+      "app": 17828.798712232427,
+      "canonicalGapPercent": -4.333672328027016,
+      "auditGapPercent": -4.302053205745948
+    },
+    {
+      "id": "freeze_chongyun_c2",
+      "canonicalNative": 9018.24497533291,
+      "auditNative": 9009.595280993284,
+      "appAtExperiment": 8684.17876175068,
+      "note": "Measured before the Xingqiu orbital and Chongyun C6 app corrections. Audit binary only changed Freeze consumed-variable shadow; native means were effectively unchanged. This app value is historical, not the latest result."
+    }
+  ],
+  "note": "Only the shadowed Cryo consumed variable was changed. Independent 200-trial means; no material change in this Swirl case, so it does not explain the gap."
+}

@@ -1,0 +1,155 @@
+{
+  "reference": {
+    "repository": "https://github.com/KQM-git/kqmsim",
+    "commit": "7bdf45f2e299c6bf782f81dc60d6cb19fd0bfb4c"
+  },
+  "loops": 4,
+  "iterations": 200,
+  "teams": [
+    {
+      "id": "freeze_chongyun_c2",
+      "archetype": "Freeze / Chongyun cooldown and field snapshots",
+      "members": [
+        {
+          "key": "Kaeya",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "BlizzardStrayer": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "cryo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Chongyun",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusGreatsword", 5],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "cryo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Xingqiu",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "EmblemOfSeveredFate": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "hydro_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Layla",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "hp_",
+            "goblet": "hp_",
+            "circlet": "hp_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 29.76,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 55.1,
+            "critRate_": 33.1,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "hp_": 4,
+            "enerRech_": 8,
+            "critRate_": 8
+          }
+        }
+      ],
+      "text": "Chongyun E Q -> Kaeya E Q N3 N3 -> Xingqiu E Q -> Layla E Q -> Chongyun Q Q W4 -> Chongyun",
+      "native": "chongyun skill,burst; kaeya skill,burst,attack:3,attack:3; xingqiu skill,burst; layla skill,burst; chongyun burst,burst; wait(240);",
+      "checks": {
+        "nodes": {
+          "Chongyun": "passive2.dmg"
+        }
+      }
+    }
+  ]
+}

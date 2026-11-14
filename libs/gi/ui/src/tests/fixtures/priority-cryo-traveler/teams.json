@@ -1,0 +1,301 @@
+{
+  "reference": {
+    "repository": "https://github.com/KQM-git/kqmsim",
+    "commit": "7bdf45f2e299c6bf782f81dc60d6cb19fd0bfb4c"
+  },
+  "loops": 4,
+  "iterations": 200,
+  "teams": [
+    {
+      "id": "stellar_traveler_onfield",
+      "archetype": "Stellar Conduct / Cryo Traveler on-field",
+      "members": [
+        {
+          "key": "TravelerCryo",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "cryo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Mitya",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["OathswornEye", 5],
+          "sets": {
+            "ViridescentVenerer": 4
+          },
+          "mains": {
+            "sands": "eleMas",
+            "goblet": "eleMas",
+            "circlet": "eleMas"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 49.6,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 118.92,
+            "enerRech_": 55.1,
+            "critRate_": 6.62,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "eleMas": 4,
+            "enerRech_": 8,
+            "hp_": 8
+          }
+        },
+        {
+          "key": "Anastasya",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusWarbow", 5],
+          "sets": {
+            "GoldenTroupe": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "cryo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Fischl",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusWarbow", 5],
+          "sets": {
+            "GoldenTroupe": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "electro_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        }
+      ],
+      "text": "Fischl E -> Mitya E Q -> Anastasya E Q -> TravelerCryo E N4 C N4 C Q W8 -> Fischl",
+      "native": "fischl skill; mitya skill,burst; anastasya skill,burst; travelercryo skill,attack:4,charge,attack:4,charge,burst; wait(480);",
+      "checks": {
+        "nodes": {
+          "TravelerCryo": "lockedPassive.stellarconductDmg1"
+        }
+      }
+    },
+    {
+      "id": "stellar_swirl_traveler_onfield",
+      "archetype": "Stellar Swirl / Cryo Traveler Freezing Ice",
+      "members": [
+        {
+          "key": "TravelerCryo",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusSword", 5],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "cryo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        },
+        {
+          "key": "Venti",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusWarbow", 5],
+          "sets": {
+            "ViridescentVenerer": 4
+          },
+          "mains": {
+            "sands": "eleMas",
+            "goblet": "eleMas",
+            "circlet": "eleMas"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 49.6,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 118.92,
+            "enerRech_": 55.1,
+            "critRate_": 6.62,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "eleMas": 4,
+            "enerRech_": 8,
+            "hp_": 8
+          }
+        },
+        {
+          "key": "Mona",
+          "level": 90,
+          "cons": 0,
+          "talent": [10, 10, 10],
+          "weapon": ["OathswornEye", 5],
+          "sets": {
+            "NoblesseOblige": 4
+          },
+          "mains": {
+            "sands": "hp_",
+            "goblet": "hp_",
+            "circlet": "heal_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 39.68,
+            "atk_": 9.92,
+            "def_": 12.4,
+            "eleMas": 79.28,
+            "enerRech_": 55.1,
+            "critRate_": 19.86,
+            "critDMG_": 13.24
+          },
+          "params": "",
+          "liquidRolls": {
+            "hp_": 6,
+            "enerRech_": 8,
+            "critRate_": 4,
+            "eleMas": 2
+          }
+        },
+        {
+          "key": "Rosaria",
+          "level": 90,
+          "cons": 6,
+          "talent": [10, 10, 10],
+          "weapon": ["FavoniusLance", 5],
+          "sets": {
+            "BlizzardStrayer": 4
+          },
+          "mains": {
+            "sands": "atk_",
+            "goblet": "cryo_dmg_",
+            "circlet": "critDMG_"
+          },
+          "subs": {
+            "hp": 507.88,
+            "atk": 33.08,
+            "def": 39.36,
+            "hp_": 9.92,
+            "atk_": 29.76,
+            "def_": 12.4,
+            "eleMas": 39.64,
+            "enerRech_": 11.02,
+            "critRate_": 33.1,
+            "critDMG_": 66.2
+          },
+          "params": "",
+          "liquidRolls": {
+            "critRate_": 8,
+            "critDMG_": 8,
+            "atk_": 4
+          }
+        }
+      ],
+      "text": "TravelerCryo E -> Mona E Q -> Venti E Q -> Rosaria E Q -> TravelerCryo N4 C N4 C Q W8 -> TravelerCryo",
+      "native": "travelercryo skill; mona skill,burst; venti skill,burst; rosaria skill,burst; travelercryo attack:4,charge,attack:4,charge,burst; wait(480);",
+      "checks": {
+        "nodes": {
+          "TravelerCryo": "lockedPassive.stellarswirlDmg1"
+        }
+      }
+    }
+  ]
+}

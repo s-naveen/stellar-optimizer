@@ -1,0 +1,12 @@
+diff --git a/pkg/reactable/stellarconduct_gadget.go b/pkg/reactable/stellarconduct_gadget.go
+index 2863c61..a95679b 100644
+--- a/pkg/reactable/stellarconduct_gadget.go
++++ b/pkg/reactable/stellarconduct_gadget.go
+@@ -55,6 +55,7 @@ func (r *Reactable) newPolestarField() *PolestarField {
+ 	p.mElectro = make([]float64, attributes.EndStatType)
+ 	p.OnThinkInterval = p.refreshBuffs
+ 	p.OnKill = p.unsub
++	p.OnExpiry = p.unsub
+ 	p.fieldArea = combat.NewCircleHitOnTarget(p, nil, 15) // R15 shape for the field
+ 	p.Core.Events.Subscribe(event.OnElementApplied, func(args ...any) {
+ 		target := args[0].(info.Target)

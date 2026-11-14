@@ -215,10 +215,17 @@ const inputBase = {
 
   hit: {
     reaction: stringRead(),
+    /**
+     * A rotation simulation's reaction for this hit (amplifying or additive); when set it wins
+     * over `reaction`, including a sheet's own "no reaction" for the node.
+     */
+    simReaction: stringRead(),
     ele: stringRead(),
     move: stringRead(),
     hitMode: stringRead(),
     base: read('add', info('base')),
+    /** Per-instance talent scaling, before flat damage additions. */
+    talentMulti: read(),
     ampMulti: read(),
     addTerm: read(undefined, { pivot }),
 
@@ -237,6 +244,14 @@ const inputBase = {
 }
 const input = setReadNodeKeys(deepNodeClone(inputBase))
 const { base, customBonus, premod, total, art, hit, enemy } = input
+/** The hit's reaction: a simulated one (rotations) wins over the configured one */
+const effectiveReaction = lookup(
+  hit.simReaction,
+  objKeyMap(['vaporize', 'melt', 'spread', 'aggravate'] as const, (r) =>
+    constant(r)
+  ),
+  hit.reaction
+)
 
 // Adjust `info` for printing
 markAccu('add', {
@@ -356,6 +371,7 @@ const common: Data = {
   },
 
   hit: {
+    talentMulti: one,
     dmgBonus: sum(
       total.all_dmg_,
       lookup(
@@ -404,7 +420,7 @@ const common: Data = {
       hit.addTerm
     ),
     addTerm: lookup(
-      hit.reaction,
+      effectiveReaction,
       {
         spread: equal(
           hit.ele,
@@ -450,7 +466,7 @@ const common: Data = {
       hit.ampMulti
     ),
     ampMulti: lookup(
-      hit.reaction,
+      effectiveReaction,
       {
         vaporize: lookup(
           hit.ele,

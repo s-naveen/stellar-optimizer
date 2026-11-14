@@ -1,0 +1,677 @@
+{
+  "measuredAt": "2026-11-11T06:12:23.093672+00:00",
+  "sourceCommit": "7bdf45f2e299c6bf782f81dc60d6cb19fd0bfb4c",
+  "patchSha256": "1d121c6d75758d6284a2e38f33b76a862aea0ba8c71040b315fd1c43ad6136aa",
+  "originalBinarySha256": "2c77043fef38aef3815c7866a77b36bedd78751e68f598c0fb743e89104becc5",
+  "auditBinarySha256": "343b8155446a7669d442c8f89a9530b1cb7a50d83e455e50cccaeb53c725a7a6",
+  "fixture": "lunar_jahoda_ascendant",
+  "loops": 4,
+  "iterations": 200,
+  "original": {
+    "id": "lunar_jahoda_ascendant",
+    "archetype": "Lunar / Jahoda Ascendant Gleam",
+    "members": ["Jahoda", "Ineffa", "Columbina", "Flins"],
+    "dps": {
+      "ours": 65074.076931733456,
+      "reference": 62976.632715421496,
+      "differencePercent": 3.330511851578155,
+      "referenceSd": 2016.3361222891992
+    },
+    "seconds": {
+      "ours": 23.0,
+      "reference": 23.008333333333333,
+      "differencePercent": -0.03621876131836288
+    },
+    "rotationDamage": {
+      "ours": 1496703.7694298695,
+      "reference": 1448987.357727323
+    },
+    "warnings": [],
+    "notes": [],
+    "accuracy": {
+      "dpsTolerancePercent": 5,
+      "durationTolerancePercent": 5,
+      "passed": true
+    },
+    "referenceSampleSeed": "10013685795951446609",
+    "referenceReactions": {
+      "lunarcharged": 49.11625000000001,
+      "swirl-electro": 2.0,
+      "swirl-hydro": 0.5
+    },
+    "oursReactions": {
+      "lunarCharged": 191,
+      "electroSwirl": 8,
+      "hydroSwirl": 5
+    },
+    "characters": {
+      "Jahoda": {
+        "dps": {
+          "ours": 8818.029300481783,
+          "reference": 8858.660060531693,
+          "differencePercent": -0.45865582122214255
+        },
+        "directDamagePerLoop": {
+          "ours": 70912.65951348929,
+          "reference": 65047.449918291444,
+          "differencePercent": 9.016817112070274
+        },
+        "oursAbilities": {
+          "Filled Treasure Flask": {
+            "hits": 1.0,
+            "dmg": 6317.9467271483945
+          },
+          "Swirl (Electro)": {
+            "hits": 2.0,
+            "dmg": 5146.276294484949
+          },
+          "Swirl (Hydro)": {
+            "hits": 1.25,
+            "dmg": 3159.1115997257557
+          },
+          "Hidden Aces: Seven Tools of the Hunter": {
+            "hits": 1.0,
+            "dmg": 7409.878652066873
+          },
+          "Purrsonal Coordinated Assistance Robot": {
+            "hits": 16.75,
+            "dmg": 10342.795881743703
+          },
+          "Meowball": {
+            "hits": 8.5,
+            "dmg": 31863.79372580244
+          },
+          "Meowball (C1 bounce)": {
+            "hits": 4.0,
+            "dmg": 14978.24452672788
+          },
+          "Lunar-Charged": {
+            "hits": 3.325,
+            "dmg": 123596.62650338114
+          }
+        },
+        "referenceAbilities": {
+          "Filled Treasure Flask": {
+            "hits": 1.0,
+            "damage": 5631.627035816214
+          },
+          "Hidden Aces: Seven Tools of the Hunter": {
+            "hits": 1.0,
+            "damage": 7358.954800958751
+          },
+          "Meowball": {
+            "hits": 9.25,
+            "damage": 34701.75808843353
+          },
+          "Meowball (C1)": {
+            "hits": 4.58125,
+            "damage": 17355.109993082948
+          },
+          "Purrsonal Coordinated Assistance Robot DMG": {
+            "hits": 0.0,
+            "damage": 0.0
+          },
+          "lunarcharged": {
+            "hits": 3.4174999999999995,
+            "damage": 132457.32827730651
+          },
+          "swirl-electro": {
+            "hits": 2.0,
+            "damage": 5146.278057783473
+          },
+          "swirl-hydro": {
+            "hits": 0.5,
+            "damage": 1171.9473060183923
+          }
+        }
+      },
+      "Ineffa": {
+        "dps": {
+          "ours": 20824.961854091976,
+          "reference": 20297.616438194065,
+          "differencePercent": 2.5980657261096107
+        },
+        "directDamagePerLoop": {
+          "ours": 363376.5650204654,
+          "reference": 365072.91347981954,
+          "differencePercent": -0.4646601806704287
+        },
+        "oursAbilities": {
+          "Cleaning Mode: Carrier Frequency": {
+            "hits": 1.0,
+            "dmg": 4373.580014153774
+          },
+          "Birgitta Discharge": {
+            "hits": 11.0,
+            "dmg": 57847.410010097985
+          },
+          "Supreme Instruction: Cyclonic Exterminator": {
+            "hits": 1.0,
+            "dmg": 34259.71011087122
+          },
+          "Birgitta (A1, Lunar-Charged)": {
+            "hits": 10.5,
+            "dmg": 266895.86488534237
+          },
+          "Lunar-Charged": {
+            "hits": 3.325,
+            "dmg": 115597.55762365014
+          }
+        },
+        "referenceAbilities": {
+          "Birgitta": {
+            "hits": 11.0,
+            "damage": 58242.5330411889
+          },
+          "Birgitta (A1)": {
+            "hits": 10.5,
+            "damage": 268522.6886269836
+          },
+          "Cleaning Mode: Carrier Frequency": {
+            "hits": 1.0,
+            "damage": 4418.752485275255
+          },
+          "Supreme Instruction: Cyclonic Exterminator": {
+            "hits": 1.0,
+            "damage": 33888.939326371765
+          },
+          "lunarcharged": {
+            "hits": 3.05375,
+            "damage": 101941.4114022953
+          }
+        }
+      },
+      "Columbina": {
+        "dps": {
+          "ours": 16248.265525333647,
+          "reference": 15763.566856725165,
+          "differencePercent": 3.0748032663793667
+        },
+        "directDamagePerLoop": {
+          "ours": 226031.42355294162,
+          "reference": 224936.71124262118,
+          "differencePercent": 0.48667569836551294
+        },
+        "oursAbilities": {
+          "Eternal Tides": {
+            "hits": 1.0,
+            "dmg": 8162.947337018781
+          },
+          "Lunar-Charged": {
+            "hits": 5.655,
+            "dmg": 147678.6835297323
+          },
+          "Moonlit Melancholy": {
+            "hits": 1.0,
+            "dmg": 18888.044651589866
+          },
+          "Gravity Ripple": {
+            "hits": 11.25,
+            "dmg": 52279.89411387059
+          },
+          "Gravity Interference (Lunar-Charged)": {
+            "hits": 3.5,
+            "dmg": 146700.53745046238
+          }
+        },
+        "referenceAbilities": {
+          "Burst": {
+            "hits": 1.0,
+            "damage": 19109.766534085677
+          },
+          "Gravity Interference (Lunar-Charged)": {
+            "hits": 3.5,
+            "damage": 145629.15106579667
+          },
+          "Skill": {
+            "hits": 1.0,
+            "damage": 8044.135461415238
+          },
+          "Skill (DoT)": {
+            "hits": 11.25,
+            "damage": 52153.658181323604
+          },
+          "lunarcharged": {
+            "hits": 4.965000000000002,
+            "damage": 137756.68951919716
+          }
+        }
+      },
+      "Flins": {
+        "dps": {
+          "ours": 19182.82025182601,
+          "reference": 18056.78935997063,
+          "differencePercent": 6.236052652591906
+        },
+        "directDamagePerLoop": {
+          "ours": 343280.1218826881,
+          "reference": 341746.3636373977,
+          "differencePercent": 0.44880016541088974
+        },
+        "oursAbilities": {
+          "N1 (Manifest Flame)": {
+            "hits": 5.0,
+            "dmg": 19946.922903457573
+          },
+          "N2 (Manifest Flame)": {
+            "hits": 3.0,
+            "dmg": 12586.609532959119
+          },
+          "N3 (Manifest Flame)": {
+            "hits": 3.0,
+            "dmg": 15589.536951127386
+          },
+          "N4 (Manifest Flame)": {
+            "hits": 4.0,
+            "dmg": 11909.306514615993
+          },
+          "N5 (Manifest Flame)": {
+            "hits": 2.0,
+            "dmg": 14272.713683852786
+          },
+          "Lunar-Charged": {
+            "hits": 2.3275,
+            "dmg": 97924.74390931023
+          },
+          "Cometh the Night (initial)": {
+            "hits": 1.0,
+            "dmg": 18541.028902595805
+          },
+          "Cometh the Night (middle, Lunar-Charged)": {
+            "hits": 4.0,
+            "dmg": 84894.34691361514
+          },
+          "Cometh the Night (final, Lunar-Charged)": {
+            "hits": 1.0,
+            "dmg": 152809.82444450722
+          },
+          "Northland Spearstorm": {
+            "hits": 1.0,
+            "dmg": 12729.832035957093
+          }
+        },
+        "referenceAbilities": {
+          "Arcane Light (0 dmg)": {
+            "hits": 0.0,
+            "damage": 0.0
+          },
+          "Cometh the Night (Final)": {
+            "hits": 1.0,
+            "damage": 151481.2779048439
+          },
+          "Cometh the Night (Initial)": {
+            "hits": 1.0,
+            "damage": 18689.965815324304
+          },
+          "Cometh the Night (Mid)": {
+            "hits": 4.0,
+            "damage": 84440.56922658924
+          },
+          "Normal 0 (Skill)": {
+            "hits": 5.0,
+            "damage": 20053.49957890408
+          },
+          "Normal 1 (Skill)": {
+            "hits": 3.0,
+            "damage": 12584.773399080086
+          },
+          "Normal 2 (Skill)": {
+            "hits": 3.0,
+            "damage": 15593.004238544743
+          },
+          "Normal 3 (Skill)": {
+            "hits": 4.0,
+            "damage": 11852.110660261998
+          },
+          "Normal 4 (Skill)": {
+            "hits": 2.0,
+            "damage": 14275.883125189197
+          },
+          "Northland Spearstorm": {
+            "hits": 1.0,
+            "damage": 12775.279688660139
+          },
+          "lunarcharged": {
+            "hits": 1.8175000000000001,
+            "damage": 73710.2648865936
+          }
+        }
+      }
+    }
+  },
+  "robotMultiplierInitialized": {
+    "id": "lunar_jahoda_ascendant",
+    "archetype": "Lunar / Jahoda Ascendant Gleam",
+    "members": ["Jahoda", "Ineffa", "Columbina", "Flins"],
+    "dps": {
+      "ours": 65074.076931733456,
+      "reference": 63651.3736408685,
+      "differencePercent": 2.2351493918922882,
+      "referenceSd": 2040.93147361491
+    },
+    "seconds": {
+      "ours": 23.0,
+      "reference": 23.008333333333333,
+      "differencePercent": -0.03621876131836288
+    },
+    "rotationDamage": {
+      "ours": 1496703.7694298695,
+      "reference": 1464512.0218536493
+    },
+    "warnings": [],
+    "notes": [
+      "Jahoda: C1 bounce probability is accumulated for reproducible single-target hits. Energy refunds and multiple enemies are not validated."
+    ],
+    "accuracy": {
+      "dpsTolerancePercent": 5,
+      "durationTolerancePercent": 5,
+      "passed": true
+    },
+    "referenceSampleSeed": "1510935834342012541",
+    "referenceReactions": {
+      "lunarcharged": 49.096250000000005,
+      "swirl-electro": 2.0,
+      "swirl-hydro": 0.5
+    },
+    "oursReactions": {
+      "lunarCharged": 191,
+      "electroSwirl": 8,
+      "hydroSwirl": 5
+    },
+    "characters": {
+      "Jahoda": {
+        "dps": {
+          "ours": 8818.029300481783,
+          "reference": 9277.74690680293,
+          "differencePercent": -4.955056555639148
+        },
+        "directDamagePerLoop": {
+          "ours": 70912.65951348929,
+          "reference": 75078.89404109947,
+          "differencePercent": -5.549142113533955
+        },
+        "oursAbilities": {
+          "Filled Treasure Flask": {
+            "hits": 1.0,
+            "dmg": 6317.9467271483945
+          },
+          "Swirl (Electro)": {
+            "hits": 2.0,
+            "dmg": 5146.276294484949
+          },
+          "Swirl (Hydro)": {
+            "hits": 1.25,
+            "dmg": 3159.1115997257557
+          },
+          "Hidden Aces: Seven Tools of the Hunter": {
+            "hits": 1.0,
+            "dmg": 7409.878652066873
+          },
+          "Purrsonal Coordinated Assistance Robot": {
+            "hits": 16.75,
+            "dmg": 10342.795881743703
+          },
+          "Meowball": {
+            "hits": 8.5,
+            "dmg": 31863.79372580244
+          },
+          "Meowball (C1 bounce)": {
+            "hits": 4.0,
+            "dmg": 14978.24452672788
+          },
+          "Lunar-Charged": {
+            "hits": 3.325,
+            "dmg": 123596.62650338114
+          }
+        },
+        "referenceAbilities": {
+          "Filled Treasure Flask": {
+            "hits": 1.0,
+            "damage": 5493.730020437778
+          },
+          "Hidden Aces: Seven Tools of the Hunter": {
+            "hits": 1.0,
+            "damage": 7341.633763166873
+          },
+          "Meowball": {
+            "hits": 9.25,
+            "damage": 34587.6679092722
+          },
+          "Meowball (C1)": {
+            "hits": 4.551250000000001,
+            "damage": 17178.181933853306
+          },
+          "Purrsonal Coordinated Assistance Robot DMG": {
+            "hits": 17.0,
+            "damage": 10477.680414369319
+          },
+          "lunarcharged": {
+            "hits": 3.44625,
+            "damage": 132068.37400912252
+          },
+          "swirl-electro": {
+            "hits": 2.0,
+            "damage": 5146.278057783473
+          },
+          "swirl-hydro": {
+            "hits": 0.5,
+            "damage": 1171.9473060183923
+          }
+        }
+      },
+      "Ineffa": {
+        "dps": {
+          "ours": 20824.961854091976,
+          "reference": 20390.26229070159,
+          "differencePercent": 2.1318978500272534
+        },
+        "directDamagePerLoop": {
+          "ours": 363376.5650204654,
+          "reference": 364058.9017723448,
+          "differencePercent": -0.18742482289474394
+        },
+        "oursAbilities": {
+          "Cleaning Mode: Carrier Frequency": {
+            "hits": 1.0,
+            "dmg": 4373.580014153774
+          },
+          "Birgitta Discharge": {
+            "hits": 11.0,
+            "dmg": 57847.410010097985
+          },
+          "Supreme Instruction: Cyclonic Exterminator": {
+            "hits": 1.0,
+            "dmg": 34259.71011087122
+          },
+          "Birgitta (A1, Lunar-Charged)": {
+            "hits": 10.5,
+            "dmg": 266895.86488534237
+          },
+          "Lunar-Charged": {
+            "hits": 3.325,
+            "dmg": 115597.55762365014
+          }
+        },
+        "referenceAbilities": {
+          "Birgitta": {
+            "hits": 11.0,
+            "damage": 58033.9286102994
+          },
+          "Birgitta (A1)": {
+            "hits": 10.5,
+            "damage": 266912.6609204116
+          },
+          "Cleaning Mode: Carrier Frequency": {
+            "hits": 1.0,
+            "damage": 4524.189637430492
+          },
+          "Supreme Instruction: Cyclonic Exterminator": {
+            "hits": 1.0,
+            "damage": 34588.1226042033
+          },
+          "lunarcharged": {
+            "hits": 3.1499999999999995,
+            "damage": 105087.04976621395
+          }
+        }
+      },
+      "Columbina": {
+        "dps": {
+          "ours": 16248.265525333647,
+          "reference": 15856.59349577276,
+          "differencePercent": 2.4700893648140987
+        },
+        "directDamagePerLoop": {
+          "ours": 226031.42355294162,
+          "reference": 226558.71817580133,
+          "differencePercent": -0.23274082194028045
+        },
+        "oursAbilities": {
+          "Eternal Tides": {
+            "hits": 1.0,
+            "dmg": 8162.947337018781
+          },
+          "Lunar-Charged": {
+            "hits": 5.655,
+            "dmg": 147678.6835297323
+          },
+          "Moonlit Melancholy": {
+            "hits": 1.0,
+            "dmg": 18888.044651589866
+          },
+          "Gravity Ripple": {
+            "hits": 11.25,
+            "dmg": 52279.89411387059
+          },
+          "Gravity Interference (Lunar-Charged)": {
+            "hits": 3.5,
+            "dmg": 146700.53745046238
+          }
+        },
+        "referenceAbilities": {
+          "Burst": {
+            "hits": 1.0,
+            "damage": 18969.651163427563
+          },
+          "Gravity Interference (Lunar-Charged)": {
+            "hits": 3.5,
+            "damage": 147490.58931127287
+          },
+          "Skill": {
+            "hits": 1.0,
+            "damage": 8100.568448558402
+          },
+          "Skill (DoT)": {
+            "hits": 11.25,
+            "damage": 51997.9092525425
+          },
+          "lunarcharged": {
+            "hits": 5.01,
+            "damage": 138275.07050610392
+          }
+        }
+      },
+      "Flins": {
+        "dps": {
+          "ours": 19182.82025182601,
+          "reference": 18126.770947591376,
+          "differencePercent": 5.825909685116648
+        },
+        "directDamagePerLoop": {
+          "ours": 343280.1218826881,
+          "reference": 341870.7833298224,
+          "differencePercent": 0.41224305251787996
+        },
+        "oursAbilities": {
+          "N1 (Manifest Flame)": {
+            "hits": 5.0,
+            "dmg": 19946.922903457573
+          },
+          "N2 (Manifest Flame)": {
+            "hits": 3.0,
+            "dmg": 12586.609532959119
+          },
+          "N3 (Manifest Flame)": {
+            "hits": 3.0,
+            "dmg": 15589.536951127386
+          },
+          "N4 (Manifest Flame)": {
+            "hits": 4.0,
+            "dmg": 11909.306514615993
+          },
+          "N5 (Manifest Flame)": {
+            "hits": 2.0,
+            "dmg": 14272.713683852786
+          },
+          "Lunar-Charged": {
+            "hits": 2.3275,
+            "dmg": 97924.74390931023
+          },
+          "Cometh the Night (initial)": {
+            "hits": 1.0,
+            "dmg": 18541.028902595805
+          },
+          "Cometh the Night (middle, Lunar-Charged)": {
+            "hits": 4.0,
+            "dmg": 84894.34691361514
+          },
+          "Cometh the Night (final, Lunar-Charged)": {
+            "hits": 1.0,
+            "dmg": 152809.82444450722
+          },
+          "Northland Spearstorm": {
+            "hits": 1.0,
+            "dmg": 12729.832035957093
+          }
+        },
+        "referenceAbilities": {
+          "Arcane Light (0 dmg)": {
+            "hits": 0.0,
+            "damage": 0.0
+          },
+          "Cometh the Night (Final)": {
+            "hits": 1.0,
+            "damage": 151140.3060118119
+          },
+          "Cometh the Night (Initial)": {
+            "hits": 1.0,
+            "damage": 18214.197563495072
+          },
+          "Cometh the Night (Mid)": {
+            "hits": 4.0,
+            "damage": 85577.14436342909
+          },
+          "Normal 0 (Skill)": {
+            "hits": 5.0,
+            "damage": 19983.94395753606
+          },
+          "Normal 1 (Skill)": {
+            "hits": 3.0,
+            "damage": 12463.071914794737
+          },
+          "Normal 2 (Skill)": {
+            "hits": 3.0,
+            "damage": 15424.874933152863
+          },
+          "Normal 3 (Skill)": {
+            "hits": 4.0,
+            "damage": 12034.80313103275
+          },
+          "Normal 4 (Skill)": {
+            "hits": 2.0,
+            "damage": 14299.768448346329
+          },
+          "Northland Spearstorm": {
+            "hits": 1.0,
+            "damage": 12732.673006223622
+          },
+          "lunarcharged": {
+            "hits": 1.8399999999999992,
+            "damage": 75196.00488934289
+          }
+        }
+      }
+    }
+  },
+  "note": "Only a1DmgMult=1.0 was added. Independent 200-trial means; seeds are not paired. Canonical source and binary are untouched."
+}

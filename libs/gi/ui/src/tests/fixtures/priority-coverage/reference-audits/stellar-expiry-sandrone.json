@@ -1,0 +1,234 @@
+{
+  "measuredAt": "2026-11-11T12:58:30.940349+00:00",
+  "sourceCommit": "7bdf45f2e299c6bf782f81dc60d6cb19fd0bfb4c",
+  "originalBinarySha256": "2c77043fef38aef3815c7866a77b36bedd78751e68f598c0fb743e89104becc5",
+  "auditBinarySha256": "e5a8a4bea12e8344cbd166ccd1c0337719b935ce66020c7cbcbd12893a3496a2",
+  "patch": "stellar-expiry-sandrone.patch",
+  "patchSha256": "9ce757c0d041b7d05e51e614d2c35a61ac8c5a669cdcb3849949a3631e91426d",
+  "loops": 4,
+  "iterations": 200,
+  "canonicalBenchmarkUnchanged": true,
+  "notes": [
+    "Separate reference-only experiment. Adds unsubscribe on Polestar natural expiry and aligns Sandrone passive scaling with the app current local skill parameters and description (0.7% per 100 ATK, cap 14%).",
+    "Monte Carlo native trials use unpaired seeds. Selected per-hit comparisons sum native calc.avg_crit_dmg, removing crit-roll noise within each recorded timeline; they do not eliminate differences in random mechanics or certify complete kits."
+  ],
+  "sandroneData": {
+    "path": "libs/gi/stats/Data/Characters/Sandrone/skillParam.json",
+    "sha256": "a3936f7b5797c5e5b267abc22e7475b7bfb6b1245933cd81081f1ee6e9760f26",
+    "currentPassive3": [[0.007], [0.14]],
+    "nativePinnedScaling": {
+      "per100Atk": 0.0035,
+      "cap": 0.07
+    },
+    "auditScaling": {
+      "per100Atk": 0.007,
+      "cap": 0.14
+    }
+  },
+  "teams": [
+    {
+      "id": "stellar_traveler",
+      "configSha256": "2a96a50d7e0225dc9775215599375cab7501af38afff543e3a382ff77eb37e32",
+      "samples": {
+        "canonical": {
+          "seed": "12324565628405051189",
+          "sha256": "b02f1aa36eb43340146d7cf84371558cdf110ba791ea691adde36798691cd839"
+        },
+        "isolatedAudit": {
+          "seed": "4991873524398839105",
+          "sha256": "7165d4d4c211c5e6cbe97e8e794be974e6aa1c259829529fff246266ec136552"
+        }
+      },
+      "app": {
+        "dps": 8161.147146615897,
+        "secondsPerLoop": 22.6
+      },
+      "canonical": {
+        "dps": 8420.930567861607,
+        "dpsSd": 409.1045231824016,
+        "secondsPerLoop": 22.508333333333333,
+        "damagePerLoop": 189541.1121982849,
+        "appDpsDifferencePercent": -3.0849728441791346,
+        "appDurationDifferencePercent": 0.4072565716401355
+      },
+      "isolatedAudit": {
+        "dps": 8223.34989940194,
+        "dpsSd": 400.07778340646723,
+        "secondsPerLoop": 22.508333333333333,
+        "damagePerLoop": 185093.9006523719,
+        "appDpsDifferencePercent": -0.7564162238866357,
+        "appDurationDifferencePercent": 0.4072565716401355
+      },
+      "selectedComponents": [
+        {
+          "character": "TravelerCryo",
+          "ability": "Frostbound Javelin (Stellar-Conduct)",
+          "appExpectedDamagePerLoop": 9797.27555134703,
+          "canonical": {
+            "recordedHitCount": 9,
+            "expectedDamagePerLoop": 14206.191609950109,
+            "appDifferencePercent": -31.03517240690352,
+            "firstHit": {
+              "frame": 1429,
+              "cr": 0.481,
+              "cd": 1.984,
+              "total_scaling": 1970.7411640402001,
+              "em": 272.299293123216,
+              "react_bonus": 0,
+              "react_base_dmg_bonus": 0.068975940741407,
+              "talent": 0.72773
+            }
+          },
+          "isolatedAudit": {
+            "recordedHitCount": 9,
+            "expectedDamagePerLoop": 9797.373524103523,
+            "appDifferencePercent": -0.0009999900101087533,
+            "firstHit": {
+              "frame": 1429,
+              "cr": 0.481,
+              "cd": 1.984,
+              "total_scaling": 1970.7411640402001,
+              "em": 272.299293123216,
+              "react_bonus": 0,
+              "react_base_dmg_bonus": 0.068975940741407,
+              "talent": 0.72773
+            }
+          }
+        },
+        {
+          "character": "Qiqi",
+          "ability": "Fortune-Preserving Talisman (Stellar-Conduct)",
+          "appExpectedDamagePerLoop": 32464.28917815555,
+          "canonical": {
+            "recordedHitCount": 3,
+            "expectedDamagePerLoop": 32464.64415044472,
+            "appDifferencePercent": -0.0010934119207495208,
+            "firstHit": {
+              "frame": 1619,
+              "cr": 0.39859999999999995,
+              "cd": 0.8972,
+              "total_scaling": 2639.0872866326004,
+              "em": 39.64,
+              "react_bonus": 0.5,
+              "react_base_dmg_bonus": 0.07,
+              "talent": 5.35201
+            }
+          },
+          "isolatedAudit": {
+            "recordedHitCount": 3,
+            "expectedDamagePerLoop": 32464.64415044472,
+            "appDifferencePercent": -0.0010934119207495208,
+            "firstHit": {
+              "frame": 1619,
+              "cr": 0.39859999999999995,
+              "cd": 0.8972,
+              "total_scaling": 2639.0872866326004,
+              "em": 39.64,
+              "react_bonus": 0.5,
+              "react_base_dmg_bonus": 0.07,
+              "talent": 5.35201
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "stellar_valeriy",
+      "configSha256": "325577200c5625f6c57a291c804998840613678395afdc96ebfac7ee1f827162",
+      "samples": {
+        "canonical": {
+          "seed": "14447056786240136023",
+          "sha256": "34fa0c9e98d26b4c1a43ade3e8ee786ec22a63943d08cae985ac1d6816216ffe"
+        },
+        "isolatedAudit": {
+          "seed": "7556767888791212716",
+          "sha256": "ceb38258d3d61008ceff613ee6221f2bf30d9f781a695f40015438b85fdd8935"
+        }
+      },
+      "app": {
+        "dps": 25704.596182983027,
+        "secondsPerLoop": 32.1
+      },
+      "canonical": {
+        "dps": 27124.560412604922,
+        "dpsSd": 1411.100907000464,
+        "secondsPerLoop": 32.108333333333334,
+        "damagePerLoop": 870924.4272480559,
+        "appDpsDifferencePercent": -5.234976007065651,
+        "appDurationDifferencePercent": -0.025953802232026035
+      },
+      "isolatedAudit": {
+        "dps": 25570.284336196735,
+        "dpsSd": 1043.1442467429247,
+        "secondsPerLoop": 32.108333333333334,
+        "damagePerLoop": 821019.2128947176,
+        "appDpsDifferencePercent": 0.5252653627952242,
+        "appDurationDifferencePercent": -0.025953802232026035
+      },
+      "selectedComponents": [
+        {
+          "character": "Odette",
+          "ability": "Coda at Dawn's Tolling (Stellar-Conduct)",
+          "appExpectedDamagePerLoop": 90170.32948907092,
+          "canonical": {
+            "recordedHitCount": 4,
+            "expectedDamagePerLoop": 140338.2937651866,
+            "appDifferencePercent": -35.747879591622,
+            "firstHit": {
+              "frame": 535,
+              "cr": 0.531,
+              "cd": 2.168,
+              "total_scaling": 1893.7784592762002,
+              "em": 259.64,
+              "react_bonus": 1.1,
+              "react_base_dmg_bonus": 0.34256449214933404,
+              "talent": 6.2415405946123865
+            }
+          },
+          "isolatedAudit": {
+            "recordedHitCount": 4,
+            "expectedDamagePerLoop": 90171.23370616086,
+            "appDifferencePercent": -0.0010027777737620092,
+            "firstHit": {
+              "frame": 535,
+              "cr": 0.531,
+              "cd": 2.168,
+              "total_scaling": 1893.7784592762002,
+              "em": 259.64,
+              "react_bonus": 1.1,
+              "react_base_dmg_bonus": 0.41256449214933405,
+              "talent": 6.2415405946123865
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "currentAppRecheck": {
+    "measuredAt": "2026-11-11T19:34:55.022613+00:00",
+    "rotationSourceSha256": "5f51ef919585362875484e5ab6f8a20f90d3ba98548f0987e51bbc64fac15c33",
+    "method": "Current app rerun compared with the original recorded native 200-trial means. Native binaries/configurations are unchanged; original selected-component diagnostics retain their earlier timestamp.",
+    "teams": [
+      {
+        "id": "stellar_traveler",
+        "app": {
+          "dps": 8154.761838898598,
+          "secondsPerLoop": 22.6
+        },
+        "canonicalDpsDifferencePercent": -3.1607994724340727,
+        "isolatedAuditDpsDifferencePercent": -0.8340647223138209,
+        "durationDifferencePercent": 0.4072565716401355
+      },
+      {
+        "id": "stellar_valeriy",
+        "app": {
+          "dps": 25258.21424209791,
+          "secondsPerLoop": 32.1
+        },
+        "canonicalDpsDifferencePercent": -6.880650385175313,
+        "isolatedAuditDpsDifferencePercent": -1.220440453440974,
+        "durationDifferencePercent": -0.025953802232026035
+      }
+    ]
+  }
+}

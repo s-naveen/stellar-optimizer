@@ -1,0 +1,15 @@
+diff --git a/internal/artifacts/blizzard/blizzard.go b/internal/artifacts/blizzard/blizzard.go
+index b267d9a..de1fa09 100644
+--- a/internal/artifacts/blizzard/blizzard.go
++++ b/internal/artifacts/blizzard/blizzard.go
+@@ -72,6 +72,10 @@ func NewSet(c *core.Core, char *character.CharWrapper, count int, param map[stri
+ 			return
+ 		}
+ 
++		if ae.Info.ActorIndex != char.Index() {
++			return
++		}
++
+ 		// Frozen check first so we don't mistaken coexisting cryo
+ 		if r.AuraContains(attributes.Frozen) {
+ 			ae.Snapshot.Stats[attributes.CR] += 0.4

@@ -1,0 +1,60 @@
+diff --git a/internal/characters/illuga/skill.go b/internal/characters/illuga/skill.go
+index a27f79c48..1682da7b7 100644
+--- a/internal/characters/illuga/skill.go
++++ b/internal/characters/illuga/skill.go
+@@ -52,21 +52,17 @@ func (c *char) Skill(p map[string]int) (action.Info, error) {
+ 		Element:    attributes.Geo,
+ 		Durability: 25,
+ 	}
++
++	ap := combat.NewBoxHitOnTarget(c.Core.Combat.PrimaryTarget(), info.Point{Y: -0.3}, 2, 12) // measured in science lab, miliastra stage
++
++	// (patched: the flat damage is added before the attack is queued; the original added it to a
++	// copy that QueueAttack had already taken, so the hit dealt 0)
+ 	c.Core.Tasks.Add(func() {
+ 		ai.FlatDmg += skillTapEM[c.TalentLvlSkill()] * c.Stat(attributes.EM)
+ 		ai.FlatDmg += skillTapDef[c.TalentLvlSkill()] * c.TotalDef(false)
++		c.Core.QueueAttack(ai, ap, 0, 0, c.particleCB)
+ 	}, skillTapHitmark)
+ 
+-	ap := combat.NewBoxHitOnTarget(c.Core.Combat.PrimaryTarget(), info.Point{Y: -0.3}, 2, 12) // measured in science lab, miliastra stage
+-
+-	c.Core.QueueAttack(
+-		ai,
+-		ap,
+-		skillTapHitmark,
+-		skillTapHitmark,
+-		c.particleCB,
+-	)
+-
+ 	c.Core.Tasks.Add(c.a1, 24)
+ 
+ 	c.SetCDWithDelay(action.ActionSkill, 15*60, 24)
+@@ -91,21 +87,17 @@ func (c *char) skillHold() (action.Info, error) {
+ 		Element:    attributes.Geo,
+ 		Durability: 25,
+ 	}
++
++	ap := combat.NewBoxHitOnTarget(c.Core.Combat.PrimaryTarget(), info.Point{Y: -0.3}, 2, 35) // measured in science lab, miliastra stage
++
++	// (patched: the flat damage is added before the attack is queued; the original added it to a
++	// copy that QueueAttack had already taken, so the hit dealt 0)
+ 	c.Core.Tasks.Add(func() {
+ 		ai.FlatDmg += skillHoldEM[c.TalentLvlSkill()] * c.Stat(attributes.EM)
+ 		ai.FlatDmg += skillHoldDef[c.TalentLvlSkill()] * c.TotalDef(false)
++		c.Core.QueueAttack(ai, ap, 0, 0, c.particleCB)
+ 	}, skillHoldHitmark)
+ 
+-	ap := combat.NewBoxHitOnTarget(c.Core.Combat.PrimaryTarget(), info.Point{Y: -0.3}, 2, 35) // measured in science lab, miliastra stage
+-
+-	c.Core.QueueAttack(
+-		ai,
+-		ap,
+-		skillHoldHitmark,
+-		skillHoldHitmark,
+-		c.particleCB,
+-	)
+-
+ 	c.Core.Tasks.Add(c.a1, 33)
+ 
+ 	c.SetCDWithDelay(action.ActionSkill, 15*60, 33)

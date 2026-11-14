@@ -1,0 +1,37 @@
+{
+  "case": "lunar_crystallize",
+  "reference": {
+    "repository": "https://github.com/KQM-git/kqmsim",
+    "commit": "7bdf45f2e299c6bf782f81dc60d6cb19fd0bfb4c"
+  },
+  "canonical": {
+    "binarySha256": "2c77043fef38aef3815c7866a77b36bedd78751e68f598c0fb743e89104becc5",
+    "teamDpsDifferencePercent": 1.2571809519859922,
+    "illugaDirectDifferencePercent": 36.28999225159215,
+    "illugaTapReference": {
+      "hits": 0.0,
+      "damage": 0.0
+    }
+  },
+  "patched": {
+    "binarySha256": "b5fbd6b65b5750e8cf7b52cb9e46ecd59ce60e464490ef47642e4caaffd2609b",
+    "patch": "illuga-skill-flatdmg.patch",
+    "teamDpsDifferencePercent": 0.8711404952039814,
+    "illugaDirectDifferencePercent": 3.2459834191332027,
+    "illugaTapReference": {
+      "hits": 1.0,
+      "damage": 9056.878664533107
+    },
+    "illugaTapOurs": {
+      "hits": 1.0,
+      "dmg": 9067.740509337244
+    },
+    "directDifferencePercent": {
+      "Zibai": 1.1097624421745333,
+      "Linnea": 4.92559100951413,
+      "Illuga": 3.2459834191332027,
+      "Columbina": 0.007758997638873666
+    }
+  },
+  "iterations": 200
+}
