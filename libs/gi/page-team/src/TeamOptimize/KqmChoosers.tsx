@@ -243,17 +243,23 @@ const sourceNames: Record<KqmWeaponSource, string> = {
 
 /**
  * How many rows to show: the first screenful at once, then a batch more every frame, up to
- * `total` (the drawer opens without rendering rows nobody sees yet)
+ * `total` (the drawer opens without rendering rows nobody sees yet). A new `key` (another search)
+ * starts over from the first screenful, so a long list never renders in one go.
  */
-function useBatches(total: number, batch = 16, first = 6) {
-  const [shown, setShown] = useState(first)
+function useBatches(total: number, batch = 16, first = 6, key = '') {
+  const [state, setState] = useState({ key, shown: first })
+  // (adjusted while rendering: the new key's first render already shows the first screenful)
+  if (state.key !== key) setState({ key, shown: first })
+  const shown = state.key === key ? state.shown : first
   useEffect(() => {
     if (shown >= total) return
     const id = requestAnimationFrame(() =>
-      startTransition(() => setShown((n) => n + batch))
+      startTransition(() =>
+        setState((s) => (s.key === key ? { key, shown: s.shown + batch } : s))
+      )
     )
     return () => cancelAnimationFrame(id)
-  }, [shown, total, batch])
+  }, [shown, total, batch, key])
   return shown
 }
 
@@ -466,7 +472,7 @@ export function KqmWeaponChooser({
   const kqm = teamOpt.kqm ?? defaultTeamOptKqm
   const store = useKqmPassiveStore(teamId, teamOpt, setTeamOpt)
   const optimized = members
-  const groups = (() => {
+  const groups = useMemo(() => {
     const byType = new Map<WeaponTypeKey, TeamOptMember[]>()
     for (const m of optimized) {
       const type = getCharWeaponType(m.characterKey)
@@ -479,11 +485,55 @@ export function KqmWeaponChooser({
         (w) => virtualWeapon(w.key, w.refinement)
       ),
     }))
-  })()
-  const shown = useBatches(groups.reduce((n, g) => n + g.weapons.length, 0))
-  const all = groups.flatMap((g) => g.weapons.map((w) => w.key))
-  const excludedKeys = kqmExcludedWeapons(kqm)
-  const excluded = new Set([...excludedKeys].map((key) => `kqm:${key}`))
+  }, [optimized, kqm])
+  const all = useMemo(
+    () => groups.flatMap((g) => g.weapons.map((w) => w.key)),
+    [groups]
+  )
+  const excludedKeys = useMemo(() => kqmExcludedWeapons(kqm), [kqm])
+  const excluded = useMemo(
+    () => new Set([...excludedKeys].map((key) => `kqm:${key}`)),
+    [excludedKeys]
+  )
+  // Typing only updates the field: the list follows the deferred query, in the background
+  const query = useDeferredValue(search).trim().toLocaleLowerCase()
+  // each weapon's searchable text (name, key, source), made once
+  const searchText = useMemo(
+    () =>
+      new Map(
+        groups.flatMap((g) =>
+          g.weapons.map((w) => [
+            w.id,
+            `${t(`weaponNames_gen:${w.key}`, w.key)} ${w.key} ${sourceNames[kqmWeaponSource(w.key)]}`.toLocaleLowerCase(),
+          ])
+        )
+      ),
+    [groups, t]
+  )
+  const filteredGroups = useMemo(
+    () =>
+      groups.map((g) => ({
+        ...g,
+        filtered: g.weapons.filter(
+          (w) =>
+            (!selectedOnly || !excluded.has(w.id)) &&
+            (!query || !!searchText.get(w.id)?.includes(query))
+        ),
+      })),
+    [groups, selectedOnly, excluded, query, searchText]
+  )
+  // (a new search shows its matches in batches too, from the first screenful)
+  const shown = useBatches(
+    filteredGroups.reduce((n, g) => n + g.filtered.length, 0),
+    16,
+    6,
+    `${query}|${selectedOnly}`
+  )
+  // per weapon, what it saves each member (KQM mode's own value), once per settings change
+  const energy = useMemo(
+    () => new Map(all.map((key) => [key, kqmEnergyRelief([key], teamOpt)])),
+    [all, teamOpt]
+  )
   const setExcluded = (keys: WeaponKey[]) =>
     setTeamOpt((o) => {
       o.kqm = {
@@ -501,9 +551,95 @@ export function KqmWeaponChooser({
       .sort()
       .join()
   const currentId = selectionId(excludedKeys)
-  const query = useDeferredValue(search).trim().toLocaleLowerCase()
-  // per weapon, what it saves each member (KQM mode's own value)
-  const energyOf = (key: WeaponKey) => kqmEnergyRelief([key], teamOpt)
+  // The list, rebuilt only when what it shows changes (not on every keystroke in the search)
+  // biome-ignore lint/correctness/useExhaustiveDependencies: `setExcluded` only uses `setTeamOpt` and `excludedKeys`
+  const list = useMemo(() => {
+    const onToggle = (weapon: { key: WeaponKey }) =>
+      setExcluded(
+        excludedKeys.has(weapon.key)
+          ? [...excludedKeys].filter((k) => k !== weapon.key)
+          : [...excludedKeys, weapon.key]
+      )
+    let before = 0
+    return (
+      <>
+        {filteredGroups.map((group) => {
+          const { filtered } = group
+          // (rows come in batches: the window stays responsive while they fill in)
+          const visible = Math.max(0, shown - before)
+          before += filtered.length
+          if (!filtered.length) return null
+          return (
+            <WeaponGroup
+              key={group.type}
+              type={group.type}
+              members={group.members}
+              weapons={filtered}
+              selectionCounts={{
+                allowed: group.weapons.filter((w) => !excluded.has(w.id))
+                  .length,
+                total: group.weapons.length,
+              }}
+              visible={visible}
+              virtual
+              teamData={teamData}
+              excluded={excluded}
+              onToggle={onToggle}
+              teamMembers={members}
+              weaponEnergy={Object.fromEntries(
+                group.weapons.map((w) => [w.id, energy.get(w.key) ?? {}])
+              )}
+              setWeaponEnergy={(id, characterKey, value) =>
+                setTeamOpt((o) => {
+                  const key = id.replace(/^kqm:/, '') as WeaponKey
+                  const k = (o.kqm ??= { ...defaultTeamOptKqm })
+                  const energy = (k.weaponEnergy ??= {})
+                  energy[key] = {
+                    ...energy[key],
+                    [characterKey]: Math.max(0, value),
+                  }
+                })
+              }
+              sourceOf={(w) => {
+                const source = kqmWeaponSource(w.key)
+                return t(`teamOpt.kqm.source.${source}`, sourceNames[source])
+              }}
+              onRefinement={(w, r) =>
+                setTeamOpt((o) => {
+                  const k = (o.kqm ??= { ...defaultTeamOptKqm })
+                  k.refinements = { ...k.refinements, [w.key]: r }
+                })
+              }
+              tooFew={t(
+                'teamOpt.kqm.tooFewTicked',
+                'Select at least one weapon of this type before generating builds.'
+              )}
+              typeName={t(`page_weapon:weaponType.${group.type}`, group.type)}
+            />
+          )
+        })}
+        {filteredGroups.length > 0 &&
+          filteredGroups.every((g) => !g.filtered.length) && (
+            <EmptyLine>
+              {t(
+                'teamOpt.kqm.noMatches',
+                'No matches. Change the search or turn off Selected only.'
+              )}
+            </EmptyLine>
+          )}
+      </>
+    )
+  }, [
+    filteredGroups,
+    shown,
+    excluded,
+    excludedKeys,
+    teamData,
+    members,
+    energy,
+    setTeamOpt,
+    t,
+  ])
   return (
     <PassiveStoreContext.Provider value={store}>
       <ChooserFrame
@@ -571,96 +707,7 @@ export function KqmWeaponChooser({
             {t('teamOpt.kqm.noMembers', 'Select at least one member in Setup.')}
           </EmptyLine>
         )}
-        {groups.map((group, i) => {
-          const filtered = group.weapons.filter(
-            (w) =>
-              (!selectedOnly || !excluded.has(w.id)) &&
-              (!query ||
-                `${t(`weaponNames_gen:${w.key}`, w.key)} ${w.key} ${sourceNames[kqmWeaponSource(w.key)]}`
-                  .toLocaleLowerCase()
-                  .includes(query))
-          )
-          if (!filtered.length) return null
-          return (
-            <WeaponGroup
-              key={group.type}
-              {...group}
-              weapons={filtered}
-              selectionCounts={{
-                allowed: group.weapons.filter((w) => !excluded.has(w.id))
-                  .length,
-                total: group.weapons.length,
-              }}
-              // (rows come in batches: the window stays responsive while they fill in)
-              visible={Math.max(
-                0,
-                search || selectedOnly
-                  ? filtered.length
-                  : shown -
-                      groups
-                        .slice(0, i)
-                        .reduce((n, g) => n + g.weapons.length, 0)
-              )}
-              virtual
-              teamData={teamData}
-              excluded={excluded}
-              onToggle={(weapon) =>
-                setExcluded(
-                  excludedKeys.has(weapon.key)
-                    ? [...excludedKeys].filter((k) => k !== weapon.key)
-                    : [...excludedKeys, weapon.key]
-                )
-              }
-              teamMembers={members}
-              weaponEnergy={Object.fromEntries(
-                group.weapons.map((w) => [w.id, energyOf(w.key)])
-              )}
-              setWeaponEnergy={(id, characterKey, value) =>
-                setTeamOpt((o) => {
-                  const key = id.replace(/^kqm:/, '') as WeaponKey
-                  const k = (o.kqm ??= { ...defaultTeamOptKqm })
-                  const energy = (k.weaponEnergy ??= {})
-                  energy[key] = {
-                    ...energy[key],
-                    [characterKey]: Math.max(0, value),
-                  }
-                })
-              }
-              sourceOf={(w) => {
-                const source = kqmWeaponSource(w.key)
-                return t(`teamOpt.kqm.source.${source}`, sourceNames[source])
-              }}
-              onRefinement={(w, r) =>
-                setTeamOpt((o) => {
-                  const k = (o.kqm ??= { ...defaultTeamOptKqm })
-                  k.refinements = { ...k.refinements, [w.key]: r }
-                })
-              }
-              tooFew={t(
-                'teamOpt.kqm.tooFewTicked',
-                'Select at least one weapon of this type before generating builds.'
-              )}
-              typeName={t(`page_weapon:weaponType.${group.type}`, group.type)}
-            />
-          )
-        })}
-        {groups.length > 0 &&
-          !groups.some((g) =>
-            g.weapons.some(
-              (w) =>
-                (!selectedOnly || !excluded.has(w.id)) &&
-                `${t(`weaponNames_gen:${w.key}`, w.key)} ${w.key} ${sourceNames[kqmWeaponSource(w.key)]}`
-                  .toLocaleLowerCase()
-                  .includes(query)
-            )
-          ) && (
-            <EmptyLine>
-              {t(
-                'teamOpt.kqm.noMatches',
-                'No matches. Change the search or turn off Selected only.'
-              )}
-            </EmptyLine>
-          )}
+        {list}
       </ChooserFrame>
     </PassiveStoreContext.Provider>
   )
@@ -690,7 +737,8 @@ export function KqmSetChooser({
   const store = useKqmPassiveStore(teamId, teamOpt, setTeamOpt)
   const optimized = members
   const sets = useMemo(() => kqmSets(), [])
-  const excluded = new Set(teamOpt.kqm?.excludedSets ?? [])
+  const excludedSets = teamOpt.kqm?.excludedSets
+  const excluded = useMemo(() => new Set(excludedSets ?? []), [excludedSets])
   const setExcluded = (keys: ArtifactSetKey[]) =>
     setTeamOpt((o) => {
       o.kqm = {
@@ -698,18 +746,60 @@ export function KqmSetChooser({
         excludedSets: [...new Set(keys)],
       }
     })
+  // Typing only updates the field: the list follows the deferred query, in the background
   const query = useDeferredValue(search).trim().toLocaleLowerCase()
-  const filteredSets = sets.filter(
-    (key) =>
-      (!selectedOnly || !excluded.has(key)) &&
-      `${t(`artifactNames_gen:${key}`, key)} ${key}`
-        .toLocaleLowerCase()
-        .includes(query)
+  const searchText = useMemo(
+    () =>
+      new Map(
+        sets.map((key) => [
+          key,
+          `${t(`artifactNames_gen:${key}`, key)} ${key}`.toLocaleLowerCase(),
+        ])
+      ),
+    [sets, t]
+  )
+  const filteredSets = useMemo(
+    () =>
+      sets.filter(
+        (key) =>
+          (!selectedOnly || !excluded.has(key)) &&
+          (!query || !!searchText.get(key)?.includes(query))
+      ),
+    [sets, selectedOnly, excluded, query, searchText]
   )
   const allowedCount = sets.filter((k) => !excluded.has(k)).length
   // (rows come in batches: the drawer opens at once and stays responsive while they fill in)
-  const batch = useBatches(sets.length, 10)
+  const batch = useBatches(
+    filteredSets.length,
+    10,
+    6,
+    `${query}|${selectedOnly}`
+  )
   const data = optimized[0] && teamData?.[optimized[0].characterKey]?.target
+  // The rows, rebuilt only when what they show changes (not on every keystroke in the search)
+  // biome-ignore lint/correctness/useExhaustiveDependencies: `setExcluded` only uses `setTeamOpt` and `excluded`
+  const rows = useMemo(
+    () =>
+      filteredSets
+        .slice(0, batch)
+        .map((setKey) => (
+          <SetRow
+            key={setKey}
+            setKey={setKey}
+            allowed={!excluded.has(setKey)}
+            onToggle={() =>
+              setExcluded(
+                excluded.has(setKey)
+                  ? [...excluded].filter((k) => k !== setKey)
+                  : [...excluded, setKey]
+              )
+            }
+            wielders={optimized}
+            data={data}
+          />
+        )),
+    [filteredSets, batch, excluded, optimized, data, setTeamOpt]
+  )
   return (
     <PassiveStoreContext.Provider value={store}>
       <ChooserFrame
@@ -795,25 +885,7 @@ export function KqmSetChooser({
               )}
             </EmptyLine>
           )}
-          {(search || selectedOnly
-            ? filteredSets
-            : filteredSets.slice(0, batch)
-          ).map((setKey) => (
-            <SetRow
-              key={setKey}
-              setKey={setKey}
-              allowed={!excluded.has(setKey)}
-              onToggle={() =>
-                setExcluded(
-                  excluded.has(setKey)
-                    ? [...excluded].filter((k) => k !== setKey)
-                    : [...excluded, setKey]
-                )
-              }
-              wielders={optimized}
-              data={data}
-            />
-          ))}
+          {rows}
         </Box>
       </ChooserFrame>
     </PassiveStoreContext.Provider>
