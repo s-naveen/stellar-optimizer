@@ -4,6 +4,19 @@ Every release of [Stellar Optimizer](https://gi-beta73.github.io/). The app show
 (home page, and the version in the footer). Generated from
 `libs/gi/ui/src/changelog/changelog.json` by `tools/site/release.mjs`: edit that file, not this one.
 
+## [v1.3.0](https://github.com/s-naveen/stellar-optimizer/releases/tag/v1.3.0) (2026-11-14)
+
+### New
+
+- KQM Theorycrafting (Beta): a new tab on every team. It builds each member from KQM-standard artifacts and the weapons you allow, for the team's rotation, and ranks the sets and weapons for each member. Runs keep going in the background, and the last result is still there after a reload.
+- Team Optimize: write a rotation as text, like “Odette EE -> Mitya E -> Sandrone Q”. It is played out with each character's frame data: cooldowns, energy, reactions and when buffs are up.
+- Team Optimize has a cleaner look, with details in tooltips, and “What raises team damage” now stays with the saved result.
+
+### Fixed
+
+- Every character released or buffed since 5.0 now follows the game text at every constellation.
+- Many older characters' buffs and constellations now follow the game text too.
+
 ## [v1.2.0](https://github.com/s-naveen/stellar-optimizer/releases/tag/v1.2.0) (2026-11-11)
 
 ### New

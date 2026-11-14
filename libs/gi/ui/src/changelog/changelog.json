@@ -1,5 +1,18 @@
 [
   {
+    "version": "1.3.0",
+    "date": "2026-11-14",
+    "new": [
+      "KQM Theorycrafting (Beta): a new tab on every team. It builds each member from KQM-standard artifacts and the weapons you allow, for the team's rotation, and ranks the sets and weapons for each member. Runs keep going in the background, and the last result is still there after a reload.",
+      "Team Optimize: write a rotation as text, like “Odette EE -> Mitya E -> Sandrone Q”. It is played out with each character's frame data: cooldowns, energy, reactions and when buffs are up.",
+      "Team Optimize has a cleaner look, with details in tooltips, and “What raises team damage” now stays with the saved result."
+    ],
+    "fixed": [
+      "Every character released or buffed since 5.0 now follows the game text at every constellation.",
+      "Many older characters' buffs and constellations now follow the game text too."
+    ]
+  },
+  {
     "version": "1.2.1",
     "date": "2026-11-12"
   },
