@@ -93,6 +93,8 @@ export interface SimulationResult {
     frames: number
     /** Position in the written rotation (its actions in order; absent for automatic entries) */
     index?: number
+    /** Position in the opener (its actions in order), for the opener's own actions */
+    openerIndex?: number
     /** The kit's own frame count, before a `frameOverrides` edit */
     defaultFrames?: number
     /** Its frame-data key (`actionFrameKey`, with the version its kit played) */
@@ -234,6 +236,7 @@ export function simulateRotation({
   auraTimeline,
   frameOverrides = {},
   frameData = {},
+  openerCounted = false,
 }: {
   rotation: ParsedRotation
   members: CharacterKey[]
@@ -266,6 +269,12 @@ export function simulateRotation({
   frameOverrides?: Partial<Record<number, number>>
   /** Player-edited character frame data, by member and `actionFrameKey` */
   frameData?: FrameData
+  /**
+   * The opener is the first rotation (played in place of the rotation's first copy) and counted
+   * with the rest, as rotations counted from the start are. Otherwise it is played before the
+   * rotations and not counted (a setup for the loop)
+   */
+  openerCounted?: boolean
 }): SimulationResult {
   const notes = new Set<string>()
   const warnings = [...rotation.warnings]
@@ -1264,6 +1273,7 @@ export function simulateRotation({
         start: now,
         frames,
         index: opener ? undefined : i,
+        ...(opener && { openerIndex: i }),
         defaultFrames,
       })
       kit.onWait?.(ctxAt(now, characterKey), states.get(characterKey), frames)
@@ -1487,6 +1497,7 @@ export function simulateRotation({
       start: now,
       frames,
       index: opener ? undefined : i,
+      ...(opener && { openerIndex: i }),
       defaultFrames,
       frameKey,
       ...(variant && { variant }),
@@ -1531,11 +1542,21 @@ export function simulateRotation({
       }
     }
   }
-  // the opener: once, before the first loop (its effects carry into the loops)
-  for (const i of openerFlat.keys()) play(openerFlat, i, -1, true)
-  for (let r = 0; r < repeats; r++) {
+  if (openerCounted && openerFlat.length) {
+    // the opener as the first rotation, counted: the rotation's copies after it
     bounds.push(now)
-    for (const i of flat.keys()) play(flat, i, r, false)
+    for (const i of openerFlat.keys()) play(openerFlat, i, 0, true)
+    for (let r = 1; r < repeats; r++) {
+      bounds.push(now)
+      for (const i of flat.keys()) play(flat, i, r, false)
+    }
+  } else {
+    // the opener: once, before the first loop (its effects carry into the loops)
+    for (const i of openerFlat.keys()) play(openerFlat, i, -1, true)
+    for (let r = 0; r < repeats; r++) {
+      bounds.push(now)
+      for (const i of flat.keys()) play(flat, i, r, false)
+    }
   }
   bounds.push(now)
   // what is still scheduled lands (a summon's last ticks), up to 30 s after the last action

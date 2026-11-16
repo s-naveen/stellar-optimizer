@@ -374,7 +374,7 @@ export function FrameDataPanel({
               setOpen={setOpenAction}
               used={
                 new Set([
-                  ...(rotation?.steps ?? [])
+                  ...[...(rotation?.opener ?? []), ...(rotation?.steps ?? [])]
                     .filter((s) => s.characterKey === member)
                     .flatMap((s) => s.actions.map((a) => actionFrameKey(a))),
                   // (with the versions its kit played: Spirit Steed's Stride…)

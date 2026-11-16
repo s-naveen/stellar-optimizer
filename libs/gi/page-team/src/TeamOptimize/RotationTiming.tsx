@@ -91,6 +91,10 @@ export function flatActions(rotation: ParsedRotation) {
   )
 }
 
+/** The opener's actions in order (the simulator's `openerIndex` positions) */
+export const openerActions = (rotation: ParsedRotation) =>
+  flatActions({ ...rotation, steps: rotation.opener ?? [] })
+
 /** The edits that still match the written rotation, as the simulator's overrides */
 export function frameOverrides(
   rotation: ParsedRotation,
@@ -134,6 +138,7 @@ export function StepTiming({
   const { t } = useTranslation('page_team')
   const { gender } = useDBMeta()
   const flat = flatActions(rotation)
+  const opener = openerActions(rotation)
   const overrides = frameOverrides(rotation, settings.edits)
   // the kept rotation's actions, grouped into consecutive turns on the field
   const start = sim.start
@@ -143,7 +148,9 @@ export function StepTiming({
     rows: SimulationResult['actions']
   }[] = []
   const timeline = [...sim.actions, ...(sim.waits ?? [])].sort(
-    (x, y) => x.start - y.start || (x.index ?? -1) - (y.index ?? -1)
+    (x, y) =>
+      x.start - y.start ||
+      (x.index ?? x.openerIndex ?? -1) - (y.index ?? y.openerIndex ?? -1)
   )
   for (const a of timeline) {
     const last = turns[turns.length - 1]
@@ -254,8 +261,13 @@ export function StepTiming({
             </Box>
             {turn.rows.map((a) => {
               const index = a.index
+              // (the opener's own actions, counted from the start: named, not edited here)
               const action =
-                index !== undefined ? flat[index]?.action : undefined
+                index !== undefined
+                  ? flat[index]?.action
+                  : a.openerIndex !== undefined
+                    ? opener[a.openerIndex]?.action
+                    : undefined
               const isEdited = index !== undefined && index in overrides
               const isSelected = index !== undefined && index === selected
               return (

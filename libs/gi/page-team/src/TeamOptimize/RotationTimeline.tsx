@@ -53,7 +53,12 @@ import type { TeamBuff } from './buffs'
 import { describe } from './buffs'
 import { formatDamage } from './format'
 import { MemberAvatar } from './MemberAvatar'
-import { actionName, flatActions, seconds } from './RotationTiming'
+import {
+  actionName,
+  flatActions,
+  openerActions,
+  seconds,
+} from './RotationTiming'
 import type { AuraKey, TimelineTrack } from './timelineModel'
 import {
   auraLanes,
@@ -247,6 +252,7 @@ export function RotationTimeline({
   const start = sim.start
   const length = Math.max(1, sim.frames)
   const flat = useMemo(() => flatActions(rotation), [rotation])
+  const opener = useMemo(() => openerActions(rotation), [rotation])
   const totalSeconds = length / FPS
   const step =
     RULER_STEPS.find((s) => totalSeconds / s <= 10) ??
@@ -749,10 +755,14 @@ export function RotationTimeline({
                     ))}
                     {(blocks.get(characterKey) ?? []).map((a) => {
                       const index = a.index
-                      const action =
-                        index !== undefined && !a.wait
+                      // (the opener's own actions, counted from the start: named, not opened)
+                      const action = a.wait
+                        ? undefined
+                        : index !== undefined
                           ? flat[index]?.action
-                          : undefined
+                          : a.openerIndex !== undefined
+                            ? opener[a.openerIndex]?.action
+                            : undefined
                       const isSelected =
                         index !== undefined && index === selected
                       const isEdited = index !== undefined && edited.has(index)
@@ -827,7 +837,9 @@ export function RotationTimeline({
                                   ? 'transparent'
                                   : alpha(
                                       color,
-                                      index === undefined ? 0.35 : 0.82
+                                      index !== undefined || action
+                                        ? 0.82
+                                        : 0.35
                                     ),
                                 backgroundImage: a.wait
                                   ? `repeating-linear-gradient(135deg, ${alpha(theme.palette.text.primary, 0.12)} 0 4px, transparent 4px 8px)`

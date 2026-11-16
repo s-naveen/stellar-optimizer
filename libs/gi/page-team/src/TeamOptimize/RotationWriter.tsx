@@ -366,7 +366,7 @@ export function simulateWritten({
 }) {
   if (!text.trim()) return undefined
   const rotation = parseRotation(text, names)
-  // the opener: played once before the loop, not counted
+  // the opener: the first rotation (counted from the start; else a setup before the loop)
   if (opener.trim()) {
     const parsed = parseRotation(opener, names)
     rotation.opener = parsed.steps
@@ -381,6 +381,15 @@ export function simulateWritten({
   // few rotations from the start when chosen)
   const steady = repeats === undefined
   const first = firstRotations(timing)
+  // (counted from the start, the opener is the first rotation, the rotation's copies after it)
+  const openerCounted = first !== undefined && !!rotation.opener?.length
+  /** The written rotations counted from the start (each played copy is `loops` of them) */
+  const fromStart =
+    first === undefined
+      ? undefined
+      : openerCounted
+        ? 1 + (first - 1) * loops
+        : first * loops
   const sampled = team.members.some((m) => kitModels[m]?.sampled)
   const sim = simulateRotationSamples(
     {
@@ -400,6 +409,7 @@ export function simulateWritten({
       frameData,
       repeats: first ?? (steady ? STEADY_REPEATS : repeats),
       keep: first ? 'all' : steady ? 'last2' : keep,
+      openerCounted,
       auraTimeline,
     },
     // (two rotations kept: half the samples each, as much as one rotation of 64)
@@ -424,8 +434,9 @@ export function simulateWritten({
       attacks: rotationAttacks(sim, own),
       counted: undefined,
       loops,
+      fromStart,
     }
-  const counted = first ?? STEADY_COUNTED
+  const counted = fromStart ?? STEADY_COUNTED
   return {
     rotation,
     // (what the timeline shows: the last of the two counted; the first few, all of them)
@@ -433,8 +444,9 @@ export function simulateWritten({
     own,
     // per rotation: the hits of those counted, averaged
     attacks: perRotation(rotationAttacks(sim, own), counted),
-    counted: { sim, rotations: counted },
+    counted: { sim, rotations: counted, openerCounted },
     loops,
+    fromStart,
   }
 }
 
@@ -466,7 +478,8 @@ export const writtenSeconds = (result: WrittenRotation) =>
  */
 export function writtenWaits(result: WrittenRotation) {
   const counted = result.counted
-  if (!counted) return undefined
+  // (the opener counted as the first rotation is another rotation: not its first time through)
+  if (!counted || counted.openerCounted) return undefined
   const first = (counted.sim.rotationFrames?.[0] ?? 0) / 60
   const per = writtenSeconds(result) ?? 0
   const waits = Object.entries(counted.sim.stalls ?? {})
@@ -592,9 +605,9 @@ export function kqmRotationReplay({
         'The written rotation has no actions to play. Check the rotation text.'
       )
     // (per rotation: the hits and time of the 2 counted, averaged, each of them `loops` written
-    // rotations; members the simulation has no kit for keep the attacks entered for them)
-    const counted =
-      (firstRotations(common.timing) ?? KQM_COUNTED) * (played.loops ?? 1)
+    // rotations, or of those counted from the start; members the simulation has no kit for keep
+    // the attacks entered for them)
+    const counted = played.fromStart ?? KQM_COUNTED * (played.loops ?? 1)
     const attacks = { ...teamOpt.attacks }
     for (const k of keys)
       if (!played.sim.unsupported.includes(k))
@@ -1370,14 +1383,14 @@ function WriterModal({
                   <InfoTooltipInline
                     title={t(
                       'teamOpt.writer.openerTip',
-                      'Actions played once before the rotation starts looping, like a setup skill (“mitya hE”). They set up cooldowns, summons and auras for the loop but are not counted in its time or damage.'
+                      'Your first rotation, when it differs from the rest (no Energy at the start, a setup skill). Played instead of the rotation the first time through. Counted from the start, it is the first rotation; repeating, it only sets up cooldowns, summons and auras and is not counted.'
                     )}
                   />
                   <TextField
                     fullWidth
                     size="small"
                     value={openerText}
-                    placeholder="mitya hE"
+                    placeholder={exampleRotation(names.map((n) => n.name))}
                     onChange={(e) => setOpenerText(e.target.value)}
                     inputProps={{
                       spellCheck: false,

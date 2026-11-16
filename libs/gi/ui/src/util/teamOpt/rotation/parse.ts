@@ -48,7 +48,10 @@ export interface RotationStep {
 
 export interface ParsedRotation {
   steps: RotationStep[]
-  /** Played once before the first loop (a first-rotation-only opener); not counted */
+  /**
+   * The first rotation, written apart: played in place of the rotation's first copy. Counted when
+   * rotations are counted from the start; otherwise a setup played before the loops, not counted
+   */
   opener?: RotationStep[]
   /** The rotation loops back to this member (a trailing step without actions) */
   loopsTo?: CharacterKey

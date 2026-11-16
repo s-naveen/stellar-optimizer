@@ -243,7 +243,12 @@ export function RotationInline({
           },
         }}
       >
-        <RotationReadout text={applied} opener={opener} names={names} />
+        <RotationReadout
+          text={applied}
+          opener={opener}
+          first={firstRotations(timing)}
+          names={names}
+        />
         <EditRoundedIcon
           className="rotation-edit"
           sx={{
@@ -401,10 +406,13 @@ const actionCode = (a: RotationAction) => {
 function RotationReadout({
   text,
   opener,
+  first,
   names,
 }: {
   text: string
   opener: string
+  /** Rotations counted from the start (the opener is the first of them), else undefined */
+  first?: number
   names: RotationMember[]
 }) {
   const { t } = useTranslation('page_team')
@@ -461,7 +469,11 @@ function RotationReadout({
             {openerSteps.map((step, i) => (
               <Fragment key={i}>
                 {i > 0 && <Arrow />}
-                <Step step={step} name={nameOf(step.characterKey)} muted />
+                <Step
+                  step={step}
+                  name={nameOf(step.characterKey)}
+                  muted={first === undefined}
+                />
               </Fragment>
             ))}
           </Box>
@@ -471,10 +483,15 @@ function RotationReadout({
           />
         </>
       )}
+      {/* (the first rotation alone, counted from the start: the rotation is not played) */}
       {parsed.steps.map((step, i) => (
         <Fragment key={i}>
           {i > 0 && <Arrow />}
-          <Step step={step} name={nameOf(step.characterKey)} />
+          <Step
+            step={step}
+            name={nameOf(step.characterKey)}
+            muted={first === 1 && !!openerSteps.length}
+          />
         </Fragment>
       ))}
       {parsed.loopsTo && (
