@@ -40,6 +40,11 @@ export interface RotationTimingSettings {
    * rotations): 1 to 6. Undefined: the pace it keeps played over and over (KQM's way)
    */
   rotations?: number
+  /**
+   * Counted from the start, the opener is a setup played before the start, not counted (what it
+   * leaves carries into the rotations). Undefined: it is the first rotation, counted
+   */
+  openerSetup?: boolean
 }
 /** The choices for `RotationTimingSettings.rotations` */
 export const FIRST_ROTATIONS = [1, 2, 3, 4, 5, 6] as const
@@ -48,6 +53,9 @@ export const firstRotations = (timing: RotationTimingSettings) =>
   timing.rotations && timing.rotations > 0
     ? Math.min(FIRST_ROTATIONS.length, Math.round(timing.rotations))
     : undefined
+/** Whether a written opener is counted: as the first rotation, counted from the start */
+export const openerCounted = (timing: RotationTimingSettings) =>
+  firstRotations(timing) !== undefined && !timing.openerSetup
 /** KQM's standard swap: 12 frames, about 100 ms of ping */
 export const DEFAULT_SWAP_FRAMES = 12
 /**

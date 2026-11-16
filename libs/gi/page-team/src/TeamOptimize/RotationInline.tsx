@@ -32,7 +32,11 @@ import {
 import { useTranslation } from 'react-i18next'
 import { MemberAvatar } from './MemberAvatar'
 import { laneColor } from './RotationTimeline'
-import { FIRST_ROTATIONS, firstRotations } from './RotationTiming'
+import {
+  FIRST_ROTATIONS,
+  firstRotations,
+  openerCounted,
+} from './RotationTiming'
 import {
   applyWritten,
   editorSx,
@@ -247,6 +251,7 @@ export function RotationInline({
           text={applied}
           opener={opener}
           first={firstRotations(timing)}
+          counted={openerCounted(timing)}
           names={names}
         />
         <EditRoundedIcon
@@ -407,12 +412,15 @@ function RotationReadout({
   text,
   opener,
   first,
+  counted,
   names,
 }: {
   text: string
   opener: string
-  /** Rotations counted from the start (the opener is the first of them), else undefined */
+  /** Rotations counted from the start, else undefined */
   first?: number
+  /** Whether the opener is counted (the first of them; else a setup before the start) */
+  counted: boolean
   names: RotationMember[]
 }) {
   const { t } = useTranslation('page_team')
@@ -472,7 +480,7 @@ function RotationReadout({
                 <Step
                   step={step}
                   name={nameOf(step.characterKey)}
-                  muted={first === undefined}
+                  muted={!counted}
                 />
               </Fragment>
             ))}
@@ -490,7 +498,7 @@ function RotationReadout({
           <Step
             step={step}
             name={nameOf(step.characterKey)}
-            muted={first === 1 && !!openerSteps.length}
+            muted={first === 1 && counted && !!openerSteps.length}
           />
         </Fragment>
       ))}

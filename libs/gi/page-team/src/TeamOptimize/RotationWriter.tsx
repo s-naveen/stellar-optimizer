@@ -56,6 +56,7 @@ import {
   Box,
   Button,
   ButtonBase,
+  Checkbox,
   Dialog,
   Divider,
   IconButton,
@@ -90,6 +91,7 @@ import {
   DEFAULT_SWAP_FRAMES,
   firstRotations,
   frameOverrides,
+  openerCounted as openerIsCounted,
   type RotationTimingSettings,
   timingPing,
 } from './RotationTiming'
@@ -381,8 +383,9 @@ export function simulateWritten({
   // few rotations from the start when chosen)
   const steady = repeats === undefined
   const first = firstRotations(timing)
-  // (counted from the start, the opener is the first rotation, the rotation's copies after it)
-  const openerCounted = first !== undefined && !!rotation.opener?.length
+  // (counted from the start, the opener is the first rotation, the rotation's copies after it,
+  // unless it is a setup before the start)
+  const openerCounted = !!rotation.opener?.length && openerIsCounted(timing)
   /** The written rotations counted from the start (each played copy is `loops` of them) */
   const fromStart =
     first === undefined
@@ -1401,6 +1404,41 @@ function WriterModal({
                     }}
                     sx={editorSx}
                   />
+                  {/* (counted from the start: the first rotation, or a setup before the start) */}
+                  {firstRotations(timing) !== undefined && (
+                    <Tooltip
+                      title={t(
+                        'teamOpt.writer.openerCountedTip',
+                        'Off: played before the start as a setup and not counted. Its cooldowns, summons and auras carry into the rotations.'
+                      )}
+                    >
+                      <Box
+                        component="label"
+                        sx={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: 0.5,
+                          cursor: 'pointer',
+                          whiteSpace: 'nowrap',
+                          color: 'text.secondary',
+                          fontSize: 14,
+                        }}
+                      >
+                        <Checkbox
+                          size="small"
+                          checked={!timing.openerSetup}
+                          onChange={(_, checked) => {
+                            const { openerSetup: _setup, ...rest } = timing
+                            setTiming(
+                              checked ? rest : { ...rest, openerSetup: true }
+                            )
+                          }}
+                          sx={{ p: 0.5 }}
+                        />
+                        {t('teamOpt.writer.openerCounted', 'Counted')}
+                      </Box>
+                    </Tooltip>
+                  )}
                   <Tooltip title={t('teamOpt.writer.removeOpener', 'Remove')}>
                     <IconButton
                       size="small"

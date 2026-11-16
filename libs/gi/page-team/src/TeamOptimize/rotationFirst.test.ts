@@ -154,11 +154,20 @@ describe('the first rotation written apart, counted from the start', () => {
   const { database, teamId, members, names } = setup()
   // (the opener differs from the rotation: Bursts the rotation does not use)
   const OPENER = 'Sucrose E Q -> Bennett E Q N1'
-  const play = (rotations: number | undefined, opener = OPENER, text = TEXT) =>
+  const play = (
+    rotations: number | undefined,
+    opener = OPENER,
+    text = TEXT,
+    openerSetup?: boolean
+  ) =>
     simulateWritten({
       text,
       opener,
-      timing: { edits: {}, ...(rotations && { rotations }) },
+      timing: {
+        edits: {},
+        ...(rotations && { rotations }),
+        ...(openerSetup && { openerSetup }),
+      },
       frameData: {},
       team: {
         members: MEMBERS,
@@ -221,6 +230,19 @@ describe('the first rotation written apart, counted from the start', () => {
     // (the first time through is the opener: no "without waiting" comparison)
     expect(writtenWaits(two)).toBeUndefined()
   })
+  it('not counted ("Counted" off), the opener is a setup played before the start', () => {
+    const setup = play(1, OPENER, TEXT, true)
+    expect(setup.counted!.rotations).toBe(1)
+    // (the clock starts after it: the rotation's own actions, with what the setup left)
+    expect(setup.counted!.sim.start).toBeGreaterThan(0)
+    expect(
+      setup.counted!.sim.actions.some((a) => a.openerIndex !== undefined)
+    ).toBe(false)
+    expect(written(setup).map((a) => a.text)).toEqual(
+      written(play(1, '')).map((a) => a.text)
+    )
+    expect(play(3, OPENER, TEXT, true).counted!.rotations).toBe(3)
+  })
   it('repeating, the opener still only sets up the loop (not counted)', () => {
     const repeating = play(undefined)
     expect(
@@ -250,6 +272,28 @@ describe('the first rotation written apart, counted from the start', () => {
       overrides: {},
     } as never)
     expect(played.rotationTime).toBeCloseTo(writtenSeconds(play(1))!, 1)
+    // ("Counted" off: the rotation after the setup)
+    localStorage.setItem(
+      `teamOptRotationTiming_${teamId}`,
+      JSON.stringify({ edits: {}, rotations: 1, openerSetup: true })
+    )
+    // (a replay reads the settings when it is made)
+    const setup = kqmRotationReplay({
+      database: database as never,
+      teamId,
+      members,
+      gender: 'F',
+      names,
+      teamOpt: initTeamOpt(),
+    })!({
+      constellations: { Sucrose: 1, Bennett: 6 },
+      gear: {},
+      overrides: {},
+    } as never)
+    expect(setup.rotationTime).toBeCloseTo(
+      writtenSeconds(play(1, OPENER, TEXT, true))!,
+      1
+    )
     localStorage.removeItem(`teamOptRotationOpener_${teamId}`)
   })
 })
