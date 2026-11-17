@@ -1,5 +1,13 @@
 [
   {
+    "version": "1.14.3",
+    "date": "2026-11-17",
+    "fixed": [
+      "Danica's Elemental Burst cooldown starts 0.4 s into the cast, as in the game, so her Bursts are 18.4 s apart in a written rotation.",
+      "Anastasya's Lament for the Lost adds 1 Polestar Field stack instead of 2, as in the latest beta."
+    ]
+  },
+  {
     "version": "1.14.2",
     "date": "2026-11-17",
     "improved": [

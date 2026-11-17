@@ -4,6 +4,13 @@ Every release of [Stellar Optimizer](https://gi-beta73.github.io/). The app show
 (home page, and the version in the footer). Generated from
 `libs/gi/ui/src/changelog/changelog.json` by `tools/site/release.mjs`: edit that file, not this one.
 
+## [v1.14.3](https://github.com/s-naveen/stellar-optimizer/releases/tag/v1.14.3) (2026-11-17)
+
+### Fixed
+
+- Danica's Elemental Burst cooldown starts 0.4 s into the cast, as in the game, so her Bursts are 18.4 s apart in a written rotation.
+- Anastasya's Lament for the Lost adds 1 Polestar Field stack instead of 2, as in the latest beta.
+
 ## [v1.14.2](https://github.com/s-naveen/stellar-optimizer/releases/tag/v1.14.2) (2026-11-17)
 
 ### Improved
