@@ -174,12 +174,12 @@ describe('Danica', () => {
     expect(sim.notes.some((n) => n.includes('Waited'))).toBe(false)
   })
 
-  it('uses 18 s Burst CD and 16 s Will to Protect CD', () => {
+  it('uses 18 s Burst CD (from 0.4 s into the cast: 18.4 s press to press) and 16 s Will to Protect CD', () => {
     const burst = run('Danica Q Q', ['Danica'])
     const qs = burst.actions.filter(
       (a) => a.characterKey === 'Danica' && a.text === 'Q'
     )
-    expect(qs[1].start - qs[0].start).toBeGreaterThanOrEqual(1080)
+    expect(qs[1].start - qs[0].start).toBe(1104)
 
     const early = run(
       'Danica E -> Kaeya E -> Lisa E -> Danica N1 W6 -> Kaeya E -> Lisa E -> Danica N1',
@@ -389,13 +389,16 @@ describe('Danica', () => {
     ])
     expect(noAnchor.actions.some((a) => a.text === 'Entry')).toBe(false)
     expect(noAnchor.notes.join(' ')).toContain('her Anchor was not out')
-    const notFull = run('Danica E -> Bennett E N2 -> Danica -> Bennett N2 -> Danica', [
+    const notFull = run(
+      'Danica E -> Bennett E N2 -> Danica -> Bennett N2 -> Danica',
+      ['Danica', 'Bennett']
+    )
+    expect(notFull.notes.join(' ')).toContain('Will to Cleanse was not full')
+    // an ordinary step is not noted
+    const plain = run('Danica E -> Bennett E -> Danica E W1', [
       'Danica',
       'Bennett',
     ])
-    expect(notFull.notes.join(' ')).toContain('Will to Cleanse was not full')
-    // an ordinary step is not noted
-    const plain = run('Danica E -> Bennett E -> Danica E W1', ['Danica', 'Bennett'])
     expect(plain.notes.join(' ')).not.toContain('no entry action')
   })
 })

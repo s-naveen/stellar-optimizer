@@ -44,7 +44,7 @@ describe('KQM-only character kits', () => {
     ).toBe(true)
   })
 
-  it('enables Stellar-Conduct with Mitya alone as the enabler and applies Tsaritsa’s two base Polestar stacks', () => {
+  it('enables Stellar-Conduct with Mitya alone as the enabler and applies Tsaritsa’s base Polestar stack (1 in the 7.3 beta)', () => {
     const mitya = run('Kaeya E -> Mitya E W8', ['Kaeya', 'Mitya'])
     expect(
       mitya.hits.some((h) => h.path.join('.') === '_reaction.stellarConduct')
@@ -58,7 +58,7 @@ describe('KQM-only character kits', () => {
     )
     expect(stacks.length).toBeGreaterThan(0)
     expect(
-      stacks.every((w) => Number(w.value) >= 2 && Number(w.value) <= 12)
+      stacks.every((w) => Number(w.value) >= 1 && Number(w.value) <= 12)
     ).toBe(true)
   })
 

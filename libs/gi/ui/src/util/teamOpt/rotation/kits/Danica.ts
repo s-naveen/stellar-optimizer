@@ -373,7 +373,11 @@ export const kit: KitModel = {
         s.burstEnd = ctx.now + 1200
         syncMaid(ctx, s)
         ctx.at(1200, (c) => syncMaid(c, s))
-        return { frames: 100, cooldown: { key: 'burst', frames: 1080 } }
+        // (the 18 s cooldown starts 0.4 s into the cast: 18.4 s from press to press, tested in game)
+        return {
+          frames: 100,
+          cooldown: { key: 'burst', frames: 1080, delay: 24 },
+        }
       case 'normal':
         if (ctx.now < s.anchorEnd)
           return anchorString(ctx, s, action.count ?? 1)

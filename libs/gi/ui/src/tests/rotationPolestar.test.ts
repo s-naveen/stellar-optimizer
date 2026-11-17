@@ -1,3 +1,5 @@
+import type { CharacterKey } from '@genshin-optimizer/gi/consts'
+import { getCharEle } from '@genshin-optimizer/gi/stats'
 import { expect, it } from 'vitest'
 import { parseRotation } from '../util/teamOpt/rotation/parse'
 import { simulateRotation } from '../util/teamOpt/rotation/simulate'
@@ -69,4 +71,27 @@ it('counts Polestar applications on each character clock and pauses recipient an
       .filter((w) => w.path.join('.') === 'reaction.oppInsidePole')
       .every((w) => w.hitlag === 'enemy')
   ).toBe(true)
+})
+
+it("Anastasya's Lament for the Lost adds 1 Polestar stack to each Field record (7.3 beta)", () => {
+  const stacksWith = (members: CharacterKey[]) => {
+    const sim = simulateRotation({
+      rotation: parseRotation(
+        'Kaeya E -> Mitya E W8',
+        members.map((characterKey) => ({ characterKey, name: characterKey }))
+      ),
+      members,
+      elements: Object.fromEntries(members.map((k) => [k, getCharEle(k)])),
+      constellations: {},
+      repeats: 1,
+      keep: 'all',
+    })
+    return sim.buffWindows
+      .filter((w) => w.path.join('.') === 'reaction.polestarStacks')
+      .map((w) => Number(w.value))
+  }
+  const without = stacksWith(['Kaeya', 'Mitya'])
+  const withAna = stacksWith(['Kaeya', 'Mitya', 'Anastasya'])
+  expect(without.length).toBeGreaterThan(0)
+  expect(withAna).toEqual(without.map((n) => Math.min(12, n + 1)))
 })

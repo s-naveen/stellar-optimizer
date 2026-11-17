@@ -88,9 +88,10 @@ export const reactionEnablers = {
 }
 
 /** Polestar stacks a member adds to each Polestar Field record (one entry per line: the
- * released-only build drops unreleased characters' lines) */
+ * released-only build drops unreleased characters' lines). Anastasya's Lament for the Lost: 1
+ * (7.3 beta, params[0]; it was 2) */
 const polestarBonus: Partial<Record<CharacterKey, number>> = {
-  Anastasya: 2,
+  Anastasya: 1,
 }
 
 /**
