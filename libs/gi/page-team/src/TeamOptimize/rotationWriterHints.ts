@@ -124,7 +124,7 @@ export function teamQuickTokens(
       key: 'burst',
       label: t(
         'teamOpt.writer.token.burst',
-        'Elemental Burst · Q? casts only when ready, Q?/N4 uses a fallback'
+        'Elemental Burst · Q? casts only when ready, Q?/N4 uses a fallback, [Q E]?/[N3 N3] a group'
       ),
     },
     {
@@ -357,7 +357,11 @@ export function teamSyntaxRows(
   names: readonly RotationMember[],
   t: TFunction,
   constellations?: Partial<Record<CharacterKey, number>>
-): { teamRows: WriterSyntaxRow[]; generalRows: WriterSyntaxRow[] } {
+): {
+  teamRows: WriterSyntaxRow[]
+  generalRows: WriterSyntaxRow[]
+  examples: WriterSyntaxRow[]
+} {
   const {
     has,
     nameOf,
@@ -369,6 +373,7 @@ export function teamSyntaxRows(
   } = teamCapabilities(members, names)
   const sandroneC1 = (constellations?.Sandrone ?? 0) >= 1
   const firstName = names[0]?.name ?? 'Name'
+  const secondName = names[1]?.name ?? firstName
 
   const teamRows: WriterSyntaxRow[] = []
   if (holdMembers.length) {
@@ -571,6 +576,13 @@ export function teamSyntaxRows(
       ),
     },
     {
+      code: '[Q E]?/[N3 N3]',
+      meaning: t(
+        'teamOpt.writer.syntax.group',
+        'A group cast only when its first Skill or Burst is ready, otherwise the fallback group plays instead of all of it. Without /[…] the whole group is skipped. Spaces are fine inside the brackets.'
+      ),
+    },
+    {
       code: '(note) · A/B',
       meaning: t(
         'teamOpt.writer.syntax.notes',
@@ -586,5 +598,30 @@ export function teamSyntaxRows(
     },
   ]
 
-  return { teamRows, generalRows }
+  // whole rotations: the conditional and repeated forms together, with this team's names
+  const examples: WriterSyntaxRow[] = [
+    {
+      code: `${firstName} E [Q E]?/[N3 N3] N2`,
+      meaning: t('teamOpt.writer.example.group', {
+        defaultValue:
+          'When Q is ready: Q, then the Skill again. When it is not: N3 N3 instead of both. With a Burst cooldown longer than the rotation, that is every other rotation; Burst: Every 2nd or Every 3rd in the ER calculator sets how often instead.',
+      }),
+    },
+    {
+      code: `${secondName} E Q?/N4 -> ${firstName} E N3`,
+      meaning: t(
+        'teamOpt.writer.example.fallback',
+        'One action in place of the Burst when it is not ready: N4 instead of Q.'
+      ),
+    },
+    {
+      code: `${firstName} E? 3[N3 CA] Q?`,
+      meaning: t(
+        'teamOpt.writer.example.ready',
+        'Skill and Burst only when ready, skipped (never waited for) otherwise; N3 CA played three times.'
+      ),
+    },
+  ]
+
+  return { teamRows, generalRows, examples }
 }

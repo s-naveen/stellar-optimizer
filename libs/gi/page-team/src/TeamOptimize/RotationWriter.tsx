@@ -3950,6 +3950,13 @@ export function OptionalSyntaxHint({
           'play a fallback when not ready ·'
         )}
       </span>
+      {code('[Q E]?/[N3 N3]')}
+      <span>
+        {t(
+          'teamOpt.writer.optionalHint.group',
+          'a group only when Q is ready, else the fallback ·'
+        )}
+      </span>
       {code('3[N3 CA]')}
       <span>{t('teamOpt.writer.optionalHint.repeat', 'repeats a combo')}</span>
       {onToggleSyntax && (
@@ -4029,7 +4036,7 @@ function SyntaxSheet({
   constellations?: Partial<Record<CharacterKey, number>>
 }) {
   const { t } = useTranslation('page_team')
-  const { teamRows, generalRows } = useMemo(
+  const { teamRows, generalRows, examples } = useMemo(
     () => teamSyntaxRows(members, names, t, constellations),
     [members, names, t, constellations]
   )
@@ -4110,6 +4117,58 @@ function SyntaxSheet({
             <dd>{meaning}</dd>
           </Fragment>
         ))}
+      </Box>
+      {/* whole rotations with the conditional forms, as they are written */}
+      <Box
+        sx={{
+          pt: 1.25,
+          borderTop: `1px solid ${tokens.hairline}`,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 0.75,
+        }}
+      >
+        <Typography sx={{ ...type.label, fontWeight: 600 }}>
+          {t('teamOpt.writer.syntax.examples', 'Examples')}
+        </Typography>
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', md: 'repeat(3, minmax(0, 1fr))' },
+            gap: 1,
+          }}
+        >
+          {examples.map(({ code, meaning }) => (
+            <Box
+              key={code}
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 0.5,
+                p: 1,
+                borderRadius: 1.5,
+                bgcolor: tokens.inset,
+              }}
+            >
+              <Box
+                component="code"
+                sx={{
+                  fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace',
+                  fontSize: 12.5,
+                  color: 'text.primary',
+                  overflowWrap: 'anywhere',
+                }}
+              >
+                {code}
+              </Box>
+              <Typography
+                sx={{ fontSize: 12, lineHeight: 1.45, color: 'text.secondary' }}
+              >
+                {meaning}
+              </Typography>
+            </Box>
+          ))}
+        </Box>
       </Box>
       <Typography sx={{ fontSize: 12, color: 'text.secondary', opacity: 0.8 }}>
         {t(

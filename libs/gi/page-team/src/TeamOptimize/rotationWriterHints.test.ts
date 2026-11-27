@@ -1,4 +1,5 @@
 import type { CharacterKey } from '@genshin-optimizer/gi/consts'
+import { parseRotation } from '@genshin-optimizer/gi/ui'
 import type { TFunction } from 'i18next'
 import { describe, expect, it } from 'vitest'
 import { teamQuickTokens, teamSyntaxRows } from './rotationWriterHints'
@@ -20,6 +21,22 @@ const makeTeam = (keys: CharacterKey[]) => ({
 })
 
 describe('rotationWriterHints', () => {
+  it('documents groups, and every example is a rotation that reads without a warning', () => {
+    const { members, names } = makeTeam(['YaeMiko', 'Fischl'])
+    const { generalRows, examples } = teamSyntaxRows(members, names, t)
+    expect(generalRows.some((r) => r.code === '[Q E]?/[N3 N3]')).toBe(true)
+    expect(examples.length).toBeGreaterThanOrEqual(3)
+    for (const { code } of examples) {
+      const rotation = parseRotation(code, names)
+      expect(rotation.warnings, code).toEqual([])
+      expect(rotation.steps.length, code).toBeGreaterThan(0)
+    }
+    expect(
+      parseRotation(examples[0].code, names).steps[0].actions.some(
+        (a) => a.group !== undefined
+      )
+    ).toBe(true)
+  })
   it('omits entry, plunge, and unrelated kit tips on a standard team', () => {
     const { members, names } = makeTeam([
       'KamisatoAyaka',
