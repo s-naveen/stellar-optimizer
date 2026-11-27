@@ -1506,6 +1506,8 @@ export function simulateRotation({
   /** Waits for readiness: what waited, when it began, how long */
   const stalled: { label: string; t: number; frames: number }[] = []
   const actionData: NonNullable<SimulationResult['actionData']> = {}
+  /** Groups ("[Q EEE]?"): whether each one's first action played this time */
+  const groupsPlayed = new Map<number, boolean>()
   /** The action before a written wait: the action after the wait respects its cancels */
   let animationLock:
     | { start: number; result: ActionResult; actor: CharacterKey }
@@ -1520,6 +1522,10 @@ export function simulateRotation({
     alternative?: { next: (typeof flat)[number] | undefined }
   ) => {
     const { characterKey, action } = list[i]
+    // (the rest of a group, "[Q EEE]?": only when its first action played)
+    if (action.inGroup !== undefined && !groupsPlayed.get(action.inGroup))
+      return
+    if (action.group !== undefined) groupsPlayed.set(action.group, false)
     // (an alternative's own frames and timeline place: none of the written list's)
     const own = !opener && !alternative
     const kit = kits[characterKey]
@@ -1535,8 +1541,14 @@ export function simulateRotation({
     }
     // an action's alternative ("Q/N3": N3 when Q is not played), then on to what follows it
     const playOtherwise = (otherwise: RotationAction[]) => {
+      // (a group's alternative is followed by what comes after the whole group)
       const after =
-        list[i + 1] ??
+        list
+          .slice(i + 1)
+          .find(
+            (x) =>
+              action.group === undefined || x.action.inGroup !== action.group
+          ) ??
         (alternative
           ? alternative.next
           : opener
@@ -1773,6 +1785,7 @@ export function simulateRotation({
         if (why) notes.add(why)
       }
     }
+    if (action.group !== undefined) groupsPlayed.set(action.group, true)
     const actCtx = ctxAt(now, characterKey)
     // a mode or stance's version of the action has its own frame data and edits
     const variant = kit.variant?.(actCtx, states.get(characterKey), action)
